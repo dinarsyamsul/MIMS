@@ -1,0 +1,189 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/bg_color"
+    tools:context=".OtpActivity">
+
+    <ImageView
+        android:id="@+id/mimsotp"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:src="@drawable/logo"
+        android:layout_marginTop="15dp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <ImageView
+        android:id="@+id/logo"
+        android:layout_width="284dp"
+        android:layout_height="151dp"
+        android:layout_marginStart="24dp"
+        android:layout_marginEnd="24dp"
+        android:src="@drawable/mims"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.2" />
+
+    <LinearLayout
+        android:id="@+id/lyopt1"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        app:layout_constraintTop_toBottomOf="@id/logo"
+        android:layout_marginTop="30dp">
+
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:text="KODE VERIFIKASI"
+        android:textSize="20dp"
+        android:textColor="@color/black"
+        android:textStyle="bold"
+        android:gravity="center"/>
+    </LinearLayout>
+
+    <TextView
+        android:id="@+id/txtotp1"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        app:layout_constraintTop_toBottomOf="@+id/lyopt1"
+        android:layout_marginTop="25dp"
+        android:textColor="@color/black"
+        android:text="Kami sudah mengirimkan kode verifikasi ke"
+        android:gravity="center"/>
+
+    <TextView
+        android:id="@+id/txtotp2"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        app:layout_constraintTop_toBottomOf="@id/txtotp1"
+        android:gravity="center"
+        android:textColor="@color/black"
+        android:text="akun Email anda."/>
+
+    <LinearLayout
+        android:id="@+id/lyotp2"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="30dp"
+        android:gravity="center"
+        android:orientation="horizontal"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/txtotp2">
+
+        <com.google.android.material.textfield.TextInputEditText
+            android:id="@+id/edtotp1"
+            android:layout_width="40dp"
+            android:layout_height="60dp"
+            android:cursorVisible="false"
+            android:imeOptions="actionNone"
+            android:inputType="numberDecimal"
+            android:maxLength="1"
+            android:maxLines="1"
+            android:gravity="center"
+            android:textStyle="bold"
+            android:textSize="15pt"
+            android:textColor="@color/black"
+            android:background="@drawable/logootp"/>
+
+        <com.google.android.material.textfield.TextInputEditText
+            android:id="@+id/edtotp2"
+            android:layout_width="40dp"
+            android:layout_height="60dp"
+            android:cursorVisible="false"
+            android:imeOptions="actionNone"
+            android:maxLength="1"
+            android:maxLines="1"
+            android:inputType="numberDecimal"
+            android:gravity="center"
+            android:textStyle="bold"
+            android:textSize="15pt"
+            android:textColor="@color/black"
+            android:layout_marginStart="20dp"
+            android:background="@drawable/logootp"/>
+
+        <com.google.android.material.textfield.TextInputEditText
+
+            android:id="@+id/edtotp3"
+            android:layout_width="40dp"
+            android:layout_height="60dp"
+            android:cursorVisible="false"
+            android:imeOptions="actionNone"
+            android:maxLength="1"
+            android:maxLines="1"
+            android:inputType="numberDecimal"
+            android:gravity="center"
+            android:textStyle="bold"
+            android:textSize="15pt"
+            android:textColor="@color/black"
+            android:layout_marginStart="20dp"
+            android:background="@drawable/logootp"/>
+
+        <com.google.android.material.textfield.TextInputEditText
+
+            android:id="@+id/edtotp4"
+            android:layout_width="40dp"
+            android:layout_height="60dp"
+            android:cursorVisible="false"
+            android:imeOptions="actionNone"
+            android:maxLength="1"
+            android:maxLines="1"
+            android:inputType="numberDecimal"
+            android:gravity="center"
+            android:textStyle="bold"
+            android:textSize="15pt"
+            android:textColor="@color/black"
+            android:layout_marginStart="20dp"
+            android:background="@drawable/logootp"/>
+
+    </LinearLayout>
+
+    <TextView
+        android:id="@+id/txtotp3"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="25dp"
+        android:layout_marginBottom="4dp"
+        android:gravity="center"
+        android:text="Belum menerima kode?"
+        android:textColor="@color/black"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/lyotp2" />
+
+    <TextView
+        android:id="@+id/txtotp4"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        app:layout_constraintTop_toBottomOf="@id/txtotp3"
+        android:gravity="center"
+        android:textColor="@color/blue_solid"
+        android:text="Minta lagi!"/>
+
+    <androidx.appcompat.widget.AppCompatButton
+        android:id="@+id/btnSubmitotp"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="150dp"
+        android:layout_marginTop="24dp"
+        android:layout_marginEnd="150dp"
+        android:layout_marginBottom="117dp"
+        android:background="@color/blue_solid"
+        android:gravity="center"
+        android:text="SUBMIT"
+        android:textAllCaps="false"
+        android:textColor="#FFFBF6"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/txtotp4"
+        tools:ignore="MissingConstraints" />
+
+
+
+</androidx.constraintlayout.widget.ConstraintLayout>

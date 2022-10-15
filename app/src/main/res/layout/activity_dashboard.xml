@@ -1,0 +1,225 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/bg_color"
+    tools:context=".DashboardActivity">
+
+    <LinearLayout
+        android:id="@+id/lydsbrd1"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="80dp"
+        android:orientation="vertical"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent">
+
+        <TextView
+            android:id="@+id/txtdsbrd1"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_marginStart="20dp"
+            android:text="Hai UP3 CIKARANG"
+            android:textColor="@color/black"
+            android:textSize="30dp"
+            android:textStyle="bold" />
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:text="Selamat datang di MIMS"
+            android:textSize="20dp"
+            android:textColor="@color/black"
+            android:layout_marginStart="20dp"/>
+    </LinearLayout>
+
+    <LinearLayout
+        android:id="@+id/lydsbrd2"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="20dp"
+        android:layout_marginTop="20dp"
+        android:layout_marginEnd="20dp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/lydsbrd1">
+
+        <androidx.appcompat.widget.SearchView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:outlineSpotShadowColor="@color/black"
+            android:outlineAmbientShadowColor="@color/black"
+            android:background="@drawable/bg_search" />
+
+    </LinearLayout>
+
+    <ScrollView
+        android:id="@+id/searchview"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        app:layout_constraintTop_toBottomOf="@id/lydsbrd2">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:orientation="vertical" >
+
+            <GridLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:columnCount="2"
+                android:rowCount="3"
+                android:columnOrderPreserved="false"
+                android:alignmentMode="alignMargins">
+
+                <androidx.cardview.widget.CardView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_columnWeight="1"
+                    android:background="@color/bg_color"
+                    android:layout_rowWeight="1"
+                    app:cardElevation="8dp"
+                    app:cardCornerRadius="15dp"
+                    android:layout_margin="10dp">
+
+                    <LinearLayout
+                        android:background="@color/bg_color"
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:orientation="vertical"
+                        android:padding="16sp"
+                        android:gravity="center">
+
+                        <ImageView
+                            android:src="@drawable/logoscan"
+                            android:layout_width="80dp"
+                            android:layout_height="80dp"/>
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_marginTop="12dp"
+                            android:textSize="13sp"
+                            android:textColor="@color/black"
+                            android:text="SCAN"/>
+                        
+                    </LinearLayout>
+
+
+                </androidx.cardview.widget.CardView>
+
+                <androidx.cardview.widget.CardView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:background="@color/bg_color"
+                    android:layout_columnWeight="1"
+                    android:layout_rowWeight="1"
+                    app:cardElevation="8dp"
+                    app:cardCornerRadius="15dp"
+                    android:layout_margin="10dp">
+
+                    <LinearLayout
+                        android:background="@color/bg_color"
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:orientation="vertical"
+                        android:padding="16sp"
+                        android:gravity="center">
+
+                        <ImageView
+                            android:src="@drawable/logotracking"
+                            android:layout_width="80dp"
+                            android:layout_height="80dp"/>
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_marginTop="12dp"
+                            android:textSize="13sp"
+                            android:textColor="@color/black"
+                            android:text="Tracking"/>
+
+                    </LinearLayout>
+
+
+                </androidx.cardview.widget.CardView>
+
+                <androidx.cardview.widget.CardView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_columnWeight="1"
+                    android:layout_rowWeight="1"
+                    app:cardElevation="8dp"
+                    android:background="@color/bg_color"
+                    app:cardCornerRadius="15dp"
+                    android:layout_margin="10dp">
+
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:background="@color/bg_color"
+                        android:orientation="vertical"
+                        android:padding="16sp"
+                        android:gravity="center">
+
+                        <ImageView
+                            android:src="@drawable/logomonitoring"
+                            android:layout_width="80dp"
+                            android:layout_height="80dp"/>
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_marginTop="12dp"
+                            android:textSize="13sp"
+                            android:textColor="@color/black"
+                            android:text="Monitoring"/>
+
+                    </LinearLayout>
+
+
+                </androidx.cardview.widget.CardView>
+
+                <androidx.cardview.widget.CardView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_columnWeight="1"
+                    android:layout_rowWeight="1"
+                    android:background="@color/bg_color"
+                    app:cardElevation="8dp"
+                    app:cardCornerRadius="15dp"
+                    android:layout_margin="10dp">
+
+                    <LinearLayout
+                        android:background="@color/bg_color"
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:orientation="vertical"
+                        android:padding="16sp"
+                        android:gravity="center">
+
+                        <ImageView
+                            android:src="@drawable/logo"
+                            android:layout_width="80dp"
+                            android:layout_height="80dp"/>
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_marginTop="12dp"
+                            android:textSize="13sp"
+                            android:textColor="@color/black"
+                            android:text="Belum tau"/>
+
+                    </LinearLayout>
+
+
+                </androidx.cardview.widget.CardView>
+
+            </GridLayout>
+            
+        </LinearLayout>
+
+
+    </ScrollView>
+
+</androidx.constraintlayout.widget.ConstraintLayout>
