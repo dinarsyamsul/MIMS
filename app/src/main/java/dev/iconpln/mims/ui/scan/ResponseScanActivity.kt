@@ -1,11 +1,11 @@
-package dev.iconpln.mims
+package dev.iconpln.mims.ui.scan
 
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 
-class DashboardActivity : AppCompatActivity() {
+class ResponseScanActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        setContentView(R.layout.activity_dashboard)
+        setContentView(R.layout.activity_response_scan)
     }
 }
