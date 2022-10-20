@@ -10,6 +10,7 @@ import androidx.lifecycle.ViewModelProvider
 import dev.iconpln.mims.data.remote.service.ApiConfig
 import dev.iconpln.mims.databinding.ActivityLoginBinding
 import dev.iconpln.mims.ui.DashboardActivity
+import dev.iconpln.mims.utils.NetworkStatusTracker
 import dev.iconpln.mims.utils.ViewModelFactory
 
 class LoginActivity : AppCompatActivity() {
@@ -25,8 +26,12 @@ class LoginActivity : AppCompatActivity() {
         window.setSoftInputMode(WindowManager.LayoutParams.SOFT_INPUT_ADJUST_PAN)
 
         val apiService = ApiConfig.getApiService()
+        val networkStatusTracker = NetworkStatusTracker(this)
         loginViewModel =
-            ViewModelProvider(this, ViewModelFactory(apiService))[LoginViewModel::class.java]
+            ViewModelProvider(
+                this,
+                ViewModelFactory(apiService, networkStatusTracker)
+            )[LoginViewModel::class.java]
 
 //        loginViewModel.loginResponse.observe(this){ result ->
 //            when(result.message){
@@ -64,9 +69,15 @@ class LoginActivity : AppCompatActivity() {
             }
         }
 
-        binding.btnLogin.setOnClickListener {
-//            loginUser()
-            startActivity(Intent(this, DashboardActivity::class.java))
+        loginViewModel.state.observe(this) { state ->
+            if (state == MyState.Error) {
+                Toast.makeText(this, "Pastikan koneksi internet terhubung.", Toast.LENGTH_SHORT)
+                    .show()
+            }
+
+            binding.btnLogin.setOnClickListener {
+                loginUser()
+            }
         }
     }
 

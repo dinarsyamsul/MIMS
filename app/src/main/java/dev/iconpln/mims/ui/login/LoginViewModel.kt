@@ -3,12 +3,18 @@ package dev.iconpln.mims.ui.login
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
+import androidx.lifecycle.asLiveData
 import dev.iconpln.mims.data.remote.response.LoginResponse
 import dev.iconpln.mims.data.remote.service.ApiService
+import dev.iconpln.mims.utils.NetworkStatusTracker
+import dev.iconpln.mims.utils.map
 import kotlinx.coroutines.*
 import org.json.JSONObject
 
-class LoginViewModel(private val apiService: ApiService) : ViewModel() {
+class LoginViewModel(
+    private val apiService: ApiService,
+    netWorkStatusTracker: NetworkStatusTracker
+) : ViewModel() {
 
     private var job: Job? = null
     private val exceptionHandler = CoroutineExceptionHandler { _, throwable ->
@@ -23,6 +29,14 @@ class LoginViewModel(private val apiService: ApiService) : ViewModel() {
 
     private val _loginResponse = MutableLiveData<LoginResponse>()
     val loginResponse: LiveData<LoginResponse> = _loginResponse
+
+    val state =
+        netWorkStatusTracker.networkStatus
+            .map(
+                onUnavailable = { MyState.Error },
+                onAvailable = { MyState.Fetched }
+            )
+            .asLiveData(Dispatchers.IO)
 
     fun getLogin(username: String, password: String) {
         _isLoading.value = true
@@ -56,4 +70,9 @@ class LoginViewModel(private val apiService: ApiService) : ViewModel() {
         val obj = JSONObject(raw)
         return obj.getString("message")
     }
+}
+
+sealed class MyState {
+    object Fetched : MyState()
+    object Error : MyState()
 }

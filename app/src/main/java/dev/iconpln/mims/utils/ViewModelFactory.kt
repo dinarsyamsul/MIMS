@@ -7,14 +7,15 @@ import dev.iconpln.mims.ui.login.LoginViewModel
 import dev.iconpln.mims.ui.scan.ScanViewModel
 
 class ViewModelFactory(
-    private val apiService: ApiService
+    private val apiService: ApiService,
+    private val networkStatusTracker: NetworkStatusTracker
 ) : ViewModelProvider.NewInstanceFactory() {
 
     @Suppress("UNCHECKED_CAST")
     override fun <T : ViewModel> create(modelClass: Class<T>): T {
         when {
             modelClass.isAssignableFrom(LoginViewModel::class.java) -> {
-                return LoginViewModel(apiService) as T
+                return LoginViewModel(apiService, networkStatusTracker) as T
             }
             modelClass.isAssignableFrom(ScanViewModel::class.java) -> {
                 return ScanViewModel(apiService) as T
