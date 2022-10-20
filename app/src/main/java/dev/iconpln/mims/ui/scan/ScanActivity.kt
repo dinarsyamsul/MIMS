@@ -1,19 +1,17 @@
-package dev.iconpln.mims.ui
+package dev.iconpln.mims.ui.scan
 
+import android.content.Intent
 import android.content.pm.PackageManager
-import androidx.appcompat.app.AppCompatActivity
+import android.graphics.Typeface
 import android.os.Bundle
 import android.util.Log
 import android.widget.Toast
+import androidx.appcompat.app.AppCompatActivity
 import androidx.core.app.ActivityCompat
 import androidx.core.content.ContextCompat
-import com.budiyev.android.codescanner.AutoFocusMode
-import com.budiyev.android.codescanner.CodeScanner
+import com.budiyev.android.codescanner.*
 import com.budiyev.android.codescanner.CodeScanner.ALL_FORMATS
 import com.budiyev.android.codescanner.CodeScanner.CAMERA_BACK
-import com.budiyev.android.codescanner.DecodeCallback
-import com.budiyev.android.codescanner.ErrorCallback
-import com.budiyev.android.codescanner.ScanMode
 import dev.iconpln.mims.databinding.ActivityScanBinding
 
 class ScanActivity : AppCompatActivity() {
@@ -28,9 +26,21 @@ class ScanActivity : AppCompatActivity() {
 
         setupPermission()
         codeScanner()
+
+        binding.btnOption.setOnCheckedChangeListener { _, checkedId ->
+            if (checkedId == dev.iconpln.mims.R.id.btn_barcode) {
+                binding.scan.setFrameAspectRatio(3f, 1.2f)
+                binding.btnBarcode.setTypeface(null, Typeface.BOLD)
+                binding.btnQr.setTypeface(null, Typeface.NORMAL)
+            } else {
+                binding.scan.setFrameAspectRatio(1f, 1f)
+                binding.btnQr.setTypeface(null, Typeface.BOLD)
+                binding.btnBarcode.setTypeface(null, Typeface.NORMAL)
+            }
+        }
     }
 
-    private fun codeScanner(){
+    private fun codeScanner() {
         scanner = CodeScanner(this, binding.scan)
 
         scanner.apply {
@@ -38,13 +48,15 @@ class ScanActivity : AppCompatActivity() {
             formats = ALL_FORMATS
 
             autoFocusMode = AutoFocusMode.SAFE
-            scanMode = ScanMode.CONTINUOUS
+            scanMode = ScanMode.SINGLE
             isAutoFocusEnabled = true
             isFlashEnabled = false
 
             decodeCallback = DecodeCallback {
                 runOnUiThread {
-                    binding.tvResponse.text = it.text
+                    val intent = Intent(this@ScanActivity, ResponseScanActivity::class.java)
+                    intent.putExtra(ResponseScanActivity.EXTRA_SN, it.text)
+                    startActivity(intent)
                 }
             }
 
@@ -70,15 +82,15 @@ class ScanActivity : AppCompatActivity() {
         super.onPause()
     }
 
-    private fun setupPermission(){
+    private fun setupPermission() {
         val permission = ContextCompat.checkSelfPermission(this, android.Manifest.permission.CAMERA)
 
-        if (permission != PackageManager.PERMISSION_GRANTED){
+        if (permission != PackageManager.PERMISSION_GRANTED) {
             makeRequest()
         }
     }
 
-    private fun makeRequest(){
+    private fun makeRequest() {
         ActivityCompat.requestPermissions(
             this, arrayOf(android.Manifest.permission.CAMERA),
             CAMERA_REQ
@@ -90,9 +102,9 @@ class ScanActivity : AppCompatActivity() {
         permissions: Array<out String>,
         grantResults: IntArray
     ) {
-        when (requestCode){
+        when (requestCode) {
             CAMERA_REQ -> {
-                if (grantResults.isEmpty() || grantResults[0] != PackageManager.PERMISSION_GRANTED){
+                if (grantResults.isEmpty() || grantResults[0] != PackageManager.PERMISSION_GRANTED) {
                     Toast.makeText(
                         this,
                         "You need the camera permission to use this feature",
@@ -104,7 +116,7 @@ class ScanActivity : AppCompatActivity() {
         super.onRequestPermissionsResult(requestCode, permissions, grantResults)
     }
 
-    companion object{
+    companion object {
         private const val CAMERA_REQ = 101
     }
 }

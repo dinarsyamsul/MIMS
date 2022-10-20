@@ -2,7 +2,7 @@ package dev.iconpln.mims.data.remote.response
 
 import com.google.gson.annotations.SerializedName
 
-data class AnotherLoginResponse(
+data class LoginResponse(
 
     @field:SerializedName("msg")
     val msg: String,

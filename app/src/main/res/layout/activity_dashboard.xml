@@ -5,7 +5,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="@color/bg_color"
-    tools:context=".DashboardActivity">
+    tools:context=".ui.DashboardActivity">
 
     <LinearLayout
         android:id="@+id/lydsbrd1"
@@ -30,10 +30,10 @@
         <TextView
             android:layout_width="match_parent"
             android:layout_height="match_parent"
+            android:layout_marginStart="20dp"
             android:text="Selamat datang di MIMS"
-            android:textSize="20dp"
             android:textColor="@color/black"
-            android:layout_marginStart="20dp"/>
+            android:textSize="20dp" />
     </LinearLayout>
 
     <LinearLayout
@@ -50,9 +50,9 @@
         <androidx.appcompat.widget.SearchView
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:outlineSpotShadowColor="@color/black"
+            android:background="@drawable/bg_search"
             android:outlineAmbientShadowColor="@color/black"
-            android:background="@drawable/bg_search" />
+            android:outlineSpotShadowColor="@color/black" />
 
     </LinearLayout>
 
@@ -65,80 +65,47 @@
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:orientation="vertical" >
+            android:orientation="vertical">
 
             <GridLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
+                android:alignmentMode="alignMargins"
                 android:columnCount="2"
-                android:rowCount="3"
                 android:columnOrderPreserved="false"
-                android:alignmentMode="alignMargins">
+                android:rowCount="3">
 
                 <androidx.cardview.widget.CardView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_columnWeight="1"
-                    android:background="@color/bg_color"
                     android:layout_rowWeight="1"
-                    app:cardElevation="8dp"
+                    android:layout_columnWeight="1"
+                    android:layout_margin="10dp"
+                    android:background="@color/bg_color"
                     app:cardCornerRadius="15dp"
-                    android:layout_margin="10dp">
+                    app:cardElevation="8dp">
 
                     <LinearLayout
-                        android:background="@color/bg_color"
+                        android:id="@+id/scanner"
                         android:layout_width="match_parent"
                         android:layout_height="match_parent"
+                        android:background="@color/bg_color"
+                        android:gravity="center"
                         android:orientation="vertical"
-                        android:padding="16sp"
-                        android:gravity="center">
+                        android:padding="16sp">
 
                         <ImageView
-                            android:src="@drawable/logoscan"
                             android:layout_width="80dp"
-                            android:layout_height="80dp"/>
+                            android:layout_height="80dp"
+                            android:src="@drawable/logoscan" />
+
                         <TextView
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:layout_marginTop="12dp"
-                            android:textSize="13sp"
+                            android:text="SCAN"
                             android:textColor="@color/black"
-                            android:text="SCAN"/>
-                        
-                    </LinearLayout>
-
-
-                </androidx.cardview.widget.CardView>
-
-                <androidx.cardview.widget.CardView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:background="@color/bg_color"
-                    android:layout_columnWeight="1"
-                    android:layout_rowWeight="1"
-                    app:cardElevation="8dp"
-                    app:cardCornerRadius="15dp"
-                    android:layout_margin="10dp">
-
-                    <LinearLayout
-                        android:background="@color/bg_color"
-                        android:layout_width="match_parent"
-                        android:layout_height="match_parent"
-                        android:orientation="vertical"
-                        android:padding="16sp"
-                        android:gravity="center">
-
-                        <ImageView
-                            android:src="@drawable/logotracking"
-                            android:layout_width="80dp"
-                            android:layout_height="80dp"/>
-                        <TextView
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:layout_marginTop="12dp"
-                            android:textSize="13sp"
-                            android:textColor="@color/black"
-                            android:text="Tracking"/>
+                            android:textSize="13sp" />
 
                     </LinearLayout>
 
@@ -148,32 +115,33 @@
                 <androidx.cardview.widget.CardView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_columnWeight="1"
                     android:layout_rowWeight="1"
-                    app:cardElevation="8dp"
+                    android:layout_columnWeight="1"
+                    android:layout_margin="10dp"
                     android:background="@color/bg_color"
                     app:cardCornerRadius="15dp"
-                    android:layout_margin="10dp">
+                    app:cardElevation="8dp">
 
                     <LinearLayout
                         android:layout_width="match_parent"
                         android:layout_height="match_parent"
                         android:background="@color/bg_color"
+                        android:gravity="center"
                         android:orientation="vertical"
-                        android:padding="16sp"
-                        android:gravity="center">
+                        android:padding="16sp">
 
                         <ImageView
-                            android:src="@drawable/logomonitoring"
                             android:layout_width="80dp"
-                            android:layout_height="80dp"/>
+                            android:layout_height="80dp"
+                            android:src="@drawable/logotracking" />
+
                         <TextView
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:layout_marginTop="12dp"
-                            android:textSize="13sp"
+                            android:text="Tracking"
                             android:textColor="@color/black"
-                            android:text="Monitoring"/>
+                            android:textSize="13sp" />
 
                     </LinearLayout>
 
@@ -183,32 +151,69 @@
                 <androidx.cardview.widget.CardView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_columnWeight="1"
                     android:layout_rowWeight="1"
+                    android:layout_columnWeight="1"
+                    android:layout_margin="10dp"
                     android:background="@color/bg_color"
-                    app:cardElevation="8dp"
                     app:cardCornerRadius="15dp"
-                    android:layout_margin="10dp">
+                    app:cardElevation="8dp">
 
                     <LinearLayout
-                        android:background="@color/bg_color"
                         android:layout_width="match_parent"
                         android:layout_height="match_parent"
+                        android:background="@color/bg_color"
+                        android:gravity="center"
                         android:orientation="vertical"
-                        android:padding="16sp"
-                        android:gravity="center">
+                        android:padding="16sp">
 
                         <ImageView
-                            android:src="@drawable/logo"
                             android:layout_width="80dp"
-                            android:layout_height="80dp"/>
+                            android:layout_height="80dp"
+                            android:src="@drawable/logomonitoring" />
+
                         <TextView
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:layout_marginTop="12dp"
-                            android:textSize="13sp"
+                            android:text="Monitoring"
                             android:textColor="@color/black"
-                            android:text="Belum tau"/>
+                            android:textSize="13sp" />
+
+                    </LinearLayout>
+
+
+                </androidx.cardview.widget.CardView>
+
+                <androidx.cardview.widget.CardView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_rowWeight="1"
+                    android:layout_columnWeight="1"
+                    android:layout_margin="10dp"
+                    android:background="@color/bg_color"
+                    app:cardCornerRadius="15dp"
+                    app:cardElevation="8dp">
+
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:background="@color/bg_color"
+                        android:gravity="center"
+                        android:orientation="vertical"
+                        android:padding="16sp">
+
+                        <ImageView
+                            android:layout_width="80dp"
+                            android:layout_height="80dp"
+                            android:src="@drawable/logo" />
+
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_marginTop="12dp"
+                            android:text="Belum tau"
+                            android:textColor="@color/black"
+                            android:textSize="13sp" />
 
                     </LinearLayout>
 
@@ -216,7 +221,7 @@
                 </androidx.cardview.widget.CardView>
 
             </GridLayout>
-            
+
         </LinearLayout>
 
 

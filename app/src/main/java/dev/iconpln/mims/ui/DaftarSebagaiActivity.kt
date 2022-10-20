@@ -1,32 +1,27 @@
-package dev.iconpln.mims
+package dev.iconpln.mims.ui
 
 import android.content.Intent
-import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
-import android.view.View
-import android.widget.ImageButton
+import androidx.appcompat.app.AppCompatActivity
+import dev.iconpln.mims.databinding.ActivityDaftarSebagaiBinding
 
-class DaftarSebagaiActivity : AppCompatActivity(), View.OnClickListener {
+class DaftarSebagaiActivity : AppCompatActivity() {
 
-    private lateinit var btnPabrikan : ImageButton
-    private lateinit var btnPusertif : ImageButton
+    private lateinit var binding: ActivityDaftarSebagaiBinding
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        setContentView(R.layout.activity_daftar_sebagai)
+        binding = ActivityDaftarSebagaiBinding.inflate(layoutInflater)
+        setContentView(binding.root)
 
-        btnPabrikan = findViewById(R.id.btnPabrikan)
-        btnPabrikan.setOnClickListener(this)
-
-        btnPusertif = findViewById(R.id.btnPusertif)
-        btnPusertif.setOnClickListener(this)
-    }
-
-    override fun onClick(v: View) {
-        when(v.id){
-            R.id.btnPabrikan -> run {
+        binding.apply {
+            btnPabrikan.setOnClickListener {
                 val intentPabrikan = Intent(this@DaftarSebagaiActivity, OtpActivity::class.java)
                 startActivity(intentPabrikan)
+            }
+            btnPusertif.setOnClickListener {
+                val intentPusertif = Intent(this@DaftarSebagaiActivity, OtpActivity::class.java)
+                startActivity(intentPusertif)
             }
         }
     }

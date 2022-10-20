@@ -1,29 +1,99 @@
-package dev.iconpln.mims.ui
+package dev.iconpln.mims.ui.login
 
 import android.content.Intent
-import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.view.View
-import android.widget.Button
-import dev.iconpln.mims.R
+import android.view.WindowManager
+import android.widget.Toast
+import androidx.appcompat.app.AppCompatActivity
+import androidx.lifecycle.ViewModelProvider
+import dev.iconpln.mims.data.remote.service.ApiConfig
+import dev.iconpln.mims.databinding.ActivityLoginBinding
+import dev.iconpln.mims.ui.DashboardActivity
+import dev.iconpln.mims.utils.ViewModelFactory
 
-class LoginActivity : AppCompatActivity(), View.OnClickListener {
+class LoginActivity : AppCompatActivity() {
 
-    private lateinit var btnLogin : Button
+    private lateinit var binding: ActivityLoginBinding
+    private lateinit var loginViewModel: LoginViewModel
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        setContentView(R.layout.activity_login)
+        binding = ActivityLoginBinding.inflate(layoutInflater)
+        setContentView(binding.root)
 
-        btnLogin = findViewById(R.id.btnLogin)
-        btnLogin.setOnClickListener(this)
+        window.setSoftInputMode(WindowManager.LayoutParams.SOFT_INPUT_ADJUST_PAN)
+
+        val apiService = ApiConfig.getApiService()
+        loginViewModel =
+            ViewModelProvider(this, ViewModelFactory(apiService))[LoginViewModel::class.java]
+
+//        loginViewModel.loginResponse.observe(this){ result ->
+//            when(result.message){
+//                "Berhasil Login" -> {
+//                    Intent(this@LoginActivity, DashboardActivity::class.java).also {
+//                        it.flags = Intent.FLAG_ACTIVITY_NEW_TASK or Intent.FLAG_ACTIVITY_CLEAR_TASK
+//                        startActivity(it)
+//                    }
+//                }
+//                else -> {
+//                    Toast.makeText(this@LoginActivity, "Login Gagal!", Toast.LENGTH_SHORT).show()
+//                }
+//            }
+//        }
+
+        loginViewModel.loginResponse.observe(this) { result ->
+            result.data.forEach {
+                if (it.id != null) {
+                    Intent(this@LoginActivity, DashboardActivity::class.java).also { intent ->
+                        intent.flags =
+                            Intent.FLAG_ACTIVITY_NEW_TASK or Intent.FLAG_ACTIVITY_CLEAR_TASK
+                        startActivity(intent)
+                    }
+                } else {
+                    Toast.makeText(this@LoginActivity, "Login Gagal!", Toast.LENGTH_SHORT).show()
+                }
+            }
+        }
+
+        loginViewModel.isLoading.observe(this) {
+            if (it == true) {
+                binding.progressBar.visibility = View.VISIBLE
+            } else {
+                binding.progressBar.visibility = View.GONE
+            }
+        }
+
+        binding.btnLogin.setOnClickListener {
+//            loginUser()
+            startActivity(Intent(this, DashboardActivity::class.java))
+        }
     }
 
-    override fun onClick(v: View) {
-        when(v.id){
-            R.id.btnLogin -> run {
-                val intent = Intent(this@LoginActivity, DashboardActivity::class.java)
-                startActivity(intent)
+    private fun loginUser() {
+        with(binding) {
+            val username = edtUsername.text.toString().trim()
+            val password = edtPass.text.toString().trim()
+
+            var isInvalidFields = false
+
+            if (username.isEmpty()) {
+                isInvalidFields = true
+                edtUsername.error = "Email tidak boleh kosong"
+            }
+
+            if (password.length < 6) {
+                isInvalidFields = true
+                edtPass.error = "Password minimal terdiri dari 8 karakter"
+            }
+
+            if (password.isEmpty()) {
+                isInvalidFields = true
+                edtPass.error = "Password tidak boleh kosong"
+            }
+
+            if (!isInvalidFields) {
+                loginViewModel.getLogin(username, password)
             }
         }
     }

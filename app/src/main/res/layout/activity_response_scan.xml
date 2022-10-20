@@ -4,6 +4,277 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:background="@color/bg_color"
     tools:context=".ui.scan.ResponseScanActivity">
+
+    <TextView
+        android:id="@+id/title"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="16dp"
+        android:text="DETAIL HASIL SCAN"
+        android:textAlignment="center"
+        android:textColor="@color/color_text"
+        android:textStyle="bold"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0" />
+
+    <View
+        android:id="@+id/line"
+        android:layout_width="match_parent"
+        android:layout_height="2dp"
+        android:layout_marginStart="16dp"
+        android:layout_marginTop="8dp"
+        android:layout_marginEnd="16dp"
+        android:background="@color/black"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/title" />
+
+    <TextView
+        android:id="@+id/serial_holder"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="16dp"
+        android:layout_marginTop="24dp"
+        android:text="Serial Number"
+        android:textAlignment="center"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/line" />
+
+    <TextView
+        android:id="@+id/tv_result"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="48dp"
+        android:text=": Serial Number"
+        android:textColor="@color/color_text"
+        android:textStyle="bold"
+        app:layout_constraintBottom_toBottomOf="@id/serial_holder"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toEndOf="@id/serial_holder"
+        app:layout_constraintTop_toTopOf="@id/serial_holder"
+        app:layout_constraintVertical_bias="0.0" />
+
+    <TextView
+        android:id="@+id/tahun_holder"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="16dp"
+        android:layout_marginTop="24dp"
+        android:text="Tahun"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/tv_result" />
+
+    <TextView
+        android:id="@+id/tv_tahun"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:text=": Tahun"
+        android:textColor="@color/color_text"
+        android:textStyle="bold"
+        app:layout_constraintBottom_toBottomOf="@id/tahun_holder"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="@id/tv_result"
+        app:layout_constraintTop_toTopOf="@id/tahun_holder" />
+
+    <TextView
+        android:id="@+id/namapab_holder"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="16dp"
+        android:layout_marginTop="24dp"
+        android:text="Nama Pabrikan"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/tv_tahun"
+        app:layout_constraintVertical_bias="0.0" />
+
+    <TextView
+        android:id="@+id/tv_namafab"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:text=": Nama Pabrikan"
+        android:textColor="@color/color_text"
+        android:textStyle="bold"
+        app:layout_constraintBottom_toBottomOf="@id/namapab_holder"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="@id/tv_result"
+        app:layout_constraintTop_toTopOf="@id/namapab_holder" />
+
+    <TextView
+        android:id="@+id/material_holder"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="16dp"
+        android:layout_marginTop="24dp"
+        android:text="Material Desc"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/tv_namafab"
+        app:layout_constraintVertical_bias="0.0" />
+
+    <TextView
+        android:id="@+id/tv_material"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:text=": Material"
+        android:textColor="@color/color_text"
+        android:textStyle="bold"
+        app:layout_constraintBottom_toBottomOf="@id/material_holder"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="@id/tv_result"
+        app:layout_constraintTop_toTopOf="@id/material_holder" />
+
+    <TextView
+        android:id="@+id/asset_holder"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="16dp"
+        android:layout_marginTop="24dp"
+        android:text="No Asset"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/tv_material"
+        app:layout_constraintVertical_bias="0.0" />
+
+    <TextView
+        android:id="@+id/tv_asset"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:text=": Asset Number"
+        android:textColor="@color/color_text"
+        android:textStyle="bold"
+        app:layout_constraintBottom_toBottomOf="@id/asset_holder"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="@id/tv_result"
+        app:layout_constraintTop_toTopOf="@id/asset_holder" />
+
+    <TextView
+        android:id="@+id/tgl_retur_holder"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="16dp"
+        android:layout_marginTop="24dp"
+        android:text="Tgl Inspeksi Retur"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/tv_asset"
+        app:layout_constraintVertical_bias="0.0" />
+
+    <EditText
+        android:id="@+id/tv_tgl_retur"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginEnd="24dp"
+        android:text=": Retur"
+        android:textColor="@color/color_text"
+        app:layout_constraintBottom_toBottomOf="@id/tgl_retur_holder"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="@id/tv_result"
+        app:layout_constraintTop_toTopOf="@id/tgl_retur_holder" />
+
+    <TextView
+        android:id="@+id/namainsp_holder"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="16dp"
+        android:layout_marginTop="24dp"
+        android:text="Nama Inspektur"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/tv_tgl_retur"
+        app:layout_constraintVertical_bias="0.0" />
+
+    <TextView
+        android:id="@+id/tv_namainsp"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:text=": Nama Inspektur"
+        android:textColor="@color/color_text"
+        android:textStyle="bold"
+        app:layout_constraintBottom_toBottomOf="@id/namainsp_holder"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="@id/tv_result"
+        app:layout_constraintTop_toTopOf="@id/namainsp_holder" />
+
+    <TextView
+        android:id="@+id/namaklas_holder"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="16dp"
+        android:layout_marginTop="24dp"
+        android:text="Klasifikasi Retur"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/tv_namainsp"
+        app:layout_constraintVertical_bias="0.0" />
+
+    <EditText
+        android:id="@+id/tv_namaklas"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginEnd="24dp"
+        android:text=": Nama Klasifikasi Retur"
+        android:textColor="@color/color_text"
+        app:layout_constraintBottom_toBottomOf="@id/namaklas_holder"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="@id/tv_result"
+        app:layout_constraintTop_toTopOf="@id/namaklas_holder" />
+
+    <TextView
+        android:id="@+id/noba_holder"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="16dp"
+        android:layout_marginTop="24dp"
+        android:text="Nomor BA"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/tv_namaklas" />
+
+    <TextView
+        android:id="@+id/tv_noba"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:text=": No BA"
+        android:textColor="@color/color_text"
+        android:textStyle="bold"
+        app:layout_constraintBottom_toBottomOf="@id/noba_holder"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="@id/tv_result"
+        app:layout_constraintTop_toTopOf="@id/noba_holder" />
+
+    <TextView
+        android:id="@+id/edt_jml_holder"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="16dp"
+        android:layout_marginTop="24dp"
+        android:text="Jumlah"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/tv_noba" />
+
+    <EditText
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginEnd="24dp"
+        android:text=": 11"
+        android:textColor="@color/color_text"
+        app:layout_constraintBottom_toBottomOf="@id/edt_jml_holder"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="@id/tv_result"
+        app:layout_constraintTop_toTopOf="@id/edt_jml_holder" />
+
+    <androidx.appcompat.widget.AppCompatButton
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="24dp"
+        android:layout_marginTop="10dp"
+        android:layout_marginEnd="24dp"
+        android:layout_marginBottom="24dp"
+        android:background="@drawable/custombtn"
+        android:text="Simpan"
+        android:textAllCaps="false"
+        android:textColor="#FFFBF6"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

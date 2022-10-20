@@ -4,25 +4,36 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".ui.scan.CustomBarcodeActivity">
+    tools:context=".ui.scan.CustomScanActivity">
 
     <com.journeyapps.barcodescanner.DecoratedBarcodeView
         android:id="@+id/zxing_barcode_scanner"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        app:zxing_scanner_layout="@layout/custom_barcode_scanner" />
+        app:zxing_scanner_layout="@layout/custom_scanner" />
+
+    <ImageButton
+        android:id="@+id/flash"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="16dp"
+        android:layout_marginEnd="16dp"
+        android:background="@android:color/transparent"
+        android:src="@drawable/ic_baseline_flash_off_24"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
 
     <ImageView
         android:id="@+id/border_scan"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:src="@drawable/scan_border"
         android:layout_marginStart="24dp"
         android:layout_marginEnd="24dp"
-        app:layout_constraintStart_toStartOf="parent"
+        android:src="@drawable/scan_border"
+        app:layout_constraintBottom_toTopOf="@id/ly_option"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintBottom_toTopOf="@id/ly_option" />
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
 
     <LinearLayout
         android:id="@+id/ly_option"
@@ -30,12 +41,12 @@
         android:layout_height="wrap_content"
         android:layout_marginStart="24dp"
         android:layout_marginEnd="24dp"
-        android:orientation="horizontal"
         android:layout_marginBottom="16dp"
+        android:background="@drawable/rounded_bg"
+        android:orientation="horizontal"
         app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        android:background="@drawable/rounded_bg">
+        app:layout_constraintStart_toStartOf="parent">
 
         <RadioGroup
             android:id="@+id/btn_option"
@@ -45,35 +56,35 @@
             android:gravity="center"
             android:orientation="horizontal"
             app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintEnd_toEndOf="parent">
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent">
 
             <RadioButton
                 android:id="@+id/btn_qr"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+                android:layout_margin="4dp"
                 android:layout_weight="1"
                 android:background="@drawable/qr_selector"
                 android:button="@android:color/transparent"
-                android:padding="8dp"
-                android:layout_margin="4dp"
-                android:singleLine="true"
                 android:checked="true"
                 android:gravity="center"
-                android:text="QR Code"/>
+                android:padding="8dp"
+                android:singleLine="true"
+                android:text="QR Code" />
 
             <RadioButton
                 android:id="@+id/btn_barcode"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+                android:layout_margin="4dp"
                 android:layout_weight="1"
                 android:background="@drawable/qr_selector"
                 android:button="@android:color/transparent"
-                android:padding="8dp"
-                android:layout_margin="4dp"
-                android:singleLine="true"
                 android:gravity="center"
-                android:text="Barcode"/>
+                android:padding="8dp"
+                android:singleLine="true"
+                android:text="Barcode" />
         </RadioGroup>
     </LinearLayout>
 

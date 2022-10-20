@@ -1,26 +1,25 @@
 package dev.iconpln.mims.ui.scan
 
-import android.content.Intent
 import android.graphics.Typeface
-import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.view.KeyEvent
-import android.widget.Toast
+import androidx.appcompat.app.AppCompatActivity
 import androidx.core.content.ContextCompat
-import androidx.core.view.size
-import com.journeyapps.barcodescanner.*
+import com.journeyapps.barcodescanner.CaptureManager
+import com.journeyapps.barcodescanner.DecoratedBarcodeView
 import dev.iconpln.mims.R
-import dev.iconpln.mims.databinding.ActivityCustomBarcodeBinding
+import dev.iconpln.mims.databinding.ActivityCustomScanBinding
 
-class CustomBarcodeActivity : AppCompatActivity() {
+class CustomScanActivity : AppCompatActivity() {
 
     private lateinit var capture: CaptureManager
     private lateinit var barcodeScannerView: DecoratedBarcodeView
-    private lateinit var binding: ActivityCustomBarcodeBinding
+    private lateinit var binding: ActivityCustomScanBinding
+    private var flash = false
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        binding = ActivityCustomBarcodeBinding.inflate(layoutInflater)
+        binding = ActivityCustomScanBinding.inflate(layoutInflater)
         setContentView(binding.root)
 
         barcodeScannerView = findViewById(R.id.zxing_barcode_scanner)
@@ -28,20 +27,54 @@ class CustomBarcodeActivity : AppCompatActivity() {
         initializeQrScanner(savedInstanceState)
 
         binding.btnOption.setOnCheckedChangeListener { _, checkedId ->
-            if (checkedId == R.id.btn_barcode){
-                binding.borderScan.setImageDrawable(ContextCompat.getDrawable(this, R.drawable.barcode_border))
+            if (checkedId == R.id.btn_barcode) {
+                binding.borderScan.setImageDrawable(
+                    ContextCompat.getDrawable(
+                        this,
+                        R.drawable.barcode_border
+                    )
+                )
                 binding.btnBarcode.setTypeface(null, Typeface.BOLD)
                 binding.btnQr.setTypeface(null, Typeface.NORMAL)
             } else {
-                binding.borderScan.setImageDrawable(ContextCompat.getDrawable(this, R.drawable.scan_border))
+                binding.borderScan.setImageDrawable(
+                    ContextCompat.getDrawable(
+                        this,
+                        R.drawable.scan_border
+                    )
+                )
                 binding.btnQr.setTypeface(null, Typeface.BOLD)
                 binding.btnBarcode.setTypeface(null, Typeface.NORMAL)
             }
         }
+
+        binding.flash.setOnClickListener {
+            if (!flash) {
+                flash = true
+                flashState(flash)
+                barcodeScannerView.setTorchOn()
+            } else {
+                flash = false
+                flashState(flash)
+                barcodeScannerView.setTorchOff()
+            }
+        }
+    }
+
+    private fun flashState(flash: Boolean) {
+        if (flash) {
+            binding.flash.setImageDrawable(
+                ContextCompat.getDrawable(this, R.drawable.ic_baseline_flash_on_24)
+            )
+        } else {
+            binding.flash.setImageDrawable(
+                ContextCompat.getDrawable(this, R.drawable.ic_baseline_flash_off_24)
+            )
+        }
     }
 
     private fun initializeQrScanner(savedInstanceState: Bundle?) = with(binding) {
-        capture = CaptureManager(this@CustomBarcodeActivity, zxingBarcodeScanner)
+        capture = CaptureManager(this@CustomScanActivity, zxingBarcodeScanner)
         capture.initializeFromIntent(intent, savedInstanceState)
         capture.setShowMissingCameraPermissionDialog(false)
         capture.decode()
@@ -68,6 +101,9 @@ class CustomBarcodeActivity : AppCompatActivity() {
     }
 
     override fun onKeyDown(keyCode: Int, event: KeyEvent?): Boolean {
-        return binding.zxingBarcodeScanner.onKeyDown(keyCode, event) || super.onKeyDown(keyCode, event)
+        return binding.zxingBarcodeScanner.onKeyDown(keyCode, event) || super.onKeyDown(
+            keyCode,
+            event
+        )
     }
 }
