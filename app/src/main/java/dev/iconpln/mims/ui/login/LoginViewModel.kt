@@ -4,7 +4,9 @@ import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.asLiveData
+import dev.iconpln.mims.data.remote.response.HitEmailResponse
 import dev.iconpln.mims.data.remote.response.LoginResponse
+import dev.iconpln.mims.data.remote.response.VerifyTokenResponse
 import dev.iconpln.mims.data.remote.service.ApiService
 import dev.iconpln.mims.utils.NetworkStatusTracker
 import dev.iconpln.mims.utils.map
@@ -30,6 +32,12 @@ class LoginViewModel(
     private val _loginResponse = MutableLiveData<LoginResponse>()
     val loginResponse: LiveData<LoginResponse> = _loginResponse
 
+    private val _hitEmailResponse = MutableLiveData<HitEmailResponse>()
+    val hitEmailResponse: LiveData<HitEmailResponse> = _hitEmailResponse
+
+    private val _verifyTokenResponse = MutableLiveData<VerifyTokenResponse>()
+    val verifyTokenResponse: LiveData<VerifyTokenResponse> = _verifyTokenResponse
+
     val state =
         netWorkStatusTracker.networkStatus
             .map(
@@ -38,20 +46,60 @@ class LoginViewModel(
             )
             .asLiveData(Dispatchers.IO)
 
-    fun getLogin(username: String, password: String) {
+    fun getLogin(username: String, password: String, user_token: String) {
         _isLoading.value = true
         job = CoroutineScope(Dispatchers.IO + exceptionHandler).launch {
-//            val requestBody = mutableMapOf<String, String>()
-//            requestBody["username"] = username
-//            requestBody["password"] = password
-//            val response = apiService.login(requestBody)
+            val requestBody = mutableMapOf<String, String>()
+            requestBody["username"] = username
+            requestBody["password"] = password
+            requestBody["user_token"] = user_token
+            val response = apiService.login(requestBody)
 
-            val response = apiService.anotherLogin(username, password)
             withContext(Dispatchers.Main) {
                 if (response.isSuccessful) {
                     _isLoading.value = false
                     val loginResult = response.body()
                     _loginResponse.postValue(loginResult)
+                } else {
+                    _isLoading.value = false
+                    val error = response.errorBody()?.toString()
+                    onError("Error : ${error?.let { getErrorMessage(it) }}")
+                }
+            }
+        }
+    }
+
+    fun hitEmail(username: String) {
+        _isLoading.value = true
+        job = CoroutineScope(Dispatchers.IO + exceptionHandler).launch {
+            val response = apiService.hitEmailResponse(username)
+            withContext(Dispatchers.Main) {
+                if (response.isSuccessful) {
+                    _isLoading.value = false
+                    val hitMailResult = response.body()
+                    _hitEmailResponse.postValue(hitMailResult)
+                } else {
+                    _isLoading.value = false
+                    val error = response.errorBody()?.toString()
+                    onError("Error : ${error?.let { getErrorMessage(it) }}")
+                }
+            }
+        }
+    }
+
+    fun sendTokenOtp(mail_token: String, username: String) {
+        _isLoading.value = true
+        job = CoroutineScope(Dispatchers.IO + exceptionHandler).launch {
+            val requestBody = mutableMapOf<String, String>()
+            requestBody["email_token"] = mail_token
+            requestBody["username"] = username
+            val response = apiService.sendOtp(requestBody)
+
+            withContext(Dispatchers.Main) {
+                if (response.isSuccessful) {
+                    _isLoading.value = false
+                    val loginResult = response.body()
+                    _verifyTokenResponse.postValue(loginResult)
                 } else {
                     _isLoading.value = false
                     val error = response.errorBody()?.toString()

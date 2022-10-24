@@ -2,16 +2,16 @@ package dev.iconpln.mims.data.remote.response
 
 import com.google.gson.annotations.SerializedName
 
-data class LoginResponse(
+data class VerifyTokenResponse(
 
 	@field:SerializedName("data")
-	val data: List<DataItem>,
+	val data: List<DataItemVerify>,
 
 	@field:SerializedName("status")
 	val status: String
 )
 
-data class DataItem(
+data class DataItemVerify(
 
 	@field:SerializedName("msg")
 	val msg: String,
@@ -20,7 +20,7 @@ data class DataItem(
 	val modifyby: Any,
 
 	@field:SerializedName("user_password")
-	val userPassword: Any,
+	val userPassword: String,
 
 	@field:SerializedName("mail")
 	val mail: String,
@@ -29,32 +29,32 @@ data class DataItem(
 	val userName: String,
 
 	@field:SerializedName("unitupi")
-	val unitupi: Any,
+	val unitupi: String,
 
 	@field:SerializedName("createdate")
-	val createdate: Any,
+	val createdate: String,
 
 	@field:SerializedName("flag_ldap")
-	val flagLdap: Any,
+	val flagLdap: String,
 
 	@field:SerializedName("email_token")
 	val emailToken: Any,
 
 	@field:SerializedName("user_active")
-	val userActive: Any,
+	val userActive: String,
 
 	@field:SerializedName("createby")
 	val createby: Any,
 
 	@field:SerializedName("modifydate")
-	val modifydate: Any,
+	val modifydate: String,
 
 	@field:SerializedName("user_id")
-	val userId: Any,
+	val userId: String,
 
 	@field:SerializedName("role_id")
-	val roleId: Any,
+	val roleId: String,
 
 	@field:SerializedName("user_token")
-	val userToken: Any
+	val userToken: String
 )

@@ -141,6 +141,40 @@
             android:textSize="15pt"
             android:textStyle="bold" />
 
+        <com.google.android.material.textfield.TextInputEditText
+
+            android:id="@+id/edtotp5"
+            android:layout_width="40dp"
+            android:layout_height="60dp"
+            android:layout_marginStart="20dp"
+            android:background="@drawable/logootp"
+            android:cursorVisible="false"
+            android:gravity="center"
+            android:imeOptions="actionNone"
+            android:inputType="numberDecimal"
+            android:maxLength="1"
+            android:maxLines="1"
+            android:textColor="@color/black"
+            android:textSize="15pt"
+            android:textStyle="bold" />
+
+        <com.google.android.material.textfield.TextInputEditText
+
+            android:id="@+id/edtotp6"
+            android:layout_width="40dp"
+            android:layout_height="60dp"
+            android:layout_marginStart="20dp"
+            android:background="@drawable/logootp"
+            android:cursorVisible="false"
+            android:gravity="center"
+            android:imeOptions="actionNone"
+            android:inputType="numberDecimal"
+            android:maxLength="1"
+            android:maxLines="1"
+            android:textColor="@color/black"
+            android:textSize="15pt"
+            android:textStyle="bold" />
+
     </LinearLayout>
 
     <TextView

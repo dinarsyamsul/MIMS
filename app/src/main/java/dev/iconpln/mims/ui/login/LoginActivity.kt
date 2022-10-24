@@ -10,6 +10,7 @@ import androidx.lifecycle.ViewModelProvider
 import dev.iconpln.mims.data.remote.service.ApiConfig
 import dev.iconpln.mims.databinding.ActivityLoginBinding
 import dev.iconpln.mims.ui.DashboardActivity
+import dev.iconpln.mims.ui.OtpActivity
 import dev.iconpln.mims.utils.NetworkStatusTracker
 import dev.iconpln.mims.utils.ViewModelFactory
 
@@ -17,6 +18,8 @@ class LoginActivity : AppCompatActivity() {
 
     private lateinit var binding: ActivityLoginBinding
     private lateinit var loginViewModel: LoginViewModel
+
+    private val REQUEST_CODE = 101
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -49,14 +52,26 @@ class LoginActivity : AppCompatActivity() {
 
         loginViewModel.loginResponse.observe(this) { result ->
             result.data.forEach {
-                if (it.id != null) {
-                    Intent(this@LoginActivity, DashboardActivity::class.java).also { intent ->
-                        intent.flags =
-                            Intent.FLAG_ACTIVITY_NEW_TASK or Intent.FLAG_ACTIVITY_CLEAR_TASK
+                when (it.msg) {
+                    "VERIFIKASI DEVICE" -> {
+                        loginViewModel.hitEmail(it.userName)
+                        startActivity(Intent(this@LoginActivity, OtpActivity::class.java).apply {
+                            putExtra(OtpActivity.EXTRA_USERNAME, it.userName)
+                        })
+                        Toast.makeText(
+                            this,
+                            "Kode OTP segera dikirimkan ke email",
+                            Toast.LENGTH_SHORT
+                        ).show()
+                    }
+                    "LOGIN BERHASIL" -> {
+                        val intent = Intent(this@LoginActivity, DashboardActivity::class.java)
                         startActivity(intent)
                     }
-                } else {
-                    Toast.makeText(this@LoginActivity, "Login Gagal!", Toast.LENGTH_SHORT).show()
+                    "LOGIN SALAH" -> {
+                        Toast.makeText(this, "Username atau password salah!", Toast.LENGTH_SHORT)
+                            .show()
+                    }
                 }
             }
         }
@@ -77,6 +92,7 @@ class LoginActivity : AppCompatActivity() {
 
             binding.btnLogin.setOnClickListener {
                 loginUser()
+//                startActivity(Intent(this, DashboardActivity::class.java))
             }
         }
     }
@@ -93,9 +109,9 @@ class LoginActivity : AppCompatActivity() {
                 edtUsername.error = "Email tidak boleh kosong"
             }
 
-            if (password.length < 6) {
+            if (password.length < 5) {
                 isInvalidFields = true
-                edtPass.error = "Password minimal terdiri dari 8 karakter"
+                edtPass.error = "Password minimal terdiri dari 5 karakter"
             }
 
             if (password.isEmpty()) {
@@ -104,7 +120,7 @@ class LoginActivity : AppCompatActivity() {
             }
 
             if (!isInvalidFields) {
-                loginViewModel.getLogin(username, password)
+                loginViewModel.getLogin(username, password, "")
             }
         }
     }
