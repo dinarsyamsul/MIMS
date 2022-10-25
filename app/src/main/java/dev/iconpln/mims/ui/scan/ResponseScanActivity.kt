@@ -7,6 +7,7 @@ import androidx.lifecycle.ViewModelProvider
 import dev.iconpln.mims.data.remote.service.ApiConfig
 import dev.iconpln.mims.databinding.ActivityResponseScanBinding
 import dev.iconpln.mims.utils.NetworkStatusTracker
+import dev.iconpln.mims.utils.TokenManager
 import dev.iconpln.mims.utils.ViewModelFactory
 
 class ResponseScanActivity : AppCompatActivity() {
@@ -19,11 +20,12 @@ class ResponseScanActivity : AppCompatActivity() {
         binding = ActivityResponseScanBinding.inflate(layoutInflater)
         setContentView(binding.root)
 
+        val session = TokenManager(this)
         val apiService = ApiConfig.getApiService()
         val networkStatusTracker = NetworkStatusTracker(this)
         viewModel = ViewModelProvider(
             this,
-            ViewModelFactory(apiService, networkStatusTracker)
+            ViewModelFactory(session, apiService, networkStatusTracker)
         )[ScanViewModel::class.java]
 
         val data = intent.extras

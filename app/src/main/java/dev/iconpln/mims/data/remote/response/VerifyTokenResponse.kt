@@ -17,10 +17,10 @@ data class DataItemVerify(
 	val msg: String,
 
 	@field:SerializedName("modifyby")
-	val modifyby: Any,
+	val modifyby: String,
 
 	@field:SerializedName("user_password")
-	val userPassword: String,
+	val userPassword: Any,
 
 	@field:SerializedName("mail")
 	val mail: String,
@@ -38,13 +38,13 @@ data class DataItemVerify(
 	val flagLdap: String,
 
 	@field:SerializedName("email_token")
-	val emailToken: Any,
+	val emailToken: String,
 
 	@field:SerializedName("user_active")
 	val userActive: String,
 
 	@field:SerializedName("createby")
-	val createby: Any,
+	val createby: String,
 
 	@field:SerializedName("modifydate")
 	val modifydate: String,
@@ -54,6 +54,9 @@ data class DataItemVerify(
 
 	@field:SerializedName("role_id")
 	val roleId: String,
+
+	@field:SerializedName("device_token")
+	val deviceToken: String,
 
 	@field:SerializedName("user_token")
 	val userToken: String

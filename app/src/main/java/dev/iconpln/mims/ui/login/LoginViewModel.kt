@@ -9,11 +9,13 @@ import dev.iconpln.mims.data.remote.response.LoginResponse
 import dev.iconpln.mims.data.remote.response.VerifyTokenResponse
 import dev.iconpln.mims.data.remote.service.ApiService
 import dev.iconpln.mims.utils.NetworkStatusTracker
+import dev.iconpln.mims.utils.TokenManager
 import dev.iconpln.mims.utils.map
 import kotlinx.coroutines.*
 import org.json.JSONObject
 
 class LoginViewModel(
+    private val session: TokenManager,
     private val apiService: ApiService,
     netWorkStatusTracker: NetworkStatusTracker
 ) : ViewModel() {
@@ -52,7 +54,7 @@ class LoginViewModel(
             val requestBody = mutableMapOf<String, String>()
             requestBody["username"] = username
             requestBody["password"] = password
-            requestBody["user_token"] = user_token
+            requestBody["device_token"] = user_token
             val response = apiService.login(requestBody)
 
             withContext(Dispatchers.Main) {
@@ -100,6 +102,12 @@ class LoginViewModel(
                     _isLoading.value = false
                     val loginResult = response.body()
                     _verifyTokenResponse.postValue(loginResult)
+                    loginResult?.data?.forEach {
+                        session.saveAuthToken(
+                            user_token = it.userToken,
+                            device_token = it.deviceToken,
+                        )
+                    }
                 } else {
                     _isLoading.value = false
                     val error = response.errorBody()?.toString()

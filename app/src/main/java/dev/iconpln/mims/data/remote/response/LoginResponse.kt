@@ -55,6 +55,6 @@ data class DataItem(
 	@field:SerializedName("role_id")
 	val roleId: Any,
 
-	@field:SerializedName("user_token")
-	val userToken: Any
+	@field:SerializedName("device_token")
+	val deviceToken: Any
 )

@@ -7,6 +7,7 @@ import dev.iconpln.mims.ui.login.LoginViewModel
 import dev.iconpln.mims.ui.scan.ScanViewModel
 
 class ViewModelFactory(
+    private val session: TokenManager,
     private val apiService: ApiService,
     private val networkStatusTracker: NetworkStatusTracker
 ) : ViewModelProvider.NewInstanceFactory() {
@@ -15,7 +16,7 @@ class ViewModelFactory(
     override fun <T : ViewModel> create(modelClass: Class<T>): T {
         when {
             modelClass.isAssignableFrom(LoginViewModel::class.java) -> {
-                return LoginViewModel(apiService, networkStatusTracker) as T
+                return LoginViewModel(session, apiService, networkStatusTracker) as T
             }
             modelClass.isAssignableFrom(ScanViewModel::class.java) -> {
                 return ScanViewModel(apiService) as T

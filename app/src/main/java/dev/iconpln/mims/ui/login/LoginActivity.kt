@@ -2,22 +2,27 @@ package dev.iconpln.mims.ui.login
 
 import android.content.Intent
 import android.os.Bundle
+import android.util.Log
 import android.view.View
 import android.view.WindowManager
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import androidx.lifecycle.ViewModelProvider
+import androidx.lifecycle.asLiveData
 import dev.iconpln.mims.data.remote.service.ApiConfig
 import dev.iconpln.mims.databinding.ActivityLoginBinding
 import dev.iconpln.mims.ui.DashboardActivity
 import dev.iconpln.mims.ui.OtpActivity
 import dev.iconpln.mims.utils.NetworkStatusTracker
+import dev.iconpln.mims.utils.TokenManager
 import dev.iconpln.mims.utils.ViewModelFactory
+import kotlinx.coroutines.flow.first
 
 class LoginActivity : AppCompatActivity() {
 
     private lateinit var binding: ActivityLoginBinding
     private lateinit var loginViewModel: LoginViewModel
+    private lateinit var session: TokenManager
 
     private val REQUEST_CODE = 101
 
@@ -28,12 +33,24 @@ class LoginActivity : AppCompatActivity() {
 
         window.setSoftInputMode(WindowManager.LayoutParams.SOFT_INPUT_ADJUST_PAN)
 
+        session = TokenManager(this)
         val apiService = ApiConfig.getApiService()
         val networkStatusTracker = NetworkStatusTracker(this)
+
+        session.user_token.asLiveData().observe(this) { token ->
+            Log.d("LoginActivity", "cek user token: $token")
+            if (token != null) {
+                Intent(this@LoginActivity, DashboardActivity::class.java).also {
+                    it.flags = Intent.FLAG_ACTIVITY_NEW_TASK or Intent.FLAG_ACTIVITY_CLEAR_TASK
+                    startActivity(it)
+                }
+            }
+        }
+
         loginViewModel =
             ViewModelProvider(
                 this,
-                ViewModelFactory(apiService, networkStatusTracker)
+                ViewModelFactory(session, apiService, networkStatusTracker)
             )[LoginViewModel::class.java]
 
 //        loginViewModel.loginResponse.observe(this){ result ->
@@ -120,7 +137,9 @@ class LoginActivity : AppCompatActivity() {
             }
 
             if (!isInvalidFields) {
-                loginViewModel.getLogin(username, password, "")
+                session.device_token.asLiveData().observe(this@LoginActivity) {
+                    loginViewModel.getLogin(username, password, it.toString())
+                }
             }
         }
     }

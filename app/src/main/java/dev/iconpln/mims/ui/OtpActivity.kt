@@ -2,6 +2,7 @@ package dev.iconpln.mims.ui
 
 import android.content.Intent
 import android.os.Bundle
+import android.util.Log
 import android.view.View
 import android.widget.Button
 import android.widget.Toast
@@ -12,6 +13,7 @@ import dev.iconpln.mims.data.remote.service.ApiConfig
 import dev.iconpln.mims.databinding.ActivityOtpBinding
 import dev.iconpln.mims.ui.login.LoginViewModel
 import dev.iconpln.mims.utils.NetworkStatusTracker
+import dev.iconpln.mims.utils.TokenManager
 import dev.iconpln.mims.utils.ViewModelFactory
 
 class OtpActivity : AppCompatActivity() {
@@ -24,24 +26,30 @@ class OtpActivity : AppCompatActivity() {
         binding = ActivityOtpBinding.inflate(layoutInflater)
         setContentView(binding.root)
 
+        val session = TokenManager(this)
         val apiService = ApiConfig.getApiService()
         val networkStatusTracker = NetworkStatusTracker(this)
         loginViewModel =
             ViewModelProvider(
                 this,
-                ViewModelFactory(apiService, networkStatusTracker)
+                ViewModelFactory(session, apiService, networkStatusTracker)
             )[LoginViewModel::class.java]
 
         val username = intent.extras?.getString(EXTRA_USERNAME)
-        var otpInput = ""
         binding.apply {
-            otpInput =
-                edtotp1.text.toString() +
+
+            btnSubmitotp.setOnClickListener {
+                val otpInput = edtotp1.text.toString() +
                         edtotp2.text.toString() +
                         edtotp3.text.toString() +
                         edtotp4.text.toString() +
                         edtotp5.text.toString() +
                         edtotp6.text.toString()
+                Log.d("OtpActivity", "cek inputan otp: $otpInput")
+                if (username != null) {
+                    loginViewModel.sendTokenOtp(otpInput, username)
+                }
+            }
         }
 
         loginViewModel.verifyTokenResponse.observe(this) {
@@ -57,10 +65,8 @@ class OtpActivity : AppCompatActivity() {
             }
         }
 
-        binding.btnSubmitotp.setOnClickListener {
-            if (username != null) {
-                loginViewModel.sendTokenOtp(otpInput, username)
-            }
+        binding.txtotp4.setOnClickListener {
+            loginViewModel.hitEmail(username.toString())
         }
     }
 
