@@ -48,13 +48,13 @@ class LoginViewModel(
             )
             .asLiveData(Dispatchers.IO)
 
-    fun getLogin(username: String, password: String, user_token: String) {
+    fun getLogin(username: String, password: String, device_token: String) {
         _isLoading.value = true
         job = CoroutineScope(Dispatchers.IO + exceptionHandler).launch {
             val requestBody = mutableMapOf<String, String>()
             requestBody["username"] = username
             requestBody["password"] = password
-            requestBody["device_token"] = user_token
+            requestBody["device_token"] = device_token
             val response = apiService.login(requestBody)
 
             withContext(Dispatchers.Main) {
@@ -62,6 +62,14 @@ class LoginViewModel(
                     _isLoading.value = false
                     val loginResult = response.body()
                     _loginResponse.postValue(loginResult)
+                    loginResult?.data?.forEach {
+                        if (it.userToken != "") {
+                            session.saveAuthToken(
+                                it.userToken,
+                                it.deviceToken
+                            )
+                        }
+                    }
                 } else {
                     _isLoading.value = false
                     val error = response.errorBody()?.toString()

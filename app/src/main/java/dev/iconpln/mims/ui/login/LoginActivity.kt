@@ -39,12 +39,15 @@ class LoginActivity : AppCompatActivity() {
 
         session.user_token.asLiveData().observe(this) { token ->
             Log.d("LoginActivity", "cek user token: $token")
-            if (token != null) {
+            if (token != "") {
                 Intent(this@LoginActivity, DashboardActivity::class.java).also {
                     it.flags = Intent.FLAG_ACTIVITY_NEW_TASK or Intent.FLAG_ACTIVITY_CLEAR_TASK
                     startActivity(it)
                 }
             }
+        }
+        session.device_token.asLiveData().observe(this) { token ->
+            Log.d("LoginActivity", "cek user token: $token")
         }
 
         loginViewModel =
@@ -85,7 +88,7 @@ class LoginActivity : AppCompatActivity() {
                         val intent = Intent(this@LoginActivity, DashboardActivity::class.java)
                         startActivity(intent)
                     }
-                    "LOGIN SALAH" -> {
+                    "LOGIN GAGAL" -> {
                         Toast.makeText(this, "Username atau password salah!", Toast.LENGTH_SHORT)
                             .show()
                     }

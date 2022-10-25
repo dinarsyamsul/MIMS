@@ -17,10 +17,7 @@ data class DataItem(
 	val msg: String,
 
 	@field:SerializedName("modifyby")
-	val modifyby: Any,
-
-	@field:SerializedName("user_password")
-	val userPassword: Any,
+	val modifyby: String,
 
 	@field:SerializedName("mail")
 	val mail: String,
@@ -29,32 +26,35 @@ data class DataItem(
 	val userName: String,
 
 	@field:SerializedName("unitupi")
-	val unitupi: Any,
+	val unitupi: String,
 
 	@field:SerializedName("createdate")
-	val createdate: Any,
+	val createdate: String,
 
 	@field:SerializedName("flag_ldap")
-	val flagLdap: Any,
+	val flagLdap: String,
 
 	@field:SerializedName("email_token")
-	val emailToken: Any,
+	val emailToken: String,
 
 	@field:SerializedName("user_active")
-	val userActive: Any,
+	val userActive: String,
 
 	@field:SerializedName("createby")
-	val createby: Any,
+	val createby: String,
 
 	@field:SerializedName("modifydate")
-	val modifydate: Any,
+	val modifydate: String,
 
 	@field:SerializedName("user_id")
-	val userId: Any,
+	val userId: String,
 
 	@field:SerializedName("role_id")
-	val roleId: Any,
+	val roleId: String,
 
 	@field:SerializedName("device_token")
-	val deviceToken: Any
+	val deviceToken: String,
+
+	@field:SerializedName("user_token")
+	val userToken: String
 )

@@ -19,9 +19,6 @@ data class DataItemVerify(
 	@field:SerializedName("modifyby")
 	val modifyby: String,
 
-	@field:SerializedName("user_password")
-	val userPassword: Any,
-
 	@field:SerializedName("mail")
 	val mail: String,
 
