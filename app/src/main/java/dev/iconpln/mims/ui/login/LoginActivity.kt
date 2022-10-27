@@ -16,7 +16,6 @@ import dev.iconpln.mims.ui.OtpActivity
 import dev.iconpln.mims.utils.NetworkStatusTracker
 import dev.iconpln.mims.utils.TokenManager
 import dev.iconpln.mims.utils.ViewModelFactory
-import kotlinx.coroutines.flow.first
 
 class LoginActivity : AppCompatActivity() {
 
@@ -47,7 +46,7 @@ class LoginActivity : AppCompatActivity() {
             }
         }
         session.device_token.asLiveData().observe(this) { token ->
-            Log.d("LoginActivity", "cek user token: $token")
+            Log.d("LoginActivity", "cek device token: $token")
         }
 
         loginViewModel =
@@ -71,9 +70,9 @@ class LoginActivity : AppCompatActivity() {
 //        }
 
         loginViewModel.loginResponse.observe(this) { result ->
-            result.data.forEach {
-                when (it.msg) {
-                    "VERIFIKASI DEVICE" -> {
+            when (result.message) {
+                "VERIFIKASI DEVICE" -> {
+                    result.data.forEach {
                         loginViewModel.hitEmail(it.userName)
                         startActivity(Intent(this@LoginActivity, OtpActivity::class.java).apply {
                             putExtra(OtpActivity.EXTRA_USERNAME, it.userName)
@@ -84,14 +83,14 @@ class LoginActivity : AppCompatActivity() {
                             Toast.LENGTH_SHORT
                         ).show()
                     }
-                    "LOGIN BERHASIL" -> {
-                        val intent = Intent(this@LoginActivity, DashboardActivity::class.java)
-                        startActivity(intent)
-                    }
-                    "LOGIN GAGAL" -> {
-                        Toast.makeText(this, "Username atau password salah!", Toast.LENGTH_SHORT)
-                            .show()
-                    }
+                }
+                "LOGIN BERHASIL" -> {
+                    val intent = Intent(this@LoginActivity, DashboardActivity::class.java)
+                    startActivity(intent)
+                }
+                "LOGIN GAGAL" -> {
+                    Toast.makeText(this, "Username atau password salah!", Toast.LENGTH_SHORT)
+                        .show()
                 }
             }
         }
