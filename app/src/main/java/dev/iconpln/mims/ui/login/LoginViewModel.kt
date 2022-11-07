@@ -4,6 +4,7 @@ import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.asLiveData
+import dev.iconpln.mims.data.remote.response.AgoLoginResponse
 import dev.iconpln.mims.data.remote.response.HitEmailResponse
 import dev.iconpln.mims.data.remote.response.LoginResponse
 import dev.iconpln.mims.data.remote.response.VerifyTokenResponse
@@ -33,6 +34,9 @@ class LoginViewModel(
 
     private val _loginResponse = MutableLiveData<LoginResponse>()
     val loginResponse: LiveData<LoginResponse> = _loginResponse
+
+    private val _agoLoginResponse = MutableLiveData<AgoLoginResponse>()
+    val agoLoginResponse: LiveData<AgoLoginResponse> = _agoLoginResponse
 
     private val _hitEmailResponse = MutableLiveData<HitEmailResponse>()
     val hitEmailResponse: LiveData<HitEmailResponse> = _hitEmailResponse
@@ -70,6 +74,29 @@ class LoginViewModel(
                             )
                         }
                     }
+                } else {
+                    _isLoading.value = false
+                    val error = response.errorBody()?.toString()
+                    onError("Error : ${error?.let { getErrorMessage(it) }}")
+                }
+            }
+        }
+    }
+
+    fun getAgoLogin(username: String, password: String) {
+        _isLoading.value = true
+        job = CoroutineScope(Dispatchers.IO + exceptionHandler).launch {
+//            val requestBody = mutableMapOf<String, String>()
+//            requestBody["username"] = username
+//            requestBody["password"] = password
+//            val response = apiService.login(requestBody)
+
+            val response = apiService.agoLogin(username, password)
+            withContext(Dispatchers.Main) {
+                if (response.isSuccessful) {
+                    _isLoading.value = false
+                    val loginResult = response.body()
+                    _agoLoginResponse.postValue(loginResult)
                 } else {
                     _isLoading.value = false
                     val error = response.errorBody()?.toString()

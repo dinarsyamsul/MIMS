@@ -38,7 +38,7 @@ class LoginActivity : AppCompatActivity() {
 
         session.user_token.asLiveData().observe(this) { token ->
             Log.d("LoginActivity", "cek user token: $token")
-            if (token != "") {
+            if (token != null) {
                 Intent(this@LoginActivity, DashboardActivity::class.java).also {
                     it.flags = Intent.FLAG_ACTIVITY_NEW_TASK or Intent.FLAG_ACTIVITY_CLEAR_TASK
                     startActivity(it)
@@ -85,12 +85,34 @@ class LoginActivity : AppCompatActivity() {
                     }
                 }
                 "LOGIN BERHASIL" -> {
-                    val intent = Intent(this@LoginActivity, DashboardActivity::class.java)
-                    startActivity(intent)
+                    Intent(this@LoginActivity, DashboardActivity::class.java).also {
+                        it.flags =
+                            Intent.FLAG_ACTIVITY_NEW_TASK or Intent.FLAG_ACTIVITY_CLEAR_TASK
+                        startActivity(it)
+                    }
                 }
                 "LOGIN GAGAL" -> {
                     Toast.makeText(this, "Username atau password salah!", Toast.LENGTH_SHORT)
                         .show()
+                }
+            }
+        }
+
+        loginViewModel.agoLoginResponse.observe(this) {
+            it.data.forEach { result ->
+                if (result.id != null) {
+                    startActivity(Intent(this@LoginActivity, DashboardActivity::class.java))
+                    Toast.makeText(
+                        this,
+                        "Login berhasil",
+                        Toast.LENGTH_SHORT
+                    ).show()
+                } else {
+                    Toast.makeText(
+                        this,
+                        "Login gagal",
+                        Toast.LENGTH_SHORT
+                    ).show()
                 }
             }
         }
@@ -139,9 +161,11 @@ class LoginActivity : AppCompatActivity() {
             }
 
             if (!isInvalidFields) {
-                session.device_token.asLiveData().observe(this@LoginActivity) {
-                    loginViewModel.getLogin(username, password, it.toString())
-                }
+//                session.device_token.asLiveData().observe(this@LoginActivity) {
+//                    loginViewModel.getLogin(username, password, it.toString())
+//                }
+
+                loginViewModel.getAgoLogin(username, password) //skema login ago
             }
         }
     }

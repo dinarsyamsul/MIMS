@@ -1,16 +1,20 @@
 package dev.iconpln.mims.data.remote.service
 
-import dev.iconpln.mims.data.remote.response.DetailSnResponse
-import dev.iconpln.mims.data.remote.response.HitEmailResponse
-import dev.iconpln.mims.data.remote.response.LoginResponse
-import dev.iconpln.mims.data.remote.response.VerifyTokenResponse
+import dev.iconpln.mims.data.remote.response.*
 import retrofit2.Response
 import retrofit2.http.*
 
 interface ApiService {
 
     @Headers("Content-Type:application/json")
-    @POST("/mims-service-api/login")
+    @POST("/project-i-agodist-api//login/{userName}/{password}")
+    suspend fun agoLogin(
+        @Path("userName") userName: String,
+        @Path("password") password: String
+    ): Response<AgoLoginResponse>
+
+    @Headers("Content-Type:application/json")
+    @POST("/mims-service-api/loginmobile")
     suspend fun login(
         @Body body: Map<String, String>
     ): Response<LoginResponse>
