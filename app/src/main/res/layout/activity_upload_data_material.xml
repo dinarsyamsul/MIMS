@@ -1,0 +1,726 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="#EFEEFE"
+    android:layout_gravity="top"
+    tools:context=".UploadDataMaterial">
+
+
+    <ImageView
+        android:id="@+id/dashboard"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="@drawable/top" />
+
+    <ImageButton
+        android:id="@+id/back"
+        android:layout_width="50dp"
+        android:layout_height="50dp"
+        android:layout_marginStart="25dp"
+        android:elevation="10dp"
+        android:layout_marginTop="30dp"
+        android:background="@drawable/textfield"
+        android:src="@drawable/ic_baseline_arrow_back_24" />
+
+    <TextView
+        android:id="@+id/txtdash"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="45dp"
+        android:fontFamily="@font/montserrat_reguler"
+        android:gravity="center_horizontal"
+        android:text="Upload Data Attribut Material"
+        android:textColor="@color/white"
+        android:textStyle="bold" />
+
+    <ImageButton
+        android:id="@+id/bell"
+        android:layout_width="50dp"
+        android:layout_height="50dp"
+        android:layout_alignParentEnd="true"
+        android:layout_marginTop="30dp"
+        android:layout_marginRight="25dp"
+        android:background="@drawable/textfield"
+        android:elevation="10dp"
+        android:src="@drawable/ic_baseline_notifications_none_24" />
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:id="@+id/const1"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/dashboard"
+        android:layout_marginTop="12dp">
+
+        <ImageButton
+            android:id="@+id/btnback"
+            android:layout_width="30dp"
+            android:layout_height="30dp"
+            android:layout_marginLeft="12dp"
+            android:background="@drawable/textfield"
+            android:elevation="5dp"
+            android:src="@drawable/ic_baseline_keyboard_arrow_left_24"
+            app:layout_constraintEnd_toStartOf="@+id/txtbulan"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <TextView
+            android:id="@+id/txtbulan"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="35dp"
+            android:layout_marginRight="80dp"
+            android:layout_marginBottom="5dp"
+            android:fontFamily="@font/montserrat_reguler"
+            android:text="Bulan"
+            android:textColor="@color/black"
+            android:textSize="22sp"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="@+id/btnnext"
+            app:layout_constraintStart_toEndOf="@+id/btnback"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <ImageButton
+            android:id="@+id/btnnext"
+            android:layout_width="30dp"
+            android:layout_height="30dp"
+            android:layout_marginLeft="30dp"
+            android:background="@drawable/textfield"
+            android:elevation="5dp"
+            android:src="@drawable/ic_baseline_keyboard_arrow_right_24"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintStart_toEndOf="@id/txtbulan"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintVertical_bias="0" />
+
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+
+    <LinearLayout
+        android:id="@+id/line1"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/const1"
+        android:layout_marginTop="20dp"
+        android:background="#00000000"
+        android:orientation="vertical">
+
+        <TableLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_marginLeft="10dp"
+            android:layout_marginRight="10dp"
+            android:background="@drawable/table_monitoring"
+            android:stretchColumns="6">
+
+            <TableRow
+                android:background="@drawable/ic_btn_border">
+                <TextView
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:background="@drawable/ic_btn_border"
+                    android:text="No PO"
+                    android:gravity="center"
+                    android:textColor="@color/black"
+                    android:fontFamily="@font/montserrat_reguler"
+                    android:textSize="13sp"
+                    android:padding="10sp"
+                    android:layout_weight="4"
+                    android:layout_gravity="center_horizontal"/>
+
+                <TextView
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:text="Tanggal PO"
+                    android:gravity="center"
+                    android:textColor="@color/black"
+                    android:fontFamily="@font/montserrat_reguler"
+                    android:textSize="14sp"
+                    android:paddingTop="10dp"
+                    android:layout_weight="4"
+                    android:layout_gravity="center_horizontal"/>
+
+                <TextView
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:text="Unit"
+                    android:gravity="center"
+                    android:textColor="@color/black"
+                    android:background="@drawable/ic_btn_border"
+                    android:fontFamily="@font/montserrat_reguler"
+                    android:textSize="13sp"
+                    android:padding="10sp"
+                    android:layout_weight="4"
+                    android:layout_gravity="center_horizontal"/>
+
+                <TextView
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:text="Detail"
+                    android:background="@drawable/ic_btn_border"
+                    android:textColor="@color/black"
+                    android:gravity="center"
+                    android:fontFamily="@font/montserrat_reguler"
+                    android:textSize="13sp"
+                    android:padding="10sp"
+                    android:layout_weight="4"
+                    android:layout_gravity="center_horizontal"/>
+
+            </TableRow>
+
+        </TableLayout>
+
+    </LinearLayout>
+    <LinearLayout
+        android:id="@+id/line2"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/line1"
+        android:layout_marginTop="1dp"
+        android:background="#00000000"
+        android:orientation="vertical">
+
+        <TableLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="10dp"
+            android:layout_marginRight="10dp"
+            android:stretchColumns="6">
+
+            <TableRow
+                android:background="@drawable/ic_btn_border">
+                <TextView
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:text="xxxxxx"
+                    android:gravity="center"
+                    android:textColor="@color/black"
+                    android:fontFamily="@font/montserrat_reguler"
+                    android:textSize="13sp"
+                    android:padding="10sp"
+                    android:layout_weight="4"
+                    android:layout_gravity="center_horizontal"/>
+
+                <TextView
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:text="dd/mm/yy"
+                    android:gravity="center_horizontal"
+                    android:textColor="@color/black"
+                    android:fontFamily="@font/montserrat_reguler"
+                    android:textSize="13sp"
+                    android:padding="10sp"
+                    android:layout_weight="4"
+                    android:layout_gravity="center_horizontal"/>
+
+                <TextView
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:text="APJ CIMAHI"
+                    android:gravity="center_horizontal"
+                    android:layout_marginEnd="38dp"
+                    android:textColor="@color/black"
+                    android:fontFamily="@font/montserrat_reguler"
+                    android:textSize="13sp"
+                    android:padding="10sp"
+                    android:layout_weight="4"
+                    android:layout_gravity="center_horizontal"/>
+
+                <ImageButton
+                    android:id="@+id/btnupload1"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center"
+                    android:layout_marginEnd="22dp"
+                    android:gravity="center"
+                    android:textColor="#FFFFFF"
+                    android:background="@drawable/ant_design_file_search_outlined"
+                    android:fontFamily="@font/montserrat_reguler"
+                    android:textStyle="bold" />
+
+            </TableRow>
+
+        </TableLayout>
+
+    </LinearLayout>
+    <LinearLayout
+        android:id="@+id/line3"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/line2"
+        android:layout_marginTop="1dp"
+        android:background="#00000000"
+        android:orientation="vertical">
+
+        <TableLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="10dp"
+            android:layout_marginRight="10dp"
+            android:stretchColumns="6">
+
+            <TableRow
+                android:background="@drawable/ic_btn_border">
+                <TextView
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:text="xxxxxx"
+                    android:gravity="center_horizontal"
+                    android:textColor="@color/black"
+                    android:fontFamily="@font/montserrat_reguler"
+                    android:textSize="13sp"
+                    android:padding="10sp"
+                    android:layout_weight="4"
+                    android:layout_gravity="center_horizontal"/>
+
+                <TextView
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:text="dd/mm/yy"
+                    android:gravity="center_horizontal"
+                    android:textColor="@color/black"
+                    android:fontFamily="@font/montserrat_reguler"
+                    android:textSize="13sp"
+                    android:padding="10sp"
+                    android:layout_weight="4"
+                    android:layout_gravity="center_horizontal"/>
+
+                <TextView
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:text="@string/apj_cimahi"
+                    android:gravity="center_horizontal"
+                    android:layout_marginRight="38dp"
+                    android:textColor="@color/black"
+                    android:fontFamily="@font/montserrat_reguler"
+                    android:textSize="13sp"
+                    android:padding="10sp"
+                    android:layout_weight="4"
+                    android:layout_gravity="center_horizontal"/>
+
+                <ImageButton
+                    android:id="@+id/btnupload2"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center"
+                    android:layout_marginRight="22dp"
+                    android:gravity="center"
+                    android:textColor="#FFFFFF"
+                    android:background="@drawable/ant_design_file_search_outlined"
+                    android:fontFamily="@font/montserrat_reguler"
+                    android:textStyle="bold" />
+
+            </TableRow>
+
+        </TableLayout>
+
+    </LinearLayout>
+    <LinearLayout
+        android:id="@+id/line4"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/line3"
+        android:layout_marginTop="1dp"
+        android:background="#00000000"
+        android:orientation="vertical">
+
+        <TableLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="10dp"
+            android:layout_marginRight="10dp"
+            android:stretchColumns="6">
+
+            <TableRow
+                android:background="@drawable/ic_btn_border">
+                <TextView
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:text="xxxxxx"
+                    android:gravity="center"
+                    android:textColor="@color/black"
+                    android:fontFamily="@font/montserrat_reguler"
+                    android:textSize="13sp"
+                    android:padding="10sp"
+                    android:layout_weight="4"
+                    android:layout_gravity="center_horizontal"/>
+
+                <TextView
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:text="dd/mm/yy"
+                    android:gravity="center"
+                    android:textColor="@color/black"
+                    android:fontFamily="@font/montserrat_reguler"
+                    android:textSize="13sp"
+                    android:padding="10sp"
+                    android:layout_weight="4"
+                    android:layout_gravity="center_horizontal"/>
+
+                <TextView
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:text="APJ CIMAHI"
+                    android:gravity="center_horizontal"
+                    android:layout_marginEnd="38dp"
+                    android:textColor="@color/black"
+                    android:fontFamily="@font/montserrat_reguler"
+                    android:textSize="13sp"
+                    android:padding="10sp"
+                    android:layout_weight="4"
+                    android:layout_gravity="center_horizontal"/>
+
+                <ImageButton
+                    android:id="@+id/btnupload3"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center"
+                    android:layout_marginEnd="22dp"
+                    android:gravity="center"
+                    android:textColor="#FFFFFF"
+                    android:background="@drawable/ant_design_file_search_outlined"
+                    android:fontFamily="@font/montserrat_reguler"
+                    android:textStyle="bold" />
+
+            </TableRow>
+
+        </TableLayout>
+
+    </LinearLayout>
+
+    <LinearLayout
+        android:id="@+id/line5"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/line4"
+        android:layout_marginTop="1dp"
+        android:background="#00000000"
+        android:orientation="vertical">
+
+        <TableLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="10dp"
+            android:layout_marginRight="10dp"
+            android:stretchColumns="6">
+
+            <TableRow
+                android:background="@drawable/ic_btn_border">
+
+                <TextView
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center_horizontal"
+                    android:layout_weight="4"
+                    android:fontFamily="@font/montserrat_reguler"
+                    android:gravity="center"
+                    android:padding="10sp"
+                    android:text="xxxxxx"
+                    android:textColor="@color/black"
+                    android:textSize="13sp" />
+
+                <TextView
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center_horizontal"
+                    android:layout_weight="4"
+                    android:fontFamily="@font/montserrat_reguler"
+                    android:gravity="center"
+                    android:padding="10sp"
+                    android:text="dd/mm/yy"
+                    android:textColor="@color/black"
+                    android:textSize="13sp" />
+
+                <TextView
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center_horizontal"
+                    android:layout_weight="4"
+                    android:fontFamily="@font/montserrat_reguler"
+                    android:gravity="center_horizontal"
+                    android:layout_marginEnd="38dp"
+                    android:padding="10sp"
+                    android:text="APJ CIMAHI"
+                    android:textColor="@color/black"
+                    android:textSize="13sp" />
+
+                <ImageButton
+                    android:id="@+id/btnupload4"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center"
+                    android:layout_marginRight="22dp"
+                    android:gravity="center"
+                    android:textColor="#FFFFFF"
+                    android:background="@drawable/ant_design_file_search_outlined"
+                    android:fontFamily="@font/montserrat_reguler"
+                    android:textStyle="bold" />
+
+            </TableRow>
+
+        </TableLayout>
+
+    </LinearLayout>
+
+    <LinearLayout
+        android:id="@+id/line6"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/line5"
+        android:layout_marginTop="1dp"
+        android:background="#00000000"
+        android:orientation="vertical">
+
+        <TableLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="10dp"
+            android:layout_marginRight="10dp"
+            android:stretchColumns="6">
+
+            <TableRow
+                android:background="@drawable/ic_btn_border">
+
+                <TextView
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center_horizontal"
+                    android:layout_weight="4"
+                    android:fontFamily="@font/montserrat_reguler"
+                    android:gravity="center"
+                    android:padding="10sp"
+                    android:text="xxxxxx"
+                    android:textColor="@color/black"
+                    android:textSize="13sp" />
+
+                <TextView
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center_horizontal"
+                    android:layout_weight="4"
+                    android:fontFamily="@font/montserrat_reguler"
+                    android:gravity="center"
+                    android:padding="10sp"
+                    android:text="dd/mm/yy"
+                    android:textColor="@color/black"
+                    android:textSize="13sp" />
+
+                <TextView
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center_horizontal"
+                    android:layout_weight="4"
+                    android:fontFamily="@font/montserrat_reguler"
+                    android:gravity="center_horizontal"
+                    android:layout_marginEnd="38dp"
+                    android:padding="10sp"
+                    android:text="@string/apj_cimahi"
+                    android:textColor="@color/black"
+                    android:textSize="13sp" />
+
+                <ImageButton
+                    android:id="@+id/btnupload5"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center"
+                    android:layout_marginRight="22dp"
+                    android:gravity="center"
+                    android:textColor="#FFFFFF"
+                    android:background="@drawable/ant_design_file_search_outlined"
+                    android:fontFamily="@font/montserrat_reguler"
+                    android:textStyle="bold" />
+
+            </TableRow>
+
+        </TableLayout>
+
+    </LinearLayout>
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:id="@+id/const2"
+        android:layout_width="match_parent"
+        android:layout_height="50dp"
+        android:layout_below="@id/line6"
+        android:layout_marginTop="5dp">
+
+        <ImageButton
+            android:id="@+id/btnback1"
+            android:layout_width="25dp"
+            android:layout_height="25dp"
+            android:layout_marginStart="15dp"
+            android:layout_marginBottom="10dp"
+            android:elevation="3dp"
+            android:src="@drawable/ic_baseline_keyboard_arrow_left_24"
+            android:background="@drawable/textfield"
+            android:fontFamily="@font/montserrat_reguler"
+            android:textColor="@color/black"
+            android:textSize="12sp"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <androidx.appcompat.widget.AppCompatButton
+            android:id="@+id/btnno1"
+            android:layout_width="25dp"
+            android:layout_height="25dp"
+            android:layout_marginStart="5dp"
+            android:layout_marginBottom="10dp"
+            android:background="@drawable/textfield"
+            android:fontFamily="@font/montserrat_reguler"
+            android:text="1"
+            android:textColor="@color/black"
+            android:textSize="12sp"
+            android:textStyle="bold"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toStartOf="@+id/btnno2"
+            app:layout_constraintStart_toEndOf="@id/btnback1"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <androidx.appcompat.widget.AppCompatButton
+            android:id="@+id/btnno2"
+            android:layout_width="25dp"
+            android:layout_height="25dp"
+            android:layout_marginStart="5dp"
+            android:layout_marginBottom="10dp"
+            android:background="@drawable/textfield"
+            android:fontFamily="@font/montserrat_reguler"
+            android:text="2"
+            android:textColor="@color/black"
+            android:textSize="12sp"
+            android:textStyle="bold"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintStart_toEndOf="@id/btnno1"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <androidx.appcompat.widget.AppCompatButton
+            android:id="@+id/btnno3"
+            android:layout_width="25dp"
+            android:layout_height="25dp"
+            android:layout_marginStart="5dp"
+            android:layout_marginBottom="10dp"
+            android:background="@drawable/textfield"
+            android:fontFamily="@font/montserrat_reguler"
+            android:text="3"
+            android:textColor="@color/black"
+            android:textSize="12sp"
+            android:textStyle="bold"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintStart_toEndOf="@id/btnno2"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <androidx.appcompat.widget.AppCompatButton
+            android:id="@+id/btnno4"
+            android:layout_width="25dp"
+            android:layout_height="25dp"
+            android:layout_marginStart="5dp"
+            android:layout_marginBottom="10dp"
+            android:background="@drawable/textfield"
+            android:fontFamily="@font/montserrat_reguler"
+            android:text="4"
+            android:textColor="@color/black"
+            android:textSize="12sp"
+            android:textStyle="bold"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintStart_toEndOf="@id/btnno3"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <ImageButton
+            android:id="@+id/btnprevios"
+            android:layout_width="25dp"
+            android:layout_height="25dp"
+            android:layout_marginStart="5dp"
+            android:layout_marginBottom="10dp"
+            android:src="@drawable/ic_baseline_keyboard_arrow_right_24"
+            android:background="@drawable/textfield"
+            android:fontFamily="@font/montserrat_reguler"
+            android:textColor="@color/black"
+            android:elevation="3dp"
+            android:textSize="12sp"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintStart_toEndOf="@id/btnno4"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <androidx.appcompat.widget.AppCompatButton
+            android:id="@+id/btn_calculate"
+            android:layout_width="130dp"
+            android:layout_height="28dp"
+            android:layout_marginStart="50dp"
+            android:layout_marginTop="16dp"
+            android:layout_marginEnd="8dp"
+            android:elevation="5dp"
+            android:layout_marginBottom="20dp"
+            android:background="@drawable/border"
+            android:fontFamily="@font/montserrat_reguler"
+            android:text="Download"
+            android:textColor="#00A3FF"
+            android:textStyle="bold"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toEndOf="@id/btnprevios"
+            app:layout_constraintTop_toTopOf="parent"
+            tools:ignore="MissingConstraints" />
+
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:id="@+id/const4"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/const2"
+        android:layout_marginTop="12dp">
+
+        <EditText
+            android:id="@+id/edtupload"
+            android:layout_width="200dp"
+            android:layout_height="48dp"
+            android:layout_marginStart="14dp"
+            android:background="@drawable/edittextborder"
+            android:elevation="5dp"
+            android:focusable="false"
+            android:text="Upload Data"
+            android:textAlignment="center"
+            android:textColor="#808080"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <androidx.appcompat.widget.AppCompatButton
+            android:id="@+id/btnbrowser"
+            android:layout_width="150dp"
+            android:layout_height="wrap_content"
+            android:layout_marginEnd="14sp"
+            android:background="@drawable/bt_download"
+            android:elevation="5dp"
+            android:fontFamily="@font/montserrat_reguler"
+            android:text="Browse"
+            android:textColor="@color/white"
+            android:textStyle="bold"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <androidx.appcompat.widget.AppCompatButton
+            android:id="@+id/btnupload"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="18dp"
+            android:layout_marginTop="53dp"
+            android:layout_marginRight="18dp"
+            android:layout_marginBottom="70dp"
+            android:background="@drawable/br_btn"
+            android:elevation="5dp"
+            android:fontFamily="@font/montserrat_reguler"
+            android:text="Upload"
+            android:textColor="#FFFFFF"
+            android:textStyle="bold"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/edtupload" />
+
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+
+</RelativeLayout>
