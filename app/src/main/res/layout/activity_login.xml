@@ -20,15 +20,16 @@
         android:layout_height="wrap_content"
         android:layout_alignParentEnd="true"
         android:background="@drawable/mims" />
+
     <TextView
         android:id="@+id/mims"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:textColor="@color/black"
+        android:layout_below="@id/logo"
+        android:layout_centerInParent="true"
         android:fontFamily="@font/montserrat_reguler"
         android:text="Material Identity Management System"
-        android:layout_centerInParent="true"
-        android:layout_below="@id/logo"/>
+        android:textColor="@color/black" />
 
     <LinearLayout
         android:id="@+id/line1"
@@ -51,38 +52,57 @@
             android:textSize="24dp"
             android:textStyle="bold" />
 
-        <EditText
-            android:id="@+id/edt_username"
+        <com.google.android.material.textfield.TextInputLayout
             android:layout_width="match_parent"
-            android:layout_height="45dp"
-            android:layout_marginLeft="30dp"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="30dp"
             android:layout_marginTop="20dp"
-            android:layout_marginRight="30dp"
-            android:background="@drawable/textfield"
+            android:layout_marginEnd="30dp"
+            android:elevation="2dp"
             android:fontFamily="@font/montserrat_reguler"
             android:hint="Username"
-            android:paddingLeft="30dp"
-            android:paddingTop="5dp"
-            android:textColor="@color/black"
+            android:textColor="@android:color/darker_gray"
             android:textColorHint="@color/black"
-            android:textSize="15dp" />
+            app:boxStrokeColor="@color/blue_solid"
+            app:boxStrokeWidth="0dp"
+            app:hintTextColor="@color/blue_solid">
 
-        <EditText
-            android:id="@+id/edt_pass"
+            <EditText
+                android:id="@+id/edt_username"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:background="@drawable/textfield"
+                android:paddingStart="16dp"
+                android:paddingEnd="16dp"
+                android:textSize="16sp" />
+
+        </com.google.android.material.textfield.TextInputLayout>
+
+        <com.google.android.material.textfield.TextInputLayout
             android:layout_width="match_parent"
-            android:layout_height="45dp"
-            android:layout_marginLeft="30dp"
-            android:layout_marginTop="30dp"
-            android:layout_marginRight="30dp"
-            android:background="@drawable/textfield"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="30dp"
+            android:layout_marginTop="20dp"
+            android:layout_marginEnd="30dp"
+            android:elevation="2dp"
             android:fontFamily="@font/montserrat_reguler"
             android:hint="Password"
-            android:inputType="textPassword"
-            android:paddingLeft="30dp"
-            android:paddingTop="5dp"
-            android:textColor="@color/black"
+            android:textColor="@android:color/darker_gray"
             android:textColorHint="@color/black"
-            android:textSize="15dp" />
+            app:boxStrokeColor="@color/blue_solid"
+            app:boxStrokeWidth="0dp"
+            app:hintTextColor="@color/blue_solid">
+
+            <EditText
+                android:id="@+id/edt_pass"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:background="@drawable/textfield"
+                android:paddingStart="16dp"
+                android:paddingEnd="16dp"
+                android:textSize="16sp" />
+
+        </com.google.android.material.textfield.TextInputLayout>
     </LinearLayout>
 
     <LinearLayout
@@ -99,11 +119,11 @@
             android:layout_marginLeft="60dp"
             android:layout_marginTop="50dp"
             android:layout_marginRight="60dp"
-            android:textColor="#FFFFFF"
             android:background="@drawable/br_btn"
             android:fontFamily="@font/montserrat_reguler"
-            android:textStyle="bold"
-            android:text="LOGIN" />
+            android:text="LOGIN"
+            android:textColor="#FFFFFF"
+            android:textStyle="bold" />
 
     </LinearLayout>
 
