@@ -1,0 +1,775 @@
+Index: app/src/main/java/dev/iconpln/mims/ui/login/LoginActivity.kt
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.BaseRevisionTextPatchEP
+<+>package dev.iconpln.mims.ui.login\r\n\r\nimport android.content.Intent\r\nimport android.os.Bundle\r\nimport android.util.Log\r\nimport android.view.View\r\nimport android.view.WindowManager\r\nimport android.widget.Toast\r\nimport androidx.appcompat.app.AppCompatActivity\r\nimport androidx.lifecycle.ViewModelProvider\r\nimport androidx.lifecycle.asLiveData\r\nimport dev.iconpln.mims.data.remote.service.ApiConfig\r\nimport dev.iconpln.mims.databinding.ActivityLoginBinding\r\nimport dev.iconpln.mims.ui.DashboardActivity\r\nimport dev.iconpln.mims.ui.OtpActivity\r\nimport dev.iconpln.mims.utils.NetworkStatusTracker\r\nimport dev.iconpln.mims.utils.TokenManager\r\nimport dev.iconpln.mims.utils.ViewModelFactory\r\n\r\nclass LoginActivity : AppCompatActivity() {\r\n\r\n    private lateinit var binding: ActivityLoginBinding\r\n    private lateinit var loginViewModel: LoginViewModel\r\n    private lateinit var session: TokenManager\r\n\r\n    private val REQUEST_CODE = 101\r\n\r\n    override fun onCreate(savedInstanceState: Bundle?) {\r\n        super.onCreate(savedInstanceState)\r\n        binding = ActivityLoginBinding.inflate(layoutInflater)\r\n        setContentView(binding.root)\r\n\r\n        window.setSoftInputMode(WindowManager.LayoutParams.SOFT_INPUT_ADJUST_PAN)\r\n\r\n        session = TokenManager(this)\r\n        val apiService = ApiConfig.getApiService()\r\n        val networkStatusTracker = NetworkStatusTracker(this)\r\n\r\n        session.user_token.asLiveData().observe(this) { token ->\r\n            Log.d(\"LoginActivity\", \"cek user token: $token\")\r\n            if (token != null) {\r\n                Intent(this@LoginActivity, DashboardActivity::class.java).also {\r\n                    it.flags = Intent.FLAG_ACTIVITY_NEW_TASK or Intent.FLAG_ACTIVITY_CLEAR_TASK\r\n                    startActivity(it)\r\n                }\r\n            }\r\n        }\r\n        session.device_token.asLiveData().observe(this) { token ->\r\n            Log.d(\"LoginActivity\", \"cek device token: $token\")\r\n        }\r\n\r\n        loginViewModel =\r\n            ViewModelProvider(\r\n                this,\r\n                ViewModelFactory(session, apiService, networkStatusTracker)\r\n            )[LoginViewModel::class.java]\r\n\r\n//        loginViewModel.loginResponse.observe(this){ result ->\r\n//            when(result.message){\r\n//                \"Berhasil Login\" -> {\r\n//                    Intent(this@LoginActivity, DashboardActivity::class.java).also {\r\n//                        it.flags = Intent.FLAG_ACTIVITY_NEW_TASK or Intent.FLAG_ACTIVITY_CLEAR_TASK\r\n//                        startActivity(it)\r\n//                    }\r\n//                }\r\n//                else -> {\r\n//                    Toast.makeText(this@LoginActivity, \"Login Gagal!\", Toast.LENGTH_SHORT).show()\r\n//                }\r\n//            }\r\n//        }\r\n\r\n        loginViewModel.loginResponse.observe(this) { result ->\r\n            when (result.message) {\r\n                \"VERIFIKASI DEVICE\" -> {\r\n                    result.data.forEach {\r\n                        loginViewModel.hitEmail(it.userName)\r\n                        startActivity(Intent(this@LoginActivity, OtpActivity::class.java).apply {\r\n                            putExtra(OtpActivity.EXTRA_USERNAME, it.userName)\r\n                        })\r\n                        Toast.makeText(\r\n                            this,\r\n                            \"Kode OTP segera dikirimkan ke email\",\r\n                            Toast.LENGTH_SHORT\r\n                        ).show()\r\n                    }\r\n                }\r\n                \"LOGIN BERHASIL\" -> {\r\n                    Intent(this@LoginActivity, DashboardActivity::class.java).also {\r\n                        it.flags =\r\n                            Intent.FLAG_ACTIVITY_NEW_TASK or Intent.FLAG_ACTIVITY_CLEAR_TASK\r\n                        startActivity(it)\r\n                    }\r\n                }\r\n                \"LOGIN GAGAL\" -> {\r\n                    Toast.makeText(this, \"Username atau password salah!\", Toast.LENGTH_SHORT)\r\n                        .show()\r\n                }\r\n            }\r\n        }\r\n\r\n        loginViewModel.agoLoginResponse.observe(this) {\r\n            it.data.forEach { result ->\r\n                if (result.id != null) {\r\n                    startActivity(Intent(this@LoginActivity, DashboardActivity::class.java))\r\n                    Toast.makeText(\r\n                        this,\r\n                        \"Login berhasil\",\r\n                        Toast.LENGTH_SHORT\r\n                    ).show()\r\n                } else {\r\n                    Toast.makeText(\r\n                        this,\r\n                        \"Login gagal\",\r\n                        Toast.LENGTH_SHORT\r\n                    ).show()\r\n                }\r\n            }\r\n        }\r\n\r\n        loginViewModel.isLoading.observe(this) {\r\n            if (it == true) {\r\n                binding.progressBar.visibility = View.VISIBLE\r\n            } else {\r\n                binding.progressBar.visibility = View.GONE\r\n            }\r\n        }\r\n\r\n        loginViewModel.state.observe(this) { state ->\r\n            if (state == MyState.Error) {\r\n                Toast.makeText(this, \"Pastikan koneksi internet terhubung.\", Toast.LENGTH_SHORT)\r\n                    .show()\r\n            }\r\n\r\n            binding.btnLogin.setOnClickListener {\r\n                loginUser()\r\n//                startActivity(Intent(this, DashboardActivity::class.java))\r\n            }\r\n        }\r\n    }\r\n\r\n    private fun loginUser() {\r\n        with(binding) {\r\n            val username = edtUsername.text.toString().trim()\r\n            val password = edtPass.text.toString().trim()\r\n\r\n            var isInvalidFields = false\r\n\r\n            if (username.isEmpty()) {\r\n                isInvalidFields = true\r\n                edtUsername.error = \"Email tidak boleh kosong\"\r\n            }\r\n\r\n            if (password.length < 5) {\r\n                isInvalidFields = true\r\n                edtPass.error = \"Password minimal terdiri dari 5 karakter\"\r\n            }\r\n\r\n            if (password.isEmpty()) {\r\n                isInvalidFields = true\r\n                edtPass.error = \"Password tidak boleh kosong\"\r\n            }\r\n\r\n            if (!isInvalidFields) {\r\n//                session.device_token.asLiveData().observe(this@LoginActivity) {\r\n//                    loginViewModel.getLogin(username, password, it.toString())\r\n//                }\r\n\r\n                loginViewModel.getAgoLogin(username, password) //skema login ago\r\n            }\r\n        }\r\n    }\r\n}
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+diff --git a/app/src/main/java/dev/iconpln/mims/ui/login/LoginActivity.kt b/app/src/main/java/dev/iconpln/mims/ui/login/LoginActivity.kt
+--- a/app/src/main/java/dev/iconpln/mims/ui/login/LoginActivity.kt	(revision 392d0d8930e3e8fe3435a4997099337d4d424f12)
++++ b/app/src/main/java/dev/iconpln/mims/ui/login/LoginActivity.kt	(date 1667898693796)
+@@ -49,6 +49,8 @@
+             Log.d("LoginActivity", "cek device token: $token")
+         }
+ 
++        //internetna LAMBAT!!!!!!! Bcot bet, KABURU MAGHRIB SANDEKALA SABARR KEDENG DEI
++
+         loginViewModel =
+             ViewModelProvider(
+                 this,
+Index: app/src/main/res/layout/activity_login.xml
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.BaseRevisionTextPatchEP
+<+><RelativeLayout xmlns:android=\"http://schemas.android.com/apk/res/android\"\r\n    xmlns:app=\"http://schemas.android.com/apk/res-auto\"\r\n    xmlns:tools=\"http://schemas.android.com/tools\"\r\n    android:layout_width=\"match_parent\"\r\n    android:layout_height=\"match_parent\"\r\n    android:background=\"#EFEFEF\"\r\n    tools:context=\"dev.iconpln.mims.ui.login.LoginActivity\">\r\n\r\n    <ImageView\r\n        android:id=\"@+id/logo\"\r\n        android:layout_width=\"wrap_content\"\r\n        android:layout_height=\"wrap_content\"\r\n        android:layout_centerHorizontal=\"true\"\r\n        android:layout_gravity=\"center_horizontal\"\r\n        android:layout_marginTop=\"100dp\"\r\n        android:background=\"@drawable/logo\" />\r\n\r\n    <ImageView\r\n        android:layout_width=\"match_parent\"\r\n        android:layout_height=\"wrap_content\"\r\n        android:layout_alignParentEnd=\"true\"\r\n        android:background=\"@drawable/mims\" />\r\n    <TextView\r\n        android:id=\"@+id/mims\"\r\n        android:layout_width=\"wrap_content\"\r\n        android:layout_height=\"wrap_content\"\r\n        android:textColor=\"@color/black\"\r\n        android:fontFamily=\"@font/montserrat_reguler\"\r\n        android:text=\"Material Identity Management System\"\r\n        android:layout_centerInParent=\"true\"\r\n        android:layout_below=\"@id/logo\"/>\r\n\r\n    <LinearLayout\r\n        android:id=\"@+id/line1\"\r\n        android:layout_width=\"match_parent\"\r\n        android:layout_height=\"wrap_content\"\r\n        android:layout_below=\"@+id/mims\"\r\n        android:layout_marginTop=\"120dp\"\r\n        android:background=\"#00000000\"\r\n        android:orientation=\"vertical\"\r\n        android:padding=\"20dp\"\r\n        android:paddingBottom=\"15dp\">\r\n\r\n        <TextView\r\n            android:layout_width=\"wrap_content\"\r\n            android:layout_height=\"wrap_content\"\r\n            android:layout_marginLeft=\"30dp\"\r\n            android:fontFamily=\"@font/montserrat_reguler\"\r\n            android:text=\"LOGIN\"\r\n            android:textColor=\"@color/black\"\r\n            android:textSize=\"24dp\"\r\n            android:textStyle=\"bold\" />\r\n\r\n        <EditText\r\n            android:id=\"@+id/edt_username\"\r\n            android:layout_width=\"match_parent\"\r\n            android:layout_height=\"45dp\"\r\n            android:layout_marginLeft=\"30dp\"\r\n            android:layout_marginTop=\"20dp\"\r\n            android:layout_marginRight=\"30dp\"\r\n            android:background=\"@drawable/textfield\"\r\n            android:fontFamily=\"@font/montserrat_reguler\"\r\n            android:hint=\"Username\"\r\n            android:paddingLeft=\"30dp\"\r\n            android:paddingTop=\"5dp\"\r\n            android:textColor=\"@color/black\"\r\n            android:textColorHint=\"@color/black\"\r\n            android:textSize=\"15dp\" />\r\n\r\n        <EditText\r\n            android:id=\"@+id/edt_pass\"\r\n            android:layout_width=\"match_parent\"\r\n            android:layout_height=\"45dp\"\r\n            android:layout_marginLeft=\"30dp\"\r\n            android:layout_marginTop=\"30dp\"\r\n            android:layout_marginRight=\"30dp\"\r\n            android:background=\"@drawable/textfield\"\r\n            android:fontFamily=\"@font/montserrat_reguler\"\r\n            android:hint=\"Password\"\r\n            android:inputType=\"textPassword\"\r\n            android:paddingLeft=\"30dp\"\r\n            android:paddingTop=\"5dp\"\r\n            android:textColor=\"@color/black\"\r\n            android:textColorHint=\"@color/black\"\r\n            android:textSize=\"15dp\" />\r\n    </LinearLayout>\r\n\r\n    <LinearLayout\r\n        android:layout_width=\"match_parent\"\r\n        android:layout_height=\"wrap_content\"\r\n        android:layout_below=\"@+id/line1\"\r\n        android:background=\"#00000000\"\r\n        android:orientation=\"vertical\">\r\n\r\n        <androidx.appcompat.widget.AppCompatButton\r\n            android:id=\"@+id/btn_login\"\r\n            android:layout_width=\"match_parent\"\r\n            android:layout_height=\"wrap_content\"\r\n            android:layout_marginLeft=\"60dp\"\r\n            android:layout_marginTop=\"50dp\"\r\n            android:layout_marginRight=\"60dp\"\r\n            android:textColor=\"#FFFFFF\"\r\n            android:background=\"@drawable/br_btn\"\r\n            android:fontFamily=\"@font/montserrat_reguler\"\r\n            android:textStyle=\"bold\"\r\n            android:text=\"LOGIN\" />\r\n\r\n    </LinearLayout>\r\n\r\n    <ProgressBar\r\n        android:id=\"@+id/progress_bar\"\r\n        style=\"@android:style/Widget.Material.ProgressBar\"\r\n        android:layout_width=\"wrap_content\"\r\n        android:layout_height=\"wrap_content\"\r\n        android:layout_centerInParent=\"true\"\r\n        android:visibility=\"gone\" />\r\n\r\n</RelativeLayout>\r\n
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+diff --git a/app/src/main/res/layout/activity_login.xml b/app/src/main/res/layout/activity_login.xml
+--- a/app/src/main/res/layout/activity_login.xml	(revision 392d0d8930e3e8fe3435a4997099337d4d424f12)
++++ b/app/src/main/res/layout/activity_login.xml	(date 1667898552905)
+@@ -70,7 +70,8 @@
+         <EditText
+             android:id="@+id/edt_pass"
+             android:layout_width="match_parent"
+-            android:layout_height="45dp"
++            android:layout_height="wrap_content"
++            android:padding="10dp"
+             android:layout_marginLeft="30dp"
+             android:layout_marginTop="30dp"
+             android:layout_marginRight="30dp"
+Index: app/src/main/res/layout/activity_monitoring_purchase_order.xml
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.BaseRevisionTextPatchEP
+<+><?xml version=\"1.0\" encoding=\"utf-8\"?>\r\n<ScrollView xmlns:android=\"http://schemas.android.com/apk/res/android\"\r\n    xmlns:app=\"http://schemas.android.com/apk/res-auto\"\r\n    xmlns:tools=\"http://schemas.android.com/tools\"\r\n    android:layout_width=\"match_parent\"\r\n    android:layout_height=\"match_parent\"\r\n    android:background=\"#F7F8FA\"\r\n    android:layout_gravity=\"top\"\r\n    tools:context=\".MonitoringPurchaseOrder\">\r\n\r\n    <androidx.constraintlayout.widget.ConstraintLayout\r\n        android:layout_width=\"match_parent\"\r\n        android:layout_height=\"wrap_content\">\r\n\r\n        <ImageView\r\n            android:id=\"@+id/dashboard\"\r\n            android:layout_width=\"match_parent\"\r\n            android:layout_height=\"120dp\"\r\n            android:background=\"@drawable/dashboard\"\r\n            app:layout_constraintEnd_toEndOf=\"parent\"\r\n            app:layout_constraintHorizontal_bias=\"0.0\"\r\n            app:layout_constraintStart_toStartOf=\"parent\"\r\n            app:layout_constraintTop_toTopOf=\"parent\" />\r\n\r\n        <ImageButton\r\n            android:id=\"@+id/back\"\r\n            android:layout_width=\"50dp\"\r\n            android:layout_height=\"50dp\"\r\n            android:layout_marginStart=\"36dp\"\r\n            android:elevation=\"10dp\"\r\n            android:layout_marginTop=\"30dp\"\r\n            android:background=\"@drawable/textfield\"\r\n            android:src=\"@drawable/ic_baseline_arrow_back_24\"\r\n            app:layout_constraintStart_toStartOf=\"@id/dashboard\"\r\n            app:layout_constraintTop_toTopOf=\"@id/dashboard\" />\r\n\r\n        <TextView\r\n            android:id=\"@+id/txtdash\"\r\n            android:layout_width=\"wrap_content\"\r\n            android:layout_height=\"wrap_content\"\r\n            android:layout_centerHorizontal=\"true\"\r\n            android:layout_marginTop=\"46dp\"\r\n            android:fontFamily=\"@font/montserrat_reguler\"\r\n            android:text=\"Monitoring Purchase Order\"\r\n            android:textColor=\"@color/white\"\r\n            android:textStyle=\"bold\"\r\n            app:layout_constraintStart_toEndOf=\"@id/back\"\r\n            app:layout_constraintEnd_toStartOf=\"@+id/bell\"\r\n            app:layout_constraintTop_toTopOf=\"parent\"/>\r\n\r\n        <ImageButton\r\n            android:id=\"@+id/bell\"\r\n            android:layout_width=\"50dp\"\r\n            android:layout_height=\"50dp\"\r\n            android:layout_alignParentEnd=\"true\"\r\n            android:layout_marginTop=\"30dp\"\r\n            android:elevation=\"10dp\"\r\n            android:src=\"@drawable/ic_baseline_notifications_none_24\"\r\n            android:layout_marginRight=\"25dp\"\r\n            android:background=\"@drawable/textfield\"\r\n            app:layout_constraintStart_toEndOf=\"@+id/txtdash\"\r\n            app:layout_constraintEnd_toEndOf=\"parent\"\r\n            app:layout_constraintTop_toTopOf=\"parent\"/>\r\n\r\n        <androidx.constraintlayout.widget.ConstraintLayout\r\n            android:id=\"@+id/const1\"\r\n            android:layout_width=\"match_parent\"\r\n            android:layout_height=\"wrap_content\"\r\n            android:layout_marginTop=\"8dp\"\r\n            app:layout_constraintTop_toBottomOf=\"@+id/dashboard\"\r\n            tools:layout_editor_absoluteX=\"-95dp\">\r\n\r\n            <ImageView\r\n                android:id=\"@+id/imgdetail\"\r\n                android:layout_width=\"20dp\"\r\n                android:layout_height=\"20dp\"\r\n                android:layout_marginStart=\"15dp\"\r\n                android:layout_marginTop=\"30dp\"\r\n                android:src=\"@drawable/detail\"\r\n                app:layout_constraintBottom_toBottomOf=\"parent\"\r\n                app:layout_constraintStart_toStartOf=\"parent\"\r\n                app:layout_constraintTop_toTopOf=\"parent\" />\r\n\r\n            <TextView\r\n                android:layout_width=\"wrap_content\"\r\n                android:layout_height=\"wrap_content\"\r\n                android:layout_marginStart=\"8dp\"\r\n                android:layout_marginTop=\"30dp\"\r\n                android:fontFamily=\"@font/montserrat_reguler\"\r\n                android:text=\"Detail\"\r\n                android:textColor=\"@color/black\"\r\n                android:textSize=\"17sp\"\r\n                android:textStyle=\"bold\"\r\n                app:layout_constraintBottom_toBottomOf=\"parent\"\r\n                app:layout_constraintStart_toEndOf=\"@+id/imgdetail\"\r\n                app:layout_constraintTop_toTopOf=\"parent\" />\r\n\r\n        </androidx.constraintlayout.widget.ConstraintLayout>\r\n\r\n        <androidx.constraintlayout.widget.ConstraintLayout\r\n            android:id=\"@+id/materialConst\"\r\n            android:layout_width=\"match_parent\"\r\n            android:layout_height=\"wrap_content\"\r\n            android:layout_marginStart=\"12dp\"\r\n            android:layout_marginTop=\"10dp\"\r\n            android:background=\"@drawable/border2\"\r\n            android:layout_marginEnd=\"13dp\"\r\n            app:layout_constraintTop_toBottomOf=\"@+id/const1\">\r\n\r\n            <LinearLayout\r\n                android:id=\"@+id/lineer1\"\r\n                android:layout_width=\"match_parent\"\r\n                android:layout_height=\"wrap_content\"\r\n                android:background=\"#00000000\"\r\n                android:orientation=\"vertical\"\r\n                app:layout_constraintTop_toTopOf=\"parent\"\r\n                app:layout_constraintStart_toStartOf=\"parent\"\r\n                app:layout_constraintEnd_toEndOf=\"parent\">\r\n\r\n                <TableLayout\r\n                    android:id=\"@+id/tbl1\"\r\n                    android:layout_width=\"match_parent\"\r\n                    android:layout_height=\"match_parent\"\r\n                    android:layout_marginLeft=\"1dp\"\r\n                    android:layout_marginRight=\"1dp\"\r\n                    android:background=\"@drawable/table_monitoring\"\r\n                    android:stretchColumns=\"3\">\r\n\r\n                    <TableRow\r\n                        android:background=\"@drawable/bts_topleft\">\r\n                        <TextView\r\n                            android:id=\"@+id/txttglpo\"\r\n                            android:layout_width=\"0dp\"\r\n                            android:layout_height=\"wrap_content\"\r\n                            android:text=\"Tanggal PO\"\r\n                            android:gravity=\"center\"\r\n                            android:textColor=\"@color/black\"\r\n                            android:fontFamily=\"@font/montserrat_reguler\"\r\n                            android:textSize=\"14sp\"\r\n                            android:paddingTop=\"10dp\"\r\n                            android:layout_weight=\"4\"\r\n                            android:layout_gravity=\"center_horizontal\"/>\r\n\r\n                        <TextView\r\n                            android:id=\"@+id/txtnopo\"\r\n                            android:layout_width=\"0dp\"\r\n                            android:layout_height=\"wrap_content\"\r\n                            android:text=\"No. PO\"\r\n                            android:gravity=\"center\"\r\n                            android:textColor=\"@color/black\"\r\n                            android:background=\"@drawable/border\"\r\n                            android:fontFamily=\"@font/montserrat_reguler\"\r\n                            android:textSize=\"13sp\"\r\n                            android:padding=\"10sp\"\r\n                            android:layout_weight=\"4\"\r\n                            android:layout_gravity=\"center_horizontal\"/>\r\n\r\n                        <TextView\r\n                            android:id=\"@+id/detail\"\r\n                            android:layout_width=\"0dp\"\r\n                            android:layout_height=\"wrap_content\"\r\n                            android:text=\"Detail\"\r\n                            android:textColor=\"@color/black\"\r\n                            android:gravity=\"center\"\r\n                            android:fontFamily=\"@font/montserrat_reguler\"\r\n                            android:textSize=\"13sp\"\r\n                            android:padding=\"10sp\"\r\n                            android:layout_weight=\"4\"\r\n                            android:layout_gravity=\"center_horizontal\"/>\r\n\r\n                    </TableRow>\r\n\r\n                </TableLayout>\r\n\r\n            </LinearLayout>\r\n\r\n            <LinearLayout\r\n                android:id=\"@+id/lineer2\"\r\n                android:layout_width=\"match_parent\"\r\n                android:layout_height=\"wrap_content\"\r\n                android:background=\"#00000000\"\r\n                android:orientation=\"vertical\"\r\n                app:layout_constraintTop_toBottomOf=\"@+id/lineer1\">\r\n\r\n                <TableLayout\r\n                    android:id=\"@+id/tbl2\"\r\n                    android:layout_width=\"match_parent\"\r\n                    android:layout_height=\"match_parent\"\r\n                    android:layout_marginLeft=\"1dp\"\r\n                    android:layout_marginRight=\"1dp\"\r\n                    android:stretchColumns=\"3\">\r\n\r\n                    <TableRow android:background=\"@drawable/ic_btn_border\">\r\n                        <TextView\r\n                            android:id=\"@+id/txtbaris1\"\r\n                            android:layout_width=\"26dp\"\r\n                            android:layout_height=\"wrap_content\"\r\n                            android:text=\"dd/mm/yyyy\"\r\n                            android:gravity=\"center\"\r\n                            android:textColor=\"@color/black\"\r\n                            android:fontFamily=\"@font/montserrat_reguler\"\r\n                            android:textSize=\"13sp\"\r\n                            android:padding=\"10sp\"\r\n                            android:layout_weight=\"4\"\r\n                            android:layout_gravity=\"center_horizontal\"/>\r\n\r\n                        <TextView\r\n                            android:id=\"@+id/txtbaris2\"\r\n                            android:layout_width=\"0dp\"\r\n                            android:layout_height=\"wrap_content\"\r\n                            android:text=\"12121212121212121\"\r\n                            android:gravity=\"center\"\r\n                            android:textColor=\"@color/black\"\r\n                            android:fontFamily=\"@font/montserrat_reguler\"\r\n                            android:textSize=\"13sp\"\r\n                            android:padding=\"10sp\"\r\n                            android:layout_weight=\"5\"\r\n                            android:layout_gravity=\"center_horizontal\"/>\r\n\r\n                        <ImageButton\r\n                            android:id=\"@+id/img1\"\r\n                            android:layout_width=\"0dp\"\r\n                            android:layout_height=\"wrap_content\"\r\n                            android:text=\"12121212121212121\"\r\n                            android:gravity=\"center\"\r\n                            android:src=\"@drawable/ic_baseline_keyboard_arrow_down_24\"\r\n                            android:background=\"@android:color/transparent\"\r\n                            android:textColor=\"@color/black\"\r\n                            android:fontFamily=\"@font/montserrat_reguler\"\r\n                            android:textSize=\"13sp\"\r\n                            android:padding=\"8sp\"\r\n                            android:layout_weight=\"5\"\r\n                            android:layout_gravity=\"center_horizontal\"/>\r\n                    </TableRow>\r\n\r\n                </TableLayout>\r\n\r\n            </LinearLayout>\r\n\r\n            <androidx.constraintlayout.widget.ConstraintLayout\r\n                android:id=\"@+id/const2\"\r\n                android:layout_width=\"match_parent\"\r\n                android:layout_height=\"wrap_content\"\r\n                android:padding=\"8dp\"\r\n                android:visibility=\"gone\"\r\n                android:background=\"@drawable/ic_btn_border\"\r\n                app:layout_constraintTop_toBottomOf=\"@+id/lineer2\"\r\n                tools:layout_editor_absoluteX=\"0dp\">\r\n\r\n                <TextView\r\n                    android:id=\"@+id/txt1\"\r\n                    android:layout_width=\"wrap_content\"\r\n                    android:layout_height=\"wrap_content\"\r\n                    android:layout_marginStart=\"22dp\"\r\n                    android:layout_marginTop=\"8dp\"\r\n                    android:fontFamily=\"@font/montserrat_reguler\"\r\n                    android:text=\"No. Purchase Order\"\r\n                    android:textColor=\"@color/black\"\r\n                    android:textSize=\"12sp\"\r\n                    app:layout_constraintStart_toStartOf=\"parent\"\r\n                    app:layout_constraintTop_toTopOf=\"parent\" />\r\n\r\n                <TextView\r\n                    android:id=\"@+id/txt2\"\r\n                    android:layout_width=\"wrap_content\"\r\n                    android:layout_height=\"wrap_content\"\r\n                    android:layout_marginStart=\"52dp\"\r\n                    android:layout_marginTop=\"8dp\"\r\n                    android:fontFamily=\"@font/montserrat_reguler\"\r\n                    android:text=\":\"\r\n                    android:textColor=\"@color/black\"\r\n                    android:textSize=\"12sp\"\r\n                    app:layout_constraintStart_toEndOf=\"@+id/txt1\"\r\n                    app:layout_constraintTop_toTopOf=\"parent\" />\r\n\r\n                <TextView\r\n                    android:id=\"@+id/txt3\"\r\n                    android:layout_width=\"wrap_content\"\r\n                    android:layout_height=\"wrap_content\"\r\n                    android:layout_marginStart=\"16dp\"\r\n                    android:layout_marginTop=\"8dp\"\r\n                    android:fontFamily=\"@font/montserrat_reguler\"\r\n                    android:text=\"12312312312313\"\r\n                    android:textColor=\"@color/black\"\r\n                    android:textSize=\"12sp\"\r\n                    app:layout_constraintStart_toEndOf=\"@+id/txt2\"\r\n                    app:layout_constraintTop_toTopOf=\"parent\" />\r\n\r\n                <TextView\r\n                    android:id=\"@+id/txt4\"\r\n                    android:layout_width=\"wrap_content\"\r\n                    android:layout_height=\"wrap_content\"\r\n                    android:layout_marginTop=\"8dp\"\r\n                    android:fontFamily=\"@font/montserrat_reguler\"\r\n                    android:text=\"Kode Vendor\"\r\n                    android:textColor=\"@color/black\"\r\n                    android:textSize=\"12sp\"\r\n                    app:layout_constraintStart_toStartOf=\"@id/txt1\"\r\n                    app:layout_constraintTop_toBottomOf=\"@id/txt1\"/>\r\n\r\n                <TextView\r\n                    android:id=\"@+id/txt5\"\r\n                    android:layout_width=\"wrap_content\"\r\n                    android:layout_height=\"wrap_content\"\r\n                    android:layout_marginTop=\"8dp\"\r\n                    android:fontFamily=\"@font/montserrat_reguler\"\r\n                    android:text=\":\"\r\n                    android:textColor=\"@color/black\"\r\n                    android:textSize=\"12sp\"\r\n                    app:layout_constraintStart_toStartOf=\"@+id/txt2\"\r\n                    app:layout_constraintTop_toBottomOf=\"@id/txt2\"\r\n                    app:layout_constraintEnd_toEndOf=\"@id/txt2\"/>\r\n\r\n                <TextView\r\n                    android:id=\"@+id/txt6\"\r\n                    android:layout_width=\"wrap_content\"\r\n                    android:layout_height=\"wrap_content\"\r\n                    android:layout_marginTop=\"8dp\"\r\n                    android:fontFamily=\"@font/montserrat_reguler\"\r\n                    android:text=\"xxx-xxxx-xxx\"\r\n                    android:textColor=\"@color/black\"\r\n                    android:textSize=\"12sp\"\r\n                    app:layout_constraintStart_toStartOf=\"@+id/txt3\"\r\n                    app:layout_constraintTop_toBottomOf=\"@id/txt3\"\r\n                    />\r\n\r\n                <TextView\r\n                    android:id=\"@+id/txt7\"\r\n                    android:layout_width=\"wrap_content\"\r\n                    android:layout_height=\"wrap_content\"\r\n                    android:layout_marginTop=\"8dp\"\r\n                    android:fontFamily=\"@font/montserrat_reguler\"\r\n                    android:text=\"plant\"\r\n                    android:textColor=\"@color/black\"\r\n                    android:textSize=\"12sp\"\r\n                    app:layout_constraintStart_toStartOf=\"@id/txt4\"\r\n                    app:layout_constraintTop_toBottomOf=\"@id/txt4\"/>\r\n\r\n                <TextView\r\n                    android:id=\"@+id/txt8\"\r\n                    android:layout_width=\"wrap_content\"\r\n                    android:layout_height=\"wrap_content\"\r\n                    android:layout_marginTop=\"8dp\"\r\n                    android:fontFamily=\"@font/montserrat_reguler\"\r\n                    android:text=\":\"\r\n                    android:textColor=\"@color/black\"\r\n                    android:textSize=\"12sp\"\r\n                    app:layout_constraintStart_toStartOf=\"@+id/txt5\"\r\n                    app:layout_constraintTop_toBottomOf=\"@id/txt5\"\r\n                    app:layout_constraintEnd_toEndOf=\"@id/txt5\"/>\r\n\r\n                <TextView\r\n                    android:id=\"@+id/txt9\"\r\n                    android:layout_width=\"wrap_content\"\r\n                    android:layout_height=\"wrap_content\"\r\n                    android:layout_marginTop=\"8dp\"\r\n                    android:fontFamily=\"@font/montserrat_reguler\"\r\n                    android:text=\"23123\"\r\n                    android:textColor=\"@color/black\"\r\n                    android:textSize=\"12sp\"\r\n                    app:layout_constraintStart_toStartOf=\"@+id/txt6\"\r\n                    app:layout_constraintTop_toBottomOf=\"@id/txt6\"\r\n                    />\r\n\r\n                <TextView\r\n                    android:id=\"@+id/txt10\"\r\n                    android:layout_width=\"wrap_content\"\r\n                    android:layout_height=\"wrap_content\"\r\n                    android:layout_marginTop=\"8dp\"\r\n                    android:fontFamily=\"@font/montserrat_reguler\"\r\n                    android:text=\"Store Loc\"\r\n                    android:textColor=\"@color/black\"\r\n                    android:textSize=\"12sp\"\r\n                    app:layout_constraintStart_toStartOf=\"@id/txt7\"\r\n                    app:layout_constraintTop_toBottomOf=\"@id/txt7\"/>\r\n\r\n                <TextView\r\n                    android:id=\"@+id/txt11\"\r\n                    android:layout_width=\"wrap_content\"\r\n                    android:layout_height=\"wrap_content\"\r\n                    android:layout_marginTop=\"8dp\"\r\n                    android:fontFamily=\"@font/montserrat_reguler\"\r\n                    android:text=\":\"\r\n                    android:textColor=\"@color/black\"\r\n                    android:textSize=\"12sp\"\r\n                    app:layout_constraintStart_toStartOf=\"@+id/txt8\"\r\n                    app:layout_constraintTop_toBottomOf=\"@id/txt8\"\r\n                    app:layout_constraintEnd_toEndOf=\"@id/txt8\"/>\r\n\r\n                <TextView\r\n                    android:id=\"@+id/txt12\"\r\n                    android:layout_width=\"wrap_content\"\r\n                    android:layout_height=\"wrap_content\"\r\n                    android:layout_marginTop=\"8dp\"\r\n                    android:fontFamily=\"@font/montserrat_reguler\"\r\n                    android:text=\"14234\"\r\n                    android:textColor=\"@color/black\"\r\n                    android:textSize=\"12sp\"\r\n                    app:layout_constraintStart_toStartOf=\"@+id/txt9\"\r\n                    app:layout_constraintTop_toBottomOf=\"@id/txt9\"/>\r\n\r\n                <TextView\r\n                    android:id=\"@+id/txt13\"\r\n                    android:layout_width=\"wrap_content\"\r\n                    android:layout_height=\"wrap_content\"\r\n                    android:layout_marginTop=\"8dp\"\r\n                    android:fontFamily=\"@font/montserrat_reguler\"\r\n                    android:text=\"Nama Unit\"\r\n                    android:textColor=\"@color/black\"\r\n                    android:textSize=\"12sp\"\r\n                    app:layout_constraintStart_toStartOf=\"@id/txt10\"\r\n                    app:layout_constraintTop_toBottomOf=\"@id/txt10\"/>\r\n\r\n                <TextView\r\n                    android:id=\"@+id/txt14\"\r\n                    android:layout_width=\"wrap_content\"\r\n                    android:layout_height=\"wrap_content\"\r\n                    android:layout_marginTop=\"8dp\"\r\n                    android:fontFamily=\"@font/montserrat_reguler\"\r\n                    android:text=\":\"\r\n                    android:textColor=\"@color/black\"\r\n                    android:textSize=\"12sp\"\r\n                    app:layout_constraintStart_toStartOf=\"@+id/txt11\"\r\n                    app:layout_constraintTop_toBottomOf=\"@id/txt11\"\r\n                    app:layout_constraintEnd_toEndOf=\"@id/txt11\"/>\r\n\r\n                <TextView\r\n                    android:id=\"@+id/txt15\"\r\n                    android:layout_width=\"wrap_content\"\r\n                    android:layout_height=\"wrap_content\"\r\n                    android:layout_marginTop=\"8dp\"\r\n                    android:fontFamily=\"@font/montserrat_reguler\"\r\n                    android:text=\"APJ Cimahi\"\r\n                    android:textColor=\"@color/black\"\r\n                    android:textSize=\"12sp\"\r\n                    app:layout_constraintStart_toStartOf=\"@+id/txt12\"\r\n                    app:layout_constraintTop_toBottomOf=\"@id/txt12\"/>\r\n\r\n                <TextView\r\n                    android:id=\"@+id/txt16\"\r\n                    android:layout_width=\"wrap_content\"\r\n                    android:layout_height=\"wrap_content\"\r\n                    android:layout_marginTop=\"8dp\"\r\n                    android:fontFamily=\"@font/montserrat_reguler\"\r\n                    android:text=\"Kuantitas\"\r\n                    android:textColor=\"@color/black\"\r\n                    android:textSize=\"12sp\"\r\n                    app:layout_constraintStart_toStartOf=\"@id/txt13\"\r\n                    app:layout_constraintTop_toBottomOf=\"@id/txt13\"/>\r\n\r\n                <TextView\r\n                    android:id=\"@+id/txt17\"\r\n                    android:layout_width=\"wrap_content\"\r\n                    android:layout_height=\"wrap_content\"\r\n                    android:layout_marginTop=\"8dp\"\r\n                    android:fontFamily=\"@font/montserrat_reguler\"\r\n                    android:text=\":\"\r\n                    android:textColor=\"@color/black\"\r\n                    android:textSize=\"12sp\"\r\n                    app:layout_constraintStart_toStartOf=\"@+id/txt14\"\r\n                    app:layout_constraintTop_toBottomOf=\"@id/txt14\"\r\n                    app:layout_constraintEnd_toEndOf=\"@id/txt14\"/>\r\n\r\n                <TextView\r\n                    android:id=\"@+id/txt18\"\r\n                    android:layout_width=\"wrap_content\"\r\n                    android:layout_height=\"wrap_content\"\r\n                    android:layout_marginTop=\"8dp\"\r\n                    android:fontFamily=\"@font/montserrat_reguler\"\r\n                    android:text=\"100 buah\"\r\n                    android:textColor=\"@color/black\"\r\n                    android:textSize=\"12sp\"\r\n                    app:layout_constraintStart_toStartOf=\"@+id/txt15\"\r\n                    app:layout_constraintTop_toBottomOf=\"@id/txt15\"/>\r\n\r\n                <ImageButton\r\n                    android:id=\"@+id/btn1\"\r\n                    android:layout_width=\"12dp\"\r\n                    android:layout_height=\"12dp\"\r\n                    android:src=\"@drawable/arrowoutward\"\r\n                    android:layout_marginBottom=\"8dp\"\r\n                    android:layout_marginStart=\"5dp\"\r\n                    android:background=\"@drawable/bg_hitam\"\r\n                    app:layout_constraintTop_toTopOf=\"@id/txt18\"\r\n                    app:layout_constraintBottom_toBottomOf=\"@id/txt18\"\r\n                    app:layout_constraintStart_toEndOf=\"@id/txt18\"/>\r\n\r\n                <TextView\r\n                    android:id=\"@+id/txt19\"\r\n                    android:layout_width=\"wrap_content\"\r\n                    android:layout_height=\"wrap_content\"\r\n                    android:layout_marginTop=\"8dp\"\r\n                    android:fontFamily=\"@font/montserrat_reguler\"\r\n                    android:text=\"Lead Time\"\r\n                    android:textColor=\"@color/black\"\r\n                    android:textSize=\"12sp\"\r\n                    app:layout_constraintStart_toStartOf=\"@id/txt16\"\r\n                    app:layout_constraintTop_toBottomOf=\"@id/txt16\"/>\r\n\r\n                <TextView\r\n                    android:id=\"@+id/txt20\"\r\n                    android:layout_width=\"wrap_content\"\r\n                    android:layout_height=\"wrap_content\"\r\n                    android:layout_marginTop=\"8dp\"\r\n                    android:fontFamily=\"@font/montserrat_reguler\"\r\n                    android:text=\":\"\r\n                    android:textColor=\"@color/black\"\r\n                    android:textSize=\"12sp\"\r\n                    app:layout_constraintStart_toStartOf=\"@+id/txt17\"\r\n                    app:layout_constraintTop_toBottomOf=\"@id/txt17\"\r\n                    app:layout_constraintEnd_toEndOf=\"@id/txt17\"/>\r\n\r\n                <TextView\r\n                    android:id=\"@+id/txt21\"\r\n                    android:layout_width=\"wrap_content\"\r\n                    android:layout_height=\"wrap_content\"\r\n                    android:layout_marginTop=\"8dp\"\r\n                    android:fontFamily=\"@font/montserrat_reguler\"\r\n                    android:text=\"11/1/2022\"\r\n                    android:textColor=\"@color/black\"\r\n                    android:textSize=\"12sp\"\r\n                    app:layout_constraintStart_toStartOf=\"@+id/txt18\"\r\n                    app:layout_constraintTop_toBottomOf=\"@id/txt18\"/>\r\n\r\n                <TextView\r\n                    android:id=\"@+id/txt22\"\r\n                    android:layout_width=\"wrap_content\"\r\n                    android:layout_height=\"wrap_content\"\r\n                    android:layout_marginTop=\"8dp\"\r\n                    android:fontFamily=\"@font/montserrat_reguler\"\r\n                    android:text=\"Lead Time\"\r\n                    android:textColor=\"@color/black\"\r\n                    android:textSize=\"12sp\"\r\n                    app:layout_constraintStart_toStartOf=\"@id/txt19\"\r\n                    app:layout_constraintTop_toBottomOf=\"@id/txt19\"/>\r\n\r\n                <TextView\r\n                    android:id=\"@+id/txt23\"\r\n                    android:layout_width=\"wrap_content\"\r\n                    android:layout_height=\"wrap_content\"\r\n                    android:layout_marginTop=\"8dp\"\r\n                    android:fontFamily=\"@font/montserrat_reguler\"\r\n                    android:text=\":\"\r\n                    android:textColor=\"@color/black\"\r\n                    android:textSize=\"12sp\"\r\n                    app:layout_constraintStart_toStartOf=\"@+id/txt20\"\r\n                    app:layout_constraintTop_toBottomOf=\"@id/txt20\"\r\n                    app:layout_constraintEnd_toEndOf=\"@id/txt20\"/>\r\n\r\n\r\n            </androidx.constraintlayout.widget.ConstraintLayout>\r\n\r\n            <LinearLayout\r\n                android:id=\"@+id/lineer3\"\r\n                android:layout_width=\"match_parent\"\r\n                android:layout_height=\"wrap_content\"\r\n                android:background=\"#00000000\"\r\n                android:orientation=\"vertical\"\r\n                app:layout_constraintTop_toBottomOf=\"@+id/const2\">\r\n\r\n                <TableLayout\r\n                    android:id=\"@+id/tbl3\"\r\n                    android:layout_width=\"match_parent\"\r\n                    android:layout_height=\"match_parent\"\r\n                    android:layout_marginLeft=\"1dp\"\r\n                    android:layout_marginRight=\"1dp\"\r\n                    android:stretchColumns=\"3\">\r\n\r\n                    <TableRow android:background=\"@drawable/ic_btn_border\">\r\n                        <TextView\r\n                            android:id=\"@+id/txtbariske1\"\r\n                            android:layout_width=\"26dp\"\r\n                            android:layout_height=\"wrap_content\"\r\n                            android:text=\"dd/mm/yyyy\"\r\n                            android:gravity=\"center\"\r\n                            android:textColor=\"@color/black\"\r\n                            android:fontFamily=\"@font/montserrat_reguler\"\r\n                            android:textSize=\"13sp\"\r\n                            android:padding=\"10sp\"\r\n                            android:layout_weight=\"4\"\r\n                            android:layout_gravity=\"center_horizontal\"/>\r\n\r\n                        <TextView\r\n                            android:id=\"@+id/txtbariske2\"\r\n                            android:layout_width=\"0dp\"\r\n                            android:layout_height=\"wrap_content\"\r\n                            android:text=\"12121212121212121\"\r\n                            android:gravity=\"center\"\r\n                            android:textColor=\"@color/black\"\r\n                            android:fontFamily=\"@font/montserrat_reguler\"\r\n                            android:textSize=\"13sp\"\r\n                            android:padding=\"10sp\"\r\n                            android:layout_weight=\"5\"\r\n                            android:layout_gravity=\"center_horizontal\"/>\r\n\r\n                        <ImageView\r\n                            android:id=\"@+id/img2\"\r\n                            android:layout_width=\"0dp\"\r\n                            android:layout_height=\"wrap_content\"\r\n                            android:text=\"12121212121212121\"\r\n                            android:gravity=\"center\"\r\n                            android:src=\"@drawable/ic_baseline_keyboard_arrow_down_24\"\r\n                            android:textColor=\"@color/black\"\r\n                            android:fontFamily=\"@font/montserrat_reguler\"\r\n                            android:textSize=\"13sp\"\r\n                            android:padding=\"8sp\"\r\n                            android:layout_weight=\"5\"\r\n                            android:layout_gravity=\"center_horizontal\"/>\r\n                    </TableRow>\r\n\r\n                </TableLayout>\r\n\r\n            </LinearLayout>\r\n\r\n            <LinearLayout\r\n                android:id=\"@+id/lineer4\"\r\n                android:layout_width=\"match_parent\"\r\n                android:layout_height=\"wrap_content\"\r\n                android:background=\"#00000000\"\r\n                android:orientation=\"vertical\"\r\n                app:layout_constraintTop_toBottomOf=\"@+id/lineer3\">\r\n\r\n                <TableLayout\r\n                    android:id=\"@+id/tbl4\"\r\n                    android:layout_width=\"match_parent\"\r\n                    android:layout_height=\"match_parent\"\r\n                    android:layout_marginLeft=\"1dp\"\r\n                    android:layout_marginRight=\"1dp\"\r\n                    android:stretchColumns=\"3\">\r\n\r\n                    <TableRow android:background=\"@drawable/ic_btn_border\">\r\n                        <TextView\r\n                            android:id=\"@+id/txtbariske3\"\r\n                            android:layout_width=\"26dp\"\r\n                            android:layout_height=\"wrap_content\"\r\n                            android:text=\"dd/mm/yyyy\"\r\n                            android:gravity=\"center\"\r\n                            android:textColor=\"@color/black\"\r\n                            android:fontFamily=\"@font/montserrat_reguler\"\r\n                            android:textSize=\"13sp\"\r\n                            android:padding=\"10sp\"\r\n                            android:layout_weight=\"4\"\r\n                            android:layout_gravity=\"center_horizontal\"/>\r\n\r\n                        <TextView\r\n                            android:id=\"@+id/txtbariske4\"\r\n                            android:layout_width=\"0dp\"\r\n                            android:layout_height=\"wrap_content\"\r\n                            android:text=\"12121212121212121\"\r\n                            android:gravity=\"center\"\r\n                            android:textColor=\"@color/black\"\r\n                            android:fontFamily=\"@font/montserrat_reguler\"\r\n                            android:textSize=\"13sp\"\r\n                            android:padding=\"10sp\"\r\n                            android:layout_weight=\"5\"\r\n                            android:layout_gravity=\"center_horizontal\"/>\r\n\r\n                        <ImageView\r\n                            android:id=\"@+id/img3\"\r\n                            android:layout_width=\"0dp\"\r\n                            android:layout_height=\"wrap_content\"\r\n                            android:text=\"12121212121212121\"\r\n                            android:gravity=\"center\"\r\n                            android:src=\"@drawable/ic_baseline_keyboard_arrow_down_24\"\r\n                            android:textColor=\"@color/black\"\r\n                            android:fontFamily=\"@font/montserrat_reguler\"\r\n                            android:textSize=\"13sp\"\r\n                            android:padding=\"8sp\"\r\n                            android:layout_weight=\"5\"\r\n                            android:layout_gravity=\"center_horizontal\"/>\r\n                    </TableRow>\r\n\r\n                </TableLayout>\r\n\r\n            </LinearLayout>\r\n\r\n            <LinearLayout\r\n                android:id=\"@+id/lineer5\"\r\n                android:layout_width=\"match_parent\"\r\n                android:layout_height=\"wrap_content\"\r\n                android:background=\"#00000000\"\r\n                android:orientation=\"vertical\"\r\n                app:layout_constraintTop_toBottomOf=\"@+id/lineer4\">\r\n\r\n                <TableLayout\r\n                    android:id=\"@+id/tbl5\"\r\n                    android:layout_width=\"match_parent\"\r\n                    android:layout_height=\"match_parent\"\r\n                    android:layout_marginLeft=\"1dp\"\r\n                    android:layout_marginRight=\"1dp\"\r\n                    android:stretchColumns=\"3\">\r\n\r\n                    <TableRow android:background=\"@drawable/ic_btn_border\">\r\n                        <TextView\r\n                            android:id=\"@+id/txtbariske5\"\r\n                            android:layout_width=\"26dp\"\r\n                            android:layout_height=\"wrap_content\"\r\n                            android:text=\"dd/mm/yyyy\"\r\n                            android:gravity=\"center\"\r\n                            android:textColor=\"@color/black\"\r\n                            android:fontFamily=\"@font/montserrat_reguler\"\r\n                            android:textSize=\"13sp\"\r\n                            android:padding=\"10sp\"\r\n                            android:layout_weight=\"4\"\r\n                            android:layout_gravity=\"center_horizontal\"/>\r\n\r\n                        <TextView\r\n                            android:id=\"@+id/txtbariske6\"\r\n                            android:layout_width=\"0dp\"\r\n                            android:layout_height=\"wrap_content\"\r\n                            android:text=\"12121212121212121\"\r\n                            android:gravity=\"center\"\r\n                            android:textColor=\"@color/black\"\r\n                            android:fontFamily=\"@font/montserrat_reguler\"\r\n                            android:textSize=\"13sp\"\r\n                            android:padding=\"10sp\"\r\n                            android:layout_weight=\"5\"\r\n                            android:layout_gravity=\"center_horizontal\"/>\r\n\r\n                        <ImageView\r\n                            android:id=\"@+id/img4\"\r\n                            android:layout_width=\"0dp\"\r\n                            android:layout_height=\"wrap_content\"\r\n                            android:text=\"12121212121212121\"\r\n                            android:gravity=\"center\"\r\n                            android:src=\"@drawable/ic_baseline_keyboard_arrow_down_24\"\r\n                            android:textColor=\"@color/black\"\r\n                            android:fontFamily=\"@font/montserrat_reguler\"\r\n                            android:textSize=\"13sp\"\r\n                            android:padding=\"8sp\"\r\n                            android:layout_weight=\"5\"\r\n                            android:layout_gravity=\"center_horizontal\"/>\r\n                    </TableRow>\r\n\r\n                </TableLayout>\r\n\r\n            </LinearLayout>\r\n\r\n            <LinearLayout\r\n                android:id=\"@+id/lineer6\"\r\n                android:layout_width=\"match_parent\"\r\n                android:layout_height=\"wrap_content\"\r\n                android:background=\"#00000000\"\r\n                android:orientation=\"vertical\"\r\n                app:layout_constraintTop_toBottomOf=\"@+id/lineer5\">\r\n\r\n                <TableLayout\r\n                    android:id=\"@+id/tbl6\"\r\n                    android:layout_width=\"match_parent\"\r\n                    android:layout_height=\"match_parent\"\r\n                    android:layout_marginLeft=\"1dp\"\r\n                    android:layout_marginRight=\"1dp\"\r\n                    android:stretchColumns=\"3\">\r\n\r\n                    <TableRow android:background=\"@drawable/bts_bottom\">\r\n                        <TextView\r\n                            android:id=\"@+id/txtbariske7\"\r\n                            android:layout_width=\"26dp\"\r\n                            android:layout_height=\"wrap_content\"\r\n                            android:text=\"dd/mm/yyyy\"\r\n                            android:gravity=\"center\"\r\n                            android:textColor=\"@color/black\"\r\n                            android:fontFamily=\"@font/montserrat_reguler\"\r\n                            android:textSize=\"13sp\"\r\n                            android:padding=\"10sp\"\r\n                            android:layout_weight=\"4\"\r\n                            android:layout_gravity=\"center_horizontal\"/>\r\n\r\n                        <TextView\r\n                            android:id=\"@+id/txtbariske8\"\r\n                            android:layout_width=\"0dp\"\r\n                            android:layout_height=\"wrap_content\"\r\n                            android:text=\"12121212121212121\"\r\n                            android:gravity=\"center\"\r\n                            android:textColor=\"@color/black\"\r\n                            android:fontFamily=\"@font/montserrat_reguler\"\r\n                            android:textSize=\"13sp\"\r\n                            android:padding=\"10sp\"\r\n                            android:layout_weight=\"5\"\r\n                            android:layout_gravity=\"center_horizontal\"/>\r\n\r\n                        <ImageView\r\n                            android:id=\"@+id/img5\"\r\n                            android:layout_width=\"0dp\"\r\n                            android:layout_height=\"wrap_content\"\r\n                            android:text=\"12121212121212121\"\r\n                            android:gravity=\"center\"\r\n                            android:src=\"@drawable/ic_baseline_keyboard_arrow_down_24\"\r\n                            android:textColor=\"@color/black\"\r\n                            android:fontFamily=\"@font/montserrat_reguler\"\r\n                            android:textSize=\"13sp\"\r\n                            android:padding=\"8sp\"\r\n                            android:layout_weight=\"5\"\r\n                            android:layout_gravity=\"center_horizontal\"/>\r\n                    </TableRow>\r\n\r\n                </TableLayout>\r\n\r\n            </LinearLayout>\r\n\r\n        </androidx.constraintlayout.widget.ConstraintLayout>\r\n    </androidx.constraintlayout.widget.ConstraintLayout>\r\n    </ScrollView>
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+diff --git a/app/src/main/res/layout/activity_monitoring_purchase_order.xml b/app/src/main/res/layout/activity_monitoring_purchase_order.xml
+--- a/app/src/main/res/layout/activity_monitoring_purchase_order.xml	(revision 392d0d8930e3e8fe3435a4997099337d4d424f12)
++++ b/app/src/main/res/layout/activity_monitoring_purchase_order.xml	(date 1667913071294)
+@@ -4,8 +4,8 @@
+     xmlns:tools="http://schemas.android.com/tools"
+     android:layout_width="match_parent"
+     android:layout_height="match_parent"
+-    android:background="#F7F8FA"
+     android:layout_gravity="top"
++    android:background="#F7F8FA"
+     tools:context=".MonitoringPurchaseOrder">
+ 
+     <androidx.constraintlayout.widget.ConstraintLayout
+@@ -27,9 +27,9 @@
+             android:layout_width="50dp"
+             android:layout_height="50dp"
+             android:layout_marginStart="36dp"
+-            android:elevation="10dp"
+             android:layout_marginTop="30dp"
+             android:background="@drawable/textfield"
++            android:elevation="10dp"
+             android:src="@drawable/ic_baseline_arrow_back_24"
+             app:layout_constraintStart_toStartOf="@id/dashboard"
+             app:layout_constraintTop_toTopOf="@id/dashboard" />
+@@ -44,9 +44,9 @@
+             android:text="Monitoring Purchase Order"
+             android:textColor="@color/white"
+             android:textStyle="bold"
++            app:layout_constraintEnd_toStartOf="@+id/bell"
+             app:layout_constraintStart_toEndOf="@id/back"
+-            app:layout_constraintEnd_toStartOf="@+id/bell"
+-            app:layout_constraintTop_toTopOf="parent"/>
++            app:layout_constraintTop_toTopOf="parent" />
+ 
+         <ImageButton
+             android:id="@+id/bell"
+@@ -54,13 +54,13 @@
+             android:layout_height="50dp"
+             android:layout_alignParentEnd="true"
+             android:layout_marginTop="30dp"
++            android:layout_marginRight="25dp"
++            android:background="@drawable/textfield"
+             android:elevation="10dp"
+             android:src="@drawable/ic_baseline_notifications_none_24"
+-            android:layout_marginRight="25dp"
+-            android:background="@drawable/textfield"
++            app:layout_constraintEnd_toEndOf="parent"
+             app:layout_constraintStart_toEndOf="@+id/txtdash"
+-            app:layout_constraintEnd_toEndOf="parent"
+-            app:layout_constraintTop_toTopOf="parent"/>
++            app:layout_constraintTop_toTopOf="parent" />
+ 
+         <androidx.constraintlayout.widget.ConstraintLayout
+             android:id="@+id/const1"
+@@ -103,8 +103,8 @@
+             android:layout_height="wrap_content"
+             android:layout_marginStart="12dp"
+             android:layout_marginTop="10dp"
++            android:layout_marginEnd="13dp"
+             android:background="@drawable/border2"
+-            android:layout_marginEnd="13dp"
+             app:layout_constraintTop_toBottomOf="@+id/const1">
+ 
+             <LinearLayout
+@@ -113,9 +113,9 @@
+                 android:layout_height="wrap_content"
+                 android:background="#00000000"
+                 android:orientation="vertical"
+-                app:layout_constraintTop_toTopOf="parent"
++                app:layout_constraintEnd_toEndOf="parent"
+                 app:layout_constraintStart_toStartOf="parent"
+-                app:layout_constraintEnd_toEndOf="parent">
++                app:layout_constraintTop_toTopOf="parent">
+ 
+                 <TableLayout
+                     android:id="@+id/tbl1"
+@@ -126,47 +126,47 @@
+                     android:background="@drawable/table_monitoring"
+                     android:stretchColumns="3">
+ 
+-                    <TableRow
+-                        android:background="@drawable/bts_topleft">
++                    <TableRow android:background="@drawable/bts_topleft">
++
+                         <TextView
+                             android:id="@+id/txttglpo"
+                             android:layout_width="0dp"
+                             android:layout_height="wrap_content"
+-                            android:text="Tanggal PO"
++                            android:layout_gravity="center_horizontal"
++                            android:layout_weight="4"
++                            android:fontFamily="@font/montserrat_reguler"
+                             android:gravity="center"
+-                            android:textColor="@color/black"
+-                            android:fontFamily="@font/montserrat_reguler"
+-                            android:textSize="14sp"
+                             android:paddingTop="10dp"
+-                            android:layout_weight="4"
+-                            android:layout_gravity="center_horizontal"/>
++                            android:text="Tanggal PO"
++                            android:textColor="@color/black"
++                            android:textSize="14sp" />
+ 
+                         <TextView
+                             android:id="@+id/txtnopo"
+                             android:layout_width="0dp"
+                             android:layout_height="wrap_content"
+-                            android:text="No. PO"
+-                            android:gravity="center"
+-                            android:textColor="@color/black"
++                            android:layout_gravity="center_horizontal"
++                            android:layout_weight="4"
+                             android:background="@drawable/border"
+                             android:fontFamily="@font/montserrat_reguler"
+-                            android:textSize="13sp"
++                            android:gravity="center"
+                             android:padding="10sp"
+-                            android:layout_weight="4"
+-                            android:layout_gravity="center_horizontal"/>
++                            android:text="No. PO"
++                            android:textColor="@color/black"
++                            android:textSize="13sp" />
+ 
+                         <TextView
+                             android:id="@+id/detail"
+                             android:layout_width="0dp"
+                             android:layout_height="wrap_content"
+-                            android:text="Detail"
+-                            android:textColor="@color/black"
++                            android:layout_gravity="center_horizontal"
++                            android:layout_weight="4"
++                            android:fontFamily="@font/montserrat_reguler"
+                             android:gravity="center"
+-                            android:fontFamily="@font/montserrat_reguler"
+-                            android:textSize="13sp"
+                             android:padding="10sp"
+-                            android:layout_weight="4"
+-                            android:layout_gravity="center_horizontal"/>
++                            android:text="Detail"
++                            android:textColor="@color/black"
++                            android:textSize="13sp" />
+ 
+                     </TableRow>
+ 
+@@ -191,46 +191,47 @@
+                     android:stretchColumns="3">
+ 
+                     <TableRow android:background="@drawable/ic_btn_border">
++
+                         <TextView
+                             android:id="@+id/txtbaris1"
+                             android:layout_width="26dp"
+                             android:layout_height="wrap_content"
+-                            android:text="dd/mm/yyyy"
+-                            android:gravity="center"
+-                            android:textColor="@color/black"
++                            android:layout_gravity="center_horizontal"
++                            android:layout_weight="4"
+                             android:fontFamily="@font/montserrat_reguler"
+-                            android:textSize="13sp"
++                            android:gravity="center"
+                             android:padding="10sp"
+-                            android:layout_weight="4"
+-                            android:layout_gravity="center_horizontal"/>
++                            android:text="dd/mm/yyyy"
++                            android:textColor="@color/black"
++                            android:textSize="13sp" />
+ 
+                         <TextView
+                             android:id="@+id/txtbaris2"
+                             android:layout_width="0dp"
+                             android:layout_height="wrap_content"
++                            android:layout_gravity="center_horizontal"
++                            android:layout_weight="5"
++                            android:fontFamily="@font/montserrat_reguler"
++                            android:gravity="center"
++                            android:padding="10sp"
+                             android:text="12121212121212121"
+-                            android:gravity="center"
+                             android:textColor="@color/black"
+-                            android:fontFamily="@font/montserrat_reguler"
+-                            android:textSize="13sp"
+-                            android:padding="10sp"
+-                            android:layout_weight="5"
+-                            android:layout_gravity="center_horizontal"/>
++                            android:textSize="13sp" />
+ 
+                         <ImageButton
+                             android:id="@+id/img1"
+                             android:layout_width="0dp"
+                             android:layout_height="wrap_content"
+-                            android:text="12121212121212121"
+-                            android:gravity="center"
+-                            android:src="@drawable/ic_baseline_keyboard_arrow_down_24"
++                            android:layout_gravity="center_horizontal"
++                            android:layout_weight="5"
+                             android:background="@android:color/transparent"
+-                            android:textColor="@color/black"
+                             android:fontFamily="@font/montserrat_reguler"
+-                            android:textSize="13sp"
++                            android:gravity="center"
+                             android:padding="8sp"
+-                            android:layout_weight="5"
+-                            android:layout_gravity="center_horizontal"/>
++                            android:src="@drawable/ic_baseline_keyboard_arrow_down_24"
++                            android:text="12121212121212121"
++                            android:textColor="@color/black"
++                            android:textSize="13sp" />
+                     </TableRow>
+ 
+                 </TableLayout>
+@@ -241,9 +242,9 @@
+                 android:id="@+id/const2"
+                 android:layout_width="match_parent"
+                 android:layout_height="wrap_content"
++                android:background="@drawable/ic_btn_border"
+                 android:padding="8dp"
+                 android:visibility="gone"
+-                android:background="@drawable/ic_btn_border"
+                 app:layout_constraintTop_toBottomOf="@+id/lineer2"
+                 tools:layout_editor_absoluteX="0dp">
+ 
+@@ -296,7 +297,7 @@
+                     android:textColor="@color/black"
+                     android:textSize="12sp"
+                     app:layout_constraintStart_toStartOf="@id/txt1"
+-                    app:layout_constraintTop_toBottomOf="@id/txt1"/>
++                    app:layout_constraintTop_toBottomOf="@id/txt1" />
+ 
+                 <TextView
+                     android:id="@+id/txt5"
+@@ -307,9 +308,9 @@
+                     android:text=":"
+                     android:textColor="@color/black"
+                     android:textSize="12sp"
++                    app:layout_constraintEnd_toEndOf="@id/txt2"
+                     app:layout_constraintStart_toStartOf="@+id/txt2"
+-                    app:layout_constraintTop_toBottomOf="@id/txt2"
+-                    app:layout_constraintEnd_toEndOf="@id/txt2"/>
++                    app:layout_constraintTop_toBottomOf="@id/txt2" />
+ 
+                 <TextView
+                     android:id="@+id/txt6"
+@@ -321,8 +322,7 @@
+                     android:textColor="@color/black"
+                     android:textSize="12sp"
+                     app:layout_constraintStart_toStartOf="@+id/txt3"
+-                    app:layout_constraintTop_toBottomOf="@id/txt3"
+-                    />
++                    app:layout_constraintTop_toBottomOf="@id/txt3" />
+ 
+                 <TextView
+                     android:id="@+id/txt7"
+@@ -334,7 +334,7 @@
+                     android:textColor="@color/black"
+                     android:textSize="12sp"
+                     app:layout_constraintStart_toStartOf="@id/txt4"
+-                    app:layout_constraintTop_toBottomOf="@id/txt4"/>
++                    app:layout_constraintTop_toBottomOf="@id/txt4" />
+ 
+                 <TextView
+                     android:id="@+id/txt8"
+@@ -345,9 +345,9 @@
+                     android:text=":"
+                     android:textColor="@color/black"
+                     android:textSize="12sp"
++                    app:layout_constraintEnd_toEndOf="@id/txt5"
+                     app:layout_constraintStart_toStartOf="@+id/txt5"
+-                    app:layout_constraintTop_toBottomOf="@id/txt5"
+-                    app:layout_constraintEnd_toEndOf="@id/txt5"/>
++                    app:layout_constraintTop_toBottomOf="@id/txt5" />
+ 
+                 <TextView
+                     android:id="@+id/txt9"
+@@ -359,8 +359,7 @@
+                     android:textColor="@color/black"
+                     android:textSize="12sp"
+                     app:layout_constraintStart_toStartOf="@+id/txt6"
+-                    app:layout_constraintTop_toBottomOf="@id/txt6"
+-                    />
++                    app:layout_constraintTop_toBottomOf="@id/txt6" />
+ 
+                 <TextView
+                     android:id="@+id/txt10"
+@@ -372,7 +371,7 @@
+                     android:textColor="@color/black"
+                     android:textSize="12sp"
+                     app:layout_constraintStart_toStartOf="@id/txt7"
+-                    app:layout_constraintTop_toBottomOf="@id/txt7"/>
++                    app:layout_constraintTop_toBottomOf="@id/txt7" />
+ 
+                 <TextView
+                     android:id="@+id/txt11"
+@@ -383,9 +382,9 @@
+                     android:text=":"
+                     android:textColor="@color/black"
+                     android:textSize="12sp"
++                    app:layout_constraintEnd_toEndOf="@id/txt8"
+                     app:layout_constraintStart_toStartOf="@+id/txt8"
+-                    app:layout_constraintTop_toBottomOf="@id/txt8"
+-                    app:layout_constraintEnd_toEndOf="@id/txt8"/>
++                    app:layout_constraintTop_toBottomOf="@id/txt8" />
+ 
+                 <TextView
+                     android:id="@+id/txt12"
+@@ -397,7 +396,7 @@
+                     android:textColor="@color/black"
+                     android:textSize="12sp"
+                     app:layout_constraintStart_toStartOf="@+id/txt9"
+-                    app:layout_constraintTop_toBottomOf="@id/txt9"/>
++                    app:layout_constraintTop_toBottomOf="@id/txt9" />
+ 
+                 <TextView
+                     android:id="@+id/txt13"
+@@ -409,7 +408,7 @@
+                     android:textColor="@color/black"
+                     android:textSize="12sp"
+                     app:layout_constraintStart_toStartOf="@id/txt10"
+-                    app:layout_constraintTop_toBottomOf="@id/txt10"/>
++                    app:layout_constraintTop_toBottomOf="@id/txt10" />
+ 
+                 <TextView
+                     android:id="@+id/txt14"
+@@ -420,9 +419,9 @@
+                     android:text=":"
+                     android:textColor="@color/black"
+                     android:textSize="12sp"
++                    app:layout_constraintEnd_toEndOf="@id/txt11"
+                     app:layout_constraintStart_toStartOf="@+id/txt11"
+-                    app:layout_constraintTop_toBottomOf="@id/txt11"
+-                    app:layout_constraintEnd_toEndOf="@id/txt11"/>
++                    app:layout_constraintTop_toBottomOf="@id/txt11" />
+ 
+                 <TextView
+                     android:id="@+id/txt15"
+@@ -434,7 +433,7 @@
+                     android:textColor="@color/black"
+                     android:textSize="12sp"
+                     app:layout_constraintStart_toStartOf="@+id/txt12"
+-                    app:layout_constraintTop_toBottomOf="@id/txt12"/>
++                    app:layout_constraintTop_toBottomOf="@id/txt12" />
+ 
+                 <TextView
+                     android:id="@+id/txt16"
+@@ -446,7 +445,7 @@
+                     android:textColor="@color/black"
+                     android:textSize="12sp"
+                     app:layout_constraintStart_toStartOf="@id/txt13"
+-                    app:layout_constraintTop_toBottomOf="@id/txt13"/>
++                    app:layout_constraintTop_toBottomOf="@id/txt13" />
+ 
+                 <TextView
+                     android:id="@+id/txt17"
+@@ -457,9 +456,9 @@
+                     android:text=":"
+                     android:textColor="@color/black"
+                     android:textSize="12sp"
++                    app:layout_constraintEnd_toEndOf="@id/txt14"
+                     app:layout_constraintStart_toStartOf="@+id/txt14"
+-                    app:layout_constraintTop_toBottomOf="@id/txt14"
+-                    app:layout_constraintEnd_toEndOf="@id/txt14"/>
++                    app:layout_constraintTop_toBottomOf="@id/txt14" />
+ 
+                 <TextView
+                     android:id="@+id/txt18"
+@@ -471,19 +470,19 @@
+                     android:textColor="@color/black"
+                     android:textSize="12sp"
+                     app:layout_constraintStart_toStartOf="@+id/txt15"
+-                    app:layout_constraintTop_toBottomOf="@id/txt15"/>
++                    app:layout_constraintTop_toBottomOf="@id/txt15" />
+ 
+                 <ImageButton
+                     android:id="@+id/btn1"
+                     android:layout_width="12dp"
+                     android:layout_height="12dp"
+-                    android:src="@drawable/arrowoutward"
++                    android:layout_marginStart="5dp"
+                     android:layout_marginBottom="8dp"
+-                    android:layout_marginStart="5dp"
+                     android:background="@drawable/bg_hitam"
+-                    app:layout_constraintTop_toTopOf="@id/txt18"
++                    android:src="@drawable/arrowoutward"
+                     app:layout_constraintBottom_toBottomOf="@id/txt18"
+-                    app:layout_constraintStart_toEndOf="@id/txt18"/>
++                    app:layout_constraintStart_toEndOf="@id/txt18"
++                    app:layout_constraintTop_toTopOf="@id/txt18" />
+ 
+                 <TextView
+                     android:id="@+id/txt19"
+@@ -495,7 +494,7 @@
+                     android:textColor="@color/black"
+                     android:textSize="12sp"
+                     app:layout_constraintStart_toStartOf="@id/txt16"
+-                    app:layout_constraintTop_toBottomOf="@id/txt16"/>
++                    app:layout_constraintTop_toBottomOf="@id/txt16" />
+ 
+                 <TextView
+                     android:id="@+id/txt20"
+@@ -506,9 +505,9 @@
+                     android:text=":"
+                     android:textColor="@color/black"
+                     android:textSize="12sp"
++                    app:layout_constraintEnd_toEndOf="@id/txt17"
+                     app:layout_constraintStart_toStartOf="@+id/txt17"
+-                    app:layout_constraintTop_toBottomOf="@id/txt17"
+-                    app:layout_constraintEnd_toEndOf="@id/txt17"/>
++                    app:layout_constraintTop_toBottomOf="@id/txt17" />
+ 
+                 <TextView
+                     android:id="@+id/txt21"
+@@ -520,7 +519,7 @@
+                     android:textColor="@color/black"
+                     android:textSize="12sp"
+                     app:layout_constraintStart_toStartOf="@+id/txt18"
+-                    app:layout_constraintTop_toBottomOf="@id/txt18"/>
++                    app:layout_constraintTop_toBottomOf="@id/txt18" />
+ 
+                 <TextView
+                     android:id="@+id/txt22"
+@@ -532,7 +531,7 @@
+                     android:textColor="@color/black"
+                     android:textSize="12sp"
+                     app:layout_constraintStart_toStartOf="@id/txt19"
+-                    app:layout_constraintTop_toBottomOf="@id/txt19"/>
++                    app:layout_constraintTop_toBottomOf="@id/txt19" />
+ 
+                 <TextView
+                     android:id="@+id/txt23"
+@@ -543,9 +542,9 @@
+                     android:text=":"
+                     android:textColor="@color/black"
+                     android:textSize="12sp"
++                    app:layout_constraintEnd_toEndOf="@id/txt20"
+                     app:layout_constraintStart_toStartOf="@+id/txt20"
+-                    app:layout_constraintTop_toBottomOf="@id/txt20"
+-                    app:layout_constraintEnd_toEndOf="@id/txt20"/>
++                    app:layout_constraintTop_toBottomOf="@id/txt20" />
+ 
+ 
+             </androidx.constraintlayout.widget.ConstraintLayout>
+@@ -567,45 +566,46 @@
+                     android:stretchColumns="3">
+ 
+                     <TableRow android:background="@drawable/ic_btn_border">
++
+                         <TextView
+                             android:id="@+id/txtbariske1"
+                             android:layout_width="26dp"
+                             android:layout_height="wrap_content"
++                            android:layout_gravity="center_horizontal"
++                            android:layout_weight="4"
++                            android:fontFamily="@font/montserrat_reguler"
++                            android:gravity="center"
++                            android:padding="10sp"
+                             android:text="dd/mm/yyyy"
+-                            android:gravity="center"
+                             android:textColor="@color/black"
+-                            android:fontFamily="@font/montserrat_reguler"
+-                            android:textSize="13sp"
+-                            android:padding="10sp"
+-                            android:layout_weight="4"
+-                            android:layout_gravity="center_horizontal"/>
++                            android:textSize="13sp" />
+ 
+                         <TextView
+                             android:id="@+id/txtbariske2"
+                             android:layout_width="0dp"
+                             android:layout_height="wrap_content"
++                            android:layout_gravity="center_horizontal"
++                            android:layout_weight="5"
++                            android:fontFamily="@font/montserrat_reguler"
++                            android:gravity="center"
++                            android:padding="10sp"
+                             android:text="12121212121212121"
+-                            android:gravity="center"
+                             android:textColor="@color/black"
+-                            android:fontFamily="@font/montserrat_reguler"
+-                            android:textSize="13sp"
+-                            android:padding="10sp"
+-                            android:layout_weight="5"
+-                            android:layout_gravity="center_horizontal"/>
++                            android:textSize="13sp" />
+ 
+                         <ImageView
+                             android:id="@+id/img2"
+                             android:layout_width="0dp"
+                             android:layout_height="wrap_content"
+-                            android:text="12121212121212121"
++                            android:layout_gravity="center_horizontal"
++                            android:layout_weight="5"
++                            android:fontFamily="@font/montserrat_reguler"
+                             android:gravity="center"
++                            android:padding="8sp"
+                             android:src="@drawable/ic_baseline_keyboard_arrow_down_24"
++                            android:text="12121212121212121"
+                             android:textColor="@color/black"
+-                            android:fontFamily="@font/montserrat_reguler"
+-                            android:textSize="13sp"
+-                            android:padding="8sp"
+-                            android:layout_weight="5"
+-                            android:layout_gravity="center_horizontal"/>
++                            android:textSize="13sp" />
+                     </TableRow>
+ 
+                 </TableLayout>
+@@ -629,45 +629,46 @@
+                     android:stretchColumns="3">
+ 
+                     <TableRow android:background="@drawable/ic_btn_border">
++
+                         <TextView
+                             android:id="@+id/txtbariske3"
+                             android:layout_width="26dp"
+                             android:layout_height="wrap_content"
+-                            android:text="dd/mm/yyyy"
++                            android:layout_gravity="center_horizontal"
++                            android:layout_weight="4"
++                            android:fontFamily="@font/montserrat_reguler"
+                             android:gravity="center"
+-                            android:textColor="@color/black"
+-                            android:fontFamily="@font/montserrat_reguler"
+-                            android:textSize="13sp"
+                             android:padding="10sp"
+-                            android:layout_weight="4"
+-                            android:layout_gravity="center_horizontal"/>
++                            android:text="dd/mm/yyyy"
++                            android:textColor="@color/black"
++                            android:textSize="13sp" />
+ 
+                         <TextView
+                             android:id="@+id/txtbariske4"
+                             android:layout_width="0dp"
+                             android:layout_height="wrap_content"
+-                            android:text="12121212121212121"
+-                            android:gravity="center"
+-                            android:textColor="@color/black"
++                            android:layout_gravity="center_horizontal"
++                            android:layout_weight="5"
+                             android:fontFamily="@font/montserrat_reguler"
+-                            android:textSize="13sp"
++                            android:gravity="center"
+                             android:padding="10sp"
+-                            android:layout_weight="5"
+-                            android:layout_gravity="center_horizontal"/>
++                            android:text="12121212121212121"
++                            android:textColor="@color/black"
++                            android:textSize="13sp" />
+ 
+                         <ImageView
+                             android:id="@+id/img3"
+                             android:layout_width="0dp"
+                             android:layout_height="wrap_content"
+-                            android:text="12121212121212121"
++                            android:layout_gravity="center_horizontal"
++                            android:layout_weight="5"
++                            android:fontFamily="@font/montserrat_reguler"
+                             android:gravity="center"
++                            android:padding="8sp"
+                             android:src="@drawable/ic_baseline_keyboard_arrow_down_24"
++                            android:text="12121212121212121"
+                             android:textColor="@color/black"
+-                            android:fontFamily="@font/montserrat_reguler"
+-                            android:textSize="13sp"
+-                            android:padding="8sp"
+-                            android:layout_weight="5"
+-                            android:layout_gravity="center_horizontal"/>
++                            android:textSize="13sp" />
+                     </TableRow>
+ 
+                 </TableLayout>
+@@ -691,45 +692,46 @@
+                     android:stretchColumns="3">
+ 
+                     <TableRow android:background="@drawable/ic_btn_border">
++
+                         <TextView
+                             android:id="@+id/txtbariske5"
+                             android:layout_width="26dp"
+                             android:layout_height="wrap_content"
+-                            android:text="dd/mm/yyyy"
+-                            android:gravity="center"
+-                            android:textColor="@color/black"
++                            android:layout_gravity="center_horizontal"
++                            android:layout_weight="4"
+                             android:fontFamily="@font/montserrat_reguler"
+-                            android:textSize="13sp"
++                            android:gravity="center"
+                             android:padding="10sp"
+-                            android:layout_weight="4"
+-                            android:layout_gravity="center_horizontal"/>
++                            android:text="dd/mm/yyyy"
++                            android:textColor="@color/black"
++                            android:textSize="13sp" />
+ 
+                         <TextView
+                             android:id="@+id/txtbariske6"
+                             android:layout_width="0dp"
+                             android:layout_height="wrap_content"
+-                            android:text="12121212121212121"
++                            android:layout_gravity="center_horizontal"
++                            android:layout_weight="5"
++                            android:fontFamily="@font/montserrat_reguler"
+                             android:gravity="center"
++                            android:padding="10sp"
++                            android:text="12121212121212121"
+                             android:textColor="@color/black"
+-                            android:fontFamily="@font/montserrat_reguler"
+-                            android:textSize="13sp"
+-                            android:padding="10sp"
+-                            android:layout_weight="5"
+-                            android:layout_gravity="center_horizontal"/>
++                            android:textSize="13sp" />
+ 
+                         <ImageView
+                             android:id="@+id/img4"
+                             android:layout_width="0dp"
+                             android:layout_height="wrap_content"
+-                            android:text="12121212121212121"
++                            android:layout_gravity="center_horizontal"
++                            android:layout_weight="5"
++                            android:fontFamily="@font/montserrat_reguler"
+                             android:gravity="center"
++                            android:padding="8sp"
+                             android:src="@drawable/ic_baseline_keyboard_arrow_down_24"
++                            android:text="12121212121212121"
+                             android:textColor="@color/black"
+-                            android:fontFamily="@font/montserrat_reguler"
+-                            android:textSize="13sp"
+-                            android:padding="8sp"
+-                            android:layout_weight="5"
+-                            android:layout_gravity="center_horizontal"/>
++                            android:textSize="13sp" />
+                     </TableRow>
+ 
+                 </TableLayout>
+@@ -753,45 +755,46 @@
+                     android:stretchColumns="3">
+ 
+                     <TableRow android:background="@drawable/bts_bottom">
++
+                         <TextView
+                             android:id="@+id/txtbariske7"
+                             android:layout_width="26dp"
+                             android:layout_height="wrap_content"
++                            android:layout_gravity="center_horizontal"
++                            android:layout_weight="4"
++                            android:fontFamily="@font/montserrat_reguler"
++                            android:gravity="center"
++                            android:padding="10sp"
+                             android:text="dd/mm/yyyy"
+-                            android:gravity="center"
+                             android:textColor="@color/black"
+-                            android:fontFamily="@font/montserrat_reguler"
+-                            android:textSize="13sp"
+-                            android:padding="10sp"
+-                            android:layout_weight="4"
+-                            android:layout_gravity="center_horizontal"/>
++                            android:textSize="13sp" />
+ 
+                         <TextView
+                             android:id="@+id/txtbariske8"
+                             android:layout_width="0dp"
+                             android:layout_height="wrap_content"
+-                            android:text="12121212121212121"
++                            android:layout_gravity="center_horizontal"
++                            android:layout_weight="5"
++                            android:fontFamily="@font/montserrat_reguler"
+                             android:gravity="center"
+-                            android:textColor="@color/black"
+-                            android:fontFamily="@font/montserrat_reguler"
+-                            android:textSize="13sp"
+                             android:padding="10sp"
+-                            android:layout_weight="5"
+-                            android:layout_gravity="center_horizontal"/>
++                            android:text="12121212121212121"
++                            android:textColor="@color/black"
++                            android:textSize="13sp" />
+ 
+                         <ImageView
+                             android:id="@+id/img5"
+                             android:layout_width="0dp"
+                             android:layout_height="wrap_content"
+-                            android:text="12121212121212121"
++                            android:layout_gravity="center_horizontal"
++                            android:layout_weight="5"
++                            android:fontFamily="@font/montserrat_reguler"
+                             android:gravity="center"
++                            android:padding="8sp"
+                             android:src="@drawable/ic_baseline_keyboard_arrow_down_24"
++                            android:text="12121212121212121"
+                             android:textColor="@color/black"
+-                            android:fontFamily="@font/montserrat_reguler"
+-                            android:textSize="13sp"
+-                            android:padding="8sp"
+-                            android:layout_weight="5"
+-                            android:layout_gravity="center_horizontal"/>
++                            android:textSize="13sp" />
+                     </TableRow>
+ 
+                 </TableLayout>
+@@ -800,4 +803,5 @@
+ 
+         </androidx.constraintlayout.widget.ConstraintLayout>
+     </androidx.constraintlayout.widget.ConstraintLayout>
+-    </ScrollView>
+\ No newline at end of file
++
++</ScrollView>
+\ No newline at end of file
+Index: .idea/misc.xml
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.BaseRevisionTextPatchEP
+<+><?xml version=\"1.0\" encoding=\"UTF-8\"?>\r\n<project version=\"4\">\r\n  <component name=\"DesignSurface\">\r\n    <option name=\"filePathToZoomLevelMap\">\r\n      <map>\r\n        <entry key=\"..\\:/WORKING/mobile-andro/ago-mobile/MIMS/app/src/main/res/drawable/bg_hitam.xml\" value=\"0.117\" />\r\n        <entry key=\"..\\:/WORKING/mobile-andro/ago-mobile/MIMS/app/src/main/res/drawable/border2.xml\" value=\"0.117\" />\r\n        <entry key=\"..\\:/WORKING/mobile-andro/ago-mobile/MIMS/app/src/main/res/drawable/table_monitoring.xml\" value=\"0.117\" />\r\n        <entry key=\"..\\:/WORKING/mobile-andro/ago-mobile/MIMS/app/src/main/res/layout/activity_dashboard.xml\" value=\"0.22\" />\r\n        <entry key=\"..\\:/WORKING/mobile-andro/ago-mobile/MIMS/app/src/main/res/layout/activity_dashboard_pabrikan.xml\" value=\"0.18541666666666667\" />\r\n        <entry key=\"..\\:/WORKING/mobile-andro/ago-mobile/MIMS/app/src/main/res/layout/activity_dashboard_pusertif.xml\" value=\"0.33\" />\r\n        <entry key=\"..\\:/WORKING/mobile-andro/ago-mobile/MIMS/app/src/main/res/layout/activity_login.xml\" value=\"0.2\" />\r\n        <entry key=\"..\\:/WORKING/mobile-andro/ago-mobile/MIMS/app/src/main/res/layout/activity_monitoring_purchase_order.xml\" value=\"0.22\" />\r\n        <entry key=\"..\\:/WORKING/mobile-andro/ago-mobile/MIMS/app/src/main/res/layout/activity_upload_data_material.xml\" value=\"0.10989583333333333\" />\r\n        <entry key=\"..\\:/WORKING/mobile-andro/ago-mobile/MIMS/app/src/main/res/layout/custom_scanner.xml\" value=\"0.10989583333333333\" />\r\n      </map>\r\n    </option>\r\n  </component>\r\n  <component name=\"ProjectRootManager\" version=\"2\" languageLevel=\"JDK_11\" default=\"true\" project-jdk-name=\"Android Studio default JDK\" project-jdk-type=\"JavaSDK\">\r\n    <output url=\"file://$PROJECT_DIR$/build/classes\" />\r\n  </component>\r\n  <component name=\"ProjectType\">\r\n    <option name=\"id\" value=\"Android\" />\r\n  </component>\r\n</project>
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+diff --git a/.idea/misc.xml b/.idea/misc.xml
+--- a/.idea/misc.xml	(revision 392d0d8930e3e8fe3435a4997099337d4d424f12)
++++ b/.idea/misc.xml	(date 1667810769368)
+@@ -9,7 +9,7 @@
+         <entry key="..\:/WORKING/mobile-andro/ago-mobile/MIMS/app/src/main/res/layout/activity_dashboard.xml" value="0.22" />
+         <entry key="..\:/WORKING/mobile-andro/ago-mobile/MIMS/app/src/main/res/layout/activity_dashboard_pabrikan.xml" value="0.18541666666666667" />
+         <entry key="..\:/WORKING/mobile-andro/ago-mobile/MIMS/app/src/main/res/layout/activity_dashboard_pusertif.xml" value="0.33" />
+-        <entry key="..\:/WORKING/mobile-andro/ago-mobile/MIMS/app/src/main/res/layout/activity_login.xml" value="0.2" />
++        <entry key="..\:/WORKING/mobile-andro/ago-mobile/MIMS/app/src/main/res/layout/activity_login.xml" value="0.264" />
+         <entry key="..\:/WORKING/mobile-andro/ago-mobile/MIMS/app/src/main/res/layout/activity_monitoring_purchase_order.xml" value="0.22" />
+         <entry key="..\:/WORKING/mobile-andro/ago-mobile/MIMS/app/src/main/res/layout/activity_upload_data_material.xml" value="0.10989583333333333" />
+         <entry key="..\:/WORKING/mobile-andro/ago-mobile/MIMS/app/src/main/res/layout/custom_scanner.xml" value="0.10989583333333333" />

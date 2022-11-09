@@ -1,222 +1,240 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@color/bg_color"
+    android:background="#EFEFEF"
     tools:context=".ui.OtpActivity">
 
     <ImageView
-        android:id="@+id/mimsotp"
+        android:id="@+id/logo"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="15dp"
-        android:src="@drawable/logo"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
+        android:layout_centerHorizontal="true"
+        android:layout_gravity="center_horizontal"
+        android:layout_marginTop="100dp"
+        android:background="@drawable/logo" />
 
     <ImageView
-        android:id="@+id/logo"
-        android:layout_width="284dp"
-        android:layout_height="151dp"
-        android:layout_marginStart="24dp"
-        android:layout_marginEnd="24dp"
-        android:src="@drawable/mims"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.2" />
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_alignParentEnd="true"
+        android:background="@drawable/mims" />
+
+    <TextView
+        android:id="@+id/mims"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/logo"
+        android:layout_centerInParent="true"
+        android:fontFamily="@font/montserrat_reguler"
+        android:text="Material Identity Management System"
+        android:textColor="@color/black" />
 
     <LinearLayout
         android:id="@+id/lyopt1"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginTop="30dp"
-        app:layout_constraintTop_toBottomOf="@id/logo">
+        android:layout_below="@+id/mims"
+        android:layout_marginTop="49dp"
+        android:background="#00000000"
+        android:orientation="vertical"
+        android:padding="20dp"
+        android:paddingBottom="15dp">
 
         <TextView
+            android:id="@+id/username1"
             android:layout_width="match_parent"
-            android:layout_height="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
             android:gravity="center"
-            android:text="KODE VERIFIKASI"
+            android:layout_marginTop="50dp"
+            android:fontFamily="@font/montserrat_reguler"
+            android:text="Kode Verifikasi"
             android:textColor="@color/black"
-            android:textSize="20dp"
+            android:textSize="28sp"
             android:textStyle="bold" />
+
+        <TextView
+            android:id="@+id/txtotp1"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:layout_marginTop="18dp"
+            android:fontFamily="@font/montserrat_reguler"
+            android:text="Kami Telah Mengirimkan Kode Verifikasi Ke"
+            android:textColor="@color/black" />
+
+        <TextView
+            android:id="@+id/txtotp2"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:fontFamily="@font/montserrat_reguler"
+            android:text="Akun E-mail Anda"
+            android:textColor="@color/black" />
+
     </LinearLayout>
-
-    <TextView
-        android:id="@+id/txtotp1"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="25dp"
-        android:gravity="center"
-        android:text="Kami sudah mengirimkan kode verifikasi ke"
-        android:textColor="@color/black"
-        app:layout_constraintTop_toBottomOf="@+id/lyopt1" />
-
-    <TextView
-        android:id="@+id/txtotp2"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:gravity="center"
-        android:text="akun Email anda."
-        android:textColor="@color/black"
-        app:layout_constraintTop_toBottomOf="@id/txtotp1" />
 
     <LinearLayout
         android:id="@+id/lyotp2"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginTop="30dp"
+        android:layout_below="@+id/lyopt1"
+        android:layout_centerInParent="true"
+        android:background="#00000000"
         android:gravity="center"
         android:orientation="horizontal"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/txtotp2">
+        android:padding="20dp"
+        android:paddingBottom="15dp">
 
         <com.google.android.material.textfield.TextInputEditText
             android:id="@+id/edtotp1"
             android:layout_width="40dp"
-            android:layout_height="60dp"
-            android:background="@drawable/logootp"
-            android:cursorVisible="false"
-            android:gravity="center"
-            android:imeOptions="actionNone"
+            android:layout_height="35dp"
+            android:layout_marginEnd="8dp"
+            android:background="@drawable/textfield"
+            android:imeOptions="actionNext"
             android:inputType="numberDecimal"
             android:maxLength="1"
             android:maxLines="1"
+            android:textAlignment="center"
             android:textColor="@color/black"
-            android:textSize="15pt"
             android:textStyle="bold" />
 
         <com.google.android.material.textfield.TextInputEditText
             android:id="@+id/edtotp2"
             android:layout_width="40dp"
-            android:layout_height="60dp"
-            android:layout_marginStart="20dp"
-            android:background="@drawable/logootp"
-            android:cursorVisible="false"
-            android:gravity="center"
-            android:imeOptions="actionNone"
+            android:layout_height="35dp"
+            android:layout_marginStart="8dp"
+            android:layout_marginEnd="8dp"
+            android:background="@drawable/textfield"
+            android:imeOptions="actionNext"
             android:inputType="numberDecimal"
             android:maxLength="1"
             android:maxLines="1"
+            android:textAlignment="center"
             android:textColor="@color/black"
-            android:textSize="15pt"
             android:textStyle="bold" />
 
         <com.google.android.material.textfield.TextInputEditText
-
             android:id="@+id/edtotp3"
             android:layout_width="40dp"
-            android:layout_height="60dp"
-            android:layout_marginStart="20dp"
-            android:background="@drawable/logootp"
-            android:cursorVisible="false"
-            android:gravity="center"
-            android:imeOptions="actionNone"
+            android:layout_height="35dp"
+            android:layout_marginStart="8dp"
+            android:layout_marginEnd="8dp"
+            android:background="@drawable/textfield"
+            android:imeOptions="actionNext"
             android:inputType="numberDecimal"
             android:maxLength="1"
             android:maxLines="1"
+            android:textAlignment="center"
             android:textColor="@color/black"
-            android:textSize="15pt"
             android:textStyle="bold" />
 
         <com.google.android.material.textfield.TextInputEditText
-
             android:id="@+id/edtotp4"
             android:layout_width="40dp"
-            android:layout_height="60dp"
-            android:layout_marginStart="20dp"
-            android:background="@drawable/logootp"
-            android:cursorVisible="false"
-            android:gravity="center"
-            android:imeOptions="actionNone"
+            android:layout_height="35dp"
+            android:layout_marginStart="8dp"
+            android:layout_marginEnd="8dp"
+            android:background="@drawable/textfield"
+            android:imeOptions="actionNext"
             android:inputType="numberDecimal"
             android:maxLength="1"
             android:maxLines="1"
+            android:textAlignment="center"
             android:textColor="@color/black"
-            android:textSize="15pt"
             android:textStyle="bold" />
 
         <com.google.android.material.textfield.TextInputEditText
-
             android:id="@+id/edtotp5"
             android:layout_width="40dp"
-            android:layout_height="60dp"
-            android:layout_marginStart="20dp"
-            android:background="@drawable/logootp"
-            android:cursorVisible="false"
-            android:gravity="center"
-            android:imeOptions="actionNone"
+            android:layout_height="35dp"
+            android:layout_marginStart="8dp"
+            android:layout_marginLeft="10dp"
+            android:layout_marginEnd="8dp"
+            android:background="@drawable/textfield"
+            android:imeOptions="actionNext"
             android:inputType="numberDecimal"
             android:maxLength="1"
             android:maxLines="1"
+            android:textAlignment="center"
             android:textColor="@color/black"
-            android:textSize="15pt"
             android:textStyle="bold" />
 
         <com.google.android.material.textfield.TextInputEditText
-
             android:id="@+id/edtotp6"
             android:layout_width="40dp"
-            android:layout_height="60dp"
-            android:layout_marginStart="20dp"
-            android:background="@drawable/logootp"
-            android:cursorVisible="false"
-            android:gravity="center"
-            android:imeOptions="actionNone"
+            android:layout_height="35dp"
+            android:layout_marginLeft="10dp"
+            android:background="@drawable/textfield"
+            android:imeOptions="actionDone"
             android:inputType="numberDecimal"
             android:maxLength="1"
             android:maxLines="1"
+            android:textAlignment="center"
             android:textColor="@color/black"
-            android:textSize="15pt"
             android:textStyle="bold" />
+    </LinearLayout>
+
+    <LinearLayout
+        android:id="@+id/line3"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/lyotp2"
+        android:layout_marginTop="50dp"
+        android:background="#00000000"
+        android:orientation="vertical"
+        android:padding="20dp"
+        android:paddingBottom="15dp">
+
+        <TextView
+            android:id="@+id/txtotp3"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="Belum Menerima Kode?"
+            android:gravity="center"
+            android:fontFamily="@font/montserrat_reguler"
+            android:textColor="@color/black"/>
+        <TextView
+            android:id="@+id/txtotp4"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="Kirim Lagi"
+            android:gravity="center"
+            android:fontFamily="@font/montserrat_reguler"
+            android:textColor="#2F6FED"/>
+
+        <androidx.appcompat.widget.AppCompatButton
+            android:id="@+id/btnSubmitotp"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="60dp"
+            android:layout_marginTop="20dp"
+            android:layout_marginRight="60dp"
+            android:textColor="#FFFFFF"
+            android:background="@drawable/br_btn"
+            android:fontFamily="@font/montserrat_reguler"
+            android:textStyle="bold"
+            android:text="Submit"/>
 
     </LinearLayout>
 
-    <TextView
-        android:id="@+id/txtotp3"
+    <LinearLayout
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="25dp"
-        android:layout_marginBottom="4dp"
-        android:gravity="center"
-        android:text="Belum menerima kode?"
-        android:textColor="@color/black"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/lyotp2" />
+        android:layout_height="wrap_content">
 
-    <TextView
-        android:id="@+id/txtotp4"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:gravity="center"
-        android:text="Minta lagi!"
-        android:textColor="@color/blue_solid"
-        app:layout_constraintTop_toBottomOf="@id/txtotp3" />
-
-    <androidx.appcompat.widget.AppCompatButton
-        android:id="@+id/btnSubmitotp"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="150dp"
-        android:layout_marginTop="24dp"
-        android:layout_marginEnd="150dp"
-        android:layout_marginBottom="117dp"
-        android:background="@color/blue_solid"
-        android:gravity="center"
-        android:text="SUBMIT"
-        android:textAllCaps="false"
-        android:textColor="#FFFBF6"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/txtotp4"
-        tools:ignore="MissingConstraints" />
+        <androidx.appcompat.widget.AppCompatButton
+            android:id="@+id/btn_back"
+            android:layout_width="47dp"
+            android:layout_height="37dp"
+            android:layout_marginStart="28dp"
+            android:layout_marginEnd="20dp"
+            android:layout_marginTop="30dp"
+            android:background="@drawable/ic_baseline_arrow_back_24" />
+    </LinearLayout>
 
 
-</androidx.constraintlayout.widget.ConstraintLayout>
+</RelativeLayout>

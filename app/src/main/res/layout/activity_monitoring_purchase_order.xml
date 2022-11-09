@@ -4,8 +4,8 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="#F7F8FA"
     android:layout_gravity="top"
+    android:background="#F7F8FA"
     tools:context=".MonitoringPurchaseOrder">
 
     <androidx.constraintlayout.widget.ConstraintLayout
@@ -24,12 +24,12 @@
 
         <ImageButton
             android:id="@+id/back"
-            android:layout_width="50dp"
-            android:layout_height="50dp"
+            android:layout_width="40dp"
+            android:layout_height="40dp"
             android:layout_marginStart="36dp"
-            android:elevation="10dp"
-            android:layout_marginTop="30dp"
+            android:layout_marginTop="34dp"
             android:background="@drawable/textfield"
+            android:elevation="10dp"
             android:src="@drawable/ic_baseline_arrow_back_24"
             app:layout_constraintStart_toStartOf="@id/dashboard"
             app:layout_constraintTop_toTopOf="@id/dashboard" />
@@ -44,23 +44,23 @@
             android:text="Monitoring Purchase Order"
             android:textColor="@color/white"
             android:textStyle="bold"
-            app:layout_constraintStart_toEndOf="@id/back"
             app:layout_constraintEnd_toStartOf="@+id/bell"
-            app:layout_constraintTop_toTopOf="parent"/>
+            app:layout_constraintStart_toEndOf="@id/back"
+            app:layout_constraintTop_toTopOf="parent" />
 
         <ImageButton
             android:id="@+id/bell"
-            android:layout_width="50dp"
-            android:layout_height="50dp"
+            android:layout_width="40dp"
+            android:layout_height="40dp"
             android:layout_alignParentEnd="true"
-            android:layout_marginTop="30dp"
+            android:layout_marginTop="34dp"
+            android:layout_marginEnd="25dp"
+            android:background="@drawable/textfield"
             android:elevation="10dp"
             android:src="@drawable/ic_baseline_notifications_none_24"
-            android:layout_marginRight="25dp"
-            android:background="@drawable/textfield"
-            app:layout_constraintStart_toEndOf="@+id/txtdash"
             app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintTop_toTopOf="parent"/>
+            app:layout_constraintStart_toEndOf="@+id/txtdash"
+            app:layout_constraintTop_toTopOf="parent" />
 
         <androidx.constraintlayout.widget.ConstraintLayout
             android:id="@+id/const1"
@@ -103,8 +103,8 @@
             android:layout_height="wrap_content"
             android:layout_marginStart="12dp"
             android:layout_marginTop="10dp"
-            android:background="@drawable/border2"
             android:layout_marginEnd="13dp"
+            android:background="@drawable/border2"
             app:layout_constraintTop_toBottomOf="@+id/const1">
 
             <LinearLayout
@@ -113,9 +113,9 @@
                 android:layout_height="wrap_content"
                 android:background="#00000000"
                 android:orientation="vertical"
-                app:layout_constraintTop_toTopOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintEnd_toEndOf="parent">
+                app:layout_constraintTop_toTopOf="parent">
 
                 <TableLayout
                     android:id="@+id/tbl1"
@@ -126,47 +126,47 @@
                     android:background="@drawable/table_monitoring"
                     android:stretchColumns="3">
 
-                    <TableRow
-                        android:background="@drawable/bts_topleft">
+                    <TableRow android:background="@drawable/bts_topleft">
+
                         <TextView
                             android:id="@+id/txttglpo"
                             android:layout_width="0dp"
                             android:layout_height="wrap_content"
-                            android:text="Tanggal PO"
-                            android:gravity="center"
-                            android:textColor="@color/black"
-                            android:fontFamily="@font/montserrat_reguler"
-                            android:textSize="14sp"
-                            android:paddingTop="10dp"
+                            android:layout_gravity="center_horizontal"
                             android:layout_weight="4"
-                            android:layout_gravity="center_horizontal"/>
+                            android:fontFamily="@font/montserrat_reguler"
+                            android:gravity="center"
+                            android:paddingTop="10dp"
+                            android:text="Tanggal PO"
+                            android:textColor="@color/black"
+                            android:textSize="14sp" />
 
                         <TextView
                             android:id="@+id/txtnopo"
                             android:layout_width="0dp"
                             android:layout_height="wrap_content"
-                            android:text="No. PO"
-                            android:gravity="center"
-                            android:textColor="@color/black"
+                            android:layout_gravity="center_horizontal"
+                            android:layout_weight="4"
                             android:background="@drawable/border"
                             android:fontFamily="@font/montserrat_reguler"
-                            android:textSize="13sp"
+                            android:gravity="center"
                             android:padding="10sp"
-                            android:layout_weight="4"
-                            android:layout_gravity="center_horizontal"/>
+                            android:text="No. PO"
+                            android:textColor="@color/black"
+                            android:textSize="13sp" />
 
                         <TextView
                             android:id="@+id/detail"
                             android:layout_width="0dp"
                             android:layout_height="wrap_content"
+                            android:layout_gravity="center_horizontal"
+                            android:layout_weight="4"
+                            android:fontFamily="@font/montserrat_reguler"
+                            android:gravity="center"
+                            android:padding="10sp"
                             android:text="Detail"
                             android:textColor="@color/black"
-                            android:gravity="center"
-                            android:fontFamily="@font/montserrat_reguler"
-                            android:textSize="13sp"
-                            android:padding="10sp"
-                            android:layout_weight="4"
-                            android:layout_gravity="center_horizontal"/>
+                            android:textSize="13sp" />
 
                     </TableRow>
 
@@ -191,46 +191,47 @@
                     android:stretchColumns="3">
 
                     <TableRow android:background="@drawable/ic_btn_border">
+
                         <TextView
                             android:id="@+id/txtbaris1"
                             android:layout_width="26dp"
                             android:layout_height="wrap_content"
-                            android:text="dd/mm/yyyy"
-                            android:gravity="center"
-                            android:textColor="@color/black"
-                            android:fontFamily="@font/montserrat_reguler"
-                            android:textSize="13sp"
-                            android:padding="10sp"
+                            android:layout_gravity="center_horizontal"
                             android:layout_weight="4"
-                            android:layout_gravity="center_horizontal"/>
+                            android:fontFamily="@font/montserrat_reguler"
+                            android:gravity="center"
+                            android:padding="10sp"
+                            android:text="dd/mm/yyyy"
+                            android:textColor="@color/black"
+                            android:textSize="13sp" />
 
                         <TextView
                             android:id="@+id/txtbaris2"
                             android:layout_width="0dp"
                             android:layout_height="wrap_content"
-                            android:text="12121212121212121"
-                            android:gravity="center"
-                            android:textColor="@color/black"
-                            android:fontFamily="@font/montserrat_reguler"
-                            android:textSize="13sp"
-                            android:padding="10sp"
+                            android:layout_gravity="center_horizontal"
                             android:layout_weight="5"
-                            android:layout_gravity="center_horizontal"/>
+                            android:fontFamily="@font/montserrat_reguler"
+                            android:gravity="center"
+                            android:padding="10sp"
+                            android:text="12121212121212121"
+                            android:textColor="@color/black"
+                            android:textSize="13sp" />
 
                         <ImageButton
                             android:id="@+id/img1"
                             android:layout_width="0dp"
                             android:layout_height="wrap_content"
-                            android:text="12121212121212121"
-                            android:gravity="center"
-                            android:src="@drawable/ic_baseline_keyboard_arrow_down_24"
-                            android:background="@android:color/transparent"
-                            android:textColor="@color/black"
-                            android:fontFamily="@font/montserrat_reguler"
-                            android:textSize="13sp"
-                            android:padding="8sp"
+                            android:layout_gravity="center_horizontal"
                             android:layout_weight="5"
-                            android:layout_gravity="center_horizontal"/>
+                            android:background="@android:color/transparent"
+                            android:fontFamily="@font/montserrat_reguler"
+                            android:gravity="center"
+                            android:padding="8sp"
+                            android:src="@drawable/ic_baseline_keyboard_arrow_down_24"
+                            android:text="12121212121212121"
+                            android:textColor="@color/black"
+                            android:textSize="13sp" />
                     </TableRow>
 
                 </TableLayout>
@@ -241,9 +242,9 @@
                 android:id="@+id/const2"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
+                android:background="@drawable/ic_btn_border"
                 android:padding="8dp"
                 android:visibility="gone"
-                android:background="@drawable/ic_btn_border"
                 app:layout_constraintTop_toBottomOf="@+id/lineer2"
                 tools:layout_editor_absoluteX="0dp">
 
@@ -296,7 +297,7 @@
                     android:textColor="@color/black"
                     android:textSize="12sp"
                     app:layout_constraintStart_toStartOf="@id/txt1"
-                    app:layout_constraintTop_toBottomOf="@id/txt1"/>
+                    app:layout_constraintTop_toBottomOf="@id/txt1" />
 
                 <TextView
                     android:id="@+id/txt5"
@@ -307,9 +308,9 @@
                     android:text=":"
                     android:textColor="@color/black"
                     android:textSize="12sp"
+                    app:layout_constraintEnd_toEndOf="@id/txt2"
                     app:layout_constraintStart_toStartOf="@+id/txt2"
-                    app:layout_constraintTop_toBottomOf="@id/txt2"
-                    app:layout_constraintEnd_toEndOf="@id/txt2"/>
+                    app:layout_constraintTop_toBottomOf="@id/txt2" />
 
                 <TextView
                     android:id="@+id/txt6"
@@ -321,8 +322,7 @@
                     android:textColor="@color/black"
                     android:textSize="12sp"
                     app:layout_constraintStart_toStartOf="@+id/txt3"
-                    app:layout_constraintTop_toBottomOf="@id/txt3"
-                    />
+                    app:layout_constraintTop_toBottomOf="@id/txt3" />
 
                 <TextView
                     android:id="@+id/txt7"
@@ -334,7 +334,7 @@
                     android:textColor="@color/black"
                     android:textSize="12sp"
                     app:layout_constraintStart_toStartOf="@id/txt4"
-                    app:layout_constraintTop_toBottomOf="@id/txt4"/>
+                    app:layout_constraintTop_toBottomOf="@id/txt4" />
 
                 <TextView
                     android:id="@+id/txt8"
@@ -345,9 +345,9 @@
                     android:text=":"
                     android:textColor="@color/black"
                     android:textSize="12sp"
+                    app:layout_constraintEnd_toEndOf="@id/txt5"
                     app:layout_constraintStart_toStartOf="@+id/txt5"
-                    app:layout_constraintTop_toBottomOf="@id/txt5"
-                    app:layout_constraintEnd_toEndOf="@id/txt5"/>
+                    app:layout_constraintTop_toBottomOf="@id/txt5" />
 
                 <TextView
                     android:id="@+id/txt9"
@@ -359,8 +359,7 @@
                     android:textColor="@color/black"
                     android:textSize="12sp"
                     app:layout_constraintStart_toStartOf="@+id/txt6"
-                    app:layout_constraintTop_toBottomOf="@id/txt6"
-                    />
+                    app:layout_constraintTop_toBottomOf="@id/txt6" />
 
                 <TextView
                     android:id="@+id/txt10"
@@ -372,7 +371,7 @@
                     android:textColor="@color/black"
                     android:textSize="12sp"
                     app:layout_constraintStart_toStartOf="@id/txt7"
-                    app:layout_constraintTop_toBottomOf="@id/txt7"/>
+                    app:layout_constraintTop_toBottomOf="@id/txt7" />
 
                 <TextView
                     android:id="@+id/txt11"
@@ -383,9 +382,9 @@
                     android:text=":"
                     android:textColor="@color/black"
                     android:textSize="12sp"
+                    app:layout_constraintEnd_toEndOf="@id/txt8"
                     app:layout_constraintStart_toStartOf="@+id/txt8"
-                    app:layout_constraintTop_toBottomOf="@id/txt8"
-                    app:layout_constraintEnd_toEndOf="@id/txt8"/>
+                    app:layout_constraintTop_toBottomOf="@id/txt8" />
 
                 <TextView
                     android:id="@+id/txt12"
@@ -397,7 +396,7 @@
                     android:textColor="@color/black"
                     android:textSize="12sp"
                     app:layout_constraintStart_toStartOf="@+id/txt9"
-                    app:layout_constraintTop_toBottomOf="@id/txt9"/>
+                    app:layout_constraintTop_toBottomOf="@id/txt9" />
 
                 <TextView
                     android:id="@+id/txt13"
@@ -409,7 +408,7 @@
                     android:textColor="@color/black"
                     android:textSize="12sp"
                     app:layout_constraintStart_toStartOf="@id/txt10"
-                    app:layout_constraintTop_toBottomOf="@id/txt10"/>
+                    app:layout_constraintTop_toBottomOf="@id/txt10" />
 
                 <TextView
                     android:id="@+id/txt14"
@@ -420,9 +419,9 @@
                     android:text=":"
                     android:textColor="@color/black"
                     android:textSize="12sp"
+                    app:layout_constraintEnd_toEndOf="@id/txt11"
                     app:layout_constraintStart_toStartOf="@+id/txt11"
-                    app:layout_constraintTop_toBottomOf="@id/txt11"
-                    app:layout_constraintEnd_toEndOf="@id/txt11"/>
+                    app:layout_constraintTop_toBottomOf="@id/txt11" />
 
                 <TextView
                     android:id="@+id/txt15"
@@ -434,7 +433,7 @@
                     android:textColor="@color/black"
                     android:textSize="12sp"
                     app:layout_constraintStart_toStartOf="@+id/txt12"
-                    app:layout_constraintTop_toBottomOf="@id/txt12"/>
+                    app:layout_constraintTop_toBottomOf="@id/txt12" />
 
                 <TextView
                     android:id="@+id/txt16"
@@ -446,7 +445,7 @@
                     android:textColor="@color/black"
                     android:textSize="12sp"
                     app:layout_constraintStart_toStartOf="@id/txt13"
-                    app:layout_constraintTop_toBottomOf="@id/txt13"/>
+                    app:layout_constraintTop_toBottomOf="@id/txt13" />
 
                 <TextView
                     android:id="@+id/txt17"
@@ -457,9 +456,9 @@
                     android:text=":"
                     android:textColor="@color/black"
                     android:textSize="12sp"
+                    app:layout_constraintEnd_toEndOf="@id/txt14"
                     app:layout_constraintStart_toStartOf="@+id/txt14"
-                    app:layout_constraintTop_toBottomOf="@id/txt14"
-                    app:layout_constraintEnd_toEndOf="@id/txt14"/>
+                    app:layout_constraintTop_toBottomOf="@id/txt14" />
 
                 <TextView
                     android:id="@+id/txt18"
@@ -471,19 +470,19 @@
                     android:textColor="@color/black"
                     android:textSize="12sp"
                     app:layout_constraintStart_toStartOf="@+id/txt15"
-                    app:layout_constraintTop_toBottomOf="@id/txt15"/>
+                    app:layout_constraintTop_toBottomOf="@id/txt15" />
 
                 <ImageButton
                     android:id="@+id/btn1"
                     android:layout_width="12dp"
                     android:layout_height="12dp"
-                    android:src="@drawable/arrowoutward"
-                    android:layout_marginBottom="8dp"
                     android:layout_marginStart="5dp"
+                    android:layout_marginBottom="8dp"
                     android:background="@drawable/bg_hitam"
-                    app:layout_constraintTop_toTopOf="@id/txt18"
+                    android:src="@drawable/arrowoutward"
                     app:layout_constraintBottom_toBottomOf="@id/txt18"
-                    app:layout_constraintStart_toEndOf="@id/txt18"/>
+                    app:layout_constraintStart_toEndOf="@id/txt18"
+                    app:layout_constraintTop_toTopOf="@id/txt18" />
 
                 <TextView
                     android:id="@+id/txt19"
@@ -495,7 +494,7 @@
                     android:textColor="@color/black"
                     android:textSize="12sp"
                     app:layout_constraintStart_toStartOf="@id/txt16"
-                    app:layout_constraintTop_toBottomOf="@id/txt16"/>
+                    app:layout_constraintTop_toBottomOf="@id/txt16" />
 
                 <TextView
                     android:id="@+id/txt20"
@@ -506,9 +505,9 @@
                     android:text=":"
                     android:textColor="@color/black"
                     android:textSize="12sp"
+                    app:layout_constraintEnd_toEndOf="@id/txt17"
                     app:layout_constraintStart_toStartOf="@+id/txt17"
-                    app:layout_constraintTop_toBottomOf="@id/txt17"
-                    app:layout_constraintEnd_toEndOf="@id/txt17"/>
+                    app:layout_constraintTop_toBottomOf="@id/txt17" />
 
                 <TextView
                     android:id="@+id/txt21"
@@ -520,7 +519,7 @@
                     android:textColor="@color/black"
                     android:textSize="12sp"
                     app:layout_constraintStart_toStartOf="@+id/txt18"
-                    app:layout_constraintTop_toBottomOf="@id/txt18"/>
+                    app:layout_constraintTop_toBottomOf="@id/txt18" />
 
                 <TextView
                     android:id="@+id/txt22"
@@ -532,7 +531,7 @@
                     android:textColor="@color/black"
                     android:textSize="12sp"
                     app:layout_constraintStart_toStartOf="@id/txt19"
-                    app:layout_constraintTop_toBottomOf="@id/txt19"/>
+                    app:layout_constraintTop_toBottomOf="@id/txt19" />
 
                 <TextView
                     android:id="@+id/txt23"
@@ -543,9 +542,9 @@
                     android:text=":"
                     android:textColor="@color/black"
                     android:textSize="12sp"
+                    app:layout_constraintEnd_toEndOf="@id/txt20"
                     app:layout_constraintStart_toStartOf="@+id/txt20"
-                    app:layout_constraintTop_toBottomOf="@id/txt20"
-                    app:layout_constraintEnd_toEndOf="@id/txt20"/>
+                    app:layout_constraintTop_toBottomOf="@id/txt20" />
 
 
             </androidx.constraintlayout.widget.ConstraintLayout>
@@ -567,45 +566,46 @@
                     android:stretchColumns="3">
 
                     <TableRow android:background="@drawable/ic_btn_border">
+
                         <TextView
                             android:id="@+id/txtbariske1"
                             android:layout_width="26dp"
                             android:layout_height="wrap_content"
-                            android:text="dd/mm/yyyy"
-                            android:gravity="center"
-                            android:textColor="@color/black"
-                            android:fontFamily="@font/montserrat_reguler"
-                            android:textSize="13sp"
-                            android:padding="10sp"
+                            android:layout_gravity="center_horizontal"
                             android:layout_weight="4"
-                            android:layout_gravity="center_horizontal"/>
+                            android:fontFamily="@font/montserrat_reguler"
+                            android:gravity="center"
+                            android:padding="10sp"
+                            android:text="dd/mm/yyyy"
+                            android:textColor="@color/black"
+                            android:textSize="13sp" />
 
                         <TextView
                             android:id="@+id/txtbariske2"
                             android:layout_width="0dp"
                             android:layout_height="wrap_content"
-                            android:text="12121212121212121"
-                            android:gravity="center"
-                            android:textColor="@color/black"
-                            android:fontFamily="@font/montserrat_reguler"
-                            android:textSize="13sp"
-                            android:padding="10sp"
+                            android:layout_gravity="center_horizontal"
                             android:layout_weight="5"
-                            android:layout_gravity="center_horizontal"/>
+                            android:fontFamily="@font/montserrat_reguler"
+                            android:gravity="center"
+                            android:padding="10sp"
+                            android:text="12121212121212121"
+                            android:textColor="@color/black"
+                            android:textSize="13sp" />
 
                         <ImageView
                             android:id="@+id/img2"
                             android:layout_width="0dp"
                             android:layout_height="wrap_content"
-                            android:text="12121212121212121"
-                            android:gravity="center"
-                            android:src="@drawable/ic_baseline_keyboard_arrow_down_24"
-                            android:textColor="@color/black"
-                            android:fontFamily="@font/montserrat_reguler"
-                            android:textSize="13sp"
-                            android:padding="8sp"
+                            android:layout_gravity="center_horizontal"
                             android:layout_weight="5"
-                            android:layout_gravity="center_horizontal"/>
+                            android:fontFamily="@font/montserrat_reguler"
+                            android:gravity="center"
+                            android:padding="8sp"
+                            android:src="@drawable/ic_baseline_keyboard_arrow_down_24"
+                            android:text="12121212121212121"
+                            android:textColor="@color/black"
+                            android:textSize="13sp" />
                     </TableRow>
 
                 </TableLayout>
@@ -629,45 +629,46 @@
                     android:stretchColumns="3">
 
                     <TableRow android:background="@drawable/ic_btn_border">
+
                         <TextView
                             android:id="@+id/txtbariske3"
                             android:layout_width="26dp"
                             android:layout_height="wrap_content"
-                            android:text="dd/mm/yyyy"
-                            android:gravity="center"
-                            android:textColor="@color/black"
-                            android:fontFamily="@font/montserrat_reguler"
-                            android:textSize="13sp"
-                            android:padding="10sp"
+                            android:layout_gravity="center_horizontal"
                             android:layout_weight="4"
-                            android:layout_gravity="center_horizontal"/>
+                            android:fontFamily="@font/montserrat_reguler"
+                            android:gravity="center"
+                            android:padding="10sp"
+                            android:text="dd/mm/yyyy"
+                            android:textColor="@color/black"
+                            android:textSize="13sp" />
 
                         <TextView
                             android:id="@+id/txtbariske4"
                             android:layout_width="0dp"
                             android:layout_height="wrap_content"
-                            android:text="12121212121212121"
-                            android:gravity="center"
-                            android:textColor="@color/black"
-                            android:fontFamily="@font/montserrat_reguler"
-                            android:textSize="13sp"
-                            android:padding="10sp"
+                            android:layout_gravity="center_horizontal"
                             android:layout_weight="5"
-                            android:layout_gravity="center_horizontal"/>
+                            android:fontFamily="@font/montserrat_reguler"
+                            android:gravity="center"
+                            android:padding="10sp"
+                            android:text="12121212121212121"
+                            android:textColor="@color/black"
+                            android:textSize="13sp" />
 
                         <ImageView
                             android:id="@+id/img3"
                             android:layout_width="0dp"
                             android:layout_height="wrap_content"
-                            android:text="12121212121212121"
-                            android:gravity="center"
-                            android:src="@drawable/ic_baseline_keyboard_arrow_down_24"
-                            android:textColor="@color/black"
-                            android:fontFamily="@font/montserrat_reguler"
-                            android:textSize="13sp"
-                            android:padding="8sp"
+                            android:layout_gravity="center_horizontal"
                             android:layout_weight="5"
-                            android:layout_gravity="center_horizontal"/>
+                            android:fontFamily="@font/montserrat_reguler"
+                            android:gravity="center"
+                            android:padding="8sp"
+                            android:src="@drawable/ic_baseline_keyboard_arrow_down_24"
+                            android:text="12121212121212121"
+                            android:textColor="@color/black"
+                            android:textSize="13sp" />
                     </TableRow>
 
                 </TableLayout>
@@ -691,45 +692,46 @@
                     android:stretchColumns="3">
 
                     <TableRow android:background="@drawable/ic_btn_border">
+
                         <TextView
                             android:id="@+id/txtbariske5"
                             android:layout_width="26dp"
                             android:layout_height="wrap_content"
-                            android:text="dd/mm/yyyy"
-                            android:gravity="center"
-                            android:textColor="@color/black"
-                            android:fontFamily="@font/montserrat_reguler"
-                            android:textSize="13sp"
-                            android:padding="10sp"
+                            android:layout_gravity="center_horizontal"
                             android:layout_weight="4"
-                            android:layout_gravity="center_horizontal"/>
+                            android:fontFamily="@font/montserrat_reguler"
+                            android:gravity="center"
+                            android:padding="10sp"
+                            android:text="dd/mm/yyyy"
+                            android:textColor="@color/black"
+                            android:textSize="13sp" />
 
                         <TextView
                             android:id="@+id/txtbariske6"
                             android:layout_width="0dp"
                             android:layout_height="wrap_content"
-                            android:text="12121212121212121"
-                            android:gravity="center"
-                            android:textColor="@color/black"
-                            android:fontFamily="@font/montserrat_reguler"
-                            android:textSize="13sp"
-                            android:padding="10sp"
+                            android:layout_gravity="center_horizontal"
                             android:layout_weight="5"
-                            android:layout_gravity="center_horizontal"/>
+                            android:fontFamily="@font/montserrat_reguler"
+                            android:gravity="center"
+                            android:padding="10sp"
+                            android:text="12121212121212121"
+                            android:textColor="@color/black"
+                            android:textSize="13sp" />
 
                         <ImageView
                             android:id="@+id/img4"
                             android:layout_width="0dp"
                             android:layout_height="wrap_content"
-                            android:text="12121212121212121"
-                            android:gravity="center"
-                            android:src="@drawable/ic_baseline_keyboard_arrow_down_24"
-                            android:textColor="@color/black"
-                            android:fontFamily="@font/montserrat_reguler"
-                            android:textSize="13sp"
-                            android:padding="8sp"
+                            android:layout_gravity="center_horizontal"
                             android:layout_weight="5"
-                            android:layout_gravity="center_horizontal"/>
+                            android:fontFamily="@font/montserrat_reguler"
+                            android:gravity="center"
+                            android:padding="8sp"
+                            android:src="@drawable/ic_baseline_keyboard_arrow_down_24"
+                            android:text="12121212121212121"
+                            android:textColor="@color/black"
+                            android:textSize="13sp" />
                     </TableRow>
 
                 </TableLayout>
@@ -753,45 +755,46 @@
                     android:stretchColumns="3">
 
                     <TableRow android:background="@drawable/bts_bottom">
+
                         <TextView
                             android:id="@+id/txtbariske7"
                             android:layout_width="26dp"
                             android:layout_height="wrap_content"
-                            android:text="dd/mm/yyyy"
-                            android:gravity="center"
-                            android:textColor="@color/black"
-                            android:fontFamily="@font/montserrat_reguler"
-                            android:textSize="13sp"
-                            android:padding="10sp"
+                            android:layout_gravity="center_horizontal"
                             android:layout_weight="4"
-                            android:layout_gravity="center_horizontal"/>
+                            android:fontFamily="@font/montserrat_reguler"
+                            android:gravity="center"
+                            android:padding="10sp"
+                            android:text="dd/mm/yyyy"
+                            android:textColor="@color/black"
+                            android:textSize="13sp" />
 
                         <TextView
                             android:id="@+id/txtbariske8"
                             android:layout_width="0dp"
                             android:layout_height="wrap_content"
-                            android:text="12121212121212121"
-                            android:gravity="center"
-                            android:textColor="@color/black"
-                            android:fontFamily="@font/montserrat_reguler"
-                            android:textSize="13sp"
-                            android:padding="10sp"
+                            android:layout_gravity="center_horizontal"
                             android:layout_weight="5"
-                            android:layout_gravity="center_horizontal"/>
+                            android:fontFamily="@font/montserrat_reguler"
+                            android:gravity="center"
+                            android:padding="10sp"
+                            android:text="12121212121212121"
+                            android:textColor="@color/black"
+                            android:textSize="13sp" />
 
                         <ImageView
                             android:id="@+id/img5"
                             android:layout_width="0dp"
                             android:layout_height="wrap_content"
-                            android:text="12121212121212121"
-                            android:gravity="center"
-                            android:src="@drawable/ic_baseline_keyboard_arrow_down_24"
-                            android:textColor="@color/black"
-                            android:fontFamily="@font/montserrat_reguler"
-                            android:textSize="13sp"
-                            android:padding="8sp"
+                            android:layout_gravity="center_horizontal"
                             android:layout_weight="5"
-                            android:layout_gravity="center_horizontal"/>
+                            android:fontFamily="@font/montserrat_reguler"
+                            android:gravity="center"
+                            android:padding="8sp"
+                            android:src="@drawable/ic_baseline_keyboard_arrow_down_24"
+                            android:text="12121212121212121"
+                            android:textColor="@color/black"
+                            android:textSize="13sp" />
                     </TableRow>
 
                 </TableLayout>
@@ -800,4 +803,5 @@
 
         </androidx.constraintlayout.widget.ConstraintLayout>
     </androidx.constraintlayout.widget.ConstraintLayout>
-    </ScrollView>
+
+</ScrollView>
