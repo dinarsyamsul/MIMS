@@ -36,18 +36,18 @@ class LoginActivity : AppCompatActivity() {
         val apiService = ApiConfig.getApiService()
         val networkStatusTracker = NetworkStatusTracker(this)
 
-        session.user_token.asLiveData().observe(this) { token ->
-            Log.d("LoginActivity", "cek user token: $token")
-            if (token != null) {
-                Intent(this@LoginActivity, DashboardActivity::class.java).also {
-                    it.flags = Intent.FLAG_ACTIVITY_NEW_TASK or Intent.FLAG_ACTIVITY_CLEAR_TASK
-                    startActivity(it)
-                }
-            }
-        }
-        session.device_token.asLiveData().observe(this) { token ->
-            Log.d("LoginActivity", "cek device token: $token")
-        }
+//        session.user_token.asLiveData().observe(this) { token ->
+//            Log.d("LoginActivity", "cek user token: $token")
+//            if (token != null) {
+//                Intent(this@LoginActivity, DashboardActivity::class.java).also {
+//                    it.flags = Intent.FLAG_ACTIVITY_NEW_TASK or Intent.FLAG_ACTIVITY_CLEAR_TASK
+//                    startActivity(it)
+//                }
+//            }
+//        }
+//        session.device_token.asLiveData().observe(this) { token ->
+//            Log.d("LoginActivity", "cek device token: $token")
+//        }
 
         loginViewModel =
             ViewModelProvider(
@@ -132,8 +132,8 @@ class LoginActivity : AppCompatActivity() {
             }
 
             binding.btnLogin.setOnClickListener {
-                loginUser()
-//                startActivity(Intent(this, DashboardActivity::class.java))
+//                loginUser()
+                startActivity(Intent(this, OtpActivity::class.java))
             }
         }
     }
