@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
-<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
@@ -30,131 +30,131 @@
             android:id="@+id/mims"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_below="@id/logo"
-            android:layout_centerInParent="true"
+            android:textColor="@color/black"
             android:fontFamily="@font/montserrat_reguler"
             android:text="Material Identity Management System"
-            android:textColor="@color/black" />
+            android:layout_centerInParent="true"
+            android:layout_below="@id/logo"/>
 
-            <LinearLayout
-                android:id="@+id/line1"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_below="@+id/mims"
-                android:layout_marginTop="80dp"
-                android:background="#00000000"
-                android:orientation="vertical"
-                android:padding="20dp"
-                android:paddingBottom="15dp">
+        <LinearLayout
+            android:id="@+id/line1"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/mims"
+            android:layout_marginTop="80dp"
+            android:background="#00000000"
+            android:orientation="vertical"
+            android:padding="20dp"
+            android:paddingBottom="15dp">
 
-                <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_marginLeft="30dp"
-                    android:fontFamily="@font/montserrat_reguler"
-                    android:text="LOGIN"
-                    android:textColor="@color/black"
-                    android:textSize="24sp"
-                    android:textStyle="bold" />
-
-                <com.google.android.material.textfield.TextInputLayout
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_marginStart="30dp"
-                    android:layout_marginTop="20dp"
-                    android:layout_marginEnd="30dp"
-                    android:elevation="2dp"
-                    android:fontFamily="@font/montserrat_reguler"
-                    android:hint="Username"
-                    android:textColorHint="@color/black"
-                    app:boxStrokeColor="@color/blue_solid"
-                    android:textColor="@android:color/darker_gray"
-                    app:boxStrokeWidth="0dp"
-                    app:endIconDrawable="@drawable/ic_username"
-                    app:endIconMode="custom"
-                    app:endIconTint="@android:color/darker_gray"
-                    app:hintTextColor="@color/blue_solid">
-
-
-                    <com.google.android.material.textfield.TextInputEditText
-                        android:id="@+id/edt_username"
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:imeOptions="actionNext"
-                        android:inputType="text"
-                        android:background="@drawable/textfield"
-                        android:paddingStart="16dp"
-                        android:fontFamily="@font/montserrat_reguler"
-                        android:paddingEnd="16dp"
-                        android:textColor="@color/black"
-                        android:textSize="16sp" />
-
-                </com.google.android.material.textfield.TextInputLayout>
-
-                <com.google.android.material.textfield.TextInputLayout
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_marginStart="30dp"
-                    android:layout_marginTop="20dp"
-                    android:layout_marginEnd="30dp"
-                    android:elevation="2dp"
-                    android:fontFamily="@font/montserrat_reguler"
-                    android:hint="Password"
-                    android:textColor="@android:color/darker_gray"
-                    app:endIconTint="@android:color/darker_gray"
-                    android:textColorHint="@color/black"
-                    app:boxStrokeColor="@color/blue_solid"
-                    app:boxStrokeWidth="0dp"
-                    app:endIconDrawable="@drawable/ic_password"
-                    app:endIconMode="password_toggle"
-                    app:hintTextColor="@color/blue_solid">
-
-                    <EditText
-                        android:id="@+id/edt_pass"
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:background="@drawable/textfield"
-                        android:imeOptions="actionDone"
-                        android:inputType="textPassword"
-                        android:paddingStart="16dp"
-                        android:textColor="@color/black"
-                        android:fontFamily="@font/montserrat_reguler"
-                        android:maxLines="1"
-                        android:paddingEnd="16dp"
-                        android:textSize="16sp" />
-
-                </com.google.android.material.textfield.TextInputLayout>
-            </LinearLayout>
-
-            <LinearLayout
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_below="@+id/line1"
-                android:background="#00000000"
-                android:orientation="vertical">
-
-                <androidx.appcompat.widget.AppCompatButton
-                    android:id="@+id/btn_login"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_marginLeft="60dp"
-                    android:layout_marginTop="50dp"
-                    android:layout_marginRight="60dp"
-                    android:background="@drawable/br_btn"
-                    android:fontFamily="@font/montserrat_reguler"
-                    android:text="LOGIN"
-                    android:textColor="#FFFFFF"
-                    android:textStyle="bold" />
-
-            </LinearLayout>
-
-            <ProgressBar
-                android:id="@+id/progress_bar"
-                style="@android:style/Widget.Material.ProgressBar"
+            <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_centerInParent="true"
-                android:visibility="gone" />
+                android:layout_marginEnd="30dp"
+                android:fontFamily="@font/montserrat_reguler"
+                android:text="LOGIN"
+                android:textColor="@color/black"
+                android:textSize="24sp"
+                android:textStyle="bold" />
+
+            <com.google.android.material.textfield.TextInputLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="30dp"
+                android:layout_marginTop="20dp"
+                android:layout_marginEnd="30dp"
+                android:elevation="2dp"
+                android:fontFamily="@font/montserrat_reguler"
+                android:hint="Username"
+                android:textColorHint="@color/black"
+                app:boxStrokeColor="@color/blue_solid"
+                android:textColor="@android:color/darker_gray"
+                app:boxStrokeWidth="0dp"
+                app:endIconDrawable="@drawable/ic_username"
+                app:endIconMode="custom"
+                app:endIconTint="@android:color/darker_gray"
+                app:hintTextColor="@color/blue_solid">
+
+
+                <com.google.android.material.textfield.TextInputEditText
+                    android:id="@+id/edt_username"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:imeOptions="actionNext"
+                    android:inputType="text"
+                    android:background="@drawable/textfield"
+                    android:paddingStart="16dp"
+                    android:fontFamily="@font/montserrat_reguler"
+                    android:paddingEnd="16dp"
+                    android:textColor="@color/black"
+                    android:textSize="16sp" />
+
+            </com.google.android.material.textfield.TextInputLayout>
+
+            <com.google.android.material.textfield.TextInputLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="30dp"
+                android:layout_marginTop="20dp"
+                android:layout_marginEnd="30dp"
+                android:elevation="2dp"
+                android:fontFamily="@font/montserrat_reguler"
+                android:hint="Password"
+                android:textColor="@android:color/darker_gray"
+                app:endIconTint="@android:color/darker_gray"
+                android:textColorHint="@color/black"
+                app:boxStrokeColor="@color/blue_solid"
+                app:boxStrokeWidth="0dp"
+                app:endIconDrawable="@drawable/ic_password"
+                app:endIconMode="password_toggle"
+                app:hintTextColor="@color/blue_solid">
+
+                <com.google.android.material.textfield.TextInputEditText
+                    android:id="@+id/edt_pass"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:background="@drawable/textfield"
+                    android:imeOptions="actionDone"
+                    android:inputType="textPassword"
+                    android:paddingStart="16dp"
+                    android:textColor="@color/black"
+                    android:fontFamily="@font/montserrat_reguler"
+                    android:maxLines="1"
+                    android:paddingEnd="16dp"
+                    android:textSize="16sp" />
+
+            </com.google.android.material.textfield.TextInputLayout>
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/line1"
+            android:background="#00000000"
+            android:orientation="vertical">
+
+            <androidx.appcompat.widget.AppCompatButton
+                android:id="@+id/btn_login"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="60dp"
+                android:layout_marginTop="50dp"
+                android:layout_marginRight="60dp"
+                android:background="@drawable/br_btn"
+                android:fontFamily="@font/montserrat_reguler"
+                android:text="LOGIN"
+                android:textColor="#FFFFFF"
+                android:textStyle="bold" />
+
+        </LinearLayout>
+
+        <ProgressBar
+            android:id="@+id/progress_bar"
+            style="@android:style/Widget.Material.ProgressBar"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerInParent="true"
+            android:visibility="gone" />
 
     </RelativeLayout>
-</RelativeLayout>
+</ScrollView>

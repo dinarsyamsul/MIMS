@@ -30,8 +30,6 @@ class LoginActivity : AppCompatActivity() {
         binding = ActivityLoginBinding.inflate(layoutInflater)
         setContentView(binding.root)
 
-        window.setSoftInputMode(WindowManager.LayoutParams.SOFT_INPUT_ADJUST_PAN)
-
         session = TokenManager(this)
         val apiService = ApiConfig.getApiService()
         val networkStatusTracker = NetworkStatusTracker(this)
