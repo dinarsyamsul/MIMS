@@ -269,26 +269,29 @@
         android:layout_height="60dp"
         android:backgroundTint="@color/white"
         android:layout_marginBottom="28dp"
+        app:itemIconTint="@color/black"
+        app:itemTextColor="@color/black"
+        app:menu="@menu/menu_dashboard"
         android:background="@drawable/navbar2"
         android:layout_gravity="bottom">
 
-        <ImageView
-            android:id="@+id/imgdetail"
-            android:layout_width="40dp"
-            android:layout_height="40dp"
-            android:layout_marginTop="8dp"
-            android:layout_marginEnd="56dp"
-            android:layout_marginStart="56dp"
-            android:src="@drawable/ic_home" />
+<!--        <ImageView-->
+<!--            android:id="@+id/imgdetail"-->
+<!--            android:layout_width="40dp"-->
+<!--            android:layout_height="40dp"-->
+<!--            android:layout_marginTop="8dp"-->
+<!--            android:layout_marginEnd="56dp"-->
+<!--            android:layout_marginStart="56dp"-->
+<!--            android:src="@drawable/ic_home" />-->
 
-        <ImageView
-            android:id="@+id/imgdetail1"
-            android:layout_width="40dp"
-            android:layout_height="40dp"
-            android:layout_gravity="end"
-            android:layout_marginTop="8dp"
-            android:layout_marginEnd="56dp"
-            android:src="@drawable/ic_person" />
+<!--        <ImageView-->
+<!--            android:id="@+id/imgdetail1"-->
+<!--            android:layout_width="40dp"-->
+<!--            android:layout_height="40dp"-->
+<!--            android:layout_gravity="end"-->
+<!--            android:layout_marginTop="8dp"-->
+<!--            android:layout_marginEnd="56dp"-->
+<!--            android:src="@drawable/ic_person" />-->
     </com.google.android.material.bottomnavigation.BottomNavigationView>
 
     <com.google.android.material.floatingactionbutton.FloatingActionButton
