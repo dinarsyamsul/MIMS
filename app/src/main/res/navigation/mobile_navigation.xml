@@ -2,8 +2,8 @@
 <navigation xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
-    app:startDestination="@id/navigation_home"
-    android:id="@+id/navigation_mobile">
+    android:id="@+id/navigation_mobile"
+    app:startDestination="@id/navigation_home">
 
     <fragment
         android:id="@+id/navigation_home"
@@ -13,7 +13,7 @@
 
     <fragment
         android:id="@+id/navigation_profile"
-            android:name="dev.iconpln.mims.Profile_Fragment"
+        android:name="dev.iconpln.mims.Profile_Fragment"
         android:label="profile"
         tools:layout="@layout/fragment_profile_" />
 

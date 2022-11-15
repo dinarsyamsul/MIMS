@@ -77,7 +77,7 @@
                 android:value="" />
         </activity>
         <activity
-            android:name=".ui.DashboardPabrikanActivity"
+            android:name=".ui.role.pabrikan.DashboardPabrikanActivity"
             android:exported="true">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
