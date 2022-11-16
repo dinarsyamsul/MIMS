@@ -9,14 +9,14 @@
     <com.google.android.material.bottomnavigation.BottomNavigationView
         android:id="@+id/nav_view_pabrikan"
         android:layout_width="0dp"
-        android:layout_height="48dp"
-        android:layout_marginStart="48dp"
-        android:backgroundTint="@color/white"
+        android:layout_height="54dp"
+        android:layout_marginStart="34dp"
+        android:layout_marginEnd="34dp"
         app:itemIconTint="@color/black"
+        android:backgroundTint="@color/white"
         app:itemTextColor="@color/black"
-        android:layout_marginEnd="48dp"
         android:layout_marginBottom="16dp"
-        android:background="@drawable/navbar2"
+        android:background="@drawable/nav_bar"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
@@ -28,7 +28,7 @@
         android:id="@+id/fab"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginBottom="-16dp"
+        android:layout_marginBottom="-30dp"
         app:backgroundTint="#00A3FF"
         android:src="@drawable/maximize"
         app:layout_anchorGravity="center_horizontal"
@@ -48,5 +48,6 @@
         app:layout_constraintRight_toRightOf="parent"
         app:layout_constraintTop_toTopOf="parent"
         app:navGraph="@navigation/mobile_navigation" />
+
 
 </androidx.constraintlayout.widget.ConstraintLayout>
