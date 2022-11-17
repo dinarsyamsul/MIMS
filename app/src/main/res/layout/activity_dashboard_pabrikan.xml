@@ -16,7 +16,7 @@
         android:backgroundTint="@color/white"
         app:itemTextColor="@color/black"
         android:layout_marginBottom="16dp"
-        android:background="@drawable/nav_bar"
+        android:background="@drawable/nav_bar2"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
@@ -25,12 +25,12 @@
     </com.google.android.material.bottomnavigation.BottomNavigationView>
 
     <com.google.android.material.floatingactionbutton.FloatingActionButton
-        android:id="@+id/fab"
+        android:id="@+id/fab1"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginBottom="-30dp"
-        app:backgroundTint="#00A3FF"
-        android:src="@drawable/maximize"
+        android:backgroundTint="@color/bg_color"
+        android:src="@drawable/maxmize1"
         app:layout_anchorGravity="center_horizontal"
         app:layout_anchor="@id/nav_view_pabrikan"
         app:layout_constraintBottom_toTopOf="@id/nav_view_pabrikan"

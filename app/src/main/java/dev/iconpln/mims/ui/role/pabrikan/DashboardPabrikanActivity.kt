@@ -1,5 +1,6 @@
 package dev.iconpln.mims.ui.role.pabrikan
 
+import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import androidx.navigation.findNavController
@@ -8,6 +9,8 @@ import androidx.navigation.ui.setupWithNavController
 import com.google.android.material.bottomnavigation.BottomNavigationView
 import dev.iconpln.mims.R
 import dev.iconpln.mims.databinding.ActivityDashboardPabrikanBinding
+import dev.iconpln.mims.ui.scan.ScanActivity
+import java.util.Scanner
 
 class DashboardPabrikanActivity : AppCompatActivity() {
     private lateinit var binding: ActivityDashboardPabrikanBinding
@@ -16,6 +19,11 @@ class DashboardPabrikanActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         binding = ActivityDashboardPabrikanBinding.inflate(layoutInflater)
         setContentView(binding.root)
+
+        binding.fab1.setOnClickListener{
+            val i = Intent (this@DashboardPabrikanActivity, ScanActivity::class.java)
+            startActivity(i)
+        }
 
         val navView: BottomNavigationView = binding.navViewPabrikan
 

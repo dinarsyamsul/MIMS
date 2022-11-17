@@ -1,6 +1,7 @@
 package dev.iconpln.mims
 
 import android.app.Dialog
+import android.content.Intent
 import android.graphics.Color
 import android.graphics.drawable.ColorDrawable
 import android.os.Bundle
@@ -25,6 +26,7 @@ class Profile_Fragment : Fragment() {
         _binding = FragmentProfileBinding.inflate(inflater, container, false)
         val view = binding.root
         return view
+
     }
 
 //    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
