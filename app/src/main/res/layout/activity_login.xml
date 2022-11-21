@@ -30,11 +30,11 @@
             android:id="@+id/mims"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:textColor="@color/black"
+            android:layout_below="@id/logo"
+            android:layout_centerInParent="true"
             android:fontFamily="@font/montserrat_reguler"
             android:text="Material Identity Management System"
-            android:layout_centerInParent="true"
-            android:layout_below="@id/logo"/>
+            android:textColor="@color/black" />
 
         <LinearLayout
             android:id="@+id/line1"
@@ -66,9 +66,9 @@
                 android:elevation="2dp"
                 android:fontFamily="@font/montserrat_reguler"
                 android:hint="Username"
+                android:textColor="@android:color/darker_gray"
                 android:textColorHint="@color/black"
                 app:boxStrokeColor="@color/blue_solid"
-                android:textColor="@android:color/darker_gray"
                 app:boxStrokeWidth="0dp"
                 app:endIconDrawable="@drawable/ic_username"
                 app:endIconMode="custom"
@@ -80,11 +80,11 @@
                     android:id="@+id/edt_username"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
+                    android:background="@drawable/textfield"
+                    android:fontFamily="@font/montserrat_reguler"
                     android:imeOptions="actionNext"
                     android:inputType="text"
-                    android:background="@drawable/textfield"
                     android:paddingStart="16dp"
-                    android:fontFamily="@font/montserrat_reguler"
                     android:paddingEnd="16dp"
                     android:textColor="@color/black"
                     android:textSize="16sp" />
@@ -101,12 +101,12 @@
                 android:fontFamily="@font/montserrat_reguler"
                 android:hint="Password"
                 android:textColor="@android:color/darker_gray"
-                app:endIconTint="@android:color/darker_gray"
                 android:textColorHint="@color/black"
                 app:boxStrokeColor="@color/blue_solid"
                 app:boxStrokeWidth="0dp"
                 app:endIconDrawable="@drawable/ic_password"
                 app:endIconMode="password_toggle"
+                app:endIconTint="@android:color/darker_gray"
                 app:hintTextColor="@color/blue_solid">
 
                 <com.google.android.material.textfield.TextInputEditText
@@ -114,13 +114,13 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:background="@drawable/textfield"
+                    android:fontFamily="@font/montserrat_reguler"
                     android:imeOptions="actionDone"
                     android:inputType="textPassword"
-                    android:paddingStart="16dp"
-                    android:textColor="@color/black"
-                    android:fontFamily="@font/montserrat_reguler"
                     android:maxLines="1"
+                    android:paddingStart="16dp"
                     android:paddingEnd="16dp"
+                    android:textColor="@color/black"
                     android:textSize="16sp" />
 
             </com.google.android.material.textfield.TextInputLayout>

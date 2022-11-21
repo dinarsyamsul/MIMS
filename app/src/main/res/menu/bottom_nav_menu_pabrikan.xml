@@ -3,16 +3,18 @@
 
     <item android:title="" />
 
-    <item android:id="@+id/navigation_home"
-        android:title="Home"
-        android:icon="@drawable/ic_home2" />
+    <item
+        android:id="@+id/navigation_home"
+        android:icon="@drawable/ic_home2"
+        android:title="Home" />
 
 
     <item android:title="" />
 
-    <item android:id="@+id/navigation_profile"
-        android:title="Profile"
-        android:icon="@drawable/ic_person"/>
+    <item
+        android:id="@+id/navigation_profile"
+        android:icon="@drawable/ic_person"
+        android:title="Profile" />
 
     <item android:title="" />
 

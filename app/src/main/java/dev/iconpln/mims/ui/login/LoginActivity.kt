@@ -2,13 +2,10 @@ package dev.iconpln.mims.ui.login
 
 import android.content.Intent
 import android.os.Bundle
-import android.util.Log
 import android.view.View
-import android.view.WindowManager
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import androidx.lifecycle.ViewModelProvider
-import androidx.lifecycle.asLiveData
 import dev.iconpln.mims.data.remote.service.ApiConfig
 import dev.iconpln.mims.databinding.ActivityLoginBinding
 import dev.iconpln.mims.ui.DashboardActivity

@@ -2,14 +2,11 @@ package dev.iconpln.mims
 
 import android.content.Intent
 import android.os.Bundle
-import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import androidx.navigation.fragment.findNavController
-import dev.iconpln.mims.databinding.ActivityMonitoringPurchaseOrderBinding
+import androidx.fragment.app.Fragment
 import dev.iconpln.mims.databinding.FragmentHomeBinding
-import dev.iconpln.mims.databinding.FragmentProfileBinding
 
 class HomeFragment : Fragment() {
 

@@ -12,7 +12,7 @@ import dev.iconpln.mims.databinding.ActivityMonitoringPurchaseOrderBinding
 
 class MonitoringPurchaseOrder : AppCompatActivity() {
 
-    private lateinit var binding : ActivityMonitoringPurchaseOrderBinding
+    private lateinit var binding: ActivityMonitoringPurchaseOrderBinding
     private var muncul = false
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -21,12 +21,22 @@ class MonitoringPurchaseOrder : AppCompatActivity() {
         setContentView(binding.root)
 
         binding.img1.setOnClickListener {
-            if (muncul == true){
-                binding.img1.setImageDrawable(ContextCompat.getDrawable(this, R.drawable.ic_baseline_keyboard_arrow_up_24))
+            if (muncul == true) {
+                binding.img1.setImageDrawable(
+                    ContextCompat.getDrawable(
+                        this,
+                        R.drawable.ic_baseline_keyboard_arrow_up_24
+                    )
+                )
                 binding.const2.visibility = View.VISIBLE
                 muncul = !muncul
-            } else{
-                binding.img1.setImageDrawable(ContextCompat.getDrawable(this, R.drawable.ic_baseline_keyboard_arrow_down_24))
+            } else {
+                binding.img1.setImageDrawable(
+                    ContextCompat.getDrawable(
+                        this,
+                        R.drawable.ic_baseline_keyboard_arrow_down_24
+                    )
+                )
                 binding.const2.visibility = View.GONE
                 muncul = !muncul
             }

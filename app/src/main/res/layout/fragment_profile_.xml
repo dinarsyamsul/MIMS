@@ -1,6 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
 <ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
@@ -52,9 +51,9 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_gravity="center"
-                android:gravity="center"
                 android:layout_marginTop="50dp"
                 android:fontFamily="@font/montserrat_reguler"
+                android:gravity="center"
                 android:text="Kode Verifikasi"
                 android:textColor="@color/black"
                 android:textSize="28sp"
@@ -99,10 +98,10 @@
                 android:layout_height="40dp"
                 android:layout_marginEnd="8dp"
                 android:background="@drawable/textfield"
+                android:imeOptions="actionNext"
                 android:inputType="numberDecimal"
                 android:maxLength="1"
                 android:maxLines="1"
-                android:imeOptions="actionNext"
                 android:textAlignment="center"
                 android:textColor="@color/black"
                 android:textStyle="bold" />
@@ -114,12 +113,12 @@
                 android:layout_marginStart="8dp"
                 android:layout_marginEnd="8dp"
                 android:background="@drawable/textfield"
+                android:imeOptions="actionNext"
                 android:inputType="numberDecimal"
                 android:maxLength="1"
                 android:maxLines="1"
                 android:textAlignment="center"
                 android:textColor="@color/black"
-                android:imeOptions="actionNext"
                 android:textStyle="bold" />
 
             <com.google.android.material.textfield.TextInputEditText
@@ -197,18 +196,19 @@
                 android:id="@+id/txtotp3"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:text="Belum Menerima Kode?"
-                android:gravity="center"
                 android:fontFamily="@font/montserrat_reguler"
-                android:textColor="@color/black"/>
+                android:gravity="center"
+                android:text="Belum Menerima Kode?"
+                android:textColor="@color/black" />
+
             <TextView
                 android:id="@+id/txtotp4"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:text="Kirim Lagi"
-                android:gravity="center"
                 android:fontFamily="@font/montserrat_reguler"
-                android:textColor="#2F6FED"/>
+                android:gravity="center"
+                android:text="Kirim Lagi"
+                android:textColor="#2F6FED" />
 
             <androidx.appcompat.widget.AppCompatButton
                 android:id="@+id/btnSubmitotp"
@@ -217,11 +217,11 @@
                 android:layout_marginLeft="60dp"
                 android:layout_marginTop="20dp"
                 android:layout_marginRight="60dp"
-                android:textColor="#FFFFFF"
                 android:background="@drawable/br_btn"
                 android:fontFamily="@font/montserrat_reguler"
-                android:textStyle="bold"
-                android:text="Submit"/>
+                android:text="Submit"
+                android:textColor="#FFFFFF"
+                android:textStyle="bold" />
 
         </LinearLayout>
 
@@ -234,13 +234,11 @@
                 android:layout_width="47dp"
                 android:layout_height="37dp"
                 android:layout_marginStart="28dp"
-                android:layout_marginEnd="20dp"
                 android:layout_marginTop="30dp"
+                android:layout_marginEnd="20dp"
                 android:background="@drawable/ic_baseline_arrow_back_24" />
         </LinearLayout>
     </RelativeLayout>
-
-
 
 
 </ScrollView>

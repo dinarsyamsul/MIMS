@@ -1,7 +1,7 @@
 package dev.iconpln.mims.ui.role.pusertif
 
-import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import androidx.appcompat.app.AppCompatActivity
 import dev.iconpln.mims.R
 
 class DashboardPusertifActivity : AppCompatActivity() {

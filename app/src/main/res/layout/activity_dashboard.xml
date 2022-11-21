@@ -224,25 +224,25 @@
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintBottom_toBottomOf="parent"
         android:layout_marginStart="200dp"
         android:layout_marginTop="550dp"
         android:background="#00000000"
-        android:orientation="vertical">
+        android:orientation="vertical"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent">
 
-    <androidx.appcompat.widget.AppCompatButton
-        android:id="@+id/btn_calculate"
-        android:layout_width="100dp"
-        android:layout_height="wrap_content"
-        android:layout_marginLeft="60dp"
-        android:layout_marginTop="50dp"
-        android:textColor="#FFFFFF"
-        android:background="@drawable/br_btn"
-        android:fontFamily="@font/montserrat_reguler"
-        android:textStyle="bold"
-        android:text="LOGOUT"/>
+        <androidx.appcompat.widget.AppCompatButton
+            android:id="@+id/btn_calculate"
+            android:layout_width="100dp"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="60dp"
+            android:layout_marginTop="50dp"
+            android:background="@drawable/br_btn"
+            android:fontFamily="@font/montserrat_reguler"
+            android:text="LOGOUT"
+            android:textColor="#FFFFFF"
+            android:textStyle="bold" />
     </LinearLayout>
 </androidx.constraintlayout.widget.ConstraintLayout>

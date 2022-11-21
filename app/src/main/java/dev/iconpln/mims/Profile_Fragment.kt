@@ -1,15 +1,10 @@
 package dev.iconpln.mims
 
-import android.app.Dialog
-import android.content.Intent
-import android.graphics.Color
-import android.graphics.drawable.ColorDrawable
 import android.os.Bundle
-import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import androidx.core.content.ContextCompat
+import androidx.fragment.app.Fragment
 import dev.iconpln.mims.databinding.FragmentProfileBinding
 
 class Profile_Fragment : Fragment() {
