@@ -1,0 +1,102 @@
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".popdialog">
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:id="@+id/constra1"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="@drawable/textfield"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent">
+
+        <LinearLayout
+            android:id="@+id/linear1"
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            app:layout_constraintEnd_toEndOf="@+id/constra1"
+            app:layout_constraintStart_toStartOf="@id/constra1"
+            app:layout_constraintTop_toTopOf="@+id/constra1">
+
+            <TextView
+                android:id="@+id/text1"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:fontFamily="@font/montserrat_reguler"
+                android:padding="22dp"
+                android:text="Anda Memiliki Purchase Order"
+                android:textColor="@color/black"
+                android:textSize="15sp" />
+        </LinearLayout>
+
+        <LinearLayout
+            android:id="@+id/lineer1"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:background="#00000000"
+            android:orientation="vertical"
+            app:layout_constraintTop_toBottomOf="@+id/linear1">
+
+            <TableLayout
+                android:id="@+id/tbl1"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_marginLeft="1dp"
+                android:layout_marginRight="1dp"
+                android:background="@drawable/table_monitoring"
+                android:stretchColumns="3">
+
+                <TableRow android:background="@drawable/bts_topleft">
+
+                    <TextView
+                        android:id="@+id/txttglpo"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="center_horizontal"
+                        android:layout_weight="4"
+                        android:fontFamily="@font/montserrat_reguler"
+                        android:gravity="center"
+                        android:paddingTop="10dp"
+                        android:text="No PO"
+                        android:textColor="@color/black"
+                        android:textSize="14sp" />
+
+                    <TextView
+                        android:id="@+id/txtnopo"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="center_horizontal"
+                        android:layout_weight="4"
+                        android:background="@drawable/border"
+                        android:fontFamily="@font/montserrat_reguler"
+                        android:gravity="center"
+                        android:padding="10sp"
+                        android:text="Tanggal PO"
+                        android:textColor="@color/black"
+                        android:textSize="13sp" />
+
+                    <TextView
+                        android:id="@+id/detail"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="center_horizontal"
+                        android:layout_weight="4"
+                        android:fontFamily="@font/montserrat_reguler"
+                        android:gravity="center"
+                        android:padding="10sp"
+                        android:text="Unit"
+                        android:textColor="@color/black"
+                        android:textSize="13sp" />
+
+                </TableRow>
+
+            </TableLayout>
+
+        </LinearLayout>
+    </androidx.constraintlayout.widget.ConstraintLayout>
+</androidx.constraintlayout.widget.ConstraintLayout>

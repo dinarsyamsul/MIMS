@@ -2,18 +2,28 @@ package dev.iconpln.mims.ui.scan
 
 import android.Manifest
 import android.annotation.SuppressLint
+import android.content.Context
 import android.content.Intent
 import android.content.pm.PackageManager
+import android.graphics.Canvas
+import android.graphics.Color
+import android.graphics.Paint
+import android.graphics.Rect
+import android.graphics.RectF
 import android.os.Bundle
+import android.renderscript.ScriptGroup.Input
+import android.view.View
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import androidx.camera.core.CameraSelector
 import androidx.camera.core.ImageAnalysis
+import androidx.camera.core.ImageAnalysis.Analyzer
 import androidx.camera.core.ImageProxy
 import androidx.camera.core.Preview
 import androidx.camera.lifecycle.ProcessCameraProvider
 import androidx.core.app.ActivityCompat
 import androidx.core.content.ContextCompat
+import androidx.core.graphics.rotationMatrix
 import com.google.android.material.dialog.MaterialAlertDialogBuilder
 import com.google.mlkit.vision.barcode.BarcodeScannerOptions
 import com.google.mlkit.vision.barcode.BarcodeScanning
@@ -105,7 +115,7 @@ class ScannerActivity : AppCompatActivity() {
                     .setBackpressureStrategy(ImageAnalysis.STRATEGY_KEEP_ONLY_LATEST)
                     .build()
                     .also {
-                        it.setAnalyzer(cameraExecutor, QrCodeAnalyzer())
+                        it.setAnalyzer(cameraExecutor, QrCodeAnalyzer(this, BarcodeBoxView(this),10f,10f))
                     }
 
                 // Select back camera as default
@@ -131,12 +141,33 @@ class ScannerActivity : AppCompatActivity() {
         cameraExecutor.shutdown()
     }
 
-    inner class QrCodeAnalyzer : ImageAnalysis.Analyzer {
+    inner class QrCodeAnalyzer(
+        private val context: Context,
+        private val barcodeBoxView: BarcodeBoxView,
+        private val previewViewWidth: Float,
+        private val previewViewHeight: Float
+    ) : ImageAnalysis.Analyzer {
+
+        private var scaleX = 1f
+        private var scaleY = 1f
+
+        private fun translateX(x: Float) = x * scaleX
+        private fun translateY(y: Float) = y * scaleY
+
+        private fun adjustBoundingRect(rect: Rect) = RectF(
+            translateX(rect.left.toFloat()),
+            translateY(rect.top.toFloat()),
+            translateX(rect.right.toFloat()),
+            translateY(rect.bottom.toFloat())
+        )
 
         @SuppressLint("UnsafeOptInUsageError")
         override fun analyze(image: ImageProxy) {
             val img = image.image
             if (img != null) {
+
+                scaleX = previewViewWidth / img.height.toFloat()
+                scaleY = previewViewHeight / img.width.toFloat()
                 val inputImage = InputImage.fromMediaImage(img, image.imageInfo.rotationDegrees)
 
                 // Process image searching for barcodes
@@ -148,6 +179,27 @@ class ScannerActivity : AppCompatActivity() {
 
                 scanner.process(inputImage)
                     .addOnSuccessListener { barcodes ->
+
+                        if (barcodes.isNotEmpty()) {
+                            for (barcode in barcodes) {
+                                Toast.makeText(
+                                    context,
+                                    "value: " + barcode.rawValue,
+                                    Toast.LENGTH_SHORT
+                                )
+                                    .show()
+                                // update bounding rect
+                                barcode.boundingBox?.let { rect ->
+                                    barcodeBoxView.setRect(
+                                        adjustBoundingRect(
+                                            rect
+                                        )
+                                    )
+                                }
+                            }
+                        } else {
+                            barcodeBoxView.setRect(RectF())
+                        }
                         for (barcode in barcodes) {
                             Toast.makeText(
                                 this@ScannerActivity,
@@ -169,4 +221,94 @@ class ScannerActivity : AppCompatActivity() {
             image.close()
         }
     }
+
+    class BarcodeBoxView(
+        context: Context
+    ) : View(context) {
+
+        private val paint = Paint()
+
+        private var mRect = RectF()
+
+        override fun onDraw(canvas: Canvas?) {
+            super.onDraw(canvas)
+
+            val cornerRadius = 10f
+
+            paint.style = Paint.Style.STROKE
+            paint.color = Color.RED
+            paint.strokeWidth = 5f
+
+            canvas?.drawRoundRect(mRect, cornerRadius, cornerRadius, paint)
+        }
+
+        fun setRect(rect: RectF) {
+            mRect = rect
+            invalidate()
+            requestLayout()
+        }
+    }
+
+//    class QrCodeAnalyzer(
+//        private val context: Context,
+//        private val barcodeBoxView: BarcodeBoxView,
+//        private val previewViewWidh: Float,
+//        private val previewViewHeight: Float
+//    ) : ImageAnalysis.Analyzer {
+//        private var scaleX = 1f
+//        private var scaleY = 1f
+//
+//        private fun translateX(x: Float) = x * scaleX
+//        private fun translateY(y: Float) = y * scaleY
+//
+//        private fun adjustBoundingRect(rect: Rect) = RectF(
+//            translateX(rect.left.toFloat()),
+//            translateY(rect.top.toFloat()),
+//            translateX(rect.right.toFloat()),
+//            translateY(rect.bottom.toFloat())
+//        )
+//
+//        @SuppressLint("UnsafeOptInUsageError")
+//        override fun analyze(image: ImageProxy) {
+//            val img = image.image
+//            if (img != null) {
+//                scaleX = previewViewWidh / img.height.toFloat()
+//                scaleY = previewViewHeight / img.width.toFloat()
+//
+//                val inputImage = InputImage.fromMediaImage(img, image.imageInfo.rotationDegrees)
+//
+//                val options = BarcodeScannerOptions.Builder()
+//                    .build()
+//
+//                val scanner = BarcodeScanning.getClient(options)
+//                scanner.process(inputImage)
+//                    .addOnSuccessListener { barcodes ->
+//                        if (barcodes.isNotEmpty()) {
+//                            for (barcode in barcodes) {
+//                                Toast.makeText(
+//                                    context,
+//                                    "value: " + barcode.rawValue,
+//                                    Toast.LENGTH_SHORT
+//                                )
+//                                    .show()
+//                                // update bounding rect
+//
+//                                barcode.boundingBox?.let { rect ->
+//                                    barcodeBoxView.setRect(
+//                                        adjustBoundingRect(
+//                                            rect
+//                                        )
+//                                    )
+//                                }
+//                            }
+//                        } else {
+//                            // remove bounding rect
+//                            barcodeBoxView.setRect(RectF())
+//                        }
+//                    }
+//                    .addOnFailureListener {  }
+//            }
+//            image.close()
+//        }
+//    }
 }
