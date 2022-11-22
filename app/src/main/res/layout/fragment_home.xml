@@ -74,7 +74,7 @@
                 app:layout_constraintTop_toTopOf="@id/txtdash" />
 
             <ImageButton
-                android:id="@+id/bell"
+                android:id="@+id/btn_logout"
                 android:layout_width="40dp"
                 android:layout_height="40dp"
                 android:layout_alignParentEnd="true"

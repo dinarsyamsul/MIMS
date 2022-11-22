@@ -2,11 +2,17 @@ package dev.iconpln.mims
 
 import android.content.Intent
 import android.os.Bundle
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
+import androidx.lifecycle.asLiveData
+import androidx.lifecycle.lifecycleScope
 import dev.iconpln.mims.databinding.FragmentHomeBinding
+import dev.iconpln.mims.ui.login.LoginActivity
+import dev.iconpln.mims.utils.TokenManager
+import kotlinx.coroutines.launch
 
 class HomeFragment : Fragment() {
 
@@ -33,9 +39,25 @@ class HomeFragment : Fragment() {
             binding.card4.setOnClickListener {
                 val intent = Intent(context, UploadDataMaterial::class.java)
                 context?.startActivity(intent)
-
-
             }
+        }
+
+        val session = TokenManager(requireContext())
+
+        binding.btnLogout.setOnClickListener {
+            val onLogout = Intent(requireContext(), LoginActivity::class.java)
+            onLogout.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP)
+            onLogout.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK)
+
+            lifecycleScope.launch {
+                session.clearUserToken()
+            }
+            session.user_token.asLiveData().observe(viewLifecycleOwner) {
+                Log.d("MainActivity", "cek token : $it")
+            }
+            onLogout.flags = Intent.FLAG_ACTIVITY_NEW_TASK
+            startActivity(onLogout)
+            activity?.finish()
         }
     }
 
