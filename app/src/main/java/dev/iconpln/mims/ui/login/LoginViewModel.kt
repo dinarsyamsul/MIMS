@@ -70,7 +70,8 @@ class LoginViewModel(
                         if (it.userToken != "") {
                             session.saveAuthToken(
                                 it.userToken,
-                                it.deviceToken
+                                it.deviceToken,
+                                it.roleId
                             )
                         }
                     }
@@ -141,6 +142,7 @@ class LoginViewModel(
                         session.saveAuthToken(
                             user_token = it.userToken,
                             device_token = it.deviceToken,
+                            role_id = it.roleId
                         )
                     }
                 } else {

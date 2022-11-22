@@ -23,21 +23,29 @@ class TokenManager(private val context: Context) {
             pref[DEVICE_TOKEN]
         }
 
-    suspend fun saveAuthToken(user_token: String, device_token: String) {
+    val role_id: Flow<String?>
+        get() = context.dataStore.data.map { pref ->
+            pref[ROLE_ID]
+        }
+
+    suspend fun saveAuthToken(user_token: String, device_token: String, role_id: String) {
         context.dataStore.edit { pref ->
             pref[USER_TOKEN] = user_token
             pref[DEVICE_TOKEN] = device_token
+            pref[ROLE_ID] = role_id
         }
     }
 
     suspend fun clearUserToken() {
         context.dataStore.edit { pref ->
             pref.remove(USER_TOKEN)
+            pref.remove(ROLE_ID)
         }
     }
 
     companion object {
         private val USER_TOKEN = stringPreferencesKey("user_token")
         private val DEVICE_TOKEN = stringPreferencesKey("device_token")
+        private val ROLE_ID = stringPreferencesKey("role_id")
     }
 }

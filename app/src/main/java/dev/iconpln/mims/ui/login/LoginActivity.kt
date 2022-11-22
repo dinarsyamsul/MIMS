@@ -2,14 +2,18 @@ package dev.iconpln.mims.ui.login
 
 import android.content.Intent
 import android.os.Bundle
+import android.util.Log
 import android.view.View
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import androidx.lifecycle.ViewModelProvider
+import androidx.lifecycle.asLiveData
 import dev.iconpln.mims.data.remote.service.ApiConfig
 import dev.iconpln.mims.databinding.ActivityLoginBinding
 import dev.iconpln.mims.ui.DashboardActivity
 import dev.iconpln.mims.ui.OtpActivity
+import dev.iconpln.mims.ui.role.pabrikan.DashboardPabrikanActivity
+import dev.iconpln.mims.ui.role.pusertif.DashboardPusertifActivity
 import dev.iconpln.mims.utils.NetworkStatusTracker
 import dev.iconpln.mims.utils.TokenManager
 import dev.iconpln.mims.utils.ViewModelFactory
@@ -31,38 +35,45 @@ class LoginActivity : AppCompatActivity() {
         val apiService = ApiConfig.getApiService()
         val networkStatusTracker = NetworkStatusTracker(this)
 
-//        session.user_token.asLiveData().observe(this) { token ->
-//            Log.d("LoginActivity", "cek user token: $token")
-//            if (token != null) {
-//                Intent(this@LoginActivity, DashboardActivity::class.java).also {
-//                    it.flags = Intent.FLAG_ACTIVITY_NEW_TASK or Intent.FLAG_ACTIVITY_CLEAR_TASK
-//                    startActivity(it)
-//                }
-//            }
-//        }
-//        session.device_token.asLiveData().observe(this) { token ->
-//            Log.d("LoginActivity", "cek device token: $token")
-//        }
+        session.user_token.asLiveData().observe(this) { token ->
+            Log.d("LoginActivity", "cek user token: $token")
+            if (token != null) {
+                session.role_id.asLiveData().observe(this) { roleId ->
+                    when (roleId) {
+                        "1" -> {
+                            Intent(this@LoginActivity, DashboardPabrikanActivity::class.java).also {
+                                it.flags =
+                                    Intent.FLAG_ACTIVITY_NEW_TASK or Intent.FLAG_ACTIVITY_CLEAR_TASK
+                                startActivity(it)
+                            }
+                        }
+                        "2" -> {
+                            Intent(this@LoginActivity, DashboardPusertifActivity::class.java).also {
+                                it.flags =
+                                    Intent.FLAG_ACTIVITY_NEW_TASK or Intent.FLAG_ACTIVITY_CLEAR_TASK
+                                startActivity(it)
+                            }
+                        }
+                        "9" -> {
+                            Intent(this@LoginActivity, DashboardActivity::class.java).also {
+                                it.flags =
+                                    Intent.FLAG_ACTIVITY_NEW_TASK or Intent.FLAG_ACTIVITY_CLEAR_TASK
+                                startActivity(it)
+                            }
+                        }
+                    }
+                }
+            }
+        }
+        session.device_token.asLiveData().observe(this) { token ->
+            Log.d("LoginActivity", "cek device token: $token")
+        }
 
         loginViewModel =
             ViewModelProvider(
                 this,
                 ViewModelFactory(session, apiService, networkStatusTracker)
             )[LoginViewModel::class.java]
-
-//        loginViewModel.loginResponse.observe(this){ result ->
-//            when(result.message){
-//                "Berhasil Login" -> {
-//                    Intent(this@LoginActivity, DashboardActivity::class.java).also {
-//                        it.flags = Intent.FLAG_ACTIVITY_NEW_TASK or Intent.FLAG_ACTIVITY_CLEAR_TASK
-//                        startActivity(it)
-//                    }
-//                }
-//                else -> {
-//                    Toast.makeText(this@LoginActivity, "Login Gagal!", Toast.LENGTH_SHORT).show()
-//                }
-//            }
-//        }
 
         loginViewModel.loginResponse.observe(this) { result ->
             when (result.message) {
@@ -80,10 +91,26 @@ class LoginActivity : AppCompatActivity() {
                     }
                 }
                 "LOGIN BERHASIL" -> {
-                    Intent(this@LoginActivity, DashboardActivity::class.java).also {
-                        it.flags =
-                            Intent.FLAG_ACTIVITY_NEW_TASK or Intent.FLAG_ACTIVITY_CLEAR_TASK
-                        startActivity(it)
+                    result.data.forEach { login ->
+                        if (login.roleId == "1") {
+                            Intent(this@LoginActivity, DashboardPabrikanActivity::class.java).also {
+                                it.flags =
+                                    Intent.FLAG_ACTIVITY_NEW_TASK or Intent.FLAG_ACTIVITY_CLEAR_TASK
+                                startActivity(it)
+                            }
+                        } else if (login.roleId == "2") {
+                            Intent(this@LoginActivity, DashboardPusertifActivity::class.java).also {
+                                it.flags =
+                                    Intent.FLAG_ACTIVITY_NEW_TASK or Intent.FLAG_ACTIVITY_CLEAR_TASK
+                                startActivity(it)
+                            }
+                        } else if (login.roleId == "9") {
+                            Intent(this@LoginActivity, DashboardActivity::class.java).also {
+                                it.flags =
+                                    Intent.FLAG_ACTIVITY_NEW_TASK or Intent.FLAG_ACTIVITY_CLEAR_TASK
+                                startActivity(it)
+                            }
+                        }
                     }
                 }
                 "LOGIN GAGAL" -> {
@@ -122,14 +149,18 @@ class LoginActivity : AppCompatActivity() {
 
         loginViewModel.state.observe(this) { state ->
             if (state == MyState.Error) {
-                Toast.makeText(this, "Pastikan koneksi internet terhubung.", Toast.LENGTH_SHORT)
+                Toast.makeText(
+                    this,
+                    "Pastikan koneksi internet terhubung.",
+                    Toast.LENGTH_SHORT
+                )
                     .show()
             }
+        }
 
-            binding.btnLogin.setOnClickListener {
-//                loginUser()
-                startActivity(Intent(this, OtpActivity::class.java))
-            }
+        binding.btnLogin.setOnClickListener {
+            loginUser()
+//                    startActivity(Intent(this, OtpActivity::class.java))
         }
     }
 
@@ -156,11 +187,11 @@ class LoginActivity : AppCompatActivity() {
             }
 
             if (!isInvalidFields) {
-//                session.device_token.asLiveData().observe(this@LoginActivity) {
-//                    loginViewModel.getLogin(username, password, it.toString())
-//                }
+                session.device_token.asLiveData().observe(this@LoginActivity) {
+                    loginViewModel.getLogin(username, password, it.toString())
+                }
 
-                loginViewModel.getAgoLogin(username, password) //skema login ago
+//                loginViewModel.getAgoLogin(username, password) //skema login ago
             }
         }
     }

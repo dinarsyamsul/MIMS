@@ -13,6 +13,8 @@ import androidx.lifecycle.ViewModelProvider
 import dev.iconpln.mims.data.remote.service.ApiConfig
 import dev.iconpln.mims.databinding.ActivityOtpBinding
 import dev.iconpln.mims.ui.login.LoginViewModel
+import dev.iconpln.mims.ui.role.pabrikan.DashboardPabrikanActivity
+import dev.iconpln.mims.ui.role.pusertif.DashboardPusertifActivity
 import dev.iconpln.mims.utils.NetworkStatusTracker
 import dev.iconpln.mims.utils.TokenManager
 import dev.iconpln.mims.utils.ViewModelFactory
@@ -53,22 +55,32 @@ class OtpActivity : AppCompatActivity() {
             }
         }
 
-        loginViewModel.verifyTokenResponse.observe(this) {
-            it.data.forEach { it ->
-                when (it.msg) {
-                    "TOKEN SALAH" -> {
-                        Toast.makeText(this, "Token salah", Toast.LENGTH_SHORT).show()
-                    }
-                    "LOGIN BERHASIL" -> {
-                        startActivity(
-                            Intent(
-                                this@OtpActivity,
-                                DashboardActivity::class.java
-                            ).also { intent ->
-                                intent.flags =
+        loginViewModel.verifyTokenResponse.observe(this) { result ->
+            when (result.message) {
+                "Data tidak ditemukan" -> {
+                    Toast.makeText(this, "Token salah", Toast.LENGTH_SHORT).show()
+                }
+                "VERIFIKASI DEVICE BERHASIL" -> {
+                    result.data.forEach { login ->
+                        if (login.roleId == "1") {
+                            Intent(this@OtpActivity, DashboardPabrikanActivity::class.java).also {
+                                it.flags =
                                     Intent.FLAG_ACTIVITY_NEW_TASK or Intent.FLAG_ACTIVITY_CLEAR_TASK
-                                startActivity(intent)
-                            })
+                                startActivity(it)
+                            }
+                        } else if (login.roleId == "2") {
+                            Intent(this@OtpActivity, DashboardPusertifActivity::class.java).also {
+                                it.flags =
+                                    Intent.FLAG_ACTIVITY_NEW_TASK or Intent.FLAG_ACTIVITY_CLEAR_TASK
+                                startActivity(it)
+                            }
+                        } else if (login.roleId == "9") {
+                            Intent(this@OtpActivity, DashboardActivity::class.java).also {
+                                it.flags =
+                                    Intent.FLAG_ACTIVITY_NEW_TASK or Intent.FLAG_ACTIVITY_CLEAR_TASK
+                                startActivity(it)
+                            }
+                        }
                     }
                 }
             }
