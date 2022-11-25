@@ -31,13 +31,13 @@ class DashboardActivity : AppCompatActivity() {
 
         binding.scanner.setOnClickListener {
 //            startActivity(Intent(this, ScanActivity::class.java)) //ini menggunakan library yuriy budiev
-//            openScanner() // ini menggunakan library zxing
-            startActivity(
-                Intent(
-                    this,
-                    ScannerActivity::class.java
-                )
-            ) //ini menggunakan library ML Kit
+            openScanner() // ini menggunakan library zxing
+//            startActivity(
+//                Intent(
+//                    this,
+//                    ScannerActivity::class.java
+//                )
+//            ) //ini menggunakan library ML Kit
         }
 
         binding.btnLogout.setOnClickListener {
