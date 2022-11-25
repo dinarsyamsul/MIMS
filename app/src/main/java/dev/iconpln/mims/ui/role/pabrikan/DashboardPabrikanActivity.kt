@@ -2,12 +2,18 @@ package dev.iconpln.mims.ui.role.pabrikan
 
 import android.content.Intent
 import android.os.Bundle
+import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import androidx.navigation.findNavController
 import androidx.navigation.ui.setupWithNavController
 import com.google.android.material.bottomnavigation.BottomNavigationView
+import com.journeyapps.barcodescanner.ScanContract
+import com.journeyapps.barcodescanner.ScanIntentResult
+import com.journeyapps.barcodescanner.ScanOptions
 import dev.iconpln.mims.R
 import dev.iconpln.mims.databinding.ActivityDashboardPabrikanBinding
+import dev.iconpln.mims.ui.scan.CustomScanActivity
+import dev.iconpln.mims.ui.scan.ResponseScanActivity
 import dev.iconpln.mims.ui.scan.ScannerActivity
 
 class DashboardPabrikanActivity : AppCompatActivity() {
@@ -21,13 +27,13 @@ class DashboardPabrikanActivity : AppCompatActivity() {
         binding.fab1.setOnClickListener {
 //            val i = Intent (this@DashboardPabrikanActivity, ScanActivity::class.java)
 //            startActivity(i)
-            startActivity(
-                Intent(
-                    this,
-                    ScannerActivity::class.java
-                )
-            ) //ini menggunakan library ML Kit
-
+//            startActivity(
+//                Intent(
+//                    this,
+//                    ScannerActivity::class.java
+//                )
+//            ) //ini menggunakan library ML Kit
+            openScanner() // ini menggunakan library zxing
         }
 
         val navView: BottomNavigationView = binding.navViewPabrikan
@@ -42,5 +48,28 @@ class DashboardPabrikanActivity : AppCompatActivity() {
 //        )
 //        setupActionBarWithNavController(navController, appBarConfiguration)
         navView.setupWithNavController(navController)
+    }
+
+    private fun openScanner() {
+        val scan = ScanOptions()
+        scan.setDesiredBarcodeFormats(ScanOptions.ALL_CODE_TYPES)
+        scan.setCameraId(0)
+        scan.setBeepEnabled(true)
+        scan.setBarcodeImageEnabled(true)
+        scan.captureActivity = CustomScanActivity::class.java
+        barcodeLauncher.launch(scan)
+    }
+
+    private val barcodeLauncher = registerForActivityResult(
+        ScanContract()
+    ) { result: ScanIntentResult ->
+        if (!result.contents.isNullOrEmpty()) {
+            val intent = Intent(this, ResponseScanActivity::class.java)
+            intent.putExtra(ResponseScanActivity.EXTRA_SN, result.contents)
+            startActivity(intent)
+            Toast.makeText(this, "Scan Result: ${result.contents}", Toast.LENGTH_LONG).show()
+        } else {
+            // CANCELED
+        }
     }
 }
