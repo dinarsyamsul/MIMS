@@ -71,6 +71,4 @@ class HomeFragment : Fragment() {
             Toast.makeText(context, "Under Maintenance", Toast.LENGTH_SHORT).show()
         }
     }
-
-
 }
