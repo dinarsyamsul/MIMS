@@ -10,6 +10,8 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:background="@drawable/textfield"
+        android:layout_marginStart="12dp"
+        android:layout_marginEnd="12dp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
@@ -38,16 +40,17 @@
             android:id="@+id/lineer1"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:layout_marginTop="24dp"
             android:background="#00000000"
             android:orientation="vertical"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/linear1">
 
             <TableLayout
                 android:id="@+id/tbl1"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
-                android:layout_marginLeft="1dp"
-                android:layout_marginRight="1dp"
                 android:background="@drawable/table_monitoring"
                 android:stretchColumns="3">
 
@@ -93,6 +96,183 @@
                         android:textColor="@color/black"
                         android:textSize="13sp" />
 
+                </TableRow>
+
+            </TableLayout>
+
+        </LinearLayout>
+
+        <LinearLayout
+            android:id="@+id/lineer2"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:background="#00000000"
+            android:orientation="vertical"
+            app:layout_constraintTop_toBottomOf="@+id/lineer1">
+
+            <TableLayout
+                android:id="@+id/tbl2"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:stretchColumns="3">
+
+                <TableRow android:background="@drawable/ic_btn_border">
+
+                    <TextView
+                        android:id="@+id/txtbaris1"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="center_horizontal"
+                        android:layout_weight="1"
+                        android:fontFamily="@font/montserrat_reguler"
+                        android:gravity="center"
+                        android:padding="10sp"
+                        android:text="7"
+                        android:textColor="@color/black"
+                        android:textSize="13sp" />
+
+                    <TextView
+                        android:id="@+id/txtbaris2"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:fontFamily="@font/montserrat_reguler"
+                        android:padding="10sp"
+                        android:text="dd/mm/yyyy"
+                        android:textColor="@color/black"
+                        android:textSize="13sp" />
+
+                    <TextView
+                        android:id="@+id/txtbaris3"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1"
+                        android:background="@android:color/transparent"
+                        android:fontFamily="@font/montserrat_reguler"
+                        android:textAlignment="textEnd"
+                        android:padding="8sp"
+                        android:text="APJ Cimahi"
+                        android:textColor="@color/black"
+                        android:textSize="13sp" />
+                </TableRow>
+
+            </TableLayout>
+
+        </LinearLayout>
+
+        <LinearLayout
+            android:id="@+id/lineer3"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:background="#00000000"
+            android:orientation="vertical"
+            app:layout_constraintTop_toBottomOf="@+id/lineer2">
+
+            <TableLayout
+                android:id="@+id/tbl3"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:stretchColumns="3">
+
+                <TableRow android:background="@drawable/ic_btn_border">
+
+                    <TextView
+                        android:id="@+id/txtbaris4"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="center_horizontal"
+                        android:layout_weight="4"
+                        android:fontFamily="@font/montserrat_reguler"
+                        android:gravity="center"
+                        android:padding="10sp"
+                        android:text="8"
+                        android:textColor="@color/black"
+                        android:textSize="13sp" />
+
+                    <TextView
+                        android:id="@+id/txtbaris5"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="5"
+                        android:layout_marginStart="8dp"
+                        android:fontFamily="@font/montserrat_reguler"
+                        android:textAlignment="textEnd"
+                        android:padding="10sp"
+                        android:text="dd/mm/yyyy"
+                        android:textColor="@color/black"
+                        android:textSize="13sp"/>
+
+                    <TextView
+                        android:id="@+id/txtbaris6"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="5"
+                        android:textAlignment="textEnd"
+                        android:background="@android:color/transparent"
+                        android:fontFamily="@font/montserrat_reguler"
+                        android:padding="8sp"
+                        android:text="APJ Sukabumi"
+                        android:textColor="@color/black"
+                        android:textSize="13sp" />
+                </TableRow>
+
+            </TableLayout>
+
+        </LinearLayout>
+        <LinearLayout
+            android:id="@+id/lineer4"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:background="#00000000"
+            android:orientation="vertical"
+            app:layout_constraintTop_toBottomOf="@+id/lineer3">
+
+            <TableLayout
+                android:id="@+id/tbl4"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:stretchColumns="3">
+
+                <TableRow android:background="@drawable/ic_btn_border">
+
+                    <TextView
+                        android:id="@+id/txtbaris7"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="center_horizontal"
+                        android:layout_weight="4"
+                        android:fontFamily="@font/montserrat_reguler"
+                        android:gravity="center"
+                        android:padding="10sp"
+                        android:text=" "
+                        android:textColor="@color/black"
+                        android:textSize="13sp" />
+
+                    <TextView
+                        android:id="@+id/txtbaris8"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="center_horizontal"
+                        android:layout_weight="5"
+                        android:fontFamily="@font/montserrat_reguler"
+                        android:gravity="center"
+                        android:padding="10sp"
+                        android:text=" "
+                        android:textColor="@color/black"
+                        android:textSize="13sp" />
+
+                    <TextView
+                        android:id="@+id/txtbaris9"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="center_horizontal"
+                        android:layout_weight="5"
+                        android:background="@android:color/transparent"
+                        android:fontFamily="@font/montserrat_reguler"
+                        android:gravity="center"
+                        android:padding="8sp"
+                        android:text=" "
+                        android:textColor="@color/black"
+                        android:textSize="13sp" />
                 </TableRow>
 
             </TableLayout>

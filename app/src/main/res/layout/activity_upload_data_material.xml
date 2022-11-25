@@ -17,8 +17,8 @@
 
     <ImageButton
         android:id="@+id/back"
-        android:layout_width="50dp"
-        android:layout_height="50dp"
+        android:layout_width="40dp"
+        android:layout_height="40dp"
         android:layout_marginStart="25dp"
         android:layout_marginTop="30dp"
         android:background="@drawable/textfield"
@@ -39,8 +39,8 @@
 
     <ImageButton
         android:id="@+id/bell"
-        android:layout_width="50dp"
-        android:layout_height="50dp"
+        android:layout_width="40dp"
+        android:layout_height="40dp"
         android:layout_alignParentEnd="true"
         android:layout_marginTop="30dp"
         android:layout_marginRight="25dp"
@@ -57,9 +57,10 @@
 
         <ImageButton
             android:id="@+id/btnback"
-            android:layout_width="30dp"
-            android:layout_height="30dp"
-            android:layout_marginLeft="12dp"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="16dp"
+            android:layout_marginTop="8dp"
             android:background="@drawable/textfield"
             android:elevation="5dp"
             android:src="@drawable/ic_baseline_keyboard_arrow_left_24"
@@ -73,11 +74,12 @@
             android:layout_height="wrap_content"
             android:layout_marginStart="35dp"
             android:layout_marginRight="80dp"
+            android:layout_marginTop="6dp"
             android:layout_marginBottom="5dp"
             android:fontFamily="@font/montserrat_reguler"
             android:text="Bulan"
             android:textColor="@color/black"
-            android:textSize="22sp"
+            android:textSize="18sp"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="@+id/btnnext"
             app:layout_constraintStart_toEndOf="@+id/btnback"
@@ -85,9 +87,10 @@
 
         <ImageButton
             android:id="@+id/btnnext"
-            android:layout_width="30dp"
-            android:layout_height="30dp"
-            android:layout_marginLeft="30dp"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="30dp"
+            android:layout_marginTop="8dp"
             android:background="@drawable/textfield"
             android:elevation="5dp"
             android:src="@drawable/ic_baseline_keyboard_arrow_right_24"
@@ -237,10 +240,7 @@
                     android:layout_gravity="center"
                     android:layout_marginEnd="22dp"
                     android:background="@drawable/ant_design_file_search_outlined"
-                    android:fontFamily="@font/montserrat_reguler"
-                    android:gravity="center"
-                    android:textColor="#FFFFFF"
-                    android:textStyle="bold" />
+                    android:gravity="center"/>
 
             </TableRow>
 
@@ -310,10 +310,7 @@
                     android:layout_gravity="center"
                     android:layout_marginRight="22dp"
                     android:background="@drawable/ant_design_file_search_outlined"
-                    android:fontFamily="@font/montserrat_reguler"
-                    android:gravity="center"
-                    android:textColor="#FFFFFF"
-                    android:textStyle="bold" />
+                    android:gravity="center" />
 
             </TableRow>
 
@@ -529,10 +526,7 @@
                     android:layout_gravity="center"
                     android:layout_marginRight="22dp"
                     android:background="@drawable/ant_design_file_search_outlined"
-                    android:fontFamily="@font/montserrat_reguler"
-                    android:gravity="center"
-                    android:textColor="#FFFFFF"
-                    android:textStyle="bold" />
+                    android:gravity="center" />
 
             </TableRow>
 
@@ -557,8 +551,6 @@
             android:elevation="3dp"
             android:fontFamily="@font/montserrat_reguler"
             android:src="@drawable/ic_baseline_keyboard_arrow_left_24"
-            android:textColor="@color/black"
-            android:textSize="12sp"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent" />
@@ -602,7 +594,9 @@
             android:layout_height="25dp"
             android:layout_marginStart="5dp"
             android:layout_marginBottom="10dp"
-            android:background="@drawable/textfield"
+            android:background
+
+                ="@drawable/textfield"
             android:fontFamily="@font/montserrat_reguler"
             android:text="3"
             android:textColor="@color/black"
@@ -692,7 +686,7 @@
             android:id="@+id/btnbrowser"
             android:layout_width="150dp"
             android:layout_height="wrap_content"
-            android:layout_marginEnd="14sp"
+            android:layout_marginEnd="12dp"
             android:background="@drawable/bt_download"
             android:elevation="5dp"
             android:fontFamily="@font/montserrat_reguler"
@@ -700,15 +694,16 @@
             android:textColor="@color/white"
             android:textStyle="bold"
             app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toEndOf="@id/edtupload"
             app:layout_constraintTop_toTopOf="parent" />
 
         <androidx.appcompat.widget.AppCompatButton
             android:id="@+id/btnupload"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginLeft="18dp"
+            android:layout_marginStart="18dp"
             android:layout_marginTop="53dp"
-            android:layout_marginRight="18dp"
+            android:layout_marginEnd="18dp"
             android:layout_marginBottom="70dp"
             android:background="@drawable/br_btn"
             android:elevation="5dp"

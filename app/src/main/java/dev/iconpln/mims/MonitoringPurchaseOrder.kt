@@ -2,6 +2,7 @@ package dev.iconpln.mims
 
 
 import android.app.Dialog
+import android.content.Intent
 import android.graphics.Color
 import android.graphics.drawable.ColorDrawable
 import android.os.Bundle
@@ -9,6 +10,7 @@ import android.view.View
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.content.ContextCompat
 import dev.iconpln.mims.databinding.ActivityMonitoringPurchaseOrderBinding
+import dev.iconpln.mims.ui.role.pabrikan.DashboardPabrikanActivity
 
 class MonitoringPurchaseOrder : AppCompatActivity() {
 
@@ -50,6 +52,12 @@ class MonitoringPurchaseOrder : AppCompatActivity() {
             myDialog.setCancelable(true)
             myDialog.window?.setBackgroundDrawable(ColorDrawable(Color.TRANSPARENT))
             myDialog.show()
+        }
+
+        binding.back.setOnClickListener {
+            val intent = Intent(this@MonitoringPurchaseOrder, DashboardPabrikanActivity::class.java)
+            startActivity(intent)
+            finish()
         }
     }
 }

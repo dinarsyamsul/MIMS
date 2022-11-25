@@ -13,6 +13,7 @@ import android.graphics.RectF
 import android.os.Bundle
 import android.renderscript.ScriptGroup.Input
 import android.view.View
+import android.view.ViewGroup
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import androidx.camera.core.CameraSelector
@@ -29,6 +30,7 @@ import com.google.mlkit.vision.barcode.BarcodeScannerOptions
 import com.google.mlkit.vision.barcode.BarcodeScanning
 import com.google.mlkit.vision.barcode.common.Barcode
 import com.google.mlkit.vision.common.InputImage
+import com.google.zxing.client.android.Intents.Scan
 import dev.iconpln.mims.databinding.ActivityScannerBinding
 import java.util.concurrent.ExecutorService
 import java.util.concurrent.Executors
@@ -36,6 +38,7 @@ import java.util.concurrent.Executors
 class ScannerActivity : AppCompatActivity() {
     private lateinit var binding: ActivityScannerBinding
     private lateinit var cameraExecutor: ExecutorService
+    private lateinit var barcodeBoxView: BarcodeBoxView
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -43,6 +46,9 @@ class ScannerActivity : AppCompatActivity() {
         setContentView(binding.root)
 
         cameraExecutor = Executors.newSingleThreadExecutor()
+
+        barcodeBoxView = BarcodeBoxView(this)
+        addContentView(barcodeBoxView, ViewGroup.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.MATCH_PARENT))
 
         // Complete activity setup...
         checkCameraPermission()
@@ -115,7 +121,15 @@ class ScannerActivity : AppCompatActivity() {
                     .setBackpressureStrategy(ImageAnalysis.STRATEGY_KEEP_ONLY_LATEST)
                     .build()
                     .also {
-                        it.setAnalyzer(cameraExecutor, QrCodeAnalyzer(this, BarcodeBoxView(this),10f,10f))
+                        it.setAnalyzer(
+                            cameraExecutor,
+                            QrCodeAnalyzer(
+                                this,
+                                barcodeBoxView,
+                                binding.previewView.width.toFloat(),
+                                binding.previewView.height.toFloat()
+                            )
+                        )
                     }
 
                 // Select back camera as default
@@ -123,6 +137,7 @@ class ScannerActivity : AppCompatActivity() {
 
                 try {
                     // Unbind usecases before rebinding
+                    cameraProvider.unbindAll()
 
                     // Bind usecases to camera
                     cameraProvider.bindToLifecycle(
@@ -236,7 +251,7 @@ class ScannerActivity : AppCompatActivity() {
             val cornerRadius = 10f
 
             paint.style = Paint.Style.STROKE
-            paint.color = Color.RED
+            paint.color = Color.GREEN
             paint.strokeWidth = 5f
 
             canvas?.drawRoundRect(mRect, cornerRadius, cornerRadius, paint)
