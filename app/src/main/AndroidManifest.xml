@@ -43,10 +43,10 @@
                 android:value="" />
         </activity>
         <activity
-            android:name=".MonitoringPurchaseOrder"
+            android:name=".ui.monitoring.MonitoringPurchaseOrder"
             android:exported="false" />
         <activity
-            android:name=".UploadDataMaterial"
+            android:name=".ui.monitoring.UploadDataMaterial"
             android:exported="false" />
         <activity
             android:name=".ui.scan.CustomScanActivity"

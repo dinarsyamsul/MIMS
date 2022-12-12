@@ -6,7 +6,7 @@
     android:layout_height="match_parent"
     android:layout_gravity="top"
     android:background="#F7F8FA"
-    tools:context=".MonitoringPurchaseOrder">
+    tools:context=".ui.monitoring.MonitoringPurchaseOrder">
 
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"

@@ -6,7 +6,7 @@
     android:layout_height="match_parent"
     android:layout_gravity="top"
     android:background="#EFEEFE"
-    tools:context=".UploadDataMaterial">
+    tools:context=".ui.monitoring.UploadDataMaterial">
 
 
     <ImageView

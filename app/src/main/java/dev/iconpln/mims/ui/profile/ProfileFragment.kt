@@ -1,4 +1,4 @@
-package dev.iconpln.mims
+package dev.iconpln.mims.ui.profile
 
 import android.os.Bundle
 import android.view.LayoutInflater
@@ -7,7 +7,7 @@ import android.view.ViewGroup
 import androidx.fragment.app.Fragment
 import dev.iconpln.mims.databinding.FragmentProfileBinding
 
-class Profile_Fragment : Fragment() {
+class ProfileFragment : Fragment() {
     // TODO: Rename and change types of parameters
     private var muncul = false
     private var _binding: FragmentProfileBinding? = null

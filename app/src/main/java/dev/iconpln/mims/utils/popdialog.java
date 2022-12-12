@@ -1,4 +1,4 @@
-package dev.iconpln.mims;
+package dev.iconpln.mims.utils;
 
 import android.app.Activity;
 

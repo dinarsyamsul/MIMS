@@ -1,4 +1,4 @@
-package dev.iconpln.mims
+package dev.iconpln.mims.ui.monitoring
 
 import android.app.Dialog
 import android.content.Intent
@@ -7,6 +7,7 @@ import android.graphics.drawable.ColorDrawable
 import android.os.Bundle
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
+import dev.iconpln.mims.R
 import dev.iconpln.mims.databinding.ActivityUploadDataMaterialBinding
 import dev.iconpln.mims.ui.role.pabrikan.DashboardPabrikanActivity
 
