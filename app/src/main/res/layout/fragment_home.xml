@@ -136,7 +136,9 @@
                             <ImageView
                                 android:layout_width="40dp"
                                 android:layout_height="40dp"
-                                android:src="@drawable/monitoring3" />
+                                android:src="@drawable/monitoring3"
+                                app:lottie_autoPlay="true"
+                                app:lottie_loop="true"/>
 
                             <TextView
                                 android:layout_width="wrap_content"
@@ -178,7 +180,9 @@
                             <ImageView
                                 android:layout_width="40dp"
                                 android:layout_height="40dp"
-                                android:src="@drawable/pengujian2" />
+                                app:lottie_loop="true"
+                                app:lottie_autoPlay="true"
+                                android:src="@drawable/pengujian2"/>
 
                             <TextView
                                 android:layout_width="wrap_content"
@@ -223,7 +227,9 @@
                             <ImageView
                                 android:layout_width="40dp"
                                 android:layout_height="40dp"
-                                android:src="@drawable/pengiriman3" />
+                                app:lottie_autoPlay="true"
+                                app:lottie_loop="true"
+                                android:src="@drawable/pengiriman3"/>
 
                             <TextView
                                 android:layout_width="wrap_content"
@@ -264,7 +270,9 @@
                             <ImageView
                                 android:layout_width="40dp"
                                 android:layout_height="40dp"
-                                android:src="@drawable/upload3" />
+                                android:src="@drawable/upload3"
+                                app:lottie_loop="true"
+                                app:lottie_autoPlay="true"/>
 
                             <TextView
                                 android:layout_width="wrap_content"

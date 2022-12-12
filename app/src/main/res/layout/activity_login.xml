@@ -151,9 +151,11 @@
 
         <ProgressBar
             android:id="@+id/progress_bar"
-            style="@android:style/Widget.Material.ProgressBar"
+            style="@style/Widget.AppCompat.ProgressBar"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            app:lottie_autoPlay="true"
+            app:lottie_loop="true"
             android:layout_centerInParent="true"
             android:visibility="gone" />
 

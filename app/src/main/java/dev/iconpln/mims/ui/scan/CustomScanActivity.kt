@@ -1,8 +1,10 @@
 package dev.iconpln.mims.ui.scan
 
+import android.animation.ObjectAnimator
 import android.graphics.Typeface
 import android.os.Bundle
 import android.view.KeyEvent
+import android.view.View
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.content.ContextCompat
 import com.journeyapps.barcodescanner.CaptureManager
@@ -21,6 +23,8 @@ class CustomScanActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         binding = ActivityCustomScanBinding.inflate(layoutInflater)
         setContentView(binding.root)
+
+//        playAnimation()
 
         barcodeScannerView = findViewById(R.id.zxing_barcode_scanner)
 
@@ -45,6 +49,11 @@ class CustomScanActivity : AppCompatActivity() {
                 )
                 binding.btnQr.setTypeface(null, Typeface.BOLD)
                 binding.btnBarcode.setTypeface(null, Typeface.NORMAL)
+//                ObjectAnimator.ofFloat(binding.scannerbawah, View.TRANSLATION_Y, -0f, 555f).apply {
+//                    duration = 2000
+//                    repeatMode = ObjectAnimator.REVERSE
+//                    repeatCount = ObjectAnimator.INFINITE
+//                }.start()
             }
         }
 
@@ -60,6 +69,14 @@ class CustomScanActivity : AppCompatActivity() {
             }
         }
     }
+
+//    private fun playAnimation(){
+//        ObjectAnimator.ofFloat(binding.scannerbawah, View.TRANSLATION_Y, -0f, 555f).apply {
+//            duration = 2000
+//            repeatMode = ObjectAnimator.REVERSE
+//            repeatCount = ObjectAnimator.INFINITE
+//        }.start()
+//    }
 
     private fun flashState(flash: Boolean) {
         if (flash) {
