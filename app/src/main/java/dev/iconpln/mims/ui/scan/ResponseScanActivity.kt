@@ -38,6 +38,10 @@ class ResponseScanActivity : AppCompatActivity() {
         if (sn != null) {
             viewModel.getDetailBySN(sn)
         }
+        
+        binding.btnsimpan.setOnClickListener {
+            Toast.makeText(this, "Data Berhasil DiSimpan", Toast.LENGTH_SHORT).show()
+        }
 
         viewModel.snResponse.observe(this) {
             Toast.makeText(this, "$it", Toast.LENGTH_SHORT).show()

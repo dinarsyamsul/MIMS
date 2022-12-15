@@ -40,6 +40,7 @@ class TokenManager(private val context: Context) {
         context.dataStore.edit { pref ->
             pref.remove(USER_TOKEN)
             pref.remove(ROLE_ID)
+            pref.remove(DEVICE_TOKEN)
         }
     }
 

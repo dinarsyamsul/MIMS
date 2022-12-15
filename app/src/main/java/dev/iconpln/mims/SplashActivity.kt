@@ -7,6 +7,8 @@ import android.os.Handler
 import android.os.Looper
 import dev.iconpln.mims.ui.login.LoginActivity
 import dev.iconpln.mims.ui.role.pabrikan.DashboardPabrikanActivity
+import dev.iconpln.mims.ui.scan.CustomScanActivity
+import dev.iconpln.mims.ui.scan.ScannerActivity
 
 class SplashActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -14,7 +16,7 @@ class SplashActivity : AppCompatActivity() {
         setContentView(R.layout.activity_splash)
 
         Handler(Looper.getMainLooper()).postDelayed({
-            val intent = Intent(this@SplashActivity, DashboardPabrikanActivity::class.java)
+            val intent = Intent(this@SplashActivity, LoginActivity::class.java)
             startActivity(intent)
             finish()
         }, 1500)

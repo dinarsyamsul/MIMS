@@ -24,7 +24,7 @@ class CustomScanActivity : AppCompatActivity() {
         binding = ActivityCustomScanBinding.inflate(layoutInflater)
         setContentView(binding.root)
 
-//        playAnimation()
+        playAnimation()
 
         barcodeScannerView = findViewById(R.id.zxing_barcode_scanner)
 
@@ -40,6 +40,8 @@ class CustomScanActivity : AppCompatActivity() {
                 )
                 binding.btnBarcode.setTypeface(null, Typeface.BOLD)
                 binding.btnQr.setTypeface(null, Typeface.NORMAL)
+                binding.scannerbawah.visibility = View.GONE
+                binding.scannerbarcode.visibility = View.VISIBLE
             } else {
                 binding.borderScan.setImageDrawable(
                     ContextCompat.getDrawable(
@@ -47,6 +49,8 @@ class CustomScanActivity : AppCompatActivity() {
                         R.drawable.scan_border
                     )
                 )
+                binding.scannerbarcode.visibility = View.GONE
+                binding.scannerbawah.visibility = View.VISIBLE
                 binding.btnQr.setTypeface(null, Typeface.BOLD)
                 binding.btnBarcode.setTypeface(null, Typeface.NORMAL)
 //                ObjectAnimator.ofFloat(binding.scannerbawah, View.TRANSLATION_Y, -0f, 555f).apply {
@@ -70,13 +74,25 @@ class CustomScanActivity : AppCompatActivity() {
         }
     }
 
-//    private fun playAnimation(){
-//        ObjectAnimator.ofFloat(binding.scannerbawah, View.TRANSLATION_Y, -0f, 555f).apply {
+    private fun playAnimation(){
+        ObjectAnimator.ofFloat(binding.scannerbawah, View.TRANSLATION_Y, 1f, 580f).apply {
+            duration = 1000
+            repeatMode = ObjectAnimator.REVERSE
+            repeatCount = ObjectAnimator.INFINITE
+        }.start()
+
+        ObjectAnimator.ofFloat(binding.scannerbarcode, View.TRANSLATION_Y, -0f, 370f).apply {
+            duration = 850
+            repeatMode = ObjectAnimator.REVERSE
+            repeatCount = ObjectAnimator.INFINITE
+        }.start()
+
+//        ObjectAnimator.ofFloat(binding.scannerbawah,View.TRANSLATION_Z,-0f,50f).apply {
 //            duration = 2000
 //            repeatMode = ObjectAnimator.REVERSE
 //            repeatCount = ObjectAnimator.INFINITE
 //        }.start()
-//    }
+    }
 
     private fun flashState(flash: Boolean) {
         if (flash) {
