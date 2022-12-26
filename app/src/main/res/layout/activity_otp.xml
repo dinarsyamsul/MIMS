@@ -202,7 +202,7 @@
                 android:textColor="@color/black" />
 
             <TextView
-                android:id="@+id/txtotp4"
+                android:id="@+id/kirimlagi"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:fontFamily="@font/montserrat_reguler"

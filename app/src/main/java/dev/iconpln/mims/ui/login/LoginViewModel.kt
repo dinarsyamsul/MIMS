@@ -56,8 +56,8 @@ class LoginViewModel(
         _isLoading.value = true
         job = CoroutineScope(Dispatchers.IO + exceptionHandler).launch {
             val requestBody = mutableMapOf<String, String>()
-            requestBody["username"] = username
-            requestBody["password"] = password
+            requestBody["user_name"] = username
+            requestBody["user_password"] = password
             requestBody["device_token"] = device_token
             val response = apiService.login(requestBody)
 
@@ -130,7 +130,7 @@ class LoginViewModel(
         job = CoroutineScope(Dispatchers.IO + exceptionHandler).launch {
             val requestBody = mutableMapOf<String, String>()
             requestBody["email_token"] = mail_token
-            requestBody["username"] = username
+            requestBody["user_name"] = username
             val response = apiService.sendOtp(requestBody)
 
             withContext(Dispatchers.Main) {

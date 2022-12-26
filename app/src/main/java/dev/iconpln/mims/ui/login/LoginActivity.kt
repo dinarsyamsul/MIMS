@@ -190,8 +190,8 @@ class LoginActivity : AppCompatActivity() {
 //                Intent(this@LoginActivity, DashboardPabrikanActivity::class.java).also {
 //                    it.flags = Intent.FLAG_ACTIVITY_NEW_TASK or Intent.FLAG_ACTIVITY_CLEAR_TASK
 //                    startActivity(it)
-//                }
                 }
+//                }
 
 //                loginViewModel.getAgoLogin(username, password) //skema login ago
             }

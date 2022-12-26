@@ -44,7 +44,7 @@ class ResponseScanActivity : AppCompatActivity() {
         }
 
         viewModel.snResponse.observe(this) {
-            Toast.makeText(this, "$it", Toast.LENGTH_SHORT).show()
+            Toast.makeText(this, "Scan Berhasil", Toast.LENGTH_SHORT).show()
             for (data in it) {
                 binding.apply {
                     tvResult.text = ": ${data.serialNumber}"

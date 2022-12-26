@@ -52,6 +52,7 @@ class OtpActivity : AppCompatActivity() {
                 if (username != null) {
                     loginViewModel.sendTokenOtp(otpInput, username)
                 }
+//                Toast.makeText(this@OtpActivity, "Kode OTP Di Kirim", Toast.LENGTH_SHORT).show()
             }
         }
 
@@ -61,6 +62,7 @@ class OtpActivity : AppCompatActivity() {
                     Toast.makeText(this, "Token salah", Toast.LENGTH_SHORT).show()
                 }
                 "VERIFIKASI DEVICE BERHASIL" -> {
+                    Toast.makeText(this, "Device Berhasil Diverifikasi", Toast.LENGTH_SHORT).show()
                     result.data.forEach { login ->
                         if (login.roleId == "1") {
                             Intent(this@OtpActivity, DashboardPabrikanActivity::class.java).also {
@@ -86,8 +88,9 @@ class OtpActivity : AppCompatActivity() {
             }
         }
 
-        binding.txtotp4.setOnClickListener {
+        binding.kirimlagi.setOnClickListener {
             loginViewModel.hitEmail(username.toString())
+            Toast.makeText(this, "Kode OTP Di Kirim", Toast.LENGTH_SHORT).show()
         }
 
         autoNextInput()

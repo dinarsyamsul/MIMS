@@ -39,11 +39,11 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_centerHorizontal="true"
-            android:layout_marginTop="46dp"
             android:fontFamily="@font/montserrat_reguler"
             android:text="Monitoring Purchase Order"
             android:textColor="@color/white"
             android:textStyle="bold"
+            app:layout_constraintBottom_toBottomOf="@+id/dashboard"
             app:layout_constraintEnd_toStartOf="@+id/bell"
             app:layout_constraintStart_toEndOf="@id/back"
             app:layout_constraintTop_toTopOf="parent" />
@@ -594,7 +594,7 @@
                         <ImageView
                             android:id="@+id/img2"
                             android:layout_width="0dp"
-                            android:layout_height="wrap_content"
+                            android:layout_height="match_parent"
                             android:layout_gravity="center_horizontal"
                             android:layout_weight="5"
                             android:fontFamily="@font/montserrat_reguler"

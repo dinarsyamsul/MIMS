@@ -76,13 +76,13 @@ class CustomScanActivity : AppCompatActivity() {
 
     private fun playAnimation(){
         ObjectAnimator.ofFloat(binding.scannerbawah, View.TRANSLATION_Y, 1f, 580f).apply {
-            duration = 1000
+            duration = 1500
             repeatMode = ObjectAnimator.REVERSE
             repeatCount = ObjectAnimator.INFINITE
         }.start()
 
         ObjectAnimator.ofFloat(binding.scannerbarcode, View.TRANSLATION_Y, -0f, 370f).apply {
-            duration = 850
+            duration = 1500
             repeatMode = ObjectAnimator.REVERSE
             repeatCount = ObjectAnimator.INFINITE
         }.start()

@@ -3,7 +3,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    android:background="#EFEFEF"
+    android:background="#F7F8FA"
     tools:context=".ui.role.pabrikan.DashboardPabrikanActivity">
 
     <androidx.constraintlayout.widget.ConstraintLayout

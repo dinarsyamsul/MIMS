@@ -26,9 +26,9 @@ interface ApiService {
     ): Response<DetailSnResponse>
 
     @Headers("Content-Type:application/json")
-    @GET("mims-service-api/sendmailtoken/{username}")
+    @GET("mims-service-api/sendmailtoken/{user_name}")
     suspend fun hitEmailResponse(
-        @Path("username") username: String
+        @Path("user_name") username: String
     ): Response<HitEmailResponse>
 
     @Headers("Content-Type:application/json")
