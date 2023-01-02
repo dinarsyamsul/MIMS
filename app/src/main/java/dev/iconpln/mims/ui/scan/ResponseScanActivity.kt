@@ -1,11 +1,13 @@
 package dev.iconpln.mims.ui.scan
 
+import android.content.Intent
 import android.os.Bundle
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import androidx.lifecycle.ViewModelProvider
 import dev.iconpln.mims.data.remote.service.ApiConfig
 import dev.iconpln.mims.databinding.ActivityResponseScanBinding
+import dev.iconpln.mims.ui.role.pabrikan.DashboardPabrikanActivity
 import dev.iconpln.mims.utils.NetworkStatusTracker
 import dev.iconpln.mims.utils.TokenManager
 import dev.iconpln.mims.utils.ViewModelFactory
@@ -40,24 +42,29 @@ class ResponseScanActivity : AppCompatActivity() {
         }
         
         binding.btnsimpan.setOnClickListener {
-            Toast.makeText(this, "Data Berhasil DiSimpan", Toast.LENGTH_SHORT).show()
+            val intent = Intent(this@ResponseScanActivity, DashboardPabrikanActivity::class.java)
+            startActivity(intent)
         }
 
-        viewModel.snResponse.observe(this) {
+        viewModel.snResponse.observe(this) {data->
             Toast.makeText(this, "Scan Berhasil", Toast.LENGTH_SHORT).show()
-            for (data in it) {
+
                 binding.apply {
                     tvResult.text = ": ${data.serialNumber}"
-                    tvAsset.text = ": ${data.noAsset}"
-                    tvMaterial.text = ": ${data.materialDesc}"
-                    tvNamafab.text = ": ${data.namaPabrikan}"
-                    tvNamainsp.text = ": ${data.namaInspektur}"
-                    tvNamaklas.setText(": ${data.namaKlasifikasiRetur}")
-                    tvTglRetur.setText(": ${data.tglInspeksiretur}")
-                    tvNoba.text = ": ${data.noBa}"
-                    tvTahun.text = ": ${data.tahun}"
+                    tvMaterialId.text =": ${data.materialId}"
+                    tvNoMaterial.text =": ${data.nomorMaterial}"
+                    tvKodePabrik.text =": ${data.kodePabrikan}"
+                    tvNamaPabrik.text =": ${data.namaPabrikan}"
+                    tvTglProduksi.text =": ${data.tglProduksi}"
+                    tvSpin.text = ": ${data.spln}"
+                    tvSpekMaterial.text = ": ${data.spesifikasiMaterial}"
+                    tvKatMaterial.text = ": ${data.kategoriMaterial}"
+                    tvMasaGaransi.text = ": ${data.masaGaransi}"
+                    tvNomorSert.text = ": ${data.nomorSertMetrologi}"
+                    tvNomorProduksi.text = ": ${data.noProduksi}"
+                    tvNomorPackaging.text = ": ${data.noPackaging}"
                 }
-            }
+
         }
     }
 

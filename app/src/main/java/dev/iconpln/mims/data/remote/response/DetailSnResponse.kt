@@ -4,39 +4,51 @@ import com.google.gson.annotations.SerializedName
 
 data class DetailSnResponse(
 
-    @field:SerializedName("msg")
-    val msg: String,
+	@field:SerializedName("data")
+	val data: DetailSN,
 
-    @field:SerializedName("data")
-    val data: List<DetailSN>
+	@field:SerializedName("status")
+	val status: String
 )
 
 data class DetailSN(
 
-    @field:SerializedName("nama_pabrikan")
-    val namaPabrikan: String,
+	@field:SerializedName("nama_pabrikan")
+	val namaPabrikan: String,
 
-    @field:SerializedName("nama_klasifikasi_retur")
-    val namaKlasifikasiRetur: String,
+	@field:SerializedName("nomor_material")
+	val nomorMaterial: String,
 
-    @field:SerializedName("material_desc")
-    val materialDesc: String,
+	@field:SerializedName("spesifikasi_material")
+	val spesifikasiMaterial: String,
 
-    @field:SerializedName("tahun")
-    val tahun: String,
+	@field:SerializedName("tgl_produksi")
+	val tglProduksi: String,
 
-    @field:SerializedName("serial_number")
-    val serialNumber: String,
+	@field:SerializedName("nomor_sert_metrologi")
+	val nomorSertMetrologi: String,
 
-    @field:SerializedName("no_asset")
-    val noAsset: String,
+	@field:SerializedName("serial_number")
+	val serialNumber: String,
 
-    @field:SerializedName("no_ba")
-    val noBa: String,
+	@field:SerializedName("spln")
+	val spln: String,
 
-    @field:SerializedName("tgl_inspeksiretur")
-    val tglInspeksiretur: String,
+	@field:SerializedName("no_produksi")
+	val noProduksi: String,
 
-    @field:SerializedName("nama_inspektur")
-    val namaInspektur: String
+	@field:SerializedName("no_packaging")
+	val noPackaging: String,
+
+	@field:SerializedName("material_id")
+	val materialId: String,
+
+	@field:SerializedName("kode_pabrikan")
+	val kodePabrikan: String,
+
+	@field:SerializedName("masa_garansi")
+	val masaGaransi: String,
+
+	@field:SerializedName("kategori_material")
+	val kategoriMaterial: String
 )

@@ -21,8 +21,8 @@ class ScanViewModel(private val apiService: ApiService) : ViewModel() {
     private val _isLoading = MutableLiveData<Boolean>()
     val isLoading: LiveData<Boolean> = _isLoading
 
-    private val _snResponse: MutableLiveData<List<DetailSN>> = MutableLiveData()
-    val snResponse: LiveData<List<DetailSN>> = _snResponse
+    private val _snResponse: MutableLiveData<DetailSN> = MutableLiveData()
+    val snResponse: LiveData<DetailSN> = _snResponse
 
     fun getDetailBySN(sn: String) {
         _isLoading.value = true
@@ -31,8 +31,8 @@ class ScanViewModel(private val apiService: ApiService) : ViewModel() {
             withContext(Dispatchers.Main) {
                 if (response.isSuccessful) {
                     _isLoading.value = false
-                    val loginResult = response.body()
-                    _snResponse.postValue(loginResult?.data)
+                    val detailResult = response.body()?.data
+                    _snResponse.postValue(detailResult)
                 } else {
                     _isLoading.value = false
                     val error = response.errorBody()?.toString()

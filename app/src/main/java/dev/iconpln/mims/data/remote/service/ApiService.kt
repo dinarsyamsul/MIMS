@@ -20,7 +20,7 @@ interface ApiService {
     ): Response<LoginResponse>
 
     @Headers("Content-Type:application/json")
-    @GET("project-i-agodist-api/getInspeksiMobile/{sn}")
+    @GET("mims-service-api/attMaterial/getMaterial/{sn}")
     suspend fun getDetailBySN(
         @Path("sn") sn: String
     ): Response<DetailSnResponse>

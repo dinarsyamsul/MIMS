@@ -19,22 +19,22 @@ class DashboardPusertifActivity : AppCompatActivity() {
         binding = ActivityDashboardPusertifBinding.inflate(layoutInflater)
         setContentView(binding.root)
 
-        val session = TokenManager(this)
-
-        binding.btnLogout.setOnClickListener {
-            val onLogout = Intent(this@DashboardPusertifActivity, LoginActivity::class.java)
-            onLogout.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP)
-            onLogout.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK)
-
-            lifecycleScope.launch {
-                session.clearUserToken()
-            }
-            session.user_token.asLiveData().observe(this) {
-                Log.d("MainActivity", "cek token : $it")
-            }
-            onLogout.flags = Intent.FLAG_ACTIVITY_NEW_TASK
-            startActivity(onLogout)
-            finish()
+//        val session = TokenManager(this)
+//
+//        binding.btnLogout.setOnClickListener {
+//            val onLogout = Intent(this@DashboardPusertifActivity, LoginActivity::class.java)
+//            onLogout.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP)
+//            onLogout.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK)
+//
+//            lifecycleScope.launch {
+//                session.clearUserToken()
+//            }
+//            session.user_token.asLiveData().observe(this) {
+//                Log.d("MainActivity", "cek token : $it")
+//            }
+//            onLogout.flags = Intent.FLAG_AC   TIVITY_NEW_TASK
+//            startActivity(onLogout)
+//            finish()
         }
     }
-}
+//}

@@ -58,9 +58,7 @@ class OtpActivity : AppCompatActivity() {
 
         loginViewModel.verifyTokenResponse.observe(this) { result ->
             when (result.message) {
-                "Data tidak ditemukan" -> {
-                    Toast.makeText(this, "Token salah", Toast.LENGTH_SHORT).show()
-                }
+
                 "VERIFIKASI DEVICE BERHASIL" -> {
                     Toast.makeText(this, "Device Berhasil Diverifikasi", Toast.LENGTH_SHORT).show()
                     result.data.forEach { login ->
@@ -84,6 +82,10 @@ class OtpActivity : AppCompatActivity() {
                             }
                         }
                     }
+                }
+                "Data tidak ditemukan" -> {
+                    Toast.makeText(this, "Token salah", Toast.LENGTH_LONG).show()
+                    Log.d("otp activity", "cek toast")
                 }
             }
         }

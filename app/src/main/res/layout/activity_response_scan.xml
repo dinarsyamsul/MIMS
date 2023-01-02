@@ -39,7 +39,7 @@
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:layout_marginStart="16dp"
-        android:layout_marginTop="24dp"
+        android:layout_marginTop="16dp"
         android:text="Serial Number"
         android:textColor="@color/black"
         android:textAlignment="center"
@@ -52,6 +52,7 @@
         android:layout_height="wrap_content"
         android:layout_marginStart="48dp"
         android:text=": Serial Number"
+        android:layout_marginEnd="16dp"
         android:textColor="@color/color_text"
         android:textStyle="bold"
         app:layout_constraintBottom_toBottomOf="@id/serial_holder"
@@ -61,216 +62,294 @@
         app:layout_constraintVertical_bias="0.0" />
 
     <TextView
-        android:id="@+id/tahun_holder"
+        android:id="@+id/materialId_holder"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:layout_marginStart="16dp"
-        android:layout_marginTop="24dp"
-        android:text="Tahun"
+        android:layout_marginTop="16dp"
+        android:text="Material ID"
         android:textColor="@color/black"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@id/tv_result" />
 
     <TextView
-        android:id="@+id/tv_tahun"
+        android:id="@+id/tv_materialId"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
-        android:text=": Tahun"
+        android:text=": Material ID"
         android:textColor="@color/color_text"
         android:textStyle="bold"
-        app:layout_constraintBottom_toBottomOf="@id/tahun_holder"
+        app:layout_constraintBottom_toBottomOf="@id/materialId_holder"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="@id/tv_result"
-        app:layout_constraintTop_toTopOf="@id/tahun_holder" />
+        app:layout_constraintTop_toTopOf="@id/materialId_holder" />
 
     <TextView
-        android:id="@+id/namapab_holder"
+        android:id="@+id/noMaterial_holder"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:layout_marginStart="16dp"
-        android:layout_marginTop="24dp"
-        android:text="Nama Pabrikan"
+        android:layout_marginTop="16dp"
+        android:text="Nomer Material"
         android:textColor="@color/black"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/tv_tahun"
+        app:layout_constraintTop_toBottomOf="@id/tv_materialId"
         app:layout_constraintVertical_bias="0.0" />
 
     <TextView
-        android:id="@+id/tv_namafab"
+        android:id="@+id/tv_noMaterial"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:text=": Nomer Material"
+        android:textColor="@color/color_text"
+        android:textStyle="bold"
+        app:layout_constraintBottom_toBottomOf="@id/noMaterial_holder"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="@id/tv_result"
+        app:layout_constraintTop_toTopOf="@id/noMaterial_holder" />
+
+    <TextView
+        android:id="@+id/kodePabrik_holder"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="16dp"
+        android:layout_marginTop="16dp"
+        android:textColor="@color/black"
+        android:text="Kode Pabrikan"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/tv_noMaterial"
+        app:layout_constraintVertical_bias="0.0" />
+
+    <TextView
+        android:id="@+id/tv_kodePabrik"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:text=": Kode Pabrikan"
+        android:textColor="@color/color_text"
+        android:textStyle="bold"
+        app:layout_constraintBottom_toBottomOf="@id/kodePabrik_holder"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="@id/tv_result"
+        app:layout_constraintTop_toTopOf="@id/kodePabrik_holder" />
+
+    <TextView
+        android:id="@+id/namaPabrik_holder"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="16dp"
+        android:layout_marginTop="16dp"
+        android:text="Nama Pabrikan"
+        android:textColor="@color/black"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/tv_kodePabrik"
+        app:layout_constraintVertical_bias="0.0" />
+
+    <TextView
+        android:id="@+id/tv_namaPabrik"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:text=": Nama Pabrikan"
         android:textColor="@color/color_text"
         android:textStyle="bold"
-        app:layout_constraintBottom_toBottomOf="@id/namapab_holder"
+        app:layout_constraintBottom_toBottomOf="@id/namaPabrik_holder"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="@id/tv_result"
-        app:layout_constraintTop_toTopOf="@id/namapab_holder" />
+        app:layout_constraintTop_toTopOf="@id/namaPabrik_holder" />
 
     <TextView
-        android:id="@+id/material_holder"
+        android:id="@+id/tglProduksi_holder"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:layout_marginStart="16dp"
-        android:layout_marginTop="24dp"
+        android:layout_marginTop="16dp"
         android:textColor="@color/black"
-        android:text="Material Desc"
+        android:text="Tgl Produksi"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/tv_namafab"
+        app:layout_constraintTop_toBottomOf="@id/tv_namaPabrik"
         app:layout_constraintVertical_bias="0.0" />
 
     <TextView
-        android:id="@+id/tv_material"
+        android:id="@+id/tv_tglProduksi"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
-        android:text=": Material"
+        android:layout_marginEnd="16dp"
+        android:text=": Tgl Produksi"
         android:textColor="@color/color_text"
         android:textStyle="bold"
-        app:layout_constraintBottom_toBottomOf="@id/material_holder"
+        app:layout_constraintBottom_toBottomOf="@id/tglProduksi_holder"
         app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toStartOf="@id/tv_result"
-        app:layout_constraintTop_toTopOf="@id/material_holder" />
+        app:layout_constraintTop_toTopOf="@id/tglProduksi_holder"
+        app:layout_constraintVertical_bias="1.0" />
 
     <TextView
-        android:id="@+id/asset_holder"
+        android:id="@+id/spin_holder"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:layout_marginStart="16dp"
-        android:layout_marginTop="24dp"
-        android:text="No Asset"
+        android:layout_marginTop="16dp"
+        android:text="Spin"
         android:textColor="@color/black"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/tv_material"
+        app:layout_constraintTop_toBottomOf="@id/tv_tglProduksi"
         app:layout_constraintVertical_bias="0.0" />
 
     <TextView
-        android:id="@+id/tv_asset"
+        android:id="@+id/tv_spin"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
-        android:text=": Asset Number"
+        android:text=": Spin"
         android:textColor="@color/color_text"
         android:textStyle="bold"
-        app:layout_constraintBottom_toBottomOf="@id/asset_holder"
+        app:layout_constraintBottom_toBottomOf="@id/spin_holder"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="@id/tv_result"
-        app:layout_constraintTop_toTopOf="@id/asset_holder" />
+        app:layout_constraintTop_toTopOf="@id/spin_holder" />
 
     <TextView
-        android:id="@+id/tgl_retur_holder"
+        android:id="@+id/spekMaterial_holder"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:layout_marginStart="16dp"
-        android:layout_marginTop="24dp"
+        android:layout_marginTop="16dp"
+        android:text="Spesifikasi Material"
         android:textColor="@color/black"
-        android:text="Tgl Inspeksi Retur"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/tv_asset"
+        app:layout_constraintTop_toBottomOf="@id/tv_spin"
         app:layout_constraintVertical_bias="0.0" />
 
-    <EditText
-        android:id="@+id/tv_tgl_retur"
+    <TextView
+        android:id="@+id/tv_spekMaterial"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:layout_marginEnd="24dp"
-        android:text=": Retur"
-        android:textColor="@color/color_text"
-        app:layout_constraintBottom_toBottomOf="@id/tgl_retur_holder"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="@id/tv_result"
-        app:layout_constraintTop_toTopOf="@id/tgl_retur_holder" />
-
-    <TextView
-        android:id="@+id/namainsp_holder"
-        android:layout_width="0dp"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="16dp"
-        android:layout_marginTop="24dp"
-        android:text="Nama Inspektur"
-        android:textColor="@color/black"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/tv_tgl_retur"
-        app:layout_constraintVertical_bias="0.0" />
-
-    <TextView
-        android:id="@+id/tv_namainsp"
-        android:layout_width="0dp"
-        android:layout_height="wrap_content"
-        android:text=": Nama Inspektur"
+        android:text=": Spesifikasi Material"
         android:textColor="@color/color_text"
         android:textStyle="bold"
-        app:layout_constraintBottom_toBottomOf="@id/namainsp_holder"
+        app:layout_constraintBottom_toBottomOf="@id/spekMaterial_holder"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="@id/tv_result"
-        app:layout_constraintTop_toTopOf="@id/namainsp_holder" />
+        app:layout_constraintTop_toTopOf="@id/spekMaterial_holder" />
 
     <TextView
-        android:id="@+id/namaklas_holder"
+        android:id="@+id/katMaterial_holder"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:layout_marginStart="16dp"
-        android:layout_marginTop="24dp"
-        android:text="Klasifikasi Retur"
+        android:layout_marginTop="16dp"
+        android:text="Kategori Material"
         android:textColor="@color/black"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/tv_namainsp"
-        app:layout_constraintVertical_bias="0.0" />
+        app:layout_constraintTop_toBottomOf="@id/tv_spekMaterial" />
 
-    <EditText
-        android:id="@+id/tv_namaklas"
+    <TextView
+        android:id="@+id/tv_katMaterial"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:text=": Kategori Material"
+        android:textColor="@color/color_text"
+        android:textStyle="bold"
+        app:layout_constraintBottom_toBottomOf="@id/katMaterial_holder"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="@id/tv_result"
+        app:layout_constraintTop_toTopOf="@id/katMaterial_holder" />
+
+    <TextView
+        android:id="@+id/masaGaransiholder"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="16dp"
+        android:layout_marginTop="16dp"
+        android:textColor="@color/black"
+        android:text="Masa Garansi"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/tv_katMaterial" />
+
+    <TextView
+        android:id="@+id/tv_masaGaransi"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:layout_marginEnd="24dp"
-        android:text=": Nama Klasifikasi Retur"
-        android:textColor="@color/color_text"
-        app:layout_constraintBottom_toBottomOf="@id/namaklas_holder"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="@id/tv_result"
-        app:layout_constraintTop_toTopOf="@id/namaklas_holder" />
-
-    <TextView
-        android:id="@+id/noba_holder"
-        android:layout_width="0dp"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="16dp"
-        android:layout_marginTop="24dp"
-        android:text="Nomor BA"
-        android:textColor="@color/black"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/tv_namaklas" />
-
-    <TextView
-        android:id="@+id/tv_noba"
-        android:layout_width="0dp"
-        android:layout_height="wrap_content"
-        android:text=": No BA"
-        android:textColor="@color/color_text"
+        android:text=": masa garansi"
         android:textStyle="bold"
-        app:layout_constraintBottom_toBottomOf="@id/noba_holder"
+        android:textColor="@color/color_text"
+        app:layout_constraintBottom_toBottomOf="@id/masaGaransiholder"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="@id/tv_result"
-        app:layout_constraintTop_toTopOf="@id/noba_holder" />
+        app:layout_constraintTop_toTopOf="@id/masaGaransiholder" />
 
     <TextView
-        android:id="@+id/edt_jml_holder"
+        android:id="@+id/nomerSert_holder"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:layout_marginStart="16dp"
-        android:layout_marginTop="24dp"
+        android:layout_marginTop="16dp"
         android:textColor="@color/black"
-        android:text="Jumlah"
+        android:text="No Sert Metrologi"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/tv_noba" />
+        app:layout_constraintTop_toBottomOf="@id/masaGaransiholder" />
 
-    <EditText
+    <TextView
+        android:id="@+id/tv_nomorSert"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:layout_marginEnd="24dp"
-        android:text=": 11"
+        android:text=": No Sert Metrologi"
+        android:textStyle="bold"
         android:textColor="@color/color_text"
-        app:layout_constraintBottom_toBottomOf="@id/edt_jml_holder"
+        app:layout_constraintBottom_toBottomOf="@id/nomerSert_holder"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="@id/tv_result"
-        app:layout_constraintTop_toTopOf="@id/edt_jml_holder" />
+        app:layout_constraintTop_toTopOf="@id/nomerSert_holder" />
+
+    <TextView
+        android:id="@+id/nomerProduksi_holder"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="16dp"
+        android:layout_marginTop="16dp"
+        android:textColor="@color/black"
+        android:text="No Produksi"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/nomerSert_holder" />
+
+    <TextView
+        android:id="@+id/tv_nomor_produksi"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginEnd="24dp"
+        android:text=": No Produksi"
+        android:textStyle="bold"
+        android:textColor="@color/color_text"
+        app:layout_constraintBottom_toBottomOf="@id/nomerProduksi_holder"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="@id/tv_result"
+        app:layout_constraintTop_toTopOf="@id/nomerProduksi_holder" />
+
+    <TextView
+        android:id="@+id/nomerPackaging_holder"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="16dp"
+        android:layout_marginTop="16dp"
+        android:textColor="@color/black"
+        android:text="No Packaging"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/nomerProduksi_holder" />
+
+    <TextView
+        android:id="@+id/tv_nomor_packaging"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginEnd="24dp"
+        android:text=": No Packaging"
+        android:textStyle="bold"
+        android:textColor="@color/color_text"
+        app:layout_constraintBottom_toBottomOf="@id/nomerPackaging_holder"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="@id/tv_result"
+        app:layout_constraintTop_toTopOf="@id/nomerPackaging_holder" />
 
     <androidx.appcompat.widget.AppCompatButton
         android:id="@+id/btnsimpan"
@@ -281,7 +360,7 @@
         android:layout_marginEnd="24dp"
         android:layout_marginBottom="24dp"
         android:background="@drawable/custombtn"
-        android:text="Simpan"
+        android:text="Kembali"
         android:textAllCaps="false"
         android:textColor="#FFFBF6"
         app:layout_constraintBottom_toBottomOf="parent"
