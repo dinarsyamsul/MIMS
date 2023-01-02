@@ -1,5 +1,6 @@
 package dev.iconpln.mims.ui.login
 
+import android.util.Log
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
@@ -136,9 +137,9 @@ class LoginViewModel(
             withContext(Dispatchers.Main) {
                 if (response.isSuccessful) {
                     _isLoading.value = false
-                    val loginResult = response.body()
-                    _verifyTokenResponse.postValue(loginResult)
-                    loginResult?.data?.forEach {
+                    val tokenResult = response.body()
+                    _verifyTokenResponse.postValue(tokenResult)
+                    tokenResult?.data?.forEach {
                         session.saveAuthToken(
                             user_token = it.userToken,
                             device_token = it.deviceToken,

@@ -6,6 +6,7 @@ import android.os.Bundle
 import android.text.Editable
 import android.text.TextWatcher
 import android.util.Log
+import android.view.View
 import android.view.inputmethod.InputMethodManager
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
@@ -58,7 +59,6 @@ class OtpActivity : AppCompatActivity() {
 
         loginViewModel.verifyTokenResponse.observe(this) { result ->
             when (result.message) {
-
                 "VERIFIKASI DEVICE BERHASIL" -> {
                     Toast.makeText(this, "Device Berhasil Diverifikasi", Toast.LENGTH_SHORT).show()
                     result.data.forEach { login ->
@@ -83,16 +83,26 @@ class OtpActivity : AppCompatActivity() {
                         }
                     }
                 }
-                "Data tidak ditemukan" -> {
-                    Toast.makeText(this, "Token salah", Toast.LENGTH_LONG).show()
-                    Log.d("otp activity", "cek toast")
-                }
+            }
+        }
+
+        loginViewModel.errorMessage.observe(this) {
+            if (it != null) {
+                Toast.makeText(this, "Token salah", Toast.LENGTH_SHORT).show()
             }
         }
 
         binding.kirimlagi.setOnClickListener {
             loginViewModel.hitEmail(username.toString())
             Toast.makeText(this, "Kode OTP Di Kirim", Toast.LENGTH_SHORT).show()
+        }
+
+        loginViewModel.isLoading.observe(this) {
+            if (it == true) {
+                binding.progressBar.visibility = View.VISIBLE
+            } else {
+                binding.progressBar.visibility = View.GONE
+            }
         }
 
         autoNextInput()
