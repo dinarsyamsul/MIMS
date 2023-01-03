@@ -5,7 +5,10 @@ import com.google.gson.annotations.SerializedName
 data class DetailSnResponse(
 
 	@field:SerializedName("data")
-	val data: DetailSN,
+	val detailSN: DetailSN,
+
+	@field:SerializedName("message")
+	val message: String,
 
 	@field:SerializedName("status")
 	val status: String
@@ -34,20 +37,17 @@ data class DetailSN(
 	@field:SerializedName("spln")
 	val spln: String,
 
-	@field:SerializedName("no_produksi")
-	val noProduksi: String,
-
-	@field:SerializedName("no_packaging")
-	val noPackaging: String,
-
-	@field:SerializedName("material_id")
-	val materialId: String,
-
 	@field:SerializedName("kode_pabrikan")
 	val kodePabrikan: String,
 
 	@field:SerializedName("masa_garansi")
 	val masaGaransi: String,
+
+	@field:SerializedName("no_produksi")
+	val noProduksi: String,
+
+	@field:SerializedName("no_packaging")
+	val noPackaging: String,
 
 	@field:SerializedName("kategori_material")
 	val kategoriMaterial: String

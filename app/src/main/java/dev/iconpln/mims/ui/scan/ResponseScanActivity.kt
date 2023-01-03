@@ -40,31 +40,36 @@ class ResponseScanActivity : AppCompatActivity() {
         if (sn != null) {
             viewModel.getDetailBySN(sn)
         }
-        
+
         binding.btnsimpan.setOnClickListener {
             val intent = Intent(this@ResponseScanActivity, DashboardPabrikanActivity::class.java)
             startActivity(intent)
         }
 
-        viewModel.snResponse.observe(this) {data->
-            Toast.makeText(this, "Scan Berhasil", Toast.LENGTH_SHORT).show()
-
+        viewModel.snResponse.observe(this) { data ->
+            if (data.message == "Success") {
+                Toast.makeText(this, "Scan Berhasil", Toast.LENGTH_SHORT).show()
                 binding.apply {
-                    tvResult.text = ": ${data.serialNumber}"
-                    tvMaterialId.text =": ${data.materialId}"
-                    tvNoMaterial.text =": ${data.nomorMaterial}"
-                    tvKodePabrik.text =": ${data.kodePabrikan}"
-                    tvNamaPabrik.text =": ${data.namaPabrikan}"
-                    tvTglProduksi.text =": ${data.tglProduksi}"
-                    tvSpin.text = ": ${data.spln}"
-                    tvSpekMaterial.text = ": ${data.spesifikasiMaterial}"
-                    tvKatMaterial.text = ": ${data.kategoriMaterial}"
-                    tvMasaGaransi.text = ": ${data.masaGaransi}"
-                    tvNomorSert.text = ": ${data.nomorSertMetrologi}"
-                    tvNomorProduksi.text = ": ${data.noProduksi}"
-                    tvNomorPackaging.text = ": ${data.noPackaging}"
+                    tvResult.text = ": ${data.detailSN.serialNumber}"
+                    tvNoMaterial.text = ": ${data.detailSN.nomorMaterial}"
+                    tvKodePabrik.text = ": ${data.detailSN.kodePabrikan}"
+                    tvNamaPabrik.text = ": ${data.detailSN.namaPabrikan}"
+                    tvTglProduksi.text = ": ${data.detailSN.tglProduksi}"
+                    tvSpin.text = ": ${data.detailSN.spln}"
+                    tvSpekMaterial.text = ": ${data.detailSN.spesifikasiMaterial}"
+                    tvKatMaterial.text = ": ${data.detailSN.kategoriMaterial}"
+                    tvMasaGaransi.text = ": ${data.detailSN.masaGaransi}"
+                    tvNomorSert.text = ": ${data.detailSN.nomorSertMetrologi}"
+                    tvNomorProduksi.text = ": ${data.detailSN.noProduksi}"
+                    tvNomorPackaging.text = ": ${data.detailSN.noPackaging}"
                 }
+            }
+        }
 
+        viewModel.errorMessage.observe(this) {
+            if (it == "Data not found") {
+                Toast.makeText(this, "Data serial number tidak sesuai", Toast.LENGTH_LONG).show()
+            }
         }
     }
 
