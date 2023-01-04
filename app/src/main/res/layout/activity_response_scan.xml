@@ -1,370 +1,685 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="@color/white"
+    android:orientation="vertical"
     tools:context=".ui.scan.ResponseScanActivity">
 
-    <TextView
-        android:id="@+id/title"
+    <HorizontalScrollView
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="16dp"
-        android:text="DETAIL HASIL SCAN"
-        android:textAlignment="center"
-        android:textColor="@color/color_text"
-        android:textStyle="bold"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0" />
+        android:layout_height="wrap_content">
 
-    <View
-        android:id="@+id/line"
+        <TableLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginHorizontal="10dp"
+            android:layout_marginVertical="30dp"
+            android:background="#B9B9B9">
+
+            <TableRow>
+
+                <TextView
+                    android:id="@+id/serial_Holder"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:fontFamily="@font/montserrat_reguler"
+                    android:gravity="center"
+                    android:padding="10dp"
+                    android:text="Serial Number"
+                    android:textSize="16sp" />
+
+                <TextView
+                    android:id="@+id/nomat_holder"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:fontFamily="@font/montserrat_reguler"
+                    android:gravity="center"
+                    android:padding="10dp"
+                    android:text="Nomer Material"
+                    android:textSize="16sp" />
+
+                <TextView
+                    android:id="@+id/kodpabrikan_holder"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:fontFamily="@font/montserrat_reguler"
+                    android:gravity="center"
+                    android:padding="10dp"
+                    android:text="Kode Pabrikan"
+                    android:textSize="16sp" />
+
+                <TextView
+                    android:id="@+id/nampabrikan_holder"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:fontFamily="@font/montserrat_reguler"
+                    android:gravity="center"
+                    android:padding="10dp"
+                    android:text="Nama Pabrikan"
+                    android:textSize="16sp"/>
+
+                <TextView
+                    android:id="@+id/tglprod_holder"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:fontFamily="@font/montserrat_reguler"
+                    android:gravity="center"
+                    android:padding="10dp"
+                    android:text="Tanggal Produksi"
+                    android:textSize="16sp"/>
+
+                <TextView
+                    android:id="@+id/spin_holder"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:fontFamily="@font/montserrat_reguler"
+                    android:gravity="center"
+                    android:padding="10dp"
+                    android:text="Spin"
+                    android:textSize="16sp"/>
+
+                <TextView
+                    android:id="@+id/spekmat_holder"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:fontFamily="@font/montserrat_reguler"
+                    android:gravity="center"
+                    android:padding="10dp"
+                    android:text="Spesifikasi Material"
+                    android:textSize="16sp"/>
+
+                <TextView
+                    android:id="@+id/katmat_holder"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:fontFamily="@font/montserrat_reguler"
+                    android:gravity="center"
+                    android:padding="10dp"
+                    android:text="Kategori Material"
+                    android:textSize="16sp"/>
+
+                <TextView
+                    android:id="@+id/masgaran_holder"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:fontFamily="@font/montserrat_reguler"
+                    android:gravity="center"
+                    android:padding="10dp"
+                    android:text="Masa Garansi"
+                    android:textSize="16sp"/>
+
+                <TextView
+                    android:id="@+id/nosermet_holder"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:fontFamily="@font/montserrat_reguler"
+                    android:gravity="center"
+                    android:padding="10dp"
+                    android:text="Nomor Sert Metrologi"
+                    android:textSize="16sp"/>
+
+                <TextView
+                    android:id="@+id/noProd_holder"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:fontFamily="@font/montserrat_reguler"
+                    android:gravity="center"
+                    android:padding="10dp"
+                    android:text="No Produksi"
+                    android:textSize="16sp"/>
+
+                <TextView
+                    android:id="@+id/noPack_holder"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:fontFamily="@font/montserrat_reguler"
+                    android:gravity="center"
+                    android:padding="10dp"
+                    android:text="No Packaging"
+                    android:textSize="16sp"/>
+
+            </TableRow>
+
+            <TableRow>
+
+                <TextView
+                    android:id="@+id/tv_result"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginHorizontal="1dp"
+                    android:layout_marginBottom="1dp"
+                    android:layout_weight="1"
+                    android:background="#FFFFFF"
+                    android:gravity="center"
+                    android:padding="10dp"
+                    android:text="Serial Number"
+                    android:textSize="16sp" />
+
+                <TextView
+                    android:id="@+id/tv_noMaterial"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginHorizontal="1dp"
+                    android:layout_marginBottom="1dp"
+                    android:layout_weight="1"
+                    android:background="#FFFFFF"
+                    android:gravity="center"
+                    android:padding="10dp"
+                    android:text="Nomor Material"
+                    android:textSize="16sp" />
+
+                <TextView
+                    android:id="@+id/tv_kodePabrik"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginHorizontal="1dp"
+                    android:layout_marginBottom="1dp"
+                    android:layout_weight="1"
+                    android:background="#FFFFFF"
+                    android:gravity="center"
+                    android:padding="10dp"
+                    android:text="Kode Pabrikan"
+                    android:textSize="16sp" />
+
+                <TextView
+                    android:id="@+id/tv_namaPabrik"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginHorizontal="1dp"
+                    android:layout_marginBottom="1dp"
+                    android:layout_weight="1"
+                    android:background="#FFFFFF"
+                    android:gravity="center"
+                    android:padding="10dp"
+                    android:text="Nama Pabrikan"
+                    android:textSize="16sp" />
+
+                <TextView
+                    android:id="@+id/tv_tglProduksi"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginHorizontal="1dp"
+                    android:layout_marginBottom="1dp"
+                    android:layout_weight="1"
+                    android:background="#FFFFFF"
+                    android:gravity="center"
+                    android:padding="10dp"
+                    android:text="Tanggal Produksi"
+                    android:textSize="16sp" />
+
+                <TextView
+                    android:id="@+id/tv_spin"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginHorizontal="1dp"
+                    android:layout_marginBottom="1dp"
+                    android:layout_weight="1"
+                    android:background="#FFFFFF"
+                    android:gravity="center"
+                    android:padding="10dp"
+                    android:text="Spin"
+                    android:textSize="16sp" />
+
+                <TextView
+                    android:id="@+id/tv_spekMaterial"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginHorizontal="1dp"
+                    android:layout_marginBottom="1dp"
+                    android:layout_weight="1"
+                    android:background="#FFFFFF"
+                    android:gravity="center"
+                    android:padding="10dp"
+                    android:text="Spesifikasi Material"
+                    android:textSize="16sp" />
+
+                <TextView
+                    android:id="@+id/tv_katMaterial"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginHorizontal="1dp"
+                    android:layout_marginBottom="1dp"
+                    android:layout_weight="1"
+                    android:background="#FFFFFF"
+                    android:gravity="center"
+                    android:padding="10dp"
+                    android:text="Kategori Material"
+                    android:textSize="16sp" />
+
+                <TextView
+                    android:id="@+id/tv_masaGaransi"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginHorizontal="1dp"
+                    android:layout_marginBottom="1dp"
+                    android:layout_weight="1"
+                    android:background="#FFFFFF"
+                    android:gravity="center"
+                    android:padding="10dp"
+                    android:text="Masa Garansi"
+                    android:textSize="16sp" />
+
+                <TextView
+                    android:id="@+id/tv_nomorSert"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginHorizontal="1dp"
+                    android:layout_marginBottom="1dp"
+                    android:layout_weight="1"
+                    android:background="#FFFFFF"
+                    android:gravity="center"
+                    android:padding="10dp"
+                    android:text="Nomor Sert Metrologi"
+                    android:textSize="16sp" />
+
+                <TextView
+                    android:id="@+id/tv_noProduksi"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginHorizontal="1dp"
+                    android:layout_marginBottom="1dp"
+                    android:layout_weight="1"
+                    android:background="#FFFFFF"
+                    android:gravity="center"
+                    android:padding="10dp"
+                    android:text="No Produksi"
+                    android:textSize="16sp" />
+                <TextView
+                    android:id="@+id/tv_noPack"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginHorizontal="1dp"
+                    android:layout_marginBottom="1dp"
+                    android:layout_weight="1"
+                    android:background="#FFFFFF"
+                    android:gravity="center"
+                    android:padding="10dp"
+                    android:text="No Packaging"
+                    android:textSize="16sp" />
+
+
+            </TableRow>
+        </TableLayout>
+    </HorizontalScrollView>
+
+
+    <!--    <TextView-->
+    <!--        android:id="@+id/title"-->
+    <!--        android:layout_width="match_parent"-->
+    <!--        android:layout_height="wrap_content"-->
+    <!--        android:layout_marginTop="16dp"-->
+    <!--        android:text="DETAIL HASIL SCAN"-->
+    <!--        android:textAlignment="center"-->
+    <!--        android:textColor="@color/color_text"-->
+    <!--        android:textStyle="bold"-->
+    <!--        app:layout_constraintVertical_bias="0" />-->
+
+    <!--    <View-->
+    <!--        android:id="@+id/line"-->
+    <!--        android:layout_width="match_parent"-->
+    <!--        android:layout_height="2dp"-->
+    <!--        android:layout_marginStart="16dp"-->
+    <!--        android:layout_marginTop="8dp"-->
+    <!--        android:layout_marginEnd="16dp"-->
+    <!--        android:background="@color/black" />-->
+
+
+    <!--    <TextView-->
+    <!--        android:id="@+id/serial_holder"-->
+    <!--        android:layout_width="0dp"-->
+    <!--        android:layout_height="wrap_content"-->
+    <!--        android:layout_marginStart="16dp"-->
+    <!--        android:layout_marginTop="16dp"-->
+    <!--        android:text="Serial Number"-->
+    <!--        android:textColor="@color/black"-->
+    <!--        android:textAlignment="center"-->
+    <!--        app:layout_constraintStart_toStartOf="parent"-->
+    <!--        app:layout_constraintTop_toBottomOf="@id/line" />-->
+
+    <!--    <TextView-->
+    <!--        android:id="@+id/tv_result"-->
+    <!--        android:layout_width="0dp"-->
+    <!--        android:layout_height="wrap_content"-->
+    <!--        android:layout_marginStart="48dp"-->
+    <!--        android:text=": Serial Number"-->
+    <!--        android:layout_marginEnd="16dp"-->
+    <!--        android:textColor="@color/color_text"-->
+    <!--        android:textStyle="bold"-->
+    <!--        app:layout_constraintBottom_toBottomOf="@id/serial_holder"-->
+    <!--        app:layout_constraintEnd_toEndOf="parent"-->
+    <!--        app:layout_constraintStart_toEndOf="@id/serial_holder"-->
+    <!--        app:layout_constraintTop_toTopOf="@id/serial_holder"-->
+    <!--        app:layout_constraintVertical_bias="0.0" />-->
+
+    <!--&lt;!&ndash;    <TextView&ndash;&gt;-->
+    <!--&lt;!&ndash;        android:id="@+id/materialId_holder"&ndash;&gt;-->
+    <!--&lt;!&ndash;        android:layout_width="0dp"&ndash;&gt;-->
+    <!--&lt;!&ndash;        android:layout_height="wrap_content"&ndash;&gt;-->
+    <!--&lt;!&ndash;        android:layout_marginStart="16dp"&ndash;&gt;-->
+    <!--&lt;!&ndash;        android:layout_marginTop="16dp"&ndash;&gt;-->
+    <!--&lt;!&ndash;        android:text="Material ID"&ndash;&gt;-->
+    <!--&lt;!&ndash;        android:textColor="@color/black"&ndash;&gt;-->
+    <!--&lt;!&ndash;        app:layout_constraintStart_toStartOf="parent"&ndash;&gt;-->
+    <!--&lt;!&ndash;        app:layout_constraintTop_toBottomOf="@id/tv_result" />&ndash;&gt;-->
+
+    <!--&lt;!&ndash;    <TextView&ndash;&gt;-->
+    <!--&lt;!&ndash;        android:id="@+id/tv_materialId"&ndash;&gt;-->
+    <!--&lt;!&ndash;        android:layout_width="0dp"&ndash;&gt;-->
+    <!--&lt;!&ndash;        android:layout_height="wrap_content"&ndash;&gt;-->
+    <!--&lt;!&ndash;        android:text=": Material ID"&ndash;&gt;-->
+    <!--&lt;!&ndash;        android:textColor="@color/color_text"&ndash;&gt;-->
+    <!--&lt;!&ndash;        android:textStyle="bold"&ndash;&gt;-->
+    <!--&lt;!&ndash;        app:layout_constraintBottom_toBottomOf="@id/materialId_holder"&ndash;&gt;-->
+    <!--&lt;!&ndash;        app:layout_constraintEnd_toEndOf="parent"&ndash;&gt;-->
+    <!--&lt;!&ndash;        app:layout_constraintStart_toStartOf="@id/tv_result"&ndash;&gt;-->
+    <!--&lt;!&ndash;        app:layout_constraintTop_toTopOf="@id/materialId_holder" />&ndash;&gt;-->
+
+    <!--    <TextView-->
+    <!--        android:id="@+id/noMaterial_holder"-->
+    <!--        android:layout_width="0dp"-->
+    <!--        android:layout_height="wrap_content"-->
+    <!--        android:layout_marginStart="16dp"-->
+    <!--        android:layout_marginTop="16dp"-->
+    <!--        android:text="Nomer Material"-->
+    <!--        android:textColor="@color/black"-->
+    <!--        app:layout_constraintStart_toStartOf="parent"-->
+    <!--        app:layout_constraintTop_toBottomOf="@id/tv_result"-->
+    <!--        app:layout_constraintVertical_bias="0.0" />-->
+
+    <!--    <TextView-->
+    <!--        android:id="@+id/tv_noMaterial"-->
+    <!--        android:layout_width="0dp"-->
+    <!--        android:layout_height="wrap_content"-->
+    <!--        android:text=": Nomer Material"-->
+    <!--        android:textColor="@color/color_text"-->
+    <!--        android:textStyle="bold"-->
+    <!--        app:layout_constraintBottom_toBottomOf="@id/noMaterial_holder"-->
+    <!--        app:layout_constraintEnd_toEndOf="parent"-->
+    <!--        app:layout_constraintStart_toStartOf="@id/tv_result"-->
+    <!--        app:layout_constraintTop_toTopOf="@id/noMaterial_holder" />-->
+
+    <!--    <TextView-->
+    <!--        android:id="@+id/kodePabrik_holder"-->
+    <!--        android:layout_width="0dp"-->
+    <!--        android:layout_height="wrap_content"-->
+    <!--        android:layout_marginStart="16dp"-->
+    <!--        android:layout_marginTop="16dp"-->
+    <!--        android:textColor="@color/black"-->
+    <!--        android:text="Kode Pabrikan"-->
+    <!--        app:layout_constraintStart_toStartOf="parent"-->
+    <!--        app:layout_constraintTop_toBottomOf="@id/tv_noMaterial"-->
+    <!--        app:layout_constraintVertical_bias="0.0" />-->
+
+    <!--    <TextView-->
+    <!--        android:id="@+id/tv_kodePabrik"-->
+    <!--        android:layout_width="0dp"-->
+    <!--        android:layout_height="wrap_content"-->
+    <!--        android:text=": Kode Pabrikan"-->
+    <!--        android:textColor="@color/color_text"-->
+    <!--        android:textStyle="bold"-->
+    <!--        app:layout_constraintBottom_toBottomOf="@id/kodePabrik_holder"-->
+    <!--        app:layout_constraintEnd_toEndOf="parent"-->
+    <!--        app:layout_constraintStart_toStartOf="@id/tv_result"-->
+    <!--        app:layout_constraintTop_toTopOf="@id/kodePabrik_holder" />-->
+
+    <!--    <TextView-->
+    <!--        android:id="@+id/namaPabrik_holder"-->
+    <!--        android:layout_width="0dp"-->
+    <!--        android:layout_height="wrap_content"-->
+    <!--        android:layout_marginStart="16dp"-->
+    <!--        android:layout_marginTop="16dp"-->
+    <!--        android:text="Nama Pabrikan"-->
+    <!--        android:textColor="@color/black"-->
+    <!--        app:layout_constraintStart_toStartOf="parent"-->
+    <!--        app:layout_constraintTop_toBottomOf="@id/tv_kodePabrik"-->
+    <!--        app:layout_constraintVertical_bias="0.0" />-->
+
+    <!--    <TextView-->
+    <!--        android:id="@+id/tv_namaPabrik"-->
+    <!--        android:layout_width="0dp"-->
+    <!--        android:layout_height="wrap_content"-->
+    <!--        android:text=": Nama Pabrikan"-->
+    <!--        android:textColor="@color/color_text"-->
+    <!--        android:textStyle="bold"-->
+    <!--        app:layout_constraintBottom_toBottomOf="@id/namaPabrik_holder"-->
+    <!--        app:layout_constraintEnd_toEndOf="parent"-->
+    <!--        app:layout_constraintStart_toStartOf="@id/tv_result"-->
+    <!--        app:layout_constraintTop_toTopOf="@id/namaPabrik_holder" />-->
+
+    <!--    <TextView-->
+    <!--        android:id="@+id/tglProduksi_holder"-->
+    <!--        android:layout_width="0dp"-->
+    <!--        android:layout_height="wrap_content"-->
+    <!--        android:layout_marginStart="16dp"-->
+    <!--        android:layout_marginTop="16dp"-->
+    <!--        android:textColor="@color/black"-->
+    <!--        android:text="Tgl Produksi"-->
+    <!--        app:layout_constraintStart_toStartOf="parent"-->
+    <!--        app:layout_constraintTop_toBottomOf="@id/tv_namaPabrik"-->
+    <!--        app:layout_constraintVertical_bias="0.0" />-->
+
+    <!--    <TextView-->
+    <!--        android:id="@+id/tv_tglProduksi"-->
+    <!--        android:layout_width="0dp"-->
+    <!--        android:layout_height="wrap_content"-->
+    <!--        android:layout_marginEnd="16dp"-->
+    <!--        android:text=": Tgl Produksi"-->
+    <!--        android:textColor="@color/color_text"-->
+    <!--        android:textStyle="bold"-->
+    <!--        app:layout_constraintBottom_toBottomOf="@id/tglProduksi_holder"-->
+    <!--        app:layout_constraintEnd_toEndOf="parent"-->
+    <!--        app:layout_constraintHorizontal_bias="0.0"-->
+    <!--        app:layout_constraintStart_toStartOf="@id/tv_result"-->
+    <!--        app:layout_constraintTop_toTopOf="@id/tglProduksi_holder"-->
+    <!--        app:layout_constraintVertical_bias="1.0" />-->
+
+    <!--    <TextView-->
+    <!--        android:id="@+id/spin_holder"-->
+    <!--        android:layout_width="0dp"-->
+    <!--        android:layout_height="wrap_content"-->
+    <!--        android:layout_marginStart="16dp"-->
+    <!--        android:layout_marginTop="16dp"-->
+    <!--        android:text="Spin"-->
+    <!--        android:textColor="@color/black"-->
+    <!--        app:layout_constraintStart_toStartOf="parent"-->
+    <!--        app:layout_constraintTop_toBottomOf="@id/tv_tglProduksi"-->
+    <!--        app:layout_constraintVertical_bias="0.0" />-->
+
+    <!--    <TextView-->
+    <!--        android:id="@+id/tv_spin"-->
+    <!--        android:layout_width="0dp"-->
+    <!--        android:layout_height="wrap_content"-->
+    <!--        android:text=": Spin"-->
+    <!--        android:textColor="@color/color_text"-->
+    <!--        android:textStyle="bold"-->
+    <!--        app:layout_constraintBottom_toBottomOf="@id/spin_holder"-->
+    <!--        app:layout_constraintEnd_toEndOf="parent"-->
+    <!--        app:layout_constraintStart_toStartOf="@id/tv_tglProduksi"-->
+    <!--        app:layout_constraintTop_toTopOf="@id/spin_holder" />-->
+
+    <!--    <TextView-->
+    <!--        android:id="@+id/spekMaterial_holder"-->
+    <!--        android:layout_width="0dp"-->
+    <!--        android:layout_height="wrap_content"-->
+    <!--        android:layout_marginStart="16dp"-->
+    <!--        android:layout_marginTop="24dp"-->
+    <!--        android:text="Spesifikasi Material"-->
+    <!--        android:textColor="@color/black"-->
+    <!--        app:layout_constraintStart_toStartOf="parent"-->
+    <!--        app:layout_constraintTop_toBottomOf="@id/tv_spin"-->
+    <!--        app:layout_constraintVertical_bias="0.0" />-->
+
+    <!--    <TextView-->
+    <!--        android:id="@+id/tv_spekMaterial"-->
+    <!--        android:layout_width="0dp"-->
+    <!--        android:layout_height="wrap_content"-->
+    <!--        android:layout_marginEnd="24dp"-->
+    <!--        android:text=": Spesifikasi Material"-->
+    <!--        android:textColor="@color/color_text"-->
+    <!--        android:textStyle="bold"-->
+    <!--        app:layout_constraintBottom_toBottomOf="@id/spekMaterial_holder"-->
+    <!--        app:layout_constraintEnd_toEndOf="parent"-->
+    <!--        app:layout_constraintTop_toBottomOf="@id/tv_spin"-->
+    <!--        app:layout_constraintStart_toStartOf="@id/tv_result"-->
+    <!--        app:layout_constraintTop_toTopOf="@id/spekMaterial_holder" />-->
+
+    <!--    <TextView-->
+    <!--        android:id="@+id/katMaterial_holder"-->
+    <!--        android:layout_width="0dp"-->
+    <!--        android:layout_height="wrap_content"-->
+    <!--        android:layout_marginStart="16dp"-->
+    <!--        android:layout_marginTop="16dp"-->
+    <!--        android:text="Kategori Material"-->
+    <!--        android:textColor="@color/black"-->
+    <!--        app:layout_constraintStart_toStartOf="parent"-->
+    <!--        app:layout_constraintTop_toBottomOf="@id/tv_spekMaterial" />-->
+
+    <!--    <TextView-->
+    <!--        android:id="@+id/tv_katMaterial"-->
+    <!--        android:layout_width="0dp"-->
+    <!--        android:layout_height="wrap_content"-->
+    <!--        android:text=": Kategori Material"-->
+    <!--        android:textColor="@color/color_text"-->
+    <!--        android:textStyle="bold"-->
+    <!--        app:layout_constraintBottom_toBottomOf="@id/katMaterial_holder"-->
+    <!--        app:layout_constraintEnd_toEndOf="parent"-->
+    <!--        app:layout_constraintStart_toStartOf="@id/tv_result"-->
+    <!--        app:layout_constraintTop_toTopOf="@id/katMaterial_holder" />-->
+
+    <!--    <TextView-->
+    <!--        android:id="@+id/masaGaransiholder"-->
+    <!--        android:layout_width="0dp"-->
+    <!--        android:layout_height="wrap_content"-->
+    <!--        android:layout_marginStart="16dp"-->
+    <!--        android:layout_marginTop="16dp"-->
+    <!--        android:textColor="@color/black"-->
+    <!--        android:text="Masa Garansi"-->
+    <!--        app:layout_constraintStart_toStartOf="parent"-->
+    <!--        app:layout_constraintTop_toBottomOf="@id/tv_katMaterial" />-->
+
+    <!--    <TextView-->
+    <!--        android:id="@+id/tv_masaGaransi"-->
+    <!--        android:layout_width="0dp"-->
+    <!--        android:layout_height="wrap_content"-->
+    <!--        android:layout_marginEnd="24dp"-->
+    <!--        android:text=": masa garansi"-->
+    <!--        android:textStyle="bold"-->
+    <!--        android:textColor="@color/color_text"-->
+    <!--        app:layout_constraintBottom_toBottomOf="@id/masaGaransiholder"-->
+    <!--        app:layout_constraintEnd_toEndOf="parent"-->
+    <!--        app:layout_constraintStart_toStartOf="@id/tv_result"-->
+    <!--        app:layout_constraintTop_toTopOf="@id/masaGaransiholder" />-->
+
+    <!--    <TextView-->
+    <!--        android:id="@+id/nomerSert_holder"-->
+    <!--        android:layout_width="0dp"-->
+    <!--        android:layout_height="wrap_content"-->
+    <!--        android:layout_marginStart="16dp"-->
+    <!--        android:layout_marginTop="16dp"-->
+    <!--        android:textColor="@color/black"-->
+    <!--        android:text="No Sert Metrologi"-->
+    <!--        app:layout_constraintStart_toStartOf="parent"-->
+    <!--        app:layout_constraintTop_toBottomOf="@id/masaGaransiholder" />-->
+
+    <!--    <TextView-->
+    <!--        android:id="@+id/tv_nomorSert"-->
+    <!--        android:layout_width="0dp"-->
+    <!--        android:layout_height="wrap_content"-->
+    <!--        android:layout_marginEnd="24dp"-->
+    <!--        android:text=": No Sert Metrologi"-->
+    <!--        android:textStyle="bold"-->
+    <!--        android:textColor="@color/color_text"-->
+    <!--        app:layout_constraintBottom_toBottomOf="@id/nomerSert_holder"-->
+    <!--        app:layout_constraintEnd_toEndOf="parent"-->
+    <!--        app:layout_constraintStart_toStartOf="@id/tv_result"-->
+    <!--        app:layout_constraintTop_toTopOf="@id/nomerSert_holder" />-->
+
+    <!--    <TextView-->
+    <!--        android:id="@+id/nomerProduksi_holder"-->
+    <!--        android:layout_width="0dp"-->
+    <!--        android:layout_height="wrap_content"-->
+    <!--        android:layout_marginStart="16dp"-->
+    <!--        android:layout_marginTop="16dp"-->
+    <!--        android:textColor="@color/black"-->
+    <!--        android:text="No Produksi"-->
+    <!--        app:layout_constraintStart_toStartOf="parent"-->
+    <!--        app:layout_constraintTop_toBottomOf="@id/nomerSert_holder" />-->
+
+    <!--    <TextView-->
+    <!--        android:id="@+id/tv_nomor_produksi"-->
+    <!--        android:layout_width="0dp"-->
+    <!--        android:layout_height="wrap_content"-->
+    <!--        android:layout_marginEnd="24dp"-->
+    <!--        android:text=": No Produksi"-->
+    <!--        android:textStyle="bold"-->
+    <!--        android:textColor="@color/color_text"-->
+    <!--        app:layout_constraintBottom_toBottomOf="@id/nomerProduksi_holder"-->
+    <!--        app:layout_constraintEnd_toEndOf="parent"-->
+    <!--        app:layout_constraintStart_toStartOf="@id/tv_result"-->
+    <!--        app:layout_constraintTop_toTopOf="@id/nomerProduksi_holder" />-->
+
+    <!--    <TextView-->
+    <!--        android:id="@+id/nomerPackaging_holder"-->
+    <!--        android:layout_width="0dp"-->
+    <!--        android:layout_height="wrap_content"-->
+    <!--        android:layout_marginStart="16dp"-->
+    <!--        android:layout_marginTop="16dp"-->
+    <!--        android:textColor="@color/black"-->
+    <!--        android:text="No Packaging"-->
+    <!--        app:layout_constraintStart_toStartOf="parent"-->
+    <!--        app:layout_constraintTop_toBottomOf="@id/nomerProduksi_holder" />-->
+
+    <!--    <TextView-->
+    <!--        android:id="@+id/tv_nomor_packaging"-->
+    <!--        android:layout_width="0dp"-->
+    <!--        android:layout_height="wrap_content"-->
+    <!--        android:layout_marginEnd="24dp"-->
+    <!--        android:text=": No Packaging"-->
+    <!--        android:textStyle="bold"-->
+    <!--        android:textColor="@color/color_text"-->
+    <!--        app:layout_constraintBottom_toBottomOf="@id/nomerPackaging_holder"-->
+    <!--        app:layout_constraintEnd_toEndOf="parent"-->
+    <!--        app:layout_constraintStart_toStartOf="@id/tv_result"-->
+    <!--        app:layout_constraintTop_toTopOf="@id/nomerPackaging_holder" />-->
+
+    <LinearLayout
         android:layout_width="match_parent"
-        android:layout_height="2dp"
-        android:layout_marginStart="16dp"
-        android:layout_marginTop="8dp"
-        android:layout_marginEnd="16dp"
-        android:background="@color/black"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/title" />
+        android:layout_height="match_parent"
+        android:gravity="bottom"
+        android:orientation="vertical">
 
-    <TextView
-        android:id="@+id/serial_holder"
-        android:layout_width="0dp"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="16dp"
-        android:layout_marginTop="16dp"
-        android:text="Serial Number"
-        android:textColor="@color/black"
-        android:textAlignment="center"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/line" />
+        <androidx.appcompat.widget.AppCompatButton
+            android:id="@+id/btnsimpan"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_gravity="bottom"
+            android:layout_marginStart="24dp"
+            android:layout_marginTop="10dp"
+            android:layout_marginEnd="24dp"
+            android:layout_marginBottom="24dp"
+            android:background="@drawable/custombtn"
+            android:text="Kembali"
+            android:textAllCaps="false"
+            android:textColor="#FFFBF6"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent" />
+    </LinearLayout>
 
-    <TextView
-        android:id="@+id/tv_result"
-        android:layout_width="0dp"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="48dp"
-        android:text=": Serial Number"
-        android:layout_marginEnd="16dp"
-        android:textColor="@color/color_text"
-        android:textStyle="bold"
-        app:layout_constraintBottom_toBottomOf="@id/serial_holder"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toEndOf="@id/serial_holder"
-        app:layout_constraintTop_toTopOf="@id/serial_holder"
-        app:layout_constraintVertical_bias="0.0" />
 
-    <TextView
-        android:id="@+id/materialId_holder"
-        android:layout_width="0dp"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="16dp"
-        android:layout_marginTop="16dp"
-        android:text="Material ID"
-        android:textColor="@color/black"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/tv_result" />
-
-    <TextView
-        android:id="@+id/tv_materialId"
-        android:layout_width="0dp"
-        android:layout_height="wrap_content"
-        android:text=": Material ID"
-        android:textColor="@color/color_text"
-        android:textStyle="bold"
-        app:layout_constraintBottom_toBottomOf="@id/materialId_holder"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="@id/tv_result"
-        app:layout_constraintTop_toTopOf="@id/materialId_holder" />
-
-    <TextView
-        android:id="@+id/noMaterial_holder"
-        android:layout_width="0dp"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="16dp"
-        android:layout_marginTop="16dp"
-        android:text="Nomer Material"
-        android:textColor="@color/black"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/tv_materialId"
-        app:layout_constraintVertical_bias="0.0" />
-
-    <TextView
-        android:id="@+id/tv_noMaterial"
-        android:layout_width="0dp"
-        android:layout_height="wrap_content"
-        android:text=": Nomer Material"
-        android:textColor="@color/color_text"
-        android:textStyle="bold"
-        app:layout_constraintBottom_toBottomOf="@id/noMaterial_holder"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="@id/tv_result"
-        app:layout_constraintTop_toTopOf="@id/noMaterial_holder" />
-
-    <TextView
-        android:id="@+id/kodePabrik_holder"
-        android:layout_width="0dp"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="16dp"
-        android:layout_marginTop="16dp"
-        android:textColor="@color/black"
-        android:text="Kode Pabrikan"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/tv_noMaterial"
-        app:layout_constraintVertical_bias="0.0" />
-
-    <TextView
-        android:id="@+id/tv_kodePabrik"
-        android:layout_width="0dp"
-        android:layout_height="wrap_content"
-        android:text=": Kode Pabrikan"
-        android:textColor="@color/color_text"
-        android:textStyle="bold"
-        app:layout_constraintBottom_toBottomOf="@id/kodePabrik_holder"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="@id/tv_result"
-        app:layout_constraintTop_toTopOf="@id/kodePabrik_holder" />
-
-    <TextView
-        android:id="@+id/namaPabrik_holder"
-        android:layout_width="0dp"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="16dp"
-        android:layout_marginTop="16dp"
-        android:text="Nama Pabrikan"
-        android:textColor="@color/black"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/tv_kodePabrik"
-        app:layout_constraintVertical_bias="0.0" />
-
-    <TextView
-        android:id="@+id/tv_namaPabrik"
-        android:layout_width="0dp"
-        android:layout_height="wrap_content"
-        android:text=": Nama Pabrikan"
-        android:textColor="@color/color_text"
-        android:textStyle="bold"
-        app:layout_constraintBottom_toBottomOf="@id/namaPabrik_holder"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="@id/tv_result"
-        app:layout_constraintTop_toTopOf="@id/namaPabrik_holder" />
-
-    <TextView
-        android:id="@+id/tglProduksi_holder"
-        android:layout_width="0dp"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="16dp"
-        android:layout_marginTop="16dp"
-        android:textColor="@color/black"
-        android:text="Tgl Produksi"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/tv_namaPabrik"
-        app:layout_constraintVertical_bias="0.0" />
-
-    <TextView
-        android:id="@+id/tv_tglProduksi"
-        android:layout_width="0dp"
-        android:layout_height="wrap_content"
-        android:layout_marginEnd="16dp"
-        android:text=": Tgl Produksi"
-        android:textColor="@color/color_text"
-        android:textStyle="bold"
-        app:layout_constraintBottom_toBottomOf="@id/tglProduksi_holder"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.0"
-        app:layout_constraintStart_toStartOf="@id/tv_result"
-        app:layout_constraintTop_toTopOf="@id/tglProduksi_holder"
-        app:layout_constraintVertical_bias="1.0" />
-
-    <TextView
-        android:id="@+id/spin_holder"
-        android:layout_width="0dp"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="16dp"
-        android:layout_marginTop="16dp"
-        android:text="Spin"
-        android:textColor="@color/black"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/tv_tglProduksi"
-        app:layout_constraintVertical_bias="0.0" />
-
-    <TextView
-        android:id="@+id/tv_spin"
-        android:layout_width="0dp"
-        android:layout_height="wrap_content"
-        android:text=": Spin"
-        android:textColor="@color/color_text"
-        android:textStyle="bold"
-        app:layout_constraintBottom_toBottomOf="@id/spin_holder"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="@id/tv_result"
-        app:layout_constraintTop_toTopOf="@id/spin_holder" />
-
-    <TextView
-        android:id="@+id/spekMaterial_holder"
-        android:layout_width="0dp"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="16dp"
-        android:layout_marginTop="16dp"
-        android:text="Spesifikasi Material"
-        android:textColor="@color/black"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/tv_spin"
-        app:layout_constraintVertical_bias="0.0" />
-
-    <TextView
-        android:id="@+id/tv_spekMaterial"
-        android:layout_width="0dp"
-        android:layout_height="wrap_content"
-        android:layout_marginEnd="24dp"
-        android:text=": Spesifikasi Material"
-        android:textColor="@color/color_text"
-        android:textStyle="bold"
-        app:layout_constraintBottom_toBottomOf="@id/spekMaterial_holder"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="@id/tv_result"
-        app:layout_constraintTop_toTopOf="@id/spekMaterial_holder" />
-
-    <TextView
-        android:id="@+id/katMaterial_holder"
-        android:layout_width="0dp"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="16dp"
-        android:layout_marginTop="16dp"
-        android:text="Kategori Material"
-        android:textColor="@color/black"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/tv_spekMaterial" />
-
-    <TextView
-        android:id="@+id/tv_katMaterial"
-        android:layout_width="0dp"
-        android:layout_height="wrap_content"
-        android:text=": Kategori Material"
-        android:textColor="@color/color_text"
-        android:textStyle="bold"
-        app:layout_constraintBottom_toBottomOf="@id/katMaterial_holder"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="@id/tv_result"
-        app:layout_constraintTop_toTopOf="@id/katMaterial_holder" />
-
-    <TextView
-        android:id="@+id/masaGaransiholder"
-        android:layout_width="0dp"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="16dp"
-        android:layout_marginTop="16dp"
-        android:textColor="@color/black"
-        android:text="Masa Garansi"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/tv_katMaterial" />
-
-    <TextView
-        android:id="@+id/tv_masaGaransi"
-        android:layout_width="0dp"
-        android:layout_height="wrap_content"
-        android:layout_marginEnd="24dp"
-        android:text=": masa garansi"
-        android:textStyle="bold"
-        android:textColor="@color/color_text"
-        app:layout_constraintBottom_toBottomOf="@id/masaGaransiholder"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="@id/tv_result"
-        app:layout_constraintTop_toTopOf="@id/masaGaransiholder" />
-
-    <TextView
-        android:id="@+id/nomerSert_holder"
-        android:layout_width="0dp"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="16dp"
-        android:layout_marginTop="16dp"
-        android:textColor="@color/black"
-        android:text="No Sert Metrologi"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/masaGaransiholder" />
-
-    <TextView
-        android:id="@+id/tv_nomorSert"
-        android:layout_width="0dp"
-        android:layout_height="wrap_content"
-        android:layout_marginEnd="24dp"
-        android:text=": No Sert Metrologi"
-        android:textStyle="bold"
-        android:textColor="@color/color_text"
-        app:layout_constraintBottom_toBottomOf="@id/nomerSert_holder"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="@id/tv_result"
-        app:layout_constraintTop_toTopOf="@id/nomerSert_holder" />
-
-    <TextView
-        android:id="@+id/nomerProduksi_holder"
-        android:layout_width="0dp"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="16dp"
-        android:layout_marginTop="16dp"
-        android:textColor="@color/black"
-        android:text="No Produksi"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/nomerSert_holder" />
-
-    <TextView
-        android:id="@+id/tv_nomor_produksi"
-        android:layout_width="0dp"
-        android:layout_height="wrap_content"
-        android:layout_marginEnd="24dp"
-        android:text=": No Produksi"
-        android:textStyle="bold"
-        android:textColor="@color/color_text"
-        app:layout_constraintBottom_toBottomOf="@id/nomerProduksi_holder"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="@id/tv_result"
-        app:layout_constraintTop_toTopOf="@id/nomerProduksi_holder" />
-
-    <TextView
-        android:id="@+id/nomerPackaging_holder"
-        android:layout_width="0dp"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="16dp"
-        android:layout_marginTop="16dp"
-        android:textColor="@color/black"
-        android:text="No Packaging"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/nomerProduksi_holder" />
-
-    <TextView
-        android:id="@+id/tv_nomor_packaging"
-        android:layout_width="0dp"
-        android:layout_height="wrap_content"
-        android:layout_marginEnd="24dp"
-        android:text=": No Packaging"
-        android:textStyle="bold"
-        android:textColor="@color/color_text"
-        app:layout_constraintBottom_toBottomOf="@id/nomerPackaging_holder"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="@id/tv_result"
-        app:layout_constraintTop_toTopOf="@id/nomerPackaging_holder" />
-
-    <androidx.appcompat.widget.AppCompatButton
-        android:id="@+id/btnsimpan"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="24dp"
-        android:layout_marginTop="10dp"
-        android:layout_marginEnd="24dp"
-        android:layout_marginBottom="24dp"
-        android:background="@drawable/custombtn"
-        android:text="Kembali"
-        android:textAllCaps="false"
-        android:textColor="#FFFBF6"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent" />
-
-</androidx.constraintlayout.widget.ConstraintLayout>
+</LinearLayout>

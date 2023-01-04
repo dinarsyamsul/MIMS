@@ -2,9 +2,11 @@ package dev.iconpln.mims.ui.scan
 
 import android.content.Intent
 import android.os.Bundle
+import android.util.Log
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import androidx.lifecycle.ViewModelProvider
+import dev.iconpln.mims.NotFound
 import dev.iconpln.mims.data.remote.service.ApiConfig
 import dev.iconpln.mims.databinding.ActivityResponseScanBinding
 import dev.iconpln.mims.ui.role.pabrikan.DashboardPabrikanActivity
@@ -50,25 +52,30 @@ class ResponseScanActivity : AppCompatActivity() {
             if (data.message == "Success") {
                 Toast.makeText(this, "Scan Berhasil", Toast.LENGTH_SHORT).show()
                 binding.apply {
-                    tvResult.text = ": ${data.detailSN.serialNumber}"
-                    tvNoMaterial.text = ": ${data.detailSN.nomorMaterial}"
-                    tvKodePabrik.text = ": ${data.detailSN.kodePabrikan}"
-                    tvNamaPabrik.text = ": ${data.detailSN.namaPabrikan}"
-                    tvTglProduksi.text = ": ${data.detailSN.tglProduksi}"
-                    tvSpin.text = ": ${data.detailSN.spln}"
-                    tvSpekMaterial.text = ": ${data.detailSN.spesifikasiMaterial}"
-                    tvKatMaterial.text = ": ${data.detailSN.kategoriMaterial}"
-                    tvMasaGaransi.text = ": ${data.detailSN.masaGaransi}"
-                    tvNomorSert.text = ": ${data.detailSN.nomorSertMetrologi}"
-                    tvNomorProduksi.text = ": ${data.detailSN.noProduksi}"
-                    tvNomorPackaging.text = ": ${data.detailSN.noPackaging}"
+                    tvResult.text = "${data.detailSN.serialNumber}"
+                    tvNoMaterial.text = "${data.detailSN.nomorMaterial}"
+                    tvKodePabrik.text = "${data.detailSN.kodePabrikan}"
+                    tvNamaPabrik.text = "${data.detailSN.namaPabrikan}"
+                    tvTglProduksi.text = "${data.detailSN.tglProduksi}"
+                    tvSpin.text = "${data.detailSN.spln}"
+                    tvSpekMaterial.text = "${data.detailSN.spesifikasiMaterial}"
+                    tvKatMaterial.text = "${data.detailSN.kategoriMaterial}"
+                    tvMasaGaransi.text = "${data.detailSN.masaGaransi}"
+                    tvNomorSert.text = "${data.detailSN.nomorSertMetrologi}"
+                    tvNoProduksi.text = "${data.detailSN.noProduksi}"
+                    tvNoPack.text = "${data.detailSN.noPackaging}"
                 }
             }
         }
 
+
         viewModel.errorMessage.observe(this) {
-            if (it == "Data not found") {
+            Log.d("ResponseActivity","cek $it")
+            if (it != null) {
+                val intent = Intent(this@ResponseScanActivity, NotFound::class.java)
+                startActivity(intent)
                 Toast.makeText(this, "Data serial number tidak sesuai", Toast.LENGTH_LONG).show()
+
             }
         }
     }
