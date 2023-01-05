@@ -8,314 +8,371 @@
     android:orientation="vertical"
     tools:context=".ui.scan.ResponseScanActivity">
 
-    <HorizontalScrollView
+    <ScrollView
         android:layout_width="match_parent"
         android:layout_height="wrap_content">
 
-        <TableLayout
+        <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginHorizontal="10dp"
-            android:layout_marginVertical="30dp"
-            android:background="#B9B9B9">
+            android:orientation="vertical">
 
-            <TableRow>
+            <TableLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginHorizontal="10dp"
+                android:layout_marginVertical="30dp"
+                android:background="#FFFFFF">
 
-                <TextView
-                    android:id="@+id/serial_Holder"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_weight="1"
-                    android:fontFamily="@font/montserrat_reguler"
-                    android:gravity="center"
-                    android:padding="10dp"
-                    android:text="Serial Number"
-                    android:textSize="16sp" />
+                <TableRow>
 
-                <TextView
-                    android:id="@+id/nomat_holder"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_weight="1"
-                    android:fontFamily="@font/montserrat_reguler"
-                    android:gravity="center"
-                    android:padding="10dp"
-                    android:text="Nomer Material"
-                    android:textSize="16sp" />
+                    <TextView
+                        android:id="@+id/serial_holder"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1"
+                        android:fontFamily="@font/montserrat_reguler"
+                        android:gravity="center"
+                        android:padding="10dp"
+                        android:text="Serial Number"
+                        android:textSize="16sp"
+                        android:textStyle="bold" />
 
-                <TextView
-                    android:id="@+id/kodpabrikan_holder"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_weight="1"
-                    android:fontFamily="@font/montserrat_reguler"
-                    android:gravity="center"
-                    android:padding="10dp"
-                    android:text="Kode Pabrikan"
-                    android:textSize="16sp" />
+                    <TextView
+                        android:id="@+id/tv_result"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1"
+                        android:background="#FFFFFF"
+                        android:fontFamily="@font/montserrat_reguler"
+                        android:padding="8dp"
+                        android:text="Serial Number"
+                        android:textSize="16sp" />
 
-                <TextView
-                    android:id="@+id/nampabrikan_holder"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_weight="1"
-                    android:fontFamily="@font/montserrat_reguler"
-                    android:gravity="center"
-                    android:padding="10dp"
-                    android:text="Nama Pabrikan"
-                    android:textSize="16sp"/>
+                </TableRow>
 
-                <TextView
-                    android:id="@+id/tglprod_holder"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_weight="1"
-                    android:fontFamily="@font/montserrat_reguler"
-                    android:gravity="center"
-                    android:padding="10dp"
-                    android:text="Tanggal Produksi"
-                    android:textSize="16sp"/>
+                <TableRow>
 
-                <TextView
-                    android:id="@+id/spin_holder"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_weight="1"
-                    android:fontFamily="@font/montserrat_reguler"
-                    android:gravity="center"
-                    android:padding="10dp"
-                    android:text="Spin"
-                    android:textSize="16sp"/>
+                    <TextView
+                        android:id="@+id/nomat_holder"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1"
+                        android:fontFamily="@font/montserrat_reguler"
+                        android:gravity="center"
+                        android:padding="10dp"
+                        android:text="Nomor Material"
+                        android:textSize="16sp"
+                        android:textStyle="bold" />
 
-                <TextView
-                    android:id="@+id/spekmat_holder"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_weight="1"
-                    android:fontFamily="@font/montserrat_reguler"
-                    android:gravity="center"
-                    android:padding="10dp"
-                    android:text="Spesifikasi Material"
-                    android:textSize="16sp"/>
+                    <TextView
+                        android:id="@+id/tv_noMaterial"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1"
+                        android:background="#FFFFFF"
+                        android:fontFamily="@font/montserrat_reguler"
+                        android:padding="8dp"
+                        android:text="Nomor Material"
+                        android:textSize="16sp" />
 
-                <TextView
-                    android:id="@+id/katmat_holder"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_weight="1"
-                    android:fontFamily="@font/montserrat_reguler"
-                    android:gravity="center"
-                    android:padding="10dp"
-                    android:text="Kategori Material"
-                    android:textSize="16sp"/>
+                </TableRow>
 
-                <TextView
-                    android:id="@+id/masgaran_holder"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_weight="1"
-                    android:fontFamily="@font/montserrat_reguler"
-                    android:gravity="center"
-                    android:padding="10dp"
-                    android:text="Masa Garansi"
-                    android:textSize="16sp"/>
+                <TableRow>
 
-                <TextView
-                    android:id="@+id/nosermet_holder"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_weight="1"
-                    android:fontFamily="@font/montserrat_reguler"
-                    android:gravity="center"
-                    android:padding="10dp"
-                    android:text="Nomor Sert Metrologi"
-                    android:textSize="16sp"/>
+                    <TextView
+                        android:id="@+id/kodepabrikan_holder"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1"
+                        android:fontFamily="@font/montserrat_reguler"
+                        android:gravity="center"
+                        android:padding="10dp"
+                        android:text="Kode Pabrikan"
+                        android:textSize="16sp"
+                        android:textStyle="bold" />
 
-                <TextView
-                    android:id="@+id/noProd_holder"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_weight="1"
-                    android:fontFamily="@font/montserrat_reguler"
-                    android:gravity="center"
-                    android:padding="10dp"
-                    android:text="No Produksi"
-                    android:textSize="16sp"/>
+                    <TextView
+                        android:id="@+id/tv_kodePabrik"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1"
+                        android:background="#FFFFFF"
+                        android:fontFamily="@font/montserrat_reguler"
+                        android:padding="8dp"
+                        android:text="Kode Pabrikan"
+                        android:textSize="16sp" />
 
-                <TextView
-                    android:id="@+id/noPack_holder"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_weight="1"
-                    android:fontFamily="@font/montserrat_reguler"
-                    android:gravity="center"
-                    android:padding="10dp"
-                    android:text="No Packaging"
-                    android:textSize="16sp"/>
+                </TableRow>
 
-            </TableRow>
+                <TableRow>
 
-            <TableRow>
+                    <TextView
+                        android:id="@+id/namapabrikan_holder"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1"
+                        android:fontFamily="@font/montserrat_reguler"
+                        android:gravity="center"
+                        android:padding="10dp"
+                        android:text="Nama Pabrikan"
+                        android:textSize="16sp"
+                        android:textStyle="bold" />
 
-                <TextView
-                    android:id="@+id/tv_result"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_marginHorizontal="1dp"
-                    android:layout_marginBottom="1dp"
-                    android:layout_weight="1"
-                    android:background="#FFFFFF"
-                    android:gravity="center"
-                    android:padding="10dp"
-                    android:text="Serial Number"
-                    android:textSize="16sp" />
+                    <TextView
+                        android:id="@+id/tv_namaPabrik"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1"
+                        android:background="#FFFFFF"
+                        android:fontFamily="@font/montserrat_reguler"
+                        android:padding="8dp"
+                        android:text="Nama Pabrikan"
+                        android:textSize="16sp" />
 
-                <TextView
-                    android:id="@+id/tv_noMaterial"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_marginHorizontal="1dp"
-                    android:layout_marginBottom="1dp"
-                    android:layout_weight="1"
-                    android:background="#FFFFFF"
-                    android:gravity="center"
-                    android:padding="10dp"
-                    android:text="Nomor Material"
-                    android:textSize="16sp" />
+                </TableRow>
 
-                <TextView
-                    android:id="@+id/tv_kodePabrik"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_marginHorizontal="1dp"
-                    android:layout_marginBottom="1dp"
-                    android:layout_weight="1"
-                    android:background="#FFFFFF"
-                    android:gravity="center"
-                    android:padding="10dp"
-                    android:text="Kode Pabrikan"
-                    android:textSize="16sp" />
+                <TableRow>
 
-                <TextView
-                    android:id="@+id/tv_namaPabrik"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_marginHorizontal="1dp"
-                    android:layout_marginBottom="1dp"
-                    android:layout_weight="1"
-                    android:background="#FFFFFF"
-                    android:gravity="center"
-                    android:padding="10dp"
-                    android:text="Nama Pabrikan"
-                    android:textSize="16sp" />
+                    <TextView
+                        android:id="@+id/tglprod_holder"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1"
+                        android:fontFamily="@font/montserrat_reguler"
+                        android:gravity="center"
+                        android:padding="10dp"
+                        android:text="Tanggal Produksi"
+                        android:textSize="16sp"
+                        android:textStyle="bold" />
 
-                <TextView
-                    android:id="@+id/tv_tglProduksi"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_marginHorizontal="1dp"
-                    android:layout_marginBottom="1dp"
-                    android:layout_weight="1"
-                    android:background="#FFFFFF"
-                    android:gravity="center"
-                    android:padding="10dp"
-                    android:text="Tanggal Produksi"
-                    android:textSize="16sp" />
+                    <TextView
+                        android:id="@+id/tv_tglProduksi"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1"
+                        android:background="#FFFFFF"
+                        android:fontFamily="@font/montserrat_reguler"
+                        android:padding="8dp"
+                        android:text="Tanggal Produksi"
+                        android:textSize="16sp" />
 
-                <TextView
-                    android:id="@+id/tv_spin"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_marginHorizontal="1dp"
-                    android:layout_marginBottom="1dp"
-                    android:layout_weight="1"
-                    android:background="#FFFFFF"
-                    android:gravity="center"
-                    android:padding="10dp"
-                    android:text="Spin"
-                    android:textSize="16sp" />
+                </TableRow>
 
-                <TextView
-                    android:id="@+id/tv_spekMaterial"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_marginHorizontal="1dp"
-                    android:layout_marginBottom="1dp"
-                    android:layout_weight="1"
-                    android:background="#FFFFFF"
-                    android:gravity="center"
-                    android:padding="10dp"
-                    android:text="Spesifikasi Material"
-                    android:textSize="16sp" />
+                <TableRow>
 
-                <TextView
-                    android:id="@+id/tv_katMaterial"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_marginHorizontal="1dp"
-                    android:layout_marginBottom="1dp"
-                    android:layout_weight="1"
-                    android:background="#FFFFFF"
-                    android:gravity="center"
-                    android:padding="10dp"
-                    android:text="Kategori Material"
-                    android:textSize="16sp" />
+                    <TextView
+                        android:id="@+id/spin_holder"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1"
+                        android:fontFamily="@font/montserrat_reguler"
+                        android:gravity="center"
+                        android:padding="10dp"
+                        android:text="Spin"
+                        android:textSize="16sp"
+                        android:textStyle="bold" />
 
-                <TextView
-                    android:id="@+id/tv_masaGaransi"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_marginHorizontal="1dp"
-                    android:layout_marginBottom="1dp"
-                    android:layout_weight="1"
-                    android:background="#FFFFFF"
-                    android:gravity="center"
-                    android:padding="10dp"
-                    android:text="Masa Garansi"
-                    android:textSize="16sp" />
+                    <TextView
+                        android:id="@+id/tv_spin"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1"
+                        android:background="#FFFFFF"
+                        android:fontFamily="@font/montserrat_reguler"
+                        android:padding="8dp"
+                        android:text="Spin"
+                        android:textSize="16sp" />
 
-                <TextView
-                    android:id="@+id/tv_nomorSert"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_marginHorizontal="1dp"
-                    android:layout_marginBottom="1dp"
-                    android:layout_weight="1"
-                    android:background="#FFFFFF"
-                    android:gravity="center"
-                    android:padding="10dp"
-                    android:text="Nomor Sert Metrologi"
-                    android:textSize="16sp" />
+                </TableRow>
 
-                <TextView
-                    android:id="@+id/tv_noProduksi"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_marginHorizontal="1dp"
-                    android:layout_marginBottom="1dp"
-                    android:layout_weight="1"
-                    android:background="#FFFFFF"
-                    android:gravity="center"
-                    android:padding="10dp"
-                    android:text="No Produksi"
-                    android:textSize="16sp" />
-                <TextView
-                    android:id="@+id/tv_noPack"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_marginHorizontal="1dp"
-                    android:layout_marginBottom="1dp"
-                    android:layout_weight="1"
-                    android:background="#FFFFFF"
-                    android:gravity="center"
-                    android:padding="10dp"
-                    android:text="No Packaging"
-                    android:textSize="16sp" />
+                <TableRow>
 
+                    <TextView
+                        android:id="@+id/spekmat_holder"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1"
+                        android:fontFamily="@font/montserrat_reguler"
+                        android:gravity="center"
+                        android:padding="10dp"
+                        android:text="Spesifikasi Material"
+                        android:textSize="16sp"
+                        android:textStyle="bold" />
 
-            </TableRow>
-        </TableLayout>
-    </HorizontalScrollView>
+                    <TextView
+                        android:id="@+id/tv_spekMaterial"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1"
+                        android:background="#FFFFFF"
+                        android:fontFamily="@font/montserrat_reguler"
+                        android:padding="8dp"
+                        android:text="Spesifikasi Material"
+                        android:textSize="16sp" />
+
+                </TableRow>
+
+                <TableRow>
+
+                    <TextView
+                        android:id="@+id/katmat_holder"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1"
+                        android:fontFamily="@font/montserrat_reguler"
+                        android:gravity="center"
+                        android:padding="10dp"
+                        android:text="Kategori Material"
+                        android:textSize="16sp"
+                        android:textStyle="bold" />
+
+                    <TextView
+                        android:id="@+id/tv_KatMaterial"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1"
+                        android:background="#FFFFFF"
+                        android:fontFamily="@font/montserrat_reguler"
+                        android:padding="8dp"
+                        android:text="Kategori Material"
+                        android:textSize="16sp" />
+
+                </TableRow>
+
+                <TableRow>
+
+                    <TextView
+                        android:id="@+id/masgaran_holder"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1"
+                        android:fontFamily="@font/montserrat_reguler"
+                        android:gravity="center"
+                        android:padding="10dp"
+                        android:text="Masa Garansi"
+                        android:textSize="16sp"
+                        android:textStyle="bold" />
+
+                    <TextView
+                        android:id="@+id/tv_masaGaransi"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1"
+                        android:background="#FFFFFF"
+                        android:fontFamily="@font/montserrat_reguler"
+                        android:padding="8dp"
+                        android:text="Masa Garansi"
+                        android:textSize="16sp" />
+
+                </TableRow>
+
+                <TableRow>
+
+                    <TextView
+                        android:id="@+id/nosermet_holder"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1"
+                        android:fontFamily="@font/montserrat_reguler"
+                        android:gravity="center"
+                        android:padding="10dp"
+                        android:text="Nomor Sert Metrologi"
+                        android:textSize="16sp"
+                        android:textStyle="bold" />
+
+                    <TextView
+                        android:id="@+id/tv_nomorSert"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1"
+                        android:background="#FFFFFF"
+                        android:fontFamily="@font/montserrat_reguler"
+                        android:padding="8dp"
+                        android:text="Nomor Sert Metrologi"
+                        android:textSize="16sp" />
+
+                </TableRow>
+
+                <TableRow>
+
+                    <TextView
+                        android:id="@+id/noProd_holder"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1"
+                        android:fontFamily="@font/montserrat_reguler"
+                        android:gravity="center"
+                        android:padding="10dp"
+                        android:text="No Produksi"
+                        android:textSize="16sp"
+                        android:textStyle="bold" />
+
+                    <TextView
+                        android:id="@+id/tv_noProduksi"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1"
+                        android:background="#FFFFFF"
+                        android:fontFamily="@font/montserrat_reguler"
+                        android:padding="8dp"
+                        android:text="No Produksi"
+                        android:textSize="16sp" />
+
+                </TableRow>
+
+                <TableRow>
+
+                    <TextView
+                        android:id="@+id/noPack_holder"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1"
+                        android:fontFamily="@font/montserrat_reguler"
+                        android:gravity="center"
+                        android:padding="10dp"
+                        android:text="No Packaging"
+                        android:textSize="16sp"
+                        android:textStyle="bold" />
+
+                    <TextView
+                        android:id="@+id/tv_noPack"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1"
+                        android:background="#FFFFFF"
+                        android:fontFamily="@font/montserrat_reguler"
+                        android:padding="8dp"
+                        android:text="No Packaging"
+                        android:textSize="16sp" />
+
+                </TableRow>
+            </TableLayout>
+
+            <!--        <LinearLayout-->
+            <!--            android:layout_width="match_parent"-->
+            <!--            android:layout_height="wrap_content"-->
+            <!--            android:gravity="bottom"-->
+            <!--            android:orientation="vertical">-->
+
+            <androidx.appcompat.widget.AppCompatButton
+                android:id="@+id/btnsimpan"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_gravity="bottom"
+                android:layout_marginStart="24dp"
+                android:layout_marginTop="10dp"
+                android:layout_marginEnd="24dp"
+                android:layout_marginBottom="24dp"
+                android:background="@drawable/custombtn"
+                android:text="Kembali"
+                android:textAllCaps="false"
+                android:textColor="#FFFBF6"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent" />
+        </LinearLayout>
+    </ScrollView>
 
 
     <!--    <TextView-->
@@ -656,30 +713,6 @@
     <!--        app:layout_constraintEnd_toEndOf="parent"-->
     <!--        app:layout_constraintStart_toStartOf="@id/tv_result"-->
     <!--        app:layout_constraintTop_toTopOf="@id/nomerPackaging_holder" />-->
-
-    <LinearLayout
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:gravity="bottom"
-        android:orientation="vertical">
-
-        <androidx.appcompat.widget.AppCompatButton
-            android:id="@+id/btnsimpan"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_gravity="bottom"
-            android:layout_marginStart="24dp"
-            android:layout_marginTop="10dp"
-            android:layout_marginEnd="24dp"
-            android:layout_marginBottom="24dp"
-            android:background="@drawable/custombtn"
-            android:text="Kembali"
-            android:textAllCaps="false"
-            android:textColor="#FFFBF6"
-            app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent" />
-    </LinearLayout>
 
 
 </LinearLayout>

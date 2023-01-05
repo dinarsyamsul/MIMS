@@ -69,15 +69,15 @@ class ResponseScanActivity : AppCompatActivity() {
         }
 
 
-        viewModel.errorMessage.observe(this) {
-            Log.d("ResponseActivity","cek $it")
-            if (it != null) {
-                val intent = Intent(this@ResponseScanActivity, NotFound::class.java)
-                startActivity(intent)
-                Toast.makeText(this, "Data serial number tidak sesuai", Toast.LENGTH_LONG).show()
-
-            }
-        }
+//        viewModel.errorMessage.observe(this) {
+//            Log.d("ResponseActivity","cek $it")
+//            if (it != null) {
+//                val intent = Intent(this@ResponseScanActivity, NotFound::class.java)
+//                startActivity(intent)
+//                Toast.makeText(this, "Data serial number tidak sesuai", Toast.LENGTH_LONG).show()
+//
+//            }
+//        }
     }
 
     companion object {

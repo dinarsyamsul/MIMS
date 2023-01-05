@@ -42,22 +42,24 @@ class DashboardPabrikanActivity : AppCompatActivity() {
         )[ScanViewModel::class.java]
 
 
-        viewModel.snResponse.observe(this) { data ->
-            if (data.message == "Success"){
-                val intent = Intent(this@DashboardPabrikanActivity, ResponseScanActivity::class.java)
-                intent.putExtra(ResponseScanActivity.EXTRA_SN, data.detailSN.serialNumber)
-                startActivity(intent)
-            }
-        }
-        viewModel.errorMessage.observe(this){
-            Log.d("ResponseActivity","cek $it")
-            if (it != null) {
-                val intent = Intent(this@DashboardPabrikanActivity, NotFound::class.java)
-                startActivity(intent)
-                Toast.makeText(this, "Data serial number tidak sesuai", Toast.LENGTH_LONG).show()
-
-            }
-        }
+//        viewModel.snResponse.observe(this) { data ->
+//            if (data.message == "Success"){
+//                val intent = Intent(this@DashboardPabrikanActivity, ResponseScanActivity::class.java)
+//                intent.flags = Intent.FLAG_ACTIVITY_NEW_TASK
+//                intent.putExtra(ResponseScanActivity.EXTRA_SN, data.detailSN.serialNumber)
+//                startActivity(intent)
+//            }
+//        }
+//        viewModel.errorMessage.observe(this){
+//            Log.d("ResponseActivity","cek $it")
+//            if (it != null) {
+//                val intent = Intent(this@DashboardPabrikanActivity, NotFound::class.java)
+//                intent.flags = Intent.FLAG_ACTIVITY_NEW_TASK
+//                startActivity(intent)
+//                Toast.makeText(this, "Data serial number tidak sesuai", Toast.LENGTH_LONG).show()
+//
+//            }
+//        }
 
 
         binding.fab1.setOnClickListener {
@@ -100,14 +102,26 @@ class DashboardPabrikanActivity : AppCompatActivity() {
         ScanContract()
     ) { result: ScanIntentResult ->
         if (!result.contents.isNullOrEmpty()) {
-            viewModel.getDetailBySN(result.contents)
+            DataSn.data = result.contents
+//            viewModel.getDetailBySN(result.contents)
 
-//            val intent = Intent(this, ResponseScanActivity::class.java)
-//            intent.putExtra(ResponseScanActivity.EXTRA_SN, result.contents)
+//            val intent = Intent(this, CustomScanActivity::class.java)
+//            intent.putExtra(CustomScanActivity.EXTRA_SN, result.contents)
 //            startActivity(intent)
 //            Toast.makeText(this, "Serial Number: ${result.contents}", Toast.LENGTH_LONG).show()
         } else {
-            // CANCELED
+//             CANCELED
         }
     }
+
+    class DataSn private constructor(){
+        companion object {
+            private var instance: DataSn? = null
+            fun getInstance() = instance ?: DataSn().also {
+                instance = it
+            }
+            var data: Any? = null
+        }
+    }
+
 }

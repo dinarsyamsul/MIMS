@@ -10,7 +10,7 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         app:layout_constraintTop_toTopOf="parent"
-        app:lottie_rawRes="@raw/notfound1"
+        app:lottie_rawRes="@raw/nodata"
         app:lottie_autoPlay="true"
         app:lottie_loop="true"
         app:layout_constraintBottom_toBottomOf="parent"
