@@ -11,10 +11,10 @@ class NotFound : AppCompatActivity() {
         setContentView(R.layout.activity_not_found)
     }
 
-//    override fun onBackPressed() {
-//        super.getOnBackPressedDispatcher()
-//        val intent = Intent(this@NotFound, DashboardPabrikanActivity::class.java)
-//        intent.flags = Intent.FLAG_ACTIVITY_CLEAR_TOP
-//        startActivity(intent)
-//    }
+    override fun onBackPressed() {
+        super.getOnBackPressedDispatcher()
+        val intent = Intent(this@NotFound, DashboardPabrikanActivity::class.java)
+        intent.flags = Intent.FLAG_ACTIVITY_CLEAR_TOP
+        startActivity(intent)
+    }
 }

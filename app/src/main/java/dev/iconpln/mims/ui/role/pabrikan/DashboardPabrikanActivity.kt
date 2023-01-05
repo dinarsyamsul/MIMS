@@ -12,6 +12,7 @@ import com.google.android.material.bottomnavigation.BottomNavigationView
 import com.journeyapps.barcodescanner.ScanContract
 import com.journeyapps.barcodescanner.ScanIntentResult
 import com.journeyapps.barcodescanner.ScanOptions
+import dev.iconpln.mims.MemuatData
 import dev.iconpln.mims.NotFound
 import dev.iconpln.mims.R
 import dev.iconpln.mims.data.remote.service.ApiConfig
@@ -44,7 +45,8 @@ class DashboardPabrikanActivity : AppCompatActivity() {
 
 //        viewModel.snResponse.observe(this) { data ->
 //            if (data.message == "Success"){
-//                val intent = Intent(this@DashboardPabrikanActivity, ResponseScanActivity::class.java)
+//                DashboardPabrikanActivity.data = data.detailSN.serialNumber
+////                val intent = Intent(this@DashboardPabrikanActivity, ResponseScanActivity::class.java)
 //                intent.flags = Intent.FLAG_ACTIVITY_NEW_TASK
 //                intent.putExtra(ResponseScanActivity.EXTRA_SN, data.detailSN.serialNumber)
 //                startActivity(intent)
@@ -102,26 +104,26 @@ class DashboardPabrikanActivity : AppCompatActivity() {
         ScanContract()
     ) { result: ScanIntentResult ->
         if (!result.contents.isNullOrEmpty()) {
-            DataSn.data = result.contents
+
 //            viewModel.getDetailBySN(result.contents)
 
-//            val intent = Intent(this, CustomScanActivity::class.java)
-//            intent.putExtra(CustomScanActivity.EXTRA_SN, result.contents)
-//            startActivity(intent)
-//            Toast.makeText(this, "Serial Number: ${result.contents}", Toast.LENGTH_LONG).show()
+            val intent = Intent(this, MemuatData::class.java)
+            intent.putExtra(MemuatData.EXTRA_SN, result.contents)
+            startActivity(intent)
+            Toast.makeText(this, "Serial Number: ${result.contents}", Toast.LENGTH_LONG).show()
         } else {
 //             CANCELED
         }
     }
 
-    class DataSn private constructor(){
+//    class DataSn private constructor(){
         companion object {
-            private var instance: DataSn? = null
-            fun getInstance() = instance ?: DataSn().also {
+            private var instance: DashboardPabrikanActivity? = null
+            fun getInstance() = instance ?: DashboardPabrikanActivity().also {
                 instance = it
             }
             var data: Any? = null
         }
-    }
+//    }
 
 }

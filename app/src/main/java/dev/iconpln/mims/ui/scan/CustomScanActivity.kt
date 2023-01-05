@@ -28,48 +28,13 @@ class CustomScanActivity : AppCompatActivity() {
     private lateinit var barcodeScannerView: DecoratedBarcodeView
     private lateinit var binding: ActivityCustomScanBinding
     private var flash = false
-    private lateinit var viewModel: ScanViewModel
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         binding = ActivityCustomScanBinding.inflate(layoutInflater)
         setContentView(binding.root)
 
-        val session = TokenManager(this)
-        val apiService = ApiConfig.getApiService()
-        val networkStatusTracker = NetworkStatusTracker(this)
-        viewModel = ViewModelProvider(
-            this,
-            ViewModelFactory(session, apiService, networkStatusTracker)
-        )[ScanViewModel::class.java]
 
-        val data = DashboardPabrikanActivity.DataSn.data
-//        val sn = data?.getString(ResponseScanActivity.EXTRA_SN)
-        if (data != null) {
-            viewModel.getDetailBySN(data.toString())
-            Log.d("customactivty","cek data kiriman $data")
-        }
-
-
-        viewModel.snResponse.observe(this) { data ->
-            Log.d("customactivty","cek data ${data.message}")
-            if (data.message == "Success"){
-                val intent = Intent(this@CustomScanActivity, ResponseScanActivity::class.java)
-                intent.flags = Intent.FLAG_ACTIVITY_NEW_TASK
-                intent.putExtra(ResponseScanActivity.EXTRA_SN, data.detailSN.serialNumber)
-                startActivity(intent)
-            }
-        }
-        viewModel.errorMessage.observe(this){
-            Log.d("ResponseActivity","cek $it")
-            if (it != null) {
-                val intent = Intent(this@CustomScanActivity, NotFound::class.java)
-                intent.flags = Intent.FLAG_ACTIVITY_NEW_TASK
-                startActivity(intent)
-                Toast.makeText(this, "Data serial number tidak sesuai", Toast.LENGTH_LONG).show()
-
-            }
-        }
 
 
 
@@ -188,7 +153,5 @@ class CustomScanActivity : AppCompatActivity() {
             event
         )
     }
-    companion object {
-        const val EXTRA_SN = "extra_sn"
-    }
+
 }
