@@ -3,13 +3,15 @@ package dev.iconpln.mims.ui.scan
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
-import dev.iconpln.mims.data.remote.response.DetailSN
+import dagger.hilt.android.lifecycle.HiltViewModel
 import dev.iconpln.mims.data.remote.response.DetailSnResponse
 import dev.iconpln.mims.data.remote.service.ApiService
 import kotlinx.coroutines.*
 import org.json.JSONObject
+import javax.inject.Inject
 
-class ScanViewModel(private val apiService: ApiService) : ViewModel() {
+@HiltViewModel
+class ScanViewModel @Inject constructor(private val apiService: ApiService) : ViewModel() {
 
     private var job: Job? = null
     private val exceptionHandler = CoroutineExceptionHandler { _, throwable ->

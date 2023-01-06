@@ -1,16 +1,8 @@
 package dev.iconpln.mims.ui.role.pusertif
 
-import android.content.Intent
 import android.os.Bundle
-import android.util.Log
 import androidx.appcompat.app.AppCompatActivity
-import androidx.lifecycle.asLiveData
-import androidx.lifecycle.lifecycleScope
-import dev.iconpln.mims.R
 import dev.iconpln.mims.databinding.ActivityDashboardPusertifBinding
-import dev.iconpln.mims.ui.login.LoginActivity
-import dev.iconpln.mims.utils.TokenManager
-import kotlinx.coroutines.launch
 
 class DashboardPusertifActivity : AppCompatActivity() {
     private lateinit var binding: ActivityDashboardPusertifBinding
@@ -35,6 +27,6 @@ class DashboardPusertifActivity : AppCompatActivity() {
 //            onLogout.flags = Intent.FLAG_AC   TIVITY_NEW_TASK
 //            startActivity(onLogout)
 //            finish()
-        }
     }
+}
 //}

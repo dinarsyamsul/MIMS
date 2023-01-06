@@ -14,7 +14,6 @@ import dev.iconpln.mims.databinding.ActivityDashboardBinding
 import dev.iconpln.mims.ui.login.LoginActivity
 import dev.iconpln.mims.ui.scan.CustomScanActivity
 import dev.iconpln.mims.ui.scan.ResponseScanActivity
-import dev.iconpln.mims.ui.scan.ScannerActivity
 import dev.iconpln.mims.utils.TokenManager
 import kotlinx.coroutines.launch
 

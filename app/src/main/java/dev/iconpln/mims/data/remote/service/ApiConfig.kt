@@ -1,6 +1,5 @@
 package dev.iconpln.mims.data.remote.service
 
-import dev.iconpln.mims.utils.Constants.AGO_BASE_URL
 import dev.iconpln.mims.utils.Constants.BASE_URL
 import okhttp3.OkHttpClient
 import okhttp3.logging.HttpLoggingInterceptor

@@ -10,10 +10,10 @@ import android.widget.Toast
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.asLiveData
 import androidx.lifecycle.lifecycleScope
-import dev.iconpln.mims.ui.monitoring.MonitoringPurchaseOrder
-import dev.iconpln.mims.ui.monitoring.UploadDataMaterial
 import dev.iconpln.mims.databinding.FragmentHomeBinding
 import dev.iconpln.mims.ui.login.LoginActivity
+import dev.iconpln.mims.ui.monitoring.MonitoringPurchaseOrder
+import dev.iconpln.mims.ui.monitoring.UploadDataMaterial
 import dev.iconpln.mims.utils.TokenManager
 import kotlinx.coroutines.launch
 
@@ -68,7 +68,7 @@ class HomeFragment : Fragment() {
         binding.card3.setOnClickListener {
             Toast.makeText(context, "Under Maintenance", Toast.LENGTH_SHORT).show()
         }
-        
+
         binding.card2.setOnClickListener {
             Toast.makeText(context, "Under Maintenance", Toast.LENGTH_SHORT).show()
         }

@@ -1,14 +1,11 @@
 package dev.iconpln.mims
 
 import android.content.Intent
-import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.os.Handler
 import android.os.Looper
+import androidx.appcompat.app.AppCompatActivity
 import dev.iconpln.mims.ui.login.LoginActivity
-import dev.iconpln.mims.ui.role.pabrikan.DashboardPabrikanActivity
-import dev.iconpln.mims.ui.scan.CustomScanActivity
-import dev.iconpln.mims.ui.scan.ScannerActivity
 
 class SplashActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {

@@ -1,10 +1,10 @@
 package dev.iconpln.mims.ui.login
 
-import android.util.Log
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.asLiveData
+import dagger.hilt.android.lifecycle.HiltViewModel
 import dev.iconpln.mims.data.remote.response.AgoLoginResponse
 import dev.iconpln.mims.data.remote.response.HitEmailResponse
 import dev.iconpln.mims.data.remote.response.LoginResponse
@@ -15,8 +15,10 @@ import dev.iconpln.mims.utils.TokenManager
 import dev.iconpln.mims.utils.map
 import kotlinx.coroutines.*
 import org.json.JSONObject
+import javax.inject.Inject
 
-class LoginViewModel(
+@HiltViewModel
+class LoginViewModel @Inject constructor(
     private val session: TokenManager,
     private val apiService: ApiService,
     netWorkStatusTracker: NetworkStatusTracker

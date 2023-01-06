@@ -5,23 +5,22 @@ import android.os.Bundle
 import android.util.Log
 import android.view.View
 import android.widget.Toast
+import androidx.activity.viewModels
 import androidx.appcompat.app.AppCompatActivity
-import androidx.lifecycle.ViewModelProvider
 import androidx.lifecycle.asLiveData
-import dev.iconpln.mims.data.remote.service.ApiConfig
+import dagger.hilt.android.AndroidEntryPoint
 import dev.iconpln.mims.databinding.ActivityLoginBinding
 import dev.iconpln.mims.ui.DashboardActivity
 import dev.iconpln.mims.ui.OtpActivity
 import dev.iconpln.mims.ui.role.pabrikan.DashboardPabrikanActivity
 import dev.iconpln.mims.ui.role.pusertif.DashboardPusertifActivity
-import dev.iconpln.mims.utils.NetworkStatusTracker
 import dev.iconpln.mims.utils.TokenManager
-import dev.iconpln.mims.utils.ViewModelFactory
 
+@AndroidEntryPoint
 class LoginActivity : AppCompatActivity() {
 
     private lateinit var binding: ActivityLoginBinding
-    private lateinit var loginViewModel: LoginViewModel
+    private val loginViewModel: LoginViewModel by viewModels()
     private lateinit var session: TokenManager
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -30,8 +29,6 @@ class LoginActivity : AppCompatActivity() {
         setContentView(binding.root)
 
         session = TokenManager(this)
-        val apiService = ApiConfig.getApiService()
-        val networkStatusTracker = NetworkStatusTracker(this)
 
         session.user_token.asLiveData().observe(this) { token ->
             Log.d("LoginActivity", "cek user token: $token")
@@ -66,12 +63,6 @@ class LoginActivity : AppCompatActivity() {
         session.device_token.asLiveData().observe(this) { token ->
             Log.d("LoginActivity", "cek device token: $token")
         }
-
-        loginViewModel =
-            ViewModelProvider(
-                this,
-                ViewModelFactory(session, apiService, networkStatusTracker)
-            )[LoginViewModel::class.java]
 
         loginViewModel.loginResponse.observe(this) { result ->
             when (result.message) {

@@ -2,35 +2,23 @@ package dev.iconpln.mims.ui.scan
 
 import android.content.Intent
 import android.os.Bundle
-import android.util.Log
 import android.widget.Toast
+import androidx.activity.viewModels
 import androidx.appcompat.app.AppCompatActivity
-import androidx.lifecycle.ViewModelProvider
-import dev.iconpln.mims.NotFound
-import dev.iconpln.mims.data.remote.service.ApiConfig
+import dagger.hilt.android.AndroidEntryPoint
 import dev.iconpln.mims.databinding.ActivityResponseScanBinding
 import dev.iconpln.mims.ui.role.pabrikan.DashboardPabrikanActivity
-import dev.iconpln.mims.utils.NetworkStatusTracker
-import dev.iconpln.mims.utils.TokenManager
-import dev.iconpln.mims.utils.ViewModelFactory
 
+@AndroidEntryPoint
 class ResponseScanActivity : AppCompatActivity() {
 
     private lateinit var binding: ActivityResponseScanBinding
-    private lateinit var viewModel: ScanViewModel
+    private val viewModel: ScanViewModel by viewModels()
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         binding = ActivityResponseScanBinding.inflate(layoutInflater)
         setContentView(binding.root)
-
-        val session = TokenManager(this)
-        val apiService = ApiConfig.getApiService()
-        val networkStatusTracker = NetworkStatusTracker(this)
-        viewModel = ViewModelProvider(
-            this,
-            ViewModelFactory(session, apiService, networkStatusTracker)
-        )[ScanViewModel::class.java]
 
         val data = intent.extras
         if (data != null) {
@@ -68,17 +56,6 @@ class ResponseScanActivity : AppCompatActivity() {
                 }
             }
         }
-
-
-//        viewModel.errorMessage.observe(this) {
-//            Log.d("ResponseActivity","cek $it")
-//            if (it != null) {
-//                val intent = Intent(this@ResponseScanActivity, NotFound::class.java)
-//                startActivity(intent)
-//                Toast.makeText(this, "Data serial number tidak sesuai", Toast.LENGTH_LONG).show()
-//
-//            }
-//        }
     }
 
     override fun onBackPressed() {

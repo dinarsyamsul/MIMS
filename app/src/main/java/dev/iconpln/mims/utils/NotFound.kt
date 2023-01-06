@@ -1,8 +1,9 @@
-package dev.iconpln.mims
+package dev.iconpln.mims.utils
 
 import android.content.Intent
-import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import androidx.appcompat.app.AppCompatActivity
+import dev.iconpln.mims.R
 import dev.iconpln.mims.ui.role.pabrikan.DashboardPabrikanActivity
 
 class NotFound : AppCompatActivity() {

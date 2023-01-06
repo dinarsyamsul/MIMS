@@ -1,26 +1,16 @@
 package dev.iconpln.mims.ui.scan
 
 import android.animation.ObjectAnimator
-import android.content.Intent
 import android.graphics.Typeface
 import android.os.Bundle
-import android.util.Log
 import android.view.KeyEvent
 import android.view.View
-import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.content.ContextCompat
-import androidx.lifecycle.ViewModelProvider
 import com.journeyapps.barcodescanner.CaptureManager
 import com.journeyapps.barcodescanner.DecoratedBarcodeView
-import dev.iconpln.mims.NotFound
 import dev.iconpln.mims.R
-import dev.iconpln.mims.data.remote.service.ApiConfig
 import dev.iconpln.mims.databinding.ActivityCustomScanBinding
-import dev.iconpln.mims.ui.role.pabrikan.DashboardPabrikanActivity
-import dev.iconpln.mims.utils.NetworkStatusTracker
-import dev.iconpln.mims.utils.TokenManager
-import dev.iconpln.mims.utils.ViewModelFactory
 
 class CustomScanActivity : AppCompatActivity() {
 
@@ -88,7 +78,7 @@ class CustomScanActivity : AppCompatActivity() {
         }
     }
 
-    private fun playAnimation(){
+    private fun playAnimation() {
         ObjectAnimator.ofFloat(binding.scannerbawah, View.TRANSLATION_Y, 1f, 580f).apply {
             duration = 1500
             repeatMode = ObjectAnimator.REVERSE

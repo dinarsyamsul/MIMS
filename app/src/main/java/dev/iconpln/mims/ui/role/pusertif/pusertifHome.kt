@@ -3,14 +3,12 @@ package dev.iconpln.mims.ui.role.pusertif
 import android.content.Intent
 import android.os.Bundle
 import android.util.Log
-import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.fragment.app.Fragment
 import androidx.lifecycle.asLiveData
 import androidx.lifecycle.lifecycleScope
-import dev.iconpln.mims.R
-import dev.iconpln.mims.databinding.FragmentHomeBinding
 import dev.iconpln.mims.databinding.FragmentPusertifHomeBinding
 import dev.iconpln.mims.ui.login.LoginActivity
 import dev.iconpln.mims.utils.TokenManager
@@ -36,7 +34,7 @@ class pusertifHome : Fragment() {
         super.onViewCreated(view, savedInstanceState)
 
         val session = TokenManager(requireContext())
-        binding.btnLogout.setOnClickListener{
+        binding.btnLogout.setOnClickListener {
             val onLogout = Intent(requireContext(), LoginActivity::class.java)
             onLogout.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP)
             onLogout.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK)

@@ -18,6 +18,7 @@
         tools:ignore="ProtectedPermissions" />
 
     <application
+        android:name=".MyApplication"
         android:allowBackup="true"
         android:dataExtractionRules="@xml/data_extraction_rules"
         android:fullBackupContent="@xml/backup_rules"
@@ -29,14 +30,14 @@
         android:usesCleartextTraffic="true"
         tools:targetApi="31">
         <activity
-            android:name=".MemuatData"
+            android:name=".utils.MemuatData"
             android:exported="false">
             <meta-data
                 android:name="android.app.lib_name"
                 android:value="" />
         </activity>
         <activity
-            android:name=".NotFound"
+            android:name=".utils.NotFound"
             android:exported="false">
             <meta-data
                 android:name="android.app.lib_name"
