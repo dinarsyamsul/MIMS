@@ -33,7 +33,7 @@
         android:layout_marginTop="45dp"
         android:fontFamily="@font/montserrat_reguler"
         android:gravity="center_horizontal"
-        android:text="Upload Data Attribut Material"
+        android:text="Data Atribut Material"
         android:textColor="@color/white"
         android:textStyle="bold" />
 
@@ -51,63 +51,72 @@
     <androidx.constraintlayout.widget.ConstraintLayout
         android:id="@+id/const1"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
+        android:layout_height="98dp"
         android:layout_below="@id/dashboard"
         android:layout_marginTop="12dp">
 
-        <ImageButton
-            android:id="@+id/btnback"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginStart="16dp"
-            android:layout_marginTop="8dp"
-            android:background="@drawable/textfield"
-            android:elevation="5dp"
-            android:src="@drawable/ic_baseline_keyboard_arrow_left_24"
-            app:layout_constraintEnd_toStartOf="@+id/txtbulan"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent" />
-
         <TextView
-            android:id="@+id/txtbulan"
+            android:id="@+id/nobatch"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginStart="35dp"
-            android:layout_marginRight="80dp"
+            android:layout_marginStart="10dp"
             android:layout_marginTop="6dp"
-            android:layout_marginBottom="5dp"
             android:fontFamily="@font/montserrat_reguler"
-            android:text="Bulan"
+            android:text="No. Batch     :"
             android:textColor="@color/black"
             android:textSize="18sp"
-            app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintEnd_toEndOf="@+id/btnnext"
-            app:layout_constraintStart_toEndOf="@+id/btnback"
-            app:layout_constraintTop_toTopOf="parent" />
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            tools:ignore="MissingConstraints" />
 
-        <ImageButton
-            android:id="@+id/btnnext"
+        <EditText
+            android:id="@+id/searchbatch"
+            android:layout_width="200dp"
+            android:layout_height="48dp"
+            android:layout_marginStart="190dp"
+            android:background="@drawable/edittextborder"
+            android:elevation="5dp"
+            android:focusable="false"
+            android:text="Upload File Excel"
+            android:textAlignment="center"
+            android:textColor="#808080"
+            app:layout_constraintStart_toStartOf="parent" />
+
+        <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginStart="30dp"
-            android:layout_marginTop="8dp"
-            android:background="@drawable/textfield"
-            android:elevation="5dp"
-            android:src="@drawable/ic_baseline_keyboard_arrow_right_24"
+            android:layout_marginStart="10dp"
+            android:fontFamily="@font/montserrat_reguler"
+            android:text="Urut Berdasarkan    :"
+            android:textColor="@color/black"
+            android:textSize="17sp"
+            android:textStyle="bold"
             app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintStart_toEndOf="@id/txtbulan"
-            app:layout_constraintTop_toTopOf="parent"
-            app:layout_constraintVertical_bias="0" />
+            app:layout_constraintStart_toStartOf="parent" />
 
+        <EditText
+            android:id="@+id/edturutberdasarkan"
+            android:layout_width="200dp"
+            android:layout_height="48dp"
+            android:layout_marginStart="190dp"
+            android:background="@drawable/edittextborder"
+            android:elevation="5dp"
+            android:focusable="false"
+            android:text="Upload File Excel"
+            android:textAlignment="center"
+            android:textColor="#808080"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintStart_toStartOf="parent" />
 
     </androidx.constraintlayout.widget.ConstraintLayout>
+
 
     <LinearLayout
         android:id="@+id/line1"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_below="@+id/const1"
-        android:layout_marginTop="20dp"
+        android:layout_marginTop="30dp"
         android:background="#00000000"
         android:orientation="vertical">
 
@@ -646,11 +655,11 @@
             android:layout_marginTop="16dp"
             android:layout_marginEnd="8dp"
             android:layout_marginBottom="20dp"
-            android:background="@drawable/border"
+            android:background="@drawable/br_btn"
             android:elevation="5dp"
             android:fontFamily="@font/montserrat_reguler"
-            android:text="Download"
-            android:textColor="#00A3FF"
+            android:text="EKSPORT"
+            android:textColor="#FFFFFF"
             android:textStyle="bold"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
@@ -676,7 +685,7 @@
             android:background="@drawable/edittextborder"
             android:elevation="5dp"
             android:focusable="false"
-            android:text="Upload Data"
+            android:text="Upload File Excel"
             android:textAlignment="center"
             android:textColor="#808080"
             app:layout_constraintStart_toStartOf="parent"
