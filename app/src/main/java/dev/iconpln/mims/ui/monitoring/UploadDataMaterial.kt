@@ -5,6 +5,7 @@ import android.content.Intent
 import android.graphics.Color
 import android.graphics.drawable.ColorDrawable
 import android.os.Bundle
+import android.widget.ArrayAdapter
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import dev.iconpln.mims.R
@@ -20,6 +21,11 @@ class UploadDataMaterial : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         binding = ActivityUploadDataMaterialBinding.inflate(layoutInflater)
         setContentView(binding.root)
+
+        val items = listOf("Terbaru", "Terlama")
+        val adapter = ArrayAdapter(this, R.layout.list_item, items)
+        binding.autoCompleteDataAtribute.setAdapter(adapter)
+
 
 //        binding.btnupload1.setOnClickListener {
 //            val i = Intent(this@UploadDataMaterial, MonitoringPurchaseOrder::class.java)

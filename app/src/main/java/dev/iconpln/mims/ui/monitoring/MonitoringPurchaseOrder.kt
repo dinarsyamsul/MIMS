@@ -7,6 +7,7 @@ import android.graphics.Color
 import android.graphics.drawable.ColorDrawable
 import android.os.Bundle
 import android.view.View
+import android.widget.ArrayAdapter
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.content.ContextCompat
 import dev.iconpln.mims.R
@@ -22,6 +23,10 @@ class MonitoringPurchaseOrder : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         binding = ActivityMonitoringPurchaseOrderBinding.inflate(layoutInflater)
         setContentView(binding.root)
+
+        val items = listOf("Terbaru", "Terlama")
+        val adapter = ArrayAdapter(this, R.layout.list_item, items)
+        binding.autoCompleteMonitoring.setAdapter(adapter)
 
 //        binding.img1.setOnClickListener {
 //            if (muncul == true) {

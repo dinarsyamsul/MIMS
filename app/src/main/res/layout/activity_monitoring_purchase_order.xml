@@ -82,19 +82,16 @@
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toTopOf="parent" />
 
-            <EditText
-                android:id="@+id/edtsearchomonitor"
-                android:layout_width="200dp"
-                android:layout_height="48dp"
-                android:layout_marginStart="190dp"
+            <SearchView
+                android:id="@+id/searchmonitoring"
+                android:layout_width="198dp"
+                android:layout_height="47dp"
+                android:hint="Search"
                 android:background="@drawable/edittextborder"
-                android:elevation="5dp"
-                android:focusable="false"
-                android:text="Upload File Excel"
-                android:textAlignment="center"
-                android:textColor="#808080"
+                android:iconicfieldByDefault="false"
+                android:layout_marginStart="190dp"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toTopOf="parent" />
+                tools:ignore="MissingConstraints" />
 
             <TextView
                 android:layout_width="wrap_content"
@@ -110,21 +107,28 @@
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toTopOf="parent" />
 
-            <EditText
-                android:id="@+id/edturutberdasarkan"
+            <com.google.android.material.textfield.TextInputLayout
+                style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox.ExposedDropdownMenu"
                 android:layout_width="200dp"
                 android:layout_height="48dp"
                 android:layout_marginStart="190dp"
-                android:layout_marginTop="90dp"
-                android:background="@drawable/edittextborder"
-                android:elevation="5dp"
-                android:focusable="false"
-                android:text="Upload File Excel"
-                android:textAlignment="center"
-                android:textColor="#808080"
+                android:layout_marginTop="80dp"
+                android:layout_marginBottom="10dp"
+                android:hint="Terbaru"
+                app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toTopOf="parent" />
+                app:layout_constraintTop_toTopOf="parent" >
 
+
+           <AutoCompleteTextView
+               android:id="@+id/autoCompleteMonitoring"
+               android:layout_width="match_parent"
+               android:layout_height="match_parent"
+               android:layout_weight="1"
+               android:inputType="none"
+               />
+
+            </com.google.android.material.textfield.TextInputLayout>
 
         </androidx.constraintlayout.widget.ConstraintLayout>
 
