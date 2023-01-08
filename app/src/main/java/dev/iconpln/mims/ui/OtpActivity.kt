@@ -75,7 +75,7 @@ class OtpActivity : AppCompatActivity() {
                                 startActivity(it)
                             }
                         } else if (login.roleId == "9") {
-                            Intent(this@OtpActivity, DashboardActivity::class.java).also {
+                            Intent(this@OtpActivity, DashboardPabrikanActivity::class.java).also {
                                 it.flags =
                                     Intent.FLAG_ACTIVITY_NEW_TASK or Intent.FLAG_ACTIVITY_CLEAR_TASK
                                 startActivity(it)

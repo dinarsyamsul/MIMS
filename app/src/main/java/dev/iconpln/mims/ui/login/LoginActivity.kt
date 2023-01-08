@@ -10,7 +10,6 @@ import androidx.appcompat.app.AppCompatActivity
 import androidx.lifecycle.asLiveData
 import dagger.hilt.android.AndroidEntryPoint
 import dev.iconpln.mims.databinding.ActivityLoginBinding
-import dev.iconpln.mims.ui.DashboardActivity
 import dev.iconpln.mims.ui.OtpActivity
 import dev.iconpln.mims.ui.role.pabrikan.DashboardPabrikanActivity
 import dev.iconpln.mims.ui.role.pusertif.DashboardPusertifActivity
@@ -50,7 +49,7 @@ class LoginActivity : AppCompatActivity() {
                             }
                         }
                         "9" -> {
-                            Intent(this@LoginActivity, DashboardActivity::class.java).also {
+                            Intent(this@LoginActivity, DashboardPabrikanActivity::class.java).also {
                                 it.flags =
                                     Intent.FLAG_ACTIVITY_NEW_TASK or Intent.FLAG_ACTIVITY_CLEAR_TASK
                                 startActivity(it)
@@ -94,7 +93,7 @@ class LoginActivity : AppCompatActivity() {
                                 startActivity(it)
                             }
                         } else if (login.roleId == "9") {
-                            Intent(this@LoginActivity, DashboardActivity::class.java).also {
+                            Intent(this@LoginActivity, DashboardPabrikanActivity::class.java).also {
                                 it.flags =
                                     Intent.FLAG_ACTIVITY_NEW_TASK or Intent.FLAG_ACTIVITY_CLEAR_TASK
                                 startActivity(it)
@@ -112,7 +111,7 @@ class LoginActivity : AppCompatActivity() {
         loginViewModel.agoLoginResponse.observe(this) {
             it.data.forEach { result ->
                 if (result.id != null) {
-                    startActivity(Intent(this@LoginActivity, DashboardActivity::class.java))
+                    startActivity(Intent(this@LoginActivity, DashboardPabrikanActivity::class.java))
                     Toast.makeText(
                         this,
                         "Login berhasil",

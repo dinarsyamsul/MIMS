@@ -135,7 +135,6 @@
             android:layout_marginStart="12dp"
             android:layout_marginTop="20dp"
             android:layout_marginEnd="13dp"
-            android:background="@drawable/border2"
             app:layout_constraintTop_toBottomOf="@+id/const1">
 
             <LinearLayout
@@ -148,694 +147,848 @@
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toTopOf="parent">
 
-                <TableLayout
-                    android:id="@+id/tbl1"
+                <HorizontalScrollView
                     android:layout_width="match_parent"
-                    android:layout_height="match_parent"
-                    android:layout_marginLeft="1dp"
-                    android:layout_marginRight="1dp"
-                    android:background="@drawable/table_monitoring"
-                    android:stretchColumns="3">
+                    android:layout_height="match_parent">
 
-                    <TableRow android:background="@drawable/bts_topleft">
+                    <TableLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginHorizontal="10dp"
+                        android:layout_marginVertical="30dp"
+                        android:background="#B9B9B9">
 
-                        <TextView
-                            android:id="@+id/txttglpo"
-                            android:layout_width="0dp"
-                            android:layout_height="wrap_content"
-                            android:layout_gravity="center_horizontal"
-                            android:layout_weight="4"
-                            android:fontFamily="@font/montserrat_reguler"
-                            android:gravity="center"
-                            android:paddingTop="10dp"
-                            android:text="Tanggal PO"
-                            android:textColor="@color/black"
-                            android:textSize="14sp" />
+                        <TableRow>
 
-                        <TextView
-                            android:id="@+id/txtnopo"
-                            android:layout_width="0dp"
-                            android:layout_height="wrap_content"
-                            android:layout_gravity="center_horizontal"
-                            android:layout_weight="4"
-                            android:background="@drawable/border"
-                            android:fontFamily="@font/montserrat_reguler"
-                            android:gravity="center"
-                            android:padding="10sp"
-                            android:text="No. PO"
-                            android:textColor="@color/black"
-                            android:textSize="13sp" />
+                            <TextView
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:layout_weight="1"
+                                android:gravity="center"
+                                android:padding="10dp"
+                                android:text="No"
+                                android:textColor="@color/black"
+                                android:textSize="16dp" />
 
-                        <TextView
-                            android:id="@+id/detail"
-                            android:layout_width="0dp"
-                            android:layout_height="wrap_content"
-                            android:layout_gravity="center_horizontal"
-                            android:layout_weight="4"
-                            android:fontFamily="@font/montserrat_reguler"
-                            android:gravity="center"
-                            android:padding="10sp"
-                            android:text="Detail"
-                            android:textColor="@color/black"
-                            android:textSize="13sp" />
+                            <TextView
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:layout_weight="1"
+                                android:gravity="center"
+                                android:padding="10dp"
+                                android:text="No PO"
+                                android:textColor="@color/black"
+                                android:textSize="16dp" />
 
-                    </TableRow>
+                            <TextView
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:layout_weight="1"
+                                android:gravity="center"
+                                android:padding="10dp"
+                                android:text="Vendor"
+                                android:textColor="@color/black"
+                                android:textSize="16dp" />
 
-                </TableLayout>
+                            <TextView
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:layout_weight="1"
+                                android:gravity="center"
+                                android:padding="10dp"
+                                android:text="Plant"
+                                android:textColor="@color/black"
+                                android:textSize="16dp" />
 
+                            <TextView
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:layout_weight="1"
+                                android:gravity="center"
+                                android:padding="10dp"
+                                android:text="Store Loc"
+                                android:textColor="@color/black"
+                                android:textSize="16dp" />
+
+                            <TextView
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:layout_weight="1"
+                                android:gravity="center"
+                                android:padding="10dp"
+                                android:text="Unit"
+                                android:textColor="@color/black"
+                                android:textSize="16dp" />
+
+                            <TextView
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:layout_weight="1"
+                                android:gravity="center"
+                                android:padding="10dp"
+                                android:text="Lead Time"
+                                android:textColor="@color/black"
+                                android:textSize="16dp" />
+
+                            <TextView
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:layout_weight="1"
+                                android:gravity="center"
+                                android:padding="10dp"
+                                android:text="Kuantitas"
+                                android:textColor="@color/black"
+                                android:textSize="16dp" />
+
+                            <TextView
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:layout_weight="1"
+                                android:gravity="center"
+                                android:padding="10dp"
+                                android:text="Deskripsi"
+                                android:textColor="@color/black"
+                                android:textSize="16dp" />
+
+                        </TableRow>
+
+                        <TableRow>
+
+                            <TextView
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:layout_weight="1"
+                                android:gravity="center"
+                                android:padding="10dp"
+                                android:layout_marginBottom="1dp"
+                                android:background="#FFFFFF"
+                                android:layout_marginStart="1dp"
+                                android:layout_marginEnd="1dp"
+                                android:text="1"
+                                android:textColor="@color/black"
+                                android:textSize="16dp" />
+
+                            <TextView
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:layout_weight="1"
+                                android:gravity="center"
+                                android:padding="10dp"
+                                android:background="#FFFFFF"
+                                android:layout_marginStart="1dp"
+                                android:layout_marginEnd="1dp"
+                                android:text="123123123"
+                                android:textColor="@color/black"
+                                android:textSize="16dp" />
+
+                            <TextView
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:layout_weight="1"
+                                android:gravity="center"
+                                android:padding="10dp"
+                                android:background="#FFFFFF"
+                                android:layout_marginStart="1dp"
+                                android:layout_marginEnd="1dp"
+                                android:text="SmartMeter"
+                                android:textColor="@color/black"
+                                android:textSize="16dp" />
+
+                            <TextView
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:layout_weight="1"
+                                android:gravity="center"
+                                android:padding="10dp"
+                                android:background="#FFFFFF"
+                                android:layout_marginStart="1dp"
+                                android:layout_marginEnd="1dp"
+                                android:text="221122"
+                                android:textColor="@color/black"
+                                android:textSize="16dp" />
+
+                            <TextView
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:layout_weight="1"
+                                android:gravity="center"
+                                android:padding="10dp"
+                                android:background="#FFFFFF"
+                                android:layout_marginStart="1dp"
+                                android:layout_marginEnd="1dp"
+                                android:text="11221122"
+                                android:textColor="@color/black"
+                                android:textSize="16dp" />
+
+                            <TextView
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:layout_weight="1"
+                                android:gravity="center"
+                                android:padding="10dp"
+                                android:background="#FFFFFF"
+                                android:layout_marginStart="1dp"
+                                android:layout_marginEnd="1dp"
+                                android:text="GD Induk Depok"
+                                android:textColor="@color/black"
+                                android:textSize="16dp" />
+
+                            <TextView
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:layout_weight="1"
+                                android:gravity="center"
+                                android:padding="10dp"
+                                android:background="#FFFFFF"
+                                android:layout_marginStart="1dp"
+                                android:layout_marginEnd="1dp"
+                                android:text="1 Hari Lagi"
+                                android:textColor="@color/black"
+                                android:textSize="16dp" />
+
+                            <TextView
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:layout_weight="1"
+                                android:gravity="center"
+                                android:padding="10dp"
+                                android:background="#FFFFFF"
+                                android:layout_marginStart="1dp"
+                                android:layout_marginEnd="1dp"
+                                android:text="55"
+                                android:textColor="@color/black"
+                                android:textSize="16dp" />
+
+                            <TextView
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:layout_weight="1"
+                                android:gravity="center"
+                                android:background="#FFFFFF"
+                                android:layout_marginStart="1dp"
+                                android:layout_marginEnd="1dp"
+                                android:padding="10dp"
+                                android:text="lorem insum bla bla bla"
+                                android:textColor="@color/black"
+                                android:textSize="16dp" />
+
+                        </TableRow>
+
+                        <TableRow>
+
+                            <TextView
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:layout_weight="1"
+                                android:gravity="center"
+                                android:padding="10dp"
+                                android:layout_marginBottom="1dp"
+                                android:background="#FFFFFF"
+                                android:layout_marginStart="1dp"
+                                android:layout_marginEnd="1dp"
+                                android:text="2"
+                                android:textColor="@color/black"
+                                android:textSize="16dp" />
+
+                            <TextView
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:layout_weight="1"
+                                android:gravity="center"
+                                android:padding="10dp"
+                                android:background="#FFFFFF"
+                                android:layout_marginStart="1dp"
+                                android:layout_marginEnd="1dp"
+                                android:text="123123123"
+                                android:textColor="@color/black"
+                                android:textSize="16dp" />
+
+                            <TextView
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:layout_weight="1"
+                                android:gravity="center"
+                                android:padding="10dp"
+                                android:background="#FFFFFF"
+                                android:layout_marginStart="1dp"
+                                android:layout_marginEnd="1dp"
+                                android:text="SmartMeter"
+                                android:textColor="@color/black"
+                                android:textSize="16dp" />
+
+                            <TextView
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:layout_weight="1"
+                                android:gravity="center"
+                                android:padding="10dp"
+                                android:background="#FFFFFF"
+                                android:layout_marginStart="1dp"
+                                android:layout_marginEnd="1dp"
+                                android:text="221122"
+                                android:textColor="@color/black"
+                                android:textSize="16dp" />
+
+                            <TextView
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:layout_weight="1"
+                                android:gravity="center"
+                                android:padding="10dp"
+                                android:background="#FFFFFF"
+                                android:layout_marginStart="1dp"
+                                android:layout_marginEnd="1dp"
+                                android:text="11221122"
+                                android:textColor="@color/black"
+                                android:textSize="16dp" />
+
+                            <TextView
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:layout_weight="1"
+                                android:gravity="center"
+                                android:padding="10dp"
+                                android:background="#FFFFFF"
+                                android:layout_marginStart="1dp"
+                                android:layout_marginEnd="1dp"
+                                android:text="GD Induk Depok"
+                                android:textColor="@color/black"
+                                android:textSize="16dp" />
+
+                            <TextView
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:layout_weight="1"
+                                android:gravity="center"
+                                android:padding="10dp"
+                                android:background="#FFFFFF"
+                                android:layout_marginStart="1dp"
+                                android:layout_marginEnd="1dp"
+                                android:text="1 Hari Lagi"
+                                android:textColor="@color/black"
+                                android:textSize="16dp" />
+
+                            <TextView
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:layout_weight="1"
+                                android:gravity="center"
+                                android:padding="10dp"
+                                android:background="#FFFFFF"
+                                android:layout_marginStart="1dp"
+                                android:layout_marginEnd="1dp"
+                                android:text="55"
+                                android:textColor="@color/black"
+                                android:textSize="16dp" />
+
+                            <TextView
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:layout_weight="1"
+                                android:gravity="center"
+                                android:background="#FFFFFF"
+                                android:layout_marginStart="1dp"
+                                android:layout_marginEnd="1dp"
+                                android:padding="10dp"
+                                android:text="lorem insum bla bla bla"
+                                android:textColor="@color/black"
+                                android:textSize="16dp" />
+
+                        </TableRow>
+
+                        <TableRow>
+
+                            <TextView
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:layout_weight="1"
+                                android:gravity="center"
+                                android:padding="10dp"
+                                android:layout_marginBottom="1dp"
+                                android:background="#FFFFFF"
+                                android:layout_marginStart="1dp"
+                                android:layout_marginEnd="1dp"
+                                android:text="3"
+                                android:textColor="@color/black"
+                                android:textSize="16dp" />
+
+                            <TextView
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:layout_weight="1"
+                                android:gravity="center"
+                                android:padding="10dp"
+                                android:background="#FFFFFF"
+                                android:layout_marginStart="1dp"
+                                android:layout_marginEnd="1dp"
+                                android:text="123123123"
+                                android:textColor="@color/black"
+                                android:textSize="16dp" />
+
+                            <TextView
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:layout_weight="1"
+                                android:gravity="center"
+                                android:padding="10dp"
+                                android:background="#FFFFFF"
+                                android:layout_marginStart="1dp"
+                                android:layout_marginEnd="1dp"
+                                android:text="SmartMeter"
+                                android:textColor="@color/black"
+                                android:textSize="16dp" />
+
+                            <TextView
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:layout_weight="1"
+                                android:gravity="center"
+                                android:padding="10dp"
+                                android:background="#FFFFFF"
+                                android:layout_marginStart="1dp"
+                                android:layout_marginEnd="1dp"
+                                android:text="221122"
+                                android:textColor="@color/black"
+                                android:textSize="16dp" />
+
+                            <TextView
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:layout_weight="1"
+                                android:gravity="center"
+                                android:padding="10dp"
+                                android:background="#FFFFFF"
+                                android:layout_marginStart="1dp"
+                                android:layout_marginEnd="1dp"
+                                android:text="11221122"
+                                android:textColor="@color/black"
+                                android:textSize="16dp" />
+
+                            <TextView
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:layout_weight="1"
+                                android:gravity="center"
+                                android:padding="10dp"
+                                android:background="#FFFFFF"
+                                android:layout_marginStart="1dp"
+                                android:layout_marginEnd="1dp"
+                                android:text="GD Induk Depok"
+                                android:textColor="@color/black"
+                                android:textSize="16dp" />
+
+                            <TextView
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:layout_weight="1"
+                                android:gravity="center"
+                                android:padding="10dp"
+                                android:background="#FFFFFF"
+                                android:layout_marginStart="1dp"
+                                android:layout_marginEnd="1dp"
+                                android:text="1 Hari Lagi"
+                                android:textColor="@color/black"
+                                android:textSize="16dp" />
+
+                            <TextView
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:layout_weight="1"
+                                android:gravity="center"
+                                android:padding="10dp"
+                                android:background="#FFFFFF"
+                                android:layout_marginStart="1dp"
+                                android:layout_marginEnd="1dp"
+                                android:text="55"
+                                android:textColor="@color/black"
+                                android:textSize="16dp" />
+
+                            <TextView
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:layout_weight="1"
+                                android:gravity="center"
+                                android:background="#FFFFFF"
+                                android:layout_marginStart="1dp"
+                                android:layout_marginEnd="1dp"
+                                android:padding="10dp"
+                                android:text="lorem insum bla bla bla"
+                                android:textColor="@color/black"
+                                android:textSize="16dp" />
+
+                        </TableRow>
+
+                        <TableRow>
+
+                            <TextView
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:layout_weight="1"
+                                android:gravity="center"
+                                android:padding="10dp"
+                                android:layout_marginBottom="1dp"
+                                android:background="#FFFFFF"
+                                android:layout_marginStart="1dp"
+                                android:layout_marginEnd="1dp"
+                                android:text="4"
+                                android:textColor="@color/black"
+                                android:textSize="16dp" />
+
+                            <TextView
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:layout_weight="1"
+                                android:gravity="center"
+                                android:padding="10dp"
+                                android:background="#FFFFFF"
+                                android:layout_marginStart="1dp"
+                                android:layout_marginEnd="1dp"
+                                android:text="123123123"
+                                android:textColor="@color/black"
+                                android:textSize="16dp" />
+
+                            <TextView
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:layout_weight="1"
+                                android:gravity="center"
+                                android:padding="10dp"
+                                android:background="#FFFFFF"
+                                android:layout_marginStart="1dp"
+                                android:layout_marginEnd="1dp"
+                                android:text="SmartMeter"
+                                android:textColor="@color/black"
+                                android:textSize="16dp" />
+
+                            <TextView
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:layout_weight="1"
+                                android:gravity="center"
+                                android:padding="10dp"
+                                android:background="#FFFFFF"
+                                android:layout_marginStart="1dp"
+                                android:layout_marginEnd="1dp"
+                                android:text="221122"
+                                android:textColor="@color/black"
+                                android:textSize="16dp" />
+
+                            <TextView
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:layout_weight="1"
+                                android:gravity="center"
+                                android:padding="10dp"
+                                android:background="#FFFFFF"
+                                android:layout_marginStart="1dp"
+                                android:layout_marginEnd="1dp"
+                                android:text="11221122"
+                                android:textColor="@color/black"
+                                android:textSize="16dp" />
+
+                            <TextView
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:layout_weight="1"
+                                android:gravity="center"
+                                android:padding="10dp"
+                                android:background="#FFFFFF"
+                                android:layout_marginStart="1dp"
+                                android:layout_marginEnd="1dp"
+                                android:text="GD Induk Depok"
+                                android:textColor="@color/black"
+                                android:textSize="16dp" />
+
+                            <TextView
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:layout_weight="1"
+                                android:gravity="center"
+                                android:padding="10dp"
+                                android:background="#FFFFFF"
+                                android:layout_marginStart="1dp"
+                                android:layout_marginEnd="1dp"
+                                android:text="1 Hari Lagi"
+                                android:textColor="@color/black"
+                                android:textSize="16dp" />
+
+                            <TextView
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:layout_weight="1"
+                                android:gravity="center"
+                                android:padding="10dp"
+                                android:background="#FFFFFF"
+                                android:layout_marginStart="1dp"
+                                android:layout_marginEnd="1dp"
+                                android:text="55"
+                                android:textColor="@color/black"
+                                android:textSize="16dp" />
+
+                            <TextView
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:layout_weight="1"
+                                android:gravity="center"
+                                android:background="#FFFFFF"
+                                android:layout_marginStart="1dp"
+                                android:layout_marginEnd="1dp"
+                                android:padding="10dp"
+                                android:text="lorem insum bla bla bla"
+                                android:textColor="@color/black"
+                                android:textSize="16dp" />
+
+                        </TableRow>
+
+                        <TableRow>
+
+                            <TextView
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:layout_weight="1"
+                                android:gravity="center"
+                                android:padding="10dp"
+                                android:layout_marginBottom="1dp"
+                                android:background="#FFFFFF"
+                                android:layout_marginStart="1dp"
+                                android:layout_marginEnd="1dp"
+                                android:text="5"
+                                android:textColor="@color/black"
+                                android:textSize="16dp" />
+
+                            <TextView
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:layout_weight="1"
+                                android:gravity="center"
+                                android:padding="10dp"
+                                android:background="#FFFFFF"
+                                android:layout_marginStart="1dp"
+                                android:layout_marginEnd="1dp"
+                                android:text="123123123"
+                                android:textColor="@color/black"
+                                android:textSize="16dp" />
+
+                            <TextView
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:layout_weight="1"
+                                android:gravity="center"
+                                android:padding="10dp"
+                                android:background="#FFFFFF"
+                                android:layout_marginStart="1dp"
+                                android:layout_marginEnd="1dp"
+                                android:text="SmartMeter"
+                                android:textColor="@color/black"
+                                android:textSize="16dp" />
+
+                            <TextView
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:layout_weight="1"
+                                android:gravity="center"
+                                android:padding="10dp"
+                                android:background="#FFFFFF"
+                                android:layout_marginStart="1dp"
+                                android:layout_marginEnd="1dp"
+                                android:text="221122"
+                                android:textColor="@color/black"
+                                android:textSize="16dp" />
+
+                            <TextView
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:layout_weight="1"
+                                android:gravity="center"
+                                android:padding="10dp"
+                                android:background="#FFFFFF"
+                                android:layout_marginStart="1dp"
+                                android:layout_marginEnd="1dp"
+                                android:text="11221122"
+                                android:textColor="@color/black"
+                                android:textSize="16dp" />
+
+                            <TextView
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:layout_weight="1"
+                                android:gravity="center"
+                                android:padding="10dp"
+                                android:background="#FFFFFF"
+                                android:layout_marginStart="1dp"
+                                android:layout_marginEnd="1dp"
+                                android:text="GD Induk Depok"
+                                android:textColor="@color/black"
+                                android:textSize="16dp" />
+
+                            <TextView
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:layout_weight="1"
+                                android:gravity="center"
+                                android:padding="10dp"
+                                android:background="#FFFFFF"
+                                android:layout_marginStart="1dp"
+                                android:layout_marginEnd="1dp"
+                                android:text="1 Hari Lagi"
+                                android:textColor="@color/black"
+                                android:textSize="16dp" />
+
+                            <TextView
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:layout_weight="1"
+                                android:gravity="center"
+                                android:padding="10dp"
+                                android:background="#FFFFFF"
+                                android:layout_marginStart="1dp"
+                                android:layout_marginEnd="1dp"
+                                android:text="55"
+                                android:textColor="@color/black"
+                                android:textSize="16dp" />
+
+                            <TextView
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:layout_weight="1"
+                                android:gravity="center"
+                                android:background="#FFFFFF"
+                                android:layout_marginStart="1dp"
+                                android:layout_marginEnd="1dp"
+                                android:padding="10dp"
+                                android:text="lorem insum bla bla bla"
+                                android:textColor="@color/black"
+                                android:textSize="16dp" />
+
+                        </TableRow>
+
+                        <TableRow>
+
+                            <TextView
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:layout_weight="1"
+                                android:gravity="center"
+                                android:padding="10dp"
+                                android:layout_marginBottom="1dp"
+                                android:background="#FFFFFF"
+                                android:layout_marginStart="1dp"
+                                android:layout_marginEnd="1dp"
+                                android:text="6"
+                                android:textColor="@color/black"
+                                android:textSize="16dp" />
+
+                            <TextView
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:layout_weight="1"
+                                android:gravity="center"
+                                android:padding="10dp"
+                                android:background="#FFFFFF"
+                                android:layout_marginStart="1dp"
+                                android:layout_marginEnd="1dp"
+                                android:text="123123123"
+                                android:textColor="@color/black"
+                                android:textSize="16dp" />
+
+                            <TextView
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:layout_weight="1"
+                                android:gravity="center"
+                                android:padding="10dp"
+                                android:background="#FFFFFF"
+                                android:layout_marginStart="1dp"
+                                android:layout_marginEnd="1dp"
+                                android:text="SmartMeter"
+                                android:textColor="@color/black"
+                                android:textSize="16dp" />
+
+                            <TextView
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:layout_weight="1"
+                                android:gravity="center"
+                                android:padding="10dp"
+                                android:background="#FFFFFF"
+                                android:layout_marginStart="1dp"
+                                android:layout_marginEnd="1dp"
+                                android:text="221122"
+                                android:textColor="@color/black"
+                                android:textSize="16dp" />
+
+                            <TextView
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:layout_weight="1"
+                                android:gravity="center"
+                                android:padding="10dp"
+                                android:background="#FFFFFF"
+                                android:layout_marginStart="1dp"
+                                android:layout_marginEnd="1dp"
+                                android:text="11221122"
+                                android:textColor="@color/black"
+                                android:textSize="16dp" />
+
+                            <TextView
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:layout_weight="1"
+                                android:gravity="center"
+                                android:padding="10dp"
+                                android:background="#FFFFFF"
+                                android:layout_marginStart="1dp"
+                                android:layout_marginEnd="1dp"
+                                android:text="GD Induk Depok"
+                                android:textColor="@color/black"
+                                android:textSize="16dp" />
+
+                            <TextView
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:layout_weight="1"
+                                android:gravity="center"
+                                android:padding="10dp"
+                                android:background="#FFFFFF"
+                                android:layout_marginStart="1dp"
+                                android:layout_marginEnd="1dp"
+                                android:text="1 Hari Lagi"
+                                android:textColor="@color/black"
+                                android:textSize="16dp" />
+
+                            <TextView
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:layout_weight="1"
+                                android:gravity="center"
+                                android:padding="10dp"
+                                android:background="#FFFFFF"
+                                android:layout_marginStart="1dp"
+                                android:layout_marginEnd="1dp"
+                                android:text="55"
+                                android:textColor="@color/black"
+                                android:textSize="16dp" />
+
+                            <TextView
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:layout_weight="1"
+                                android:gravity="center"
+                                android:background="#FFFFFF"
+                                android:layout_marginStart="1dp"
+                                android:layout_marginEnd="1dp"
+                                android:padding="10dp"
+                                android:text="lorem insum bla bla bla"
+                                android:textColor="@color/black"
+                                android:textSize="16dp" />
+
+                        </TableRow>
+
+
+
+                    </TableLayout>
+                </HorizontalScrollView>
             </LinearLayout>
-
-            <LinearLayout
-                android:id="@+id/lineer2"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:background="#00000000"
-                android:orientation="vertical"
-                app:layout_constraintTop_toBottomOf="@+id/lineer1">
-
-                <TableLayout
-                    android:id="@+id/tbl2"
-                    android:layout_width="match_parent"
-                    android:layout_height="match_parent"
-                    android:layout_marginLeft="1dp"
-                    android:layout_marginRight="1dp"
-                    android:stretchColumns="3">
-
-                    <TableRow android:background="@drawable/ic_btn_border">
-
-                        <TextView
-                            android:id="@+id/txtbaris1"
-                            android:layout_width="26dp"
-                            android:layout_height="wrap_content"
-                            android:layout_gravity="center_horizontal"
-                            android:layout_weight="4"
-                            android:fontFamily="@font/montserrat_reguler"
-                            android:gravity="center"
-                            android:padding="10sp"
-                            android:text="dd/mm/yyyy"
-                            android:textColor="@color/black"
-                            android:textSize="13sp" />
-
-                        <TextView
-                            android:id="@+id/txtbaris2"
-                            android:layout_width="0dp"
-                            android:layout_height="wrap_content"
-                            android:layout_gravity="center_horizontal"
-                            android:layout_weight="5"
-                            android:fontFamily="@font/montserrat_reguler"
-                            android:gravity="center"
-                            android:padding="10sp"
-                            android:text="12121212121212121"
-                            android:textColor="@color/black"
-                            android:textSize="13sp" />
-
-                        <ImageButton
-                            android:id="@+id/img1"
-                            android:layout_width="0dp"
-                            android:layout_height="wrap_content"
-                            android:layout_gravity="center_horizontal"
-                            android:layout_weight="5"
-                            android:background="@android:color/transparent"
-                            android:fontFamily="@font/montserrat_reguler"
-                            android:gravity="center"
-                            android:padding="8sp"
-                            android:src="@drawable/ic_baseline_keyboard_arrow_down_24"
-                            android:text="12121212121212121"
-                            android:textColor="@color/black"
-                            android:textSize="13sp" />
-                    </TableRow>
-
-                </TableLayout>
-
-            </LinearLayout>
-
-            <androidx.constraintlayout.widget.ConstraintLayout
-                android:id="@+id/const2"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:background="@drawable/ic_btn_border"
-                android:padding="8dp"
-                android:visibility="gone"
-                app:layout_constraintTop_toBottomOf="@+id/lineer2"
-                tools:layout_editor_absoluteX="0dp">
-
-                <TextView
-                    android:id="@+id/txt1"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_marginStart="22dp"
-                    android:layout_marginTop="8dp"
-                    android:fontFamily="@font/montserrat_reguler"
-                    android:text="No. Purchase Order"
-                    android:textColor="@color/black"
-                    android:textSize="12sp"
-                    app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toTopOf="parent" />
-
-                <TextView
-                    android:id="@+id/txt2"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_marginStart="52dp"
-                    android:layout_marginTop="8dp"
-                    android:fontFamily="@font/montserrat_reguler"
-                    android:text=":"
-                    android:textColor="@color/black"
-                    android:textSize="12sp"
-                    app:layout_constraintStart_toEndOf="@+id/txt1"
-                    app:layout_constraintTop_toTopOf="parent" />
-
-                <TextView
-                    android:id="@+id/txt3"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_marginStart="16dp"
-                    android:layout_marginTop="8dp"
-                    android:fontFamily="@font/montserrat_reguler"
-                    android:text="12312312312313"
-                    android:textColor="@color/black"
-                    android:textSize="12sp"
-                    app:layout_constraintStart_toEndOf="@+id/txt2"
-                    app:layout_constraintTop_toTopOf="parent" />
-
-                <TextView
-                    android:id="@+id/txt4"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_marginTop="8dp"
-                    android:fontFamily="@font/montserrat_reguler"
-                    android:text="Kode Vendor"
-                    android:textColor="@color/black"
-                    android:textSize="12sp"
-                    app:layout_constraintStart_toStartOf="@id/txt1"
-                    app:layout_constraintTop_toBottomOf="@id/txt1" />
-
-                <TextView
-                    android:id="@+id/txt5"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_marginTop="8dp"
-                    android:fontFamily="@font/montserrat_reguler"
-                    android:text=":"
-                    android:textColor="@color/black"
-                    android:textSize="12sp"
-                    app:layout_constraintEnd_toEndOf="@id/txt2"
-                    app:layout_constraintStart_toStartOf="@+id/txt2"
-                    app:layout_constraintTop_toBottomOf="@id/txt2" />
-
-                <TextView
-                    android:id="@+id/txt6"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_marginTop="8dp"
-                    android:fontFamily="@font/montserrat_reguler"
-                    android:text="xxx-xxxx-xxx"
-                    android:textColor="@color/black"
-                    android:textSize="12sp"
-                    app:layout_constraintStart_toStartOf="@+id/txt3"
-                    app:layout_constraintTop_toBottomOf="@id/txt3" />
-
-                <TextView
-                    android:id="@+id/txt7"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_marginTop="8dp"
-                    android:fontFamily="@font/montserrat_reguler"
-                    android:text="plant"
-                    android:textColor="@color/black"
-                    android:textSize="12sp"
-                    app:layout_constraintStart_toStartOf="@id/txt4"
-                    app:layout_constraintTop_toBottomOf="@id/txt4" />
-
-                <TextView
-                    android:id="@+id/txt8"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_marginTop="8dp"
-                    android:fontFamily="@font/montserrat_reguler"
-                    android:text=":"
-                    android:textColor="@color/black"
-                    android:textSize="12sp"
-                    app:layout_constraintEnd_toEndOf="@id/txt5"
-                    app:layout_constraintStart_toStartOf="@+id/txt5"
-                    app:layout_constraintTop_toBottomOf="@id/txt5" />
-
-                <TextView
-                    android:id="@+id/txt9"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_marginTop="8dp"
-                    android:fontFamily="@font/montserrat_reguler"
-                    android:text="23123"
-                    android:textColor="@color/black"
-                    android:textSize="12sp"
-                    app:layout_constraintStart_toStartOf="@+id/txt6"
-                    app:layout_constraintTop_toBottomOf="@id/txt6" />
-
-                <TextView
-                    android:id="@+id/txt10"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_marginTop="8dp"
-                    android:fontFamily="@font/montserrat_reguler"
-                    android:text="Store Loc"
-                    android:textColor="@color/black"
-                    android:textSize="12sp"
-                    app:layout_constraintStart_toStartOf="@id/txt7"
-                    app:layout_constraintTop_toBottomOf="@id/txt7" />
-
-                <TextView
-                    android:id="@+id/txt11"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_marginTop="8dp"
-                    android:fontFamily="@font/montserrat_reguler"
-                    android:text=":"
-                    android:textColor="@color/black"
-                    android:textSize="12sp"
-                    app:layout_constraintEnd_toEndOf="@id/txt8"
-                    app:layout_constraintStart_toStartOf="@+id/txt8"
-                    app:layout_constraintTop_toBottomOf="@id/txt8" />
-
-                <TextView
-                    android:id="@+id/txt12"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_marginTop="8dp"
-                    android:fontFamily="@font/montserrat_reguler"
-                    android:text="14234"
-                    android:textColor="@color/black"
-                    android:textSize="12sp"
-                    app:layout_constraintStart_toStartOf="@+id/txt9"
-                    app:layout_constraintTop_toBottomOf="@id/txt9" />
-
-                <TextView
-                    android:id="@+id/txt13"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_marginTop="8dp"
-                    android:fontFamily="@font/montserrat_reguler"
-                    android:text="Nama Unit"
-                    android:textColor="@color/black"
-                    android:textSize="12sp"
-                    app:layout_constraintStart_toStartOf="@id/txt10"
-                    app:layout_constraintTop_toBottomOf="@id/txt10" />
-
-                <TextView
-                    android:id="@+id/txt14"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_marginTop="8dp"
-                    android:fontFamily="@font/montserrat_reguler"
-                    android:text=":"
-                    android:textColor="@color/black"
-                    android:textSize="12sp"
-                    app:layout_constraintEnd_toEndOf="@id/txt11"
-                    app:layout_constraintStart_toStartOf="@+id/txt11"
-                    app:layout_constraintTop_toBottomOf="@id/txt11" />
-
-                <TextView
-                    android:id="@+id/txt15"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_marginTop="8dp"
-                    android:fontFamily="@font/montserrat_reguler"
-                    android:text="APJ Cimahi"
-                    android:textColor="@color/black"
-                    android:textSize="12sp"
-                    app:layout_constraintStart_toStartOf="@+id/txt12"
-                    app:layout_constraintTop_toBottomOf="@id/txt12" />
-
-                <TextView
-                    android:id="@+id/txt16"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_marginTop="8dp"
-                    android:fontFamily="@font/montserrat_reguler"
-                    android:text="Kuantitas"
-                    android:textColor="@color/black"
-                    android:textSize="12sp"
-                    app:layout_constraintStart_toStartOf="@id/txt13"
-                    app:layout_constraintTop_toBottomOf="@id/txt13" />
-
-                <TextView
-                    android:id="@+id/txt17"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_marginTop="8dp"
-                    android:fontFamily="@font/montserrat_reguler"
-                    android:text=":"
-                    android:textColor="@color/black"
-                    android:textSize="12sp"
-                    app:layout_constraintEnd_toEndOf="@id/txt14"
-                    app:layout_constraintStart_toStartOf="@+id/txt14"
-                    app:layout_constraintTop_toBottomOf="@id/txt14" />
-
-                <TextView
-                    android:id="@+id/txt18"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_marginTop="8dp"
-                    android:fontFamily="@font/montserrat_reguler"
-                    android:text="100 buah"
-                    android:textColor="@color/black"
-                    android:textSize="12sp"
-                    app:layout_constraintStart_toStartOf="@+id/txt15"
-                    app:layout_constraintTop_toBottomOf="@id/txt15" />
-
-                <ImageButton
-                    android:id="@+id/btn1"
-                    android:layout_width="12dp"
-                    android:layout_height="12dp"
-                    android:layout_marginStart="5dp"
-                    android:layout_marginBottom="8dp"
-                    android:background="@drawable/bg_hitam"
-                    android:src="@drawable/arrowoutward"
-                    app:layout_constraintBottom_toBottomOf="@id/txt18"
-                    app:layout_constraintStart_toEndOf="@id/txt18"
-                    app:layout_constraintTop_toTopOf="@id/txt18" />
-
-                <TextView
-                    android:id="@+id/txt19"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_marginTop="8dp"
-                    android:fontFamily="@font/montserrat_reguler"
-                    android:text="Lead Time"
-                    android:textColor="@color/black"
-                    android:textSize="12sp"
-                    app:layout_constraintStart_toStartOf="@id/txt16"
-                    app:layout_constraintTop_toBottomOf="@id/txt16" />
-
-                <TextView
-                    android:id="@+id/txt20"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_marginTop="8dp"
-                    android:fontFamily="@font/montserrat_reguler"
-                    android:text=":"
-                    android:textColor="@color/black"
-                    android:textSize="12sp"
-                    app:layout_constraintEnd_toEndOf="@id/txt17"
-                    app:layout_constraintStart_toStartOf="@+id/txt17"
-                    app:layout_constraintTop_toBottomOf="@id/txt17" />
-
-                <TextView
-                    android:id="@+id/txt21"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_marginTop="8dp"
-                    android:fontFamily="@font/montserrat_reguler"
-                    android:text="11/1/2022"
-                    android:textColor="@color/black"
-                    android:textSize="12sp"
-                    app:layout_constraintStart_toStartOf="@+id/txt18"
-                    app:layout_constraintTop_toBottomOf="@id/txt18" />
-
-                <TextView
-                    android:id="@+id/txt22"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_marginTop="8dp"
-                    android:fontFamily="@font/montserrat_reguler"
-                    android:text="Lead Time"
-                    android:textColor="@color/black"
-                    android:textSize="12sp"
-                    app:layout_constraintStart_toStartOf="@id/txt19"
-                    app:layout_constraintTop_toBottomOf="@id/txt19" />
-
-                <TextView
-                    android:id="@+id/txt23"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_marginTop="8dp"
-                    android:fontFamily="@font/montserrat_reguler"
-                    android:text=":"
-                    android:textColor="@color/black"
-                    android:textSize="12sp"
-                    app:layout_constraintEnd_toEndOf="@id/txt20"
-                    app:layout_constraintStart_toStartOf="@+id/txt20"
-                    app:layout_constraintTop_toBottomOf="@id/txt20" />
-
-
-            </androidx.constraintlayout.widget.ConstraintLayout>
-
-            <LinearLayout
-                android:id="@+id/lineer3"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:background="#00000000"
-                android:orientation="vertical"
-                app:layout_constraintTop_toBottomOf="@+id/const2">
-
-                <TableLayout
-                    android:id="@+id/tbl3"
-                    android:layout_width="match_parent"
-                    android:layout_height="match_parent"
-                    android:layout_marginLeft="1dp"
-                    android:layout_marginRight="1dp"
-                    android:stretchColumns="3">
-
-                    <TableRow android:background="@drawable/ic_btn_border">
-
-                        <TextView
-                            android:id="@+id/txtbariske1"
-                            android:layout_width="26dp"
-                            android:layout_height="wrap_content"
-                            android:layout_gravity="center_horizontal"
-                            android:layout_weight="4"
-                            android:fontFamily="@font/montserrat_reguler"
-                            android:gravity="center"
-                            android:padding="10sp"
-                            android:text="dd/mm/yyyy"
-                            android:textColor="@color/black"
-                            android:textSize="13sp" />
-
-                        <TextView
-                            android:id="@+id/txtbariske2"
-                            android:layout_width="0dp"
-                            android:layout_height="wrap_content"
-                            android:layout_gravity="center_horizontal"
-                            android:layout_weight="5"
-                            android:fontFamily="@font/montserrat_reguler"
-                            android:gravity="center"
-                            android:padding="10sp"
-                            android:text="12121212121212121"
-                            android:textColor="@color/black"
-                            android:textSize="13sp" />
-
-                        <ImageView
-                            android:id="@+id/img2"
-                            android:layout_width="0dp"
-                            android:layout_height="wrap_content"
-                            android:layout_gravity="center_horizontal"
-                            android:layout_weight="5"
-                            android:fontFamily="@font/montserrat_reguler"
-                            android:gravity="center"
-                            android:padding="8sp"
-                            android:src="@drawable/ic_baseline_keyboard_arrow_down_24"
-                            android:text="12121212121212121"
-                            android:textColor="@color/black"
-                            android:textSize="13sp" />
-                    </TableRow>
-
-                </TableLayout>
-
-            </LinearLayout>
-
-            <LinearLayout
-                android:id="@+id/lineer4"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:background="#00000000"
-                android:orientation="vertical"
-                app:layout_constraintTop_toBottomOf="@+id/lineer3">
-
-                <TableLayout
-                    android:id="@+id/tbl4"
-                    android:layout_width="match_parent"
-                    android:layout_height="match_parent"
-                    android:layout_marginLeft="1dp"
-                    android:layout_marginRight="1dp"
-                    android:stretchColumns="3">
-
-                    <TableRow android:background="@drawable/ic_btn_border">
-
-                        <TextView
-                            android:id="@+id/txtbariske3"
-                            android:layout_width="26dp"
-                            android:layout_height="wrap_content"
-                            android:layout_gravity="center_horizontal"
-                            android:layout_weight="4"
-                            android:fontFamily="@font/montserrat_reguler"
-                            android:gravity="center"
-                            android:padding="10sp"
-                            android:text="dd/mm/yyyy"
-                            android:textColor="@color/black"
-                            android:textSize="13sp" />
-
-                        <TextView
-                            android:id="@+id/txtbariske4"
-                            android:layout_width="0dp"
-                            android:layout_height="wrap_content"
-                            android:layout_gravity="center_horizontal"
-                            android:layout_weight="5"
-                            android:fontFamily="@font/montserrat_reguler"
-                            android:gravity="center"
-                            android:padding="10sp"
-                            android:text="12121212121212121"
-                            android:textColor="@color/black"
-                            android:textSize="13sp" />
-
-                        <ImageView
-                            android:id="@+id/img3"
-                            android:layout_width="0dp"
-                            android:layout_height="wrap_content"
-                            android:layout_gravity="center_horizontal"
-                            android:layout_weight="5"
-                            android:fontFamily="@font/montserrat_reguler"
-                            android:gravity="center"
-                            android:padding="8sp"
-                            android:src="@drawable/ic_baseline_keyboard_arrow_down_24"
-                            android:text="12121212121212121"
-                            android:textColor="@color/black"
-                            android:textSize="13sp" />
-                    </TableRow>
-
-                </TableLayout>
-
-            </LinearLayout>
-
-            <LinearLayout
-                android:id="@+id/lineer5"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:background="#00000000"
-                android:orientation="vertical"
-                app:layout_constraintTop_toBottomOf="@+id/lineer4">
-
-                <TableLayout
-                    android:id="@+id/tbl5"
-                    android:layout_width="match_parent"
-                    android:layout_height="match_parent"
-                    android:layout_marginLeft="1dp"
-                    android:layout_marginRight="1dp"
-                    android:stretchColumns="3">
-
-                    <TableRow android:background="@drawable/ic_btn_border">
-
-                        <TextView
-                            android:id="@+id/txtbariske5"
-                            android:layout_width="26dp"
-                            android:layout_height="wrap_content"
-                            android:layout_gravity="center_horizontal"
-                            android:layout_weight="4"
-                            android:fontFamily="@font/montserrat_reguler"
-                            android:gravity="center"
-                            android:padding="10sp"
-                            android:text="dd/mm/yyyy"
-                            android:textColor="@color/black"
-                            android:textSize="13sp" />
-
-                        <TextView
-                            android:id="@+id/txtbariske6"
-                            android:layout_width="0dp"
-                            android:layout_height="wrap_content"
-                            android:layout_gravity="center_horizontal"
-                            android:layout_weight="5"
-                            android:fontFamily="@font/montserrat_reguler"
-                            android:gravity="center"
-                            android:padding="10sp"
-                            android:text="12121212121212121"
-                            android:textColor="@color/black"
-                            android:textSize="13sp" />
-
-                        <ImageView
-                            android:id="@+id/img4"
-                            android:layout_width="0dp"
-                            android:layout_height="wrap_content"
-                            android:layout_gravity="center_horizontal"
-                            android:layout_weight="5"
-                            android:fontFamily="@font/montserrat_reguler"
-                            android:gravity="center"
-                            android:padding="8sp"
-                            android:src="@drawable/ic_baseline_keyboard_arrow_down_24"
-                            android:text="12121212121212121"
-                            android:textColor="@color/black"
-                            android:textSize="13sp" />
-                    </TableRow>
-
-                </TableLayout>
-
-            </LinearLayout>
-
-            <LinearLayout
-                android:id="@+id/lineer6"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:background="#00000000"
-                android:orientation="vertical"
-                app:layout_constraintTop_toBottomOf="@+id/lineer5">
-
-                <TableLayout
-                    android:id="@+id/tbl6"
-                    android:layout_width="match_parent"
-                    android:layout_height="match_parent"
-                    android:layout_marginLeft="1dp"
-                    android:layout_marginRight="1dp"
-                    android:stretchColumns="3">
-
-                    <TableRow android:background="@drawable/bts_bottom">
-
-                        <TextView
-                            android:id="@+id/txtbariske7"
-                            android:layout_width="26dp"
-                            android:layout_height="wrap_content"
-                            android:layout_gravity="center_horizontal"
-                            android:layout_weight="4"
-                            android:fontFamily="@font/montserrat_reguler"
-                            android:gravity="center"
-                            android:padding="10sp"
-                            android:text="dd/mm/yyyy"
-                            android:textColor="@color/black"
-                            android:textSize="13sp" />
-
-                        <TextView
-                            android:id="@+id/txtbariske8"
-                            android:layout_width="0dp"
-                            android:layout_height="wrap_content"
-                            android:layout_gravity="center_horizontal"
-                            android:layout_weight="5"
-                            android:fontFamily="@font/montserrat_reguler"
-                            android:gravity="center"
-                            android:padding="10sp"
-                            android:text="12121212121212121"
-                            android:textColor="@color/black"
-                            android:textSize="13sp" />
-
-                        <ImageView
-                            android:id="@+id/img5"
-                            android:layout_width="0dp"
-                            android:layout_height="wrap_content"
-                            android:layout_gravity="center_horizontal"
-                            android:layout_weight="5"
-                            android:fontFamily="@font/montserrat_reguler"
-                            android:gravity="center"
-                            android:padding="8sp"
-                            android:src="@drawable/ic_baseline_keyboard_arrow_down_24"
-                            android:text="12121212121212121"
-                            android:textColor="@color/black"
-                            android:textSize="13sp" />
-                    </TableRow>
-
-                </TableLayout>
-
-            </LinearLayout>
-
-
-
-
-
         </androidx.constraintlayout.widget.ConstraintLayout>
 
         <androidx.constraintlayout.widget.ConstraintLayout
@@ -927,7 +1080,6 @@
                 app:layout_constraintTop_toTopOf="parent" />
 
 
-
             <ImageButton
                 android:id="@+id/btnprevios"
                 android:layout_width="25dp"
@@ -963,10 +1115,6 @@
                 app:layout_constraintStart_toEndOf="@id/btnprevios"
                 app:layout_constraintTop_toTopOf="parent"
                 tools:ignore="MissingConstraints" />
-
-
         </androidx.constraintlayout.widget.ConstraintLayout>
     </androidx.constraintlayout.widget.ConstraintLayout>
-
-
 </ScrollView>

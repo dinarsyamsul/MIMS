@@ -12,8 +12,8 @@
     <ImageView
         android:id="@+id/dashboard"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:background="@drawable/top" />
+        android:layout_height="100dp"
+        android:background="@drawable/dashboard" />
 
     <ImageButton
         android:id="@+id/back"
@@ -36,17 +36,6 @@
         android:text="Data Atribut Material"
         android:textColor="@color/white"
         android:textStyle="bold" />
-
-    <ImageButton
-        android:id="@+id/bell"
-        android:layout_width="40dp"
-        android:layout_height="40dp"
-        android:layout_alignParentEnd="true"
-        android:layout_marginTop="30dp"
-        android:layout_marginRight="25dp"
-        android:background="@drawable/textfield"
-        android:elevation="10dp"
-        android:src="@drawable/ic_baseline_notifications_none_24" />
 
     <androidx.constraintlayout.widget.ConstraintLayout
         android:id="@+id/const1"
@@ -80,7 +69,8 @@
             android:text="Upload File Excel"
             android:textAlignment="center"
             android:textColor="#808080"
-            app:layout_constraintStart_toStartOf="parent" />
+            app:layout_constraintStart_toStartOf="parent"
+            tools:ignore="MissingConstraints" />
 
         <TextView
             android:layout_width="wrap_content"
@@ -116,438 +106,589 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_below="@+id/const1"
-        android:layout_marginTop="30dp"
         android:background="#00000000"
         android:orientation="vertical">
 
-        <TableLayout
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:layout_marginLeft="10dp"
-            android:layout_marginRight="10dp"
-            android:background="@drawable/table_monitoring"
-            android:stretchColumns="6">
-
-            <TableRow android:background="@drawable/ic_btn_border">
-
-                <TextView
-                    android:layout_width="0dp"
-                    android:layout_height="wrap_content"
-                    android:layout_gravity="center_horizontal"
-                    android:layout_weight="4"
-                    android:background="@drawable/ic_btn_border"
-                    android:fontFamily="@font/montserrat_reguler"
-                    android:gravity="center"
-                    android:padding="10sp"
-                    android:text="No PO"
-                    android:textColor="@color/black"
-                    android:textSize="13sp" />
-
-                <TextView
-                    android:layout_width="0dp"
-                    android:layout_height="wrap_content"
-                    android:layout_gravity="center_horizontal"
-                    android:layout_weight="4"
-                    android:fontFamily="@font/montserrat_reguler"
-                    android:gravity="center"
-                    android:paddingTop="10dp"
-                    android:text="Tanggal PO"
-                    android:textColor="@color/black"
-                    android:textSize="14sp" />
-
-                <TextView
-                    android:layout_width="0dp"
-                    android:layout_height="wrap_content"
-                    android:layout_gravity="center_horizontal"
-                    android:layout_weight="4"
-                    android:background="@drawable/ic_btn_border"
-                    android:fontFamily="@font/montserrat_reguler"
-                    android:gravity="center"
-                    android:padding="10sp"
-                    android:text="Unit"
-                    android:textColor="@color/black"
-                    android:textSize="13sp" />
-
-                <TextView
-                    android:layout_width="0dp"
-                    android:layout_height="wrap_content"
-                    android:layout_gravity="center_horizontal"
-                    android:layout_weight="4"
-                    android:background="@drawable/ic_btn_border"
-                    android:fontFamily="@font/montserrat_reguler"
-                    android:gravity="center"
-                    android:padding="10sp"
-                    android:text="Detail"
-                    android:textColor="@color/black"
-                    android:textSize="13sp" />
-
-            </TableRow>
-
-        </TableLayout>
-
-    </LinearLayout>
-
-    <LinearLayout
-        android:id="@+id/line2"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_below="@+id/line1"
-        android:layout_marginTop="1dp"
-        android:background="#00000000"
-        android:orientation="vertical">
-
-        <TableLayout
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:id="@+id/materialConst"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginLeft="10dp"
-            android:layout_marginRight="10dp"
-            android:stretchColumns="6">
+            android:layout_marginStart="12dp"
+            android:layout_marginEnd="13dp"
+            app:layout_constraintTop_toBottomOf="@+id/const1">
 
-            <TableRow android:background="@drawable/ic_btn_border">
+            <LinearLayout
+                android:id="@+id/lineer1"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:background="#00000000"
+                android:orientation="vertical"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent">
 
-                <TextView
-                    android:layout_width="0dp"
-                    android:layout_height="wrap_content"
-                    android:layout_gravity="center_horizontal"
-                    android:layout_weight="4"
-                    android:fontFamily="@font/montserrat_reguler"
-                    android:gravity="center"
-                    android:padding="10sp"
-                    android:text="xxxxxx"
-                    android:textColor="@color/black"
-                    android:textSize="13sp" />
+                <HorizontalScrollView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content">
 
-                <TextView
-                    android:layout_width="0dp"
-                    android:layout_height="wrap_content"
-                    android:layout_gravity="center_horizontal"
-                    android:layout_weight="4"
-                    android:fontFamily="@font/montserrat_reguler"
-                    android:gravity="center_horizontal"
-                    android:padding="10sp"
-                    android:text="dd/mm/yy"
-                    android:textColor="@color/black"
-                    android:textSize="13sp" />
+                    <TableLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginHorizontal="10dp"
+                        android:layout_marginVertical="30dp"
+                        android:background="#B9B9B9">
 
-                <TextView
-                    android:layout_width="0dp"
-                    android:layout_height="wrap_content"
-                    android:layout_gravity="center_horizontal"
-                    android:layout_marginEnd="38dp"
-                    android:layout_weight="4"
-                    android:fontFamily="@font/montserrat_reguler"
-                    android:gravity="center_horizontal"
-                    android:padding="10sp"
-                    android:text="APJ CIMAHI"
-                    android:textColor="@color/black"
-                    android:textSize="13sp" />
+                        <TableRow>
 
-                <ImageButton
-                    android:id="@+id/btnupload1"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_gravity="center"
-                    android:layout_marginEnd="22dp"
-                    android:background="@drawable/ant_design_file_search_outlined"
-                    android:gravity="center"/>
+                            <TextView
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:layout_weight="1"
+                                android:gravity="center"
+                                android:padding="10dp"
+                                android:text="No"
+                                android:textColor="@color/black"
+                                android:textSize="16dp" />
 
-            </TableRow>
+                            <TextView
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:layout_weight="1"
+                                android:gravity="center"
+                                android:padding="10dp"
+                                android:text="Tanggal Upload"
+                                android:textColor="@color/black"
+                                android:textSize="16dp" />
 
-        </TableLayout>
+                            <TextView
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:layout_weight="1"
+                                android:gravity="center"
+                                android:padding="10dp"
+                                android:text="No Batch"
+                                android:textColor="@color/black"
+                                android:textSize="16dp" />
+
+                            <TextView
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:layout_weight="1"
+                                android:gravity="center"
+                                android:padding="10dp"
+                                android:text="Detail"
+                                android:textColor="@color/black"
+                                android:textSize="16dp" />
+
+                            <TextView
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:layout_weight="1"
+                                android:gravity="center"
+                                android:padding="10dp"
+                                android:text="Source"
+                                android:textColor="@color/black"
+                                android:textSize="16dp" />
+
+                            <TextView
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:layout_weight="1"
+                                android:gravity="center"
+                                android:padding="10dp"
+                                android:text="Action"
+                                android:textColor="@color/black"
+                                android:textSize="16dp" />
+
+                        </TableRow>
+
+                        <TableRow>
+
+                            <TextView
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:layout_marginStart="1dp"
+                                android:layout_marginEnd="1dp"
+                                android:layout_weight="1"
+                                android:background="#FFFFFF"
+                                android:gravity="center"
+                                android:padding="10dp"
+                                android:text="1"
+                                android:textColor="@color/black"
+                                android:textSize="16dp" />
+
+                            <TextView
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:layout_marginEnd="1dp"
+                                android:layout_weight="1"
+                                android:background="#FFFFFF"
+                                android:gravity="center"
+                                android:padding="10dp"
+                                android:text="DD/MM/YYYY"
+                                android:textColor="@color/black"
+                                android:textSize="16dp" />
+
+                            <TextView
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:layout_marginEnd="1dp"
+                                android:layout_weight="1"
+                                android:background="#FFFFFF"
+                                android:gravity="center"
+                                android:padding="10dp"
+                                android:text="123123123"
+                                android:textColor="@color/black"
+                                android:textSize="16dp" />
+
+                            <ImageButton
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:layout_marginHorizontal="1dp"
+                                android:layout_marginBottom="1dp"
+                                android:layout_weight="1"
+                                android:background="#FFFFFF"
+                                android:gravity="center"
+                                android:padding="12dp"
+                                android:src="@drawable/ant_design_file_search_outlined" />
+
+                            <TextView
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:layout_marginEnd="1dp"
+                                android:layout_weight="1"
+                                android:background="#FFFFFF"
+                                android:gravity="center"
+                                android:padding="10dp"
+                                android:text="Excel / API"
+                                android:textColor="@color/black"
+                                android:textSize="16dp" />
+
+                            <LinearLayout
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content">
+
+                                <ImageButton
+                                    android:layout_width="40dp"
+                                    android:layout_height="42dp"
+                                    android:layout_marginHorizontal="1dp"
+                                    android:layout_marginBottom="1dp"
+                                    android:layout_weight="1"
+                                    android:background="#FFFFFF"
+                                    android:gravity="center"
+                                    android:padding="12dp"
+                                    android:src="@drawable/icondelete1"
+                                    android:text="Detail"
+                                    android:textSize="16sp" />
+
+                                <ImageButton
+                                    android:layout_width="40dp"
+                                    android:layout_height="42dp"
+                                    android:layout_marginHorizontal="1dp"
+                                    android:layout_marginBottom="1dp"
+                                    android:layout_weight="1"
+                                    android:background="#FFFFFF"
+                                    android:gravity="center"
+                                    android:padding="12dp"
+                                    android:src="@drawable/iconupload"
+                                    android:text="Detail"
+                                    android:textSize="16sp" />
+                            </LinearLayout>
+
+                        </TableRow>
+
+                        <TableRow>
+
+                            <TextView
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:layout_marginStart="1dp"
+                                android:layout_marginEnd="1dp"
+                                android:layout_weight="1"
+                                android:background="#FFFFFF"
+                                android:gravity="center"
+                                android:padding="10dp"
+                                android:text="2"
+                                android:textColor="@color/black"
+                                android:textSize="16dp" />
+
+                            <TextView
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:layout_marginEnd="1dp"
+                                android:layout_weight="1"
+                                android:background="#FFFFFF"
+                                android:gravity="center"
+                                android:padding="10dp"
+                                android:text="DD/MM/YYYY"
+                                android:textColor="@color/black"
+                                android:textSize="16dp" />
+
+                            <TextView
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:layout_marginEnd="1dp"
+                                android:layout_weight="1"
+                                android:background="#FFFFFF"
+                                android:gravity="center"
+                                android:padding="10dp"
+                                android:text="123123123"
+                                android:textColor="@color/black"
+                                android:textSize="16dp" />
+
+                            <ImageButton
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:layout_marginHorizontal="1dp"
+                                android:layout_marginBottom="1dp"
+                                android:layout_weight="1"
+                                android:background="#FFFFFF"
+                                android:gravity="center"
+                                android:padding="12dp"
+                                android:src="@drawable/ant_design_file_search_outlined" />
+
+                            <TextView
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:layout_marginEnd="1dp"
+                                android:layout_weight="1"
+                                android:background="#FFFFFF"
+                                android:gravity="center"
+                                android:padding="10dp"
+                                android:text="Excel / API"
+                                android:textColor="@color/black"
+                                android:textSize="16dp" />
+
+                            <LinearLayout
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content">
+
+                                <ImageButton
+                                    android:layout_width="40dp"
+                                    android:layout_height="42dp"
+                                    android:layout_marginHorizontal="1dp"
+                                    android:layout_marginBottom="1dp"
+                                    android:layout_weight="1"
+                                    android:background="#FFFFFF"
+                                    android:gravity="center"
+                                    android:padding="12dp"
+                                    android:src="@drawable/icondelete1"
+                                    android:text="Detail"
+                                    android:textSize="16sp" />
+
+                                <ImageButton
+                                    android:layout_width="40dp"
+                                    android:layout_height="42dp"
+                                    android:layout_marginHorizontal="1dp"
+                                    android:layout_marginBottom="1dp"
+                                    android:layout_weight="1"
+                                    android:background="#FFFFFF"
+                                    android:gravity="center"
+                                    android:padding="12dp"
+                                    android:src="@drawable/iconupload"
+                                    android:text="Detail"
+                                    android:textSize="16sp" />
+                            </LinearLayout>
+
+                        </TableRow>
+
+                        <TableRow>
+
+                            <TextView
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:layout_marginStart="1dp"
+                                android:layout_marginEnd="1dp"
+                                android:layout_weight="1"
+                                android:background="#FFFFFF"
+                                android:gravity="center"
+                                android:padding="10dp"
+                                android:text="3"
+                                android:textColor="@color/black"
+                                android:textSize="16dp" />
+
+                            <TextView
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:layout_marginEnd="1dp"
+                                android:layout_weight="1"
+                                android:background="#FFFFFF"
+                                android:gravity="center"
+                                android:padding="10dp"
+                                android:text="DD/MM/YYYY"
+                                android:textColor="@color/black"
+                                android:textSize="16dp" />
+
+                            <TextView
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:layout_marginEnd="1dp"
+                                android:layout_weight="1"
+                                android:background="#FFFFFF"
+                                android:gravity="center"
+                                android:padding="10dp"
+                                android:text="123123123"
+                                android:textColor="@color/black"
+                                android:textSize="16dp" />
+
+                            <ImageButton
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:layout_marginHorizontal="1dp"
+                                android:layout_marginBottom="1dp"
+                                android:layout_weight="1"
+                                android:background="#FFFFFF"
+                                android:gravity="center"
+                                android:padding="12dp"
+                                android:src="@drawable/ant_design_file_search_outlined" />
+
+                            <TextView
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:layout_marginEnd="1dp"
+                                android:layout_weight="1"
+                                android:background="#FFFFFF"
+                                android:gravity="center"
+                                android:padding="10dp"
+                                android:text="Excel / API"
+                                android:textColor="@color/black"
+                                android:textSize="16dp" />
+
+                            <LinearLayout
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content">
+
+                                <ImageButton
+                                    android:layout_width="40dp"
+                                    android:layout_height="42dp"
+                                    android:layout_marginHorizontal="1dp"
+                                    android:layout_marginBottom="1dp"
+                                    android:layout_weight="1"
+                                    android:background="#FFFFFF"
+                                    android:gravity="center"
+                                    android:padding="12dp"
+                                    android:src="@drawable/icondelete1"
+                                    android:text="Detail"
+                                    android:textSize="16sp" />
+
+                                <ImageButton
+                                    android:layout_width="40dp"
+                                    android:layout_height="42dp"
+                                    android:layout_marginHorizontal="1dp"
+                                    android:layout_marginBottom="1dp"
+                                    android:layout_weight="1"
+                                    android:background="#FFFFFF"
+                                    android:gravity="center"
+                                    android:padding="12dp"
+                                    android:src="@drawable/iconupload"
+                                    android:text="Detail"
+                                    android:textSize="16sp" />
+                            </LinearLayout>
+
+                        </TableRow>
+
+                        <TableRow>
+
+                            <TextView
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:layout_marginStart="1dp"
+                                android:layout_marginEnd="1dp"
+                                android:layout_weight="1"
+                                android:background="#FFFFFF"
+                                android:gravity="center"
+                                android:padding="10dp"
+                                android:text="4"
+                                android:textColor="@color/black"
+                                android:textSize="16dp" />
+
+                            <TextView
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:layout_marginEnd="1dp"
+                                android:layout_weight="1"
+                                android:background="#FFFFFF"
+                                android:gravity="center"
+                                android:padding="10dp"
+                                android:text="DD/MM/YYYY"
+                                android:textColor="@color/black"
+                                android:textSize="16dp" />
+
+                            <TextView
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:layout_marginEnd="1dp"
+                                android:layout_weight="1"
+                                android:background="#FFFFFF"
+                                android:gravity="center"
+                                android:padding="10dp"
+                                android:text="123123123"
+                                android:textColor="@color/black"
+                                android:textSize="16dp" />
+
+                            <ImageButton
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:layout_marginHorizontal="1dp"
+                                android:layout_marginBottom="1dp"
+                                android:layout_weight="1"
+                                android:background="#FFFFFF"
+                                android:gravity="center"
+                                android:padding="12dp"
+                                android:src="@drawable/ant_design_file_search_outlined" />
+
+                            <TextView
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:layout_marginEnd="1dp"
+                                android:layout_weight="1"
+                                android:background="#FFFFFF"
+                                android:gravity="center"
+                                android:padding="10dp"
+                                android:text="Excel / API"
+                                android:textColor="@color/black"
+                                android:textSize="16dp" />
+
+                            <LinearLayout
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content">
+
+                                <ImageButton
+                                    android:layout_width="40dp"
+                                    android:layout_height="42dp"
+                                    android:layout_marginHorizontal="1dp"
+                                    android:layout_marginBottom="1dp"
+                                    android:layout_weight="1"
+                                    android:background="#FFFFFF"
+                                    android:gravity="center"
+                                    android:padding="12dp"
+                                    android:src="@drawable/icondelete1"
+                                    android:text="Detail"
+                                    android:textSize="16sp" />
+
+                                <ImageButton
+                                    android:layout_width="40dp"
+                                    android:layout_height="42dp"
+                                    android:layout_marginHorizontal="1dp"
+                                    android:layout_marginBottom="1dp"
+                                    android:layout_weight="1"
+                                    android:background="#FFFFFF"
+                                    android:gravity="center"
+                                    android:padding="12dp"
+                                    android:src="@drawable/iconupload"
+                                    android:text="Detail"
+                                    android:textSize="16sp" />
+                            </LinearLayout>
+
+                        </TableRow>
+
+                        <TableRow>
+
+                            <TextView
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:layout_marginStart="1dp"
+                                android:layout_marginEnd="1dp"
+                                android:layout_weight="1"
+                                android:background="#FFFFFF"
+                                android:gravity="center"
+                                android:padding="10dp"
+                                android:text="5"
+                                android:textColor="@color/black"
+                                android:textSize="16dp" />
+
+                            <TextView
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:layout_marginEnd="1dp"
+                                android:layout_weight="1"
+                                android:background="#FFFFFF"
+                                android:gravity="center"
+                                android:padding="10dp"
+                                android:text="DD/MM/YYYY"
+                                android:textColor="@color/black"
+                                android:textSize="16dp" />
+
+                            <TextView
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:layout_marginEnd="1dp"
+                                android:layout_weight="1"
+                                android:background="#FFFFFF"
+                                android:gravity="center"
+                                android:padding="10dp"
+                                android:text="123123123"
+                                android:textColor="@color/black"
+                                android:textSize="16dp" />
+
+                            <ImageButton
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:layout_marginHorizontal="1dp"
+                                android:layout_marginBottom="1dp"
+                                android:layout_weight="1"
+                                android:background="#FFFFFF"
+                                android:gravity="center"
+                                android:padding="12dp"
+                                android:src="@drawable/ant_design_file_search_outlined" />
+
+                            <TextView
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:layout_marginEnd="1dp"
+                                android:layout_weight="1"
+                                android:background="#FFFFFF"
+                                android:gravity="center"
+                                android:padding="10dp"
+                                android:text="Excel / API"
+                                android:textColor="@color/black"
+                                android:textSize="16dp" />
+
+                            <LinearLayout
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content">
+
+                                <ImageButton
+                                    android:layout_width="40dp"
+                                    android:layout_height="42dp"
+                                    android:layout_marginHorizontal="1dp"
+                                    android:layout_marginBottom="1dp"
+                                    android:layout_weight="1"
+                                    android:background="#FFFFFF"
+                                    android:gravity="center"
+                                    android:padding="12dp"
+                                    android:src="@drawable/icondelete1"
+                                    android:text="Detail"
+                                    android:textSize="16sp" />
+
+                                <ImageButton
+                                    android:layout_width="40dp"
+                                    android:layout_height="42dp"
+                                    android:layout_marginHorizontal="1dp"
+                                    android:layout_marginBottom="1dp"
+                                    android:layout_weight="1"
+                                    android:background="#FFFFFF"
+                                    android:gravity="center"
+                                    android:padding="12dp"
+                                    android:src="@drawable/iconupload"
+                                    android:text="Detail"
+                                    android:textSize="16sp" />
+                            </LinearLayout>
+
+                        </TableRow>
+                    </TableLayout>
+                </HorizontalScrollView>
+            </LinearLayout>
+        </androidx.constraintlayout.widget.ConstraintLayout>
 
     </LinearLayout>
 
-    <LinearLayout
-        android:id="@+id/line3"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_below="@+id/line2"
-        android:layout_marginTop="1dp"
-        android:background="#00000000"
-        android:orientation="vertical">
-
-        <TableLayout
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginLeft="10dp"
-            android:layout_marginRight="10dp"
-            android:stretchColumns="6">
-
-            <TableRow android:background="@drawable/ic_btn_border">
-
-                <TextView
-                    android:layout_width="0dp"
-                    android:layout_height="wrap_content"
-                    android:layout_gravity="center_horizontal"
-                    android:layout_weight="4"
-                    android:fontFamily="@font/montserrat_reguler"
-                    android:gravity="center_horizontal"
-                    android:padding="10sp"
-                    android:text="xxxxxx"
-                    android:textColor="@color/black"
-                    android:textSize="13sp" />
-
-                <TextView
-                    android:layout_width="0dp"
-                    android:layout_height="wrap_content"
-                    android:layout_gravity="center_horizontal"
-                    android:layout_weight="4"
-                    android:fontFamily="@font/montserrat_reguler"
-                    android:gravity="center_horizontal"
-                    android:padding="10sp"
-                    android:text="dd/mm/yy"
-                    android:textColor="@color/black"
-                    android:textSize="13sp" />
-
-                <TextView
-                    android:layout_width="0dp"
-                    android:layout_height="wrap_content"
-                    android:layout_gravity="center_horizontal"
-                    android:layout_marginRight="38dp"
-                    android:layout_weight="4"
-                    android:fontFamily="@font/montserrat_reguler"
-                    android:gravity="center_horizontal"
-                    android:padding="10sp"
-                    android:text="@string/apj_cimahi"
-                    android:textColor="@color/black"
-                    android:textSize="13sp" />
-
-                <ImageButton
-                    android:id="@+id/btnupload2"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_gravity="center"
-                    android:layout_marginRight="22dp"
-                    android:background="@drawable/ant_design_file_search_outlined"
-                    android:gravity="center" />
-
-            </TableRow>
-
-        </TableLayout>
-
-    </LinearLayout>
-
-    <LinearLayout
-        android:id="@+id/line4"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_below="@+id/line3"
-        android:layout_marginTop="1dp"
-        android:background="#00000000"
-        android:orientation="vertical">
-
-        <TableLayout
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginLeft="10dp"
-            android:layout_marginRight="10dp"
-            android:stretchColumns="6">
-
-            <TableRow android:background="@drawable/ic_btn_border">
-
-                <TextView
-                    android:layout_width="0dp"
-                    android:layout_height="wrap_content"
-                    android:layout_gravity="center_horizontal"
-                    android:layout_weight="4"
-                    android:fontFamily="@font/montserrat_reguler"
-                    android:gravity="center"
-                    android:padding="10sp"
-                    android:text="xxxxxx"
-                    android:textColor="@color/black"
-                    android:textSize="13sp" />
-
-                <TextView
-                    android:layout_width="0dp"
-                    android:layout_height="wrap_content"
-                    android:layout_gravity="center_horizontal"
-                    android:layout_weight="4"
-                    android:fontFamily="@font/montserrat_reguler"
-                    android:gravity="center"
-                    android:padding="10sp"
-                    android:text="dd/mm/yy"
-                    android:textColor="@color/black"
-                    android:textSize="13sp" />
-
-                <TextView
-                    android:layout_width="0dp"
-                    android:layout_height="wrap_content"
-                    android:layout_gravity="center_horizontal"
-                    android:layout_marginEnd="38dp"
-                    android:layout_weight="4"
-                    android:fontFamily="@font/montserrat_reguler"
-                    android:gravity="center_horizontal"
-                    android:padding="10sp"
-                    android:text="APJ CIMAHI"
-                    android:textColor="@color/black"
-                    android:textSize="13sp" />
-
-                <ImageButton
-                    android:id="@+id/btnupload3"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_gravity="center"
-                    android:layout_marginEnd="22dp"
-                    android:background="@drawable/ant_design_file_search_outlined"
-                    android:fontFamily="@font/montserrat_reguler"
-                    android:gravity="center"
-                    android:textColor="#FFFFFF"
-                    android:textStyle="bold" />
-
-            </TableRow>
-
-        </TableLayout>
-
-    </LinearLayout>
-
-    <LinearLayout
-        android:id="@+id/line5"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_below="@+id/line4"
-        android:layout_marginTop="1dp"
-        android:background="#00000000"
-        android:orientation="vertical">
-
-        <TableLayout
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginLeft="10dp"
-            android:layout_marginRight="10dp"
-            android:stretchColumns="6">
-
-            <TableRow android:background="@drawable/ic_btn_border">
-
-                <TextView
-                    android:layout_width="0dp"
-                    android:layout_height="wrap_content"
-                    android:layout_gravity="center_horizontal"
-                    android:layout_weight="4"
-                    android:fontFamily="@font/montserrat_reguler"
-                    android:gravity="center"
-                    android:padding="10sp"
-                    android:text="xxxxxx"
-                    android:textColor="@color/black"
-                    android:textSize="13sp" />
-
-                <TextView
-                    android:layout_width="0dp"
-                    android:layout_height="wrap_content"
-                    android:layout_gravity="center_horizontal"
-                    android:layout_weight="4"
-                    android:fontFamily="@font/montserrat_reguler"
-                    android:gravity="center"
-                    android:padding="10sp"
-                    android:text="dd/mm/yy"
-                    android:textColor="@color/black"
-                    android:textSize="13sp" />
-
-                <TextView
-                    android:layout_width="0dp"
-                    android:layout_height="wrap_content"
-                    android:layout_gravity="center_horizontal"
-                    android:layout_marginEnd="38dp"
-                    android:layout_weight="4"
-                    android:fontFamily="@font/montserrat_reguler"
-                    android:gravity="center_horizontal"
-                    android:padding="10sp"
-                    android:text="APJ CIMAHI"
-                    android:textColor="@color/black"
-                    android:textSize="13sp" />
-
-                <ImageButton
-                    android:id="@+id/btnupload4"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_gravity="center"
-                    android:layout_marginRight="22dp"
-                    android:background="@drawable/ant_design_file_search_outlined"
-                    android:fontFamily="@font/montserrat_reguler"
-                    android:gravity="center"
-                    android:textColor="#FFFFFF"
-                    android:textStyle="bold" />
-
-            </TableRow>
-
-        </TableLayout>
-
-    </LinearLayout>
-
-    <LinearLayout
-        android:id="@+id/line6"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_below="@+id/line5"
-        android:layout_marginTop="1dp"
-        android:background="#00000000"
-        android:orientation="vertical">
-
-        <TableLayout
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginLeft="10dp"
-            android:layout_marginRight="10dp"
-            android:stretchColumns="6">
-
-            <TableRow android:background="@drawable/ic_btn_border">
-
-                <TextView
-                    android:layout_width="0dp"
-                    android:layout_height="wrap_content"
-                    android:layout_gravity="center_horizontal"
-                    android:layout_weight="4"
-                    android:fontFamily="@font/montserrat_reguler"
-                    android:gravity="center"
-                    android:padding="10sp"
-                    android:text="xxxxxx"
-                    android:textColor="@color/black"
-                    android:textSize="13sp" />
-
-                <TextView
-                    android:layout_width="0dp"
-                    android:layout_height="wrap_content"
-                    android:layout_gravity="center_horizontal"
-                    android:layout_weight="4"
-                    android:fontFamily="@font/montserrat_reguler"
-                    android:gravity="center"
-                    android:padding="10sp"
-                    android:text="dd/mm/yy"
-                    android:textColor="@color/black"
-                    android:textSize="13sp" />
-
-                <TextView
-                    android:layout_width="0dp"
-                    android:layout_height="wrap_content"
-                    android:layout_gravity="center_horizontal"
-                    android:layout_marginEnd="38dp"
-                    android:layout_weight="4"
-                    android:fontFamily="@font/montserrat_reguler"
-                    android:gravity="center_horizontal"
-                    android:padding="10sp"
-                    android:text="@string/apj_cimahi"
-                    android:textColor="@color/black"
-                    android:textSize="13sp" />
-
-                <ImageButton
-                    android:id="@+id/btnupload5"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_gravity="center"
-                    android:layout_marginRight="22dp"
-                    android:background="@drawable/ant_design_file_search_outlined"
-                    android:gravity="center" />
-
-            </TableRow>
-
-        </TableLayout>
-
-    </LinearLayout>
 
     <androidx.constraintlayout.widget.ConstraintLayout
         android:id="@+id/const2"
         android:layout_width="match_parent"
         android:layout_height="50dp"
-        android:layout_below="@id/line6"
+        android:layout_below="@id/line1"
         android:layout_marginTop="5dp">
 
         <ImageButton
@@ -711,7 +852,7 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginStart="18dp"
-            android:layout_marginTop="53dp"
+            android:layout_marginTop="24dp"
             android:layout_marginEnd="18dp"
             android:layout_marginBottom="70dp"
             android:background="@drawable/br_btn"
@@ -720,10 +861,30 @@
             android:text="Upload"
             android:textColor="#FFFFFF"
             android:textStyle="bold"
-            app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/edtupload" />
+
+        <TextView
+            android:id="@+id/txt_download"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Download"
+            android:textColor="#01A1B9"
+            android:layout_marginTop="5dp"
+            android:layout_marginStart="20dp"
+            app:layout_constraintTop_toBottomOf="@id/btnupload"
+            app:layout_constraintStart_toStartOf="parent"/>
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="template File Excel"
+            android:textColor="#000000"
+            android:layout_marginTop="5dp"
+            android:layout_marginStart="5dp"
+            app:layout_constraintTop_toBottomOf="@id/btnupload"
+            app:layout_constraintStart_toEndOf="@id/txt_download"/>
 
 
     </androidx.constraintlayout.widget.ConstraintLayout>

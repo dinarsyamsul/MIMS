@@ -21,11 +21,11 @@ class UploadDataMaterial : AppCompatActivity() {
         binding = ActivityUploadDataMaterialBinding.inflate(layoutInflater)
         setContentView(binding.root)
 
-        binding.btnupload1.setOnClickListener {
-            val i = Intent(this@UploadDataMaterial, MonitoringPurchaseOrder::class.java)
-            startActivity(i)
-            finish()
-        }
+//        binding.btnupload1.setOnClickListener {
+//            val i = Intent(this@UploadDataMaterial, MonitoringPurchaseOrder::class.java)
+//            startActivity(i)
+//            finish()
+//        }
 
         binding.back.setOnClickListener {
             val intent = Intent(this@UploadDataMaterial, DashboardPabrikanActivity::class.java)

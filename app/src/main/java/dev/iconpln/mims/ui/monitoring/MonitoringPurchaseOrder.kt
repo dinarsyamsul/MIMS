@@ -23,37 +23,37 @@ class MonitoringPurchaseOrder : AppCompatActivity() {
         binding = ActivityMonitoringPurchaseOrderBinding.inflate(layoutInflater)
         setContentView(binding.root)
 
-        binding.img1.setOnClickListener {
-            if (muncul == true) {
-                binding.img1.setImageDrawable(
-                    ContextCompat.getDrawable(
-                        this,
-                        R.drawable.ic_baseline_keyboard_arrow_up_24
-                    )
-                )
-                binding.const2.visibility = View.VISIBLE
-                muncul = !muncul
-            } else {
-                binding.img1.setImageDrawable(
-                    ContextCompat.getDrawable(
-                        this,
-                        R.drawable.ic_baseline_keyboard_arrow_down_24
-                    )
-                )
-                binding.const2.visibility = View.GONE
-                muncul = !muncul
-            }
-        }
-        binding.btn1.setOnClickListener {
-            val dialogBinding = layoutInflater.inflate(R.layout.activity_popdialog, null)
-
-            val myDialog = Dialog(this)
-            myDialog.setContentView(dialogBinding)
-
-            myDialog.setCancelable(true)
-            myDialog.window?.setBackgroundDrawable(ColorDrawable(Color.TRANSPARENT))
-            myDialog.show()
-        }
+//        binding.img1.setOnClickListener {
+//            if (muncul == true) {
+//                binding.img1.setImageDrawable(
+//                    ContextCompat.getDrawable(
+//                        this,
+//                        R.drawable.ic_baseline_keyboard_arrow_up_24
+//                    )
+//                )
+//                binding.const2.visibility = View.VISIBLE
+//                muncul = !muncul
+//            } else {
+//                binding.img1.setImageDrawable(
+//                    ContextCompat.getDrawable(
+//                        this,
+//                        R.drawable.ic_baseline_keyboard_arrow_down_24
+//                    )
+//                )
+//                binding.const2.visibility = View.GONE
+//                muncul = !muncul
+//            }
+//        }
+//        binding.btn1.setOnClickListener {
+//            val dialogBinding = layoutInflater.inflate(R.layout.activity_popdialog, null)
+//
+//            val myDialog = Dialog(this)
+//            myDialog.setContentView(dialogBinding)
+//
+//            myDialog.setCancelable(true)
+//            myDialog.window?.setBackgroundDrawable(ColorDrawable(Color.TRANSPARENT))
+//            myDialog.show()
+//        }
 
         binding.back.setOnClickListener {
             val intent = Intent(this@MonitoringPurchaseOrder, DashboardPabrikanActivity::class.java)
