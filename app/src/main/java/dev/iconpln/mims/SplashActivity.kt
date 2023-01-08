@@ -6,6 +6,7 @@ import android.os.Handler
 import android.os.Looper
 import androidx.appcompat.app.AppCompatActivity
 import dev.iconpln.mims.ui.login.LoginActivity
+import dev.iconpln.mims.ui.role.pabrikan.DashboardPabrikanActivity
 
 class SplashActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
