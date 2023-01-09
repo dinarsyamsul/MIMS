@@ -39,16 +39,16 @@ class UploadDataMaterial : AppCompatActivity() {
             finish()
         }
 
-        binding.bell.setOnClickListener {
-            val dialogBinding = layoutInflater.inflate(R.layout.activity_popup_notifikasi, null)
-
-            val myDialog = Dialog(this)
-            myDialog.setContentView(dialogBinding)
-
-            myDialog.setCancelable(true)
-            myDialog.window?.setBackgroundDrawable(ColorDrawable(Color.TRANSPARENT))
-            myDialog.show()
-        }
+//        binding.bell.setOnClickListener {
+//            val dialogBinding = layoutInflater.inflate(R.layout.activity_popup_notifikasi, null)
+//
+//            val myDialog = Dialog(this)
+//            myDialog.setContentView(dialogBinding)
+//
+//            myDialog.setCancelable(true)
+//            myDialog.window?.setBackgroundDrawable(ColorDrawable(Color.TRANSPARENT))
+//            myDialog.show()
+//        }
 
         binding.btnupload.setOnClickListener {
             Toast.makeText(this, "Under Maintenance", Toast.LENGTH_SHORT).show()

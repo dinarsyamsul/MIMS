@@ -75,7 +75,7 @@
                 android:layout_marginStart="10dp"
                 android:layout_marginTop="10dp"
                 android:fontFamily="@font/montserrat_reguler"
-                android:text="No. PO                        :"
+                android:text="No. PO:"
                 android:textColor="@color/black"
                 android:textSize="17sp"
                 android:textStyle="bold"
@@ -88,7 +88,6 @@
                 android:layout_height="47dp"
                 android:hint="Search"
                 android:background="@drawable/edittextborder"
-                android:iconicfieldByDefault="false"
                 android:layout_marginStart="190dp"
                 app:layout_constraintStart_toStartOf="parent"
                 tools:ignore="MissingConstraints" />
@@ -99,7 +98,7 @@
                 android:layout_marginStart="10dp"
                 android:layout_marginTop="90dp"
                 android:fontFamily="@font/montserrat_reguler"
-                android:text="Urut Berdasarkan    :"
+                android:text="Urut Berdasarkan :"
                 android:textColor="@color/black"
                 android:textSize="17sp"
                 android:textStyle="bold"
@@ -109,12 +108,13 @@
 
             <com.google.android.material.textfield.TextInputLayout
                 style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox.ExposedDropdownMenu"
-                android:layout_width="200dp"
-                android:layout_height="48dp"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
                 android:layout_marginStart="190dp"
                 android:layout_marginTop="80dp"
+                android:layout_marginEnd="22dp"
                 android:layout_marginBottom="10dp"
-                android:hint="Terbaru"
+                app:hintAnimationEnabled="true"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toTopOf="parent" >
@@ -172,7 +172,7 @@
                                 android:padding="10dp"
                                 android:text="No"
                                 android:textColor="@color/black"
-                                android:textSize="16dp" />
+                                android:textSize="16sp" />
 
                             <TextView
                                 android:layout_width="wrap_content"
@@ -182,7 +182,7 @@
                                 android:padding="10dp"
                                 android:text="No PO"
                                 android:textColor="@color/black"
-                                android:textSize="16dp" />
+                                android:textSize="16sp" />
 
                             <TextView
                                 android:layout_width="wrap_content"
@@ -192,7 +192,7 @@
                                 android:padding="10dp"
                                 android:text="Vendor"
                                 android:textColor="@color/black"
-                                android:textSize="16dp" />
+                                android:textSize="16sp" />
 
                             <TextView
                                 android:layout_width="wrap_content"

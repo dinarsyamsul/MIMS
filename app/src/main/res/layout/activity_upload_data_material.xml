@@ -5,7 +5,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:layout_gravity="top"
-    android:background="#EFEEFE"
+    android:background="#F7F8FA"
     tools:context=".ui.monitoring.UploadDataMaterial">
 
 
@@ -40,7 +40,7 @@
     <androidx.constraintlayout.widget.ConstraintLayout
         android:id="@+id/const1"
         android:layout_width="match_parent"
-        android:layout_height="98dp"
+        android:layout_height="wrap_content"
         android:layout_below="@id/dashboard"
         android:layout_marginTop="12dp">
 
@@ -64,7 +64,6 @@
             android:layout_height="47dp"
             android:hint="Search"
             android:background="@drawable/edittextborder"
-            android:iconicfieldByDefault="false"
             android:layout_marginStart="190dp"
             app:layout_constraintStart_toStartOf="parent"
             tools:ignore="MissingConstraints" />
@@ -74,21 +73,23 @@
             android:layout_height="wrap_content"
             android:layout_marginStart="10dp"
             android:fontFamily="@font/montserrat_reguler"
-            android:text="Urut Berdasarkan    :"
+            android:text="Urut Berdasarkan  :"
             android:textColor="@color/black"
             android:textSize="17sp"
             android:textStyle="bold"
             app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintStart_toStartOf="parent" />
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/nobatch" />
 
         <com.google.android.material.textfield.TextInputLayout
             style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox.ExposedDropdownMenu"
-            android:layout_width="200dp"
-            android:layout_height="48dp"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
             android:layout_marginStart="190dp"
             android:layout_marginTop="80dp"
+            android:layout_marginEnd="25dp"
             android:layout_marginBottom="10dp"
-            android:hint="Terbaru"
+            app:hintAnimationEnabled="true"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent">
@@ -97,7 +98,8 @@
             <AutoCompleteTextView
                 android:id="@+id/autoCompleteDataAtribute"
                 android:layout_width="match_parent"
-                android:layout_height="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="28dp"
                 android:layout_weight="1"
                 android:inputType="none" />
 
@@ -409,196 +411,6 @@
                                 android:gravity="center"
                                 android:padding="10dp"
                                 android:text="3"
-                                android:textColor="@color/black"
-                                android:textSize="16dp" />
-
-                            <TextView
-                                android:layout_width="wrap_content"
-                                android:layout_height="wrap_content"
-                                android:layout_marginEnd="1dp"
-                                android:layout_weight="1"
-                                android:background="#FFFFFF"
-                                android:gravity="center"
-                                android:padding="10dp"
-                                android:text="DD/MM/YYYY"
-                                android:textColor="@color/black"
-                                android:textSize="16dp" />
-
-                            <TextView
-                                android:layout_width="wrap_content"
-                                android:layout_height="wrap_content"
-                                android:layout_marginEnd="1dp"
-                                android:layout_weight="1"
-                                android:background="#FFFFFF"
-                                android:gravity="center"
-                                android:padding="10dp"
-                                android:text="123123123"
-                                android:textColor="@color/black"
-                                android:textSize="16dp" />
-
-                            <ImageButton
-                                android:layout_width="wrap_content"
-                                android:layout_height="wrap_content"
-                                android:layout_marginHorizontal="1dp"
-                                android:layout_marginBottom="1dp"
-                                android:layout_weight="1"
-                                android:background="#FFFFFF"
-                                android:gravity="center"
-                                android:padding="12dp"
-                                android:src="@drawable/ant_design_file_search_outlined" />
-
-                            <TextView
-                                android:layout_width="wrap_content"
-                                android:layout_height="wrap_content"
-                                android:layout_marginEnd="1dp"
-                                android:layout_weight="1"
-                                android:background="#FFFFFF"
-                                android:gravity="center"
-                                android:padding="10dp"
-                                android:text="Excel / API"
-                                android:textColor="@color/black"
-                                android:textSize="16dp" />
-
-                            <LinearLayout
-                                android:layout_width="wrap_content"
-                                android:layout_height="wrap_content">
-
-                                <ImageButton
-                                    android:layout_width="40dp"
-                                    android:layout_height="42dp"
-                                    android:layout_marginHorizontal="1dp"
-                                    android:layout_marginBottom="1dp"
-                                    android:layout_weight="1"
-                                    android:background="#FFFFFF"
-                                    android:gravity="center"
-                                    android:padding="12dp"
-                                    android:src="@drawable/icondelete1"
-                                    android:text="Detail"
-                                    android:textSize="16sp" />
-
-                                <ImageButton
-                                    android:layout_width="40dp"
-                                    android:layout_height="42dp"
-                                    android:layout_marginHorizontal="1dp"
-                                    android:layout_marginBottom="1dp"
-                                    android:layout_weight="1"
-                                    android:background="#FFFFFF"
-                                    android:gravity="center"
-                                    android:padding="12dp"
-                                    android:src="@drawable/iconupload"
-                                    android:text="Detail"
-                                    android:textSize="16sp" />
-                            </LinearLayout>
-
-                        </TableRow>
-
-                        <TableRow>
-
-                            <TextView
-                                android:layout_width="wrap_content"
-                                android:layout_height="wrap_content"
-                                android:layout_marginStart="1dp"
-                                android:layout_marginEnd="1dp"
-                                android:layout_weight="1"
-                                android:background="#FFFFFF"
-                                android:gravity="center"
-                                android:padding="10dp"
-                                android:text="4"
-                                android:textColor="@color/black"
-                                android:textSize="16dp" />
-
-                            <TextView
-                                android:layout_width="wrap_content"
-                                android:layout_height="wrap_content"
-                                android:layout_marginEnd="1dp"
-                                android:layout_weight="1"
-                                android:background="#FFFFFF"
-                                android:gravity="center"
-                                android:padding="10dp"
-                                android:text="DD/MM/YYYY"
-                                android:textColor="@color/black"
-                                android:textSize="16dp" />
-
-                            <TextView
-                                android:layout_width="wrap_content"
-                                android:layout_height="wrap_content"
-                                android:layout_marginEnd="1dp"
-                                android:layout_weight="1"
-                                android:background="#FFFFFF"
-                                android:gravity="center"
-                                android:padding="10dp"
-                                android:text="123123123"
-                                android:textColor="@color/black"
-                                android:textSize="16dp" />
-
-                            <ImageButton
-                                android:layout_width="wrap_content"
-                                android:layout_height="wrap_content"
-                                android:layout_marginHorizontal="1dp"
-                                android:layout_marginBottom="1dp"
-                                android:layout_weight="1"
-                                android:background="#FFFFFF"
-                                android:gravity="center"
-                                android:padding="12dp"
-                                android:src="@drawable/ant_design_file_search_outlined" />
-
-                            <TextView
-                                android:layout_width="wrap_content"
-                                android:layout_height="wrap_content"
-                                android:layout_marginEnd="1dp"
-                                android:layout_weight="1"
-                                android:background="#FFFFFF"
-                                android:gravity="center"
-                                android:padding="10dp"
-                                android:text="Excel / API"
-                                android:textColor="@color/black"
-                                android:textSize="16dp" />
-
-                            <LinearLayout
-                                android:layout_width="wrap_content"
-                                android:layout_height="wrap_content">
-
-                                <ImageButton
-                                    android:layout_width="40dp"
-                                    android:layout_height="42dp"
-                                    android:layout_marginHorizontal="1dp"
-                                    android:layout_marginBottom="1dp"
-                                    android:layout_weight="1"
-                                    android:background="#FFFFFF"
-                                    android:gravity="center"
-                                    android:padding="12dp"
-                                    android:src="@drawable/icondelete1"
-                                    android:text="Detail"
-                                    android:textSize="16sp" />
-
-                                <ImageButton
-                                    android:layout_width="40dp"
-                                    android:layout_height="42dp"
-                                    android:layout_marginHorizontal="1dp"
-                                    android:layout_marginBottom="1dp"
-                                    android:layout_weight="1"
-                                    android:background="#FFFFFF"
-                                    android:gravity="center"
-                                    android:padding="12dp"
-                                    android:src="@drawable/iconupload"
-                                    android:text="Detail"
-                                    android:textSize="16sp" />
-                            </LinearLayout>
-
-                        </TableRow>
-
-                        <TableRow>
-
-                            <TextView
-                                android:layout_width="wrap_content"
-                                android:layout_height="wrap_content"
-                                android:layout_marginStart="1dp"
-                                android:layout_marginEnd="1dp"
-                                android:layout_weight="1"
-                                android:background="#FFFFFF"
-                                android:gravity="center"
-                                android:padding="10dp"
-                                android:text="5"
                                 android:textColor="@color/black"
                                 android:textSize="16dp" />
 
