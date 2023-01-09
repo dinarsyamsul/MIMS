@@ -13,21 +13,21 @@ import dev.iconpln.mims.databinding.ActivityLoginBinding
 import dev.iconpln.mims.ui.OtpActivity
 import dev.iconpln.mims.ui.role.pabrikan.DashboardPabrikanActivity
 import dev.iconpln.mims.ui.role.pusertif.DashboardPusertifActivity
-import dev.iconpln.mims.utils.TokenManager
+import dev.iconpln.mims.utils.SessionManager
 
 @AndroidEntryPoint
 class LoginActivity : AppCompatActivity() {
 
     private lateinit var binding: ActivityLoginBinding
     private val loginViewModel: LoginViewModel by viewModels()
-    private lateinit var session: TokenManager
+    private lateinit var session: SessionManager
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         binding = ActivityLoginBinding.inflate(layoutInflater)
         setContentView(binding.root)
 
-        session = TokenManager(this)
+        session = SessionManager(this)
 
         session.user_token.asLiveData().observe(this) { token ->
             Log.d("LoginActivity", "cek user token: $token")

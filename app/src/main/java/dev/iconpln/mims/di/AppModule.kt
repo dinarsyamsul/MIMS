@@ -7,6 +7,7 @@ import dagger.hilt.InstallIn
 import dagger.hilt.android.qualifiers.ApplicationContext
 import dagger.hilt.components.SingletonComponent
 import dev.iconpln.mims.data.remote.service.ApiService
+import dev.iconpln.mims.data.remote.service.AuthInterceptor
 import dev.iconpln.mims.utils.Constants.BASE_URL
 import okhttp3.OkHttpClient
 import okhttp3.logging.HttpLoggingInterceptor
@@ -23,6 +24,7 @@ class AppModule {
             .setLevel(HttpLoggingInterceptor.Level.BODY)
         val client: OkHttpClient = OkHttpClient.Builder()
             .addInterceptor(loggingInterceptor)
+            .addInterceptor(AuthInterceptor(context))
             .build()
         return Retrofit.Builder()
             .baseUrl(BASE_URL)

@@ -6,18 +6,25 @@ import android.content.Intent
 import android.graphics.Color
 import android.graphics.drawable.ColorDrawable
 import android.os.Bundle
+import android.util.Log
 import android.view.View
 import android.widget.ArrayAdapter
+import android.widget.Toast
+import androidx.activity.viewModels
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.content.ContextCompat
+import dagger.hilt.android.AndroidEntryPoint
 import dev.iconpln.mims.R
 import dev.iconpln.mims.databinding.ActivityMonitoringPurchaseOrderBinding
 import dev.iconpln.mims.ui.role.pabrikan.DashboardPabrikanActivity
 
+@AndroidEntryPoint
 class MonitoringPurchaseOrder : AppCompatActivity() {
 
     private lateinit var binding: ActivityMonitoringPurchaseOrderBinding
     private var muncul = false
+
+    private val monitoringPOViewModel: MonitoringPOViewModel by viewModels()
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -59,6 +66,21 @@ class MonitoringPurchaseOrder : AppCompatActivity() {
 //            myDialog.window?.setBackgroundDrawable(ColorDrawable(Color.TRANSPARENT))
 //            myDialog.show()
 //        }
+
+        monitoringPOViewModel.getMonitoringPO("PO1", "TERBARU", 1, 4)
+        monitoringPOViewModel.monitoringPOResponse.observe(this) {
+            it.data.forEach { data ->
+                binding.noPo.text = data.noPurchaseOrder
+                binding.vendor.text = data.vendor
+                binding.plant.text = data.plant
+                binding.storeLoc.text = data.storLoc
+                binding.unit.text = data.unit
+                binding.leadTime.text = data.leadTime
+                binding.qty.text = data.qtyPo
+                binding.deskripsi.text = data.deskripsi
+            }
+            Log.d("MonitoringPurchaseOrder", "Cek Monitoting data ${it.data}")
+        }
 
         binding.back.setOnClickListener {
             val intent = Intent(this@MonitoringPurchaseOrder, DashboardPabrikanActivity::class.java)

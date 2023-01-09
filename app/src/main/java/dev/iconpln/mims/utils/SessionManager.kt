@@ -13,7 +13,7 @@ import javax.inject.Inject
 
 val Context.dataStore: DataStore<Preferences> by preferencesDataStore(name = "token_sessions")
 
-class TokenManager @Inject constructor(
+class SessionManager @Inject constructor(
     @ApplicationContext private val context: Context
 ) {
 

@@ -11,7 +11,7 @@ import androidx.lifecycle.asLiveData
 import androidx.lifecycle.lifecycleScope
 import dev.iconpln.mims.databinding.FragmentPusertifHomeBinding
 import dev.iconpln.mims.ui.login.LoginActivity
-import dev.iconpln.mims.utils.TokenManager
+import dev.iconpln.mims.utils.SessionManager
 import kotlinx.coroutines.launch
 
 
@@ -33,7 +33,7 @@ class pusertifHome : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-        val session = TokenManager(requireContext())
+        val session = SessionManager(requireContext())
         binding.btnLogout.setOnClickListener {
             val onLogout = Intent(requireContext(), LoginActivity::class.java)
             onLogout.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP)

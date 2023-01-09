@@ -9,35 +9,37 @@ import android.util.Log
 import android.view.View
 import android.view.inputmethod.InputMethodManager
 import android.widget.Toast
+import androidx.activity.viewModels
 import androidx.appcompat.app.AppCompatActivity
 import androidx.lifecycle.ViewModelProvider
+import dagger.hilt.android.AndroidEntryPoint
 import dev.iconpln.mims.data.remote.service.ApiConfig
 import dev.iconpln.mims.databinding.ActivityOtpBinding
 import dev.iconpln.mims.ui.login.LoginViewModel
 import dev.iconpln.mims.ui.role.pabrikan.DashboardPabrikanActivity
 import dev.iconpln.mims.ui.role.pusertif.DashboardPusertifActivity
 import dev.iconpln.mims.utils.NetworkStatusTracker
-import dev.iconpln.mims.utils.TokenManager
 import dev.iconpln.mims.utils.ViewModelFactory
 
+@AndroidEntryPoint
 class OtpActivity : AppCompatActivity() {
 
     private lateinit var binding: ActivityOtpBinding
-    private lateinit var loginViewModel: LoginViewModel
+    private val loginViewModel: LoginViewModel by viewModels()
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         binding = ActivityOtpBinding.inflate(layoutInflater)
         setContentView(binding.root)
 
-        val session = TokenManager(this)
-        val apiService = ApiConfig.getApiService()
-        val networkStatusTracker = NetworkStatusTracker(this)
-        loginViewModel =
-            ViewModelProvider(
-                this,
-                ViewModelFactory(session, apiService, networkStatusTracker)
-            )[LoginViewModel::class.java]
+//        val session = TokenManager(this)
+//        val apiService = ApiConfig.getApiService()
+//        val networkStatusTracker = NetworkStatusTracker(this)
+//        loginViewModel =
+//            ViewModelProvider(
+//                this,
+//                ViewModelFactory(session, apiService, networkStatusTracker)
+//            )[LoginViewModel::class.java]
 
         val username = intent.extras?.getString(EXTRA_USERNAME)
         binding.apply {

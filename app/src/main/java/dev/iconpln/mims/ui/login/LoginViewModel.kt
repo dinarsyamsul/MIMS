@@ -11,7 +11,7 @@ import dev.iconpln.mims.data.remote.response.LoginResponse
 import dev.iconpln.mims.data.remote.response.VerifyTokenResponse
 import dev.iconpln.mims.data.remote.service.ApiService
 import dev.iconpln.mims.utils.NetworkStatusTracker
-import dev.iconpln.mims.utils.TokenManager
+import dev.iconpln.mims.utils.SessionManager
 import dev.iconpln.mims.utils.map
 import kotlinx.coroutines.*
 import org.json.JSONObject
@@ -19,7 +19,7 @@ import javax.inject.Inject
 
 @HiltViewModel
 class LoginViewModel @Inject constructor(
-    private val session: TokenManager,
+    private val session: SessionManager,
     private val apiService: ApiService,
     netWorkStatusTracker: NetworkStatusTracker
 ) : ViewModel() {

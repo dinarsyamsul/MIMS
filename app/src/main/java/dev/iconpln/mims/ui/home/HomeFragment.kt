@@ -14,7 +14,7 @@ import dev.iconpln.mims.databinding.FragmentHomeBinding
 import dev.iconpln.mims.ui.login.LoginActivity
 import dev.iconpln.mims.ui.monitoring.MonitoringPurchaseOrder
 import dev.iconpln.mims.ui.monitoring.UploadDataMaterial
-import dev.iconpln.mims.utils.TokenManager
+import dev.iconpln.mims.utils.SessionManager
 import kotlinx.coroutines.launch
 
 class HomeFragment : Fragment() {
@@ -47,7 +47,7 @@ class HomeFragment : Fragment() {
             activity?.finish()
         }
 
-        val session = TokenManager(requireContext())
+        val session = SessionManager(requireContext())
 
         binding.btnLogout.setOnClickListener {
             val onLogout = Intent(requireContext(), LoginActivity::class.java)

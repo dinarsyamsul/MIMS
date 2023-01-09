@@ -7,7 +7,7 @@ import dev.iconpln.mims.ui.login.LoginViewModel
 import dev.iconpln.mims.ui.scan.ScanViewModel
 
 class ViewModelFactory(
-    private val session: TokenManager,
+    private val session: SessionManager,
     private val apiService: ApiService,
     private val networkStatusTracker: NetworkStatusTracker
 ) : ViewModelProvider.NewInstanceFactory() {
