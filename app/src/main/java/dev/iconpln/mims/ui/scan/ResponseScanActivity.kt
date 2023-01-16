@@ -37,25 +37,25 @@ class ResponseScanActivity : AppCompatActivity() {
             startActivity(intent)
         }
 
-        viewModel.snResponse.observe(this) { data ->
-            if (data.message == "Success") {
-                Toast.makeText(this, "Scan Berhasil", Toast.LENGTH_SHORT).show()
-                binding.apply {
-                    tvResult.text = "${data.detailSN.serialNumber}"
-                    tvNoMaterial.text = "${data.detailSN.nomorMaterial}"
-                    tvKodePabrik.text = "${data.detailSN.kodePabrikan}"
-                    tvNamaPabrik.text = "${data.detailSN.namaPabrikan}"
-                    tvTglProduksi.text = "${data.detailSN.tglProduksi}"
-                    tvSpin.text = "${data.detailSN.spln}"
-                    tvSpekMaterial.text = "${data.detailSN.spesifikasiMaterial}"
-                    tvKatMaterial.text = "${data.detailSN.kategoriMaterial}"
-                    tvMasaGaransi.text = "${data.detailSN.masaGaransi}"
-                    tvNomorSert.text = "${data.detailSN.nomorSertMetrologi}"
-                    tvNoProduksi.text = "${data.detailSN.noProduksi}"
-                    tvNoPack.text = "${data.detailSN.noPackaging}"
-                }
-            }
-        }
+//        viewModel.snResponse.observe(this) { data ->
+//            if (data.message == "Success") {
+//                Toast.makeText(this, "Scan Berhasil", Toast.LENGTH_SHORT).show()
+//                binding.apply {
+//                    tvResult.text = "${data.detailSN.serialNumber}"
+//                    tvNoMaterial.text = "${data.detailSN.nomorMaterial}"
+//                    tvKodePabrik.text = "${data.detailSN.kodePabrikan}"
+//                    tvNamaPabrik.text = "${data.detailSN.namaPabrikan}"
+//                    tvTglProduksi.text = "${data.detailSN.tglProduksi}"
+//                    tvSpin.text = "${data.detailSN.spln}"
+//                    tvSpekMaterial.text = "${data.detailSN.spesifikasiMaterial}"
+//                    tvKatMaterial.text = "${data.detailSN.kategoriMaterial}"
+//                    tvMasaGaransi.text = "${data.detailSN.masaGaransi}"
+//                    tvNomorSert.text = "${data.detailSN.nomorSertMetrologi}"
+//                    tvNoProduksi.text = "${data.detailSN.noProduksi}"
+//                    tvNoPack.text = "${data.detailSN.noPackaging}"
+//                }
+//            }
+//        }
     }
 
     override fun onBackPressed() {

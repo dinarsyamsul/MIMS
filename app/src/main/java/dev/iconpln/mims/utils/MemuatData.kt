@@ -7,6 +7,7 @@ import android.widget.Toast
 import androidx.activity.viewModels
 import androidx.appcompat.app.AppCompatActivity
 import dagger.hilt.android.AndroidEntryPoint
+import dev.iconpln.mims.HasilScan
 import dev.iconpln.mims.R
 import dev.iconpln.mims.ui.scan.ResponseScanActivity
 import dev.iconpln.mims.ui.scan.ScanViewModel
@@ -20,7 +21,7 @@ class MemuatData : AppCompatActivity() {
         setContentView(R.layout.activity_memuat_data)
 
         val data = intent.extras
-        val sn = data?.getString(ResponseScanActivity.EXTRA_SN)
+        val sn = data?.getString(EXTRA_SN)
 
         if (sn != null) {
             viewModel.getDetailBySN(sn)
@@ -29,14 +30,16 @@ class MemuatData : AppCompatActivity() {
         viewModel.snResponse.observe(this) { data ->
             Log.d("customactivty", "cek data ${data.message}")
             if (data.message == "Success") {
-                val intent = Intent(this@MemuatData, ResponseScanActivity::class.java)
-                intent.putExtra(ResponseScanActivity.EXTRA_SN, data.detailSN.serialNumber)
-                startActivity(intent)
+                data.detailSN.forEach {result ->
+                    val intent = Intent(this@MemuatData, HasilScan::class.java)
+                    intent.putExtra(HasilScan.EXTRA_SN, result.serialNumber)
+                    startActivity(intent)
+                }
             }
         }
 
         viewModel.errorMessage.observe(this) {
-            Log.d("ResponseActivity", "cek $it")
+            Log.d("ResponseActivity", "cek response $it")
             if (it != null) {
                 val intent = Intent(this@MemuatData, NotFound::class.java)
                 startActivity(intent)

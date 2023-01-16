@@ -6,30 +6,56 @@ import android.view.ViewGroup
 import android.widget.ImageButton
 import android.widget.ImageView
 import android.widget.TextView
+import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.RecyclerView
+import dev.iconpln.mims.data.remote.response.DataItemMaterial
+import dev.iconpln.mims.databinding.ActivityListDataMaterialPabrikanBinding
+import dev.iconpln.mims.databinding.ListItemBinding
 import org.w3c.dom.Text
 
-class ListSerialAdapter(private val listSerial: ArrayList<BatchSerial>): RecyclerView.Adapter<ListSerialAdapter.ListViewHolder>() {
-    inner class ListViewHolder(itemView: View): RecyclerView.ViewHolder(itemView)  {
+class ListSerialAdapter(): RecyclerView.Adapter<ListSerialAdapter.ListViewHolder>() {
 
-        var tvBatch: TextView = itemView.findViewById(R.id.txt_noBatch)
-        var tvSerialNumber: TextView = itemView.findViewById(R.id.txt_serialNumber)
-        var tvExcel: TextView = itemView.findViewById(R.id.txt_excel)
+    private val listMaterial = ArrayList<DataItemMaterial>()
+    private var onItemClickCallback: OnItemClickCallback? = null
 
+    fun setData(items: List<DataItemMaterial>){
+        val diffCallback = DataItemMaterialDiffCallback(listMaterial, items)
+        val diffResult = DiffUtil.calculateDiff(diffCallback)
+        listMaterial.clear()
+        listMaterial.addAll(items)
+        diffResult.dispatchUpdatesTo(this)
+    }
+
+    fun setOnItemClickCallback(onItemClickCallback: OnItemClickCallback?){
+        this.onItemClickCallback = onItemClickCallback
     }
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ListViewHolder {
-        val view: View = LayoutInflater.from(parent.context).inflate(R.layout.activity_list_data_material_pabrikan, parent, false)
-        return ListViewHolder(view)
+        val itemBinding = ActivityListDataMaterialPabrikanBinding.inflate(LayoutInflater.from(parent.context), parent, false)
+        return ListViewHolder(itemBinding)
     }
 
     override fun onBindViewHolder(holder: ListViewHolder, position: Int) {
-        val (noBatch, serialNumber, excel) = listSerial[position]
-        holder.tvBatch.text = noBatch
-        holder.tvExcel.text = excel
-        holder.tvSerialNumber.text = serialNumber
+        holder.bind(listMaterial[position])
+
+        holder.itemView.setOnClickListener {
+            onItemClickCallback?.onItemClicked(listMaterial[holder.bindingAdapterPosition])
+        }
 
     }
 
-    override fun getItemCount(): Int = listSerial.size
+    override fun getItemCount(): Int = listMaterial.size
+
+    class ListViewHolder(private val itemBinding: ActivityListDataMaterialPabrikanBinding): RecyclerView.ViewHolder(itemBinding.root)  {
+
+        fun bind(item: DataItemMaterial){
+            with(itemBinding){
+                txtSerialNumber.text = item.noProduksi
+            }
+        }
+    }
+
+    interface OnItemClickCallback {
+        fun onItemClicked(data: DataItemMaterial)
+    }
 }

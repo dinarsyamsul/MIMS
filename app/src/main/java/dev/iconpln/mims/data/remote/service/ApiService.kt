@@ -45,4 +45,14 @@ interface ApiService {
         @Query("page_in") pageIn: Int? = 1,
         @Query("page_size") pageSize: Int? = 5
     ): Response<MonitoringPOResponse>
+
+    @Headers("Content-Type:application/json")
+    @GET("mims-service-api/attMaterial/getAllMaterial")
+    suspend fun getMetareial(
+        @Query("kategori") kategori: String?,
+        @Query("tahun") tahun: String?,
+        @Query("filter") filter: String?,
+        @Query("page_in") pageIn: Int? = 1,
+        @Query("page_size") pageSize: Int? = 5
+    ): Response<MaterialResponse>
 }

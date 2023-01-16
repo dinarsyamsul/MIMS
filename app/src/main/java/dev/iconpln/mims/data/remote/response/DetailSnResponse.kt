@@ -5,7 +5,7 @@ import com.google.gson.annotations.SerializedName
 data class DetailSnResponse(
 
     @field:SerializedName("data")
-    val detailSN: DetailSN,
+    val detailSN: List<DetailSN>,
 
     @field:SerializedName("message")
     val message: String,

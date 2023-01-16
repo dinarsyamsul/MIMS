@@ -103,6 +103,7 @@
             <TableRow>
 
                 <TextView
+                    android:id="@+id/tv_sn"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_weight="1"
@@ -118,6 +119,7 @@
                     android:fontFamily="@font/montserrat_reguler"/>
 
                 <TextView
+                    android:id="@+id/tv_vendor"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_weight="1"
@@ -132,6 +134,7 @@
                     android:fontFamily="@font/montserrat_reguler"/>
 
                 <TextView
+                    android:id="@+id/tv_kategori"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_weight="1"
