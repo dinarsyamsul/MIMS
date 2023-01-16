@@ -10,12 +10,10 @@ import android.widget.Toast
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.asLiveData
 import androidx.lifecycle.lifecycleScope
-import dev.iconpln.mims.DataAtributMaterialPabrikan
-import dev.iconpln.mims.MonitoringPurchaseOrderPabrikan
 import dev.iconpln.mims.databinding.FragmentHomeBinding
 import dev.iconpln.mims.ui.login.LoginActivity
-import dev.iconpln.mims.ui.monitoring.MonitoringPurchaseOrder
-import dev.iconpln.mims.ui.monitoring.UploadDataMaterial
+import dev.iconpln.mims.ui.role.pabrikan.arttribute_material.DataAtributMaterialPabrikan
+import dev.iconpln.mims.ui.role.pabrikan.purchase_order.MonitoringPurchaseOrderPabrikan
 import dev.iconpln.mims.utils.SessionManager
 import kotlinx.coroutines.launch
 

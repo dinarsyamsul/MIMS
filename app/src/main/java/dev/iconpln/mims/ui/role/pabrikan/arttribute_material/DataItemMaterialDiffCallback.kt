@@ -1,4 +1,4 @@
-package dev.iconpln.mims
+package dev.iconpln.mims.ui.role.pabrikan.arttribute_material
 
 import androidx.recyclerview.widget.DiffUtil
 import dev.iconpln.mims.data.remote.response.DataItemMaterial

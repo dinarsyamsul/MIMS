@@ -4,7 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".MonitoringPurchaseOrderPabrikan">
+    tools:context=".ui.role.pabrikan.purchase_order.MonitoringPurchaseOrderPabrikan">
 
 
     <ImageView
@@ -45,9 +45,9 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:layout_marginTop="130dp"
-        app:layout_constraintTop_toBottomOf="@+id/header"
+        app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintEnd_toEndOf="parent">
+        app:layout_constraintTop_toBottomOf="@+id/header">
 
         <androidx.constraintlayout.widget.ConstraintLayout
             android:layout_width="match_parent"
@@ -58,61 +58,61 @@
                 android:id="@+id/txt_nomorBatch"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+                android:layout_marginStart="32dp"
+                android:layout_marginTop="24dp"
                 android:text="Nomor Batch"
-                android:textStyle="bold"
                 android:textColor="#3F3D56"
                 android:textSize="14sp"
-                android:layout_marginTop="24dp"
-                android:layout_marginStart="32dp"
+                android:textStyle="bold"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toTopOf="parent"/>
+                app:layout_constraintTop_toTopOf="parent" />
 
             <SearchView
                 android:id="@+id/src_nomorBatch"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:background="@drawable/srchview"
                 android:layout_marginStart="32dp"
                 android:layout_marginTop="18dp"
-                android:queryHint="Search Here"
-                android:layoutDirection="rtl"
                 android:layout_marginEnd="32dp"
-                app:layout_constraintTop_toBottomOf="@+id/txt_nomorBatch"
+                android:background="@drawable/srchview"
+                android:layoutDirection="rtl"
+                android:queryHint="Search Here"
+                app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintEnd_toEndOf="parent"/>
+                app:layout_constraintTop_toBottomOf="@+id/txt_nomorBatch" />
 
             <TextView
                 android:id="@+id/txt_urutkan"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="Urutkan Berdasarkan"
-                android:textStyle="bold"
-                android:fontFamily="@font/montserrat_reguler"
-                android:textColor="#3F3D56"
-                android:textSize="16sp"
                 android:layout_marginStart="32dp"
                 android:layout_marginTop="24dp"
-                app:layout_constraintTop_toBottomOf="@id/src_nomorBatch"
-                app:layout_constraintStart_toStartOf="parent"/>
+                android:fontFamily="@font/montserrat_reguler"
+                android:text="Urutkan Berdasarkan"
+                android:textColor="#3F3D56"
+                android:textSize="16sp"
+                android:textStyle="bold"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/src_nomorBatch" />
 
             <com.google.android.material.textfield.TextInputLayout
                 android:id="@+id/tinp_pilihUrutan"
+                style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox.ExposedDropdownMenu"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                app:hintAnimationEnabled="true"
+                android:layout_marginStart="32dp"
                 android:layout_marginTop="24dp"
                 android:layout_marginEnd="32dp"
-                android:layout_marginStart="32dp"
-                style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox.ExposedDropdownMenu"
-                app:layout_constraintTop_toBottomOf="@+id/txt_urutkan"
-                app:layout_constraintStart_toStartOf="parent">
+                app:hintAnimationEnabled="true"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/txt_urutkan">
 
                 <AutoCompleteTextView
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:inputType="none"
                     android:layout_weight="1"
-                    android:background="@drawable/txt_input_layout"/>
+                    android:background="@drawable/txt_input_layout"
+                    android:inputType="none" />
 
             </com.google.android.material.textfield.TextInputLayout>
 
@@ -120,59 +120,59 @@
                 android:id="@+id/txt_daftarList"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+                android:layout_marginStart="32dp"
+                android:layout_marginTop="48dp"
+                android:fontFamily="@font/montserrat_reguler"
                 android:text="Daftar List Atribut"
-                android:textStyle="bold"
                 android:textColor="#3F3D56"
                 android:textSize="16sp"
-                android:layout_marginTop="48dp"
-                android:layout_marginStart="32dp"
-                android:fontFamily="@font/montserrat_reguler"
+                android:textStyle="bold"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/tinp_pilihUrutan"/>
+                app:layout_constraintTop_toBottomOf="@+id/tinp_pilihUrutan" />
 
             <androidx.appcompat.widget.AppCompatButton
                 android:id="@+id/btn_export"
                 android:layout_width="130dp"
                 android:layout_height="wrap_content"
-                android:background="@drawable/bg_btn1"
-                android:layout_marginTop="36dp"
                 android:layout_marginStart="84dp"
+                android:layout_marginTop="36dp"
                 android:layout_marginEnd="32dp"
-                android:text="Export"
-                android:textColor="@color/white"
+                android:background="@drawable/bg_btn1"
+                android:drawableStart="@drawable/clipboard_3"
                 android:fontFamily="@font/montserrat_reguler"
                 android:padding="10dp"
-                android:drawableStart="@drawable/clipboard_3"
+                android:text="Export"
+                android:textColor="@color/white"
+                app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toEndOf="@+id/txt_daftarList"
-                app:layout_constraintTop_toBottomOf="@+id/tinp_pilihUrutan"
-                app:layout_constraintEnd_toEndOf="parent"/>
+                app:layout_constraintTop_toBottomOf="@+id/tinp_pilihUrutan" />
 
             <androidx.cardview.widget.CardView
                 android:id="@+id/cv_daftarList"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                app:cardCornerRadius="5dp"
-                android:layout_marginTop="24dp"
                 android:layout_marginStart="24dp"
+                android:layout_marginTop="24dp"
                 android:layout_marginEnd="24dp"
-                app:cardElevation="10dp"
                 android:paddingBottom="10dp"
-                app:layout_constraintTop_toBottomOf="@+id/btn_export"
-                app:layout_constraintStart_toStartOf="parent"
+                app:cardCornerRadius="5dp"
+                app:cardElevation="10dp"
+                app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintBottom_toBottomOf="parent">
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/btn_export">
 
-            <androidx.constraintlayout.widget.ConstraintLayout
-                android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:background="#FFFFFF">
-
-                <androidx.recyclerview.widget.RecyclerView
-                    android:id="@+id/rv_noPo"
+                <androidx.constraintlayout.widget.ConstraintLayout
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
-                    tools:listitem="@layout/activity_list_monitoring_purchase"/>
-            </androidx.constraintlayout.widget.ConstraintLayout>
+                    android:background="#FFFFFF">
+
+                    <androidx.recyclerview.widget.RecyclerView
+                        android:id="@+id/rv_noPo"
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        tools:listitem="@layout/item_data_monitoring_purchase" />
+                </androidx.constraintlayout.widget.ConstraintLayout>
             </androidx.cardview.widget.CardView>
         </androidx.constraintlayout.widget.ConstraintLayout>
     </ScrollView>

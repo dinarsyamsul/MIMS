@@ -40,9 +40,9 @@
         android:layout_width="235dp"
         android:layout_height="wrap_content"
         android:src="@drawable/svgscanner"
-        app:layout_constraintTop_toTopOf="@+id/border_scan"
+        app:layout_constraintEnd_toEndOf="@+id/border_scan"
         app:layout_constraintStart_toStartOf="@+id/border_scan"
-        app:layout_constraintEnd_toEndOf="@+id/border_scan"/>
+        app:layout_constraintTop_toTopOf="@+id/border_scan" />
 
     <ImageView
         android:id="@+id/scannerbarcode"
@@ -50,9 +50,9 @@
         android:layout_height="wrap_content"
         android:src="@drawable/svgbarcode"
         android:visibility="gone"
-        app:layout_constraintTop_toTopOf="@+id/border_scan"
+        app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"/>
+        app:layout_constraintTop_toTopOf="@+id/border_scan" />
 
     <LinearLayout
         android:id="@+id/ly_option"

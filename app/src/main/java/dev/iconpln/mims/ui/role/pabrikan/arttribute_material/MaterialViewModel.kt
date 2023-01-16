@@ -1,4 +1,4 @@
-package dev.iconpln.mims
+package dev.iconpln.mims.ui.role.pabrikan.arttribute_material
 
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
@@ -27,10 +27,10 @@ class MaterialViewModel @Inject constructor(private val apiService: ApiService) 
     private val _materialResponse = MutableLiveData<MaterialResponse>()
     val materialResponse: LiveData<MaterialResponse> = _materialResponse
 
-    fun getAllMaterial(kategori: String?, tahun: String?, filter: String?, pageIn: Int? = 1, pageSize: Int? = 5) {
+    fun getAllMaterial() {
         _isLoading.value = true
         job = CoroutineScope(Dispatchers.IO + exceptionHandler).launch {
-            val response = apiService.getMetareial(kategori, tahun, filter, pageIn, pageSize)
+            val response = apiService.getMeterial()
 
             withContext(Dispatchers.Main) {
                 if (response.isSuccessful) {

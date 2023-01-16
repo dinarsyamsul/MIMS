@@ -1,12 +1,11 @@
 package dev.iconpln.mims
 
-import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.widget.Toast
 import androidx.activity.viewModels
+import androidx.appcompat.app.AppCompatActivity
 import dagger.hilt.android.AndroidEntryPoint
 import dev.iconpln.mims.databinding.ActivityHasilScanBinding
-import dev.iconpln.mims.ui.scan.ResponseScanActivity
 import dev.iconpln.mims.ui.scan.ScanViewModel
 
 @AndroidEntryPoint
@@ -33,7 +32,7 @@ class HasilScan : AppCompatActivity() {
         viewModel.snResponse.observe(this) { data ->
             if (data.message == "Success") {
                 Toast.makeText(this, "Scan Berhasil", Toast.LENGTH_SHORT).show()
-                data.detailSN.forEach {result ->
+                data.detailSN.forEach { result ->
                     binding.apply {
                         tvSn.text = "${result.serialNumber}"
                         tvVendor.text = "${result.namaPabrikan}"

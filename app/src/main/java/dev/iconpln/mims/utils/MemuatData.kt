@@ -9,7 +9,6 @@ import androidx.appcompat.app.AppCompatActivity
 import dagger.hilt.android.AndroidEntryPoint
 import dev.iconpln.mims.HasilScan
 import dev.iconpln.mims.R
-import dev.iconpln.mims.ui.scan.ResponseScanActivity
 import dev.iconpln.mims.ui.scan.ScanViewModel
 
 @AndroidEntryPoint
@@ -30,7 +29,7 @@ class MemuatData : AppCompatActivity() {
         viewModel.snResponse.observe(this) { data ->
             Log.d("customactivty", "cek data ${data.message}")
             if (data.message == "Success") {
-                data.detailSN.forEach {result ->
+                data.detailSN.forEach { result ->
                     val intent = Intent(this@MemuatData, HasilScan::class.java)
                     intent.putExtra(HasilScan.EXTRA_SN, result.serialNumber)
                     startActivity(intent)

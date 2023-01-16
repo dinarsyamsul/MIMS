@@ -8,25 +8,25 @@
     app:layoutDescription="@xml/activity_splash_scene"
     tools:context=".SplashActivity">
 
-        <ImageView
-            android:id="@+id/imglayout"
-            android:layout_width="115dp"
-            android:layout_height="115dp"
-            android:src="@drawable/circle"
-            app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent" />
+    <ImageView
+        android:id="@+id/imglayout"
+        android:layout_width="115dp"
+        android:layout_height="115dp"
+        android:src="@drawable/circle"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
 
-        <ImageView
-            android:id="@+id/imgmims"
-            android:layout_width="66dp"
-            android:layout_height="29dp"
-            android:src="@drawable/mimsplash"
-            app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent" />
+    <ImageView
+        android:id="@+id/imgmims"
+        android:layout_width="66dp"
+        android:layout_height="29dp"
+        android:src="@drawable/mimsplash"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
 
 
 </androidx.constraintlayout.motion.widget.MotionLayout>

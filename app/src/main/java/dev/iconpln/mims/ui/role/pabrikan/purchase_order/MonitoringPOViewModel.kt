@@ -1,10 +1,9 @@
-package dev.iconpln.mims.ui.monitoring
+package dev.iconpln.mims.ui.role.pabrikan.purchase_order
 
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import dagger.hilt.android.lifecycle.HiltViewModel
-import dev.iconpln.mims.data.remote.response.LoginResponse
 import dev.iconpln.mims.data.remote.response.MonitoringPOResponse
 import dev.iconpln.mims.data.remote.service.ApiService
 import kotlinx.coroutines.*
@@ -28,7 +27,7 @@ class MonitoringPOViewModel @Inject constructor(private val apiService: ApiServi
     private val _monitoringPOResponse = MutableLiveData<MonitoringPOResponse>()
     val monitoringPOResponse: LiveData<MonitoringPOResponse> = _monitoringPOResponse
 
-    fun getMonitoringPO(noPO: String, sortBy: String, pageIn: Int, pageSize: Int) {
+    fun getMonitoringPO(noPO: String, sortBy: String, pageIn: Int? = 1, pageSize: Int? = 5) {
         _isLoading.value = true
         job = CoroutineScope(Dispatchers.IO + exceptionHandler).launch {
             val response = apiService.getMonitoringPO(noPO, sortBy, pageIn, pageSize)

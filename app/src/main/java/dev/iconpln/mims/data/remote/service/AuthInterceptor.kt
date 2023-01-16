@@ -1,12 +1,8 @@
 package dev.iconpln.mims.data.remote.service
 
 import android.content.Context
-import android.util.Log
-import androidx.lifecycle.asLiveData
 import dev.iconpln.mims.utils.SessionManager
-import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.first
-import kotlinx.coroutines.flow.flow
 import kotlinx.coroutines.runBlocking
 import okhttp3.Interceptor
 import okhttp3.Response

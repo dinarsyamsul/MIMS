@@ -67,9 +67,9 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_weight="1"
+                    android:fontFamily="@font/montserrat_reguler"
                     android:gravity="center"
                     android:padding="10dp"
-                    android:fontFamily="@font/montserrat_reguler"
                     android:text="SN Material"
                     android:textColor="@color/black"
                     android:textSize="16sp"
@@ -79,25 +79,25 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_weight="1"
+                    android:fontFamily="@font/montserrat_reguler"
                     android:gravity="center"
                     android:padding="10dp"
                     android:text="Vendor"
-                    android:fontFamily="@font/montserrat_reguler"
                     android:textColor="@color/black"
                     android:textSize="16sp"
-                    android:textStyle="bold"/>
+                    android:textStyle="bold" />
 
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_weight="1"
+                    android:fontFamily="@font/montserrat_reguler"
                     android:gravity="center"
                     android:padding="10dp"
-                    android:fontFamily="@font/montserrat_reguler"
                     android:text="Kategori"
                     android:textColor="@color/black"
                     android:textSize="16sp"
-                    android:textStyle="bold"/>
+                    android:textStyle="bold" />
             </TableRow>
 
             <TableRow>
@@ -106,47 +106,47 @@
                     android:id="@+id/tv_sn"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
+                    android:layout_marginStart="1dp"
+                    android:layout_marginEnd="1dp"
+                    android:layout_marginBottom="1dp"
                     android:layout_weight="1"
+                    android:background="#FFFFFF"
+                    android:fontFamily="@font/montserrat_reguler"
                     android:gravity="center"
                     android:padding="8dp"
-                    android:layout_marginBottom="1dp"
-                    android:layout_marginEnd="1dp"
-                    android:layout_marginStart="1dp"
                     android:text="123123123123"
                     android:textColor="@color/black"
-                    android:background="#FFFFFF"
-                    android:textSize="16sp"
-                    android:fontFamily="@font/montserrat_reguler"/>
+                    android:textSize="16sp" />
 
                 <TextView
                     android:id="@+id/tv_vendor"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_weight="1"
-                    android:gravity="center"
-                    android:padding="8dp"
                     android:layout_marginEnd="1dp"
                     android:layout_marginBottom="1dp"
+                    android:layout_weight="1"
+                    android:background="#FFFFFF"
+                    android:fontFamily="@font/montserrat_reguler"
+                    android:gravity="center"
+                    android:padding="8dp"
                     android:text="Smart Meter"
                     android:textColor="@color/black"
-                    android:background="#FFFFFF"
-                    android:textSize="16sp"
-                    android:fontFamily="@font/montserrat_reguler"/>
+                    android:textSize="16sp" />
 
                 <TextView
                     android:id="@+id/tv_kategori"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_weight="1"
-                    android:gravity="center"
                     android:layout_marginEnd="1dp"
                     android:layout_marginBottom="1dp"
+                    android:layout_weight="1"
+                    android:background="#FFFFFF"
+                    android:fontFamily="@font/montserrat_reguler"
+                    android:gravity="center"
                     android:padding="8dp"
                     android:text="Kategori"
                     android:textColor="@color/black"
-                    android:background="#FFFFFF"
-                    android:textSize="16sp"
-                    android:fontFamily="@font/montserrat_reguler"/>
+                    android:textSize="16sp" />
 
             </TableRow>
         </TableLayout>
@@ -156,28 +156,28 @@
         android:id="@+id/txt_toData"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:layout_marginStart="20dp"
+        android:layout_marginTop="80dp"
+        android:fontFamily="@font/montserrat_reguler"
         android:text="Total : "
         android:textColor="@color/black"
         android:textSize="16sp"
         android:textStyle="bold"
-        android:layout_marginTop="80dp"
-        android:layout_marginStart="20dp"
-        android:fontFamily="@font/montserrat_reguler"
-        app:layout_constraintTop_toBottomOf="@+id/line1"
+        app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintBottom_toBottomOf="parent"/>
+        app:layout_constraintTop_toBottomOf="@+id/line1" />
 
     <TextView
         android:id="@+id/txt_hasilData"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:layout_marginTop="80dp"
         android:text="... Data"
         android:textColor="@color/black"
         android:textSize="16sp"
-        android:layout_marginTop="80dp"
+        app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintStart_toEndOf="@+id/txt_toData"
-        app:layout_constraintTop_toBottomOf="@+id/line1"
-        app:layout_constraintBottom_toBottomOf="parent"/>
+        app:layout_constraintTop_toBottomOf="@+id/line1" />
 
     <ImageButton
         android:id="@+id/btn_left"
@@ -188,39 +188,39 @@
         android:background="@drawable/textfield"
         android:elevation="10dp"
         android:src="@drawable/ic_baseline_keyboard_arrow_left_24"
-        app:layout_constraintTop_toBottomOf="@+id/line1"
         app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"/>
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/line1" />
 
     <androidx.appcompat.widget.AppCompatButton
         android:id="@+id/btn_nomer"
         android:layout_width="32dp"
         android:layout_height="32dp"
-        android:layout_marginTop="80dp"
         android:layout_marginStart="8dp"
+        android:layout_marginTop="80dp"
+        android:background="@drawable/textfield"
         android:elevation="10dp"
         android:text="1"
-        android:textStyle="bold"
-        android:textSize="18dp"
         android:textColor="@color/black"
-        android:background="@drawable/textfield"
-        app:layout_constraintTop_toBottomOf="@+id/line1"
+        android:textSize="18dp"
+        android:textStyle="bold"
         app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintStart_toEndOf="@+id/btn_left"/>
+        app:layout_constraintStart_toEndOf="@+id/btn_left"
+        app:layout_constraintTop_toBottomOf="@+id/line1" />
 
     <ImageButton
         android:id="@+id/btn_right"
         android:layout_width="32dp"
         android:layout_height="32dp"
+        android:layout_marginStart="8dp"
         android:layout_marginTop="80dp"
         android:layout_marginEnd="88dp"
-        android:layout_marginStart="8dp"
-        android:elevation="10dp"
         android:background="@drawable/textfield"
+        android:elevation="10dp"
         android:src="@drawable/ic_baseline_keyboard_arrow_right_24"
-        app:layout_constraintTop_toBottomOf="@+id/line1"
         app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintStart_toEndOf="@+id/btn_nomer"/>
+        app:layout_constraintStart_toEndOf="@+id/btn_nomer"
+        app:layout_constraintTop_toBottomOf="@+id/line1" />
 
     <androidx.appcompat.widget.AppCompatButton
         android:id="@+id/btn_tambah"
@@ -229,33 +229,33 @@
         android:layout_marginStart="20dp"
         android:layout_marginTop="20dp"
         android:background="@drawable/btn_tambah"
-        android:text="Tambah"
         android:fontFamily="@font/montserrat_reguler"
+        android:text="Tambah"
         android:textColor="#01A1B9"
-        app:layout_constraintTop_toBottomOf="@+id/txt_toData"
-        app:layout_constraintStart_toStartOf="parent"/>
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/txt_toData" />
 
     <androidx.appcompat.widget.AppCompatButton
         android:layout_width="120dp"
         android:layout_height="45dp"
         android:layout_marginTop="16dp"
         android:layout_marginEnd="20dp"
-        android:text="Ujikan"
-        android:textColor="@color/white"
         android:background="@drawable/gradient_btn"
         android:fontFamily="@font/montserrat_reguler"
-        app:layout_constraintTop_toBottomOf="@+id/btn_nomer"
-        app:layout_constraintEnd_toEndOf="parent"/>
+        android:text="Ujikan"
+        android:textColor="@color/white"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/btn_nomer" />
 
     <androidx.appcompat.widget.AppCompatButton
         android:layout_width="120dp"
         android:layout_height="30dp"
-        android:layout_marginTop="32dp"
         android:layout_marginStart="20dp"
+        android:layout_marginTop="32dp"
         android:background="@drawable/gradient_btn"
         android:drawableStart="@drawable/clipboard"
-        android:text="Export"
         android:fontFamily="@font/montserrat_reguler"
-        app:layout_constraintTop_toBottomOf="@+id/btn_tambah"
-        app:layout_constraintStart_toStartOf="parent"/>
+        android:text="Export"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/btn_tambah" />
 </androidx.constraintlayout.widget.ConstraintLayout>

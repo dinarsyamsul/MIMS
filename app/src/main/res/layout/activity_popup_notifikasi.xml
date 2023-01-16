@@ -3,15 +3,15 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".utils.popdialog">
+    tools:context=".utils.PopupDialog">
 
     <androidx.constraintlayout.widget.ConstraintLayout
         android:id="@+id/constra1"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:background="@drawable/textfield"
         android:layout_marginStart="12dp"
         android:layout_marginEnd="12dp"
+        android:background="@drawable/textfield"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
@@ -148,9 +148,9 @@
                         android:layout_weight="1"
                         android:background="@android:color/transparent"
                         android:fontFamily="@font/montserrat_reguler"
-                        android:textAlignment="textEnd"
                         android:padding="8sp"
                         android:text="APJ Cimahi"
+                        android:textAlignment="textEnd"
                         android:textColor="@color/black"
                         android:textSize="13sp" />
                 </TableRow>
@@ -192,25 +192,25 @@
                         android:id="@+id/txtbaris5"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:layout_weight="5"
                         android:layout_marginStart="8dp"
+                        android:layout_weight="5"
                         android:fontFamily="@font/montserrat_reguler"
-                        android:textAlignment="textEnd"
                         android:padding="10sp"
                         android:text="dd/mm/yyyy"
+                        android:textAlignment="textEnd"
                         android:textColor="@color/black"
-                        android:textSize="13sp"/>
+                        android:textSize="13sp" />
 
                     <TextView
                         android:id="@+id/txtbaris6"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_weight="5"
-                        android:textAlignment="textEnd"
                         android:background="@android:color/transparent"
                         android:fontFamily="@font/montserrat_reguler"
                         android:padding="8sp"
                         android:text="APJ Sukabumi"
+                        android:textAlignment="textEnd"
                         android:textColor="@color/black"
                         android:textSize="13sp" />
                 </TableRow>
@@ -218,6 +218,7 @@
             </TableLayout>
 
         </LinearLayout>
+
         <LinearLayout
             android:id="@+id/lineer4"
             android:layout_width="match_parent"

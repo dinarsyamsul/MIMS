@@ -11,15 +11,11 @@ import android.view.inputmethod.InputMethodManager
 import android.widget.Toast
 import androidx.activity.viewModels
 import androidx.appcompat.app.AppCompatActivity
-import androidx.lifecycle.ViewModelProvider
 import dagger.hilt.android.AndroidEntryPoint
-import dev.iconpln.mims.data.remote.service.ApiConfig
 import dev.iconpln.mims.databinding.ActivityOtpBinding
 import dev.iconpln.mims.ui.login.LoginViewModel
 import dev.iconpln.mims.ui.role.pabrikan.DashboardPabrikanActivity
 import dev.iconpln.mims.ui.role.pusertif.DashboardPusertifActivity
-import dev.iconpln.mims.utils.NetworkStatusTracker
-import dev.iconpln.mims.utils.ViewModelFactory
 
 @AndroidEntryPoint
 class OtpActivity : AppCompatActivity() {

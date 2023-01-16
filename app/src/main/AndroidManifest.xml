@@ -30,28 +30,28 @@
         android:usesCleartextTraffic="true"
         tools:targetApi="31">
         <activity
-            android:name=".ListMonitoringPurchase"
+            android:name=".ui.role.pabrikan.purchase_order.ListMonitoringPurchase"
             android:exported="false">
             <meta-data
                 android:name="android.app.lib_name"
                 android:value="" />
         </activity>
         <activity
-            android:name=".MonitoringPurchaseOrderPabrikan"
+            android:name=".ui.role.pabrikan.purchase_order.MonitoringPurchaseOrderPabrikan"
             android:exported="false">
             <meta-data
                 android:name="android.app.lib_name"
                 android:value="" />
         </activity>
         <activity
-            android:name=".ListDataMaterialPabrikan"
+            android:name=".ui.role.pabrikan.arttribute_material.ListDataMaterialPabrikan"
             android:exported="false">
             <meta-data
                 android:name="android.app.lib_name"
                 android:value="" />
         </activity>
         <activity
-            android:name=".DataAtributMaterialPabrikan"
+            android:name=".ui.role.pabrikan.arttribute_material.DataAtributMaterialPabrikan"
             android:exported="false">
             <meta-data
                 android:name="android.app.lib_name"
@@ -96,7 +96,7 @@
             android:name=".ui.monitoring.MonitoringPurchaseOrder"
             android:exported="false" />
         <activity
-            android:name=".ui.monitoring.UploadDataMaterial"
+            android:name=".ui.role.pabrikan.purchase_order.UploadDataMaterial"
             android:exported="false" />
         <activity
             android:name=".ui.scan.CustomScanActivity"
