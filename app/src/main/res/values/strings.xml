@@ -37,4 +37,14 @@
 
 
     </string-array>
+
+    <string-array name="data_Po">
+        <item>No PO</item>
+        <item>No PO</item>
+        <item>No PO</item>
+        <item>No PO</item>
+        <item>No PO</item>
+        <item>No PO</item>
+
+    </string-array>
 </resources>

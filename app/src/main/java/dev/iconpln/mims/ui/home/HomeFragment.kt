@@ -11,6 +11,7 @@ import androidx.fragment.app.Fragment
 import androidx.lifecycle.asLiveData
 import androidx.lifecycle.lifecycleScope
 import dev.iconpln.mims.DataAtributMaterialPabrikan
+import dev.iconpln.mims.MonitoringPurchaseOrderPabrikan
 import dev.iconpln.mims.databinding.FragmentHomeBinding
 import dev.iconpln.mims.ui.login.LoginActivity
 import dev.iconpln.mims.ui.monitoring.MonitoringPurchaseOrder
@@ -37,7 +38,7 @@ class HomeFragment : Fragment() {
         super.onViewCreated(view, savedInstanceState)
 
         binding.card1.setOnClickListener {
-            val i = Intent(context, MonitoringPurchaseOrder::class.java)
+            val i = Intent(context, MonitoringPurchaseOrderPabrikan::class.java)
             context?.startActivity(i)
             activity?.finish()
         }
