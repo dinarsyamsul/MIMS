@@ -3,4 +3,38 @@
     <string name="apj_cimahi">APJ CIMAHI</string>
     <!-- TODO: Remove or change this placeholder text -->
     <string name="hello_blank_fragment">Hello blank fragment</string>
+
+    <string-array name="data_batch">
+        <item>2000</item>
+        <item>1231</item>
+        <item>3453</item>
+        <item>3333</item>
+        <item>5500</item>
+        <item>7777</item>
+        <item>8888</item>
+
+    </string-array>
+
+    <string-array name="data_excel">
+        <item>333333333</item>
+        <item>222222222</item>
+        <item>333333333</item>
+        <item>536456454</item>
+        <item>679678678</item>
+        <item>555555555</item>
+        <item>767777777</item>
+
+    </string-array>
+
+    <string-array name="data_serial">
+        <item>ILHAM Ganteng</item>
+        <item>API</item>
+        <item>Excel/API</item>
+        <item>API</item>
+        <item>Excel/API</item>
+        <item>Excel/API</item>
+        <item>API</item>
+
+
+    </string-array>
 </resources>

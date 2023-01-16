@@ -10,6 +10,7 @@ import android.widget.Toast
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.asLiveData
 import androidx.lifecycle.lifecycleScope
+import dev.iconpln.mims.DataAtributMaterialPabrikan
 import dev.iconpln.mims.databinding.FragmentHomeBinding
 import dev.iconpln.mims.ui.login.LoginActivity
 import dev.iconpln.mims.ui.monitoring.MonitoringPurchaseOrder
@@ -42,7 +43,7 @@ class HomeFragment : Fragment() {
         }
 
         binding.card4.setOnClickListener {
-            val intent = Intent(context, UploadDataMaterial::class.java)
+            val intent = Intent(context, DataAtributMaterialPabrikan::class.java)
             context?.startActivity(intent)
             activity?.finish()
         }
