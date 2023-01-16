@@ -5,7 +5,7 @@ import android.view.ViewGroup
 import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.RecyclerView
 import dev.iconpln.mims.data.remote.response.DataItemMaterial
-import dev.iconpln.mims.databinding.ActivityListDataMaterialPabrikanBinding
+import dev.iconpln.mims.databinding.ItemDataMaterialPabrikanBinding
 
 class ListMaterialAdapter() : RecyclerView.Adapter<ListMaterialAdapter.ListViewHolder>() {
 
@@ -25,7 +25,7 @@ class ListMaterialAdapter() : RecyclerView.Adapter<ListMaterialAdapter.ListViewH
     }
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ListViewHolder {
-        val itemBinding = ActivityListDataMaterialPabrikanBinding.inflate(
+        val itemBinding = ItemDataMaterialPabrikanBinding.inflate(
             LayoutInflater.from(parent.context),
             parent,
             false
@@ -43,7 +43,7 @@ class ListMaterialAdapter() : RecyclerView.Adapter<ListMaterialAdapter.ListViewH
 
     override fun getItemCount(): Int = listMaterial.size
 
-    class ListViewHolder(val itemBinding: ActivityListDataMaterialPabrikanBinding) :
+    class ListViewHolder(val itemBinding: ItemDataMaterialPabrikanBinding) :
         RecyclerView.ViewHolder(itemBinding.root) {
 
         fun bind(item: DataItemMaterial) {

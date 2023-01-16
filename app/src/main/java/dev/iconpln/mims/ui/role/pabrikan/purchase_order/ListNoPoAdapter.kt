@@ -6,7 +6,7 @@ import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.RecyclerView
 import dev.iconpln.mims.data.remote.response.DataItemMaterial
 import dev.iconpln.mims.data.remote.response.DataMonitoringPO
-import dev.iconpln.mims.databinding.ActivityListMonitoringPurchaseBinding
+import dev.iconpln.mims.databinding.ItemDataMonitoringPurchaseBinding
 
 class ListNoPoAdapter() : RecyclerView.Adapter<ListNoPoAdapter.ListViewHolder>() {
 
@@ -26,7 +26,7 @@ class ListNoPoAdapter() : RecyclerView.Adapter<ListNoPoAdapter.ListViewHolder>()
     }
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ListViewHolder {
-        val itemBinding = ActivityListMonitoringPurchaseBinding.inflate(
+        val itemBinding = ItemDataMonitoringPurchaseBinding.inflate(
             LayoutInflater.from(parent.context),
             parent,
             false
@@ -40,7 +40,7 @@ class ListNoPoAdapter() : RecyclerView.Adapter<ListNoPoAdapter.ListViewHolder>()
 
     override fun getItemCount(): Int = listMaterial.size
 
-    class ListViewHolder(val itemBinding: ActivityListMonitoringPurchaseBinding) :
+    class ListViewHolder(val itemBinding: ItemDataMonitoringPurchaseBinding) :
         RecyclerView.ViewHolder(itemBinding.root) {
 
         fun bind(item: DataMonitoringPO) {

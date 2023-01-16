@@ -10,6 +10,8 @@ import dagger.hilt.android.AndroidEntryPoint
 import dev.iconpln.mims.R
 import dev.iconpln.mims.databinding.ActivityMonitoringPurchaseOrderPabrikanBinding
 import dev.iconpln.mims.utils.NoPoSerial
+import java.util.*
+import kotlin.collections.ArrayList
 
 @AndroidEntryPoint
 class MonitoringPurchaseOrderPabrikan : AppCompatActivity() {
@@ -40,33 +42,19 @@ class MonitoringPurchaseOrderPabrikan : AppCompatActivity() {
         binding.srcNomorBatch.setOnQueryTextListener(object : SearchView.OnQueryTextListener {
             override fun onQueryTextSubmit(query: String?): Boolean {
                 if (query != null){
-                    monitoringPOViewModel.getMonitoringPO(query, "")
+                    val mQuery = query.uppercase(Locale.ROOT)
+                    monitoringPOViewModel.getMonitoringPO(mQuery, "")
                 }
                 return false
             }
 
             override fun onQueryTextChange(newText: String?): Boolean {
                 if (newText != null) {
-                    monitoringPOViewModel.getMonitoringPO(newText, "")
+                    val mNewText = newText.uppercase(Locale.ROOT)
+                    monitoringPOViewModel.getMonitoringPO(mNewText, "")
                 }
                 return false
             }
         })
     }
-
-    private fun getListNoPo(): ArrayList<NoPoSerial> {
-        val dataNoPo = resources.getStringArray(R.array.data_Po)
-        val listPo = ArrayList<NoPoSerial>()
-        for (i in dataNoPo.indices) {
-            val serialPo = NoPoSerial(dataNoPo[i])
-            listPo.add(serialPo)
-        }
-        return listPo
-    }
-
-//    private fun showRecyclerList(){
-//        rvNoPo.layoutManager = LinearLayoutManager(this)
-//        val listNoPoAdapter = ListNoPoAdapter(list)
-//        rvNoPo.adapter = listNoPoAdapter
-//    }
 }
