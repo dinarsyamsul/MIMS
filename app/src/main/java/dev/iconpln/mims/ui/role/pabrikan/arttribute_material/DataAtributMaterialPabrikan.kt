@@ -8,6 +8,9 @@ import androidx.appcompat.app.AppCompatActivity
 import androidx.recyclerview.widget.LinearLayoutManager
 import dagger.hilt.android.AndroidEntryPoint
 import dev.iconpln.mims.HasilScan
+import dev.iconpln.mims.ListTanggalAdapter
+import dev.iconpln.mims.R
+import dev.iconpln.mims.TanggalFilter
 import dev.iconpln.mims.data.remote.response.DataItemMaterial
 import dev.iconpln.mims.databinding.ActivityDataAtributMaterialPabrikanBinding
 import dev.iconpln.mims.ui.role.pabrikan.DashboardPabrikanActivity
@@ -17,11 +20,17 @@ class DataAtributMaterialPabrikan : AppCompatActivity() {
     private lateinit var binding: ActivityDataAtributMaterialPabrikanBinding
     private val materialViewModel: MaterialViewModel by viewModels()
     private lateinit var rvAdapter: ListMaterialAdapter
+    private val list = kotlin.collections.ArrayList<TanggalFilter>()
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         binding = ActivityDataAtributMaterialPabrikanBinding.inflate(layoutInflater)
         setContentView(binding.root)
+
+        binding.rvTanggal.setHasFixedSize(true)
+
+        list.addAll(getListTanggal())
+        showRecyclerList()
 
         rvAdapter = ListMaterialAdapter()
 
@@ -62,5 +71,21 @@ class DataAtributMaterialPabrikan : AppCompatActivity() {
                 startActivity(toDetailMaterial)
             }
         })
+    }
+
+    private fun getListTanggal():kotlin.collections.ArrayList<TanggalFilter>{
+        val tanggalFill = resources.getStringArray(R.array.data_tanggal)
+        val listTanggalfil = kotlin.collections.ArrayList<TanggalFilter>()
+        for (i in tanggalFill.indices){
+            val tanggal = TanggalFilter(tanggalFill[i])
+            listTanggalfil.add(tanggal)
+        }
+        return listTanggalfil
+    }
+
+    private fun showRecyclerList(){
+        binding.rvTanggal.layoutManager = LinearLayoutManager(this, LinearLayoutManager.HORIZONTAL, false)
+        val listTanggalAdapter = ListTanggalAdapter(list)
+        binding.rvTanggal.adapter = listTanggalAdapter
     }
 }
