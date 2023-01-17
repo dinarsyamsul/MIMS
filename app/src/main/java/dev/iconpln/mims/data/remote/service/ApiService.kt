@@ -40,8 +40,8 @@ interface ApiService {
     @Headers("Content-Type:application/json")
     @GET("mims-service-api/purchaseOrder/getMonitoringPO")
     suspend fun getMonitoringPO(
-        @Query("no_purchase_order") noPO: String,
-        @Query("short_by") sortBy: String,
+        @Query("no_purchase_order") noPO: String?,
+        @Query("short_by") sortBy: String?,
         @Query("page_in") pageIn: Int? = 1,
         @Query("page_size") pageSize: Int? = 5
     ): Response<MonitoringPOResponse>

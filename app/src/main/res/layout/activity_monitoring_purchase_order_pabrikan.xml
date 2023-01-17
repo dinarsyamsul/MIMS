@@ -95,18 +95,28 @@
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@id/src_nomorBatch" />
 
-            <Spinner
+            <com.google.android.material.textfield.TextInputLayout
                 android:id="@+id/tinp_pilihUrutan"
                 style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox.ExposedDropdownMenu"
-                android:layout_width="346dp"
-                android:layout_height="54dp"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
                 android:layout_marginStart="32dp"
-                android:layout_marginTop="24dp"
-                app:hintAnimationEnabled="true"
+                android:layout_marginTop="8dp"
+                android:layout_marginEnd="32dp"
+                app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/txt_urutkan">
+                app:layout_constraintTop_toBottomOf="@id/txt_urutkan">
 
-            </Spinner>
+                <AutoCompleteTextView
+                    android:id="@+id/auto_complete_textview"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:layout_weight="1"
+                    android:inputType="none"
+                    android:text="TERBARU" />
+
+            </com.google.android.material.textfield.TextInputLayout>
+
             <TextView
                 android:id="@+id/txt_daftarList"
                 android:layout_width="wrap_content"
@@ -138,34 +148,36 @@
                 app:layout_constraintStart_toEndOf="@+id/txt_daftarList"
                 app:layout_constraintTop_toBottomOf="@+id/tinp_pilihUrutan" />
 
-        <androidx.cardview.widget.CardView
-            android:id="@+id/cv_tanggal"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            app:cardCornerRadius="5dp"
-            app:cardElevation="10dp"
-            android:background="#F0EDFF"
-            android:paddingBottom="10dp"
-            android:layout_marginStart="8dp"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@id/btn_export">
-
-            <LinearLayout
+            <androidx.cardview.widget.CardView
+                android:id="@+id/cv_tanggal"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:padding="5dp"
-                android:background="#F0EDFF">
+                android:layout_marginStart="8dp"
+                android:layout_marginTop="8dp"
+                android:layout_marginBottom="8dp"
+                android:background="#F0EDFF"
+                android:paddingBottom="10dp"
+                app:cardCornerRadius="5dp"
+                app:cardElevation="10dp"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/btn_export">
 
-                <androidx.recyclerview.widget.RecyclerView
-                    android:id="@+id/rv_tanggal"
+                <LinearLayout
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:scrollbars="horizontal"
-                    tools:layout_editor_absoluteX="5dp"
-                    tools:listitem="@layout/activity_tanggal_card_view" />
+                    android:background="#F0EDFF"
+                    android:padding="5dp">
 
-            </LinearLayout>
-        </androidx.cardview.widget.CardView>
+                    <androidx.recyclerview.widget.RecyclerView
+                        android:id="@+id/rv_tanggal"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:scrollbars="horizontal"
+                        tools:layout_editor_absoluteX="5dp"
+                        tools:listitem="@layout/activity_tanggal_card_view" />
+
+                </LinearLayout>
+            </androidx.cardview.widget.CardView>
 
             <androidx.cardview.widget.CardView
                 android:id="@+id/cv_daftarList"

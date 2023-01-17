@@ -27,7 +27,7 @@ class MonitoringPOViewModel @Inject constructor(private val apiService: ApiServi
     private val _monitoringPOResponse = MutableLiveData<MonitoringPOResponse>()
     val monitoringPOResponse: LiveData<MonitoringPOResponse> = _monitoringPOResponse
 
-    fun getMonitoringPO(noPO: String, sortBy: String, pageIn: Int? = 1, pageSize: Int? = 5) {
+    fun getMonitoringPO(noPO: String?, sortBy: String?, pageIn: Int? = 1, pageSize: Int? = 5) {
         _isLoading.value = true
         job = CoroutineScope(Dispatchers.IO + exceptionHandler).launch {
             val response = apiService.getMonitoringPO(noPO, sortBy, pageIn, pageSize)

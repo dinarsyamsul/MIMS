@@ -57,4 +57,9 @@
         <item>Sabtu</item>
         <item>Minggu</item>
     </string-array>
+
+    <string-array name="berdasarkan">
+        <item>TERBARU</item>
+        <item>TERLAMA</item>
+    </string-array>
 </resources>
