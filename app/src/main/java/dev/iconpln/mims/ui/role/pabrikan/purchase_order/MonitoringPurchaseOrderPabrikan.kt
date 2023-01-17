@@ -20,7 +20,6 @@ class MonitoringPurchaseOrderPabrikan : AppCompatActivity() {
     private val monitoringPOViewModel: MonitoringPOViewModel by viewModels()
     private lateinit var rvAdapter: ListNoPoAdapter
 
-    @SuppressLint("MissingInflatedId")
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         binding = ActivityMonitoringPurchaseOrderPabrikanBinding.inflate(layoutInflater)
