@@ -1,0 +1,540 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+    <ImageView
+        android:id="@+id/header"
+        android:layout_width="match_parent"
+        android:layout_height="130dp"
+        android:background="@drawable/dashboard"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <ImageButton
+        android:id="@+id/btn_back"
+        android:layout_width="50dp"
+        android:layout_height="50dp"
+        android:layout_marginStart="32dp"
+        android:layout_marginTop="45dp"
+        android:background="#00FFFFFF"
+        android:src="@drawable/ic_baseline_arrow_back_ios_24"
+        app:layout_constraintStart_toStartOf="@+id/header"
+        app:layout_constraintTop_toTopOf="@+id/header" />
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="58dp"
+        android:layout_marginEnd="64dp"
+        android:fontFamily="@font/montserrat_reguler"
+        android:text="Detail Pengiriman"
+        android:textColor="@color/white"
+        android:textSize="16dp"
+        android:textStyle="bold"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toEndOf="@+id/btn_back"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <ScrollView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_marginTop="130dp"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/header">
+
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:paddingBottom="10dp">
+
+            <TextView
+                android:id="@+id/txt_kategoridetailpengiriman"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="32dp"
+                android:layout_marginTop="24dp"
+                android:text="Kategori"
+                android:textColor="#3F3D56"
+                android:textSize="14sp"
+                android:textStyle="bold"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent" />
+
+            <com.google.android.material.textfield.TextInputLayout
+                android:id="@+id/tinp_pilihUrutan"
+                style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox.ExposedDropdownMenu"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="32dp"
+                android:layout_marginTop="8dp"
+                android:layout_marginEnd="32dp"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/txt_kategoridetailpengiriman">
+
+                <AutoCompleteTextView
+                    android:id="@+id/auto_complete_textview"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:layout_weight="1"
+                    android:inputType="none"
+                    android:text="Pilih Kategori" />
+
+                <TextView
+                    android:id="@+id/txt_noSNdetailpengiriman"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="24dp"
+                    android:text="SN Material"
+                    android:textColor="#3F3D56"
+                    android:textSize="14sp"
+                    android:textStyle="bold"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toTopOf="parent" />
+
+                <SearchView
+                    android:id="@+id/src_noSNdetailpengiriman"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="18dp"
+                    android:background="@drawable/srchview"
+                    android:layoutDirection="rtl"
+                    android:queryHint="Search Here"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@+id/txt_noSNdetailpengiriman" />
+
+            </com.google.android.material.textfield.TextInputLayout>
+
+            <ImageView
+                android:id="@+id/img_POdetailpengiriman"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="32dp"
+                android:layout_marginTop="250dp"
+                android:src="@drawable/plant_list_monitoring1"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent"
+                tools:ignore="MissingConstraints" />
+
+            <TextView
+                android:id="@+id/txt_noPOdetailpengiriman"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="8dp"
+                android:fontFamily="@font/montserrat_reguler"
+                android:text="No PO"
+                android:textColor="#3F3D56"
+                app:layout_constraintBottom_toBottomOf="@id/img_POdetailpengiriman"
+                app:layout_constraintStart_toEndOf="@id/img_POdetailpengiriman" />
+
+            <TextView
+                android:id="@+id/txt_titik2POdetailpengiriman"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="2dp"
+                android:fontFamily="@font/montserrat_reguler"
+                android:text=" : "
+                android:textColor="#3F3D56"
+                android:textSize="16dp"
+                app:layout_constraintBottom_toBottomOf="@id/txt_noPOdetailpengiriman"
+                app:layout_constraintStart_toEndOf="@id/txt_noPOdetailpengiriman"
+                app:layout_constraintTop_toTopOf="@id/txt_noPOdetailpengiriman" />
+
+            <TextView
+                android:id="@+id/txt_POdetailpengiriman"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:fontFamily="@font/montserrat_reguler"
+                android:text="12312311"
+                android:textColor="#96979B"
+                app:layout_constraintBottom_toBottomOf="@id/txt_titik2POdetailpengiriman"
+                app:layout_constraintStart_toEndOf="@id/txt_titik2POdetailpengiriman"
+                app:layout_constraintTop_toTopOf="@id/txt_titik2POdetailpengiriman" />
+
+            <!-- PEMBATAS -->
+
+            <ImageView
+                android:id="@+id/img_vendordetailpengiriman"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="32dp"
+                android:layout_marginTop="8dp"
+                android:src="@drawable/plant_list_monitoring1"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/txt_POdetailpengiriman" />
+
+            <TextView
+                android:id="@+id/txt_vendordetailpengiriman"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="8dp"
+                android:fontFamily="@font/montserrat_reguler"
+                android:text="Vendor"
+                android:textColor="#3F3D56"
+                app:layout_constraintBottom_toBottomOf="@id/img_vendordetailpengiriman"
+                app:layout_constraintStart_toEndOf="@id/img_vendordetailpengiriman"
+                app:layout_constraintTop_toTopOf="@id/img_vendordetailpengiriman" />
+
+            <TextView
+                android:id="@+id/txt_titik2vendordetailpengiriman"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="2dp"
+                android:fontFamily="@font/montserrat_reguler"
+                android:text=" : "
+                android:textColor="#3F3D56"
+                android:textSize="16dp"
+                app:layout_constraintBottom_toBottomOf="@id/txt_vendordetailpengiriman"
+                app:layout_constraintStart_toEndOf="@id/txt_vendordetailpengiriman"
+                app:layout_constraintTop_toTopOf="@id/txt_vendordetailpengiriman" />
+
+            <TextView
+                android:id="@+id/txt_isivendordetailpengiriman"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:fontFamily="@font/montserrat_reguler"
+                android:text="12312311"
+                android:textColor="#96979B"
+                app:layout_constraintBottom_toBottomOf="@id/txt_titik2vendordetailpengiriman"
+                app:layout_constraintStart_toEndOf="@id/txt_titik2vendordetailpengiriman"
+                app:layout_constraintTop_toTopOf="@id/txt_titik2vendordetailpengiriman" />
+
+            <!-- PEMBATAS -->
+
+            <ImageView
+                android:id="@+id/img_plantdetailpengiriman"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="32dp"
+                android:layout_marginTop="8dp"
+                android:src="@drawable/plant_list_monitoring1"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/txt_vendordetailpengiriman" />
+
+            <TextView
+                android:id="@+id/txt_plantdetailpengiriman"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="8dp"
+                android:fontFamily="@font/montserrat_reguler"
+                android:text="Plant"
+                android:textColor="#3F3D56"
+                app:layout_constraintBottom_toBottomOf="@id/img_plantdetailpengiriman"
+                app:layout_constraintStart_toEndOf="@id/img_plantdetailpengiriman"
+                app:layout_constraintTop_toTopOf="@id/img_plantdetailpengiriman" />
+
+            <TextView
+                android:id="@+id/txt_titik2plantdetailpengiriman"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="2dp"
+                android:fontFamily="@font/montserrat_reguler"
+                android:text=" : "
+                android:textColor="#3F3D56"
+                android:textSize="16dp"
+                app:layout_constraintBottom_toBottomOf="@id/txt_plantdetailpengiriman"
+                app:layout_constraintStart_toEndOf="@id/txt_plantdetailpengiriman"
+                app:layout_constraintTop_toTopOf="@id/txt_plantdetailpengiriman" />
+
+            <TextView
+                android:id="@+id/txt_isiplantdetailpengiriman"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:fontFamily="@font/montserrat_reguler"
+                android:text="12312311"
+                android:textColor="#96979B"
+                app:layout_constraintBottom_toBottomOf="@id/txt_titik2plantdetailpengiriman"
+                app:layout_constraintStart_toEndOf="@id/txt_titik2plantdetailpengiriman"
+                app:layout_constraintTop_toTopOf="@id/txt_titik2plantdetailpengiriman" />
+
+            <!-- PEMBATAS -->
+
+            <ImageView
+                android:id="@+id/img_storelocdetailpengiriman"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="84dp"
+                android:src="@drawable/kuantitas_list_monitoring1"
+                app:layout_constraintBottom_toBottomOf="@id/txt_noPOdetailpengiriman"
+                app:layout_constraintStart_toEndOf="@+id/txt_noPOdetailpengiriman"
+                app:layout_constraintTop_toTopOf="@id/txt_noPOdetailpengiriman" />
+
+            <TextView
+                android:id="@+id/txt_storelocdetailpengiriman"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="8dp"
+                android:fontFamily="@font/montserrat_reguler"
+                android:text="Store Loc"
+                android:textColor="#3F3D56"
+                app:layout_constraintBottom_toBottomOf="@id/img_storelocdetailpengiriman"
+                app:layout_constraintStart_toEndOf="@id/img_storelocdetailpengiriman"
+                app:layout_constraintTop_toTopOf="@id/img_storelocdetailpengiriman" />
+
+            <TextView
+                android:id="@+id/txt_titik2storelocdetailpengiriman"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="2dp"
+                android:fontFamily="@font/montserrat_reguler"
+                android:text=" : "
+                android:textColor="#3F3D56"
+                android:textSize="16dp"
+                app:layout_constraintBottom_toBottomOf="@id/txt_storelocdetailpengiriman"
+                app:layout_constraintStart_toEndOf="@id/txt_storelocdetailpengiriman"
+                app:layout_constraintTop_toTopOf="@id/txt_storelocdetailpengiriman" />
+
+            <TextView
+                android:id="@+id/txt_isistorelocdetailpengiriman"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:fontFamily="@font/montserrat_reguler"
+                android:text="5112111223344"
+                android:textColor="#96979B"
+                app:layout_constraintBottom_toBottomOf="@id/txt_titik2storelocdetailpengiriman"
+                app:layout_constraintStart_toEndOf="@id/txt_titik2storelocdetailpengiriman"
+                app:layout_constraintTop_toTopOf="@id/txt_titik2storelocdetailpengiriman" />
+
+            <!-- PEMBATAS -->
+
+            <ImageView
+                android:id="@+id/img_unitdetailpengiriman"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="79dp"
+                android:src="@drawable/kuantitas_list_monitoring1"
+                app:layout_constraintBottom_toBottomOf="@id/txt_vendordetailpengiriman"
+                app:layout_constraintStart_toEndOf="@id/txt_vendordetailpengiriman"
+                app:layout_constraintTop_toTopOf="@id/txt_vendordetailpengiriman" />
+
+            <TextView
+                android:id="@+id/txt_unitdetailpengiriman"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="8dp"
+                android:fontFamily="@font/montserrat_reguler"
+                android:text="Unit"
+                android:textColor="#3F3D56"
+                app:layout_constraintBottom_toBottomOf="@id/img_unitdetailpengiriman"
+                app:layout_constraintStart_toEndOf="@id/img_unitdetailpengiriman"
+                app:layout_constraintTop_toTopOf="@id/img_unitdetailpengiriman" />
+
+            <TextView
+                android:id="@+id/txt_titik2unitdetailpengiriman"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="2dp"
+                android:fontFamily="@font/montserrat_reguler"
+                android:text=" : "
+                android:textColor="#3F3D56"
+                android:textSize="16dp"
+                app:layout_constraintBottom_toBottomOf="@id/txt_unitdetailpengiriman"
+                app:layout_constraintStart_toEndOf="@id/txt_unitdetailpengiriman"
+                app:layout_constraintTop_toTopOf="@id/txt_unitdetailpengiriman" />
+
+            <TextView
+                android:id="@+id/txt_isiunitdetailpengiriman"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:fontFamily="@font/montserrat_reguler"
+                android:text="xx-xxx-xxx"
+                android:textColor="#96979B"
+                app:layout_constraintBottom_toBottomOf="@id/txt_titik2unitdetailpengiriman"
+                app:layout_constraintStart_toEndOf="@id/txt_titik2unitdetailpengiriman"
+                app:layout_constraintTop_toTopOf="@id/txt_titik2unitdetailpengiriman" />
+
+            <!-- PEMBATAS -->
+
+            <ImageView
+                android:id="@+id/img_noDOdetailpengiriman"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="32dp"
+                android:layout_marginTop="8dp"
+                android:src="@drawable/plant_list_monitoring1"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/txt_plantdetailpengiriman" />
+
+            <TextView
+                android:id="@+id/txt_noDOdetailpengiriman"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="8dp"
+                android:fontFamily="@font/montserrat_reguler"
+                android:text="No DO"
+                android:textColor="#3F3D56"
+                app:layout_constraintBottom_toBottomOf="@id/img_noDOdetailpengiriman"
+                app:layout_constraintStart_toEndOf="@id/img_noDOdetailpengiriman"
+                app:layout_constraintTop_toTopOf="@id/img_noDOdetailpengiriman" />
+
+            <TextView
+                android:id="@+id/txt_titik2noDOdetailpengiriman"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="2dp"
+                android:fontFamily="@font/montserrat_reguler"
+                android:text=" : "
+                android:textColor="#3F3D56"
+                android:textSize="16dp"
+                app:layout_constraintBottom_toBottomOf="@id/txt_noDOdetailpengiriman"
+                app:layout_constraintStart_toEndOf="@id/txt_noDOdetailpengiriman"
+                app:layout_constraintTop_toTopOf="@id/txt_noDOdetailpengiriman" />
+
+            <TextView
+                android:id="@+id/txt_isinoDOdetailpengiriman"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:fontFamily="@font/montserrat_reguler"
+                android:text="xx-xxx-xxx"
+                android:textColor="#96979B"
+                app:layout_constraintBottom_toBottomOf="@id/txt_titik2noDOdetailpengiriman"
+                app:layout_constraintStart_toEndOf="@id/txt_titik2noDOdetailpengiriman"
+                app:layout_constraintTop_toTopOf="@id/txt_titik2noDOdetailpengiriman" />
+
+
+            <!-- PEMBATAS -->
+
+            <ImageView
+                android:id="@+id/img_petugaspengiriman"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="32dp"
+                android:layout_marginTop="8dp"
+                android:src="@drawable/plant_list_monitoring1"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/txt_plantdetailpengiriman" />
+
+            <TextView
+                android:id="@+id/txt_petugaspengiriman"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="8dp"
+                android:fontFamily="@font/montserrat_reguler"
+                android:text="No DO"
+                android:textColor="#3F3D56"
+                app:layout_constraintBottom_toBottomOf="@id/img_petugaspengiriman"
+                app:layout_constraintStart_toEndOf="@id/img_petugaspengiriman"
+                app:layout_constraintTop_toTopOf="@id/img_petugaspengiriman" />
+
+            <TextView
+                android:id="@+id/txt_titik2petugaspengiriman"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="2dp"
+                android:fontFamily="@font/montserrat_reguler"
+                android:text=" : "
+                android:textColor="#3F3D56"
+                android:textSize="16dp"
+                app:layout_constraintBottom_toBottomOf="@id/txt_petugaspengiriman"
+                app:layout_constraintStart_toEndOf="@id/txt_petugaspengiriman"
+                app:layout_constraintTop_toTopOf="@id/txt_petugaspengiriman" />
+
+            <TextView
+                android:id="@+id/txt_isipetugaspengiriman"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:fontFamily="@font/montserrat_reguler"
+                android:text="xx-xxx-xxx"
+                android:textColor="#96979B"
+                app:layout_constraintBottom_toBottomOf="@id/txt_titik2petugaspengiriman"
+                app:layout_constraintStart_toEndOf="@id/txt_titik2petugaspengiriman"
+                app:layout_constraintTop_toTopOf="@id/txt_titik2petugaspengiriman" />
+
+
+            <!-- PEMBATAS -->
+
+            <ImageView
+                android:id="@+id/img_kurirpengiriman"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="32dp"
+                android:layout_marginTop="8dp"
+                android:src="@drawable/plant_list_monitoring1"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/txt_petugaspengiriman" />
+
+            <TextView
+                android:id="@+id/txt_kurirpengiriman"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="8dp"
+                android:fontFamily="@font/montserrat_reguler"
+                android:text="No DO"
+                android:textColor="#3F3D56"
+                app:layout_constraintBottom_toBottomOf="@id/img_kurirpengiriman"
+                app:layout_constraintStart_toEndOf="@id/img_kurirpengiriman"
+                app:layout_constraintTop_toTopOf="@id/img_kurirpengiriman" />
+
+            <TextView
+                android:id="@+id/txt_titik2kurirpengiriman"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="2dp"
+                android:fontFamily="@font/montserrat_reguler"
+                android:text=" : "
+                android:textColor="#3F3D56"
+                android:textSize="16dp"
+                app:layout_constraintBottom_toBottomOf="@id/txt_kurirpengiriman"
+                app:layout_constraintStart_toEndOf="@id/txt_kurirpengiriman"
+                app:layout_constraintTop_toTopOf="@id/txt_kurirpengiriman" />
+
+            <TextView
+                android:id="@+id/txt_isikurirpengiriman"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:fontFamily="@font/montserrat_reguler"
+                android:text="xx-xxx-xxx"
+                android:textColor="#96979B"
+                app:layout_constraintBottom_toBottomOf="@id/txt_titik2kurirpengiriman"
+                app:layout_constraintStart_toEndOf="@id/txt_titik2kurirpengiriman"
+                app:layout_constraintTop_toTopOf="@id/txt_titik2kurirpengiriman" />
+
+            <androidx.cardview.widget.CardView
+                android:id="@+id/cv_daftarList"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="24dp"
+                android:layout_marginTop="24dp"
+                android:layout_marginEnd="24dp"
+                android:paddingBottom="10dp"
+                app:cardCornerRadius="5dp"
+                app:cardElevation="10dp"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/txt_kurirpengiriman">
+
+                <androidx.constraintlayout.widget.ConstraintLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:background="#FFFFFF">
+
+                    <androidx.recyclerview.widget.RecyclerView
+                        android:id="@+id/rv_serial"
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        tools:listitem="@layout/item_data_material_pabrikan" />
+
+                    <ProgressBar
+                        android:id="@+id/progress_bar"
+                        style="@style/Widget.AppCompat.ProgressBar"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:visibility="visible"
+                        app:layout_constraintEnd_toEndOf="parent"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintTop_toTopOf="parent" />
+                </androidx.constraintlayout.widget.ConstraintLayout>
+            </androidx.cardview.widget.CardView>
+
+        </androidx.constraintlayout.widget.ConstraintLayout>
+
+
+    </ScrollView>
+
+</androidx.constraintlayout.widget.ConstraintLayout>
