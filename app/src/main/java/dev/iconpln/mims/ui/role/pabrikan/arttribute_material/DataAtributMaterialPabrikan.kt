@@ -14,6 +14,7 @@ import dev.iconpln.mims.TanggalFilter
 import dev.iconpln.mims.data.remote.response.DataItemMaterial
 import dev.iconpln.mims.databinding.ActivityDataAtributMaterialPabrikanBinding
 import dev.iconpln.mims.ui.role.pabrikan.DashboardPabrikanActivity
+import dev.iconpln.mims.ui.scan.ResponseScanActivity
 
 @AndroidEntryPoint
 class DataAtributMaterialPabrikan : AppCompatActivity() {
@@ -66,8 +67,8 @@ class DataAtributMaterialPabrikan : AppCompatActivity() {
         rvAdapter.setOnItemClickCallback(object : ListMaterialAdapter.OnItemClickCallback {
             override fun onItemClicked(data: DataItemMaterial) {
                 val toDetailMaterial =
-                    Intent(this@DataAtributMaterialPabrikan, HasilScan::class.java)
-                toDetailMaterial.putExtra(HasilScan.EXTRA_SN, data.serialNumber)
+                    Intent(this@DataAtributMaterialPabrikan, ResponseScanActivity::class.java)
+                toDetailMaterial.putExtra(ResponseScanActivity.EXTRA_SN, data.serialNumber)
                 startActivity(toDetailMaterial)
             }
         })

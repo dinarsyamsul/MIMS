@@ -2,6 +2,7 @@ package dev.iconpln.mims.ui.scan
 
 import android.content.Intent
 import android.os.Bundle
+import android.widget.Toast
 import androidx.activity.viewModels
 import androidx.appcompat.app.AppCompatActivity
 import dagger.hilt.android.AndroidEntryPoint
@@ -36,25 +37,27 @@ class ResponseScanActivity : AppCompatActivity() {
             startActivity(intent)
         }
 
-//        viewModel.snResponse.observe(this) { data ->
-//            if (data.message == "Success") {
-//                Toast.makeText(this, "Scan Berhasil", Toast.LENGTH_SHORT).show()
-//                binding.apply {
-//                    tvResult.text = "${data.detailSN.serialNumber}"
-//                    tvNoMaterial.text = "${data.detailSN.nomorMaterial}"
-//                    tvKodePabrik.text = "${data.detailSN.kodePabrikan}"
-//                    tvNamaPabrik.text = "${data.detailSN.namaPabrikan}"
-//                    tvTglProduksi.text = "${data.detailSN.tglProduksi}"
-//                    tvSpin.text = "${data.detailSN.spln}"
-//                    tvSpekMaterial.text = "${data.detailSN.spesifikasiMaterial}"
-//                    tvKatMaterial.text = "${data.detailSN.kategoriMaterial}"
-//                    tvMasaGaransi.text = "${data.detailSN.masaGaransi}"
-//                    tvNomorSert.text = "${data.detailSN.nomorSertMetrologi}"
-//                    tvNoProduksi.text = "${data.detailSN.noProduksi}"
-//                    tvNoPack.text = "${data.detailSN.noPackaging}"
-//                }
-//            }
-//        }
+        viewModel.snResponse.observe(this) { data ->
+            if (data.message == "Success") {
+                Toast.makeText(this, "Scan Berhasil", Toast.LENGTH_SHORT).show()
+                data.detailSN.forEach {
+                    binding.apply {
+                        tvResult.text = it.serialNumber
+                        tvNoMaterial.text = it.nomorMaterial
+                        tvKodePabrik.text = it.kodePabrikan
+                        tvNamaPabrik.text = it.namaPabrikan
+                        tvTglProduksi.text = it.tglProduksi
+                        tvSpin.text = it.spln
+                        tvSpekMaterial.text = it.spesifikasiMaterial
+                        tvKatMaterial.text = it.kategoriMaterial
+                        tvMasaGaransi.text = it.masaGaransi
+                        tvNomorSert.text = it.nomorSertMetrologi
+                        tvNoProduksi.text = it.noProduksi
+                        tvNoPack.text = it.noPackaging
+                    }
+                }
+            }
+        }
     }
 
     override fun onBackPressed() {

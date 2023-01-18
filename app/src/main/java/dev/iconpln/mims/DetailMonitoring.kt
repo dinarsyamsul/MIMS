@@ -8,4 +8,8 @@ class DetailMonitoring : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_detail_monitoring)
     }
+
+    companion object{
+        const val EXTRA_SN = "extra_sn"
+    }
 }

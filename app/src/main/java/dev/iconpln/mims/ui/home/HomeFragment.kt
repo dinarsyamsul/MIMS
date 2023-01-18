@@ -39,19 +39,16 @@ class HomeFragment : Fragment() {
         binding.card1.setOnClickListener {
             val i = Intent(context, MonitoringPurchaseOrderPabrikan::class.java)
             context?.startActivity(i)
-            activity?.finish()
         }
 
         binding.card4.setOnClickListener {
             val intent = Intent(context, DataAtributMaterialPabrikan::class.java)
             context?.startActivity(intent)
-            activity?.finish()
         }
 
         binding.card2.setOnClickListener {
             val intent = Intent(context, DetailMonitoring::class.java)
             context?.startActivity(intent)
-            activity?.finish()
         }
 
         val session = SessionManager(requireContext())
