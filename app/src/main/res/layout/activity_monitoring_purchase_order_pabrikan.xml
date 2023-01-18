@@ -145,14 +145,12 @@
                 android:text="Export"
                 android:textColor="@color/white"
                 app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintStart_toEndOf="@+id/txt_daftarList"
                 app:layout_constraintTop_toBottomOf="@+id/tinp_pilihUrutan" />
 
             <androidx.cardview.widget.CardView
                 android:id="@+id/cv_tanggal"
-                android:layout_width="wrap_content"
+                android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginStart="8dp"
                 android:layout_marginTop="8dp"
                 android:layout_marginBottom="8dp"
                 android:background="#F0EDFF"
@@ -160,12 +158,13 @@
                 app:cardCornerRadius="5dp"
                 app:cardElevation="10dp"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@id/btn_export">
+                app:layout_constraintTop_toBottomOf="@id/btn_export"
+                app:layout_constraintEnd_toEndOf="parent">
 
                 <LinearLayout
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:background="#F0EDFF"
+                    android:background="#FFFFFF"
                     android:padding="5dp">
 
                     <androidx.recyclerview.widget.RecyclerView
@@ -188,6 +187,7 @@
                 android:paddingBottom="10dp"
                 app:cardCornerRadius="5dp"
                 app:cardElevation="10dp"
+                android:layout_marginTop="16dp"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"

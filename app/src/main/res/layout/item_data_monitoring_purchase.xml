@@ -10,15 +10,16 @@
         android:id="@+id/cv_daftarList"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:layout_marginTop="16dp"
         android:paddingBottom="10dp"
         app:cardCornerRadius="5dp"
         app:cardElevation="10dp"
-        tools:ignore="MissingConstraints">
+        app:layout_constraintTop_toTopOf="parent">
 
         <androidx.constraintlayout.widget.ConstraintLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:background="#FFFFFF"
+            android:background="#F7F8FA"
             android:padding="10dp">
 
             <View

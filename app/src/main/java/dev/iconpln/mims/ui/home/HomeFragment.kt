@@ -10,6 +10,7 @@ import android.widget.Toast
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.asLiveData
 import androidx.lifecycle.lifecycleScope
+import dev.iconpln.mims.DetailMonitoring
 import dev.iconpln.mims.databinding.FragmentHomeBinding
 import dev.iconpln.mims.ui.login.LoginActivity
 import dev.iconpln.mims.ui.role.pabrikan.arttribute_material.DataAtributMaterialPabrikan
@@ -47,6 +48,12 @@ class HomeFragment : Fragment() {
             activity?.finish()
         }
 
+        binding.card2.setOnClickListener {
+            val intent = Intent(context, DetailMonitoring::class.java)
+            context?.startActivity(intent)
+            activity?.finish()
+        }
+
         val session = SessionManager(requireContext())
 
         binding.btnLogout.setOnClickListener {
@@ -69,9 +76,9 @@ class HomeFragment : Fragment() {
             Toast.makeText(context, "Under Maintenance", Toast.LENGTH_SHORT).show()
         }
 
-        binding.card2.setOnClickListener {
-            Toast.makeText(context, "Under Maintenance", Toast.LENGTH_SHORT).show()
-        }
+//        binding.card2.setOnClickListener {
+//            Toast.makeText(context, "Under Maintenance", Toast.LENGTH_SHORT).show()
+//        }
     }
 
 
