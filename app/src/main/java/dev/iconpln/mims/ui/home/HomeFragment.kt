@@ -11,6 +11,7 @@ import androidx.fragment.app.Fragment
 import androidx.lifecycle.asLiveData
 import androidx.lifecycle.lifecycleScope
 import dev.iconpln.mims.DetailMonitoring
+import dev.iconpln.mims.Pengujian
 import dev.iconpln.mims.databinding.FragmentHomeBinding
 import dev.iconpln.mims.ui.login.LoginActivity
 import dev.iconpln.mims.ui.role.pabrikan.arttribute_material.DataAtributMaterialPabrikan
@@ -47,7 +48,7 @@ class HomeFragment : Fragment() {
         }
 
         binding.card2.setOnClickListener {
-            val intent = Intent(context, DetailMonitoring::class.java)
+            val intent = Intent(context, Pengujian::class.java)
             context?.startActivity(intent)
         }
 

@@ -62,4 +62,13 @@
         <item>TERBARU</item>
         <item>TERLAMA</item>
     </string-array>
+
+    <string-array name="data_tahun">
+        <item>12 Januari 2022</item>
+        <item>12 Januari 2022</item>
+        <item>12 Januari 2022</item>
+        <item>12 Januari 2022</item>
+        <item>12 Januari 2022</item>
+        <item>12 Januari 2022</item>
+    </string-array>
 </resources>

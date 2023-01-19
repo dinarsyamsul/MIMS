@@ -76,7 +76,6 @@
                 app:endIconTint="@android:color/darker_gray"
                 app:hintTextColor="@color/blue_solid">
 
-
                 <com.google.android.material.textfield.TextInputEditText
                     android:id="@+id/edt_username"
                     android:layout_width="match_parent"
