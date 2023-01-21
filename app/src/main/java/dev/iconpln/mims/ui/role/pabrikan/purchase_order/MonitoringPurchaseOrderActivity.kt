@@ -77,7 +77,7 @@ class MonitoringPurchaseOrderActivity : AppCompatActivity() {
 
     private fun getListTanggal(): ArrayList<TanggalFilter> {
         val tanggalFill = resources.getStringArray(R.array.data_tanggal)
-        val listTanggalfil = kotlin.collections.ArrayList<TanggalFilter>()
+        val listTanggalfil = ArrayList<TanggalFilter>()
         for (i in tanggalFill.indices) {
             val tanggal = TanggalFilter(tanggalFill[i])
             listTanggalfil.add(tanggal)

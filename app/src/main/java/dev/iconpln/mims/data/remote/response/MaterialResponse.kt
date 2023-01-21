@@ -40,8 +40,14 @@ data class DataItemMaterial(
     @field:SerializedName("source")
     val source: String,
 
+    @field:SerializedName("sources")
+    val sources: String,
+
     @field:SerializedName("no_produksi")
     val noProduksi: String,
+
+    @field:SerializedName("tahun_produksi")
+    val tahunProduksi: String,
 
     @field:SerializedName("no_sert_metrologi")
     val noSertMetrologi: String,

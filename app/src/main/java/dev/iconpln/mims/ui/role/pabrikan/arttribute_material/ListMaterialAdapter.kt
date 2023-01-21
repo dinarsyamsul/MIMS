@@ -49,8 +49,8 @@ class ListMaterialAdapter() : RecyclerView.Adapter<ListMaterialAdapter.ListViewH
         fun bind(item: DataItemMaterial) {
             with(itemBinding) {
                 txtNoBatch.text = item.noProduksi
-                txtSerialNumber.text = item.serialNumber
-                txtExcel.text = item.source
+                txtSerialNumber.text = item.nomorMaterial
+                txtExcel.text = item.sources
             }
         }
     }

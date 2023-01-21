@@ -39,7 +39,7 @@ class DataAtributMaterialActivity : AppCompatActivity() {
             rvSerial.adapter = rvAdapter
         }
 
-        materialViewModel.getAllMaterial()
+        materialViewModel.getAllMaterial("","","")
 
         materialViewModel.materialResponse.observe(this) {
             rvAdapter.setData(it.data)
@@ -59,10 +59,10 @@ class DataAtributMaterialActivity : AppCompatActivity() {
             startActivity(intent)
         }
 
-        showSelectedStory()
+        showSelectedMaterial()
     }
 
-    private fun showSelectedStory() {
+    private fun showSelectedMaterial() {
         rvAdapter.setOnItemClickCallback(object : ListMaterialAdapter.OnItemClickCallback {
             override fun onItemClicked(data: DataItemMaterial) {
                 val toDetailMaterial =
@@ -73,7 +73,7 @@ class DataAtributMaterialActivity : AppCompatActivity() {
         })
     }
 
-    private fun getListTanggal():kotlin.collections.ArrayList<TanggalFilter>{
+    private fun getListTanggal(): ArrayList<TanggalFilter>{
         val tanggalFill = resources.getStringArray(R.array.data_tanggal)
         val listTanggalfil = kotlin.collections.ArrayList<TanggalFilter>()
         for (i in tanggalFill.indices){

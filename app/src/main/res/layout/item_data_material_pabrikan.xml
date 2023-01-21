@@ -4,8 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    android:padding="10dp"
-    tools:context=".ui.role.pabrikan.arttribute_material.ListDataMaterialPabrikan">
+    android:padding="10dp">
 
     <androidx.cardview.widget.CardView
         android:id="@+id/cv_daftarList"
@@ -15,8 +14,7 @@
         app:cardCornerRadius="5dp"
         app:cardElevation="10dp"
         tools:ignore="MissingConstraints">
-
-
+        
         <androidx.constraintlayout.widget.ConstraintLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
