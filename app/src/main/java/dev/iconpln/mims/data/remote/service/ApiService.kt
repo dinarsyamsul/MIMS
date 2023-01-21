@@ -47,6 +47,15 @@ interface ApiService {
     ): Response<MonitoringPOResponse>
 
     @Headers("Content-Type:application/json")
+    @GET("mims-service-api/pengujianMaterial/getPengujianMonitoring")
+    suspend fun getPengujianMaterialPabrikan(
+        @Query("no_pengujian") noPengujian: String?,
+        @Query("status") status: String?,
+        @Query("page_in") pageIn: Int? = 1,
+        @Query("page_size") pageSize: Int? = 5
+    ): Response<PengujianMaterialPabrikanResponse>
+
+    @Headers("Content-Type:application/json")
     @GET("mims-service-api/attMaterial/getAllMaterialNoParams")
     suspend fun getMeterial(): Response<MaterialResponse>
 }

@@ -7,25 +7,24 @@ import androidx.activity.viewModels
 import androidx.appcompat.app.AppCompatActivity
 import androidx.recyclerview.widget.LinearLayoutManager
 import dagger.hilt.android.AndroidEntryPoint
-import dev.iconpln.mims.HasilScan
 import dev.iconpln.mims.ListTanggalAdapter
 import dev.iconpln.mims.R
 import dev.iconpln.mims.TanggalFilter
 import dev.iconpln.mims.data.remote.response.DataItemMaterial
-import dev.iconpln.mims.databinding.ActivityDataAtributMaterialPabrikanBinding
+import dev.iconpln.mims.databinding.ActivityDataAtributMaterialBinding
 import dev.iconpln.mims.ui.role.pabrikan.DashboardPabrikanActivity
 import dev.iconpln.mims.ui.scan.ResponseScanActivity
 
 @AndroidEntryPoint
-class DataAtributMaterialPabrikan : AppCompatActivity() {
-    private lateinit var binding: ActivityDataAtributMaterialPabrikanBinding
+class DataAtributMaterialActivity : AppCompatActivity() {
+    private lateinit var binding: ActivityDataAtributMaterialBinding
     private val materialViewModel: MaterialViewModel by viewModels()
     private lateinit var rvAdapter: ListMaterialAdapter
-    private val list = kotlin.collections.ArrayList<TanggalFilter>()
+    private val list = ArrayList<TanggalFilter>()
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        binding = ActivityDataAtributMaterialPabrikanBinding.inflate(layoutInflater)
+        binding = ActivityDataAtributMaterialBinding.inflate(layoutInflater)
         setContentView(binding.root)
 
         binding.rvTanggal.setHasFixedSize(true)
@@ -36,7 +35,7 @@ class DataAtributMaterialPabrikan : AppCompatActivity() {
         rvAdapter = ListMaterialAdapter()
 
         binding.apply {
-            rvSerial.layoutManager = LinearLayoutManager(this@DataAtributMaterialPabrikan)
+            rvSerial.layoutManager = LinearLayoutManager(this@DataAtributMaterialActivity)
             rvSerial.adapter = rvAdapter
         }
 
@@ -56,7 +55,7 @@ class DataAtributMaterialPabrikan : AppCompatActivity() {
 
         binding.btnBack.setOnClickListener {
             val intent =
-                Intent(this@DataAtributMaterialPabrikan, DashboardPabrikanActivity::class.java)
+                Intent(this@DataAtributMaterialActivity, DashboardPabrikanActivity::class.java)
             startActivity(intent)
         }
 
@@ -67,7 +66,7 @@ class DataAtributMaterialPabrikan : AppCompatActivity() {
         rvAdapter.setOnItemClickCallback(object : ListMaterialAdapter.OnItemClickCallback {
             override fun onItemClicked(data: DataItemMaterial) {
                 val toDetailMaterial =
-                    Intent(this@DataAtributMaterialPabrikan, ResponseScanActivity::class.java)
+                    Intent(this@DataAtributMaterialActivity, ResponseScanActivity::class.java)
                 toDetailMaterial.putExtra(ResponseScanActivity.EXTRA_SN, data.serialNumber)
                 startActivity(toDetailMaterial)
             }

@@ -8,6 +8,7 @@ import androidx.appcompat.app.AppCompatActivity
 import dagger.hilt.android.AndroidEntryPoint
 import dev.iconpln.mims.databinding.ActivityResponseScanBinding
 import dev.iconpln.mims.ui.role.pabrikan.DashboardPabrikanActivity
+import dev.iconpln.mims.ui.role.pabrikan.arttribute_material.DataAtributMaterialActivity
 
 @AndroidEntryPoint
 class ResponseScanActivity : AppCompatActivity() {
@@ -32,14 +33,13 @@ class ResponseScanActivity : AppCompatActivity() {
         }
 
         binding.btnsimpan.setOnClickListener {
-            val intent = Intent(this@ResponseScanActivity, DashboardPabrikanActivity::class.java)
+            val intent = Intent(this@ResponseScanActivity, DataAtributMaterialActivity::class.java)
             intent.flags = Intent.FLAG_ACTIVITY_NEW_TASK or Intent.FLAG_ACTIVITY_CLEAR_TASK
             startActivity(intent)
         }
 
         viewModel.snResponse.observe(this) { data ->
             if (data.message == "Success") {
-                Toast.makeText(this, "Scan Berhasil", Toast.LENGTH_SHORT).show()
                 data.detailSN.forEach {
                     binding.apply {
                         tvResult.text = it.serialNumber
@@ -60,12 +60,12 @@ class ResponseScanActivity : AppCompatActivity() {
         }
     }
 
-    override fun onBackPressed() {
-        super.getOnBackPressedDispatcher()
-        val intent = Intent(this@ResponseScanActivity, DashboardPabrikanActivity::class.java)
-        intent.flags = Intent.FLAG_ACTIVITY_CLEAR_TOP
-        startActivity(intent)
-    }
+//    override fun onBackPressed() {
+//        super.getOnBackPressedDispatcher()
+//        val intent = Intent(this@ResponseScanActivity, DashboardPabrikanActivity::class.java)
+//        intent.flags = Intent.FLAG_ACTIVITY_CLEAR_TOP
+//        startActivity(intent)
+//    }
 
     companion object {
         const val EXTRA_SN = "extra_sn"

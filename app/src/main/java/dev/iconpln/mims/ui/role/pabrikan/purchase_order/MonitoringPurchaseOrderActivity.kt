@@ -1,8 +1,6 @@
 package dev.iconpln.mims.ui.role.pabrikan.purchase_order
 
 import android.os.Bundle
-import android.view.View
-import android.widget.AdapterView
 import android.widget.ArrayAdapter
 import android.widget.SearchView
 import androidx.activity.viewModels
@@ -16,7 +14,7 @@ import dev.iconpln.mims.databinding.ActivityMonitoringPurchaseOrderPabrikanBindi
 import java.util.*
 
 @AndroidEntryPoint
-class MonitoringPurchaseOrderPabrikan : AppCompatActivity() {
+class MonitoringPurchaseOrderActivity : AppCompatActivity() {
 
     private lateinit var binding: ActivityMonitoringPurchaseOrderPabrikanBinding
     private val monitoringPOViewModel: MonitoringPOViewModel by viewModels()
@@ -32,7 +30,7 @@ class MonitoringPurchaseOrderPabrikan : AppCompatActivity() {
 
         val berdasarkan = resources.getStringArray(R.array.berdasarkan)
         val arrayAdapter = ArrayAdapter(this, R.layout.dropdown_item, berdasarkan)
-        binding.autoCompleteTextview.setAdapter(arrayAdapter)
+        binding.urutBerdasarkan.setAdapter(arrayAdapter)
 
         binding.rvTanggal.setHasFixedSize(true)
 
@@ -42,7 +40,7 @@ class MonitoringPurchaseOrderPabrikan : AppCompatActivity() {
         rvAdapter = ListNoPoAdapter()
 
         binding.apply {
-            rvNoPo.layoutManager = LinearLayoutManager(this@MonitoringPurchaseOrderPabrikan)
+            rvNoPo.layoutManager = LinearLayoutManager(this@MonitoringPurchaseOrderActivity)
             rvNoPo.adapter = rvAdapter
         }
 
@@ -71,21 +69,13 @@ class MonitoringPurchaseOrderPabrikan : AppCompatActivity() {
             }
         })
 
-        binding.autoCompleteTextview.setOnItemClickListener(object :
-            AdapterView.OnItemClickListener {
-            override fun onItemClick(
-                parent: AdapterView<*>?,
-                view: View?,
-                position: Int,
-                id: Long
-            ) {
-                urut = binding.autoCompleteTextview.text.toString()
-                monitoringPOViewModel.getMonitoringPO(noPO, urut)
-            }
-        })
+        binding.urutBerdasarkan.setOnItemClickListener { _, _, _, _ ->
+            urut = binding.urutBerdasarkan.text.toString()
+            monitoringPOViewModel.getMonitoringPO(noPO, urut)
+        }
     }
 
-    private fun getListTanggal(): kotlin.collections.ArrayList<TanggalFilter> {
+    private fun getListTanggal(): ArrayList<TanggalFilter> {
         val tanggalFill = resources.getStringArray(R.array.data_tanggal)
         val listTanggalfil = kotlin.collections.ArrayList<TanggalFilter>()
         for (i in tanggalFill.indices) {

@@ -1,4 +1,4 @@
-package dev.iconpln.mims
+package dev.iconpln.mims.ui.scan
 
 import android.os.Bundle
 import android.widget.Toast
@@ -6,7 +6,6 @@ import androidx.activity.viewModels
 import androidx.appcompat.app.AppCompatActivity
 import dagger.hilt.android.AndroidEntryPoint
 import dev.iconpln.mims.databinding.ActivityHasilScanBinding
-import dev.iconpln.mims.ui.scan.ScanViewModel
 
 @AndroidEntryPoint
 class HasilScan : AppCompatActivity() {

@@ -4,7 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".Pengujian">
+    tools:context=".ui.role.pabrikan.pengujian.PengujianActivity">
 
     <ImageView
         android:id="@+id/header"
@@ -56,42 +56,6 @@
             android:layout_height="wrap_content"
             android:padding="10dp">
 
-            <TextView
-                android:id="@+id/txt_tanggalUji"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginStart="24dp"
-                android:layout_marginTop="16dp"
-                android:fontFamily="@font/montserrat_reguler"
-                android:text="Tanggal Uji"
-                android:textColor="#3F3D56"
-                android:textSize="16sp"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toTopOf="parent" />
-
-            <com.google.android.material.textfield.TextInputLayout
-                android:id="@+id/inp_tanggalUji"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginStart="30dp"
-                android:layout_marginTop="20dp"
-                android:layout_marginEnd="30dp"
-                android:background="@drawable/txt_input_layout"
-                android:elevation="2dp"
-                android:fontFamily="@font/montserrat_reguler"
-                android:hint="dd/mm/yyyy"
-                android:textColor="@android:color/darker_gray"
-                android:textColorHint="@color/black"
-                app:boxStrokeColor="@color/blue_solid"
-                app:boxStrokeWidth="0dp"
-                app:endIconDrawable="@drawable/ic_baseline_date_range_24"
-                app:endIconMode="custom"
-                app:hintTextColor="@color/blue_solid"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@id/txt_tanggalUji">
-
-            </com.google.android.material.textfield.TextInputLayout>
 
             <TextView
                 android:id="@+id/txt_Kategori"
@@ -104,7 +68,7 @@
                 android:textColor="#3F3D56"
                 android:textSize="16sp"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@id/inp_tanggalUji" />
+                app:layout_constraintTop_toTopOf="parent" />
 
             <com.google.android.material.textfield.TextInputLayout
                 android:id="@+id/tinp_pilihKategori"
@@ -119,7 +83,7 @@
                 app:layout_constraintTop_toBottomOf="@id/txt_Kategori">
 
                 <AutoCompleteTextView
-                    android:id="@+id/auto_comp_Kategori"
+                    android:id="@+id/status_kategori"
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
                     android:layout_weight="1"
@@ -238,12 +202,12 @@
                 app:layout_constraintTop_toBottomOf="@+id/btn_buatPengiriman" />
 
             <TextView
-                android:id="@+id/txt_nomorBatch"
+                android:id="@+id/txt_no_pengujian"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginStart="32dp"
                 android:layout_marginTop="24dp"
-                android:text="Nomor Batch"
+                android:text="Nomor Pengujian"
                 android:textColor="#3F3D56"
                 android:textSize="14sp"
                 android:textStyle="bold"
@@ -251,7 +215,7 @@
                 app:layout_constraintTop_toTopOf="@id/vw_line" />
 
             <SearchView
-                android:id="@+id/src_nomorBatch"
+                android:id="@+id/src_no_pengujian"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginStart="32dp"
@@ -262,7 +226,7 @@
                 android:queryHint="Search Here"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/txt_nomorBatch" />
+                app:layout_constraintTop_toBottomOf="@+id/txt_no_pengujian" />
 
             <TextView
                 android:id="@+id/txt_urutkan"
@@ -276,7 +240,7 @@
                 android:textSize="16sp"
                 android:textStyle="bold"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@id/src_nomorBatch" />
+                app:layout_constraintTop_toBottomOf="@id/src_no_pengujian" />
 
             <com.google.android.material.textfield.TextInputLayout
                 android:id="@+id/tinp_pilihUrutan"
@@ -335,10 +299,10 @@
                     android:background="#FFFFFF">
 
                     <androidx.recyclerview.widget.RecyclerView
-                        android:id="@+id/rv_tanggalUji"
+                        android:id="@+id/rv_pengujian"
                         android:layout_width="match_parent"
                         android:layout_height="match_parent"
-                        tools:listitem="@layout/activity_item_pengujian" />
+                        tools:listitem="@layout/item_pengujian" />
                 </androidx.constraintlayout.widget.ConstraintLayout>
             </androidx.cardview.widget.CardView>
 

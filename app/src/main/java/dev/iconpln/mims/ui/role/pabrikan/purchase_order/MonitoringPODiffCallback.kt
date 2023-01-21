@@ -17,14 +17,14 @@ class MonitoringPODiffCallback(
     }
 
     override fun areItemsTheSame(oldItemPosition: Int, newItemPosition: Int): Boolean {
-        return mOldMonitoringPO[oldItemPosition].noPurchaseOrder == mNewMonitoringPO[newItemPosition].noPurchaseOrder
+        return mOldMonitoringPO[oldItemPosition].nomorMaterial == mNewMonitoringPO[newItemPosition].nomorMaterial
     }
 
     override fun areContentsTheSame(oldItemPosition: Int, newItemPosition: Int): Boolean {
         val oldEmployee = mOldMonitoringPO[oldItemPosition]
         val newEmployee = mNewMonitoringPO[newItemPosition]
 
-        return oldEmployee.noPurchaseOrder == newEmployee.noPurchaseOrder &&
-                oldEmployee.deskripsi == newEmployee.deskripsi
+        return oldEmployee.nomorMaterial == newEmployee.nomorMaterial &&
+                oldEmployee.kdPabrikan == newEmployee.kdPabrikan
     }
 }

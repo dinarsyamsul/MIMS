@@ -4,7 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".ui.role.pabrikan.purchase_order.MonitoringPurchaseOrderPabrikan">
+    tools:context=".ui.role.pabrikan.purchase_order.MonitoringPurchaseOrderActivity">
 
 
     <ImageView
@@ -108,7 +108,7 @@
                 app:layout_constraintTop_toBottomOf="@id/txt_urutkan">
 
                 <AutoCompleteTextView
-                    android:id="@+id/auto_complete_textview"
+                    android:id="@+id/urut_berdasarkan"
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
                     android:layout_weight="1"

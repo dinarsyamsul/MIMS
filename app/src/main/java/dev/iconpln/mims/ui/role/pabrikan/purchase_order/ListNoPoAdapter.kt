@@ -1,5 +1,6 @@
 package dev.iconpln.mims.ui.role.pabrikan.purchase_order
 
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.recyclerview.widget.DiffUtil
@@ -44,11 +45,12 @@ class ListNoPoAdapter() : RecyclerView.Adapter<ListNoPoAdapter.ListViewHolder>()
 
         fun bind(item: DataMonitoringPO) {
             with(itemBinding) {
-                txtSerialNumber.text = item.noPurchaseOrder
+                txtSerialNumber.text = item.nomorMaterial
                 txtIsiUnit.text = item.unit
                 txtIsiStore.text = item.storLoc
-                txtIsiKuantitas.text = item.qtyPo
-                txtIsiPlant.text = item.plant
+                txtIsiKuantitas.text = item.qty
+                txtIsiPlant.text = item.materialDesc
+                Log.d("ListPengujianAdapter", "cek di adapter monitoring ${item.nomorMaterial}")
             }
         }
     }

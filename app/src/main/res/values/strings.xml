@@ -63,6 +63,13 @@
         <item>TERLAMA</item>
     </string-array>
 
+    <string-array name="kategori_pengujian">
+        <item>LOLOS</item>
+        <item>TIDAK LOLOS</item>
+        <item>BELUM UJI</item>
+        <item>SEDANG UJI</item>
+    </string-array>
+
     <string-array name="data_tahun">
         <item>12 Januari 2022</item>
         <item>12 Januari 2022</item>

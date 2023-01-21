@@ -1,10 +1,10 @@
 <?xml version="1.0" encoding="utf-8"?>
 <androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-    xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    tools:context=".item_pengujian">
+    xmlns:tools="http://schemas.android.com/tools"
+    tools:context=".ui.role.pabrikan.pengujian.PengujianActivity">
 
     <androidx.cardview.widget.CardView
         android:id="@+id/cv_daftarList"
@@ -93,7 +93,7 @@
                 app:layout_constraintTop_toTopOf="@id/txt_plant" />
 
             <TextView
-                android:id="@+id/txt_isiPlant"
+                android:id="@+id/txt_isikategori"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:fontFamily="@font/montserrat_reguler"
@@ -141,7 +141,7 @@
                 app:layout_constraintTop_toTopOf="@id/txt_store" />
 
             <TextView
-                android:id="@+id/txt_isiStore"
+                android:id="@+id/txt_isiTahun"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:fontFamily="@font/montserrat_reguler"
@@ -159,9 +159,9 @@
                 android:layout_height="wrap_content"
                 android:layout_marginStart="32dp"
                 android:src="@drawable/unit_list_monitoring1"
-                app:layout_constraintBottom_toBottomOf="@id/txt_isiPlant"
-                app:layout_constraintStart_toEndOf="@id/txt_isiPlant"
-                app:layout_constraintTop_toTopOf="@id/txt_isiPlant" />
+                app:layout_constraintBottom_toBottomOf="@id/txt_isikategori"
+                app:layout_constraintStart_toEndOf="@id/txt_isikategori"
+                app:layout_constraintTop_toTopOf="@id/txt_isikategori" />
 
             <TextView
                 android:id="@+id/txt_unit"
@@ -189,7 +189,7 @@
                 app:layout_constraintTop_toTopOf="@id/txt_unit" />
 
             <TextView
-                android:id="@+id/txt_isiUnit"
+                android:id="@+id/txt_isiJumlah"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:fontFamily="@font/montserrat_reguler"
@@ -207,9 +207,9 @@
                 android:layout_height="wrap_content"
                 android:layout_marginStart="46dp"
                 android:src="@drawable/kuantitas_list_monitoring1"
-                app:layout_constraintBottom_toBottomOf="@id/txt_isiStore"
-                app:layout_constraintStart_toEndOf="@id/txt_isiStore"
-                app:layout_constraintTop_toTopOf="@id/txt_isiStore" />
+                app:layout_constraintBottom_toBottomOf="@id/txt_isiTahun"
+                app:layout_constraintStart_toEndOf="@id/txt_isiTahun"
+                app:layout_constraintTop_toTopOf="@id/txt_isiTahun" />
 
             <TextView
                 android:id="@+id/txt_kuantitas"
@@ -237,7 +237,7 @@
                 app:layout_constraintTop_toTopOf="@id/txt_kuantitas" />
 
             <TextView
-                android:id="@+id/txt_isiKuantitas"
+                android:id="@+id/txt_isiSatuan"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:fontFamily="@font/montserrat_reguler"
@@ -281,6 +281,7 @@
                 app:layout_constraintTop_toTopOf="parent"/>
 
             <androidx.appcompat.widget.AppCompatButton
+                android:id="@+id/status_uji"
                 android:layout_width="match_parent"
                 android:layout_height="25dp"
                 android:background="@drawable/bg_monitoring"
@@ -292,7 +293,7 @@
                 android:layout_marginEnd="16dp"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintTop_toBottomOf="@id/txt_isiKuantitas"/>
+                app:layout_constraintTop_toBottomOf="@id/txt_isiSatuan"/>
 
         </androidx.constraintlayout.widget.ConstraintLayout>
     </androidx.cardview.widget.CardView>

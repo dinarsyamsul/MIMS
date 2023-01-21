@@ -37,7 +37,7 @@
                 android:value="" />
         </activity>
         <activity
-            android:name=".Pengujian"
+            android:name=".ui.role.pabrikan.pengujian.PengujianActivity"
             android:exported="false">
             <meta-data
                 android:name="android.app.lib_name"
@@ -71,7 +71,7 @@
                 android:value="" />
         </activity>
         <activity
-            android:name=".ui.role.pabrikan.purchase_order.MonitoringPurchaseOrderPabrikan"
+            android:name=".ui.role.pabrikan.purchase_order.MonitoringPurchaseOrderActivity"
             android:exported="false">
             <meta-data
                 android:name="android.app.lib_name"
@@ -85,14 +85,14 @@
                 android:value="" />
         </activity>
         <activity
-            android:name=".ui.role.pabrikan.arttribute_material.DataAtributMaterialPabrikan"
+            android:name=".ui.role.pabrikan.arttribute_material.DataAtributMaterialActivity"
             android:exported="false">
             <meta-data
                 android:name="android.app.lib_name"
                 android:value="" />
         </activity>
         <activity
-            android:name=".HasilScan"
+            android:name=".ui.scan.HasilScan"
             android:exported="false">
             <meta-data
                 android:name="android.app.lib_name"
