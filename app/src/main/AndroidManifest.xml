@@ -30,6 +30,9 @@
         android:usesCleartextTraffic="true"
         tools:targetApi="31">
         <activity
+            android:name=".DetailDataAtributeMaterialActivity"
+            android:exported="false" />
+        <activity
             android:name=".item_pengujian"
             android:exported="false">
             <meta-data
