@@ -1,5 +1,6 @@
 package dev.iconpln.mims.ui.role.pabrikan.arttribute_material
 
+import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.util.Log
@@ -8,7 +9,9 @@ import android.widget.Toast
 import androidx.activity.viewModels
 import androidx.recyclerview.widget.LinearLayoutManager
 import dagger.hilt.android.AndroidEntryPoint
+import dev.iconpln.mims.data.remote.response.DataItemMaterial
 import dev.iconpln.mims.databinding.ActivityDetailDataAtributeMaterialBinding
+import dev.iconpln.mims.ui.scan.ResponseScanActivity
 import java.util.*
 
 @AndroidEntryPoint
@@ -61,6 +64,19 @@ class DetailDataAtributeMaterialActivity : AppCompatActivity() {
                     materialViewModel.getDetailMaterial("","", serialNumber)
                 }
                 return false
+            }
+        })
+
+        showSelectedMaterial()
+    }
+
+    private fun showSelectedMaterial() {
+        rvAdapter.setOnItemClickCallback(object : ListDetailMaterialAdapter.OnItemClickCallback {
+            override fun onItemClicked(data: DataItemMaterial) {
+                val toDetailMaterial =
+                    Intent(this@DetailDataAtributeMaterialActivity, ResponseScanActivity::class.java)
+                toDetailMaterial.putExtra(ResponseScanActivity.EXTRA_SN, data.serialNumber)
+                startActivity(toDetailMaterial)
             }
         })
     }

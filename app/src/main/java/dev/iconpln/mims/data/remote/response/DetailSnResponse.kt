@@ -28,7 +28,7 @@ data class DetailSN(
     @field:SerializedName("tgl_produksi")
     val tglProduksi: String,
 
-    @field:SerializedName("nomor_sert_metrologi")
+    @field:SerializedName("no_sert_metrologi")
     val nomorSertMetrologi: String,
 
     @field:SerializedName("serial_number")
@@ -46,8 +46,8 @@ data class DetailSN(
     @field:SerializedName("no_produksi")
     val noProduksi: String,
 
-    @field:SerializedName("no_packaging")
-    val noPackaging: String,
+    @field:SerializedName("no_purchase_order")
+    val noPO: String,
 
     @field:SerializedName("kategori_material")
     val kategoriMaterial: String

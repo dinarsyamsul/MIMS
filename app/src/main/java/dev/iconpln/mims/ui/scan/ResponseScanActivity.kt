@@ -9,6 +9,7 @@ import dagger.hilt.android.AndroidEntryPoint
 import dev.iconpln.mims.databinding.ActivityResponseScanBinding
 import dev.iconpln.mims.ui.role.pabrikan.DashboardPabrikanActivity
 import dev.iconpln.mims.ui.role.pabrikan.arttribute_material.DataAtributMaterialActivity
+import dev.iconpln.mims.ui.role.pabrikan.arttribute_material.DetailDataAtributeMaterialActivity
 
 @AndroidEntryPoint
 class ResponseScanActivity : AppCompatActivity() {
@@ -33,7 +34,7 @@ class ResponseScanActivity : AppCompatActivity() {
         }
 
         binding.btnsimpan.setOnClickListener {
-            val intent = Intent(this@ResponseScanActivity, DataAtributMaterialActivity::class.java)
+            val intent = Intent(this@ResponseScanActivity, DetailDataAtributeMaterialActivity::class.java)
             intent.flags = Intent.FLAG_ACTIVITY_NEW_TASK or Intent.FLAG_ACTIVITY_CLEAR_TASK
             startActivity(intent)
         }
@@ -47,13 +48,12 @@ class ResponseScanActivity : AppCompatActivity() {
                         tvKodePabrik.text = it.kodePabrikan
                         tvNamaPabrik.text = it.namaPabrikan
                         tvTglProduksi.text = it.tglProduksi
-                        tvSpin.text = it.spln
                         tvSpekMaterial.text = it.spesifikasiMaterial
                         tvKatMaterial.text = it.kategoriMaterial
                         tvMasaGaransi.text = it.masaGaransi
                         tvNomorSert.text = it.nomorSertMetrologi
                         tvNoProduksi.text = it.noProduksi
-                        tvNoPack.text = it.noPackaging
+                        tvNoPO.text = it.noPO
                     }
                 }
             }

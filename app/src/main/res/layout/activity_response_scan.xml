@@ -198,33 +198,6 @@
                 <TableRow>
 
                     <TextView
-                        android:id="@+id/spin_holder"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_weight="1"
-                        android:fontFamily="@font/montserrat_reguler"
-                        android:gravity="center"
-                        android:padding="10dp"
-                        android:text="Spin"
-                        android:textSize="16sp"
-                        android:textStyle="bold" />
-
-                    <TextView
-                        android:id="@+id/tv_spin"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_weight="1"
-                        android:background="#FFFFFF"
-                        android:fontFamily="@font/montserrat_reguler"
-                        android:padding="8dp"
-                        android:text="Spin"
-                        android:textSize="16sp" />
-
-                </TableRow>
-
-                <TableRow>
-
-                    <TextView
                         android:id="@+id/spekmat_holder"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
@@ -367,19 +340,19 @@
                         android:fontFamily="@font/montserrat_reguler"
                         android:gravity="center"
                         android:padding="10dp"
-                        android:text="No Packaging"
+                        android:text="No PO"
                         android:textSize="16sp"
                         android:textStyle="bold" />
 
                     <TextView
-                        android:id="@+id/tv_noPack"
+                        android:id="@+id/tv_noPO"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_weight="1"
                         android:background="#FFFFFF"
                         android:fontFamily="@font/montserrat_reguler"
                         android:padding="8dp"
-                        android:text="No Packaging"
+                        android:text="No PO"
                         android:textSize="16sp" />
 
                 </TableRow>
