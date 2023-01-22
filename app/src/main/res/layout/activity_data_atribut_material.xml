@@ -103,8 +103,8 @@
                 android:layout_marginTop="24dp"
                 android:layout_marginEnd="32dp"
                 app:hintAnimationEnabled="true"
-                app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@+id/txt_kategori">
 
                 <AutoCompleteTextView
@@ -113,9 +113,9 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_weight="1"
-                    android:text="Pilih Kategori"
                     android:background="@drawable/txt_input_layout"
-                    android:inputType="none" />
+                    android:inputType="none"
+                    android:text="Pilih Kategori" />
 
             </com.google.android.material.textfield.TextInputLayout>
 
@@ -142,8 +142,8 @@
                 android:layout_marginTop="24dp"
                 android:layout_marginEnd="32dp"
                 app:hintAnimationEnabled="true"
-                app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@+id/txt_tahun">
 
                 <AutoCompleteTextView
@@ -152,9 +152,9 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_weight="1"
-                    android:text="Pilih Tahun"
                     android:background="@drawable/txt_input_layout"
-                    android:inputType="none" />
+                    android:inputType="none"
+                    android:text="Pilih Tahun" />
 
             </com.google.android.material.textfield.TextInputLayout>
 
@@ -198,61 +198,65 @@
 
             <androidx.cardview.widget.CardView
                 android:id="@+id/cv_tanggal"
-                android:layout_width="wrap_content"
+                android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                app:cardCornerRadius="5dp"
-                app:cardElevation="10dp"
+                android:layout_marginStart="32dp"
+                android:layout_marginEnd="32dp"
                 android:background="#F0EDFF"
                 android:paddingBottom="10dp"
-                android:layout_marginStart="8dp"
+                app:cardCornerRadius="5dp"
+                app:cardElevation="10dp"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@id/txt_jumlahData">
 
                 <LinearLayout
-                    android:layout_width="wrap_content"
+                    android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:padding="5dp"
-                    android:background="#F0EDFF">
+                    android:background="#F0EDFF"
+                    android:padding="5dp">
+
                     <LinearLayout
-                        android:layout_width="wrap_content"
+                        android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:background="#FFFFFF"
+                        android:gravity="center"
                         android:padding="5dp">
 
                         <TextView
-                            android:id="@+id/calenderdataatribut1"
+                            android:id="@+id/tv_cal_start"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
-                            android:textStyle="bold"
                             android:text="DD/MM/YYYY"
                             android:textSize="14dp"
-                            android:layout_marginStart="100dp" />
+                            android:textStyle="bold" />
 
                         <ImageView
+                            android:id="@+id/cal_start"
                             android:layout_width="20dp"
                             android:layout_height="20dp"
                             android:layout_marginStart="3dp"
-                            android:background="@drawable/baseline_calendar_month_24"/>
+                            android:background="@drawable/baseline_calendar_month_24" />
 
                         <TextView
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
-                            android:text="s/d"
-                            android:layout_marginStart="10dp"/>
+                            android:layout_marginStart="10dp"
+                            android:text="s/d" />
 
                         <TextView
-                            android:id="@+id/calenderdataatribut2"
+                            android:id="@+id/tv_cal_end"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
+                            android:layout_marginStart="10dp"
                             android:text="DD/MM/YYYY"
-                            android:textStyle="bold"
-                            android:layout_marginStart="10dp"/>
+                            android:textStyle="bold" />
 
                         <ImageView
+                            android:id="@+id/cal_end"
                             android:layout_width="20dp"
                             android:layout_height="20dp"
                             android:layout_marginStart="3dp"
-                            android:background="@drawable/baseline_calendar_month_24"/>
+                            android:background="@drawable/baseline_calendar_month_24" />
 
                     </LinearLayout>
                 </LinearLayout>

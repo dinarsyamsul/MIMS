@@ -6,7 +6,6 @@
     android:layout_height="match_parent"
     tools:context=".ui.role.pabrikan.purchase_order.MonitoringPurchaseOrderActivity">
 
-
     <ImageView
         android:id="@+id/header"
         android:layout_width="match_parent"
@@ -142,52 +141,62 @@
                 android:paddingBottom="10dp"
                 app:cardCornerRadius="5dp"
                 app:cardElevation="10dp"
+                app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@id/txt_daftarList"
-                app:layout_constraintEnd_toEndOf="parent">
+                app:layout_constraintTop_toBottomOf="@id/txt_daftarList">
 
                 <LinearLayout
-                    android:layout_width="wrap_content"
+                    android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:background="#FFFFFF"
+                    android:background="#F0EDFF"
                     android:padding="5dp">
 
-                 <TextView
-                     android:id="@+id/calendermonitoring1"
-                     android:layout_width="wrap_content"
-                     android:layout_height="wrap_content"
-                     android:textStyle="bold"
-                     android:text="DD/MM/YYYY"
-                     android:textSize="14dp"
-                     android:layout_marginStart="115dp" />
-
-                    <ImageView
-                        android:layout_width="20dp"
-                        android:layout_height="20dp"
-                        android:layout_marginStart="3dp"
-                        android:background="@drawable/baseline_calendar_month_24"/>
-
-                    <TextView
-                        android:layout_width="wrap_content"
+                    <LinearLayout
+                        android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:text="s/d"
-                        android:layout_marginStart="10dp"/>
+                        android:background="#FFFFFF"
+                        android:gravity="center"
+                        android:padding="5dp">
 
-                    <TextView
-                        android:id="@+id/calendermonitoring2"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:text="DD/MM/YYYY"
-                        android:textStyle="bold"
-                        android:layout_marginStart="10dp"/>
+                        <TextView
+                            android:id="@+id/tv_cal_start"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="DD/MM/YYYY"
+                            android:textSize="14dp"
+                            android:textStyle="bold" />
 
-                    <ImageView
-                        android:layout_width="20dp"
-                        android:layout_height="20dp"
-                        android:layout_marginStart="3dp"
-                        android:background="@drawable/baseline_calendar_month_24"/>
+                        <ImageView
+                            android:id="@+id/cal_start"
+                            android:layout_width="20dp"
+                            android:layout_height="20dp"
+                            android:layout_marginStart="3dp"
+                            android:background="@drawable/baseline_calendar_month_24" />
 
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_marginStart="10dp"
+                            android:text="s/d" />
+
+                        <TextView
+                            android:id="@+id/tv_cal_end"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_marginStart="10dp"
+                            android:text="DD/MM/YYYY"
+                            android:textStyle="bold" />
+
+                        <ImageView
+                            android:id="@+id/cal_end"
+                            android:layout_width="20dp"
+                            android:layout_height="20dp"
+                            android:layout_marginStart="3dp"
+                            android:background="@drawable/baseline_calendar_month_24" />
+
+                    </LinearLayout>
                 </LinearLayout>
+
             </androidx.cardview.widget.CardView>
 
             <androidx.cardview.widget.CardView
@@ -195,11 +204,11 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginStart="24dp"
+                android:layout_marginTop="16dp"
                 android:layout_marginEnd="24dp"
                 android:paddingBottom="10dp"
                 app:cardCornerRadius="5dp"
                 app:cardElevation="10dp"
-                android:layout_marginTop="16dp"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"

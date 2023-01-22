@@ -6,6 +6,7 @@ import android.widget.SearchView
 import androidx.activity.viewModels
 import androidx.appcompat.app.AppCompatActivity
 import androidx.recyclerview.widget.LinearLayoutManager
+import com.google.android.material.datepicker.MaterialDatePicker
 import dagger.hilt.android.AndroidEntryPoint
 import dev.iconpln.mims.ListTanggalAdapter
 import dev.iconpln.mims.R
@@ -28,14 +29,41 @@ class MonitoringPurchaseOrderActivity : AppCompatActivity() {
         binding = ActivityMonitoringPurchaseOrderPabrikanBinding.inflate(layoutInflater)
         setContentView(binding.root)
 
+        val materialDateBuilderStart: MaterialDatePicker.Builder<*> =
+            MaterialDatePicker.Builder.datePicker()
+
+        materialDateBuilderStart.setTitleText("Pilih Tanggal Awal")
+
+        val materialDatePickerStart = materialDateBuilderStart.build()
+
+        val materialDateBuilderEnd: MaterialDatePicker.Builder<*> =
+            MaterialDatePicker.Builder.datePicker()
+
+        materialDateBuilderStart.setTitleText("Pilih Tanggal Akhir")
+
+        val materialDatePickerEnd = materialDateBuilderEnd.build()
+
+        binding.calStart.setOnClickListener {
+            materialDatePickerStart.show(supportFragmentManager, "MATERIAL_DATE_PICKER")
+        }
+
+        materialDatePickerStart.addOnPositiveButtonClickListener {
+            binding.tvCalStart.text = materialDatePickerStart.headerText
+        }
+
+        binding.calEnd.setOnClickListener {
+            materialDatePickerEnd.show(supportFragmentManager, "MATERIAL_DATE_PICKER")
+        }
+
+        materialDatePickerEnd.addOnPositiveButtonClickListener {
+            binding.tvCalEnd.text = materialDatePickerEnd.headerText
+        }
+
         val berdasarkan = resources.getStringArray(R.array.berdasarkan)
         val arrayAdapter = ArrayAdapter(this, R.layout.dropdown_item, berdasarkan)
         binding.urutBerdasarkan.setAdapter(arrayAdapter)
 
-        binding.rvTanggal.setHasFixedSize(true)
-
         list.addAll(getListTanggal())
-        showRecyclerList()
 
         rvAdapter = ListNoPoAdapter()
 
@@ -83,12 +111,5 @@ class MonitoringPurchaseOrderActivity : AppCompatActivity() {
             listTanggalfil.add(tanggal)
         }
         return listTanggalfil
-    }
-
-    private fun showRecyclerList() {
-        binding.rvTanggal.layoutManager =
-            LinearLayoutManager(this, LinearLayoutManager.HORIZONTAL, false)
-        val listTanggalAdapter = ListTanggalAdapter(list)
-        binding.rvTanggal.adapter = listTanggalAdapter
     }
 }

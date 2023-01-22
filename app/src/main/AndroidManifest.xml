@@ -133,9 +133,6 @@
             android:name=".ui.monitoring.MonitoringPurchaseOrder"
             android:exported="false" />
         <activity
-            android:name=".ui.role.pabrikan.purchase_order.UploadDataMaterial"
-            android:exported="false" />
-        <activity
             android:name=".ui.scan.CustomScanActivity"
             android:exported="false">
             <meta-data

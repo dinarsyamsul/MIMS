@@ -8,14 +8,13 @@ import android.widget.SearchView
 import androidx.activity.viewModels
 import androidx.appcompat.app.AppCompatActivity
 import androidx.recyclerview.widget.LinearLayoutManager
+import com.google.android.material.datepicker.MaterialDatePicker
 import dagger.hilt.android.AndroidEntryPoint
-import dev.iconpln.mims.ListTanggalAdapter
 import dev.iconpln.mims.R
 import dev.iconpln.mims.TanggalFilter
 import dev.iconpln.mims.data.remote.response.DataItemMaterial
 import dev.iconpln.mims.databinding.ActivityDataAtributMaterialBinding
 import dev.iconpln.mims.ui.role.pabrikan.DashboardPabrikanActivity
-import dev.iconpln.mims.ui.scan.ResponseScanActivity
 import java.util.*
 import kotlin.collections.ArrayList
 
@@ -34,6 +33,36 @@ class DataAtributMaterialActivity : AppCompatActivity() {
         binding = ActivityDataAtributMaterialBinding.inflate(layoutInflater)
         setContentView(binding.root)
 
+        val materialDateBuilderStart: MaterialDatePicker.Builder<*> =
+            MaterialDatePicker.Builder.datePicker()
+
+        materialDateBuilderStart.setTitleText("Pilih Tanggal Awal")
+
+        val materialDatePickerStart = materialDateBuilderStart.build()
+
+        val materialDateBuilderEnd: MaterialDatePicker.Builder<*> =
+            MaterialDatePicker.Builder.datePicker()
+
+        materialDateBuilderStart.setTitleText("Pilih Tanggal Akhir")
+
+        val materialDatePickerEnd = materialDateBuilderEnd.build()
+
+        binding.calStart.setOnClickListener {
+            materialDatePickerStart.show(supportFragmentManager, "MATERIAL_DATE_PICKER")
+        }
+
+        materialDatePickerStart.addOnPositiveButtonClickListener {
+            binding.tvCalStart.text = materialDatePickerStart.headerText
+        }
+
+        binding.calEnd.setOnClickListener {
+            materialDatePickerEnd.show(supportFragmentManager, "MATERIAL_DATE_PICKER")
+        }
+
+        materialDatePickerEnd.addOnPositiveButtonClickListener {
+            binding.tvCalEnd.text = materialDatePickerEnd.headerText
+        }
+
         val kategoriMenu = resources.getStringArray(R.array.kategori_material)
         val arrayAdapter = ArrayAdapter(this, R.layout.dropdown_item, kategoriMenu)
         binding.dropdownKategori.setAdapter(arrayAdapter)
@@ -42,10 +71,7 @@ class DataAtributMaterialActivity : AppCompatActivity() {
         val arrayAdapterTahun = ArrayAdapter(this, R.layout.dropdown_item, tahunMenu)
         binding.dropdownTahun.setAdapter(arrayAdapterTahun)
 
-        binding.rvTanggal.setHasFixedSize(true)
-
         list.addAll(getListTanggal())
-        showRecyclerList()
 
         rvAdapter = ListMaterialAdapter()
 
@@ -131,11 +157,5 @@ class DataAtributMaterialActivity : AppCompatActivity() {
             listTanggalfil.add(tanggal)
         }
         return listTanggalfil
-    }
-
-    private fun showRecyclerList(){
-        binding.rvTanggal.layoutManager = LinearLayoutManager(this, LinearLayoutManager.HORIZONTAL, false)
-        val listTanggalAdapter = ListTanggalAdapter(list)
-        binding.rvTanggal.adapter = listTanggalAdapter
     }
 }

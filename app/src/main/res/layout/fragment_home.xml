@@ -129,7 +129,7 @@
                             android:id="@+id/scanner"
                             android:layout_width="match_parent"
                             android:layout_height="match_parent"
-                            android:background="#F7F8FA"
+                            android:background="?attr/selectableItemBackground"
                             android:gravity="center"
                             android:orientation="vertical"
                             android:padding="16sp">
@@ -173,7 +173,7 @@
                         <LinearLayout
                             android:layout_width="match_parent"
                             android:layout_height="match_parent"
-                            android:background="#F7F8FA"
+                            android:background="?attr/selectableItemBackground"
                             android:gravity="center"
                             android:orientation="vertical"
                             android:padding="16sp">
@@ -220,7 +220,7 @@
                         <LinearLayout
                             android:layout_width="match_parent"
                             android:layout_height="match_parent"
-                            android:background="#F7F8FA"
+                            android:background="?attr/selectableItemBackground"
                             android:gravity="center"
                             android:orientation="vertical"
                             android:padding="16sp">
@@ -308,7 +308,7 @@
                         <LinearLayout
                             android:layout_width="match_parent"
                             android:layout_height="match_parent"
-                            android:background="#F7F8FA"
+                            android:background="?attr/selectableItemBackground"
                             android:gravity="center"
                             android:orientation="vertical"
                             android:padding="16sp">
