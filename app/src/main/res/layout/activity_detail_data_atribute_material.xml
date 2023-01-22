@@ -40,38 +40,51 @@
         app:layout_constraintStart_toEndOf="@+id/btn_back"
         app:layout_constraintTop_toTopOf="parent" />
 
-    <TextView
+    <ScrollView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_marginTop="130dp"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/header">
+
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:paddingBottom="10dp">
+
+        <TextView
         android:id="@+id/txt_nodetaildataatributmaterial"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginStart="24dp"
-        android:layout_marginTop="150dp"
+        android:layout_marginTop="24dp"
         android:text="Search Data"
         android:textColor="#3F3D56"
         android:textSize="14sp"
         android:textStyle="bold"
-        app:layout_constraintTop_toBottomOf="@id/header"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
-    <SearchView
-        android:id="@+id/src_detaildataatributematerial"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="18dp"
-        android:background="@drawable/srchview"
-        android:layoutDirection="rtl"
-        android:queryHint="Search Here"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/txt_nodetaildataatributmaterial" />
+            <SearchView
+                android:id="@+id/src_detaildataatributematerial"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="32dp"
+                android:layout_marginTop="18dp"
+                android:layout_marginEnd="32dp"
+                android:background="@drawable/srchview"
+                android:layoutDirection="rtl"
+                android:queryHint="Search Here"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/txt_nodetaildataatributmaterial" />
 
     <androidx.cardview.widget.CardView
         android:id="@+id/cv_daftarList"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginStart="24dp"
-        android:layout_marginTop="255dp"
+        android:layout_marginTop="24dp"
         android:layout_marginEnd="24dp"
         android:paddingBottom="10dp"
         app:cardCornerRadius="5dp"
@@ -105,5 +118,9 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@id/src_detaildataatributematerial" />
+
+        </androidx.constraintlayout.widget.ConstraintLayout>
+    </ScrollView>
+
 
 </androidx.constraintlayout.widget.ConstraintLayout>
