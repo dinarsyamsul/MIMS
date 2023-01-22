@@ -43,7 +43,7 @@ interface ApiService {
         @Query("no_purchase_order") noPO: String?,
         @Query("short_by") sortBy: String?,
         @Query("page_in") pageIn: Int? = 1,
-        @Query("page_size") pageSize: Int? = 5
+        @Query("page_size") pageSize: Int? = 20
     ): Response<MonitoringPOResponse>
 
     @Headers("Content-Type:application/json")
@@ -52,7 +52,7 @@ interface ApiService {
         @Query("no_pengujian") noPengujian: String?,
         @Query("status") status: String?,
         @Query("page_in") pageIn: Int? = 1,
-        @Query("page_size") pageSize: Int? = 5
+        @Query("page_size") pageSize: Int? = 20
     ): Response<PengujianMaterialPabrikanResponse>
 
     @Headers("Content-Type:application/json")
@@ -62,7 +62,7 @@ interface ApiService {
         @Query("tahun") tahun: String?,
         @Query("filter") filter: String?,
         @Query("page_in") pageIn: Int? = 1,
-        @Query("page_size") pageSize: Int? = 5
+        @Query("page_size") pageSize: Int? = 20
     ): Response<MaterialResponse>
 
     @Headers("Content-Type:application/json")
@@ -72,6 +72,6 @@ interface ApiService {
         @Query("nomor_material") nomorMaterial: String?,
         @Query("serial_number") serialNumber: String?,
         @Query("page_in") pageIn: Int? = 1,
-        @Query("page_size") pageSize: Int? = 5
+        @Query("page_size") pageSize: Int? = 20
     ): Response<MaterialResponse>
 }

@@ -59,7 +59,7 @@
                 android:layout_height="wrap_content"
                 android:layout_marginStart="32dp"
                 android:layout_marginTop="24dp"
-                android:text="Nomor Batch"
+                android:text="Nomor Produksi"
                 android:textColor="#3F3D56"
                 android:textSize="14sp"
                 android:textStyle="bold"
@@ -81,13 +81,13 @@
                 app:layout_constraintTop_toBottomOf="@+id/txt_nomorBatch" />
 
             <TextView
-                android:id="@+id/txt_urutkan"
+                android:id="@+id/txt_kategori"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginStart="32dp"
                 android:layout_marginTop="24dp"
                 android:fontFamily="@font/montserrat_reguler"
-                android:text="Urutkan Berdasarkan"
+                android:text="Kategori"
                 android:textColor="#3F3D56"
                 android:textSize="16sp"
                 android:textStyle="bold"
@@ -95,7 +95,7 @@
                 app:layout_constraintTop_toBottomOf="@id/src_nomorBatch" />
 
             <com.google.android.material.textfield.TextInputLayout
-                android:id="@+id/tinp_pilihUrutan"
+                android:id="@+id/tinp_pilihKategori"
                 style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox.ExposedDropdownMenu"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
@@ -104,12 +104,55 @@
                 android:layout_marginEnd="32dp"
                 app:hintAnimationEnabled="true"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/txt_urutkan">
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/txt_kategori">
 
                 <AutoCompleteTextView
+                    android:id="@+id/dropdown_kategori"
+                    style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox.ExposedDropdownMenu"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_weight="1"
+                    android:text="Pilih Kategori"
+                    android:background="@drawable/txt_input_layout"
+                    android:inputType="none" />
+
+            </com.google.android.material.textfield.TextInputLayout>
+
+            <TextView
+                android:id="@+id/txt_tahun"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="32dp"
+                android:layout_marginTop="24dp"
+                android:fontFamily="@font/montserrat_reguler"
+                android:text="Tahun"
+                android:textColor="#3F3D56"
+                android:textSize="16sp"
+                android:textStyle="bold"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/tinp_pilihKategori" />
+
+            <com.google.android.material.textfield.TextInputLayout
+                android:id="@+id/tinp_pilihTahun"
+                style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox.ExposedDropdownMenu"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="32dp"
+                android:layout_marginTop="24dp"
+                android:layout_marginEnd="32dp"
+                app:hintAnimationEnabled="true"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/txt_tahun">
+
+                <AutoCompleteTextView
+                    android:id="@+id/dropdown_tahun"
+                    style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox.ExposedDropdownMenu"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:text="Pilih Tahun"
                     android:background="@drawable/txt_input_layout"
                     android:inputType="none" />
 
@@ -127,24 +170,7 @@
                 android:textSize="16sp"
                 android:textStyle="bold"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/tinp_pilihUrutan" />
-
-            <androidx.appcompat.widget.AppCompatButton
-                android:id="@+id/btn_export"
-                android:layout_width="130dp"
-                android:layout_height="wrap_content"
-                android:layout_marginStart="84dp"
-                android:layout_marginTop="36dp"
-                android:layout_marginEnd="32dp"
-                android:background="@drawable/bg_btn1"
-                android:drawableStart="@drawable/clipboard_3"
-                android:fontFamily="@font/montserrat_reguler"
-                android:padding="10dp"
-                android:text="Export"
-                android:textColor="@color/white"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintStart_toEndOf="@+id/txt_daftarList"
-                app:layout_constraintTop_toBottomOf="@+id/tinp_pilihUrutan" />
+                app:layout_constraintTop_toBottomOf="@+id/tinp_pilihTahun" />
 
             <TextView
                 android:id="@+id/txt_total"

@@ -4,7 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".ui.role.pabrikan.DetailDataAtributeMaterialActivity">
+    tools:context=".ui.role.pabrikan.arttribute_material.DetailDataAtributeMaterialActivity">
 
     <ImageView
         android:id="@+id/header"
@@ -87,21 +87,23 @@
             android:background="#FFFFFF">
 
             <androidx.recyclerview.widget.RecyclerView
-                android:id="@+id/rv_serial"
+                android:id="@+id/rv_detail_material"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
                 tools:listitem="@layout/item_data_material_pabrikan" />
 
-            <ProgressBar
-                android:id="@+id/progress_bar"
-                style="@style/Widget.AppCompat.ProgressBar"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:visibility="visible"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toTopOf="parent" />
         </androidx.constraintlayout.widget.ConstraintLayout>
     </androidx.cardview.widget.CardView>
+
+    <ProgressBar
+        android:id="@+id/progress_bar"
+        style="@style/Widget.AppCompat.ProgressBar"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:visibility="visible"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/src_detaildataatributematerial" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>
