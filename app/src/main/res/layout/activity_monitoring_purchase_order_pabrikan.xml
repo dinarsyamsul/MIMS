@@ -132,22 +132,6 @@
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@+id/tinp_pilihUrutan" />
 
-            <androidx.appcompat.widget.AppCompatButton
-                android:id="@+id/btn_export"
-                android:layout_width="130dp"
-                android:layout_height="wrap_content"
-                android:layout_marginStart="84dp"
-                android:layout_marginTop="36dp"
-                android:layout_marginEnd="32dp"
-                android:background="@drawable/bg_btn1"
-                android:drawableStart="@drawable/clipboard_3"
-                android:fontFamily="@font/montserrat_reguler"
-                android:padding="10dp"
-                android:text="Export"
-                android:textColor="@color/white"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/tinp_pilihUrutan" />
-
             <androidx.cardview.widget.CardView
                 android:id="@+id/cv_tanggal"
                 android:layout_width="match_parent"
@@ -159,7 +143,7 @@
                 app:cardCornerRadius="5dp"
                 app:cardElevation="10dp"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@id/btn_export"
+                app:layout_constraintTop_toBottomOf="@id/txt_daftarList"
                 app:layout_constraintEnd_toEndOf="parent">
 
                 <LinearLayout
@@ -168,13 +152,40 @@
                     android:background="#FFFFFF"
                     android:padding="5dp">
 
-                    <androidx.recyclerview.widget.RecyclerView
-                        android:id="@+id/rv_tanggal"
+                 <TextView
+                     android:id="@+id/calendermonitoring1"
+                     android:layout_width="wrap_content"
+                     android:layout_height="wrap_content"
+                     android:textStyle="bold"
+                     android:text="DD/MM/YYYY"
+                     android:textSize="14dp"
+                     android:layout_marginStart="115dp" />
+
+                    <ImageView
+                        android:layout_width="20dp"
+                        android:layout_height="20dp"
+                        android:layout_marginStart="3dp"
+                        android:background="@drawable/baseline_calendar_month_24"/>
+
+                    <TextView
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:scrollbars="horizontal"
-                        tools:layout_editor_absoluteX="5dp"
-                        tools:listitem="@layout/activity_tanggal_card_view" />
+                        android:text="s/d"
+                        android:layout_marginStart="10dp"/>
+
+                    <TextView
+                        android:id="@+id/calendermonitoring2"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="DD/MM/YYYY"
+                        android:textStyle="bold"
+                        android:layout_marginStart="10dp"/>
+
+                    <ImageView
+                        android:layout_width="20dp"
+                        android:layout_height="20dp"
+                        android:layout_marginStart="3dp"
+                        android:background="@drawable/baseline_calendar_month_24"/>
 
                 </LinearLayout>
             </androidx.cardview.widget.CardView>
