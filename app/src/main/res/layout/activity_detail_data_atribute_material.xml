@@ -58,7 +58,7 @@
         android:layout_height="wrap_content"
         android:layout_marginStart="24dp"
         android:layout_marginTop="24dp"
-        android:text="SN/No Mterial/ No Produksi"
+        android:text="Serial Number"
         android:textColor="#3F3D56"
         android:textSize="14sp"
         android:textStyle="bold"
