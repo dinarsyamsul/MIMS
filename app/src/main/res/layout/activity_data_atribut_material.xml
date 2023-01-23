@@ -212,14 +212,18 @@
                 <LinearLayout
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:background="#F0EDFF"
+                    android:orientation="horizontal"
+                    android:gravity="center"
+                    android:layout_marginTop="8dp"
                     android:padding="5dp">
 
                     <LinearLayout
-                        android:layout_width="match_parent"
+                        android:id="@+id/ly_cal_start"
+                        android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:background="#FFFFFF"
                         android:gravity="center"
+                        android:layout_weight="1"
                         android:padding="5dp">
 
                         <TextView
@@ -234,14 +238,24 @@
                             android:id="@+id/cal_start"
                             android:layout_width="20dp"
                             android:layout_height="20dp"
-                            android:layout_marginStart="3dp"
+                            android:layout_marginStart="4dp"
                             android:background="@drawable/baseline_calendar_month_24" />
+
+                    </LinearLayout>
 
                         <TextView
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
-                            android:layout_marginStart="10dp"
                             android:text="s/d" />
+
+                    <LinearLayout
+                        android:id="@+id/ly_cal_end"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:background="#FFFFFF"
+                        android:gravity="center"
+                        android:layout_weight="1"
+                        android:padding="5dp">
 
                         <TextView
                             android:id="@+id/tv_cal_end"
@@ -255,10 +269,10 @@
                             android:id="@+id/cal_end"
                             android:layout_width="20dp"
                             android:layout_height="20dp"
-                            android:layout_marginStart="3dp"
+                            android:layout_marginStart="4dp"
                             android:background="@drawable/baseline_calendar_month_24" />
-
                     </LinearLayout>
+
                 </LinearLayout>
             </androidx.cardview.widget.CardView>
 

@@ -43,7 +43,7 @@ class MonitoringPurchaseOrderActivity : AppCompatActivity() {
 
         val materialDatePickerEnd = materialDateBuilderEnd.build()
 
-        binding.calStart.setOnClickListener {
+        binding.lyCalStart.setOnClickListener {
             materialDatePickerStart.show(supportFragmentManager, "MATERIAL_DATE_PICKER")
         }
 
@@ -51,7 +51,7 @@ class MonitoringPurchaseOrderActivity : AppCompatActivity() {
             binding.tvCalStart.text = materialDatePickerStart.headerText
         }
 
-        binding.calEnd.setOnClickListener {
+        binding.lyCalEnd.setOnClickListener {
             materialDatePickerEnd.show(supportFragmentManager, "MATERIAL_DATE_PICKER")
         }
 
