@@ -102,7 +102,7 @@
                 android:layout_marginStart="24dp"
                 android:layout_marginTop="16dp"
                 android:fontFamily="@font/montserrat_reguler"
-                android:text="Kategori"
+                android:text="Status"
                 android:textColor="#3F3D56"
                 android:textSize="16sp"
                 app:layout_constraintStart_toStartOf="parent"
@@ -127,7 +127,7 @@
                     android:layout_weight="1"
                     android:background="@drawable/txt_input_layout"
                     android:inputType="none"
-                    android:text="Pilih Kategori" />
+                    android:text="BELUM UJI" />
 
             </com.google.android.material.textfield.TextInputLayout>
 

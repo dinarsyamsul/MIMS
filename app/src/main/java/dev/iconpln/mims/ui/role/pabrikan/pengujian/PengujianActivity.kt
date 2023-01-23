@@ -20,7 +20,7 @@ class PengujianActivity : AppCompatActivity() {
     private val pengujianViewModel: PengujianViewModel by viewModels()
     private lateinit var rvAdapter: ListPengujianAdapter
     private var noPengujian: String? = ""
-    private var status: String? = ""
+    private var status: String? = "BELUM UJI"
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
