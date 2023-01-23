@@ -12,4 +12,11 @@
     <color name="blue_fild">#F0F5FF</color>
     <color name="color_text">#23272F</color>
     <color name="blue_solid">#2F6FED</color>
+    <color name="birumuda">#802AA2FD</color>
+    <color name="lolos">#8006B60F</color>
+    <color name="lolos_text">#06B60F</color>
+    <color name="tidak_Lolos">#95EC0000</color>
+    <color name="tidakLolos_text">#EC0000</color>
+    <color name="sedang_uji">#80E6FF00</color>
+    <color name="sedangUji_text">#E6FF00</color>
 </resources>

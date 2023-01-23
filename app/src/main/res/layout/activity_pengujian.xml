@@ -150,7 +150,7 @@
                 android:layout_height="wrap_content"
                 android:layout_marginTop="16dp"
                 android:paddingBottom="10dp"
-                android:layout_marginStart="16dp"
+                android:layout_marginStart="8dp"
                 android:layout_marginEnd="16dp"
                 app:cardCornerRadius="5dp"
                 app:cardElevation="10dp"

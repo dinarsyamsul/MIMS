@@ -73,44 +73,19 @@
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@id/txt_noProduksi" />
 
-            <ImageButton
-                android:id="@+id/btn_trash"
+            <TextView
+                android:id="@+id/txt_nomorMaterial"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="64dp"
-                android:layout_marginEnd="8dp"
-                android:layout_marginBottom="4dp"
-                android:background="#00FFFFFF"
-                android:src="@drawable/trash"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintTop_toTopOf="parent"
-                app:layout_constraintBottom_toBottomOf="parent"/>
+                android:text="Nomor Material"
+                android:textSize="14sp"
+                android:layout_marginStart="16dp"
+                android:fontFamily="@font/montserrat_reguler"
+                app:layout_constraintTop_toBottomOf="@id/txt_serialNumber"
+                app:layout_constraintStart_toStartOf="parent"/>
 
-            <ImageButton
-                android:id="@+id/btn_download"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="64dp"
-                android:layout_marginEnd="8dp"
-                android:layout_marginBottom="4dp"
-                android:background="#00FFFFFF"
-                android:src="@drawable/download"
-                app:layout_constraintEnd_toStartOf="@+id/btn_trash"
-                app:layout_constraintTop_toTopOf="parent"
-                app:layout_constraintBottom_toBottomOf="parent"/>
 
-            <ImageButton
-                android:id="@+id/btn_detail"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="64dp"
-                android:layout_marginEnd="8dp"
-                android:background="#00FFFFFF"
-                android:src="@drawable/detail"
-                android:layout_marginBottom="4dp"
-                app:layout_constraintEnd_toStartOf="@+id/btn_download"
-                app:layout_constraintTop_toTopOf="parent"
-                app:layout_constraintBottom_toBottomOf="parent"/>
+
 
         </androidx.constraintlayout.widget.ConstraintLayout>
     </androidx.cardview.widget.CardView>

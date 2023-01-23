@@ -8,7 +8,8 @@ import dev.iconpln.mims.data.remote.response.DataItemMaterial
 import dev.iconpln.mims.databinding.ItemDataMaterialPabrikanBinding
 import dev.iconpln.mims.databinding.ItemDetailMaterialPabrikanBinding
 
-class ListMaterialAdapter() : RecyclerView.Adapter<ListMaterialAdapter.ListViewHolder>() {
+class
+ListMaterialAdapter() : RecyclerView.Adapter<ListMaterialAdapter.ListViewHolder>() {
 
     private val listMaterial = ArrayList<DataItemMaterial>()
     private var onItemClickCallback: OnItemClickCallback? = null
@@ -37,9 +38,10 @@ class ListMaterialAdapter() : RecyclerView.Adapter<ListMaterialAdapter.ListViewH
     override fun onBindViewHolder(holder: ListViewHolder, position: Int) {
         holder.bind(listMaterial[position])
 
-        holder.itemBinding.btnDetail.setOnClickListener {
+        holder.itemView.setOnClickListener {
             onItemClickCallback?.onItemClicked(listMaterial[holder.bindingAdapterPosition])
         }
+
     }
 
     override fun getItemCount(): Int = listMaterial.size
@@ -89,10 +91,10 @@ class ListDetailMaterialAdapter() : RecyclerView.Adapter<ListDetailMaterialAdapt
 
     override fun onBindViewHolder(holder: ListViewHolder, position: Int) {
         holder.bind(listMaterial[position])
-
-        holder.itemBinding.btnDetail.setOnClickListener {
+        holder.itemView.setOnClickListener {
             onItemClickCallback?.onItemClicked(listMaterial[holder.bindingAdapterPosition])
         }
+
     }
 
     override fun getItemCount(): Int = listMaterial.size
@@ -105,6 +107,7 @@ class ListDetailMaterialAdapter() : RecyclerView.Adapter<ListDetailMaterialAdapt
                 txtNoProduksi.text = item.noProduksi
                 txtSerialNumber.text = item.serialNumber
                 txtTglProduksi.text = item.tglProduksi
+                txtNomorMaterial.text = item.nomorMaterial
             }
         }
     }

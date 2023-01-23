@@ -61,7 +61,7 @@
                 android:id="@+id/img_plant"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginStart="16dp"
+                android:layout_marginStart="10dp"
                 android:layout_marginTop="8dp"
                 android:src="@drawable/plant_list_monitoring1"
                 app:layout_constraintStart_toStartOf="parent"
@@ -109,7 +109,7 @@
                 android:id="@+id/img_store"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginStart="16dp"
+                android:layout_marginStart="10dp"
                 android:layout_marginTop="8dp"
                 android:src="@drawable/tanggal_pengujian"
                 app:layout_constraintStart_toStartOf="parent"
@@ -157,10 +157,10 @@
                 android:id="@+id/img_unit"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginStart="32dp"
+                android:layout_marginEnd="8dp"
                 android:src="@drawable/unit_list_monitoring1"
                 app:layout_constraintBottom_toBottomOf="@id/txt_isikategori"
-                app:layout_constraintStart_toEndOf="@id/txt_isikategori"
+                app:layout_constraintEnd_toStartOf="@+id/txt_unit"
                 app:layout_constraintTop_toTopOf="@id/txt_isikategori" />
 
             <TextView
@@ -172,7 +172,7 @@
                 android:text="Jumlah"
                 android:textColor="#3F3D56"
                 app:layout_constraintBottom_toBottomOf="@id/img_unit"
-                app:layout_constraintStart_toEndOf="@id/img_unit"
+                app:layout_constraintEnd_toStartOf="@+id/txt_titik2unit"
                 app:layout_constraintTop_toTopOf="@id/img_unit" />
 
             <TextView
@@ -185,7 +185,7 @@
                 android:textColor="#3F3D56"
                 android:textSize="16dp"
                 app:layout_constraintBottom_toBottomOf="@id/txt_unit"
-                app:layout_constraintStart_toEndOf="@id/txt_unit"
+                app:layout_constraintEnd_toStartOf="@+id/txt_isiJumlah"
                 app:layout_constraintTop_toTopOf="@id/txt_unit" />
 
             <TextView
@@ -193,10 +193,11 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:fontFamily="@font/montserrat_reguler"
+                android:layout_marginEnd="32dp"
                 android:text="123123"
                 android:textColor="#96979B"
                 app:layout_constraintBottom_toBottomOf="@id/txt_titik2unit"
-                app:layout_constraintStart_toEndOf="@id/txt_titik2unit"
+                app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintTop_toTopOf="@id/txt_titik2unit" />
 
             <!-- PEMBATAS -->
@@ -205,22 +206,21 @@
                 android:id="@+id/img_kuantitas"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginStart="46dp"
                 android:src="@drawable/kuantitas_list_monitoring1"
                 app:layout_constraintBottom_toBottomOf="@id/txt_isiTahun"
-                app:layout_constraintStart_toEndOf="@id/txt_isiTahun"
+                app:layout_constraintStart_toStartOf="@+id/img_unit"
                 app:layout_constraintTop_toTopOf="@id/txt_isiTahun" />
 
             <TextView
                 android:id="@+id/txt_kuantitas"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginStart="8dp"
                 android:fontFamily="@font/montserrat_reguler"
                 android:text="Satuan"
                 android:textColor="#3F3D56"
                 app:layout_constraintBottom_toBottomOf="@id/img_kuantitas"
-                app:layout_constraintStart_toEndOf="@id/img_kuantitas"
+                app:layout_constraintEnd_toStartOf="@+id/txt_titik2unit"
+                app:layout_constraintStart_toEndOf="@+id/img_unit"
                 app:layout_constraintTop_toTopOf="@id/img_kuantitas" />
 
             <TextView
@@ -233,7 +233,8 @@
                 android:textColor="#3F3D56"
                 android:textSize="16dp"
                 app:layout_constraintBottom_toBottomOf="@id/txt_kuantitas"
-                app:layout_constraintStart_toEndOf="@id/txt_kuantitas"
+                app:layout_constraintEnd_toEndOf="@+id/txt_titik2unit"
+                app:layout_constraintStart_toEndOf="@+id/txt_unit"
                 app:layout_constraintTop_toTopOf="@id/txt_kuantitas" />
 
             <TextView
@@ -244,41 +245,10 @@
                 android:text="bg"
                 android:textColor="#96979B"
                 app:layout_constraintBottom_toBottomOf="@id/txt_titik2kuantitas"
-                app:layout_constraintStart_toEndOf="@id/txt_titik2kuantitas"
+                app:layout_constraintEnd_toEndOf="@+id/txt_isiJumlah"
+                app:layout_constraintStart_toEndOf="@+id/txt_titik2unit"
                 app:layout_constraintTop_toTopOf="@id/txt_titik2kuantitas" />
 
-            <ImageButton
-                android:id="@+id/btn_trash"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginEnd="8dp"
-                android:layout_marginBottom="4dp"
-                android:background="#00FFFFFF"
-                android:src="@drawable/trash"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintTop_toTopOf="parent"/>
-
-            <ImageButton
-                android:id="@+id/btn_download"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginEnd="8dp"
-                android:layout_marginBottom="4dp"
-                android:background="#00FFFFFF"
-                android:src="@drawable/download"
-                app:layout_constraintEnd_toStartOf="@+id/btn_trash"
-                app:layout_constraintTop_toTopOf="parent"/>
-
-            <ImageButton
-                android:id="@+id/btn_detail"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginEnd="8dp"
-                android:background="#00FFFFFF"
-                android:src="@drawable/detail"
-                android:layout_marginBottom="4dp"
-                app:layout_constraintEnd_toStartOf="@+id/btn_download"
-                app:layout_constraintTop_toTopOf="parent"/>
 
             <androidx.appcompat.widget.AppCompatButton
                 android:id="@+id/status_uji"
