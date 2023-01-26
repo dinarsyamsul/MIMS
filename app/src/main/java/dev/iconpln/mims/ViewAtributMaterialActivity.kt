@@ -1,12 +1,11 @@
-package dev.iconpln.mims.ui.role.pabrikan
+package dev.iconpln.mims
 
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
-import dev.iconpln.mims.R
 
-class PengirimanActivity : AppCompatActivity() {
+class ViewAtributMaterialActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        setContentView(R.layout.activity_pengiriman)
+        setContentView(R.layout.activity_view_atribut_material)
     }
 }
