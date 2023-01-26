@@ -4,8 +4,8 @@ object Config {
     const val SCHEMA_NAME = "Mims"
 
     const val DIRECTORY_ROOT_NAME = "MIMS"
-    const val DATABASE_NAME = "MIMS-2023010-db"
-    const val DATABASE_NAME_ENCRYPTED = "MIMS-2023010-db-encrypted"
+    const val DATABASE_NAME = "MIMS-2023012-db"
+    const val DATABASE_NAME_ENCRYPTED = "MIMS-2023012-db-encrypted"
 
     // Storage
     const val REQUEST_CODE_WRITE_EXTERNAL_STORAGE = 10
