@@ -38,7 +38,7 @@ class PengujianViewModel : ViewModel() {
                 if (response.isSuccessful) {
                     _isLoading.value = false
                     val dataResult = response.body()
-                    _pengujianResponse.postValue(dataResult)
+                    _pengujianResponse.postValue(dataResult!!)
                 } else {
                     _isLoading.value = false
                     val error = response.errorBody()?.toString()

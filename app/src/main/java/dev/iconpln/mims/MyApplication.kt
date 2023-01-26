@@ -10,6 +10,7 @@ import dev.iconpln.mims.data.local.databasereport.DatabaseReport
 import dev.iconpln.mims.utils.Config
 import dev.iconpln.mims.utils.StorageUtils
 
+
 class MyApplication : Application() {
     var daoSession: DaoSession? = null
 

@@ -25,6 +25,7 @@ public class MainGenerator {
         tMonitoring.addStringProperty("LeadTime");
         tMonitoring.addStringProperty("CreatedDate");
 
+
         //endregion
 
         //region Pengujian
