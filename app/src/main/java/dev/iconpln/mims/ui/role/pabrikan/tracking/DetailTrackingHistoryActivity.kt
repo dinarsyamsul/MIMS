@@ -22,5 +22,6 @@ class DetailTrackingHistoryActivity : AppCompatActivity() {
         detailTrackingViewModel.detailTrackingHistoryResponse.observe(this){
             Toast.makeText(this, "${it.datas}", Toast.LENGTH_SHORT).show()
         }
+
     }
 }

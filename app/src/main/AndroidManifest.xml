@@ -32,20 +32,6 @@
         android:usesCleartextTraffic="true"
         tools:targetApi="31">
         <activity
-            android:name=".ViewAtributMaterialActivity"
-            android:exported="false">
-            <meta-data
-                android:name="android.app.lib_name"
-                android:value="" />
-        </activity>
-        <activity
-            android:name=".BarcodeTidakTerbacaActivity"
-            android:exported="false">
-            <meta-data
-                android:name="android.app.lib_name"
-                android:value="" />
-        </activity>
-        <activity
             android:name=".BottomsheetTrackingActivity"
             android:exported="false">
             <meta-data
@@ -112,10 +98,7 @@
                 android:value="" />
         </activity>
         <activity
-            android:name=".ui.role.pabrikan.tracking.TrackingHistoryActivity"
-            android:exported="false" />
-        <activity
-            android:name=".ui.role.pabrikan.tracking.DetailTrackingHistoryActivity"
+            android:name=".ui.role.pabrikan.TrackingActivity"
             android:exported="false" />
         <activity
             android:name=".ui.role.pabrikan.PengirimanActivity"
