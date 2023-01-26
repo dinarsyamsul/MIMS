@@ -221,10 +221,10 @@ class ScannerActivity : AppCompatActivity() {
                             ).show()
                             startActivity(
                                 Intent(
-                                    this@ScannerActivity,
-                                    ResponseScanActivity::class.java
+//                                    this@ScannerActivity,
+//                                    ResponseScanActivity::class.java
                                 ).also {
-                                    it.putExtra(ResponseScanActivity.EXTRA_SN, barcode.displayValue)
+//                                    it.putExtra(ResponseScanActivity.EXTRA_SN, barcode.displayValue)
                                 })
                         }
                     }

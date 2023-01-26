@@ -3,6 +3,7 @@
     <string name="apj_cimahi">APJ CIMAHI</string>
     <!-- TODO: Remove or change this placeholder text -->
     <string name="hello_blank_fragment">Hello blank fragment</string>
+    <string name="monitoring_po_do"><![CDATA[Monitoring PO & DO]]></string>
 
     <string-array name="data_batch">
         <item>2000</item>

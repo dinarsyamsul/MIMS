@@ -60,6 +60,7 @@ class HomeFragment : Fragment() {
 
             lifecycleScope.launch {
                 session.clearUserToken()
+                session.clearSessionActivity()
             }
             session.user_token.asLiveData().observe(viewLifecycleOwner) {
                 Log.d("MainActivity", "cek token : $it")

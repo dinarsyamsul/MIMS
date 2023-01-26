@@ -8,13 +8,11 @@ import android.widget.SearchView
 import android.widget.Toast
 import androidx.activity.viewModels
 import androidx.recyclerview.widget.LinearLayoutManager
-import dagger.hilt.android.AndroidEntryPoint
 import dev.iconpln.mims.R
 import dev.iconpln.mims.databinding.ActivityPengujianBinding
 import java.util.*
 import kotlin.collections.ArrayList
 
-@AndroidEntryPoint
 class PengujianActivity : AppCompatActivity() {
     private lateinit var binding: ActivityPengujianBinding
     private val pengujianViewModel: PengujianViewModel by viewModels()
@@ -41,7 +39,6 @@ class PengujianActivity : AppCompatActivity() {
             rvPengujian.adapter = rvAdapter
         }
 
-        pengujianViewModel.getPengujian(noPengujian, status)
 
         pengujianViewModel.pengujianResponse.observe(this){
 //            Log.d("PengujianActivity", "${it.data}")
@@ -54,7 +51,6 @@ class PengujianActivity : AppCompatActivity() {
                 if (query != null){
                     val mQuery = query.uppercase(Locale.ROOT)
                     noPengujian = mQuery
-                    pengujianViewModel.getPengujian(noPengujian, status)
                 }
                 return false
             }
@@ -62,7 +58,6 @@ class PengujianActivity : AppCompatActivity() {
             override fun onQueryTextChange(newText: String?): Boolean {
                 if (newText != null){
                     noPengujian = newText.uppercase(Locale.ROOT)
-                    pengujianViewModel.getPengujian(noPengujian, status)
                 }
                 return false
             }
@@ -70,7 +65,6 @@ class PengujianActivity : AppCompatActivity() {
 
         binding.statusKategori.setOnItemClickListener { _, _, _, _ ->
             status = binding.statusKategori.text.toString()
-            pengujianViewModel.getPengujian(noPengujian,status)
         }
     }
 

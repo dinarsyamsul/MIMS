@@ -7,7 +7,6 @@ import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.RecyclerView
 import dev.iconpln.mims.data.remote.response.DataItemPengujian
 import dev.iconpln.mims.databinding.ItemPengujianBinding
-import dev.iconpln.mims.ui.role.pabrikan.purchase_order.ListNoPoAdapter
 
 class ListPengujianAdapter() : RecyclerView.Adapter<ListPengujianAdapter.ListViewHolder>() {
 

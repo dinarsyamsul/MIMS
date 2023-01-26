@@ -9,7 +9,7 @@
     <ImageView
         android:id="@+id/header"
         android:layout_width="match_parent"
-        android:layout_height="130dp"
+        android:layout_height="84dp"
         android:background="@drawable/dashboard"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
@@ -19,161 +19,249 @@
         android:id="@+id/btn_back"
         android:layout_width="50dp"
         android:layout_height="50dp"
-        android:layout_marginStart="32dp"
-        android:layout_marginTop="45dp"
+        android:layout_marginStart="24dp"
         android:background="#00FFFFFF"
         android:src="@drawable/ic_baseline_arrow_back_ios_24"
+        app:layout_constraintBottom_toBottomOf="@+id/textView6"
         app:layout_constraintStart_toStartOf="@+id/header"
-        app:layout_constraintTop_toTopOf="@+id/header" />
+        app:layout_constraintTop_toTopOf="@+id/textView6" />
 
     <TextView
+        android:id="@+id/textView6"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="58dp"
         android:layout_marginEnd="64dp"
         android:fontFamily="@font/montserrat_reguler"
         android:text="P e n g u j i a n "
         android:textColor="@color/white"
         android:textSize="16dp"
         android:textStyle="bold"
+        app:layout_constraintBottom_toBottomOf="@+id/header"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toEndOf="@+id/btn_back"
         app:layout_constraintTop_toTopOf="parent" />
 
-    <ScrollView
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:layout_marginTop="130dp"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.0"
+    <TextView
+        android:id="@+id/txt_status_uji"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="24dp"
+        android:layout_marginTop="20dp"
+        android:fontFamily="@font/montserrat_reguler"
+        android:text="Status Uji"
+        android:textColor="#3F3D56"
+        android:textSize="16sp"
+        android:textStyle="bold"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/header"
-        app:layout_constraintVertical_bias="1.0">
+        app:layout_constraintTop_toBottomOf="@+id/header" />
 
-        <androidx.constraintlayout.widget.ConstraintLayout
+    <com.google.android.material.textfield.TextInputLayout
+        android:id="@+id/tinp_status_uji"
+        style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox.ExposedDropdownMenu"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="10dp"
+        android:layout_marginEnd="25dp"
+        app:hintAnimationEnabled="true"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="@+id/txt_status_uji"
+        app:layout_constraintTop_toBottomOf="@+id/txt_status_uji">
+
+        <AutoCompleteTextView
+            android:id="@+id/dropdown_kategori"
+            style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox.ExposedDropdownMenu"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:padding="10dp">
+            android:layout_weight="1"
+            android:background="@drawable/txt_input_layout"
+            android:inputType="none"
+            android:text="Pilih Status Uji" />
 
-            <TextView
-                android:id="@+id/txt_no_pengujian"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginStart="32dp"
-                android:layout_marginTop="24dp"
-                android:text="Nomor Pengujian"
-                android:textColor="#3F3D56"
-                android:textSize="14sp"
-                android:textStyle="bold"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toTopOf="parent" />
+    </com.google.android.material.textfield.TextInputLayout>
 
-            <SearchView
-                android:id="@+id/src_no_pengujian"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginStart="32dp"
-                android:layout_marginTop="18dp"
-                android:layout_marginEnd="32dp"
-                android:background="@drawable/srchview"
-                android:layoutDirection="rtl"
-                android:queryHint="Search Here"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/txt_no_pengujian" />
+    <TextView
+        android:id="@+id/no_batch_no_pengujian"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="10dp"
+        android:text="Nomor Pengujian"
+        android:textColor="#3F3D56"
+        android:textSize="14sp"
+        android:textStyle="bold"
+        app:layout_constraintStart_toStartOf="@+id/txt_status_uji"
+        app:layout_constraintTop_toBottomOf="@+id/tinp_status_uji" />
 
-            <View
-                android:id="@+id/vw_line"
-                android:layout_width="match_parent"
-                android:layout_height="2dp"
-                android:layout_marginStart="16dp"
-                android:layout_marginTop="24dp"
-                android:layout_marginEnd="16dp"
-                android:background="#B9B9B9"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/src_no_pengujian" />
+    <EditText
+        android:id="@+id/src_no_pengujian"
+        android:layout_width="0dp"
+        android:layout_height="50dp"
+        android:layout_marginStart="23dp"
+        android:layout_marginTop="10dp"
+        android:layout_marginEnd="25dp"
+        android:background="@drawable/srchview"
+        android:drawableEnd="@drawable/ic_search"
+        android:fontFamily="@font/montserrat_reguler"
+        android:hint="Search here"
+        android:paddingLeft="20dp"
+        android:paddingRight="20dp"
+        android:textSize="12sp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/no_batch_no_pengujian" />
 
-            <TextView
-                android:id="@+id/txt_Kategori"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginStart="24dp"
-                android:layout_marginTop="16dp"
-                android:fontFamily="@font/montserrat_reguler"
-                android:text="Kategori"
-                android:textColor="#3F3D56"
-                android:textSize="16sp"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@id/vw_line" />
+    <androidx.recyclerview.widget.RecyclerView
+        android:id="@+id/rv_pengujian"
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/src_no_pengujian"
+        tools:listitem="@layout/item_pengujian" />
 
-            <com.google.android.material.textfield.TextInputLayout
-                android:id="@+id/tinp_pilihKategori"
-                style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox.ExposedDropdownMenu"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginStart="32dp"
-                android:layout_marginTop="8dp"
-                android:layout_marginEnd="32dp"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@id/txt_Kategori">
+<!--    <ScrollView-->
+<!--        android:layout_width="match_parent"-->
+<!--        android:layout_height="0dp"-->
+<!--        app:layout_constraintBottom_toBottomOf="parent"-->
+<!--        app:layout_constraintEnd_toEndOf="parent"-->
+<!--        app:layout_constraintHorizontal_bias="0.0"-->
+<!--        app:layout_constraintStart_toStartOf="parent"-->
+<!--        app:layout_constraintTop_toBottomOf="@+id/header"-->
+<!--        app:layout_constraintVertical_bias="1.0">-->
 
-                <AutoCompleteTextView
-                    android:id="@+id/status_kategori"
-                    android:layout_width="match_parent"
-                    android:layout_height="match_parent"
-                    android:layout_weight="1"
-                    android:background="@drawable/txt_input_layout"
-                    android:inputType="none"
-                    android:text="Pilih Kategori" />
+<!--        <androidx.constraintlayout.widget.ConstraintLayout-->
+<!--            android:layout_width="match_parent"-->
+<!--            android:layout_height="wrap_content"-->
+<!--            android:padding="10dp">-->
 
-            </com.google.android.material.textfield.TextInputLayout>
+<!--            <TextView-->
+<!--                android:id="@+id/txt_no_pengujian"-->
+<!--                android:layout_width="wrap_content"-->
+<!--                android:layout_height="wrap_content"-->
+<!--                android:layout_marginStart="24dp"-->
+<!--                android:layout_marginTop="20dp"-->
+<!--                android:text="Status Uji"-->
+<!--                android:textColor="#3F3D56"-->
+<!--                android:textSize="14sp"-->
+<!--                android:textStyle="bold"-->
+<!--                app:layout_constraintStart_toStartOf="parent"-->
+<!--                app:layout_constraintTop_toTopOf="parent" />-->
+
+<!--            <com.google.android.material.textfield.TextInputLayout-->
+<!--                android:id="@+id/tinp_status_uji"-->
+<!--                style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox.ExposedDropdownMenu"-->
+<!--                android:layout_width="0dp"-->
+<!--                android:layout_height="wrap_content"-->
+<!--                android:layout_marginTop="10dp"-->
+<!--                android:layout_marginEnd="25dp"-->
+<!--                app:hintAnimationEnabled="true"-->
+<!--                app:layout_constraintEnd_toEndOf="parent"-->
+<!--                app:layout_constraintStart_toStartOf="@+id/txt_kategori"-->
+<!--                app:layout_constraintTop_toBottomOf="@+id/txt_kategori">-->
+
+<!--                <AutoCompleteTextView-->
+<!--                    android:id="@+id/dropdown_kategori"-->
+<!--                    style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox.ExposedDropdownMenu"-->
+<!--                    android:layout_width="match_parent"-->
+<!--                    android:layout_height="wrap_content"-->
+<!--                    android:layout_weight="1"-->
+<!--                    android:background="@drawable/txt_input_layout"-->
+<!--                    android:inputType="none"-->
+<!--                    android:text="Pilih Kategori" />-->
+
+<!--            </com.google.android.material.textfield.TextInputLayout>-->
+
+<!--            <View-->
+<!--                android:id="@+id/vw_line"-->
+<!--                android:layout_width="match_parent"-->
+<!--                android:layout_height="2dp"-->
+<!--                android:layout_marginStart="16dp"-->
+<!--                android:layout_marginTop="24dp"-->
+<!--                android:layout_marginEnd="16dp"-->
+<!--                android:background="#B9B9B9"-->
+<!--                app:layout_constraintEnd_toEndOf="parent"-->
+<!--                app:layout_constraintStart_toStartOf="parent"-->
+<!--                app:layout_constraintTop_toBottomOf="@+id/src_no_pengujian" />-->
+
+<!--            <TextView-->
+<!--                android:id="@+id/txt_Kategori"-->
+<!--                android:layout_width="wrap_content"-->
+<!--                android:layout_height="wrap_content"-->
+<!--                android:layout_marginStart="24dp"-->
+<!--                android:layout_marginTop="16dp"-->
+<!--                android:fontFamily="@font/montserrat_reguler"-->
+<!--                android:text="Kategori"-->
+<!--                android:textColor="#3F3D56"-->
+<!--                android:textSize="16sp"-->
+<!--                app:layout_constraintStart_toStartOf="parent"-->
+<!--                app:layout_constraintTop_toBottomOf="@id/vw_line" />-->
+
+<!--            <com.google.android.material.textfield.TextInputLayout-->
+<!--                android:id="@+id/tinp_pilihKategori"-->
+<!--                style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox.ExposedDropdownMenu"-->
+<!--                android:layout_width="match_parent"-->
+<!--                android:layout_height="wrap_content"-->
+<!--                android:layout_marginStart="32dp"-->
+<!--                android:layout_marginTop="8dp"-->
+<!--                android:layout_marginEnd="32dp"-->
+<!--                app:layout_constraintEnd_toEndOf="parent"-->
+<!--                app:layout_constraintStart_toStartOf="parent"-->
+<!--                app:layout_constraintTop_toBottomOf="@id/txt_Kategori">-->
+
+<!--                <AutoCompleteTextView-->
+<!--                    android:id="@+id/status_kategori"-->
+<!--                    android:layout_width="match_parent"-->
+<!--                    android:layout_height="match_parent"-->
+<!--                    android:layout_weight="1"-->
+<!--                    android:background="@drawable/txt_input_layout"-->
+<!--                    android:inputType="none"-->
+<!--                    android:text="Pilih Kategori" />-->
+
+<!--            </com.google.android.material.textfield.TextInputLayout>-->
 
 
-            <View
-                android:id="@+id/vw_line1"
-                android:layout_width="match_parent"
-                android:layout_height="2dp"
-                android:layout_marginStart="16dp"
-                android:layout_marginTop="24dp"
-                android:layout_marginEnd="16dp"
-                android:background="#B9B9B9"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/tinp_pilihKategori" />
+<!--            <View-->
+<!--                android:id="@+id/vw_line1"-->
+<!--                android:layout_width="match_parent"-->
+<!--                android:layout_height="2dp"-->
+<!--                android:layout_marginStart="16dp"-->
+<!--                android:layout_marginTop="24dp"-->
+<!--                android:layout_marginEnd="16dp"-->
+<!--                android:background="#B9B9B9"-->
+<!--                app:layout_constraintEnd_toEndOf="parent"-->
+<!--                app:layout_constraintStart_toStartOf="parent"-->
+<!--                app:layout_constraintTop_toBottomOf="@+id/tinp_pilihKategori" />-->
 
-            <androidx.cardview.widget.CardView
-                android:id="@+id/cv_pengujian"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="16dp"
-                android:paddingBottom="10dp"
-                android:layout_marginStart="16dp"
-                android:layout_marginEnd="16dp"
-                app:cardCornerRadius="5dp"
-                app:cardElevation="10dp"
-                app:layout_constraintBottom_toBottomOf="parent"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/vw_line1">
+<!--            <androidx.cardview.widget.CardView-->
+<!--                android:id="@+id/cv_pengujian"-->
+<!--                android:layout_width="match_parent"-->
+<!--                android:layout_height="wrap_content"-->
+<!--                android:layout_marginStart="16dp"-->
+<!--                android:layout_marginTop="16dp"-->
+<!--                android:layout_marginEnd="16dp"-->
+<!--                android:paddingBottom="10dp"-->
+<!--                app:cardCornerRadius="5dp"-->
+<!--                app:cardElevation="10dp"-->
+<!--                app:layout_constraintBottom_toBottomOf="parent"-->
+<!--                app:layout_constraintEnd_toEndOf="parent"-->
+<!--                app:layout_constraintStart_toStartOf="parent"-->
+<!--                app:layout_constraintTop_toBottomOf="@+id/vw_line1">-->
 
-                <androidx.constraintlayout.widget.ConstraintLayout
-                    android:layout_width="match_parent"
-                    android:layout_height="match_parent"
-                    android:background="#FFFFFF">
+<!--                <androidx.constraintlayout.widget.ConstraintLayout-->
+<!--                    android:layout_width="match_parent"-->
+<!--                    android:layout_height="match_parent"-->
+<!--                    android:background="#FFFFFF">-->
 
-                    <androidx.recyclerview.widget.RecyclerView
-                        android:id="@+id/rv_pengujian"
-                        android:layout_width="match_parent"
-                        android:layout_height="match_parent"
-                        tools:listitem="@layout/item_pengujian" />
-                </androidx.constraintlayout.widget.ConstraintLayout>
-            </androidx.cardview.widget.CardView>
+<!--                    <androidx.recyclerview.widget.RecyclerView-->
+<!--                        android:id="@+id/rv_pengujian"-->
+<!--                        android:layout_width="match_parent"-->
+<!--                        android:layout_height="match_parent"-->
+<!--                        tools:listitem="@layout/item_pengujian" />-->
+<!--                </androidx.constraintlayout.widget.ConstraintLayout>-->
+<!--            </androidx.cardview.widget.CardView>-->
 
-        </androidx.constraintlayout.widget.ConstraintLayout>
-    </ScrollView>
+<!--        </androidx.constraintlayout.widget.ConstraintLayout>-->
+<!--    </ScrollView>-->
 
 
 </androidx.constraintlayout.widget.ConstraintLayout>

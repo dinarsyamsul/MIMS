@@ -14,10 +14,16 @@ interface ApiService {
     ): Response<AgoLoginResponse>
 
     @Headers("Content-Type:application/json")
-    @POST("/mims-service-api/loginmobile")
+    @POST("/users/login")
     suspend fun login(
         @Body body: Map<String, String>
     ): Response<LoginResponse>
+
+    @Headers("Content-Type:application/json")
+    @POST("/users/getOtpForgotPassword")
+    suspend fun getOtpForgotPassword(
+        @Body body: Map<String, String>
+    ): Response<HitEmailResponse>
 
     @Headers("Content-Type:application/json")
     @GET("mims-service-api/attMaterial/getMaterial/{sn}")
@@ -26,13 +32,13 @@ interface ApiService {
     ): Response<DetailSnResponse>
 
     @Headers("Content-Type:application/json")
-    @GET("mims-service-api/sendmailtoken/{user_name}")
+    @POST("/users/sentOtp")
     suspend fun hitEmailResponse(
-        @Path("user_name") username: String
+        @Body body: Map<String, String>
     ): Response<HitEmailResponse>
 
     @Headers("Content-Type:application/json")
-    @POST("mims-service-api/veriftoken")
+    @POST("/users/isOtpValid")
     suspend fun sendOtp(
         @Body body: Map<String, String>
     ): Response<VerifyTokenResponse>

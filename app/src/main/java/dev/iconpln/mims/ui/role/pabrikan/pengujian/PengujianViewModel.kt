@@ -1,17 +1,18 @@
 package dev.iconpln.mims.ui.role.pabrikan.pengujian
 
+import android.content.Context
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
-import dagger.hilt.android.lifecycle.HiltViewModel
 import dev.iconpln.mims.data.remote.response.PengujianMaterialPabrikanResponse
+import dev.iconpln.mims.data.remote.service.ApiConfig
 import dev.iconpln.mims.data.remote.service.ApiService
 import kotlinx.coroutines.*
 import org.json.JSONObject
 import javax.inject.Inject
 
-@HiltViewModel
-class PengujianViewModel @Inject constructor(private val apiService: ApiService) : ViewModel() {
+
+class PengujianViewModel : ViewModel() {
 
     private var job: Job? = null
     private val exceptionHandler = CoroutineExceptionHandler { _, throwable ->
@@ -27,8 +28,9 @@ class PengujianViewModel @Inject constructor(private val apiService: ApiService)
     private val _pengujianResponse = MutableLiveData<PengujianMaterialPabrikanResponse>()
     val pengujianResponse: LiveData<PengujianMaterialPabrikanResponse> = _pengujianResponse
 
-    fun getPengujian(noPengujian: String?, status: String?, pageIn: Int? = 1, pageSize: Int? = 5) {
+    fun getPengujian(noPengujian: String?, status: String?, pageIn: Int? = 1, pageSize: Int? = 5, ctx: Context) {
         _isLoading.value = true
+        val apiService = ApiConfig.getApiService(ctx)
         job = CoroutineScope(Dispatchers.IO + exceptionHandler).launch {
             val response = apiService.getPengujianMaterialPabrikan(noPengujian, status, pageIn, pageSize)
 

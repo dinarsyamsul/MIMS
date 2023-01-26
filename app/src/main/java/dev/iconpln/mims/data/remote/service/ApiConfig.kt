@@ -2,6 +2,7 @@ package dev.iconpln.mims.data.remote.service
 
 import android.content.Context
 import dev.iconpln.mims.utils.Constants.BASE_URL
+import dev.iconpln.mims.utils.Constants.BASE_URL2
 import okhttp3.OkHttpClient
 import okhttp3.logging.HttpLoggingInterceptor
 import retrofit2.Retrofit
@@ -17,7 +18,7 @@ object ApiConfig {
             .addInterceptor(AuthInterceptor(context))
             .build()
         val retrofit = Retrofit.Builder()
-            .baseUrl(BASE_URL)
+            .baseUrl(BASE_URL2)
             .addConverterFactory(GsonConverterFactory.create())
             .client(client)
             .build()

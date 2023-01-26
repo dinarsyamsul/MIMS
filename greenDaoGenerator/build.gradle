@@ -1,0 +1,19 @@
+apply plugin: 'java-library'
+apply plugin: 'application'
+
+buildscript {
+    repositories {
+        mavenCentral()
+    }
+    dependencies {
+        classpath 'org.greenrobot:greendao-gradle-plugin:3.3.0'
+    }
+}
+
+dependencies {
+    implementation fileTree(dir: 'libs', include: ['*.jar'])
+    implementation 'org.greenrobot:greendao-generator:3.2.2'
+}
+mainClassName = "dev.iconpln.greendaogenerator.MainGenerator"
+sourceCompatibility = "1.8"
+targetCompatibility = "1.8"

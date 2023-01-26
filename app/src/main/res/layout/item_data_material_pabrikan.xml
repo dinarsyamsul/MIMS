@@ -23,8 +23,9 @@
             <View
                 android:id="@+id/vw_line"
                 android:layout_width="5dp"
-                android:layout_height="110dp"
-                android:background="@drawable/dashboard"
+                android:layout_height="0dp"
+                android:background="#26ACE2"
+                app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toTopOf="parent" />
 
@@ -42,24 +43,12 @@
 
             <View
                 android:id="@+id/vw_circle"
-                android:layout_width="5dp"
-                android:layout_height="5dp"
+                android:layout_width="2dp"
+                android:layout_height="2dp"
                 android:layout_marginStart="8dp"
                 android:layout_marginTop="24dp"
                 android:background="@drawable/dashboard"
                 app:layout_constraintStart_toEndOf="@+id/txt_noBatch"
-                app:layout_constraintTop_toTopOf="parent" />
-
-            <TextView
-                android:id="@+id/txt_excel"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginStart="8dp"
-                android:layout_marginTop="16dp"
-                android:fontFamily="@font/montserrat_reguler"
-                android:text="Excel/API"
-                android:textColor="#96979B"
-                app:layout_constraintStart_toEndOf="@+id/vw_circle"
                 app:layout_constraintTop_toTopOf="parent" />
 
             <TextView
@@ -73,44 +62,111 @@
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@+id/txt_noBatch" />
 
-            <ImageButton
-                android:id="@+id/btn_trash"
-                android:layout_width="wrap_content"
+            <ImageView
+                android:id="@+id/imageView"
+                android:layout_width="14dp"
+                android:layout_height="14dp"
+                android:layout_marginTop="8dp"
+                android:src="@drawable/ic_number"
+                app:layout_constraintStart_toStartOf="@+id/txt_serialNumber"
+                app:layout_constraintTop_toBottomOf="@+id/txt_serialNumber" />
+
+            <TextView
+                android:id="@+id/lbl_no_material"
+                android:layout_width="0dp"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="64dp"
-                android:layout_marginEnd="8dp"
-                android:layout_marginBottom="4dp"
-                android:background="#00FFFFFF"
-                android:src="@drawable/trash"
+                android:layout_marginStart="5dp"
+                android:fontFamily="@font/montserrat_reguler"
+                android:text="No. DO"
+                android:textColor="#3F3D56"
+                android:textSize="10sp"
+                app:layout_constraintEnd_toStartOf="@+id/imageView1"
+                app:layout_constraintBottom_toBottomOf="@+id/imageView"
+                app:layout_constraintStart_toEndOf="@+id/imageView"
+                app:layout_constraintTop_toTopOf="@+id/imageView" />
+
+            <TextView
+                android:id="@+id/txt_no_material"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:fontFamily="@font/montserrat_reguler"
+                android:text="111011"
+                android:textSize="10sp"
+                app:layout_constraintEnd_toEndOf="@+id/lbl_no_material"
+                app:layout_constraintStart_toStartOf="@+id/lbl_no_material"
+                app:layout_constraintTop_toBottomOf="@+id/lbl_no_material" />
+
+            <ImageView
+                android:id="@+id/imageView1"
+                android:layout_width="14dp"
+                android:layout_height="14dp"
+                android:layout_marginStart="5dp"
+                android:src="@drawable/unit_list_monitoring1"
+                app:layout_constraintEnd_toStartOf="@+id/lbl_no_kategori"
+                app:layout_constraintStart_toEndOf="@+id/lbl_no_material"
+                app:layout_constraintTop_toTopOf="@+id/lbl_no_material" />
+
+            <TextView
+                android:id="@+id/lbl_no_kategori"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginEnd="16dp"
+                android:fontFamily="@font/montserrat_reguler"
+                android:text="Kategori"
+                android:textColor="#3F3D56"
+                android:textSize="10sp"
+                app:layout_constraintBottom_toBottomOf="@+id/imageView1"
                 app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintTop_toTopOf="parent"
-                app:layout_constraintBottom_toBottomOf="parent"/>
+                app:layout_constraintStart_toEndOf="@+id/imageView1"
+                app:layout_constraintTop_toTopOf="@+id/imageView1" />
 
-            <ImageButton
-                android:id="@+id/btn_download"
-                android:layout_width="wrap_content"
+            <TextView
+                android:id="@+id/txt_no_kategori"
+                android:layout_width="0dp"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="64dp"
-                android:layout_marginEnd="8dp"
-                android:layout_marginBottom="4dp"
-                android:background="#00FFFFFF"
-                android:src="@drawable/download"
-                app:layout_constraintEnd_toStartOf="@+id/btn_trash"
-                app:layout_constraintTop_toTopOf="parent"
-                app:layout_constraintBottom_toBottomOf="parent"/>
+                android:fontFamily="@font/montserrat_reguler"
+                android:text="111011"
+                android:textSize="10sp"
+                app:layout_constraintEnd_toEndOf="@+id/lbl_no_kategori"
+                app:layout_constraintStart_toEndOf="@+id/imageView1"
+                app:layout_constraintTop_toBottomOf="@+id/lbl_no_material" />
 
-            <ImageButton
-                android:id="@+id/btn_detail"
-                android:layout_width="wrap_content"
+            <ImageView
+                android:id="@+id/imageView2"
+                android:layout_width="14dp"
+                android:layout_height="14dp"
+                android:layout_marginTop="8dp"
+                android:src="@drawable/ic_number"
+                app:layout_constraintStart_toStartOf="@+id/imageView"
+                app:layout_constraintTop_toBottomOf="@+id/txt_no_material" />
+
+            <TextView
+                android:id="@+id/lbl_tahun"
+                android:layout_width="0dp"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="64dp"
-                android:layout_marginEnd="8dp"
-                android:background="#00FFFFFF"
-                android:src="@drawable/detail"
-                android:layout_marginBottom="4dp"
-                app:layout_constraintEnd_toStartOf="@+id/btn_download"
-                app:layout_constraintTop_toTopOf="parent"
-                app:layout_constraintBottom_toBottomOf="parent"/>
+                android:layout_marginStart="5dp"
+                android:fontFamily="@font/montserrat_reguler"
+                android:text="Tahun"
+                android:textColor="#3F3D56"
+                android:textSize="10sp"
+                app:layout_constraintBottom_toBottomOf="@+id/imageView2"
+                app:layout_constraintEnd_toEndOf="@+id/txt_no_material"
+                app:layout_constraintStart_toEndOf="@+id/imageView2"
+                app:layout_constraintTop_toTopOf="@+id/imageView2" />
+
+            <TextView
+                android:id="@+id/txt_no_tahun"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="5dp"
+                android:layout_marginBottom="8dp"
+                android:fontFamily="@font/montserrat_reguler"
+                android:text="2023"
+                android:textSize="10sp"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toEndOf="@+id/lbl_tahun"
+                app:layout_constraintStart_toEndOf="@+id/imageView2"
+                app:layout_constraintTop_toBottomOf="@+id/lbl_tahun" />
 
         </androidx.constraintlayout.widget.ConstraintLayout>
     </androidx.cardview.widget.CardView>

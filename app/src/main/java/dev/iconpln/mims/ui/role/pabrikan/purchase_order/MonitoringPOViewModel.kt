@@ -3,14 +3,12 @@ package dev.iconpln.mims.ui.role.pabrikan.purchase_order
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
-import dagger.hilt.android.lifecycle.HiltViewModel
 import dev.iconpln.mims.data.remote.response.MonitoringPOResponse
 import dev.iconpln.mims.data.remote.service.ApiService
 import kotlinx.coroutines.*
 import org.json.JSONObject
 import javax.inject.Inject
 
-@HiltViewModel
 class MonitoringPOViewModel @Inject constructor(private val apiService: ApiService) : ViewModel() {
 
     private var job: Job? = null

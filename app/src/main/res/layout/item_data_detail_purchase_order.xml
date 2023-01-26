@@ -1,0 +1,386 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.cardview.widget.CardView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:layout_margin="10dp"
+    android:background="#F7F8FA"
+    app:cardCornerRadius="5dp">
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+
+        <View
+            android:id="@+id/view5"
+            android:layout_width="8dp"
+            android:layout_height="0dp"
+            android:background="#26ACE2"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <TextView
+            android:id="@+id/lbl_no_material"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="8dp"
+            android:layout_marginTop="12dp"
+            android:fontFamily="@font/montserrat_reguler"
+            android:text="No. Material"
+            android:textColor="#3F3D56"
+            android:textSize="12sp"
+            app:layout_constraintStart_toEndOf="@+id/view5"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <TextView
+            android:id="@+id/txt_no_material"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginEnd="8dp"
+            android:fontFamily="@font/montserrat_semibold"
+            android:text="1212121"
+            android:textColor="#3F3D56"
+            android:textSize="14sp"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="@+id/lbl_no_material"
+            app:layout_constraintTop_toBottomOf="@+id/lbl_no_material" />
+
+        <ImageView
+            android:id="@+id/img_nomaterial"
+            android:layout_width="14dp"
+            android:layout_height="14dp"
+            android:layout_marginTop="8dp"
+            android:src="@drawable/plant_list_monitoring1"
+            app:layout_constraintEnd_toStartOf="@id/lbl_nama_material"
+            app:layout_constraintHorizontal_chainStyle="spread"
+            app:layout_constraintStart_toStartOf="@+id/txt_no_material"
+            app:layout_constraintTop_toBottomOf="@+id/txt_no_material" />
+
+        <TextView
+            android:id="@+id/lbl_nama_material"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="5dp"
+            android:fontFamily="@font/montserrat_reguler"
+            android:text="Nama Material SAP"
+            android:textColor="#3F3D56"
+            android:textSize="10sp"
+            app:layout_constraintBottom_toBottomOf="@+id/img_nomaterial"
+            app:layout_constraintEnd_toStartOf="@id/img_kuantitas"
+            app:layout_constraintStart_toEndOf="@+id/img_nomaterial"
+            app:layout_constraintTop_toTopOf="@+id/img_nomaterial" />
+
+        <TextView
+            android:id="@+id/txt_nama_material"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="5dp"
+            android:layout_marginTop="1dp"
+            android:fontFamily="@font/montserrat_reguler"
+            android:text="Nama Material SAP"
+            android:textColor="#96979B"
+            android:textSize="8sp"
+            app:layout_constraintEnd_toEndOf="@+id/lbl_nama_material"
+            app:layout_constraintStart_toEndOf="@+id/img_nomaterial"
+            app:layout_constraintTop_toBottomOf="@+id/lbl_nama_material" />
+
+        <ImageView
+            android:id="@+id/img_plant"
+            android:layout_width="14dp"
+            android:layout_height="14dp"
+            android:layout_marginTop="8dp"
+            android:src="@drawable/plant_list_monitoring1"
+            app:layout_constraintStart_toStartOf="@+id/txt_no_material"
+            app:layout_constraintTop_toBottomOf="@+id/txt_nama_material" />
+
+        <TextView
+            android:id="@+id/lbl_plant"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="5dp"
+            android:fontFamily="@font/montserrat_reguler"
+            android:text="Plant"
+            android:textColor="#3F3D56"
+            android:textSize="10sp"
+            app:layout_constraintBottom_toBottomOf="@+id/img_plant"
+            app:layout_constraintEnd_toEndOf="@+id/txt_nama_material"
+            app:layout_constraintStart_toEndOf="@+id/img_plant"
+            app:layout_constraintTop_toTopOf="@+id/img_plant" />
+
+        <TextView
+            android:id="@+id/txt_plant"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="5dp"
+            android:layout_marginTop="1dp"
+            android:fontFamily="@font/montserrat_reguler"
+            android:text="100011"
+            android:textColor="#96979B"
+            android:textSize="8sp"
+            app:layout_constraintEnd_toEndOf="@+id/lbl_plant"
+            app:layout_constraintStart_toEndOf="@+id/img_plant"
+            app:layout_constraintTop_toBottomOf="@+id/lbl_plant" />
+
+        <ImageView
+            android:id="@+id/img_kuantitas"
+            android:layout_width="14dp"
+            android:layout_height="14dp"
+            android:layout_marginStart="5dp"
+            android:src="@drawable/plant_list_monitoring1"
+            app:layout_constraintBottom_toTopOf="@+id/txt_nama_material"
+            app:layout_constraintEnd_toStartOf="@id/lbl_kuantitas"
+            app:layout_constraintStart_toEndOf="@+id/lbl_nama_material"
+            app:layout_constraintTop_toTopOf="@+id/lbl_nama_material" />
+
+        <TextView
+            android:id="@+id/lbl_kuantitas"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="5dp"
+            android:fontFamily="@font/montserrat_reguler"
+            android:text="Kuantitas"
+            android:textColor="#3F3D56"
+            android:textSize="10sp"
+            app:layout_constraintBottom_toBottomOf="@+id/img_kuantitas"
+            app:layout_constraintEnd_toEndOf="@+id/txt_no_material"
+            app:layout_constraintStart_toEndOf="@+id/img_kuantitas"
+            app:layout_constraintTop_toTopOf="@+id/img_kuantitas" />
+
+        <TextView
+            android:id="@+id/txt_kuantitas"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="5dp"
+            android:layout_marginTop="1dp"
+            android:fontFamily="@font/montserrat_reguler"
+            android:text="5"
+            android:textColor="#96979B"
+            android:textSize="8sp"
+            app:layout_constraintEnd_toEndOf="@+id/lbl_kuantitas"
+            app:layout_constraintStart_toEndOf="@+id/img_kuantitas"
+            app:layout_constraintTop_toBottomOf="@+id/lbl_kuantitas" />
+
+        <ImageView
+            android:id="@+id/img_satuan"
+            android:layout_width="14dp"
+            android:layout_height="14dp"
+            android:layout_marginTop="8dp"
+            android:src="@drawable/plant_list_monitoring1"
+            app:layout_constraintStart_toStartOf="@+id/img_kuantitas"
+            app:layout_constraintTop_toBottomOf="@+id/txt_kuantitas" />
+
+        <TextView
+            android:id="@+id/lbl_satuan"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="5dp"
+            android:fontFamily="@font/montserrat_reguler"
+            android:text="Satuan"
+            android:textColor="#3F3D56"
+            android:textSize="10sp"
+            app:layout_constraintBottom_toBottomOf="@+id/img_satuan"
+            app:layout_constraintEnd_toEndOf="@+id/txt_no_material"
+            app:layout_constraintStart_toEndOf="@+id/img_kuantitas"
+            app:layout_constraintTop_toTopOf="@+id/img_satuan" />
+
+        <TextView
+            android:id="@+id/txt_status"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="5dp"
+            android:layout_marginTop="1dp"
+            android:fontFamily="@font/montserrat_reguler"
+            android:text="Meter"
+            android:textColor="#96979B"
+            android:textSize="8sp"
+            app:layout_constraintEnd_toEndOf="@+id/lbl_kuantitas"
+            app:layout_constraintStart_toEndOf="@+id/img_kuantitas"
+            app:layout_constraintTop_toBottomOf="@+id/lbl_satuan" />
+
+        <ImageView
+            android:id="@+id/img_storeloc"
+            android:layout_width="14dp"
+            android:layout_height="14dp"
+            android:layout_marginTop="8dp"
+            android:src="@drawable/plant_list_monitoring1"
+            app:layout_constraintEnd_toEndOf="@+id/img_plant"
+            app:layout_constraintStart_toStartOf="@+id/img_plant"
+            app:layout_constraintTop_toBottomOf="@+id/txt_plant" />
+
+        <TextView
+            android:id="@+id/lbl_storeloc"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="5dp"
+            android:fontFamily="@font/montserrat_reguler"
+            android:text="Store Loc"
+            android:textColor="#3F3D56"
+            android:textSize="10sp"
+            app:layout_constraintBottom_toBottomOf="@+id/img_storeloc"
+            app:layout_constraintEnd_toEndOf="@+id/txt_plant"
+            app:layout_constraintStart_toEndOf="@+id/img_storeloc"
+            app:layout_constraintTop_toTopOf="@+id/img_storeloc" />
+
+        <TextView
+            android:id="@+id/txt_storeloc"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="5dp"
+            android:layout_marginTop="1dp"
+            android:fontFamily="@font/montserrat_reguler"
+            android:text="xx-xx-xxx"
+            android:textColor="#96979B"
+            android:textSize="8sp"
+            app:layout_constraintEnd_toEndOf="@+id/lbl_storeloc"
+            app:layout_constraintStart_toEndOf="@+id/img_storeloc"
+            app:layout_constraintTop_toBottomOf="@+id/lbl_storeloc" />
+
+        <ImageView
+            android:id="@+id/img_lead_time"
+            android:layout_width="14dp"
+            android:layout_height="14dp"
+            android:layout_marginTop="8dp"
+            android:src="@drawable/plant_list_monitoring1"
+            app:layout_constraintEnd_toEndOf="@+id/img_satuan"
+            app:layout_constraintStart_toEndOf="@+id/lbl_plant"
+            app:layout_constraintStart_toStartOf="@+id/img_satuan"
+            app:layout_constraintTop_toBottomOf="@+id/txt_status" />
+
+        <TextView
+            android:id="@+id/lbl_lead_time"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="5dp"
+            android:fontFamily="@font/montserrat_reguler"
+            android:text="Lead Time"
+            android:textColor="#3F3D56"
+            android:textSize="10sp"
+            app:layout_constraintBottom_toBottomOf="@+id/img_lead_time"
+            app:layout_constraintEnd_toEndOf="@+id/txt_status"
+            app:layout_constraintStart_toEndOf="@+id/img_lead_time"
+            app:layout_constraintTop_toTopOf="@+id/img_lead_time" />
+
+        <TextView
+            android:id="@+id/txt_lead_time"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="5dp"
+            android:layout_marginTop="1dp"
+            android:fontFamily="@font/montserrat_reguler"
+            android:text="xx-xx-xxx"
+            android:textColor="#96979B"
+            android:textSize="8sp"
+            app:layout_constraintEnd_toEndOf="@+id/lbl_lead_time"
+            app:layout_constraintStart_toEndOf="@+id/img_lead_time"
+            app:layout_constraintTop_toBottomOf="@+id/lbl_lead_time" />
+
+        <ImageView
+            android:id="@+id/img_unit"
+            android:layout_width="14dp"
+            android:layout_height="14dp"
+            android:layout_marginTop="8dp"
+            android:src="@drawable/plant_list_monitoring1"
+            app:layout_constraintEnd_toEndOf="@+id/img_storeloc"
+            app:layout_constraintStart_toStartOf="@+id/img_storeloc"
+            app:layout_constraintTop_toBottomOf="@+id/txt_storeloc" />
+
+        <TextView
+            android:id="@+id/lbl_unit"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="5dp"
+            android:fontFamily="@font/montserrat_reguler"
+            android:text="Unit"
+            android:textColor="#3F3D56"
+            android:textSize="10sp"
+            app:layout_constraintBottom_toBottomOf="@+id/img_unit"
+            app:layout_constraintEnd_toEndOf="@+id/txt_storeloc"
+            app:layout_constraintStart_toEndOf="@+id/img_unit"
+            app:layout_constraintTop_toTopOf="@+id/img_unit" />
+
+        <TextView
+            android:id="@+id/txt_unit"
+            android:layout_width="0dp"
+            android:layout_height="0dp"
+            android:layout_marginStart="5dp"
+            android:layout_marginTop="1dp"
+            android:layout_marginBottom="10dp"
+            android:fontFamily="@font/montserrat_reguler"
+            android:text="xxx"
+            android:textColor="#96979B"
+            android:textSize="8sp"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="@+id/lbl_unit"
+            app:layout_constraintStart_toEndOf="@+id/img_unit"
+            app:layout_constraintTop_toBottomOf="@+id/lbl_unit" />
+
+        <ImageView
+            android:id="@+id/img_delivery_date"
+            android:layout_width="14dp"
+            android:layout_height="14dp"
+            android:layout_marginTop="8dp"
+            android:src="@drawable/plant_list_monitoring1"
+            app:layout_constraintEnd_toEndOf="@+id/img_lead_time"
+            app:layout_constraintStart_toEndOf="@+id/lbl_storeloc"
+            app:layout_constraintStart_toStartOf="@+id/img_lead_time"
+            app:layout_constraintTop_toBottomOf="@+id/txt_lead_time" />
+
+        <TextView
+            android:id="@+id/lbl_delivery_date"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="5dp"
+            android:fontFamily="@font/montserrat_reguler"
+            android:text="Delivery Date"
+            android:textColor="#3F3D56"
+            android:textSize="10sp"
+            app:layout_constraintBottom_toBottomOf="@+id/img_delivery_date"
+            app:layout_constraintEnd_toEndOf="@+id/txt_lead_time"
+            app:layout_constraintStart_toEndOf="@+id/img_delivery_date"
+            app:layout_constraintTop_toTopOf="@+id/img_delivery_date" />
+
+        <TextView
+            android:id="@+id/txt_delivery_date"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="5dp"
+            android:layout_marginTop="1dp"
+            android:fontFamily="@font/montserrat_reguler"
+            android:text="xxx"
+            android:textColor="#96979B"
+            android:textSize="8sp"
+            app:layout_constraintBottom_toBottomOf="@+id/txt_unit"
+            app:layout_constraintEnd_toEndOf="@+id/lbl_delivery_date"
+            app:layout_constraintStart_toEndOf="@+id/img_delivery_date"
+            app:layout_constraintTop_toBottomOf="@+id/lbl_delivery_date" />
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+
+
+
+
+<!--            <ImageView-->
+<!--                android:id="@+id/img_nomaterial"-->
+<!--                android:layout_width="wrap_content"-->
+<!--                android:layout_height="wrap_content"-->
+<!--                android:layout_marginStart="5dp"-->
+<!--                android:layout_marginTop="8dp"-->
+<!--                android:src="@drawable/plant_list_monitoring1"-->
+<!--                app:layout_constraintStart_toStartOf="parent"-->
+<!--                app:layout_constraintTop_toBottomOf="@id/txt_serialNumber" />-->
+
+            <!-- PEMBATAS -->
+
+<!--            <ImageView-->
+<!--                android:id="@+id/img_spesifikasi"-->
+<!--                android:layout_width="wrap_content"-->
+<!--                android:layout_height="wrap_content"-->
+<!--                android:layout_marginStart="100dp"-->
+<!--                android:src="@drawable/kuantitas_list_monitoring1"-->
+<!--                app:layout_constraintBottom_toBottomOf="@id/txt_batch"-->
+<!--                app:layout_constraintStart_toEndOf="@id/txt_batch"-->
+<!--                app:layout_constraintTop_toTopOf="@id/txt_batch" />-->
+
+</androidx.cardview.widget.CardView>

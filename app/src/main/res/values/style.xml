@@ -7,4 +7,9 @@
         <item name="cornerSizeBottomRight">24dp</item>
         <item name="cornerSizeBottomLeft">24dp</item>
     </style>
+
+    <style name="DialogUpDown">
+        <item name="android:windowEnterAnimation">@anim/slide_up</item>
+        <item name="android:windowExitAnimation">@anim/slide_down</item>
+    </style>
 </resources>

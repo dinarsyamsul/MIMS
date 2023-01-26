@@ -11,33 +11,40 @@ import android.view.inputmethod.InputMethodManager
 import android.widget.Toast
 import androidx.activity.viewModels
 import androidx.appcompat.app.AppCompatActivity
-import dagger.hilt.android.AndroidEntryPoint
+import dev.iconpln.mims.R
 import dev.iconpln.mims.databinding.ActivityOtpBinding
+import dev.iconpln.mims.ui.forgotpassword.ForgotPasswordViewModel
 import dev.iconpln.mims.ui.login.LoginViewModel
 import dev.iconpln.mims.ui.role.pabrikan.DashboardPabrikanActivity
-import dev.iconpln.mims.ui.role.pusertif.DashboardPusertifActivity
+import dev.iconpln.mims.utils.Config
 
-@AndroidEntryPoint
 class OtpActivity : AppCompatActivity() {
 
     private lateinit var binding: ActivityOtpBinding
     private val loginViewModel: LoginViewModel by viewModels()
+    private val forgotPasswordViewModel: ForgotPasswordViewModel by viewModels()
+    private lateinit var dataFromIntent: String
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         binding = ActivityOtpBinding.inflate(layoutInflater)
         setContentView(binding.root)
 
-//        val session = TokenManager(this)
-//        val apiService = ApiConfig.getApiService()
-//        val networkStatusTracker = NetworkStatusTracker(this)
-//        loginViewModel =
-//            ViewModelProvider(
-//                this,
-//                ViewModelFactory(session, apiService, networkStatusTracker)
-//            )[LoginViewModel::class.java]
+        dataFromIntent = intent.getStringExtra("data").toString()
 
         val username = intent.extras?.getString(EXTRA_USERNAME)
+        val androidId = intent.extras?.getString(ANDROID_ID)
+        val deviceData = intent.extras?.getString(DEVICE_DATA)
+        val otpType = intent.extras?.getString(OTP_TYPE)
+
+        if (otpType == Config.OTP_TYPE_DO_LOGIN_OTP){
+//            loginViewModel.hitEmail(username.toString())
+        }else{
+            forgotPasswordViewModel.getOtpPassword(username.toString())
+        }
+
+        Log.d("checkUsername", username.toString())
+
         binding.apply {
 
             btnSubmitotp.setOnClickListener {
@@ -49,49 +56,32 @@ class OtpActivity : AppCompatActivity() {
                         edtotp6.text.toString()
                 Log.d("OtpActivity", "cek inputan otp: $otpInput")
                 if (username != null) {
-                    loginViewModel.sendTokenOtp(otpInput, username)
-                }
-//                Toast.makeText(this@OtpActivity, "Kode OTP Di Kirim", Toast.LENGTH_SHORT).show()
-            }
-        }
-
-        loginViewModel.verifyTokenResponse.observe(this) { result ->
-            when (result.message) {
-                "VERIFIKASI DEVICE BERHASIL" -> {
-                    Toast.makeText(this, "Device Berhasil Diverifikasi", Toast.LENGTH_SHORT).show()
-                    result.data.forEach { login ->
-                        if (login.roleId == "1") {
-                            Intent(this@OtpActivity, DashboardPabrikanActivity::class.java).also {
-                                it.flags =
-                                    Intent.FLAG_ACTIVITY_NEW_TASK or Intent.FLAG_ACTIVITY_CLEAR_TASK
-                                startActivity(it)
-                            }
-                        } else if (login.roleId == "2") {
-                            Intent(this@OtpActivity, DashboardPusertifActivity::class.java).also {
-                                it.flags =
-                                    Intent.FLAG_ACTIVITY_NEW_TASK or Intent.FLAG_ACTIVITY_CLEAR_TASK
-                                startActivity(it)
-                            }
-                        } else if (login.roleId == "9") {
-                            Intent(this@OtpActivity, DashboardPabrikanActivity::class.java).also {
-                                it.flags =
-                                    Intent.FLAG_ACTIVITY_NEW_TASK or Intent.FLAG_ACTIVITY_CLEAR_TASK
-                                startActivity(it)
-                            }
-                        }
+                    if (otpType == Config.OTP_TYPE_DO_LOGIN_OTP){
+//                        loginViewModel.sendTokenOtp(otpInput, username,androidId!!,deviceData!!)
                     }
                 }
             }
         }
 
-        loginViewModel.errorMessage.observe(this) {
-            if (it != null) {
-                Toast.makeText(this, "Token salah", Toast.LENGTH_SHORT).show()
+        loginViewModel.verifyTokenResponse.observe(this) { result ->
+            when (result.message) {
+                "DO LOGIN" -> {
+                    startActivity(Intent(this, DashboardPabrikanActivity::class.java))
+                }
+                "OTP Not Found" -> {
+                    Toast.makeText(this,"OTP yang dimasukkan salah", Toast.LENGTH_SHORT).show()
+                }
             }
         }
 
-        binding.kirimlagi.setOnClickListener {
-            loginViewModel.hitEmail(username.toString())
+//        loginViewModel.errorMessage.observe(this) {
+//            if (it != null) {
+//                Toast.makeText(this, "Token salah", Toast.LENGTH_SHORT).show()
+//            }
+//        }
+
+        binding.txtBelumMenerimaKode.setOnClickListener {
+//            loginViewModel.hitEmail(username.toString())
             Toast.makeText(this, "Kode OTP Di Kirim", Toast.LENGTH_SHORT).show()
         }
 
@@ -102,6 +92,8 @@ class OtpActivity : AppCompatActivity() {
                 binding.progressBar.visibility = View.GONE
             }
         }
+
+        binding.btnBack.setOnClickListener { onBackPressed() }
 
         autoNextInput()
     }
@@ -206,5 +198,15 @@ class OtpActivity : AppCompatActivity() {
 
     companion object {
         const val EXTRA_USERNAME = "extra_username"
+        const val ANDROID_ID = "android_id"
+        const val DEVICE_DATA = "device_data"
+        const val OTP_TYPE = "otp_type"
+
+    }
+
+    override fun onBackPressed() {
+        super.onBackPressed()
+        overridePendingTransition(R.anim.slide_in_left,
+            R.anim.slide_out_right)
     }
 }

@@ -5,17 +5,33 @@ import android.os.Bundle
 import android.os.Handler
 import android.os.Looper
 import androidx.appcompat.app.AppCompatActivity
+import androidx.lifecycle.asLiveData
 import dev.iconpln.mims.ui.login.LoginActivity
+import dev.iconpln.mims.ui.role.pabrikan.DashboardPabrikanActivity
+import dev.iconpln.mims.utils.Config
+import dev.iconpln.mims.utils.SessionManager
 
 class SplashActivity : AppCompatActivity() {
+    private lateinit var session: SessionManager
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_splash)
+        session = SessionManager(this)
 
         Handler(Looper.getMainLooper()).postDelayed({
-            val intent = Intent(this@SplashActivity, LoginActivity::class.java)
-            startActivity(intent)
-            finish()
+            session.session_activity.asLiveData().observe(this){ session ->
+                when(session){
+                    Config.SESSION_ACTIVITY_DASHBOARD_PABRIKAN -> {
+                        startActivity(Intent(this, DashboardPabrikanActivity::class.java))
+                        finish()
+                    } else -> {
+                        val intent = Intent(this@SplashActivity, LoginActivity::class.java)
+                        startActivity(intent)
+                        finish()
+                    }
+                }
+            }
         }, 1500)
     }
 }

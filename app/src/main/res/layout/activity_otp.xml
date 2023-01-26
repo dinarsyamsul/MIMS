@@ -3,100 +3,105 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     android:background="#EFEFEF"
     tools:context=".ui.OtpActivity">
 
-    <RelativeLayout
+    <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent">
+
+        <ImageButton
+            android:id="@+id/btn_back"
+            android:layout_width="45dp"
+            android:layout_height="45dp"
+            android:layout_marginTop="40dp"
+            android:layout_marginStart="24dp"
+            android:src="@drawable/ic_baseline_arrow_back_24"
+            android:background="@drawable/br_btn_back"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"/>
 
         <ImageView
             android:id="@+id/logo"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_centerHorizontal="true"
-            android:layout_gravity="center_horizontal"
-            android:layout_marginTop="100dp"
-            android:background="@drawable/logo" />
+            android:layout_marginTop="141dp"
+            android:background="@drawable/logo"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
 
         <ImageView
+            android:id="@+id/imageView"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_alignParentEnd="true"
-            android:background="@drawable/mims" />
+            android:background="@drawable/mims"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
 
-        <!--        <TextView-->
-        <!--            android:id="@+id/mims"-->
-        <!--            android:layout_width="wrap_content"-->
-        <!--            android:layout_height="wrap_content"-->
-        <!--            android:layout_below="@id/logo"-->
-        <!--            android:layout_centerInParent="true"-->
-        <!--            android:fontFamily="@font/montserrat_reguler"-->
-        <!--            android:text="Material Identity Management System"-->
-        <!--            android:textColor="@color/black" />-->
-
-        <LinearLayout
-            android:id="@+id/lyopt1"
-            android:layout_width="match_parent"
+        <TextView
+            android:id="@+id/mims"
+            android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_below="@+id/logo"
-            android:layout_marginTop="49dp"
-            android:background="#00000000"
-            android:orientation="vertical"
-            android:padding="20dp"
-            android:paddingBottom="15dp">
+            android:layout_below="@id/logo"
+            android:layout_centerHorizontal="true"
+            android:layout_marginTop="10dp"
+            android:fontFamily="@font/montserrat_reguler"
+            android:text="Material Identity Management System"
+            android:textColor="#3F444D"
+            android:textSize="12sp"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/logo" />
 
-            <TextView
-                android:id="@+id/username1"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_gravity="center"
-                android:layout_marginTop="50dp"
-                android:fontFamily="@font/montserrat_reguler"
-                android:gravity="center"
-                android:text="Kode Verifikasi"
-                android:textColor="@color/black"
-                android:textSize="28sp"
-                android:textStyle="bold" />
+        <TextView
+            android:id="@+id/lbl_kode_verifikasi"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="5dp"
+            android:fontFamily="@font/montserrat_semibold"
+            android:text="Kode Verifikasi"
+            android:textColor="@color/black"
+            android:textSize="24sp"
+            app:layout_constraintEnd_toEndOf="@+id/logo"
+            app:layout_constraintStart_toStartOf="@+id/logo"
+            app:layout_constraintTop_toBottomOf="@+id/imageView" />
 
-            <TextView
-                android:id="@+id/txtotp1"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_gravity="center"
-                android:layout_marginTop="18dp"
-                android:fontFamily="@font/montserrat_reguler"
-                android:text="Kami Telah Mengirimkan Kode Verifikasi Ke"
-                android:textColor="@color/black" />
-
-            <TextView
-                android:id="@+id/txtotp2"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_gravity="center"
-                android:fontFamily="@font/montserrat_reguler"
-                android:text="Akun E-mail Anda"
-                android:textColor="@color/black" />
-
-        </LinearLayout>
+        <TextView
+            android:id="@+id/textView"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="31dp"
+            android:fontFamily="@font/montserrat_reguler"
+            android:text="Kami telah mengirimkan kode verifikasi ke\nakun e-mail Anda"
+            android:textAlignment="center"
+            android:textSize="12sp"
+            app:layout_constraintEnd_toEndOf="@+id/lbl_kode_verifikasi"
+            app:layout_constraintStart_toStartOf="@+id/lbl_kode_verifikasi"
+            app:layout_constraintTop_toBottomOf="@+id/lbl_kode_verifikasi" />
 
         <LinearLayout
             android:id="@+id/lyotp2"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_below="@+id/lyopt1"
+            android:layout_marginTop="39dp"
             android:background="#00000000"
             android:gravity="center"
             android:orientation="horizontal"
             android:padding="20dp"
-            android:paddingBottom="15dp">
+            android:paddingBottom="15dp"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/textView">
 
             <com.google.android.material.textfield.TextInputEditText
                 android:id="@+id/edtotp1"
                 android:layout_width="40dp"
                 android:layout_height="40dp"
                 android:layout_marginEnd="8dp"
-                android:background="@drawable/textfield"
+                android:background="@drawable/br_et_otp"
                 android:imeOptions="actionNext"
                 android:inputType="numberDecimal"
                 android:maxLength="1"
@@ -111,7 +116,7 @@
                 android:layout_height="40dp"
                 android:layout_marginStart="8dp"
                 android:layout_marginEnd="8dp"
-                android:background="@drawable/textfield"
+                android:background="@drawable/br_et_otp"
                 android:imeOptions="actionNext"
                 android:inputType="numberDecimal"
                 android:maxLength="1"
@@ -126,7 +131,7 @@
                 android:layout_height="40dp"
                 android:layout_marginStart="8dp"
                 android:layout_marginEnd="8dp"
-                android:background="@drawable/textfield"
+                android:background="@drawable/br_et_otp"
                 android:imeOptions="actionNext"
                 android:inputType="numberDecimal"
                 android:maxLength="1"
@@ -141,7 +146,7 @@
                 android:layout_height="40dp"
                 android:layout_marginStart="8dp"
                 android:layout_marginEnd="8dp"
-                android:background="@drawable/textfield"
+                android:background="@drawable/br_et_otp"
                 android:imeOptions="actionNext"
                 android:inputType="numberDecimal"
                 android:maxLength="1"
@@ -156,7 +161,7 @@
                 android:layout_height="40dp"
                 android:layout_marginStart="8dp"
                 android:layout_marginEnd="8dp"
-                android:background="@drawable/textfield"
+                android:background="@drawable/br_et_otp"
                 android:imeOptions="actionNext"
                 android:inputType="numberDecimal"
                 android:maxLength="1"
@@ -170,7 +175,7 @@
                 android:layout_width="40dp"
                 android:layout_height="40dp"
                 android:layout_marginStart="10dp"
-                android:background="@drawable/textfield"
+                android:background="@drawable/br_et_otp"
                 android:imeOptions="actionDone"
                 android:inputType="numberDecimal"
                 android:maxLength="1"
@@ -180,63 +185,49 @@
                 android:textStyle="bold" />
         </LinearLayout>
 
-        <LinearLayout
-            android:id="@+id/line3"
+        <TextView
+            android:id="@+id/lbl_belum_menerima_kode"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="39dp"
+            android:fontFamily="@font/montserrat_reguler"
+            android:text="Belum menerima code?"
+            android:textSize="12sp"
+            app:layout_constraintEnd_toEndOf="@+id/textView"
+            app:layout_constraintStart_toStartOf="@+id/textView"
+            app:layout_constraintTop_toBottomOf="@+id/lyotp2" />
+
+        <TextView
+            android:id="@+id/txt_belum_menerima_kode"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:fontFamily="@font/montserrat_reguler"
+            android:text="Minta lagi"
+            android:textSize="12sp"
+            android:textColor="#99045A71"
+            app:layout_constraintEnd_toEndOf="@+id/lbl_belum_menerima_kode"
+            app:layout_constraintStart_toStartOf="@+id/lbl_belum_menerima_kode"
+            app:layout_constraintTop_toBottomOf="@+id/lbl_belum_menerima_kode" />
+
+        <androidx.appcompat.widget.AppCompatButton
+            android:id="@+id/btnSubmitotp"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_below="@+id/lyotp2"
-            android:layout_marginTop="50dp"
-            android:background="#00000000"
-            android:orientation="vertical"
-            android:padding="20dp"
-            android:paddingBottom="15dp">
-
-            <TextView
-                android:id="@+id/txtotp3"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:fontFamily="@font/montserrat_reguler"
-                android:gravity="center"
-                android:text="Belum Menerima Kode?"
-                android:textColor="@color/black" />
-
-            <TextView
-                android:id="@+id/kirimlagi"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:fontFamily="@font/montserrat_reguler"
-                android:gravity="center"
-                android:text="Kirim Lagi"
-                android:textColor="#2F6FED" />
-
-            <androidx.appcompat.widget.AppCompatButton
-                android:id="@+id/btnSubmitotp"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginLeft="60dp"
-                android:layout_marginTop="20dp"
-                android:layout_marginRight="60dp"
-                android:background="@drawable/br_btn"
-                android:fontFamily="@font/montserrat_reguler"
-                android:text="Submit"
-                android:textColor="#FFFFFF"
-                android:textStyle="bold" />
-
-        </LinearLayout>
-
-        <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content">
-
-            <androidx.appcompat.widget.AppCompatButton
-                android:id="@+id/btn_back"
-                android:layout_width="40dp"
-                android:layout_height="40dp"
-                android:layout_marginStart="28dp"
-                android:layout_marginTop="28dp"
-                android:layout_marginEnd="20dp"
-                android:background="@drawable/ic_baseline_arrow_back_24" />
-        </LinearLayout>
+            android:layout_marginStart="50dp"
+            android:layout_marginTop="59dp"
+            android:layout_marginEnd="50dp"
+            android:layout_marginBottom="117dp"
+            android:background="@drawable/br_btn"
+            android:fontFamily="@font/montserrat_semibold"
+            android:text="Submit"
+            android:textAllCaps="false"
+            android:textColor="#FFFFFF"
+            android:textSize="12sp"
+            android:textStyle="bold"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/txt_belum_menerima_kode" />
 
         <ProgressBar
             android:id="@+id/progress_bar"
@@ -244,7 +235,10 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_centerInParent="true"
-            android:visibility="gone" />
-    </RelativeLayout>
-
+            android:visibility="gone"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"/>
+    </androidx.constraintlayout.widget.ConstraintLayout>
 </ScrollView>
