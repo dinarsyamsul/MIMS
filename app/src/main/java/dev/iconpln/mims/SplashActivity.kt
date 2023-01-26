@@ -8,7 +8,6 @@ import androidx.appcompat.app.AppCompatActivity
 import androidx.lifecycle.asLiveData
 import dev.iconpln.mims.ui.login.LoginActivity
 import dev.iconpln.mims.ui.role.pabrikan.DashboardPabrikanActivity
-import dev.iconpln.mims.ui.role.pabrikan.TrackingActivity
 import dev.iconpln.mims.utils.Config
 import dev.iconpln.mims.utils.SessionManager
 
@@ -24,7 +23,7 @@ class SplashActivity : AppCompatActivity() {
             session.session_activity.asLiveData().observe(this){ session ->
                 when(session){
                     Config.SESSION_ACTIVITY_DASHBOARD_PABRIKAN -> {
-                        startActivity(Intent(this, TrackingActivity::class.java))
+                        startActivity(Intent(this, DashboardPabrikanActivity::class.java))
                         finish()
                     } else -> {
                         val intent = Intent(this@SplashActivity, LoginActivity::class.java)

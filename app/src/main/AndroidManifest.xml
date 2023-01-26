@@ -98,10 +98,16 @@
                 android:value="" />
         </activity>
         <activity
-            android:name=".ui.role.pabrikan.TrackingActivity"
+            android:name=".ui.role.pabrikan.tracking.TrackingHistoryActivity"
             android:exported="false" />
         <activity
-            android:name=".ui.role.pabrikan.PengirimanActivity"
+            android:name=".ui.role.pabrikan.tracking.DetailTrackingHistoryActivity"
+            android:exported="false" />
+        <activity
+            android:name=".ui.role.pabrikan.pengiriman.PengirimanActivity"
+            android:exported="false" />
+        <activity
+            android:name=".ui.role.pabrikan.pengiriman.DetailPengirimanActivity"
             android:exported="false" />
         <activity
             android:name=".TanggalCardView"

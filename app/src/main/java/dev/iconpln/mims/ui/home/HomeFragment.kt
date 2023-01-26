@@ -13,6 +13,7 @@ import dev.iconpln.mims.ui.role.pabrikan.pengujian.PengujianActivity
 import dev.iconpln.mims.databinding.FragmentHomeBinding
 import dev.iconpln.mims.ui.login.LoginActivity
 import dev.iconpln.mims.ui.role.pabrikan.arttribute_material.DataAtributMaterialActivity
+import dev.iconpln.mims.ui.role.pabrikan.pengiriman.PengirimanActivity
 import dev.iconpln.mims.ui.role.pabrikan.purchase_order.MonitoringPurchaseOrderActivity
 import dev.iconpln.mims.ui.role.pabrikan.tracking.TrackingHistoryActivity
 import dev.iconpln.mims.utils.SessionManager
@@ -47,7 +48,7 @@ class HomeFragment : Fragment() {
         }
 
         binding.card3.setOnClickListener {
-            startActivity(Intent(context, TrackingHistoryActivity::class.java))
+            startActivity(Intent(context, PengirimanActivity::class.java))
         }
 
         binding.card4.setOnClickListener {

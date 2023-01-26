@@ -5,6 +5,27 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent">
 
+    <ImageButton
+        android:id="@+id/btn_close"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginEnd="10dp"
+        android:background="@drawable/btn_close"
+        app:layout_constraintBottom_toBottomOf="@+id/lbl_detail_data_attribute"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toTopOf="@+id/lbl_detail_data_attribute" />
+
+    <TextView
+        android:id="@+id/lbl_detail_data_attribute"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="10dp"
+        android:layout_marginTop="20dp"
+        android:text="Detail Pengiriman"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+
     <androidx.cardview.widget.CardView
         android:id="@+id/cv_daftarList"
         android:layout_width="match_parent"
@@ -12,6 +33,10 @@
         android:paddingBottom="10dp"
         app:cardCornerRadius="5dp"
         app:cardElevation="10dp"
+        android:layout_marginStart="10dp"
+        android:layout_marginEnd="10dp"
+        android:layout_marginTop="10dp"
+        app:layout_constraintTop_toBottomOf="@id/lbl_detail_data_attribute"
         tools:ignore="MissingConstraints">
 
         <androidx.constraintlayout.widget.ConstraintLayout
@@ -19,71 +44,15 @@
             android:layout_height="wrap_content"
             android:background="#F7F8FA">
 
-            <View
-                android:id="@+id/vw_line"
-                android:layout_width="5dp"
-                android:layout_height="0dp"
-                android:background="#26ACE2"
-                app:layout_constraintBottom_toBottomOf="parent"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toTopOf="parent" />
-
-            <TextView
-                android:id="@+id/txt_noBatch"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginStart="16dp"
-                android:layout_marginTop="16dp"
-                android:fontFamily="@font/montserrat_reguler"
-                android:text="SN Material"
-                android:textSize="10sp"
-                android:textColor="#3F3D56"
-                app:layout_constraintStart_toStartOf="@+id/vw_line"
-                app:layout_constraintTop_toTopOf="parent" />
-
-            <View
-                android:id="@+id/vw_circle"
-                android:layout_width="2dp"
-                android:layout_height="2dp"
-                android:layout_marginStart="8dp"
-                android:layout_marginTop="24dp"
-                android:background="@drawable/dashboard"
-                app:layout_constraintStart_toEndOf="@+id/txt_noBatch"
-                app:layout_constraintTop_toTopOf="parent" />
-
-            <TextView
-                android:id="@+id/txt_tgl_produksi"
-                android:layout_width="0dp"
-                android:layout_height="wrap_content"
-                android:layout_marginStart="5dp"
-                android:layout_marginEnd="10dp"
-                android:text="Tanggal Produksi 01-01-2023"
-                android:fontFamily="@font/montserrat_reguler"
-                android:textSize="8dp"
-                app:layout_constraintBottom_toBottomOf="@+id/vw_circle"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintStart_toEndOf="@+id/vw_circle"
-                app:layout_constraintTop_toTopOf="@+id/vw_circle" />
-
-            <TextView
-                android:id="@+id/txt_serialNumber"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginStart="16dp"
-                android:fontFamily="@font/montserrat_reguler"
-                android:text="123123123123"
-                android:textColor="#3F3D56"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/txt_noBatch" />
-
             <ImageView
                 android:id="@+id/imageView"
                 android:layout_width="14dp"
                 android:layout_height="14dp"
-                android:layout_marginTop="8dp"
+                android:layout_marginStart="5dp"
+                android:layout_marginTop="10dp"
                 android:src="@drawable/ic_number"
-                app:layout_constraintStart_toStartOf="@+id/txt_serialNumber"
-                app:layout_constraintTop_toBottomOf="@+id/txt_serialNumber" />
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent" />
 
             <TextView
                 android:id="@+id/lbl_no_material"
@@ -91,7 +60,7 @@
                 android:layout_height="wrap_content"
                 android:layout_marginStart="5dp"
                 android:fontFamily="@font/montserrat_reguler"
-                android:text="No Material"
+                android:text="No. PO"
                 android:textColor="#3F3D56"
                 android:textSize="10sp"
                 app:layout_constraintEnd_toStartOf="@+id/imageView1"
@@ -100,11 +69,11 @@
                 app:layout_constraintTop_toTopOf="@+id/imageView" />
 
             <TextView
-                android:id="@+id/txt_no_material"
+                android:id="@+id/txt_isi_nopo"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:fontFamily="@font/montserrat_reguler"
-                android:text="1122122"
+                android:text="112112"
                 android:textSize="10sp"
                 app:layout_constraintEnd_toEndOf="@+id/lbl_no_material"
                 app:layout_constraintStart_toStartOf="@+id/lbl_no_material"
@@ -127,7 +96,7 @@
                 android:layout_marginStart="5dp"
                 android:layout_marginEnd="16dp"
                 android:fontFamily="@font/montserrat_reguler"
-                android:text="Garansi"
+                android:text="No. DO"
                 android:textColor="#3F3D56"
                 android:textSize="10sp"
                 app:layout_constraintBottom_toBottomOf="@+id/imageView1"
@@ -136,12 +105,12 @@
                 app:layout_constraintTop_toTopOf="@+id/imageView1" />
 
             <TextView
-                android:id="@+id/txt_garansi"
+                android:id="@+id/txt_isi_do"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_marginStart="5dp"
                 android:fontFamily="@font/montserrat_reguler"
-                android:text="13/01/2022"
+                android:text="111011"
                 android:textSize="10sp"
                 app:layout_constraintEnd_toEndOf="@+id/lbl_no_garansi"
                 app:layout_constraintStart_toEndOf="@+id/imageView1"
@@ -156,16 +125,16 @@
                 android:src="@drawable/unit_list_monitoring1"
                 app:layout_constraintEnd_toStartOf="@+id/lbl_no_garansi"
                 app:layout_constraintStart_toEndOf="@+id/lbl_no_material"
-                app:layout_constraintTop_toBottomOf="@+id/txt_garansi" />
+                app:layout_constraintTop_toBottomOf="@+id/txt_isi_do" />
 
             <TextView
-                android:id="@+id/lbl_noSPLN"
+                android:id="@+id/lbl_no_metrologi"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_marginStart="5dp"
                 android:layout_marginEnd="16dp"
                 android:fontFamily="@font/montserrat_reguler"
-                android:text="SPLN"
+                android:text="Tgl Pengiriman"
                 android:textColor="#3F3D56"
                 android:textSize="10sp"
                 app:layout_constraintBottom_toBottomOf="@+id/imageView5"
@@ -174,16 +143,16 @@
                 app:layout_constraintTop_toTopOf="@+id/imageView5" />
 
             <TextView
-                android:id="@+id/txt_metrologi"
+                android:id="@+id/txt_isi_tglpengiriman"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_marginStart="5dp"
                 android:fontFamily="@font/montserrat_reguler"
-                android:text="5112111223344"
+                android:text="111011"
                 android:textSize="10sp"
-                app:layout_constraintEnd_toEndOf="@+id/lbl_noSPLN"
+                app:layout_constraintEnd_toEndOf="@+id/lbl_no_metrologi"
                 app:layout_constraintStart_toEndOf="@+id/imageView5"
-                app:layout_constraintTop_toBottomOf="@+id/lbl_noSPLN" />
+                app:layout_constraintTop_toBottomOf="@+id/lbl_no_metrologi" />
 
             <ImageView
                 android:id="@+id/imageView6"
@@ -194,16 +163,16 @@
                 android:src="@drawable/unit_list_monitoring1"
                 app:layout_constraintEnd_toStartOf="@+id/lbl_no_garansi"
                 app:layout_constraintStart_toEndOf="@+id/lbl_no_material"
-                app:layout_constraintTop_toBottomOf="@+id/txt_metrologi" />
+                app:layout_constraintTop_toBottomOf="@+id/txt_isi_tglpengiriman" />
 
             <TextView
-                android:id="@+id/lbl_nospesifikasi"
+                android:id="@+id/lbl_no_batch"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_marginStart="5dp"
                 android:layout_marginEnd="16dp"
                 android:fontFamily="@font/montserrat_reguler"
-                android:text="Spesifikasi"
+                android:text="Petugas Pengiriman"
                 android:textColor="#3F3D56"
                 android:textSize="10sp"
                 app:layout_constraintBottom_toBottomOf="@+id/imageView6"
@@ -212,16 +181,16 @@
                 app:layout_constraintTop_toTopOf="@+id/imageView6" />
 
             <TextView
-                android:id="@+id/txt_no_batch"
+                android:id="@+id/txt_isi_petugas_pengiriman"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_marginStart="5dp"
                 android:fontFamily="@font/montserrat_reguler"
-                android:text="xxx-xxx-xxx"
+                android:text="111011"
                 android:textSize="10sp"
-                app:layout_constraintEnd_toEndOf="@+id/lbl_nospesifikasi"
+                app:layout_constraintEnd_toEndOf="@+id/lbl_no_batch"
                 app:layout_constraintStart_toEndOf="@+id/imageView6"
-                app:layout_constraintTop_toBottomOf="@+id/lbl_nospesifikasi" />
+                app:layout_constraintTop_toBottomOf="@+id/lbl_no_batch" />
 
             <ImageView
                 android:id="@+id/imageView7"
@@ -232,16 +201,16 @@
                 android:src="@drawable/unit_list_monitoring1"
                 app:layout_constraintEnd_toStartOf="@+id/lbl_no_garansi"
                 app:layout_constraintStart_toEndOf="@+id/lbl_no_material"
-                app:layout_constraintTop_toBottomOf="@+id/txt_no_batch" />
+                app:layout_constraintTop_toBottomOf="@+id/txt_isi_petugas_pengiriman" />
 
             <TextView
-                android:id="@+id/lbl_nokategori"
+                android:id="@+id/lbl_no_pacakaging"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_marginStart="5dp"
                 android:layout_marginEnd="16dp"
                 android:fontFamily="@font/montserrat_reguler"
-                android:text="Kategori"
+                android:text="Ekspedisi"
                 android:textColor="#3F3D56"
                 android:textSize="10sp"
                 app:layout_constraintBottom_toBottomOf="@+id/imageView7"
@@ -250,18 +219,16 @@
                 app:layout_constraintTop_toTopOf="@+id/imageView7" />
 
             <TextView
-                android:id="@+id/txt_no_packaging"
+                android:id="@+id/txt_isi_ekspedisi"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_marginStart="5dp"
-                android:layout_marginBottom="8dp"
                 android:fontFamily="@font/montserrat_reguler"
-                android:text="MTr;KWH-1"
+                android:text="Ekspedisi"
                 android:textSize="10sp"
-                app:layout_constraintBottom_toBottomOf="parent"
-                app:layout_constraintEnd_toEndOf="@+id/lbl_nokategori"
+                app:layout_constraintEnd_toEndOf="@+id/lbl_no_pacakaging"
                 app:layout_constraintStart_toEndOf="@+id/imageView7"
-                app:layout_constraintTop_toBottomOf="@+id/lbl_nokategori" />
+                app:layout_constraintTop_toBottomOf="@+id/lbl_no_pacakaging" />
 
             <ImageView
                 android:id="@+id/imageView2"
@@ -270,33 +237,33 @@
                 android:layout_marginTop="8dp"
                 android:src="@drawable/ic_number"
                 app:layout_constraintStart_toStartOf="@+id/imageView"
-                app:layout_constraintTop_toBottomOf="@+id/txt_no_material" />
+                app:layout_constraintTop_toBottomOf="@id/txt_isi_nopo" />
 
             <TextView
-                android:id="@+id/lbl_meterologi"
+                android:id="@+id/lbl_spln"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_marginStart="5dp"
                 android:fontFamily="@font/montserrat_reguler"
-                android:text="No Meterologi"
+                android:text="No. TLSK"
                 android:textColor="#3F3D56"
                 android:textSize="10sp"
                 app:layout_constraintBottom_toBottomOf="@+id/imageView2"
-                app:layout_constraintEnd_toEndOf="@+id/txt_no_material"
+                app:layout_constraintEnd_toEndOf="@id/txt_isi_nopo"
                 app:layout_constraintStart_toEndOf="@+id/imageView2"
                 app:layout_constraintTop_toTopOf="@+id/imageView2" />
 
             <TextView
-                android:id="@+id/txt_spln"
+                android:id="@+id/txt_isi_notlsk"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_marginStart="5dp"
                 android:fontFamily="@font/montserrat_reguler"
-                android:text="11211122"
+                android:text="2023"
                 android:textSize="10sp"
-                app:layout_constraintEnd_toEndOf="@+id/lbl_meterologi"
+                app:layout_constraintEnd_toEndOf="@+id/lbl_spln"
                 app:layout_constraintStart_toEndOf="@+id/imageView2"
-                app:layout_constraintTop_toBottomOf="@+id/lbl_meterologi" />
+                app:layout_constraintTop_toBottomOf="@+id/lbl_spln" />
 
             <ImageView
                 android:id="@+id/imageView3"
@@ -305,33 +272,33 @@
                 android:layout_marginTop="8dp"
                 android:src="@drawable/ic_number"
                 app:layout_constraintStart_toStartOf="@+id/imageView"
-                app:layout_constraintTop_toBottomOf="@+id/txt_spln" />
+                app:layout_constraintTop_toBottomOf="@+id/txt_isi_notlsk" />
 
             <TextView
-                android:id="@+id/lbl_nobatchpengiriman"
+                android:id="@+id/lbl_spesifikasi"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_marginStart="5dp"
                 android:fontFamily="@font/montserrat_reguler"
-                android:text="No Batch"
+                android:text="Plant"
                 android:textColor="#3F3D56"
                 android:textSize="10sp"
                 app:layout_constraintBottom_toBottomOf="@+id/imageView3"
-                app:layout_constraintEnd_toEndOf="@+id/txt_no_material"
+                app:layout_constraintEnd_toEndOf="@id/txt_isi_nopo"
                 app:layout_constraintStart_toEndOf="@+id/imageView3"
                 app:layout_constraintTop_toTopOf="@+id/imageView3" />
 
             <TextView
-                android:id="@+id/txt_spesifikasi"
+                android:id="@+id/txt_isi_plant"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_marginStart="5dp"
                 android:fontFamily="@font/montserrat_reguler"
-                android:text="11221222"
+                android:text="xx-xx-xx"
                 android:textSize="10sp"
-                app:layout_constraintEnd_toEndOf="@+id/lbl_nobatchpengiriman"
+                app:layout_constraintEnd_toEndOf="@+id/lbl_spesifikasi"
                 app:layout_constraintStart_toEndOf="@+id/imageView3"
-                app:layout_constraintTop_toBottomOf="@+id/lbl_nobatchpengiriman" />
+                app:layout_constraintTop_toBottomOf="@+id/lbl_spesifikasi" />
 
             <ImageView
                 android:id="@+id/imageView4"
@@ -340,38 +307,117 @@
                 android:layout_marginTop="8dp"
                 android:src="@drawable/ic_number"
                 app:layout_constraintStart_toStartOf="@+id/imageView"
-                app:layout_constraintTop_toBottomOf="@+id/txt_spesifikasi" />
+                app:layout_constraintTop_toBottomOf="@+id/txt_isi_plant" />
 
             <TextView
-                android:id="@+id/lbl_nopackagingpengiriman"
+                android:id="@+id/lbl_kategori"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_marginStart="5dp"
                 android:fontFamily="@font/montserrat_reguler"
-                android:text="No Packaging"
+                android:text="Unit"
                 android:textColor="#3F3D56"
                 android:textSize="10sp"
                 app:layout_constraintBottom_toBottomOf="@+id/imageView4"
-                app:layout_constraintEnd_toEndOf="@+id/txt_no_material"
+                app:layout_constraintEnd_toEndOf="@+id/txt_isi_nopo"
                 app:layout_constraintStart_toEndOf="@+id/imageView4"
                 app:layout_constraintTop_toTopOf="@+id/imageView4" />
 
             <TextView
-                android:id="@+id/txt_kategori"
+                android:id="@+id/txt_isi_unit"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="5dp"
+                android:fontFamily="@font/montserrat_reguler"
+                android:text="xx-xx-xx"
+                android:textSize="10sp"
+                app:layout_constraintEnd_toEndOf="@+id/lbl_kategori"
+                app:layout_constraintStart_toEndOf="@+id/imageView4"
+                app:layout_constraintTop_toBottomOf="@+id/lbl_kategori" />
+
+            <ImageView
+                android:id="@+id/imageView8"
+                android:layout_width="14dp"
+                android:layout_height="14dp"
+                android:layout_marginTop="8dp"
+                android:src="@drawable/ic_number"
+                app:layout_constraintStart_toStartOf="@+id/imageView"
+                app:layout_constraintTop_toBottomOf="@id/txt_isi_unit" />
+
+            <TextView
+                android:id="@+id/lbl_storelocpengiriman"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="5dp"
+                android:fontFamily="@font/montserrat_reguler"
+                android:text="Store Loc"
+                android:textColor="#3F3D56"
+                android:textSize="10sp"
+                app:layout_constraintBottom_toBottomOf="@+id/imageView8"
+                app:layout_constraintEnd_toEndOf="@id/txt_isi_nopo"
+                app:layout_constraintStart_toEndOf="@+id/imageView8"
+                app:layout_constraintTop_toTopOf="@+id/imageView8" />
+
+            <TextView
+                android:id="@+id/txt_storelocpengiriman"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_marginStart="5dp"
                 android:layout_marginBottom="8dp"
                 android:fontFamily="@font/montserrat_reguler"
-                android:text="11221222"
+                android:text="xx-xx-xx"
                 android:textSize="10sp"
                 app:layout_constraintBottom_toBottomOf="parent"
-                app:layout_constraintEnd_toEndOf="@+id/lbl_nopackagingpengiriman"
-                app:layout_constraintStart_toEndOf="@+id/imageView4"
-                app:layout_constraintTop_toBottomOf="@+id/lbl_nopackagingpengiriman" />
-
+                app:layout_constraintEnd_toEndOf="@+id/lbl_storelocpengiriman"
+                app:layout_constraintStart_toEndOf="@+id/imageView8"
+                app:layout_constraintTop_toBottomOf="@+id/lbl_storelocpengiriman" />
 
         </androidx.constraintlayout.widget.ConstraintLayout>
     </androidx.cardview.widget.CardView>
+
+    <TextView
+        android:id="@+id/txt_sn_material"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="10dp"
+        android:layout_marginTop="25dp"
+        android:text="SN Material"
+        android:textColor="#3F3D56"
+        android:textSize="14sp"
+        android:textStyle="bold"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/cv_daftarList" />
+
+    <EditText
+        android:id="@+id/src_sn_material"
+        android:layout_width="0dp"
+        android:layout_height="50dp"
+        android:layout_marginStart="10dp"
+        android:layout_marginTop="10dp"
+        android:layout_marginEnd="10dp"
+        android:background="@drawable/srchview"
+        android:drawableEnd="@drawable/ic_search"
+        android:fontFamily="@font/montserrat_reguler"
+        android:hint="Search here"
+        android:paddingLeft="20dp"
+        android:paddingRight="20dp"
+        android:textSize="12sp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/txt_sn_material" />
+
+    <androidx.recyclerview.widget.RecyclerView
+        android:id="@+id/rv_detail_material"
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_marginTop="10dp"
+        android:layout_marginStart="8dp"
+        android:layout_marginEnd="8dp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/src_sn_material"
+        tools:listitem="@layout/item_detail_pengiriman" />
+
 
 </androidx.constraintlayout.widget.ConstraintLayout>

@@ -4,7 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".ui.role.pabrikan.PengirimanActivity">
+    tools:context=".ui.role.pabrikan.pengiriman.PengirimanActivity">
 
     <ImageView
         android:id="@+id/header"
@@ -179,7 +179,7 @@
                     android:background="#FFFFFF">
 
                     <androidx.recyclerview.widget.RecyclerView
-                        android:id="@+id/rv_serial"
+                        android:id="@+id/rv_pengiriman"
                         android:layout_width="match_parent"
                         android:layout_height="match_parent"
                         tools:listitem="@layout/item_pengiriman" />
@@ -189,7 +189,7 @@
                         style="@style/Widget.AppCompat.ProgressBar"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:visibility="visible"
+                        android:visibility="gone"
                         app:layout_constraintEnd_toEndOf="parent"
                         app:layout_constraintStart_toStartOf="parent"
                         app:layout_constraintTop_toTopOf="parent" />
