@@ -43,6 +43,20 @@ interface ApiService {
         @Body body: Map<String, String>
     ): Response<VerifyTokenResponse>
 
+    @FormUrlEncoded
+    @POST("/tracking/getTrackingHistory")
+    suspend fun getTrackingHistory(
+        @Field("sn") sn: String
+    ): Response<TrackingHistoryResponse>
+
+    @FormUrlEncoded
+    @POST("/tracking/getTrackingHistoryDetail")
+    suspend fun getDetailTrackingHistory(
+        @Field("sn") sn: String,
+        @Field("no_transaksi") noTransaksi: String,
+        @Field("status") status: String
+    ): Response<DetailTrackingHistoryResponse>
+
     @Headers("Content-Type:application/json")
     @GET("mims-service-api/purchaseOrder/getMonitoringPO")
     suspend fun getMonitoringPO(

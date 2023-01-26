@@ -15,7 +15,7 @@ class AuthInterceptor(context: Context) : Interceptor {
 
         runBlocking {
             val token = session.user_token.first() ?: ""
-            requestBuilder.addHeader("Authorization", "Bearer eyJhbGciOiJIUzUxMiJ9.eyJzdWIiOiJ7XCJ1c2VyX2lkXCI6MSxcInVzZXJfbmFtZVwiOlwiMDExMTAuUEFCUklLXCJ9IiwiZXhwIjoxNzA2MDA0Njc4LCJpYXQiOjE2NzQ0Njg2Nzh9.t5meYV9zIFAcOnioH45TR7skXPHLYkTEeoKK59a4l1q46cCDXixFTSSQ-4ET9bpQU7ZMAnDvN_kcQIkWLnkUVw")
+            requestBuilder.addHeader("jwt", "$token")
         }
 
         return chain.proceed(requestBuilder.build())

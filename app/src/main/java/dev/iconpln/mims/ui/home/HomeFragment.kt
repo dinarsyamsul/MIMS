@@ -6,7 +6,6 @@ import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.Toast
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.asLiveData
 import androidx.lifecycle.lifecycleScope
@@ -15,6 +14,7 @@ import dev.iconpln.mims.databinding.FragmentHomeBinding
 import dev.iconpln.mims.ui.login.LoginActivity
 import dev.iconpln.mims.ui.role.pabrikan.arttribute_material.DataAtributMaterialActivity
 import dev.iconpln.mims.ui.role.pabrikan.purchase_order.MonitoringPurchaseOrderActivity
+import dev.iconpln.mims.ui.role.pabrikan.tracking.TrackingHistoryActivity
 import dev.iconpln.mims.utils.SessionManager
 import kotlinx.coroutines.launch
 
@@ -41,13 +41,17 @@ class HomeFragment : Fragment() {
             context?.startActivity(i)
         }
 
-        binding.card4.setOnClickListener {
-            val intent = Intent(context, DataAtributMaterialActivity::class.java)
+        binding.card2.setOnClickListener {
+            val intent = Intent(context, PengujianActivity::class.java)
             context?.startActivity(intent)
         }
 
-        binding.card2.setOnClickListener {
-            val intent = Intent(context, PengujianActivity::class.java)
+        binding.card3.setOnClickListener {
+            startActivity(Intent(context, TrackingHistoryActivity::class.java))
+        }
+
+        binding.card4.setOnClickListener {
+            val intent = Intent(context, DataAtributMaterialActivity::class.java)
             context?.startActivity(intent)
         }
 
@@ -68,10 +72,6 @@ class HomeFragment : Fragment() {
             onLogout.flags = Intent.FLAG_ACTIVITY_NEW_TASK
             startActivity(onLogout)
             activity?.finish()
-        }
-
-        binding.card3.setOnClickListener {
-            Toast.makeText(context, "Under Maintenance", Toast.LENGTH_SHORT).show()
         }
 
 //        binding.card2.setOnClickListener {
