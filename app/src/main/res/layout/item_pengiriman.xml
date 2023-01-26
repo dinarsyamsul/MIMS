@@ -23,19 +23,19 @@
             <View
                 android:id="@+id/vw_line"
                 android:layout_width="5dp"
-                android:layout_height="165dp"
+                android:layout_height="210dp"
                 android:background="@drawable/dashboard"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toTopOf="parent" />
 
             <TextView
-                android:id="@+id/txt_noPo"
+                android:id="@+id/txt_noPengiriman"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginStart="16dp"
                 android:layout_marginTop="16dp"
                 android:fontFamily="@font/montserrat_reguler"
-                android:text="12 Januari 2022"
+                android:text="Nomor Pengiriman"
                 android:textColor="@color/black"
                 app:layout_constraintStart_toStartOf="@+id/vw_line"
                 app:layout_constraintTop_toTopOf="parent" />
@@ -50,13 +50,13 @@
                 android:text="123123123123"
                 android:textColor="#3F3D56"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/txt_noPo" />
+                app:layout_constraintTop_toBottomOf="@+id/txt_noPengiriman" />
 
             <ImageView
                 android:id="@+id/img_nomaterial"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginStart="5dp"
+                android:layout_marginStart="10dp"
                 android:layout_marginTop="8dp"
                 android:src="@drawable/plant_list_monitoring1"
                 app:layout_constraintStart_toStartOf="parent"
@@ -78,17 +78,16 @@
                 android:id="@+id/txt_titik2nomaterial"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginBottom="2dp"
+                android:layout_marginStart="8dp"
                 android:fontFamily="@font/montserrat_reguler"
                 android:text=" : "
                 android:textColor="#3F3D56"
                 android:textSize="16dp"
-                app:layout_constraintBottom_toBottomOf="@id/txt_nomaterial"
-                app:layout_constraintStart_toEndOf="@id/txt_nomaterial"
-                app:layout_constraintTop_toTopOf="@id/txt_nomaterial" />
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/txt_nomaterial" />
 
             <TextView
-                android:id="@+id/txt_material"
+                android:id="@+id/txt_isinomaterial"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:fontFamily="@font/montserrat_reguler"
@@ -101,57 +100,56 @@
             <!-- PEMBATAS -->
 
             <ImageView
-                android:id="@+id/img_batch"
+                android:id="@+id/img_DOpengiriman"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginStart="5dp"
+                android:layout_marginStart="10dp"
                 android:layout_marginTop="8dp"
                 android:src="@drawable/plant_list_monitoring1"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@id/txt_nomaterial" />
+                app:layout_constraintTop_toBottomOf="@id/txt_titik2nomaterial" />
 
             <TextView
-                android:id="@+id/txt_batch"
+                android:id="@+id/txt_noDOpengiriman"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginStart="8dp"
                 android:fontFamily="@font/montserrat_reguler"
                 android:text="No DO"
                 android:textColor="#3F3D56"
-                app:layout_constraintBottom_toBottomOf="@id/img_batch"
-                app:layout_constraintStart_toEndOf="@id/img_batch"
-                app:layout_constraintTop_toTopOf="@id/img_batch" />
+                app:layout_constraintBottom_toBottomOf="@id/img_DOpengiriman"
+                app:layout_constraintStart_toEndOf="@id/img_DOpengiriman"
+                app:layout_constraintTop_toTopOf="@id/img_DOpengiriman" />
 
             <TextView
-                android:id="@+id/txt_titik2batch"
+                android:id="@+id/txt_titik2noDOpengiriman"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginBottom="2dp"
+                android:layout_marginStart="8dp"
                 android:fontFamily="@font/montserrat_reguler"
                 android:text=" : "
                 android:textColor="#3F3D56"
                 android:textSize="16dp"
-                app:layout_constraintBottom_toBottomOf="@id/txt_batch"
-                app:layout_constraintStart_toEndOf="@id/txt_batch"
-                app:layout_constraintTop_toTopOf="@id/txt_batch" />
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/img_DOpengiriman" />
 
             <TextView
-                android:id="@+id/txt_isiBatch"
+                android:id="@+id/txt_isinoDOpengiriman"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:fontFamily="@font/montserrat_reguler"
                 android:text="12312311"
                 android:textColor="#96979B"
-                app:layout_constraintBottom_toBottomOf="@id/txt_titik2batch"
-                app:layout_constraintStart_toEndOf="@id/txt_titik2batch"
-                app:layout_constraintTop_toTopOf="@id/txt_titik2batch" />
+                app:layout_constraintBottom_toBottomOf="@id/txt_titik2noDOpengiriman"
+                app:layout_constraintStart_toEndOf="@id/txt_titik2noDOpengiriman"
+                app:layout_constraintTop_toTopOf="@id/txt_titik2noDOpengiriman" />
 
             <!-- PEMBATAS -->
 
             <!-- PEMBATAS -->
 
             <ImageView
-                android:id="@+id/img_SPLN"
+                android:id="@+id/img_unitpengiriman"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginStart="101dp"
@@ -161,93 +159,91 @@
                 app:layout_constraintTop_toTopOf="@id/txt_nomaterial" />
 
             <TextView
-                android:id="@+id/txt_SPLN"
+                android:id="@+id/txt_unitpengiriman"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginStart="8dp"
                 android:fontFamily="@font/montserrat_reguler"
                 android:text="Unit"
                 android:textColor="#3F3D56"
-                app:layout_constraintBottom_toBottomOf="@id/img_SPLN"
-                app:layout_constraintStart_toEndOf="@id/img_SPLN"
-                app:layout_constraintTop_toTopOf="@id/img_SPLN" />
+                app:layout_constraintBottom_toBottomOf="@id/img_unitpengiriman"
+                app:layout_constraintStart_toEndOf="@id/img_unitpengiriman"
+                app:layout_constraintTop_toTopOf="@id/img_unitpengiriman" />
 
             <TextView
-                android:id="@+id/txt_titik2SPLN"
+                android:id="@+id/txt_titik2unitpengiriman"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginBottom="2dp"
+                android:layout_marginStart="115dp"
                 android:fontFamily="@font/montserrat_reguler"
                 android:text=" : "
                 android:textColor="#3F3D56"
                 android:textSize="16dp"
-                app:layout_constraintBottom_toBottomOf="@id/txt_SPLN"
-                app:layout_constraintStart_toEndOf="@id/txt_SPLN"
-                app:layout_constraintTop_toTopOf="@id/txt_SPLN" />
+                app:layout_constraintStart_toEndOf="@+id/txt_isinomaterial"
+                app:layout_constraintTop_toTopOf="@id/txt_isinomaterial" />
 
             <TextView
-                android:id="@+id/txt_isiSPLN"
+                android:id="@+id/txt_isiunitpengiriman"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:fontFamily="@font/montserrat_reguler"
                 android:text="5112111223344"
                 android:textColor="#96979B"
-                app:layout_constraintBottom_toBottomOf="@id/txt_titik2SPLN"
-                app:layout_constraintStart_toEndOf="@id/txt_titik2SPLN"
-                app:layout_constraintTop_toTopOf="@id/txt_titik2SPLN" />
+                app:layout_constraintBottom_toBottomOf="@id/txt_titik2unitpengiriman"
+                app:layout_constraintStart_toEndOf="@id/txt_titik2unitpengiriman"
+                app:layout_constraintTop_toTopOf="@id/txt_titik2unitpengiriman" />
 
             <!-- PEMBATAS -->
 
             <ImageView
-                android:id="@+id/img_spesifikasi"
+                android:id="@+id/img_kuantitaspengiriman"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginStart="100dp"
                 android:src="@drawable/kuantitas_list_monitoring1"
-                app:layout_constraintBottom_toBottomOf="@id/txt_batch"
-                app:layout_constraintStart_toEndOf="@id/txt_batch"
-                app:layout_constraintTop_toTopOf="@id/txt_batch" />
+                app:layout_constraintBottom_toBottomOf="@id/txt_noDOpengiriman"
+                app:layout_constraintStart_toEndOf="@id/txt_noDOpengiriman"
+                app:layout_constraintTop_toTopOf="@id/txt_noDOpengiriman" />
 
             <TextView
-                android:id="@+id/txt_spesifikasi"
+                android:id="@+id/txt_kuantitaspengiriman"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginStart="8dp"
                 android:fontFamily="@font/montserrat_reguler"
                 android:text="Kuantitas"
                 android:textColor="#3F3D56"
-                app:layout_constraintBottom_toBottomOf="@id/img_spesifikasi"
-                app:layout_constraintStart_toEndOf="@id/img_spesifikasi"
-                app:layout_constraintTop_toTopOf="@id/img_spesifikasi" />
+                app:layout_constraintBottom_toBottomOf="@id/img_kuantitaspengiriman"
+                app:layout_constraintStart_toEndOf="@id/img_kuantitaspengiriman"
+                app:layout_constraintTop_toTopOf="@id/img_kuantitaspengiriman" />
 
             <TextView
-                android:id="@+id/txt_titik2spesifikasi"
+                android:id="@+id/txt_titik2kuantitaspengiriman"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginBottom="2dp"
+                android:layout_marginStart="115dp"
                 android:fontFamily="@font/montserrat_reguler"
                 android:text=" : "
                 android:textColor="#3F3D56"
                 android:textSize="16dp"
-                app:layout_constraintBottom_toBottomOf="@id/txt_spesifikasi"
-                app:layout_constraintStart_toEndOf="@id/txt_spesifikasi"
-                app:layout_constraintTop_toTopOf="@id/txt_spesifikasi" />
+                app:layout_constraintStart_toEndOf="@+id/txt_isinoDOpengiriman"
+                app:layout_constraintTop_toBottomOf="@+id/img_kuantitaspengiriman" />
 
             <TextView
-                android:id="@+id/txt_isispesifikasi"
+                android:id="@+id/txt_isikuantitaspengiriman"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:fontFamily="@font/montserrat_reguler"
                 android:text="xx-xxx-xxx"
                 android:textColor="#96979B"
-                app:layout_constraintBottom_toBottomOf="@id/txt_titik2spesifikasi"
-                app:layout_constraintStart_toEndOf="@id/txt_titik2spesifikasi"
-                app:layout_constraintTop_toTopOf="@id/txt_titik2spesifikasi" />
+                app:layout_constraintBottom_toBottomOf="@id/txt_titik2kuantitaspengiriman"
+                app:layout_constraintStart_toEndOf="@id/txt_titik2kuantitaspengiriman"
+                app:layout_constraintTop_toTopOf="@id/txt_titik2kuantitaspengiriman" />
 
 
             <androidx.appcompat.widget.AppCompatButton
                 android:id="@+id/detailpengiriman"
-                android:layout_width="50dp"
+                android:layout_width="40dp"
                 android:layout_height="36dp"
                 android:layout_marginStart="100dp"
                 android:layout_marginTop="8dp"
@@ -259,7 +255,7 @@
                 app:layout_constraintTop_toTopOf="parent" />
 
             <androidx.appcompat.widget.AppCompatButton
-                android:layout_width="50dp"
+                android:layout_width="40dp"
                 android:layout_height="36dp"
                 android:background="@drawable/plant_list_monitoring1"
                 android:layout_marginStart="10dp"
@@ -267,6 +263,22 @@
                 app:layout_constraintBottom_toBottomOf="@+id/detailpengiriman"
                 app:layout_constraintStart_toEndOf="@+id/detailpengiriman"
                 app:layout_constraintTop_toTopOf="@id/detailpengiriman" />
+
+            <TextView
+                android:id="@+id/txt_statuspengiriman"
+                android:layout_width="350dp"
+                android:layout_height="16dp"
+                android:layout_marginStart="10dp"
+                android:layout_marginTop="10dp"
+                android:layout_marginBottom="10dp"
+                android:background="#80D11717"
+                android:text="Status"
+                android:textAlignment="center"
+                android:textColor="#D11717"
+                android:textSize="10sp"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/txt_isinoDOpengiriman" />
 
         </androidx.constraintlayout.widget.ConstraintLayout>
     </androidx.cardview.widget.CardView>
