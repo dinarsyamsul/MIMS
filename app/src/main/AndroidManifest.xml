@@ -201,6 +201,13 @@
                 android:value="" />
         </activity>
         <activity
+            android:name=".ui.role.pabrikan.arttribute_material.DataAtributMaterialActivity"
+            android:exported="false">
+            <meta-data
+                android:name="android.app.lib_name"
+                android:value="" />
+        </activity>
+        <activity
             android:name=".SplashActivity"
             android:exported="true">
             <intent-filter>

@@ -38,6 +38,7 @@ class HomeFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
+
         binding.card1.setOnClickListener {
             val i = Intent(context, MonitoringPurchaseOrderActivity::class.java)
             context?.startActivity(i)

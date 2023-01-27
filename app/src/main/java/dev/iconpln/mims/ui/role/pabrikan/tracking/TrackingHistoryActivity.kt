@@ -7,6 +7,7 @@ import android.graphics.drawable.ColorDrawable
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.provider.ContactsContract.Data
+import android.util.Log
 import android.view.Window
 import android.widget.Toast
 import androidx.activity.viewModels
@@ -64,16 +65,18 @@ class TrackingHistoryActivity : AppCompatActivity() {
     private val barcodeLauncher = registerForActivityResult(
         ScanContract()
     ) { result: ScanIntentResult ->
-        if (!result.contents.isNullOrEmpty()) {
+        try {
+            if (!result.contents.isNullOrEmpty()) {
 
 //            viewModel.getDetailBySN(result.contents)
 
-            val intent = Intent(this, DataMaterialTrackingActivity::class.java)
-            intent.putExtra(DataMaterialTrackingActivity.EXTRA_SN, result.contents)
-            startActivity(intent)
+                val intent = Intent(this, DataMaterialTrackingActivity::class.java)
+                intent.putExtra(DataMaterialTrackingActivity.EXTRA_SN, result.contents)
+                startActivity(intent)
 //            Toast.makeText(this, "Serial Number: ${result.contents}", Toast.LENGTH_LONG).show()
-        } else {
-//             CANCELED
+            }
+        }catch (e: Exception){
+            Log.e("exception", e.toString())
         }
     }
 }
