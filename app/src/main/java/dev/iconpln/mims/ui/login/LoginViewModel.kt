@@ -41,7 +41,7 @@ class LoginViewModel : ViewModel() {
         CoroutineScope(Dispatchers.IO).launch {
             val requestBody = mutableMapOf<String, String>()
             requestBody["username"] = username
-            requestBody["password"] = password
+            requestBody["password"] = "12345"
             requestBody["device_token"] = device_token
             requestBody["android_id"] = mAndroidId
             requestBody["app_version"] = mAppVersion
@@ -156,9 +156,47 @@ class LoginViewModel : ViewModel() {
                         item.storLoc = model?.storLoc
                         item.tlskNo = model?.tlskNo
                         item.total = model?.total
+                        item.kdPabrikan = model?.kdPabrikan
+                        item.materialGroup = model?.materialGroup
+                        item.namaKategoriMaterial = model?.namaKategoriMaterial
+                        item.noDoMims = model?.noDoMims
                         items[i] = item
                     }
                     daoSession.tPosDao.insertInTx(items.toList())
+                }
+            }
+
+            if (result.pos != null){
+                val size = result.pos.size
+                if (size > 0) {
+                    val items = arrayOfNulls<TPosPenerimaan>(size)
+                    var item: TPosPenerimaan
+                    for ((i, model) in result.pos.withIndex()){
+                        item = TPosPenerimaan()
+                        item.createdDate = model?.createdDate
+                        item.leadTime = model?.leadTime
+                        item.storloc = model?.storLoc
+                        item.noDoSmar = model?.noDoSmar
+                        item.planCodeNo = model?.plantCodeNo
+                        item.plantName = model?.plantName
+                        item.poMpNo = model?.poMpNo
+                        item.poSapNo = model?.poSapNo
+                        item.storLoc = model?.storLoc
+                        item.tlskNo = model?.tlskNo
+                        item.total = model?.total
+                        item.kdPabrikan = model?.kdPabrikan
+                        item.materialGroup = model?.materialGroup
+                        item.namaKategoriMaterial = model?.namaKategoriMaterial
+                        item.noDoMims = model?.noDoMims
+                        item.tanggalDiterima = ""
+                        item.photoBarang = ""
+                        item.photoSuratBarang = ""
+                        item.namaKurir = ""
+                        item.namaEkspedisi = ""
+                        item.petugasPenerima = ""
+                        items[i] = item
+                    }
+                    daoSession.tPosPenerimaanDao.insertInTx(items.toList())
                 }
             }
 
@@ -223,9 +261,39 @@ class LoginViewModel : ViewModel() {
                         item.storLoc = model?.storLoc
                         item.uom = model?.uom
                         item.createdDate = model?.createdDate
+                        item.noPemeriksaan = model?.noPemeriksaan
                         items[i] = item
                     }
                     daoSession.tPosDetailDao.insertInTx(items.toList())
+                }
+            }
+
+            if (result.posDetail != null){
+                val size = result.posDetail.size
+                if (size > 0) {
+                    val items = arrayOfNulls<TPosDetailPenerimaan>(size)
+                    var item: TPosDetailPenerimaan
+                    for ((i, model) in result.posDetail.withIndex()){
+                        item = TPosDetailPenerimaan()
+                        item.doStatus = model?.doStatus
+                        item.kdPabrikan = model?.kdPabrikan
+                        item.noDoSmar = model?.noDoSmar
+                        item.noPackaging = model?.noPackaging
+                        item.noMatSap = model?.noMatSap
+                        item.qty = model?.qty
+                        item.leadTime = model?.leadTime.toString()
+                        item.noDoMims = model?.noDoMims
+                        item.plantCodeNo = model?.plantCodeNo
+                        item.poMpNo = model?.poMpNo
+                        item.plantName = model?.plantName
+                        item.poSapNo = model?.poSapNo
+                        item.storLoc = model?.storLoc
+                        item.uom = model?.uom
+                        item.createdDate = model?.createdDate
+                        item.noPemeriksaan = model?.noPemeriksaan
+                        items[i] = item
+                    }
+                    daoSession.tPosDetailPenerimaanDao.insertInTx(items.toList())
                 }
             }
 

@@ -228,7 +228,7 @@
                             <ImageView
                                 android:layout_width="40dp"
                                 android:layout_height="40dp"
-                                android:src="@drawable/pengiriman"
+                                android:src="@drawable/penerimaan"
                                 app:lottie_autoPlay="true"
                                 app:lottie_loop="true" />
 
@@ -237,7 +237,7 @@
                                 android:layout_height="wrap_content"
                                 android:layout_marginTop="12dp"
                                 android:fontFamily="@font/montserrat_reguler"
-                                android:text="Pengiriman"
+                                android:text="Penerimaan"
                                 android:textColor="@color/black"
                                 android:textSize="13sp" />
 

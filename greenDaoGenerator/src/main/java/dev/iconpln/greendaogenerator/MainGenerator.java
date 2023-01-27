@@ -80,6 +80,30 @@ public class MainGenerator {
         tPosDetail.addStringProperty("LeadTime");
         tPosDetail.addStringProperty("CreatedDate");
         tPosDetail.addStringProperty("Uom");
+        tPosDetail.addStringProperty("NoPemeriksaan");
+
+        //endregion
+
+        //region Pos Detail Penerimaan
+        Entity tPosDetailPenerimaan = schema.addEntity("TPosDetailPenerimaan");
+        tPosDetailPenerimaan.addIdProperty();
+        tPosDetailPenerimaan.addStringProperty("NoMatSap");
+        tPosDetailPenerimaan.addStringProperty("NoDoSmar");
+        tPosDetailPenerimaan.addStringProperty("Qty");
+        tPosDetailPenerimaan.addStringProperty("KdPabrikan");
+        tPosDetailPenerimaan.addStringProperty("DoStatus");
+        tPosDetailPenerimaan.addStringProperty("PoSapNo");
+        tPosDetailPenerimaan.addStringProperty("PoMpNo");
+        tPosDetailPenerimaan.addStringProperty("NoDoMims");
+        tPosDetailPenerimaan.addStringProperty("NoPackaging");
+        tPosDetailPenerimaan.addStringProperty("PlantCodeNo");
+        tPosDetailPenerimaan.addStringProperty("PlantName");
+        tPosDetailPenerimaan.addStringProperty("StorLoc");
+        tPosDetailPenerimaan.addStringProperty("LeadTime");
+        tPosDetailPenerimaan.addStringProperty("CreatedDate");
+        tPosDetailPenerimaan.addStringProperty("Uom");
+        tPosDetailPenerimaan.addStringProperty("NoPemeriksaan");
+        tPosDetailPenerimaan.addStringProperty("isDone");
 
         //endregion
 
@@ -157,6 +181,44 @@ public class MainGenerator {
         tPos.addStringProperty("CreatedDate");
         tPos.addStringProperty("PlanCodeNo");
         tPos.addStringProperty("PlantName");
+        tPos.addStringProperty("NoDoMims");
+        tPos.addStringProperty("DoStatus");
+        tPos.addStringProperty("Expeditions");
+        tPos.addStringProperty("CourierPersonName");
+        tPos.addStringProperty("KdPabrikan");
+        tPos.addStringProperty("MaterialGroup");
+        tPos.addStringProperty("NamaKategoriMaterial");
+
+        // endregion
+
+        // region posPenerimaan
+        Entity tPosPenerimaan = schema.addEntity("TPosPenerimaan");
+        tPosPenerimaan.addIdProperty();
+        tPosPenerimaan.addStringProperty("StorLoc");
+        tPosPenerimaan.addStringProperty("Total");
+        tPosPenerimaan.addStringProperty("TlskNo");
+        tPosPenerimaan.addStringProperty("PoSapNo");
+        tPosPenerimaan.addStringProperty("PoMpNo");
+        tPosPenerimaan.addStringProperty("NoDoSmar");
+        tPosPenerimaan.addIntProperty("LeadTime");
+        tPosPenerimaan.addStringProperty("Storloc");
+        tPosPenerimaan.addStringProperty("CreatedDate");
+        tPosPenerimaan.addStringProperty("PlanCodeNo");
+        tPosPenerimaan.addStringProperty("PlantName");
+        tPosPenerimaan.addStringProperty("NoDoMims");
+        tPosPenerimaan.addStringProperty("DoStatus");
+        tPosPenerimaan.addStringProperty("Expeditions");
+        tPosPenerimaan.addStringProperty("CourierPersonName");
+        tPosPenerimaan.addStringProperty("KdPabrikan");
+        tPosPenerimaan.addStringProperty("MaterialGroup");
+        tPosPenerimaan.addStringProperty("NamaKategoriMaterial");
+        tPosPenerimaan.addStringProperty("PhotoSuratBarang");
+        tPosPenerimaan.addStringProperty("PhotoBarang");
+        tPosPenerimaan.addStringProperty("TanggalDiterima");
+        tPosPenerimaan.addStringProperty("PetugasPenerima");
+        tPosPenerimaan.addStringProperty("NamaKurir");
+        tPosPenerimaan.addStringProperty("NamaEkspedisi");
+        tPosPenerimaan.addIntProperty("isDone");
 
         // endregion
 
@@ -181,6 +243,58 @@ public class MainGenerator {
         tPosSns.addStringProperty("MasaGaransi");
         tPosSns.addStringProperty("DoStatus");
         tPosSns.addStringProperty("Status");
+
+        // region posPenerimaan
+        Entity tPemeriksaan = schema.addEntity("TPemeriksaan");
+        tPemeriksaan.addStringProperty("NoPemeriksaan");
+        tPemeriksaan.addStringProperty("StorLoc");
+        tPemeriksaan.addStringProperty("Total");
+        tPemeriksaan.addStringProperty("TlskNo");
+        tPemeriksaan.addStringProperty("PoSapNo");
+        tPemeriksaan.addStringProperty("PoMpNo");
+        tPemeriksaan.addStringProperty("NoDoSmar");
+        tPemeriksaan.addIntProperty("LeadTime");
+        tPemeriksaan.addStringProperty("Storloc");
+        tPemeriksaan.addStringProperty("CreatedDate");
+        tPemeriksaan.addStringProperty("PlanCodeNo");
+        tPemeriksaan.addStringProperty("PlantName");
+        tPemeriksaan.addStringProperty("NoDoMims");
+        tPemeriksaan.addStringProperty("DoStatus");
+        tPemeriksaan.addStringProperty("Expeditions");
+        tPemeriksaan.addStringProperty("CourierPersonName");
+        tPemeriksaan.addStringProperty("KdPabrikan");
+        tPemeriksaan.addStringProperty("MaterialGroup");
+        tPemeriksaan.addStringProperty("NamaKategoriMaterial");
+        tPemeriksaan.addStringProperty("TanggalDiterima");
+        tPemeriksaan.addStringProperty("PetugasPenerima");
+        tPemeriksaan.addStringProperty("NamaKurir");
+        tPemeriksaan.addStringProperty("NamaEkspedisi");
+        //baru
+        tPemeriksaan.addStringProperty("NamaKetua");
+        tPemeriksaan.addStringProperty("NamaManager");
+        tPemeriksaan.addStringProperty("NamaSekretaris");
+        tPemeriksaan.addStringProperty("Anggota");
+        tPemeriksaan.addStringProperty("RatingPenerimaan");
+        tPemeriksaan.addStringProperty("DescPenerimaan");
+        tPemeriksaan.addStringProperty("RatingQuality");
+        tPemeriksaan.addStringProperty("DescQuality");
+        tPemeriksaan.addStringProperty("RatingWaktu");
+        tPemeriksaan.addStringProperty("DescWaktu");
+        tPemeriksaan.addStringProperty("RatingPath");
+        tPemeriksaan.addStringProperty("Packangings");
+        tPemeriksaan.addIntProperty("State");//1 pemeriksaan 2 rating
+        tPemeriksaan.addIntProperty("isDone");//untuk centangan
+
+
+        // region penerimaan detail
+        Entity tPemeriksaanDetail = schema.addEntity("TPemeriksaanDetail");
+        tPemeriksaanDetail.addStringProperty("Sn");
+        tPemeriksaanDetail.addStringProperty("NoDoSmar");
+        tPemeriksaanDetail.addStringProperty("NoMaterail");
+        tPemeriksaanDetail.addStringProperty("NoPackaging");
+        tPemeriksaanDetail.addStringProperty("Status");//REJECTED || APPROVED
+        tPemeriksaanDetail.addIntProperty("IsDone");
+
 
         // endregion
 

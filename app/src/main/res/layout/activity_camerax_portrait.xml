@@ -1,0 +1,98 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".ui.role.up3.pnerimaan.CameraXActivity">
+
+    <androidx.camera.view.PreviewView
+        android:id="@+id/camera_viewFinder"
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        android:background="@color/white"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="@dimen/_25sdp"
+        android:paddingTop="@dimen/_2sdp"
+        android:paddingBottom="@dimen/_2sdp"
+        android:paddingLeft="@dimen/_8sdp"
+        android:paddingRight="@dimen/_8sdp"
+        android:text="@string/label_tap_to_focus"
+        android:textColor="@color/white"
+        android:textSize="@dimen/_9ssp"
+        android:background="@drawable/button_rounded_style_transparent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"/>
+
+    <androidx.constraintlayout.helper.widget.Flow
+        android:id="@+id/camera_footer"
+        android:layout_width="0dp"
+        android:layout_height="@dimen/_150sdp"
+        android:background="#30000000"
+        app:constraint_referenced_ids="camera_imgSwitch,camera_btnTakePicture,camera_imgFlash"
+        app:flow_maxElementsWrap="3"
+        app:flow_wrapMode="chain"
+        app:flow_horizontalStyle="spread"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"/>
+
+    <TextView
+        android:id="@+id/camera_lblTitle"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="@dimen/_4sdp"
+        android:text="@string/label_portrait"
+        android:textAllCaps="true"
+        android:gravity="center_horizontal"
+        android:textColor="@color/white"
+        android:textSize="@dimen/_12ssp"
+        app:layout_constraintTop_toTopOf="@id/camera_footer"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent" />
+
+    <ImageView
+        android:id="@+id/camera_imgSwitch"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:adjustViewBounds="true"
+        android:padding="@dimen/_10sdp"
+        android:src="@drawable/ic_baseline_cameraswitch_24"/>
+
+    <com.google.android.material.floatingactionbutton.FloatingActionButton
+        android:id="@+id/camera_btnTakePicture"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:foregroundGravity="center"
+        android:src="@drawable/ic_camera_alt_white"
+        android:tint="@color/black"
+        app:backgroundTint="@color/white" />
+
+    <ImageView
+        android:id="@+id/camera_imgFlash"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:adjustViewBounds="true"
+        android:padding="@dimen/_10sdp"
+        android:src="@drawable/ic_baseline_flash_off_24"/>
+    <TextView
+        android:id="@+id/camera_lblFlash"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/label_flash_off"
+        android:textColor="@color/white"
+        android:textSize="@dimen/_9ssp"
+        app:layout_constraintTop_toBottomOf="@id/camera_imgFlash"
+        app:layout_constraintStart_toStartOf="@id/camera_imgFlash"
+        app:layout_constraintEnd_toEndOf="@id/camera_imgFlash"/>
+
+</androidx.constraintlayout.widget.ConstraintLayout>

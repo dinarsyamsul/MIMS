@@ -1,4 +1,4 @@
-package dev.iconpln.mims.ui.role.pabrikan.pengujian
+package dev.iconpln.mims.ui.role.pabrikan.pengujian.pengujian_detail
 
 import android.graphics.Color
 import android.view.LayoutInflater
@@ -7,15 +7,17 @@ import androidx.recyclerview.widget.RecyclerView
 import dev.iconpln.mims.R
 import dev.iconpln.mims.data.local.database.TMaterial
 import dev.iconpln.mims.data.local.database.TPengujian
+import dev.iconpln.mims.data.local.database.TPengujianDetails
 import dev.iconpln.mims.databinding.ItemDataMaterialPabrikanBinding
+import dev.iconpln.mims.databinding.ItemListDetailPengujianBinding
 import dev.iconpln.mims.databinding.ItemPengujianBinding
 
-class PengujianAdapter(val lisModels: MutableList<TPengujian>, var listener: OnAdapterListener)
-    : RecyclerView.Adapter<PengujianAdapter.ViewHolder>() {
+class PengujianDetailAdapter(val lisModels: MutableList<TPengujianDetails>, var listener: OnAdapterListener)
+    : RecyclerView.Adapter<PengujianDetailAdapter.ViewHolder>() {
 
-    fun setPengujianList(mat: List<TPengujian>){
+    fun setPengujianList(pengujian: List<TPengujianDetails>){
         lisModels.clear()
-        lisModels.addAll(mat)
+        lisModels.addAll(pengujian)
         notifyDataSetChanged()
     }
 
@@ -23,7 +25,7 @@ class PengujianAdapter(val lisModels: MutableList<TPengujian>, var listener: OnA
         parent: ViewGroup,
         viewType: Int
     ): ViewHolder {
-        val binding = ItemPengujianBinding.inflate(LayoutInflater.from(parent.context), parent, false)
+        val binding = ItemListDetailPengujianBinding.inflate(LayoutInflater.from(parent.context), parent, false)
         return ViewHolder(binding)
     }
 
@@ -33,15 +35,11 @@ class PengujianAdapter(val lisModels: MutableList<TPengujian>, var listener: OnA
 
     override fun getItemCount(): Int = lisModels.size
 
-    inner class ViewHolder(val binding: ItemPengujianBinding): RecyclerView.ViewHolder(binding.root){
-        fun bind(pengujian : TPengujian){
+    inner class ViewHolder(val binding: ItemListDetailPengujianBinding): RecyclerView.ViewHolder(binding.root){
+        fun bind(pengujian : TPengujianDetails){
             with(binding){
-                txtNoPengujian.text = pengujian.noPengujian
-                txtKategori.text = pengujian.namaKategori
-                txtSatuan.text = pengujian.unit
-                txtSiapTotal.text = "${pengujian.qtySiap}/${pengujian.qtyMaterial}"
-                txtTanggalUji.text = pengujian.tanggalUji
-                txtStatus.text = pengujian.statusUji.trim()
+                txtSerialNumber.text = pengujian.serialNumber
+                status.text = pengujian.statusUji
             }
 
             itemView.setOnClickListener { listener.onClick(pengujian) }
@@ -49,6 +47,6 @@ class PengujianAdapter(val lisModels: MutableList<TPengujian>, var listener: OnA
     }
 
     interface OnAdapterListener{
-        fun onClick(pengujian: TPengujian)
+        fun onClick(pengujian: TPengujianDetails)
     }
 }

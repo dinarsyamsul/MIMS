@@ -1,5 +1,6 @@
 package dev.iconpln.mims.ui.role.pabrikan.pengujian
 
+import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.util.Log
@@ -13,6 +14,7 @@ import dev.iconpln.mims.R
 import dev.iconpln.mims.data.local.database.DaoSession
 import dev.iconpln.mims.data.local.database.TPengujian
 import dev.iconpln.mims.databinding.ActivityPengujianBinding
+import dev.iconpln.mims.ui.role.pabrikan.pengujian.pengujian_detail.PengujianDetailActivity
 import java.util.*
 import kotlin.collections.ArrayList
 
@@ -29,7 +31,9 @@ class PengujianActivity : AppCompatActivity() {
         daoSession = (application as MyApplication).daoSession!!
 
         adapter = PengujianAdapter(arrayListOf(), object : PengujianAdapter.OnAdapterListener{
-            override fun onClick(pengujian: TPengujian) {}
+            override fun onClick(pengujian: TPengujian) {
+                startActivity(Intent(this@PengujianActivity, PengujianDetailActivity::class.java))
+            }
 
         })
 

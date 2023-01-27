@@ -404,5 +404,8 @@ data class PosDetailItem(
 	val doStatus: String? = null,
 
 	@field:SerializedName("plant_name")
-	val plantName: String? = null
+	val plantName: String? = null,
+
+	@field:SerializedName("no_pemeriksaan")
+	val noPemeriksaan: String? = null
 )

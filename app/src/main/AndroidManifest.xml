@@ -32,7 +32,35 @@
         android:usesCleartextTraffic="true"
         tools:targetApi="31">
         <activity
-            android:name=".PengujianDetailActivity"
+            android:name=".PemeriksaanActivity"
+            android:exported="false">
+            <meta-data
+                android:name="android.app.lib_name"
+                android:value="" />
+        </activity>
+        <activity
+            android:name=".ui.role.up3.pnerimaan.detail_penerimaan.DetailPenerimaanActivity"
+            android:exported="false">
+            <meta-data
+                android:name="android.app.lib_name"
+                android:value="" />
+        </activity>
+        <activity
+            android:name=".ui.role.up3.pnerimaan.CameraXActivity"
+            android:exported="false">
+            <meta-data
+                android:name="android.app.lib_name"
+                android:value="" />
+        </activity>
+        <activity
+            android:name=".ui.role.up3.pnerimaan.PenerimaanActivity"
+            android:exported="false">
+            <meta-data
+                android:name="android.app.lib_name"
+                android:value="" />
+        </activity>
+        <activity
+            android:name=".ui.role.pabrikan.pengujian.pengujian_detail.PengujianDetailActivity"
             android:exported="false">
             <meta-data
                 android:name="android.app.lib_name"

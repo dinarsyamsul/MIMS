@@ -15,6 +15,7 @@ import dev.iconpln.mims.databinding.FragmentHomeBinding
 import dev.iconpln.mims.ui.login.LoginActivity
 import dev.iconpln.mims.ui.role.pabrikan.arttribute_material.DataAtributMaterialActivity
 import dev.iconpln.mims.ui.role.pabrikan.purchase_order.MonitoringPurchaseOrderActivity
+import dev.iconpln.mims.ui.role.up3.pnerimaan.PenerimaanActivity
 import dev.iconpln.mims.utils.SessionManager
 import kotlinx.coroutines.launch
 
@@ -71,7 +72,7 @@ class HomeFragment : Fragment() {
         }
 
         binding.card3.setOnClickListener {
-            Toast.makeText(context, "Under Maintenance", Toast.LENGTH_SHORT).show()
+            startActivity(Intent(requireActivity(), PenerimaanActivity::class.java))
         }
 
 //        binding.card2.setOnClickListener {

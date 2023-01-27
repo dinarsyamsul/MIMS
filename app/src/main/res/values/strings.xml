@@ -4,6 +4,11 @@
     <!-- TODO: Remove or change this placeholder text -->
     <string name="hello_blank_fragment">Hello blank fragment</string>
     <string name="monitoring_po_do"><![CDATA[Monitoring PO & DO]]></string>
+    <string name="label_flash_off">Flash off</string>
+    <string name="label_flash_on">Flash on</string>
+
+    <string name="label_portrait">portait</string>
+    <string name="label_tap_to_focus">tap to focus</string>
 
     <string-array name="data_batch">
         <item>2000</item>
@@ -92,5 +97,11 @@
         <item>12 Januari 2022</item>
         <item>12 Januari 2022</item>
         <item>12 Januari 2022</item>
+    </string-array>
+
+    <string-array name="status_penerimaan">
+        <item>Terima</item>
+        <item>Proses Pengiriman</item>
+        <item>Belum Dikirim</item>
     </string-array>
 </resources>
