@@ -1,0 +1,424 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+
+    <TextView
+        android:id="@+id/vw_pengirimantracking"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="View Pengiriman"
+        android:textSize="18dp"
+        android:textStyle="bold"
+        android:fontFamily="@font/montserrat_reguler"
+        android:textColor="@color/black"
+        android:layout_marginTop="64dp"
+        android:layout_marginStart="32dp"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"/>
+
+    <androidx.appcompat.widget.AppCompatButton
+        android:id="@+id/btn_close"
+        android:layout_width="35dp"
+        android:layout_height="35dp"
+        android:background="@drawable/btn_close"
+        android:layout_marginTop="18dp"
+        android:layout_marginEnd="32dp"
+       app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toTopOf="parent"/>
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="14dp"
+        android:layout_marginEnd="14dp"
+        app:layout_constraintTop_toBottomOf="@+id/vw_pengirimantracking">
+
+        <View
+            android:id="@+id/view"
+            android:layout_width="10dp"
+            android:layout_height="0dp"
+            android:background="#26ACE2"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <ImageView
+            android:id="@+id/img_nopengirimantracking"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:background="@drawable/ic_number"
+            android:layout_marginTop="12dp"
+            android:layout_marginStart="12dp"
+            app:layout_constraintStart_toStartOf="@+id/view"
+            app:layout_constraintTop_toTopOf="parent"/>
+
+        <TextView
+            android:id="@+id/txt_nopengirimantracking"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="No. Pengiriman"
+            android:textColor="@color/black"
+            android:textStyle="bold"
+            android:fontFamily="@font/montserrat_reguler"
+            android:layout_marginStart="8dp"
+            android:textSize="11sp"
+            app:layout_constraintStart_toEndOf="@id/img_nopengirimantracking"
+            app:layout_constraintTop_toTopOf="@id/img_nopengirimantracking"
+            app:layout_constraintBottom_toBottomOf="@+id/img_nopengirimantracking"/>
+
+        <TextView
+            android:id="@+id/tv_nopengirimantracking"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="xxxxxxxxxxx"
+            android:textColor="#96979B"
+            android:fontFamily="@font/montserrat_reguler"
+            app:layout_constraintTop_toBottomOf="@+id/txt_nopengirimantracking"
+            app:layout_constraintStart_toStartOf="@id/txt_nopengirimantracking"/>
+
+        <ImageView
+            android:id="@+id/img_noPOpengirimantracking"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:background="@drawable/ic_number"
+            android:layout_marginTop="24dp"
+            app:layout_constraintTop_toBottomOf="@id/img_nopengirimantracking"
+            app:layout_constraintStart_toStartOf="@id/img_nopengirimantracking"
+            app:layout_constraintEnd_toEndOf="@id/img_nopengirimantracking"/>
+
+        <TextView
+            android:id="@+id/txt_noPOpengirimantracking"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="No. PO"
+            android:textColor="@color/black"
+            android:textStyle="bold"
+            android:fontFamily="@font/montserrat_reguler"
+            android:layout_marginStart="8dp"
+            android:textSize="11sp"
+            app:layout_constraintStart_toEndOf="@id/img_noPOpengirimantracking"
+            app:layout_constraintTop_toTopOf="@id/img_noPOpengirimantracking"
+            app:layout_constraintBottom_toBottomOf="@+id/img_noPOpengirimantracking"/>
+
+        <TextView
+            android:id="@+id/tv_noPOpengirimantracking"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="xxxxxxxxxxx"
+            android:textColor="#96979B"
+            android:fontFamily="@font/montserrat_reguler"
+            app:layout_constraintTop_toBottomOf="@+id/txt_noPOpengirimantracking"
+            app:layout_constraintStart_toStartOf="@id/txt_noPOpengirimantracking"/>
+
+        <ImageView
+            android:id="@+id/img_noDOpengirimantracking"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:background="@drawable/ic_number"
+            android:layout_marginTop="24dp"
+            app:layout_constraintTop_toBottomOf="@id/img_noPOpengirimantracking"
+            app:layout_constraintStart_toStartOf="@id/img_noPOpengirimantracking"
+            app:layout_constraintEnd_toEndOf="@id/img_noPOpengirimantracking"/>
+
+        <TextView
+            android:id="@+id/txt_noDOpengirimantracking"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Kategori"
+            android:textColor="@color/black"
+            android:textStyle="bold"
+            android:fontFamily="@font/montserrat_reguler"
+            android:layout_marginStart="8dp"
+            android:textSize="11sp"
+            app:layout_constraintStart_toEndOf="@id/img_noDOpengirimantracking"
+            app:layout_constraintTop_toTopOf="@id/img_noDOpengirimantracking"
+            app:layout_constraintBottom_toBottomOf="@+id/img_noDOpengirimantracking"/>
+
+        <TextView
+            android:id="@+id/tv_noDOpengirimantracking"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="xxxxxxxxxxx"
+            android:textColor="#96979B"
+            android:fontFamily="@font/montserrat_reguler"
+            app:layout_constraintTop_toBottomOf="@+id/txt_noDOpengirimantracking"
+            app:layout_constraintStart_toStartOf="@id/txt_noDOpengirimantracking"/>
+
+        <ImageView
+            android:id="@+id/img_unitpengirimantracking"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:background="@drawable/ic_number"
+            android:layout_marginTop="24dp"
+            app:layout_constraintTop_toBottomOf="@id/img_noDOpengirimantracking"
+            app:layout_constraintStart_toStartOf="@id/img_noDOpengirimantracking"
+            app:layout_constraintEnd_toEndOf="@id/img_noDOpengirimantracking"/>
+
+        <TextView
+            android:id="@+id/txt_unitpengirimantracking"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Unit"
+            android:textColor="@color/black"
+            android:textStyle="bold"
+            android:fontFamily="@font/montserrat_reguler"
+            android:layout_marginStart="8dp"
+            android:textSize="11sp"
+            app:layout_constraintStart_toEndOf="@id/img_unitpengirimantracking"
+            app:layout_constraintTop_toTopOf="@id/img_unitpengirimantracking"
+            app:layout_constraintBottom_toBottomOf="@+id/img_unitpengirimantracking"/>
+
+        <TextView
+            android:id="@+id/tv_unitpengirimantracking"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="xxxxxxxxxxx"
+            android:textColor="#96979B"
+            android:fontFamily="@font/montserrat_reguler"
+            app:layout_constraintTop_toBottomOf="@+id/txt_unitpengirimantracking"
+            app:layout_constraintStart_toStartOf="@id/txt_unitpengirimantracking"/>
+
+        <ImageView
+            android:id="@+id/img_kurirpengirimantracking"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:background="@drawable/ic_number"
+            android:layout_marginTop="24dp"
+            app:layout_constraintTop_toBottomOf="@id/img_unitpengirimantracking"
+            app:layout_constraintStart_toStartOf="@id/img_unitpengirimantracking"
+            app:layout_constraintEnd_toEndOf="@id/img_unitpengirimantracking"/>
+
+        <TextView
+            android:id="@+id/txt_kurirpengirimantracking"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Kurir Pengiriman"
+            android:textColor="@color/black"
+            android:textStyle="bold"
+            android:fontFamily="@font/montserrat_reguler"
+            android:layout_marginStart="8dp"
+            android:textSize="11sp"
+            app:layout_constraintStart_toEndOf="@id/img_kurirpengirimantracking"
+            app:layout_constraintTop_toTopOf="@id/img_kurirpengirimantracking"
+            app:layout_constraintBottom_toBottomOf="@+id/img_kurirpengirimantracking"/>
+
+        <TextView
+            android:id="@+id/tv_kurirpengirimantracking"
+            android:layout_height="wrap_content"
+            android:layout_width="wrap_content"
+            android:text="xxxxxxxxxxx"
+            android:textColor="#96979B"
+            android:fontFamily="@font/montserrat_reguler"
+            app:layout_constraintTop_toBottomOf="@+id/txt_kurirpengirimantracking"
+            app:layout_constraintStart_toStartOf="@id/txt_kurirpengirimantracking"/>
+
+        <ImageView
+            android:id="@+id/img_leadtimepengirimantracking"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:background="@drawable/ic_number"
+            android:layout_marginTop="24dp"
+            app:layout_constraintTop_toBottomOf="@id/img_kurirpengirimantracking"
+            app:layout_constraintStart_toStartOf="@id/img_kurirpengirimantracking"
+            app:layout_constraintEnd_toEndOf="@id/img_kurirpengirimantracking"/>
+
+        <TextView
+            android:id="@+id/txt_leadtimepengirimantracking"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Lead Time"
+            android:textColor="@color/black"
+            android:textStyle="bold"
+            android:fontFamily="@font/montserrat_reguler"
+            android:layout_marginStart="8dp"
+            android:textSize="11sp"
+            app:layout_constraintStart_toEndOf="@id/img_leadtimepengirimantracking"
+            app:layout_constraintTop_toTopOf="@id/img_leadtimepengirimantracking"
+            app:layout_constraintBottom_toBottomOf="@+id/img_leadtimepengirimantracking"/>
+
+        <TextView
+            android:id="@+id/tv_leadtimepengirimantracking"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="xxxxxxxxxxx"
+            android:textColor="#96979B"
+            android:fontFamily="@font/montserrat_reguler"
+            app:layout_constraintTop_toBottomOf="@+id/txt_leadtimepengirimantracking"
+            app:layout_constraintStart_toStartOf="@id/txt_leadtimepengirimantracking"/>
+
+        <ImageView
+            android:id="@+id/img_riwayatlokasipengirimantracking"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:background="@drawable/ic_number"
+            android:layout_marginTop="24dp"
+            app:layout_constraintTop_toBottomOf="@id/img_leadtimepengirimantracking"
+            app:layout_constraintStart_toStartOf="@id/img_leadtimepengirimantracking"
+            app:layout_constraintEnd_toEndOf="@id/img_leadtimepengirimantracking"/>
+
+        <TextView
+            android:id="@+id/txt_riwayatlokasipengirimantracking"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Riwayat Lokasi"
+            android:textColor="@color/black"
+            android:textStyle="bold"
+            android:fontFamily="@font/montserrat_reguler"
+            android:layout_marginStart="8dp"
+            android:textSize="11sp"
+            app:layout_constraintStart_toEndOf="@id/img_riwayatlokasipengirimantracking"
+            app:layout_constraintTop_toTopOf="@id/img_riwayatlokasipengirimantracking"
+            app:layout_constraintBottom_toBottomOf="@+id/img_riwayatlokasipengirimantracking"/>
+
+        <TextView
+            android:id="@+id/tv_riwayatlokasipengirimantracking"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Lihat Riwayat Lokasi >>"
+            android:textColor="#96979B"
+            android:fontFamily="@font/montserrat_reguler"
+            app:layout_constraintTop_toBottomOf="@+id/txt_riwayatlokasipengirimantracking"
+            app:layout_constraintStart_toStartOf="@id/txt_riwayatlokasipengirimantracking"/>
+
+
+        <ImageView
+            android:id="@+id/img_petugaspengirimantracking"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:background="@drawable/ic_number"
+            android:layout_marginStart="50dp"
+            app:layout_constraintStart_toEndOf="@id/tv_leadtimepengirimantracking"
+            app:layout_constraintTop_toTopOf="@id/txt_leadtimepengirimantracking"
+            app:layout_constraintBottom_toBottomOf="@id/tv_leadtimepengirimantracking"/>
+
+        <TextView
+            android:id="@+id/txt_petugaspengirimantracking"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Petugas Pengiriman"
+            android:textColor="@color/black"
+            android:textStyle="bold"
+            android:fontFamily="@font/montserrat_reguler"
+            android:layout_marginStart="8dp"
+            android:textSize="11sp"
+            app:layout_constraintStart_toEndOf="@id/img_petugaspengirimantracking"
+            app:layout_constraintTop_toTopOf="@id/img_petugaspengirimantracking"
+            app:layout_constraintBottom_toBottomOf="@+id/img_petugaspengirimantracking"/>
+
+        <TextView
+            android:id="@+id/tv_petugaspengirimantracking"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="xxxxxxxxxxx"
+            android:textColor="#96979B"
+            android:fontFamily="@font/montserrat_reguler"
+            app:layout_constraintTop_toBottomOf="@+id/txt_petugaspengirimantracking"
+            app:layout_constraintStart_toStartOf="@id/txt_petugaspengirimantracking"/>
+
+        <ImageView
+            android:id="@+id/img_notlskpengirimantracking"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:background="@drawable/ic_number"
+            android:layout_marginTop="24dp"
+            app:layout_constraintStart_toEndOf="@id/tv_kurirpengirimantracking"
+            app:layout_constraintTop_toTopOf="@id/tv_kurirpengirimantracking"
+            app:layout_constraintBottom_toBottomOf="@id/tv_kurirpengirimantracking"/>
+
+        <TextView
+            android:id="@+id/txt_notlskpengirimantracking"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="NO. TLSK"
+            android:textColor="@color/black"
+            android:textStyle="bold"
+            android:fontFamily="@font/montserrat_reguler"
+            android:layout_marginStart="8dp"
+            android:textSize="11sp"
+            app:layout_constraintStart_toEndOf="@id/img_notlskpengirimantracking"
+            app:layout_constraintTop_toTopOf="@id/img_notlskpengirimantracking"
+            app:layout_constraintBottom_toBottomOf="@+id/img_notlskpengirimantracking"/>
+
+        <TextView
+            android:id="@+id/tv_notlskpengirimantracking"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="xxxxxxxxxxx"
+            android:textColor="#96979B"
+            android:fontFamily="@font/montserrat_reguler"
+            app:layout_constraintTop_toBottomOf="@+id/txt_notlskpengirimantracking"
+            app:layout_constraintStart_toStartOf="@id/txt_notlskpengirimantracking"/>
+
+        <ImageView
+            android:id="@+id/img_tglpengirimantracking"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:background="@drawable/ic_number"
+            android:layout_marginTop="24dp"
+            app:layout_constraintTop_toBottomOf="@id/img_tahun"
+            app:layout_constraintStart_toStartOf="@id/img_tahun"
+            app:layout_constraintEnd_toEndOf="@id/img_tahun"/>
+
+        <TextView
+            android:id="@+id/txt_tanggal_produksi"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Tanggal Produksi"
+            android:textColor="@color/black"
+            android:textStyle="bold"
+            android:fontFamily="@font/montserrat_reguler"
+            android:layout_marginStart="8dp"
+            android:textSize="11sp"
+            app:layout_constraintStart_toEndOf="@id/img_Tanggal_produksi"
+            app:layout_constraintTop_toTopOf="@id/img_Tanggal_produksi"
+            app:layout_constraintBottom_toBottomOf="@+id/img_Tanggal_produksi"/>
+
+        <TextView
+            android:id="@+id/tv_tanggal_produksi"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="xxxxxxxxxxx"
+            android:textColor="#96979B"
+            android:fontFamily="@font/montserrat_reguler"
+            app:layout_constraintTop_toBottomOf="@+id/img_Tanggal_produksi"
+            app:layout_constraintStart_toStartOf="@id/txt_tanggal_produksi"/>
+
+        <ImageView
+            android:id="@+id/img_masa_garansi"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:background="@drawable/ic_number"
+            android:layout_marginTop="24dp"
+            app:layout_constraintTop_toBottomOf="@id/img_Tanggal_produksi"
+            app:layout_constraintStart_toStartOf="@id/img_Tanggal_produksi"
+            app:layout_constraintEnd_toEndOf="@id/img_Tanggal_produksi"/>
+
+        <TextView
+            android:id="@+id/txt_masa_garansi"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Masa Garansi"
+            android:textColor="@color/black"
+            android:textStyle="bold"
+            android:fontFamily="@font/montserrat_reguler"
+            android:layout_marginStart="8dp"
+            android:textSize="11sp"
+            app:layout_constraintStart_toEndOf="@id/img_masa_garansi"
+            app:layout_constraintTop_toTopOf="@id/img_masa_garansi"
+            app:layout_constraintBottom_toBottomOf="@+id/img_masa_garansi"/>
+
+        <TextView
+            android:id="@+id/tv_masa_garansi"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="xxxxxxxxxxx"
+            android:textColor="#96979B"
+            android:fontFamily="@font/montserrat_reguler"
+            app:layout_constraintTop_toBottomOf="@+id/txt_masa_garansi"
+            app:layout_constraintStart_toStartOf="@id/txt_masa_garansi"/>
+    </androidx.constraintlayout.widget.ConstraintLayout>
+
+
+</androidx.constraintlayout.widget.ConstraintLayout>
