@@ -32,12 +32,6 @@
         android:usesCleartextTraffic="true"
         tools:targetApi="31">
         <activity
-            android:name=".LokasiTerkiniActivity"
-            android:exported="false" />
-        <activity
-            android:name=".InputUpdateLokasiTerkiniActivity"
-            android:exported="false" />
-        <activity
             android:name=".BottomsheetTrackingActivity"
             android:exported="false">
             <meta-data
