@@ -27,7 +27,7 @@ class HomeFragment : Fragment() {
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
-    ): View? {
+    ): View {
         // Inflate the layout for this fragment
         _binding = FragmentHomeBinding.inflate(inflater, container, false)
         val view = binding.root
@@ -48,12 +48,16 @@ class HomeFragment : Fragment() {
         }
 
         binding.card3.setOnClickListener {
-            startActivity(Intent(context, TrackingHistoryActivity::class.java))
+            startActivity(Intent(context, PengirimanActivity::class.java))
         }
 
         binding.card4.setOnClickListener {
             val intent = Intent(context, DataAtributMaterialActivity::class.java)
             context?.startActivity(intent)
+        }
+
+        binding.card5.setOnClickListener {
+            startActivity(Intent(context, TrackingHistoryActivity::class.java))
         }
 
         val session = SessionManager(requireContext())

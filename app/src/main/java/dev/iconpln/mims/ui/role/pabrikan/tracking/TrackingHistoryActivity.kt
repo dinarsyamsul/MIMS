@@ -6,6 +6,7 @@ import android.graphics.Color
 import android.graphics.drawable.ColorDrawable
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import android.provider.ContactsContract.Data
 import android.view.Window
 import android.widget.Toast
 import androidx.activity.viewModels
@@ -18,6 +19,7 @@ import dev.iconpln.mims.R
 import dev.iconpln.mims.ViewAtributMaterialActivity
 import dev.iconpln.mims.data.local.database.DaoSession
 import dev.iconpln.mims.databinding.ActivityTrackingBinding
+import dev.iconpln.mims.ui.role.pabrikan.arttribute_material.DataAtributMaterialActivity
 import dev.iconpln.mims.ui.scan.CustomScanActivity
 import dev.iconpln.mims.utils.MemuatData
 import dev.iconpln.mims.utils.PopupDialog
@@ -36,7 +38,6 @@ class TrackingHistoryActivity : AppCompatActivity() {
 
         val bottomsheetFragment = BottomsheetTrackingActivity()
         val popupDialog = PopupDialog()
-
 
         binding.btnScan.setOnClickListener {
 //            bottomsheetFragment.show(supportFragmentManager,"silahkan scan bang")
@@ -67,8 +68,8 @@ class TrackingHistoryActivity : AppCompatActivity() {
 
 //            viewModel.getDetailBySN(result.contents)
 
-            val intent = Intent(this, ViewAtributMaterialActivity::class.java)
-            intent.putExtra(ViewAtributMaterialActivity.EXTRA_SN, result.contents)
+            val intent = Intent(this, DataMaterialTrackingActivity::class.java)
+            intent.putExtra(DataMaterialTrackingActivity.EXTRA_SN, result.contents)
             startActivity(intent)
 //            Toast.makeText(this, "Serial Number: ${result.contents}", Toast.LENGTH_LONG).show()
         } else {

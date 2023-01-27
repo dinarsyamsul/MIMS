@@ -18,8 +18,8 @@ class DetailTrackingHistoryActivity : AppCompatActivity() {
         val status = "210"
 
         detailTrackingViewModel.getDetailTrackingHistory(sn, noTransaksi, status, this)
-        
-        detailTrackingViewModel.detailTrackingHistoryResponse.observe(this){
+
+        detailTrackingViewModel.detailTrackingHistoryResponse.observe(this) {
             Toast.makeText(this, "${it.datas}", Toast.LENGTH_SHORT).show()
         }
 

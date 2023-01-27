@@ -31,7 +31,7 @@ class ViewAtributMaterialActivity : AppCompatActivity() {
 //                startActivity(Intent(this@TrackingHistoryActivity, DetailTrackingHistoryActivity::class.java))
 //            }
             binding.apply {
-                it.historis.forEach { data ->
+                it.datas.forEach { data ->
 //                    tvBatch.text = data.
 //                    tvNoMaterial.text = data
                 }
