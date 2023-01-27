@@ -48,7 +48,7 @@ class HomeFragment : Fragment() {
         }
 
         binding.card3.setOnClickListener {
-            startActivity(Intent(context, PengirimanActivity::class.java))
+            startActivity(Intent(context, TrackingHistoryActivity::class.java))
         }
 
         binding.card4.setOnClickListener {

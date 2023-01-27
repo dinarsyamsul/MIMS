@@ -229,7 +229,7 @@
             android:id="@+id/txt_spesifikasi"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="No Batch"
+            android:text="Spesifikasi"
             android:textColor="@color/black"
             android:textStyle="bold"
             android:fontFamily="@font/montserrat_reguler"
