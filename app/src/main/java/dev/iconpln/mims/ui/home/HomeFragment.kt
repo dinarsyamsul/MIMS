@@ -6,7 +6,6 @@ import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.Toast
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.asLiveData
 import androidx.lifecycle.lifecycleScope
@@ -14,8 +13,10 @@ import dev.iconpln.mims.ui.role.pabrikan.pengujian.PengujianActivity
 import dev.iconpln.mims.databinding.FragmentHomeBinding
 import dev.iconpln.mims.ui.login.LoginActivity
 import dev.iconpln.mims.ui.role.pabrikan.arttribute_material.DataAtributMaterialActivity
+import dev.iconpln.mims.ui.role.pabrikan.pengiriman.PengirimanActivity
 import dev.iconpln.mims.ui.role.pabrikan.purchase_order.MonitoringPurchaseOrderActivity
 import dev.iconpln.mims.ui.role.up3.pnerimaan.PenerimaanActivity
+import dev.iconpln.mims.ui.role.pabrikan.tracking.TrackingHistoryActivity
 import dev.iconpln.mims.utils.SessionManager
 import kotlinx.coroutines.launch
 
@@ -27,7 +28,7 @@ class HomeFragment : Fragment() {
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
-    ): View? {
+    ): View {
         // Inflate the layout for this fragment
         _binding = FragmentHomeBinding.inflate(inflater, container, false)
         val view = binding.root
@@ -42,14 +43,18 @@ class HomeFragment : Fragment() {
             context?.startActivity(i)
         }
 
+        binding.card2.setOnClickListener {
+            val intent = Intent(context, PengujianActivity::class.java)
+            context?.startActivity(intent)
+        }
+
         binding.card4.setOnClickListener {
             val intent = Intent(context, DataAtributMaterialActivity::class.java)
             context?.startActivity(intent)
         }
 
-        binding.card2.setOnClickListener {
-            val intent = Intent(context, PengujianActivity::class.java)
-            context?.startActivity(intent)
+        binding.card5.setOnClickListener {
+            startActivity(Intent(context, TrackingHistoryActivity::class.java))
         }
 
         val session = SessionManager(requireContext())
@@ -75,9 +80,9 @@ class HomeFragment : Fragment() {
             startActivity(Intent(requireActivity(), PenerimaanActivity::class.java))
         }
 
-//        binding.card2.setOnClickListener {
-//            Toast.makeText(context, "Under Maintenance", Toast.LENGTH_SHORT).show()
-//        }
+        binding.card6.setOnClickListener{
+            startActivity(Intent(context, PengirimanActivity::class.java))
+        }
     }
 
 

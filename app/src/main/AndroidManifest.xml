@@ -31,13 +31,23 @@
         android:theme="@style/Theme.MIMS"
         android:usesCleartextTraffic="true"
         tools:targetApi="31">
+
         <activity
-            android:name=".PemeriksaanActivity"
+            android:name=".BottomsheetTrackingActivity"
             android:exported="false">
             <meta-data
                 android:name="android.app.lib_name"
                 android:value="" />
         </activity>
+
+        <activity
+            android:name=".ui.role.up3.pnerimaan.PenerimaanActivity"
+            android:exported="false">
+            <meta-data
+                android:name="android.app.lib_name"
+                android:value="" />
+        </activity>
+
         <activity
             android:name=".ui.role.up3.pnerimaan.detail_penerimaan.DetailPenerimaanActivity"
             android:exported="false">
@@ -53,19 +63,12 @@
                 android:value="" />
         </activity>
         <activity
-            android:name=".ui.role.up3.pnerimaan.PenerimaanActivity"
-            android:exported="false">
+            android:name=".ui.role.pabrikan.pengujian.pengujian_detail.PengujianDetailActivity">
             <meta-data
                 android:name="android.app.lib_name"
                 android:value="" />
         </activity>
-        <activity
-            android:name=".ui.role.pabrikan.pengujian.pengujian_detail.PengujianDetailActivity"
-            android:exported="false">
-            <meta-data
-                android:name="android.app.lib_name"
-                android:value="" />
-        </activity>
+
         <activity
             android:name=".ui.role.pabrikan.purchase_order.detail_purchase_order.DetailPurchaseOrderActivity"
             android:exported="false">
@@ -98,13 +101,6 @@
             android:name=".ui.role.pabrikan.arttribute_material.detail_attribute.DetailDataAtributeMaterialActivity"
             android:exported="false" />
         <activity
-            android:name=".ui.ititem_pengujian"
-            android:exported="false">
-            <meta-data
-                android:name="android.app.lib_name"
-                android:value="" />
-        </activity>
-        <activity
             android:name=".ui.role.pabrikan.pengujian.PengujianActivity"
             android:exported="false">
             <meta-data
@@ -119,10 +115,20 @@
                 android:value="" />
         </activity>
         <activity
-            android:name=".ui.role.pabrikan.TrackingActivity"
+            android:name=".ui.role.pabrikan.tracking.TrackingHistoryActivity"
+            android:exported="false" />
+
+        <activity
+            android:name=".ui.role.pabrikan.tracking.DetailTrackingHistoryActivity"
             android:exported="false" />
         <activity
-            android:name=".ui.role.pabrikan.PengirimanActivity"
+            android:name=".ui.role.pabrikan.tracking.DataMaterialTrackingActivity"
+            android:exported="false" />
+        <activity
+            android:name=".ui.role.pabrikan.pengiriman.PengirimanActivity"
+            android:exported="false" />
+        <activity
+            android:name=".ui.role.pabrikan.pengiriman.DetailPengirimanActivity"
             android:exported="false" />
         <activity
             android:name=".TanggalCardView"
@@ -132,35 +138,7 @@
                 android:value="" />
         </activity>
         <activity
-            android:name=".ui.role.pabrikan.purchase_order.ListMonitoringPurchase"
-            android:exported="false">
-            <meta-data
-                android:name="android.app.lib_name"
-                android:value="" />
-        </activity>
-        <activity
             android:name=".ui.role.pabrikan.purchase_order.MonitoringPurchaseOrderActivity"
-            android:exported="false">
-            <meta-data
-                android:name="android.app.lib_name"
-                android:value="" />
-        </activity>
-        <activity
-            android:name=".ui.role.pabrikan.arttribute_material.ListDataMaterialPabrikan"
-            android:exported="false">
-            <meta-data
-                android:name="android.app.lib_name"
-                android:value="" />
-        </activity>
-        <activity
-            android:name=".ui.role.pabrikan.arttribute_material.DataAtributMaterialActivity"
-            android:exported="false">
-            <meta-data
-                android:name="android.app.lib_name"
-                android:value="" />
-        </activity>
-        <activity
-            android:name=".ui.scan.HasilScan"
             android:exported="false">
             <meta-data
                 android:name="android.app.lib_name"
@@ -195,30 +173,6 @@
                 android:value="" />
         </activity>
         <activity
-            android:name=".ui.monitoring.MonitoringPurchaseOrder"
-            android:exported="false" />
-        <activity
-            android:name=".ui.scan.CustomScanActivity"
-            android:exported="false">
-            <meta-data
-                android:name="android.app.lib_name"
-                android:value="" />
-        </activity>
-        <activity
-            android:name=".ui.scan.ResponseScanActivity"
-            android:exported="false">
-            <meta-data
-                android:name="android.app.lib_name"
-                android:value="" />
-        </activity>
-        <activity
-            android:name=".ui.DashboardActivity"
-            android:exported="false">
-            <meta-data
-                android:name="android.app.lib_name"
-                android:value="" />
-        </activity>
-        <activity
             android:name=".ui.OtpActivity"
             android:exported="false">
             <meta-data
@@ -233,14 +187,14 @@
                 android:value="" />
         </activity>
         <activity
-            android:name=".ui.DaftarSebagaiActivity"
+            android:name=".ui.role.pusertif.DashboardPusertifActivity"
             android:exported="false">
             <meta-data
                 android:name="android.app.lib_name"
                 android:value="" />
         </activity>
         <activity
-            android:name=".ui.role.pusertif.DashboardPusertifActivity"
+            android:name=".ui.scan.CustomScanActivity"
             android:exported="false">
             <meta-data
                 android:name="android.app.lib_name"

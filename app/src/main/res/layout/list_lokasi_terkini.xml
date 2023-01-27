@@ -1,0 +1,74 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+
+    <ImageView
+        android:id="@+id/img_lokasiterkini"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:background="@drawable/popup_tracking"
+        tools:ignore="MissingConstraints"/>
+
+    <ImageView
+        android:id="@+id/circle_tracking"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="30dp"
+        android:background="@drawable/cirlce_tracking"
+        app:layout_constraintBottom_toBottomOf="@id/img_lokasiterkini"
+        app:layout_constraintStart_toEndOf="@id/img_lokasiterkini"
+        app:layout_constraintTop_toTopOf="@id/img_lokasiterkini" />
+
+    <TextView
+        android:id="@+id/txt_materialditerima"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="100dp"
+        android:text="Material diterima di"
+        app:layout_constraintBottom_toBottomOf="@id/img_lokasiterkini"
+        app:layout_constraintEnd_toEndOf="@id/circle_tracking"
+        app:layout_constraintTop_toTopOf="@id/circle_tracking"/>
+
+    <TextView
+        android:id="@+id/namagudangditerima"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="100dp"
+        android:text="Gudang Penyimpanan Kongo"
+        android:textSize="18dp"
+        android:textStyle="bold"
+        app:layout_constraintTop_toBottomOf="@id/txt_materialditerima" />
+
+    <TextView
+        android:id="@+id/tanggalditerima"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="100dp"
+        android:text="12/12/2098"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/namagudangditerima" />
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="90dp"
+        android:text="14:00 WIB"
+        app:layout_constraintBottom_toBottomOf="@id/tanggalditerima"
+        app:layout_constraintStart_toEndOf="@id/tanggalditerima"
+        app:layout_constraintTop_toBottomOf="@id/namagudangditerima"
+        app:layout_constraintTop_toTopOf="@id/tanggalditerima" />
+    <View
+        android:id="@+id/vw_line"
+        android:layout_width="5dp"
+        android:layout_height="130dp"
+        android:layout_marginStart="5dp"
+        android:background="@drawable/dashboard"
+        app:layout_constraintTop_toBottomOf="@id/circle_tracking"
+        app:layout_constraintStart_toStartOf="@id/circle_tracking"
+        />
+
+
+</androidx.constraintlayout.widget.ConstraintLayout>

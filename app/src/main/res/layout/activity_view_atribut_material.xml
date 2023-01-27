@@ -1,0 +1,357 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".ViewAtributMaterialActivity">
+
+    <TextView
+        android:id="@+id/vw_atribut_material"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="View Atribut Material"
+        android:textSize="18dp"
+        android:textStyle="bold"
+        android:fontFamily="@font/montserrat_reguler"
+        android:textColor="@color/black"
+        android:layout_marginTop="64dp"
+        android:layout_marginStart="32dp"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"/>
+
+    <androidx.appcompat.widget.AppCompatButton
+        android:layout_width="35dp"
+        android:layout_height="35dp"
+        android:background="@drawable/btn_close"
+        android:layout_marginTop="18dp"
+        android:layout_marginEnd="32dp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toTopOf="parent"/>
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="14dp"
+        android:layout_marginEnd="14dp"
+        app:layout_constraintTop_toBottomOf="@+id/vw_atribut_material">
+
+        <View
+            android:id="@+id/view"
+            android:layout_width="10dp"
+            android:layout_height="0dp"
+            android:background="#26ACE2"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <ImageView
+            android:id="@+id/img_batch"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:background="@drawable/ic_number"
+            android:layout_marginTop="12dp"
+            android:layout_marginStart="12dp"
+            app:layout_constraintStart_toStartOf="@+id/view"
+            app:layout_constraintTop_toTopOf="parent"/>
+
+        <TextView
+            android:id="@+id/txt_batch"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="No Batch"
+            android:textColor="@color/black"
+            android:textStyle="bold"
+            android:fontFamily="@font/montserrat_reguler"
+            android:layout_marginStart="8dp"
+            android:textSize="11sp"
+            app:layout_constraintStart_toEndOf="@id/img_batch"
+            app:layout_constraintTop_toTopOf="@id/img_batch"
+            app:layout_constraintBottom_toBottomOf="@+id/img_batch"/>
+
+        <TextView
+            android:id="@+id/tv_batch"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="xxxxxxxxxxx"
+            android:textColor="#96979B"
+            android:fontFamily="@font/montserrat_reguler"
+            app:layout_constraintTop_toBottomOf="@+id/txt_batch"
+            app:layout_constraintStart_toStartOf="@id/txt_batch"/>
+
+        <ImageView
+            android:id="@+id/img_no_material"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:background="@drawable/ic_number"
+            android:layout_marginTop="24dp"
+            app:layout_constraintTop_toBottomOf="@id/img_batch"
+            app:layout_constraintStart_toStartOf="@id/img_batch"
+            app:layout_constraintEnd_toEndOf="@id/img_batch"/>
+
+        <TextView
+            android:id="@+id/txt_no_material"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="No Material"
+            android:textColor="@color/black"
+            android:textStyle="bold"
+            android:fontFamily="@font/montserrat_reguler"
+            android:layout_marginStart="8dp"
+            android:textSize="11sp"
+            app:layout_constraintStart_toEndOf="@id/img_no_material"
+            app:layout_constraintTop_toTopOf="@id/img_no_material"
+            app:layout_constraintBottom_toBottomOf="@+id/img_no_material"/>
+
+        <TextView
+            android:id="@+id/tv_no_material"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="xxxxxxxxxxx"
+            android:textColor="#96979B"
+            android:fontFamily="@font/montserrat_reguler"
+            app:layout_constraintTop_toBottomOf="@+id/txt_no_material"
+            app:layout_constraintStart_toStartOf="@id/txt_no_material"/>
+
+        <ImageView
+            android:id="@+id/img_kategori"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:background="@drawable/ic_number"
+            android:layout_marginTop="24dp"
+            app:layout_constraintTop_toBottomOf="@id/img_no_material"
+            app:layout_constraintStart_toStartOf="@id/img_no_material"
+            app:layout_constraintEnd_toEndOf="@id/img_no_material"/>
+
+        <TextView
+            android:id="@+id/txt_kategori"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Kategori"
+            android:textColor="@color/black"
+            android:textStyle="bold"
+            android:fontFamily="@font/montserrat_reguler"
+            android:layout_marginStart="8dp"
+            android:textSize="11sp"
+            app:layout_constraintStart_toEndOf="@id/img_kategori"
+            app:layout_constraintTop_toTopOf="@id/img_kategori"
+            app:layout_constraintBottom_toBottomOf="@+id/img_kategori"/>
+
+        <TextView
+            android:id="@+id/tv_kategori"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="xxxxxxxxxxx"
+            android:textColor="#96979B"
+            android:fontFamily="@font/montserrat_reguler"
+            app:layout_constraintTop_toBottomOf="@+id/txt_kategori"
+            app:layout_constraintStart_toStartOf="@id/txt_kategori"/>
+
+        <ImageView
+            android:id="@+id/img_no_metrologi"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:background="@drawable/ic_number"
+            android:layout_marginTop="24dp"
+            app:layout_constraintTop_toBottomOf="@id/img_kategori"
+            app:layout_constraintStart_toStartOf="@id/img_kategori"
+            app:layout_constraintEnd_toEndOf="@id/img_kategori"/>
+
+        <TextView
+            android:id="@+id/txt_no_metrologi"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="No Metrologi"
+            android:textColor="@color/black"
+            android:textStyle="bold"
+            android:fontFamily="@font/montserrat_reguler"
+            android:layout_marginStart="8dp"
+            android:textSize="11sp"
+            app:layout_constraintStart_toEndOf="@id/img_no_metrologi"
+            app:layout_constraintTop_toTopOf="@id/img_no_metrologi"
+            app:layout_constraintBottom_toBottomOf="@+id/img_no_metrologi"/>
+
+        <TextView
+            android:id="@+id/tv_no_metrologi"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="xxxxxxxxxxx"
+            android:textColor="#96979B"
+            android:fontFamily="@font/montserrat_reguler"
+            app:layout_constraintTop_toBottomOf="@+id/txt_no_metrologi"
+            app:layout_constraintStart_toStartOf="@id/txt_no_metrologi"/>
+
+        <ImageView
+            android:id="@+id/img_no_packanging"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:background="@drawable/ic_number"
+            android:layout_marginTop="24dp"
+            app:layout_constraintTop_toBottomOf="@id/img_no_metrologi"
+            app:layout_constraintStart_toStartOf="@id/img_no_metrologi"
+            app:layout_constraintEnd_toEndOf="@id/img_no_metrologi"/>
+
+        <TextView
+            android:id="@+id/txt_no_packaging"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="No Packanging"
+            android:textColor="@color/black"
+            android:textStyle="bold"
+            android:fontFamily="@font/montserrat_reguler"
+            android:layout_marginStart="8dp"
+            android:textSize="11sp"
+            app:layout_constraintStart_toEndOf="@id/img_no_packanging"
+            app:layout_constraintTop_toTopOf="@id/img_no_packanging"
+            app:layout_constraintBottom_toBottomOf="@+id/img_no_packanging"/>
+
+        <TextView
+            android:id="@+id/tv_no_packanging"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="xxxxxxxxxxx"
+            android:textColor="#96979B"
+            android:fontFamily="@font/montserrat_reguler"
+            app:layout_constraintTop_toBottomOf="@+id/txt_no_packaging"
+            app:layout_constraintStart_toStartOf="@id/txt_no_packaging"/>
+
+        <ImageView
+            android:id="@+id/img_spesifikasi"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:background="@drawable/ic_number"
+            android:layout_marginStart="50dp"
+            app:layout_constraintStart_toEndOf="@id/tv_batch"
+            app:layout_constraintTop_toTopOf="@id/txt_batch"
+            app:layout_constraintBottom_toBottomOf="@id/tv_batch"/>
+
+        <TextView
+            android:id="@+id/txt_spesifikasi"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Spesifikasi"
+            android:textColor="@color/black"
+            android:textStyle="bold"
+            android:fontFamily="@font/montserrat_reguler"
+            android:layout_marginStart="8dp"
+            android:textSize="11sp"
+            app:layout_constraintStart_toEndOf="@id/img_spesifikasi"
+            app:layout_constraintTop_toTopOf="@id/img_spesifikasi"
+            app:layout_constraintBottom_toBottomOf="@+id/img_spesifikasi"/>
+
+        <TextView
+            android:id="@+id/tv_spesifikasi"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="xxxxxxxxxxx"
+            android:textColor="#96979B"
+            android:fontFamily="@font/montserrat_reguler"
+            app:layout_constraintTop_toBottomOf="@+id/txt_spesifikasi"
+            app:layout_constraintStart_toStartOf="@id/txt_spesifikasi"/>
+
+        <ImageView
+            android:id="@+id/img_tahun"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:background="@drawable/ic_number"
+            android:layout_marginTop="24dp"
+            app:layout_constraintTop_toBottomOf="@id/img_spesifikasi"
+            app:layout_constraintStart_toStartOf="@id/img_spesifikasi"
+            app:layout_constraintEnd_toEndOf="@id/img_spesifikasi"/>
+
+        <TextView
+            android:id="@+id/txt_tahun"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Tahun"
+            android:textColor="@color/black"
+            android:textStyle="bold"
+            android:fontFamily="@font/montserrat_reguler"
+            android:layout_marginStart="8dp"
+            android:textSize="11sp"
+            app:layout_constraintStart_toEndOf="@id/img_tahun"
+            app:layout_constraintTop_toTopOf="@id/img_tahun"
+            app:layout_constraintBottom_toBottomOf="@+id/img_tahun"/>
+
+        <TextView
+            android:id="@+id/tv_tahun"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="xxxxxxxxxxx"
+            android:textColor="#96979B"
+            android:fontFamily="@font/montserrat_reguler"
+            app:layout_constraintTop_toBottomOf="@+id/txt_tahun"
+            app:layout_constraintStart_toStartOf="@id/txt_tahun"/>
+
+        <ImageView
+            android:id="@+id/img_Tanggal_produksi"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:background="@drawable/ic_number"
+            android:layout_marginTop="24dp"
+            app:layout_constraintTop_toBottomOf="@id/img_tahun"
+            app:layout_constraintStart_toStartOf="@id/img_tahun"
+            app:layout_constraintEnd_toEndOf="@id/img_tahun"/>
+
+        <TextView
+            android:id="@+id/txt_tanggal_produksi"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Tanggal Produksi"
+            android:textColor="@color/black"
+            android:textStyle="bold"
+            android:fontFamily="@font/montserrat_reguler"
+            android:layout_marginStart="8dp"
+            android:textSize="11sp"
+            app:layout_constraintStart_toEndOf="@id/img_Tanggal_produksi"
+            app:layout_constraintTop_toTopOf="@id/img_Tanggal_produksi"
+            app:layout_constraintBottom_toBottomOf="@+id/img_Tanggal_produksi"/>
+
+        <TextView
+            android:id="@+id/tv_tanggal_produksi"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="xxxxxxxxxxx"
+            android:textColor="#96979B"
+            android:fontFamily="@font/montserrat_reguler"
+            app:layout_constraintTop_toBottomOf="@+id/img_Tanggal_produksi"
+            app:layout_constraintStart_toStartOf="@id/txt_tanggal_produksi"/>
+
+        <ImageView
+            android:id="@+id/img_masa_garansi"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:background="@drawable/ic_number"
+            android:layout_marginTop="24dp"
+            app:layout_constraintTop_toBottomOf="@id/img_Tanggal_produksi"
+            app:layout_constraintStart_toStartOf="@id/img_Tanggal_produksi"
+            app:layout_constraintEnd_toEndOf="@id/img_Tanggal_produksi"/>
+
+        <TextView
+            android:id="@+id/txt_masa_garansi"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Masa Garansi"
+            android:textColor="@color/black"
+            android:textStyle="bold"
+            android:fontFamily="@font/montserrat_reguler"
+            android:layout_marginStart="8dp"
+            android:textSize="11sp"
+            app:layout_constraintStart_toEndOf="@id/img_masa_garansi"
+            app:layout_constraintTop_toTopOf="@id/img_masa_garansi"
+            app:layout_constraintBottom_toBottomOf="@+id/img_masa_garansi"/>
+
+        <TextView
+            android:id="@+id/tv_masa_garansi"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="xxxxxxxxxxx"
+            android:textColor="#96979B"
+            android:fontFamily="@font/montserrat_reguler"
+            app:layout_constraintTop_toBottomOf="@+id/txt_masa_garansi"
+            app:layout_constraintStart_toStartOf="@id/txt_masa_garansi"/>
+    </androidx.constraintlayout.widget.ConstraintLayout>
+
+
+
+</androidx.constraintlayout.widget.ConstraintLayout>
