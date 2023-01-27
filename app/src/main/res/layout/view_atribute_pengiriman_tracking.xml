@@ -1,32 +1,32 @@
 <?xml version="1.0" encoding="utf-8"?>
 <androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    xmlns:app="http://schemas.android.com/apk/res-auto">
+    android:layout_height="match_parent">
 
     <TextView
         android:id="@+id/vw_pengirimantracking"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:layout_marginStart="32dp"
+        android:layout_marginTop="64dp"
+        android:fontFamily="@font/montserrat_reguler"
         android:text="View Pengiriman"
+        android:textColor="@color/black"
         android:textSize="18dp"
         android:textStyle="bold"
-        android:fontFamily="@font/montserrat_reguler"
-        android:textColor="@color/black"
-        android:layout_marginTop="64dp"
-        android:layout_marginStart="32dp"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"/>
+        app:layout_constraintTop_toTopOf="parent" />
 
     <androidx.appcompat.widget.AppCompatButton
         android:id="@+id/btn_close"
         android:layout_width="35dp"
         android:layout_height="35dp"
-        android:background="@drawable/btn_close"
         android:layout_marginTop="18dp"
         android:layout_marginEnd="32dp"
-       app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintTop_toTopOf="parent"/>
+        android:background="@drawable/btn_close"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
 
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
@@ -48,377 +48,444 @@
             android:id="@+id/img_nopengirimantracking"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:background="@drawable/ic_number"
-            android:layout_marginTop="12dp"
             android:layout_marginStart="12dp"
+            android:layout_marginTop="12dp"
+            android:background="@drawable/ic_number"
             app:layout_constraintStart_toStartOf="@+id/view"
-            app:layout_constraintTop_toTopOf="parent"/>
+            app:layout_constraintTop_toTopOf="parent" />
 
         <TextView
             android:id="@+id/txt_nopengirimantracking"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:layout_marginStart="8dp"
+            android:fontFamily="@font/montserrat_reguler"
             android:text="No. Pengiriman"
             android:textColor="@color/black"
-            android:textStyle="bold"
-            android:fontFamily="@font/montserrat_reguler"
-            android:layout_marginStart="8dp"
             android:textSize="11sp"
+            android:textStyle="bold"
+            app:layout_constraintBottom_toBottomOf="@+id/img_nopengirimantracking"
             app:layout_constraintStart_toEndOf="@id/img_nopengirimantracking"
-            app:layout_constraintTop_toTopOf="@id/img_nopengirimantracking"
-            app:layout_constraintBottom_toBottomOf="@+id/img_nopengirimantracking"/>
+            app:layout_constraintTop_toTopOf="@id/img_nopengirimantracking" />
 
         <TextView
             android:id="@+id/tv_nopengirimantracking"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:fontFamily="@font/montserrat_reguler"
             android:text="xxxxxxxxxxx"
             android:textColor="#96979B"
-            android:fontFamily="@font/montserrat_reguler"
-            app:layout_constraintTop_toBottomOf="@+id/txt_nopengirimantracking"
-            app:layout_constraintStart_toStartOf="@id/txt_nopengirimantracking"/>
+            app:layout_constraintStart_toStartOf="@id/txt_nopengirimantracking"
+            app:layout_constraintTop_toBottomOf="@+id/txt_nopengirimantracking" />
 
         <ImageView
             android:id="@+id/img_noPOpengirimantracking"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:background="@drawable/ic_number"
             android:layout_marginTop="24dp"
-            app:layout_constraintTop_toBottomOf="@id/img_nopengirimantracking"
+            android:background="@drawable/ic_number"
+            app:layout_constraintEnd_toEndOf="@id/img_nopengirimantracking"
             app:layout_constraintStart_toStartOf="@id/img_nopengirimantracking"
-            app:layout_constraintEnd_toEndOf="@id/img_nopengirimantracking"/>
+            app:layout_constraintTop_toBottomOf="@id/img_nopengirimantracking" />
 
         <TextView
             android:id="@+id/txt_noPOpengirimantracking"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:layout_marginStart="8dp"
+            android:fontFamily="@font/montserrat_reguler"
             android:text="No. PO"
             android:textColor="@color/black"
-            android:textStyle="bold"
-            android:fontFamily="@font/montserrat_reguler"
-            android:layout_marginStart="8dp"
             android:textSize="11sp"
+            android:textStyle="bold"
+            app:layout_constraintBottom_toBottomOf="@+id/img_noPOpengirimantracking"
             app:layout_constraintStart_toEndOf="@id/img_noPOpengirimantracking"
-            app:layout_constraintTop_toTopOf="@id/img_noPOpengirimantracking"
-            app:layout_constraintBottom_toBottomOf="@+id/img_noPOpengirimantracking"/>
+            app:layout_constraintTop_toTopOf="@id/img_noPOpengirimantracking" />
 
         <TextView
             android:id="@+id/tv_noPOpengirimantracking"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:fontFamily="@font/montserrat_reguler"
             android:text="xxxxxxxxxxx"
             android:textColor="#96979B"
-            android:fontFamily="@font/montserrat_reguler"
-            app:layout_constraintTop_toBottomOf="@+id/txt_noPOpengirimantracking"
-            app:layout_constraintStart_toStartOf="@id/txt_noPOpengirimantracking"/>
+            app:layout_constraintStart_toStartOf="@id/txt_noPOpengirimantracking"
+            app:layout_constraintTop_toBottomOf="@+id/txt_noPOpengirimantracking" />
 
         <ImageView
             android:id="@+id/img_noDOpengirimantracking"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:background="@drawable/ic_number"
             android:layout_marginTop="24dp"
-            app:layout_constraintTop_toBottomOf="@id/img_noPOpengirimantracking"
+            android:background="@drawable/ic_number"
+            app:layout_constraintEnd_toEndOf="@id/img_noPOpengirimantracking"
             app:layout_constraintStart_toStartOf="@id/img_noPOpengirimantracking"
-            app:layout_constraintEnd_toEndOf="@id/img_noPOpengirimantracking"/>
+            app:layout_constraintTop_toBottomOf="@id/img_noPOpengirimantracking" />
 
         <TextView
             android:id="@+id/txt_noDOpengirimantracking"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:layout_marginStart="8dp"
+            android:fontFamily="@font/montserrat_reguler"
             android:text="Kategori"
             android:textColor="@color/black"
-            android:textStyle="bold"
-            android:fontFamily="@font/montserrat_reguler"
-            android:layout_marginStart="8dp"
             android:textSize="11sp"
+            android:textStyle="bold"
+            app:layout_constraintBottom_toBottomOf="@+id/img_noDOpengirimantracking"
             app:layout_constraintStart_toEndOf="@id/img_noDOpengirimantracking"
-            app:layout_constraintTop_toTopOf="@id/img_noDOpengirimantracking"
-            app:layout_constraintBottom_toBottomOf="@+id/img_noDOpengirimantracking"/>
+            app:layout_constraintTop_toTopOf="@id/img_noDOpengirimantracking" />
 
         <TextView
             android:id="@+id/tv_noDOpengirimantracking"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:fontFamily="@font/montserrat_reguler"
             android:text="xxxxxxxxxxx"
             android:textColor="#96979B"
-            android:fontFamily="@font/montserrat_reguler"
-            app:layout_constraintTop_toBottomOf="@+id/txt_noDOpengirimantracking"
-            app:layout_constraintStart_toStartOf="@id/txt_noDOpengirimantracking"/>
+            app:layout_constraintStart_toStartOf="@id/txt_noDOpengirimantracking"
+            app:layout_constraintTop_toBottomOf="@+id/txt_noDOpengirimantracking" />
 
         <ImageView
             android:id="@+id/img_unitpengirimantracking"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:background="@drawable/ic_number"
             android:layout_marginTop="24dp"
-            app:layout_constraintTop_toBottomOf="@id/img_noDOpengirimantracking"
+            android:background="@drawable/ic_number"
+            app:layout_constraintEnd_toEndOf="@id/img_noDOpengirimantracking"
             app:layout_constraintStart_toStartOf="@id/img_noDOpengirimantracking"
-            app:layout_constraintEnd_toEndOf="@id/img_noDOpengirimantracking"/>
+            app:layout_constraintTop_toBottomOf="@id/img_noDOpengirimantracking" />
 
         <TextView
             android:id="@+id/txt_unitpengirimantracking"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:layout_marginStart="8dp"
+            android:fontFamily="@font/montserrat_reguler"
             android:text="Unit"
             android:textColor="@color/black"
-            android:textStyle="bold"
-            android:fontFamily="@font/montserrat_reguler"
-            android:layout_marginStart="8dp"
             android:textSize="11sp"
+            android:textStyle="bold"
+            app:layout_constraintBottom_toBottomOf="@+id/img_unitpengirimantracking"
             app:layout_constraintStart_toEndOf="@id/img_unitpengirimantracking"
-            app:layout_constraintTop_toTopOf="@id/img_unitpengirimantracking"
-            app:layout_constraintBottom_toBottomOf="@+id/img_unitpengirimantracking"/>
+            app:layout_constraintTop_toTopOf="@id/img_unitpengirimantracking" />
 
         <TextView
             android:id="@+id/tv_unitpengirimantracking"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:fontFamily="@font/montserrat_reguler"
             android:text="xxxxxxxxxxx"
             android:textColor="#96979B"
-            android:fontFamily="@font/montserrat_reguler"
-            app:layout_constraintTop_toBottomOf="@+id/txt_unitpengirimantracking"
-            app:layout_constraintStart_toStartOf="@id/txt_unitpengirimantracking"/>
+            app:layout_constraintStart_toStartOf="@id/txt_unitpengirimantracking"
+            app:layout_constraintTop_toBottomOf="@+id/txt_unitpengirimantracking" />
 
         <ImageView
             android:id="@+id/img_kurirpengirimantracking"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:background="@drawable/ic_number"
             android:layout_marginTop="24dp"
-            app:layout_constraintTop_toBottomOf="@id/img_unitpengirimantracking"
+            android:background="@drawable/ic_number"
+            app:layout_constraintEnd_toEndOf="@id/img_unitpengirimantracking"
             app:layout_constraintStart_toStartOf="@id/img_unitpengirimantracking"
-            app:layout_constraintEnd_toEndOf="@id/img_unitpengirimantracking"/>
+            app:layout_constraintTop_toBottomOf="@id/img_unitpengirimantracking" />
 
         <TextView
             android:id="@+id/txt_kurirpengirimantracking"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:layout_marginStart="8dp"
+            android:fontFamily="@font/montserrat_reguler"
             android:text="Kurir Pengiriman"
             android:textColor="@color/black"
-            android:textStyle="bold"
-            android:fontFamily="@font/montserrat_reguler"
-            android:layout_marginStart="8dp"
             android:textSize="11sp"
+            android:textStyle="bold"
+            app:layout_constraintBottom_toBottomOf="@+id/img_kurirpengirimantracking"
             app:layout_constraintStart_toEndOf="@id/img_kurirpengirimantracking"
-            app:layout_constraintTop_toTopOf="@id/img_kurirpengirimantracking"
-            app:layout_constraintBottom_toBottomOf="@+id/img_kurirpengirimantracking"/>
+            app:layout_constraintTop_toTopOf="@id/img_kurirpengirimantracking" />
 
         <TextView
             android:id="@+id/tv_kurirpengirimantracking"
-            android:layout_height="wrap_content"
             android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:fontFamily="@font/montserrat_reguler"
             android:text="xxxxxxxxxxx"
             android:textColor="#96979B"
-            android:fontFamily="@font/montserrat_reguler"
-            app:layout_constraintTop_toBottomOf="@+id/txt_kurirpengirimantracking"
-            app:layout_constraintStart_toStartOf="@id/txt_kurirpengirimantracking"/>
+            app:layout_constraintStart_toStartOf="@id/txt_kurirpengirimantracking"
+            app:layout_constraintTop_toBottomOf="@+id/txt_kurirpengirimantracking" />
 
         <ImageView
             android:id="@+id/img_leadtimepengirimantracking"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:background="@drawable/ic_number"
             android:layout_marginTop="24dp"
-            app:layout_constraintTop_toBottomOf="@id/img_kurirpengirimantracking"
+            android:background="@drawable/ic_number"
+            app:layout_constraintEnd_toEndOf="@id/img_kurirpengirimantracking"
             app:layout_constraintStart_toStartOf="@id/img_kurirpengirimantracking"
-            app:layout_constraintEnd_toEndOf="@id/img_kurirpengirimantracking"/>
+            app:layout_constraintTop_toBottomOf="@id/img_kurirpengirimantracking" />
 
         <TextView
             android:id="@+id/txt_leadtimepengirimantracking"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:layout_marginStart="8dp"
+            android:fontFamily="@font/montserrat_reguler"
             android:text="Lead Time"
             android:textColor="@color/black"
-            android:textStyle="bold"
-            android:fontFamily="@font/montserrat_reguler"
-            android:layout_marginStart="8dp"
             android:textSize="11sp"
+            android:textStyle="bold"
+            app:layout_constraintBottom_toBottomOf="@+id/img_leadtimepengirimantracking"
             app:layout_constraintStart_toEndOf="@id/img_leadtimepengirimantracking"
-            app:layout_constraintTop_toTopOf="@id/img_leadtimepengirimantracking"
-            app:layout_constraintBottom_toBottomOf="@+id/img_leadtimepengirimantracking"/>
+            app:layout_constraintTop_toTopOf="@id/img_leadtimepengirimantracking" />
 
         <TextView
             android:id="@+id/tv_leadtimepengirimantracking"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:fontFamily="@font/montserrat_reguler"
             android:text="xxxxxxxxxxx"
             android:textColor="#96979B"
-            android:fontFamily="@font/montserrat_reguler"
-            app:layout_constraintTop_toBottomOf="@+id/txt_leadtimepengirimantracking"
-            app:layout_constraintStart_toStartOf="@id/txt_leadtimepengirimantracking"/>
+            app:layout_constraintStart_toStartOf="@id/txt_leadtimepengirimantracking"
+            app:layout_constraintTop_toBottomOf="@+id/txt_leadtimepengirimantracking" />
 
         <ImageView
             android:id="@+id/img_riwayatlokasipengirimantracking"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:background="@drawable/ic_number"
             android:layout_marginTop="24dp"
-            app:layout_constraintTop_toBottomOf="@id/img_leadtimepengirimantracking"
+            android:background="@drawable/ic_number"
+            app:layout_constraintEnd_toEndOf="@id/img_leadtimepengirimantracking"
             app:layout_constraintStart_toStartOf="@id/img_leadtimepengirimantracking"
-            app:layout_constraintEnd_toEndOf="@id/img_leadtimepengirimantracking"/>
+            app:layout_constraintTop_toBottomOf="@id/img_leadtimepengirimantracking" />
 
         <TextView
             android:id="@+id/txt_riwayatlokasipengirimantracking"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:layout_marginStart="8dp"
+            android:fontFamily="@font/montserrat_reguler"
             android:text="Riwayat Lokasi"
             android:textColor="@color/black"
-            android:textStyle="bold"
-            android:fontFamily="@font/montserrat_reguler"
-            android:layout_marginStart="8dp"
             android:textSize="11sp"
+            android:textStyle="bold"
+            app:layout_constraintBottom_toBottomOf="@+id/img_riwayatlokasipengirimantracking"
             app:layout_constraintStart_toEndOf="@id/img_riwayatlokasipengirimantracking"
-            app:layout_constraintTop_toTopOf="@id/img_riwayatlokasipengirimantracking"
-            app:layout_constraintBottom_toBottomOf="@+id/img_riwayatlokasipengirimantracking"/>
+            app:layout_constraintTop_toTopOf="@id/img_riwayatlokasipengirimantracking" />
 
         <TextView
             android:id="@+id/tv_riwayatlokasipengirimantracking"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:fontFamily="@font/montserrat_reguler"
             android:text="Lihat Riwayat Lokasi >>"
             android:textColor="#96979B"
-            android:fontFamily="@font/montserrat_reguler"
-            app:layout_constraintTop_toBottomOf="@+id/txt_riwayatlokasipengirimantracking"
-            app:layout_constraintStart_toStartOf="@id/txt_riwayatlokasipengirimantracking"/>
-
+            app:layout_constraintStart_toStartOf="@id/txt_riwayatlokasipengirimantracking"
+            app:layout_constraintTop_toBottomOf="@+id/txt_riwayatlokasipengirimantracking" />
 
         <ImageView
-            android:id="@+id/img_petugaspengirimantracking"
+            android:id="@+id/img_vendorTracking"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:background="@drawable/ic_number"
             android:layout_marginStart="50dp"
-            app:layout_constraintStart_toEndOf="@id/tv_leadtimepengirimantracking"
-            app:layout_constraintTop_toTopOf="@id/txt_leadtimepengirimantracking"
-            app:layout_constraintBottom_toBottomOf="@id/tv_leadtimepengirimantracking"/>
+            android:background="@drawable/ic_number"
+            app:layout_constraintBottom_toBottomOf="@id/tv_nopengirimantracking"
+            app:layout_constraintStart_toEndOf="@id/tv_nopengirimantracking"
+            app:layout_constraintTop_toTopOf="@id/txt_nopengirimantracking" />
 
         <TextView
-            android:id="@+id/txt_petugaspengirimantracking"
+            android:id="@+id/txt_vendorTracking"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="Petugas Pengiriman"
-            android:textColor="@color/black"
-            android:textStyle="bold"
-            android:fontFamily="@font/montserrat_reguler"
             android:layout_marginStart="8dp"
+            android:fontFamily="@font/montserrat_reguler"
+            android:text="Vendor"
+            android:textColor="@color/black"
             android:textSize="11sp"
-            app:layout_constraintStart_toEndOf="@id/img_petugaspengirimantracking"
-            app:layout_constraintTop_toTopOf="@id/img_petugaspengirimantracking"
-            app:layout_constraintBottom_toBottomOf="@+id/img_petugaspengirimantracking"/>
+            android:textStyle="bold"
+            app:layout_constraintBottom_toBottomOf="@+id/img_vendorTracking"
+            app:layout_constraintStart_toEndOf="@id/img_vendorTracking"
+            app:layout_constraintTop_toTopOf="@id/img_vendorTracking" />
 
         <TextView
-            android:id="@+id/tv_petugaspengirimantracking"
+            android:id="@+id/tv_vendorTracking"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="xxxxxxxxxxx"
-            android:textColor="#96979B"
             android:fontFamily="@font/montserrat_reguler"
-            app:layout_constraintTop_toBottomOf="@+id/txt_petugaspengirimantracking"
-            app:layout_constraintStart_toStartOf="@id/txt_petugaspengirimantracking"/>
+            android:text="xxxxxxxxx"
+            android:textColor="#96979B"
+            app:layout_constraintStart_toStartOf="@id/txt_vendorTracking"
+            app:layout_constraintTop_toBottomOf="@+id/txt_vendorTracking" />
 
         <ImageView
-            android:id="@+id/img_notlskpengirimantracking"
+            android:id="@+id/img_storLoc"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:background="@drawable/ic_number"
             android:layout_marginTop="24dp"
-            app:layout_constraintStart_toEndOf="@id/tv_kurirpengirimantracking"
-            app:layout_constraintTop_toTopOf="@id/tv_kurirpengirimantracking"
-            app:layout_constraintBottom_toBottomOf="@id/tv_kurirpengirimantracking"/>
+            android:background="@drawable/ic_number"
+            app:layout_constraintEnd_toEndOf="@id/img_vendorTracking"
+            app:layout_constraintStart_toStartOf="@id/img_vendorTracking"
+            app:layout_constraintTop_toBottomOf="@id/img_vendorTracking" />
 
         <TextView
-            android:id="@+id/txt_notlskpengirimantracking"
+            android:id="@+id/txt_storLoc"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="NO. TLSK"
-            android:textColor="@color/black"
-            android:textStyle="bold"
-            android:fontFamily="@font/montserrat_reguler"
             android:layout_marginStart="8dp"
+            android:fontFamily="@font/montserrat_reguler"
+            android:text="Stor Loc"
+            android:textColor="@color/black"
             android:textSize="11sp"
-            app:layout_constraintStart_toEndOf="@id/img_notlskpengirimantracking"
-            app:layout_constraintTop_toTopOf="@id/img_notlskpengirimantracking"
-            app:layout_constraintBottom_toBottomOf="@+id/img_notlskpengirimantracking"/>
+            android:textStyle="bold"
+            app:layout_constraintBottom_toBottomOf="@+id/img_storLoc"
+            app:layout_constraintStart_toEndOf="@id/img_storLoc"
+            app:layout_constraintTop_toTopOf="@id/img_storLoc" />
 
         <TextView
-            android:id="@+id/tv_notlskpengirimantracking"
+            android:id="@+id/tv_storLoc"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="xxxxxxxxxxx"
-            android:textColor="#96979B"
             android:fontFamily="@font/montserrat_reguler"
-            app:layout_constraintTop_toBottomOf="@+id/txt_notlskpengirimantracking"
-            app:layout_constraintStart_toStartOf="@id/txt_notlskpengirimantracking"/>
+            android:text="xxxxxxxxx"
+            android:textColor="#96979B"
+            app:layout_constraintStart_toStartOf="@id/txt_storLoc"
+            app:layout_constraintTop_toBottomOf="@+id/txt_storLoc" />
 
         <ImageView
-            android:id="@+id/img_tglpengirimantracking"
+            android:id="@+id/img_plant"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:background="@drawable/ic_number"
             android:layout_marginTop="24dp"
-            app:layout_constraintTop_toBottomOf="@id/img_tahun"
-            app:layout_constraintStart_toStartOf="@id/img_tahun"
-            app:layout_constraintEnd_toEndOf="@id/img_tahun"/>
+            android:background="@drawable/ic_number"
+            app:layout_constraintEnd_toEndOf="@id/img_storLoc"
+            app:layout_constraintStart_toStartOf="@id/img_storLoc"
+            app:layout_constraintTop_toBottomOf="@id/img_storLoc" />
 
         <TextView
-            android:id="@+id/txt_tanggal_produksi"
+            android:id="@+id/txt_plant"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="Tanggal Produksi"
-            android:textColor="@color/black"
-            android:textStyle="bold"
-            android:fontFamily="@font/montserrat_reguler"
             android:layout_marginStart="8dp"
+            android:fontFamily="@font/montserrat_reguler"
+            android:text="Plant"
+            android:textColor="@color/black"
             android:textSize="11sp"
-            app:layout_constraintStart_toEndOf="@id/img_Tanggal_produksi"
-            app:layout_constraintTop_toTopOf="@id/img_Tanggal_produksi"
-            app:layout_constraintBottom_toBottomOf="@+id/img_Tanggal_produksi"/>
+            android:textStyle="bold"
+            app:layout_constraintBottom_toBottomOf="@+id/img_plant"
+            app:layout_constraintStart_toEndOf="@id/img_plant"
+            app:layout_constraintTop_toTopOf="@id/img_plant" />
 
         <TextView
-            android:id="@+id/tv_tanggal_produksi"
+            android:id="@+id/tv_plant"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="xxxxxxxxxxx"
-            android:textColor="#96979B"
             android:fontFamily="@font/montserrat_reguler"
-            app:layout_constraintTop_toBottomOf="@+id/img_Tanggal_produksi"
-            app:layout_constraintStart_toStartOf="@id/txt_tanggal_produksi"/>
+            android:text="xxxxxxxxx"
+            android:textColor="#96979B"
+            app:layout_constraintStart_toStartOf="@id/txt_plant"
+            app:layout_constraintTop_toBottomOf="@+id/txt_plant" />
 
         <ImageView
-            android:id="@+id/img_masa_garansi"
+            android:id="@+id/img_tanggalPengiriman"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:background="@drawable/ic_number"
             android:layout_marginTop="24dp"
-            app:layout_constraintTop_toBottomOf="@id/img_Tanggal_produksi"
-            app:layout_constraintStart_toStartOf="@id/img_Tanggal_produksi"
-            app:layout_constraintEnd_toEndOf="@id/img_Tanggal_produksi"/>
+            android:background="@drawable/ic_number"
+            app:layout_constraintEnd_toEndOf="@id/img_plant"
+            app:layout_constraintStart_toStartOf="@id/img_plant"
+            app:layout_constraintTop_toBottomOf="@id/img_plant" />
 
         <TextView
-            android:id="@+id/txt_masa_garansi"
+            android:id="@+id/txt_tanggalPengiriman"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="Masa Garansi"
-            android:textColor="@color/black"
-            android:textStyle="bold"
-            android:fontFamily="@font/montserrat_reguler"
             android:layout_marginStart="8dp"
+            android:fontFamily="@font/montserrat_reguler"
+            android:text="Tanggal Pengiriman"
+            android:textColor="@color/black"
             android:textSize="11sp"
-            app:layout_constraintStart_toEndOf="@id/img_masa_garansi"
-            app:layout_constraintTop_toTopOf="@id/img_masa_garansi"
-            app:layout_constraintBottom_toBottomOf="@+id/img_masa_garansi"/>
+            android:textStyle="bold"
+            app:layout_constraintBottom_toBottomOf="@+id/img_tanggalPengiriman"
+            app:layout_constraintStart_toEndOf="@id/img_tanggalPengiriman"
+            app:layout_constraintTop_toTopOf="@id/img_tanggalPengiriman" />
 
         <TextView
-            android:id="@+id/tv_masa_garansi"
+            android:id="@+id/tv_tanggalPengiriman"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="xxxxxxxxxxx"
-            android:textColor="#96979B"
             android:fontFamily="@font/montserrat_reguler"
-            app:layout_constraintTop_toBottomOf="@+id/txt_masa_garansi"
-            app:layout_constraintStart_toStartOf="@id/txt_masa_garansi"/>
+            android:text="xxxxxxxxx"
+            android:textColor="#96979B"
+            app:layout_constraintStart_toStartOf="@id/txt_tanggalPengiriman"
+            app:layout_constraintTop_toBottomOf="@+id/txt_tanggalPengiriman" />
+
+        <ImageView
+            android:id="@+id/img_noTlsk"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="24dp"
+            android:background="@drawable/ic_number"
+            app:layout_constraintEnd_toEndOf="@id/img_tanggalPengiriman"
+            app:layout_constraintStart_toStartOf="@id/img_tanggalPengiriman"
+            app:layout_constraintTop_toBottomOf="@id/img_tanggalPengiriman" />
+
+        <TextView
+            android:id="@+id/txt_noTlsk"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="8dp"
+            android:fontFamily="@font/montserrat_reguler"
+            android:text="No TLSK"
+            android:textColor="@color/black"
+            android:textSize="11sp"
+            android:textStyle="bold"
+            app:layout_constraintBottom_toBottomOf="@+id/img_noTlsk"
+            app:layout_constraintStart_toEndOf="@id/img_noTlsk"
+            app:layout_constraintTop_toTopOf="@id/img_noTlsk" />
+
+        <TextView
+            android:id="@+id/tv_noTlsk"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:fontFamily="@font/montserrat_reguler"
+            android:text="xxxxxxxxx"
+            android:textColor="#96979B"
+            app:layout_constraintStart_toStartOf="@id/txt_noTlsk"
+            app:layout_constraintTop_toBottomOf="@+id/txt_noTlsk" />
+
+        <ImageView
+            android:id="@+id/img_petugaspengiriman"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="24dp"
+            android:background="@drawable/ic_number"
+            app:layout_constraintEnd_toEndOf="@id/img_noTlsk"
+            app:layout_constraintStart_toStartOf="@id/img_noTlsk"
+            app:layout_constraintTop_toBottomOf="@id/img_noTlsk" />
+
+        <TextView
+            android:id="@+id/txt_petugaspengiriman"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="8dp"
+            android:fontFamily="@font/montserrat_reguler"
+            android:text="Plant"
+            android:textColor="@color/black"
+            android:textSize="11sp"
+            android:textStyle="bold"
+            app:layout_constraintBottom_toBottomOf="@+id/img_petugaspengiriman"
+            app:layout_constraintStart_toEndOf="@id/img_petugaspengiriman"
+            app:layout_constraintTop_toTopOf="@id/img_petugaspengiriman" />
+
+        <TextView
+            android:id="@+id/tv_petugaspengiriman"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:fontFamily="@font/montserrat_reguler"
+            android:text="xxxxxxxxx"
+            android:textColor="#96979B"
+            app:layout_constraintStart_toStartOf="@id/txt_petugaspengiriman"
+            app:layout_constraintTop_toBottomOf="@+id/txt_petugaspengiriman" />
+
+
     </androidx.constraintlayout.widget.ConstraintLayout>
-
-
 </androidx.constraintlayout.widget.ConstraintLayout>

@@ -6,4 +6,422 @@
     android:layout_height="match_parent"
     tools:context=".ViewPenerimaanTrackingActivity">
 
+    <TextView
+        android:id="@+id/vw_penerimaantracking"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="32dp"
+        android:layout_marginTop="64dp"
+        android:fontFamily="@font/montserrat_reguler"
+        android:text="View Pengiriman"
+        android:textColor="@color/black"
+        android:textSize="18dp"
+        android:textStyle="bold"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <androidx.appcompat.widget.AppCompatButton
+        android:id="@+id/btn_close"
+        android:layout_width="35dp"
+        android:layout_height="35dp"
+        android:layout_marginTop="18dp"
+        android:layout_marginEnd="32dp"
+        android:background="@drawable/btn_close"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+    
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="14dp"
+        android:layout_marginEnd="14dp"
+        app:layout_constraintTop_toBottomOf="@+id/vw_penerimaantracking">
+
+        <View
+            android:id="@+id/view"
+            android:layout_width="10dp"
+            android:layout_height="0dp"
+            android:background="#26ACE2"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <ImageView
+            android:id="@+id/img_noPoSap"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="12dp"
+            android:layout_marginTop="12dp"
+            android:background="@drawable/ic_number"
+            app:layout_constraintStart_toStartOf="@+id/view"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <TextView
+            android:id="@+id/txt_noPoSap"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="8dp"
+            android:fontFamily="@font/montserrat_reguler"
+            android:text="No. PO SAP"
+            android:textColor="@color/black"
+            android:textSize="11sp"
+            android:textStyle="bold"
+            app:layout_constraintBottom_toBottomOf="@+id/img_noPoSap"
+            app:layout_constraintStart_toEndOf="@id/img_noPoSap"
+            app:layout_constraintTop_toTopOf="@id/img_noPoSap" />
+
+        <TextView
+            android:id="@+id/tv_noPOSAP"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:fontFamily="@font/montserrat_reguler"
+            android:text="xxxxxxxxxxx"
+            android:textColor="#96979B"
+            app:layout_constraintStart_toStartOf="@id/txt_noPoSap"
+            app:layout_constraintTop_toBottomOf="@+id/txt_noPoSap"/>
+
+        <ImageView
+            android:id="@+id/img_tanggalPO"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="35dp"
+            android:background="@drawable/ic_number"
+            app:layout_constraintStart_toStartOf="@id/img_noPoSap"
+            app:layout_constraintTop_toTopOf="@id/img_noPoSap"
+            app:layout_constraintEnd_toEndOf="@id/img_noPoSap"/>
+
+        <TextView
+            android:id="@+id/txt_tanggalPO"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="8dp"
+            android:fontFamily="@font/montserrat_reguler"
+            android:text="Tanggal PO"
+            android:textColor="@color/black"
+            android:textSize="11sp"
+            android:textStyle="bold"
+            app:layout_constraintBottom_toBottomOf="@+id/img_tanggalPO"
+            app:layout_constraintStart_toEndOf="@id/img_tanggalPO"
+            app:layout_constraintTop_toTopOf="@id/img_tanggalPO" />
+
+        <TextView
+            android:id="@+id/tv_tanggalPO"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:fontFamily="@font/montserrat_reguler"
+            android:text="xxxxxxxxxxx"
+            android:textColor="#96979B"
+            app:layout_constraintStart_toStartOf="@id/txt_tanggalPO"
+            app:layout_constraintTop_toBottomOf="@+id/txt_tanggalPO"/>
+
+        <ImageView
+            android:id="@+id/img_vendorAsal"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="35dp"
+            android:background="@drawable/ic_number"
+            app:layout_constraintStart_toStartOf="@id/img_tanggalPO"
+            app:layout_constraintTop_toTopOf="@id/img_tanggalPO"
+            app:layout_constraintEnd_toEndOf="@id/img_tanggalPO"/>
+
+        <TextView
+            android:id="@+id/txt_vendorAsal"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="8dp"
+            android:fontFamily="@font/montserrat_reguler"
+            android:text="Vendor Asal"
+            android:textColor="@color/black"
+            android:textSize="11sp"
+            android:textStyle="bold"
+            app:layout_constraintBottom_toBottomOf="@+id/img_vendorAsal"
+            app:layout_constraintStart_toEndOf="@id/img_vendorAsal"
+            app:layout_constraintTop_toTopOf="@id/img_vendorAsal" />
+
+        <TextView
+            android:id="@+id/tv_vendoAsal"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:fontFamily="@font/montserrat_reguler"
+            android:text="xxxxxxxxxxx"
+            android:textColor="#96979B"
+            app:layout_constraintStart_toStartOf="@id/txt_vendorAsal"
+            app:layout_constraintTop_toBottomOf="@+id/txt_vendorAsal"/>
+
+        <ImageView
+            android:id="@+id/img_UP3Asal"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="35dp"
+            android:background="@drawable/ic_number"
+            app:layout_constraintStart_toStartOf="@id/img_vendorAsal"
+            app:layout_constraintTop_toTopOf="@id/img_vendorAsal"
+            app:layout_constraintEnd_toEndOf="@id/img_vendorAsal"/>
+
+        <TextView
+            android:id="@+id/txt_UP3Asal"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="8dp"
+            android:fontFamily="@font/montserrat_reguler"
+            android:text="UP3 Awal"
+            android:textColor="@color/black"
+            android:textSize="11sp"
+            android:textStyle="bold"
+            app:layout_constraintBottom_toBottomOf="@+id/img_UP3Asal"
+            app:layout_constraintStart_toEndOf="@id/img_UP3Asal"
+            app:layout_constraintTop_toTopOf="@id/img_UP3Asal" />
+
+        <TextView
+            android:id="@+id/tv_UP3Asal"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:fontFamily="@font/montserrat_reguler"
+            android:text="xxxxxxxxxxx"
+            android:textColor="#96979B"
+            app:layout_constraintStart_toStartOf="@id/txt_UP3Asal"
+            app:layout_constraintTop_toBottomOf="@+id/txt_UP3Asal"/>
+
+        <ImageView
+            android:id="@+id/img_Keterangan"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="35dp"
+            android:background="@drawable/ic_number"
+            app:layout_constraintStart_toStartOf="@id/img_UP3Asal"
+            app:layout_constraintTop_toTopOf="@id/img_UP3Asal"
+            app:layout_constraintEnd_toEndOf="@id/img_UP3Asal"/>
+
+        <TextView
+            android:id="@+id/txt_keterangan"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="8dp"
+            android:fontFamily="@font/montserrat_reguler"
+            android:text="Keterangan"
+            android:textColor="@color/black"
+            android:textSize="11sp"
+            android:textStyle="bold"
+            app:layout_constraintBottom_toBottomOf="@+id/img_Keterangan"
+            app:layout_constraintStart_toEndOf="@id/img_Keterangan"
+            app:layout_constraintTop_toTopOf="@id/img_Keterangan" />
+
+        <TextView
+            android:id="@+id/tv_keterangan"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:fontFamily="@font/montserrat_reguler"
+            android:text="xxxxxxxxxxx"
+            android:textColor="#96979B"
+            app:layout_constraintStart_toStartOf="@id/txt_keterangan"
+            app:layout_constraintTop_toBottomOf="@+id/txt_keterangan"/>
+
+        <ImageView
+            android:id="@+id/img_kuantitasDiTerima"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="35dp"
+            android:background="@drawable/ic_number"
+            app:layout_constraintStart_toStartOf="@id/img_Keterangan"
+            app:layout_constraintTop_toTopOf="@id/img_Keterangan"
+            app:layout_constraintEnd_toEndOf="@id/img_Keterangan"/>
+
+        <TextView
+            android:id="@+id/txt_kuantitasDiTerima"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="8dp"
+            android:fontFamily="@font/montserrat_reguler"
+            android:text="Kuantitas Di Terima"
+            android:textColor="@color/black"
+            android:textSize="11sp"
+            android:textStyle="bold"
+            app:layout_constraintBottom_toBottomOf="@+id/img_kuantitasDiTerima"
+            app:layout_constraintStart_toEndOf="@id/img_kuantitasDiTerima"
+            app:layout_constraintTop_toTopOf="@id/img_kuantitasDiTerima" />
+
+        <TextView
+            android:id="@+id/tv_kuantitasDiTerima"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:fontFamily="@font/montserrat_reguler"
+            android:text="xxxxxxxxxxx"
+            android:textColor="#96979B"
+            app:layout_constraintStart_toStartOf="@id/txt_kuantitasDiTerima"
+            app:layout_constraintTop_toBottomOf="@+id/txt_kuantitasDiTerima"/>
+
+        <ImageView
+            android:id="@+id/img_namaKurir"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="50dp"
+            android:background="@drawable/ic_number"
+            app:layout_constraintStart_toEndOf="@+id/txt_noPoSap"
+            app:layout_constraintTop_toTopOf="@id/txt_noPoSap"
+            app:layout_constraintBottom_toBottomOf="@id/txt_noPoSap"/>
+
+        <TextView
+            android:id="@+id/txt_namaKurir"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="8dp"
+            android:fontFamily="@font/montserrat_reguler"
+            android:text="Nama Kurir"
+            android:textColor="@color/black"
+            android:textSize="11sp"
+            android:textStyle="bold"
+            app:layout_constraintBottom_toBottomOf="@+id/img_namaKurir"
+            app:layout_constraintStart_toEndOf="@id/img_namaKurir"
+            app:layout_constraintTop_toTopOf="@id/img_namaKurir" />
+
+        <TextView
+            android:id="@+id/tv_namaKurir"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:fontFamily="@font/montserrat_reguler"
+            android:text="xxxxxxxxxxx"
+            android:textColor="#96979B"
+            app:layout_constraintStart_toStartOf="@id/txt_namaKurir"
+            app:layout_constraintTop_toBottomOf="@+id/txt_namaKurir"/>
+
+        <ImageView
+            android:id="@+id/img_noTug3Karantina"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="35dp"
+            android:background="@drawable/ic_number"
+            app:layout_constraintStart_toStartOf="@id/img_namaKurir"
+            app:layout_constraintTop_toTopOf="@id/img_namaKurir"
+            app:layout_constraintEnd_toEndOf="@id/img_namaKurir"/>
+
+        <TextView
+            android:id="@+id/txt_noTug3Karantina"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="8dp"
+            android:fontFamily="@font/montserrat_reguler"
+            android:text="No TUG 3 Karantina"
+            android:textColor="@color/black"
+            android:textSize="11sp"
+            android:textStyle="bold"
+            app:layout_constraintBottom_toBottomOf="@+id/img_noTug3Karantina"
+            app:layout_constraintStart_toEndOf="@id/img_noTug3Karantina"
+            app:layout_constraintTop_toTopOf="@id/img_noTug3Karantina" />
+
+        <TextView
+            android:id="@+id/tv_noTug3Karantina"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:fontFamily="@font/montserrat_reguler"
+            android:text="xxxxxxxxxxx"
+            android:textColor="#96979B"
+            app:layout_constraintStart_toStartOf="@id/txt_noTug3Karantina"
+            app:layout_constraintTop_toBottomOf="@+id/txt_noTug3Karantina"/>
+        <ImageView
+            android:id="@+id/img_noTug4"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="35dp"
+            android:background="@drawable/ic_number"
+            app:layout_constraintStart_toStartOf="@id/img_noTug3Karantina"
+            app:layout_constraintTop_toTopOf="@id/img_noTug3Karantina"
+            app:layout_constraintEnd_toEndOf="@id/img_noTug3Karantina"/>
+
+        <TextView
+            android:id="@+id/txt_noTug4"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="8dp"
+            android:fontFamily="@font/montserrat_reguler"
+            android:text="No TUG 4"
+            android:textColor="@color/black"
+            android:textSize="11sp"
+            android:textStyle="bold"
+            app:layout_constraintBottom_toBottomOf="@+id/img_noTug4"
+            app:layout_constraintStart_toEndOf="@id/img_noTug4"
+            app:layout_constraintTop_toTopOf="@id/img_noTug4" />
+
+        <TextView
+            android:id="@+id/tv_noTug4"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:fontFamily="@font/montserrat_reguler"
+            android:text="xxxxxxxxxxx"
+            android:textColor="#96979B"
+            app:layout_constraintStart_toStartOf="@id/txt_noTug4"
+            app:layout_constraintTop_toBottomOf="@+id/txt_noTug4"/>
+
+        <ImageView
+            android:id="@+id/img_noTug3Persediaan"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="35dp"
+            android:background="@drawable/ic_number"
+            app:layout_constraintStart_toStartOf="@id/img_noTug4"
+            app:layout_constraintTop_toTopOf="@id/img_noTug4"
+            app:layout_constraintEnd_toEndOf="@id/img_noTug4"/>
+
+        <TextView
+            android:id="@+id/txt_noTug3Persediaan"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="8dp"
+            android:fontFamily="@font/montserrat_reguler"
+            android:text="No TUG 3 Persediaan"
+            android:textColor="@color/black"
+            android:textSize="11sp"
+            android:textStyle="bold"
+            app:layout_constraintBottom_toBottomOf="@+id/img_noTug3Persediaan"
+            app:layout_constraintStart_toEndOf="@id/img_noTug3Persediaan"
+            app:layout_constraintTop_toTopOf="@id/img_noTug3Persediaan" />
+
+        <TextView
+            android:id="@+id/tv_noTug3Persediaan"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:fontFamily="@font/montserrat_reguler"
+            android:text="xxxxxxxxxxx"
+            android:textColor="#96979B"
+            app:layout_constraintStart_toStartOf="@id/txt_noTug3Persediaan"
+            app:layout_constraintTop_toBottomOf="@+id/txt_noTug3Persediaan"/>
+
+
+
+        <ImageView
+            android:id="@+id/img_dokumentasi"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="35dp"
+            android:background="@drawable/ic_number"
+            app:layout_constraintStart_toStartOf="@id/img_noTug3Persediaan"
+            app:layout_constraintTop_toTopOf="@id/img_noTug3Persediaan"
+            app:layout_constraintEnd_toEndOf="@id/img_noTug3Persediaan"/>
+
+        <TextView
+            android:id="@+id/txt_dokumentasi"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="8dp"
+            android:fontFamily="@font/montserrat_reguler"
+            android:text="Dokumentasi"
+            android:textColor="@color/black"
+            android:textSize="11sp"
+            android:textStyle="bold"
+            app:layout_constraintBottom_toBottomOf="@+id/img_dokumentasi"
+            app:layout_constraintStart_toEndOf="@id/img_dokumentasi"
+            app:layout_constraintTop_toTopOf="@id/img_dokumentasi" />
+
+        <TextView
+            android:id="@+id/tv_dokumentasi"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:fontFamily="@font/montserrat_reguler"
+            android:text="Lihat Dokumentasi >>"
+            android:textColor="#96979B"
+            app:layout_constraintStart_toStartOf="@id/txt_dokumentasi"
+            app:layout_constraintTop_toBottomOf="@+id/txt_dokumentasi"/>
+    </androidx.constraintlayout.widget.ConstraintLayout>
+
+    
+
 </androidx.constraintlayout.widget.ConstraintLayout>
