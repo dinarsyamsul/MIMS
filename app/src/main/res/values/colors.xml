@@ -5,18 +5,57 @@
     <color name="purple_700">#FF3700B3</color>
     <color name="teal_200">#FF03DAC5</color>
     <color name="teal_700">#FF018786</color>
-    <color name="black">#FF000000</color>
-    <color name="white">#FFFFFFFF</color>
     <color name="bg_color">#01A1B9</color>
     <color name="secondary_color">#FFFFFF</color>
     <color name="blue_fild">#F0F5FF</color>
     <color name="color_text">#23272F</color>
     <color name="blue_solid">#2F6FED</color>
-    <color name="birumuda">#802AA2FD</color>
-    <color name="lolos">#8006B60F</color>
-    <color name="lolos_text">#06B60F</color>
-    <color name="tidak_Lolos">#95EC0000</color>
-    <color name="tidakLolos_text">#EC0000</color>
-    <color name="sedang_uji">#80E6FF00</color>
-    <color name="sedangUji_text">#E6FF00</color>
+    <color name="dark_grey">#3F3D56</color>
+
+    <color name="colorPrimary">@color/color_jarvist</color>
+    <color name="colorPrimaryDark">@color/color_jarvist_dark</color>
+    <color name="colorAccent">@color/color_jarvist_accent</color>
+
+    <color name="color_jarvist">#C30375</color>
+    <color name="color_jarvist_dark">#81024E</color>
+    <color name="color_jarvist_accent">#464646</color>
+
+    <!-- Grayscale -->
+    <color name="white"     >#f5f6fa</color>
+    <color name="gray_light">#DFDFDF</color>
+    <color name="gray_light90">#90DFDFDF</color>
+    <color name="gray_light50">#50DFDFDF</color>
+    <color name="gray"      >#939393</color>
+    <color name="gray_dark" >#5F5F5F</color>
+    <color name="black"     >#303030</color>
+    <color name="black_trasnparent">#90000000</color>
+    <color name="gray_light_transparent">#50DFDFDF</color>
+
+    <!-- Basic colors -->
+    <color name="purple">#765D69</color>
+    <color name="purple_dark">#47383f</color>
+    <color name="green">#8FB9A8</color>
+    <color name="green_dark">#314e43</color>
+    <!--    <color name="blue">#393b7b</color>-->
+    <color name="blue">#34495E</color>
+
+    <color name="blue_light">#315BB4</color>
+    <color name="blue_dark">#1A3060</color>
+    <color name="blue_midnight">#2c3e50</color>
+    <!--    <color name="orange">#FCD0BA</color>-->
+    <color name="orange">#F4A178</color>
+    <color name="orange_dark">#f88a54</color>
+    <color name="red">#F1828D</color>
+    <color name="red_dark">#ce1729</color>
+    <color name="red_dark90">#90ce1729</color>
+    <color name="yellow">#FEFAD4</color>
+    <color name="yellow_dark">#C28811</color>
+    <color name="true_white"     >#ffffff</color>
+    <color name="transparent_blue">#3022A7F0</color>
+    <color name="piction_blue">#70219ad9</color>
+    <color name="background">#E8EDF3</color>
+    <color name="line">#EEEEEE</color>
+
+    <color name="transparent_green_30">#30389f7c</color>
+    <color name="transparent_green_70">#70389f7c</color>
 </resources>

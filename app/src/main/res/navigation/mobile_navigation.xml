@@ -15,6 +15,6 @@
         android:id="@+id/navigation_profile"
         android:name="dev.iconpln.mims.ui.profile.ProfileFragment"
         android:label="profile"
-        tools:layout="@layout/fragment_profile_" />
+        tools:layout="@layout/fragment_profile" />
 
 </navigation>

@@ -2,7 +2,7 @@ plugins {
     id 'com.android.application'
     id 'org.jetbrains.kotlin.android'
     id 'kotlin-kapt'
-    id 'dagger.hilt.android.plugin'
+//    id 'dagger.hilt.android.plugin'
     id 'kotlin-parcelize'
 }
 
@@ -15,9 +15,10 @@ android {
         minSdk 21
         targetSdk 33
         versionCode 1
-        versionName "1.0"
+        versionName "1.0.0"
 
         testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
+        multiDexEnabled true
     }
 
     buildTypes {
@@ -41,6 +42,7 @@ android {
 
 dependencies {
 
+    implementation fileTree(dir: "libs", include: ["*.jar"])
     implementation 'de.hdodenhof:circleimageview:3.1.0'
     implementation 'androidx.core:core-ktx:1.7.0'
     implementation 'com.google.android.material:material:1.7.0'
@@ -87,12 +89,24 @@ dependencies {
     implementation "androidx.camera:camera-view:$camerax_version"
 
     //hilt
-    implementation 'com.google.dagger:hilt-android:2.44'
-    kapt 'com.google.dagger:hilt-compiler:2.44'
+//    implementation 'com.google.dagger:hilt-android:2.44'
+//    kapt 'com.google.dagger:hilt-compiler:2.44'
 
     //lottie
     implementation 'com.airbnb.android:lottie:3.4.0'
     implementation 'com.github.ybq:Android-SpinKit:1.4.0'
+
+    //greendao
+    implementation 'org.greenrobot:greendao:3.3.0'
+
+    //localtime
+    implementation 'joda-time:joda-time:2.10'
+
+    //biometric
+    implementation "androidx.biometric:biometric:1.0.0"
+
+    //multidex
+    implementation "androidx.multidex:multidex:2.0.1"
 
     testImplementation 'junit:junit:4.13.2'
     androidTestImplementation 'androidx.test.ext:junit:1.1.5'

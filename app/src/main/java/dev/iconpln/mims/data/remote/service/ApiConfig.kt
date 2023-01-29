@@ -1,14 +1,17 @@
 package dev.iconpln.mims.data.remote.service
 
 import android.content.Context
+import com.google.android.datatransport.backend.cct.BuildConfig
+import dev.iconpln.mims.MyApplication
 import dev.iconpln.mims.utils.Constants.BASE_URL
+import okhttp3.Interceptor
 import okhttp3.OkHttpClient
 import okhttp3.logging.HttpLoggingInterceptor
 import retrofit2.Retrofit
 import retrofit2.converter.gson.GsonConverterFactory
+import java.util.concurrent.TimeUnit
 
 object ApiConfig {
-
     fun getApiService(context: Context): ApiService {
         val loggingInterceptor = HttpLoggingInterceptor()
             .setLevel(HttpLoggingInterceptor.Level.BODY)
