@@ -116,6 +116,13 @@
                 android:value="" />
         </activity>
         <activity
+            android:name=".ui.tracking.DataMaterialTrackingActivity"
+            android:exported="false">
+            <meta-data
+                android:name="android.app.lib_name"
+                android:value="" />
+        </activity>
+        <activity
             android:name=".ui.monitoring.MonitoringActivity"
             android:exported="false">
             <meta-data
