@@ -176,7 +176,7 @@ class LoginActivity : AppCompatActivity() {
             loginViewModel.getLogin(this@LoginActivity,
                 daoSession,username, password,"",
                 mAndroidId,mAppVersion,mDeviceData,mIpAddress,
-                androidVersion,dateTimeUtc)
+                androidVersion,dateTimeUtc,session)
         }
     }
 }

@@ -9,6 +9,7 @@ import dev.iconpln.mims.data.local.database.*
 import dev.iconpln.mims.data.remote.response.GenericResponse
 import dev.iconpln.mims.data.remote.response.LoginResponse
 import dev.iconpln.mims.data.remote.service.ApiConfig
+import dev.iconpln.mims.utils.SessionManager
 import kotlinx.coroutines.*
 
 class AuthViewModel: ViewModel() {
@@ -27,7 +28,7 @@ class AuthViewModel: ViewModel() {
 
     fun getLogin(context: Context, daoSession: DaoSession, username: String, password: String, device_token: String,
                  mAndroidId: String, mAppVersion: String, mDeviceData: String, mIpAddress: String,
-                 androidVersion: Int, dateTimeUtc: Long) {
+                 androidVersion: Int, dateTimeUtc: Long,session: SessionManager) {
         _isLoading.value = true
         CoroutineScope(Dispatchers.IO).launch {
             val requestBody = mutableMapOf<String, String>()
@@ -48,7 +49,9 @@ class AuthViewModel: ViewModel() {
                         _isLoading.value = false
                         val loginResult = response.body()
                         _loginResponse.postValue(loginResult!!)
+                        session.saveUsernamePassword(username,password)
                         inserToDbLocal(daoSession, loginResult)
+
                     }catch (e: Exception){
                         e.printStackTrace()
                     }

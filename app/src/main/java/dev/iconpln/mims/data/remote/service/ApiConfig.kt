@@ -26,4 +26,8 @@ object ApiConfig {
             .build()
         return retrofit.create(ApiService::class.java)
     }
+
+    fun sendPenerimaan(): String {
+        return BASE_URL + "reports/sendReportPenerimaan"
+    }
 }

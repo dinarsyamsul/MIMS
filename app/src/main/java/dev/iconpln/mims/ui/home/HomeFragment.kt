@@ -10,8 +10,15 @@ import android.widget.Toast
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.asLiveData
 import androidx.lifecycle.lifecycleScope
+import dev.iconpln.mims.MyApplication
 import dev.iconpln.mims.databinding.FragmentHomeBinding
 import dev.iconpln.mims.ui.auth.LoginActivity
+import dev.iconpln.mims.ui.monitoring.MonitoringActivity
+import dev.iconpln.mims.ui.pengiriman.PengirimanActivity
+import dev.iconpln.mims.ui.pnerimaan.PenerimaanActivity
+import dev.iconpln.mims.ui.role.pabrikan.arttribute_material.DataAtributMaterialActivity
+import dev.iconpln.mims.ui.role.pabrikan.pengujian.PengujianActivity
+import dev.iconpln.mims.ui.tracking.TrackingHistoryActivity
 import dev.iconpln.mims.utils.SessionManager
 import kotlinx.coroutines.launch
 
@@ -34,6 +41,9 @@ class HomeFragment : Fragment() {
         super.onViewCreated(view, savedInstanceState)
 
         val session = SessionManager(requireContext())
+        val daoSession = (requireActivity().application as MyApplication).daoSession!!
+
+        var listPrivilege = daoSession.tPrivilegeDao.queryBuilder().list()
 
         binding.btnLogout.setOnClickListener {
             val onLogout = Intent(requireContext(), LoginActivity::class.java)
@@ -51,9 +61,23 @@ class HomeFragment : Fragment() {
             activity?.finish()
         }
 
-        binding.card3.setOnClickListener {
-            Toast.makeText(context, "Under Maintenance", Toast.LENGTH_SHORT).show()
+        binding.btnMonitoring.setOnClickListener {
+            startActivity(Intent(requireActivity(), MonitoringActivity::class.java))
         }
+
+        binding.btnDataAttr.setOnClickListener {
+            startActivity(Intent(requireActivity(), DataAtributMaterialActivity::class.java))
+        }
+
+        binding.btnPengujian.setOnClickListener{
+            startActivity(Intent(requireActivity(), PengujianActivity::class.java))
+        }
+
+        binding.btnPenerimaan.setOnClickListener { startActivity(Intent(requireActivity(), PenerimaanActivity::class.java)) }
+
+        binding.btnTracking.setOnClickListener { startActivity(Intent(requireActivity(), TrackingHistoryActivity::class.java)) }
+
+        binding.btnPengiriman.setOnClickListener { startActivity(Intent(requireActivity(), PengirimanActivity::class.java)) }
 
 //        binding.card2.setOnClickListener {
 //            Toast.makeText(context, "Under Maintenance", Toast.LENGTH_SHORT).show()

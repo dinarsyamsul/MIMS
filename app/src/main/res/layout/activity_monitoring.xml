@@ -1,0 +1,258 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="#FFFFFF"
+    tools:context=".ui.monitoring.MonitoringActivity">
+
+    <ImageView
+        android:id="@+id/header"
+        android:layout_width="match_parent"
+        android:layout_height="84dp"
+        android:background="@drawable/dashboard"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <ImageButton
+        android:id="@+id/btn_back"
+        android:layout_width="50dp"
+        android:layout_height="50dp"
+        android:layout_marginStart="29dp"
+        android:background="#00FFFFFF"
+        android:src="@drawable/ic_baseline_arrow_back_ios_24"
+        app:layout_constraintBottom_toBottomOf="@+id/textView3"
+        app:layout_constraintEnd_toStartOf="@id/textView3"
+        app:layout_constraintHorizontal_chainStyle="spread_inside"
+        app:layout_constraintStart_toStartOf="@+id/header"
+        app:layout_constraintTop_toTopOf="@+id/textView3" />
+
+    <TextView
+        android:id="@+id/textView3"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginEnd="80dp"
+        android:fontFamily="@font/montserrat_reguler"
+        android:text="@string/monitoring_po_do"
+        android:textAlignment="center"
+        android:textColor="@color/white"
+        android:textSize="16dp"
+        android:textStyle="bold"
+        app:layout_constraintBottom_toBottomOf="@+id/header"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toEndOf="@+id/btn_back"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:paddingBottom="10dp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/header">
+
+        <TextView
+            android:id="@+id/txt_nomorPo"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="23dp"
+            android:layout_marginTop="20dp"
+            android:text="Nomor PO"
+            android:textColor="#3F3D56"
+            android:textSize="14sp"
+            android:textStyle="bold"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <EditText
+            android:id="@+id/src_nomorPo"
+            android:layout_width="0dp"
+            android:layout_height="50dp"
+            android:layout_marginStart="23dp"
+            android:layout_marginTop="10dp"
+            android:layout_marginEnd="25dp"
+            android:background="@drawable/srchview"
+            android:drawableEnd="@drawable/ic_search"
+            android:fontFamily="@font/montserrat_reguler"
+            android:hint="Search here"
+            android:paddingLeft="20dp"
+            android:paddingRight="20dp"
+            android:textSize="12sp"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/txt_nomorPo" />
+
+        <TextView
+            android:id="@+id/txt_no_do"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="10dp"
+            android:fontFamily="@font/montserrat_reguler"
+            android:text="No DO"
+            android:textColor="#3F3D56"
+            android:textSize="16sp"
+            android:textStyle="bold"
+            app:layout_constraintStart_toStartOf="@+id/txt_nomorPo"
+            app:layout_constraintTop_toBottomOf="@id/src_nomorPo" />
+
+        <EditText
+            android:id="@+id/src_nomorDo"
+            android:layout_width="0dp"
+            android:layout_height="50dp"
+            android:layout_marginStart="23dp"
+            android:layout_marginTop="10dp"
+            android:layout_marginEnd="25dp"
+            android:background="@drawable/srchview"
+            android:drawableEnd="@drawable/ic_search"
+            android:fontFamily="@font/montserrat_reguler"
+            android:hint="Search here"
+            android:paddingLeft="20dp"
+            android:paddingRight="20dp"
+            android:textSize="12sp"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/txt_no_do" />
+
+        <TextView
+            android:id="@+id/lbl_start_date"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="10dp"
+            android:layout_marginEnd="10dp"
+            android:fontFamily="@font/montserrat_medium"
+            android:text="Tanggal Mulai"
+            android:textSize="12sp"
+            app:layout_constraintEnd_toStartOf="@id/lbl_end_date"
+            app:layout_constraintHorizontal_chainStyle="spread"
+            app:layout_constraintStart_toStartOf="@+id/src_nomorDo"
+            app:layout_constraintTop_toBottomOf="@+id/src_nomorDo" />
+
+        <TextView
+            android:id="@+id/lbl_end_date"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="10dp"
+            android:layout_marginTop="10dp"
+            android:fontFamily="@font/montserrat_medium"
+            android:text="Tanggal Selesai"
+            android:textSize="12sp"
+            app:layout_constraintEnd_toEndOf="@+id/src_nomorDo"
+            app:layout_constraintStart_toEndOf="@+id/lbl_start_date"
+            app:layout_constraintTop_toBottomOf="@+id/src_nomorDo" />
+
+        <com.google.android.material.card.MaterialCardView
+            android:id="@+id/cv_tanggal_mulai"
+            android:layout_width="0dp"
+            android:layout_height="50dp"
+            android:layout_marginTop="10dp"
+            app:cardCornerRadius="10dp"
+            app:layout_constraintEnd_toEndOf="@+id/lbl_start_date"
+            app:layout_constraintStart_toStartOf="@+id/lbl_start_date"
+            app:layout_constraintTop_toBottomOf="@+id/lbl_start_date"
+            app:strokeColor="#AB045A71"
+            app:strokeWidth="1dp">
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:gravity="center">
+
+                <TextView
+                    android:id="@+id/txt_tgl_mulai"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:fontFamily="@font/montserrat_reguler"
+                    android:text="dd/mm/yyyy"
+                    android:textColor="#028097" />
+
+                <ImageView
+                    android:layout_width="24dp"
+                    android:layout_height="24dp"
+                    android:layout_marginStart="15dp"
+                    android:src="@drawable/ic_calendar" />
+            </LinearLayout>
+
+        </com.google.android.material.card.MaterialCardView>
+
+        <com.google.android.material.card.MaterialCardView
+            android:id="@+id/cv_tanggal_selesai"
+            android:layout_width="0dp"
+            android:layout_height="50dp"
+            android:layout_marginTop="10dp"
+            app:cardCornerRadius="10dp"
+            app:layout_constraintEnd_toEndOf="@+id/lbl_end_date"
+            app:layout_constraintStart_toStartOf="@+id/lbl_end_date"
+            app:layout_constraintTop_toBottomOf="@+id/lbl_start_date"
+            app:strokeColor="#AB045A71"
+            app:strokeWidth="1dp">
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:gravity="center">
+
+                <TextView
+                    android:id="@+id/txt_tgl_selesai"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:fontFamily="@font/montserrat_reguler"
+                    android:text="dd/mm/yyyy"
+                    android:textColor="#028097" />
+
+                <ImageView
+                    android:layout_width="24dp"
+                    android:layout_height="24dp"
+                    android:layout_marginStart="15dp"
+                    android:src="@drawable/ic_calendar" />
+            </LinearLayout>
+
+        </com.google.android.material.card.MaterialCardView>
+
+        <TextView
+            android:id="@+id/lbl_daftar_list_monitoring"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="29dp"
+            android:fontFamily="@font/montserrat_medium"
+            android:text="Daftar List Monitoring"
+            android:textSize="12sp"
+            app:layout_constraintStart_toStartOf="@+id/cv_tanggal_mulai"
+            app:layout_constraintTop_toBottomOf="@+id/cv_tanggal_mulai" />
+
+        <View
+            android:id="@+id/view3"
+            android:layout_width="0dp"
+            android:layout_height="1dp"
+            android:layout_marginTop="15dp"
+            android:background="#B9B9B9"
+            app:layout_constraintEnd_toEndOf="@+id/cv_tanggal_selesai"
+            app:layout_constraintStart_toStartOf="@+id/lbl_daftar_list_monitoring"
+            app:layout_constraintTop_toBottomOf="@+id/lbl_daftar_list_monitoring" />
+
+
+        <androidx.recyclerview.widget.RecyclerView
+            android:id="@+id/rv_noPo"
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            android:visibility="visible"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/view3"
+            tools:listitem="@layout/item_data_monitoring_purchase" />
+
+        <ProgressBar
+            android:id="@+id/progress_bar"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="5dp"
+            android:visibility="gone"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/view3" />
+    </androidx.constraintlayout.widget.ConstraintLayout>
+
+</androidx.constraintlayout.widget.ConstraintLayout>

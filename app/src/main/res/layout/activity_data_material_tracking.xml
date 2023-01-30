@@ -1,0 +1,693 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+
+    <ImageView
+        android:id="@+id/header"
+        android:layout_width="match_parent"
+        android:layout_height="130dp"
+        android:background="@drawable/dashboard"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <ImageButton
+        android:id="@+id/btn_back"
+        android:layout_width="50dp"
+        android:layout_height="50dp"
+        android:layout_marginStart="32dp"
+        android:layout_marginTop="45dp"
+        android:background="#00FFFFFF"
+        android:src="@drawable/ic_baseline_arrow_back_ios_24"
+        app:layout_constraintStart_toStartOf="@+id/header"
+        app:layout_constraintTop_toTopOf="@+id/header" />
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="58dp"
+        android:layout_marginEnd="64dp"
+        android:fontFamily="@font/montserrat_reguler"
+        android:text="Data Material"
+        android:textColor="@color/white"
+        android:textSize="16dp"
+        android:textStyle="bold"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toEndOf="@+id/btn_back"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <ScrollView
+        android:id="@+id/scr_view"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_marginTop="130dp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/header">
+
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:id="@+id/cons1"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
+
+        <View
+            android:id="@+id/view5"
+            android:layout_width="8dp"
+            android:layout_height="350dp"
+            android:background="#26ACE2"
+            android:layout_marginStart="15dp"
+            android:layout_marginTop="12dp"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
+            <TextView
+                android:id="@+id/tv_serial_number"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="SN Material"
+                android:fontFamily="@font/montserrat_reguler"
+                android:textStyle="bold"
+                android:textSize="16sp"
+                android:layout_marginTop="16dp"
+                android:layout_marginStart="14dp"
+                android:textColor="@color/black"
+                app:layout_constraintTop_toTopOf="parent"
+                app:layout_constraintStart_toStartOf="@id/view5"/>
+
+            <TextView
+                android:id="@+id/txt_isi_serial_number"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="123123123123"
+                android:textColor="@color/black"
+                android:fontFamily="@font/montserrat_reguler"
+                android:textSize="14sp"
+                app:layout_constraintTop_toBottomOf="@id/tv_serial_number"
+                app:layout_constraintStart_toStartOf="@id/tv_serial_number"
+                app:layout_constraintEnd_toEndOf="@id/tv_serial_number"/>
+
+            <ImageView
+                android:id="@+id/img_tipe_Meter"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:src="@drawable/plant_list_monitoring1"
+                android:layout_marginTop="16dp"
+                app:layout_constraintTop_toBottomOf="@id/txt_isi_serial_number"
+                app:layout_constraintStart_toStartOf="@id/txt_isi_serial_number"/>
+
+            <TextView
+                android:id="@+id/tv_tipe_meter"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Tipe Meter"
+                android:textSize="14dp"
+                android:layout_marginStart="8dp"
+                android:textColor="@color/black"
+                android:textStyle="bold"
+                app:layout_constraintTop_toTopOf="@id/img_tipe_Meter"
+                app:layout_constraintStart_toEndOf="@id/img_tipe_Meter"
+                app:layout_constraintBottom_toBottomOf="@id/img_tipe_Meter"/>
+
+            <TextView
+                android:id="@+id/tv_isi_tipe_meter"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="12312312312312"
+                android:textSize="14dp"
+                android:textColor="#96979B"
+                app:layout_constraintTop_toBottomOf="@id/tv_tipe_meter"
+                app:layout_constraintStart_toStartOf="@id/tv_tipe_meter"/>
+
+            <ImageView
+                android:id="@+id/img_spln"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:src="@drawable/plant_list_monitoring1"
+                android:layout_marginTop="24dp"
+                app:layout_constraintTop_toBottomOf="@id/img_tipe_Meter"
+                app:layout_constraintStart_toStartOf="@id/img_tipe_Meter"
+                app:layout_constraintEnd_toEndOf="@id/img_tipe_Meter"/>
+
+            <TextView
+                android:id="@+id/tv_spln"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="SPLN"
+                android:textSize="14sp"
+                android:layout_marginStart="8dp"
+                android:textColor="@color/black"
+                android:textStyle="bold"
+                app:layout_constraintTop_toTopOf="@id/img_spln"
+                app:layout_constraintStart_toEndOf="@id/img_spln"
+                app:layout_constraintBottom_toBottomOf="@id/img_spln"/>
+
+            <TextView
+                android:id="@+id/tv_isi_spln"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="12312312312312"
+                android:textSize="14dp"
+                android:textColor="#96979B"
+                app:layout_constraintTop_toBottomOf="@id/tv_spln"
+                app:layout_constraintStart_toStartOf="@id/tv_spln"/>
+
+            <ImageView
+                android:id="@+id/img_cara_pengawatan"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:src="@drawable/plant_list_monitoring1"
+                android:layout_marginTop="24dp"
+                app:layout_constraintTop_toBottomOf="@id/img_spln"
+                app:layout_constraintStart_toStartOf="@id/img_spln"
+                app:layout_constraintEnd_toEndOf="@id/img_spln"/>
+
+            <TextView
+                android:id="@+id/tv_cara_pengawatan"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Cara Pengawatan"
+                android:textSize="14sp"
+                android:layout_marginStart="8dp"
+                android:textColor="@color/black"
+                android:textStyle="bold"
+                app:layout_constraintTop_toTopOf="@id/img_cara_pengawatan"
+                app:layout_constraintStart_toEndOf="@id/img_cara_pengawatan"
+                app:layout_constraintBottom_toBottomOf="@id/img_cara_pengawatan"/>
+
+            <TextView
+                android:id="@+id/tv_isi_caraPengawatan"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="12312312312312"
+                android:textSize="14dp"
+                android:textColor="#96979B"
+                app:layout_constraintTop_toBottomOf="@id/tv_cara_pengawatan"
+                app:layout_constraintStart_toStartOf="@id/tv_cara_pengawatan"/>
+
+            <ImageView
+                android:id="@+id/img_jumlah_sensor"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:src="@drawable/plant_list_monitoring1"
+                android:layout_marginTop="24dp"
+                app:layout_constraintTop_toBottomOf="@id/img_cara_pengawatan"
+                app:layout_constraintStart_toStartOf="@id/img_cara_pengawatan"
+                app:layout_constraintEnd_toEndOf="@id/img_cara_pengawatan"/>
+
+            <TextView
+                android:id="@+id/tv_jumlah_sensor"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Jumlah Sensor (S) dan Rene"
+                android:textSize="14sp"
+                android:layout_marginStart="8dp"
+                android:textColor="@color/black"
+                android:textStyle="bold"
+                app:layout_constraintTop_toTopOf="@id/img_jumlah_sensor"
+                app:layout_constraintStart_toEndOf="@id/img_jumlah_sensor"
+                app:layout_constraintBottom_toBottomOf="@id/img_jumlah_sensor"/>
+
+            <TextView
+                android:id="@+id/tv_isi_jumlah_sensor"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="12312312312312"
+                android:textSize="14dp"
+                android:textColor="#96979B"
+                app:layout_constraintTop_toBottomOf="@id/tv_jumlah_sensor"
+                app:layout_constraintStart_toStartOf="@id/tv_jumlah_sensor"/>
+
+            <ImageView
+                android:id="@+id/img_tegangan_pengenal"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:src="@drawable/plant_list_monitoring1"
+                android:layout_marginTop="24dp"
+                app:layout_constraintTop_toBottomOf="@id/img_jumlah_sensor"
+                app:layout_constraintStart_toStartOf="@id/img_jumlah_sensor"
+                app:layout_constraintEnd_toEndOf="@id/img_jumlah_sensor"/>
+
+            <TextView
+                android:id="@+id/tv_tegangan_pengenal"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Tegangan Pengenal"
+                android:textSize="14sp"
+                android:layout_marginStart="8dp"
+                android:textColor="@color/black"
+                android:textStyle="bold"
+                app:layout_constraintTop_toTopOf="@id/img_tegangan_pengenal"
+                app:layout_constraintStart_toEndOf="@id/img_tegangan_pengenal"
+                app:layout_constraintBottom_toBottomOf="@id/img_tegangan_pengenal"/>
+
+            <TextView
+                android:id="@+id/tv_isi_tegangan_pengenal"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="12312312312312"
+                android:textSize="14dp"
+                android:textColor="#96979B"
+                app:layout_constraintTop_toBottomOf="@id/tv_tegangan_pengenal"
+                app:layout_constraintStart_toStartOf="@id/tv_tegangan_pengenal"/>
+
+            <ImageView
+                android:id="@+id/img_arus_dasar"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:src="@drawable/plant_list_monitoring1"
+                android:layout_marginTop="24dp"
+                app:layout_constraintTop_toBottomOf="@id/img_tegangan_pengenal"
+                app:layout_constraintStart_toStartOf="@id/img_tegangan_pengenal"
+                app:layout_constraintEnd_toEndOf="@id/img_tegangan_pengenal"/>
+
+            <TextView
+                android:id="@+id/tv_arus_dasar"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Arus Dasar dan Arus Maksimum"
+                android:textSize="14sp"
+                android:layout_marginStart="8dp"
+                android:textColor="@color/black"
+                android:textStyle="bold"
+                app:layout_constraintTop_toTopOf="@id/img_arus_dasar"
+                app:layout_constraintStart_toEndOf="@id/img_arus_dasar"
+                app:layout_constraintBottom_toBottomOf="@id/img_arus_dasar"/>
+
+            <TextView
+                android:id="@+id/tv_isi_arus_dasar"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="12312312312312"
+                android:textSize="14dp"
+                android:textColor="#96979B"
+                app:layout_constraintTop_toBottomOf="@id/tv_arus_dasar"
+                app:layout_constraintStart_toStartOf="@id/tv_arus_dasar"/>
+
+            <ImageView
+                android:id="@+id/img_frekuensi_pengenal"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:src="@drawable/plant_list_monitoring1"
+                android:layout_marginTop="24dp"
+                android:layout_marginStart="100dp"
+                app:layout_constraintTop_toBottomOf="@id/txt_isi_serial_number"
+                app:layout_constraintStart_toEndOf="@id/tv_tipe_meter"
+                app:layout_constraintBottom_toBottomOf="@id/tv_tipe_meter"/>
+
+            <TextView
+                android:id="@+id/tv_frekueni_pengenal"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Frekuensi Tegangan"
+                android:textSize="14sp"
+                android:textColor="@color/black"
+                android:textStyle="bold"
+                app:layout_constraintTop_toTopOf="@id/img_frekuensi_pengenal"
+                app:layout_constraintStart_toEndOf="@id/img_frekuensi_pengenal"
+                app:layout_constraintBottom_toBottomOf="@id/img_frekuensi_pengenal"
+                app:layout_constraintEnd_toEndOf="parent"/>
+
+            <TextView
+                android:id="@+id/tv_isi_frekueni_pengenal"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="12312312312312"
+                android:textSize="14dp"
+                android:textColor="#96979B"
+                app:layout_constraintTop_toBottomOf="@id/tv_frekueni_pengenal"
+                app:layout_constraintStart_toStartOf="@id/tv_frekueni_pengenal"/>
+
+            <ImageView
+                android:id="@+id/img_kelas_ketelitian"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:src="@drawable/plant_list_monitoring1"
+                android:layout_marginTop="24dp"
+                app:layout_constraintTop_toBottomOf="@id/img_frekuensi_pengenal"
+                app:layout_constraintStart_toStartOf="@id/img_frekuensi_pengenal"
+                app:layout_constraintEnd_toEndOf="@id/img_frekuensi_pengenal"/>
+
+            <TextView
+                android:id="@+id/tv_kelas_ketelitian"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Kelas Ketelitian"
+                android:textSize="14sp"
+                android:textColor="@color/black"
+                android:textStyle="bold"
+                app:layout_constraintTop_toTopOf="@id/img_kelas_ketelitian"
+                app:layout_constraintStart_toEndOf="@id/img_kelas_ketelitian"
+                app:layout_constraintBottom_toBottomOf="@id/img_kelas_ketelitian"
+                app:layout_constraintEnd_toEndOf="parent"/>
+
+            <TextView
+                android:id="@+id/tv_isi_kelas_ketelitian"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="12312312312312"
+                android:textSize="14dp"
+                android:textColor="#96979B"
+                app:layout_constraintTop_toBottomOf="@id/tv_kelas_ketelitian"
+                app:layout_constraintStart_toStartOf="@id/tv_kelas_ketelitian"/>
+
+            <ImageView
+                android:id="@+id/img_id_meter"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:src="@drawable/plant_list_monitoring1"
+                android:layout_marginTop="24dp"
+                app:layout_constraintTop_toBottomOf="@id/img_kelas_ketelitian"
+                app:layout_constraintStart_toStartOf="@id/img_kelas_ketelitian"
+                app:layout_constraintEnd_toEndOf="@id/img_kelas_ketelitian"/>
+
+            <TextView
+                android:id="@+id/tv_No_IDMeter"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="No ID Meter"
+                android:textSize="14sp"
+                android:layout_marginEnd="16dp"
+                android:textColor="@color/black"
+                android:textStyle="bold"
+                app:layout_constraintTop_toTopOf="@id/img_id_meter"
+                app:layout_constraintStart_toEndOf="@id/img_id_meter"
+                app:layout_constraintBottom_toBottomOf="@id/img_id_meter"
+                app:layout_constraintEnd_toEndOf="parent"/>
+
+            <TextView
+                android:id="@+id/tv_isi_no_IDMeter"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="12312312312312"
+                android:textSize="14dp"
+                android:textColor="#96979B"
+                app:layout_constraintTop_toBottomOf="@id/tv_No_IDMeter"
+                app:layout_constraintStart_toStartOf="@id/tv_No_IDMeter"/>
+
+            <ImageView
+                android:id="@+id/img_nomor_sgc"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:src="@drawable/plant_list_monitoring1"
+                android:layout_marginTop="24dp"
+                android:layout_marginStart="30dp"
+                app:layout_constraintTop_toBottomOf="@id/img_id_meter"
+                app:layout_constraintStart_toStartOf="@id/img_id_meter"
+                app:layout_constraintEnd_toEndOf="@id/img_id_meter"/>
+
+            <TextView
+                android:id="@+id/tv_nomor_sgc"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Nomor SGC"
+                android:textSize="14sp"
+                android:textColor="@color/black"
+                android:textStyle="bold"
+                android:layout_marginEnd="24dp"
+                app:layout_constraintTop_toTopOf="@id/img_nomor_sgc"
+                app:layout_constraintStart_toEndOf="@id/img_nomor_sgc"
+                app:layout_constraintBottom_toBottomOf="@id/img_nomor_sgc"
+                app:layout_constraintEnd_toEndOf="parent"/>
+
+            <TextView
+                android:id="@+id/tv_isi_nomor_sgc"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="12312312312312"
+                android:textSize="14dp"
+                android:textColor="#96979B"
+                app:layout_constraintTop_toBottomOf="@id/tv_nomor_sgc"
+                app:layout_constraintStart_toStartOf="@id/tv_nomor_sgc"/>
+
+            <ImageView
+                android:id="@+id/img_kwh"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:src="@drawable/plant_list_monitoring1"
+                android:layout_marginTop="24dp"
+                android:layout_marginEnd="24dp"
+                app:layout_constraintTop_toBottomOf="@id/img_nomor_sgc"
+                app:layout_constraintStart_toStartOf="@id/img_nomor_sgc"
+                app:layout_constraintEnd_toEndOf="@id/img_nomor_sgc"/>
+
+            <TextView
+                android:id="@+id/tv_kwh"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Konst Meter KWH"
+                android:textSize="14sp"
+                android:textColor="@color/black"
+                android:textStyle="bold"
+                android:layout_marginEnd="24dp"
+                app:layout_constraintTop_toTopOf="@id/img_kwh"
+                app:layout_constraintStart_toEndOf="@id/img_kwh"
+                app:layout_constraintBottom_toBottomOf="@id/img_kwh"
+                app:layout_constraintEnd_toEndOf="parent"/>
+
+            <TextView
+                android:id="@+id/tv_isi_kwh"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="12312312312312"
+                android:textSize="14dp"
+                android:textColor="#96979B"
+                app:layout_constraintTop_toBottomOf="@id/tv_kwh"
+                app:layout_constraintStart_toStartOf="@id/tv_kwh"/>
+
+
+            <TextView
+                android:id="@+id/txt_historyStatus"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="History Status"
+                android:textStyle="bold"
+                android:textSize="16sp"
+                android:fontFamily="@font/montserrat_reguler"
+                android:layout_marginTop="16dp"
+                android:layout_marginStart="24dp"
+                app:layout_constraintTop_toBottomOf="@id/tv_isi_arus_dasar"
+                app:layout_constraintStart_toStartOf="parent"/>
+
+            <androidx.cardview.widget.CardView
+                android:id="@+id/card1tracking"
+                android:layout_width="70dp"
+                android:layout_height="70dp"
+                android:layout_rowWeight="1"
+                android:layout_columnWeight="1"
+                android:layout_marginTop="24dp"
+                android:layout_marginStart="24dp"
+                app:cardBackgroundColor="#26ACE2"
+                app:cardCornerRadius="15dp"
+                app:cardElevation="4dp"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/txt_historyStatus">
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:background="?attr/selectableItemBackground"
+                    android:gravity="center"
+                    android:orientation="vertical"
+                    android:padding="16sp">
+
+                    <ImageView
+                        android:layout_width="40dp"
+                        android:layout_height="40dp"
+                        android:src="@drawable/data_material_tracking"
+                        app:lottie_autoPlay="true"
+                        app:lottie_loop="true" />
+
+
+                </LinearLayout>
+
+
+            </androidx.cardview.widget.CardView>
+
+            <androidx.cardview.widget.CardView
+                android:id="@+id/card2tracking"
+                android:layout_width="70dp"
+                android:layout_height="70dp"
+                android:layout_rowWeight="1"
+                android:layout_columnWeight="1"
+                android:layout_marginTop="24dp"
+                android:layout_marginStart="24dp"
+                app:cardBackgroundColor="#26ACE2"
+                app:cardCornerRadius="15dp"
+                app:cardElevation="4dp"
+                app:layout_constraintStart_toEndOf="@+id/card1tracking"
+                app:layout_constraintTop_toBottomOf="@id/txt_historyStatus">
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:background="?attr/selectableItemBackground"
+                    android:gravity="center"
+                    android:orientation="vertical"
+                    android:padding="16sp">
+
+                    <ImageView
+                        android:layout_width="40dp"
+                        android:layout_height="40dp"
+                        android:src="@drawable/pengujia_tracking"
+                        app:lottie_autoPlay="true"
+                        app:lottie_loop="true" />
+
+
+                </LinearLayout>
+
+
+            </androidx.cardview.widget.CardView>
+
+            <androidx.cardview.widget.CardView
+                android:id="@+id/card3tracking"
+                android:layout_width="70dp"
+                android:layout_height="70dp"
+                android:layout_rowWeight="1"
+                android:layout_columnWeight="1"
+                android:layout_marginTop="24dp"
+                android:layout_marginStart="24dp"
+                app:cardBackgroundColor="#26ACE2"
+                app:cardCornerRadius="15dp"
+                app:cardElevation="4dp"
+                app:layout_constraintStart_toEndOf="@+id/card2tracking"
+                app:layout_constraintTop_toBottomOf="@id/txt_historyStatus">
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:background="?attr/selectableItemBackground"
+                    android:gravity="center"
+                    android:orientation="vertical"
+                    android:padding="16sp">
+
+                    <ImageView
+                        android:layout_width="40dp"
+                        android:layout_height="40dp"
+                        android:src="@drawable/pengiriman_tracking"
+                        app:lottie_autoPlay="true"
+                        app:lottie_loop="true" />
+
+
+                </LinearLayout>
+
+
+            </androidx.cardview.widget.CardView>
+
+            <androidx.cardview.widget.CardView
+                android:id="@+id/card4tracking"
+                android:layout_width="70dp"
+                android:layout_height="70dp"
+                android:layout_rowWeight="1"
+                android:layout_columnWeight="1"
+                android:layout_marginTop="24dp"
+                android:layout_marginStart="24dp"
+                app:cardBackgroundColor="#26ACE2"
+                app:cardCornerRadius="15dp"
+                app:cardElevation="4dp"
+                app:layout_constraintStart_toEndOf="@id/card3tracking"
+                app:layout_constraintTop_toBottomOf="@id/txt_historyStatus">
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:background="?attr/selectableItemBackground"
+                    android:gravity="center"
+                    android:orientation="vertical"
+                    android:padding="16sp">
+
+                    <ImageView
+                        android:layout_width="40dp"
+                        android:layout_height="40dp"
+                        android:src="@drawable/penerimaan_tracking"
+                        app:lottie_autoPlay="true"
+                        app:lottie_loop="true" />
+
+
+                </LinearLayout>
+
+
+            </androidx.cardview.widget.CardView>
+
+            <TextView
+                android:id="@+id/txt_data"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Data"
+                android:textSize="14sp"
+                android:layout_marginTop="12dp"
+                android:fontFamily="@font/montserrat_reguler"
+                app:layout_constraintTop_toBottomOf="@id/card1tracking"
+                app:layout_constraintStart_toStartOf="@id/card1tracking"
+                app:layout_constraintEnd_toEndOf="@id/card1tracking"/>
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Material"
+                android:textSize="14sp"
+                android:fontFamily="@font/montserrat_reguler"
+                app:layout_constraintTop_toBottomOf="@id/txt_data"
+                app:layout_constraintStart_toStartOf="@id/txt_data"
+                app:layout_constraintEnd_toEndOf="@id/txt_data"/>
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Pengujian"
+                android:textSize="14sp"
+                android:layout_marginTop="12dp"
+                android:fontFamily="@font/montserrat_reguler"
+                app:layout_constraintTop_toBottomOf="@id/card2tracking"
+                app:layout_constraintStart_toStartOf="@id/card2tracking"
+                app:layout_constraintEnd_toEndOf="@id/card2tracking"/>
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Pengiriman"
+                android:textSize="14sp"
+                android:layout_marginTop="12dp"
+                android:fontFamily="@font/montserrat_reguler"
+                app:layout_constraintTop_toBottomOf="@id/card3tracking"
+                app:layout_constraintStart_toStartOf="@id/card3tracking"
+                app:layout_constraintEnd_toEndOf="@id/card3tracking"/>
+
+            <TextView
+                android:id="@+id/pengujiaCardview"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Penerimaan"
+                android:textSize="14sp"
+                android:layout_marginTop="12dp"
+                android:fontFamily="@font/montserrat_reguler"
+                app:layout_constraintTop_toBottomOf="@id/card4tracking"
+                app:layout_constraintStart_toStartOf="@id/card4tracking"
+                app:layout_constraintEnd_toEndOf="@id/card4tracking"/>
+
+            <androidx.appcompat.widget.AppCompatButton
+                android:id="@+id/btn_Ok"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="Ok"
+                android:textSize="12sp"
+                android:fontFamily="@font/montserrat_reguler"
+                android:textColor="@color/white"
+                android:layout_marginTop="100dp"
+                android:layout_marginBottom="16dp"
+                android:layout_marginStart="28dp"
+                android:layout_marginEnd="28dp"
+                android:background="@drawable/gradient_btn"
+                app:layout_constraintTop_toBottomOf="@id/pengujiaCardview"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintBottom_toBottomOf="parent"/>
+        </androidx.constraintlayout.widget.ConstraintLayout>
+    </ScrollView>
+
+
+
+</androidx.constraintlayout.widget.ConstraintLayout>
