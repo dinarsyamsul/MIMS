@@ -12,4 +12,12 @@ object Config {
 
     // Session
     const val IS_LOGIN = "IsLogin"
+
+    const val DATETIME = "yyyy-MM-dd HH:mm:ss"
+    const val DATE_FORMAT_yMdHmsSSS = "yMdHmsSSS"
+
+    const val DATE = "yyyy-MM-dd"
+
+    const val NO_CODE=0
+
 }

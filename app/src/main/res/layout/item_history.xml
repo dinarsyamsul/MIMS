@@ -1,0 +1,109 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.cardview.widget.CardView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:layout_marginStart="@dimen/_20sdp"
+    android:layout_marginEnd="@dimen/_20sdp"
+    app:cardCornerRadius="1dp"
+    android:background="#F7F8FA">
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+
+        <ImageView
+            android:id="@+id/img_check"
+            android:layout_width="@dimen/_25sdp"
+            android:layout_height="@dimen/_25sdp"
+            android:background="@drawable/icon_check"
+            android:layout_marginStart="@dimen/_20sdp"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintBottom_toBottomOf="parent"
+            />
+
+        <ImageView
+            android:id="@+id/img_round"
+            android:layout_width="@dimen/_10sdp"
+            android:layout_height="@dimen/_10sdp"
+            android:background="@drawable/icon_round"
+            android:layout_marginStart="@dimen/_10sdp"
+            app:layout_constraintStart_toEndOf="@+id/img_check"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintBottom_toBottomOf="parent"
+            />
+
+        <View
+            android:id="@+id/view_status_top"
+            android:layout_width="@dimen/_2sdp"
+            android:layout_height="@dimen/_30sdp"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintBottom_toTopOf="@+id/img_round"
+            app:layout_constraintStart_toStartOf="@+id/img_round"
+            app:layout_constraintEnd_toEndOf="@+id/img_round"
+            android:background="#045A71"
+            />
+
+        <View
+            android:id="@+id/view_status_bot"
+            android:layout_width="@dimen/_2sdp"
+            android:layout_height="@dimen/_30sdp"
+            app:layout_constraintTop_toBottomOf="@+id/img_round"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintStart_toStartOf="@+id/img_round"
+            app:layout_constraintEnd_toEndOf="@+id/img_round"
+            android:background="#045A71"
+            />
+
+        <TextView
+            android:id="@+id/lbl_diterima"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginEnd="@dimen/_10sdp"
+            android:layout_marginStart="@dimen/_20sdp"
+            android:fontFamily="@font/montserrat_reguler"
+            android:text="Material diterima di"
+            android:textAlignment="center"
+            android:textColor="@color/gray"
+            android:textSize="@dimen/_6ssp"
+            android:textStyle="bold"
+            app:layout_constraintBottom_toBottomOf="@+id/img_round"
+            app:layout_constraintStart_toEndOf="@+id/img_round"
+            app:layout_constraintTop_toTopOf="@+id/img_round" />
+
+        <TextView
+            android:id="@+id/txt_lokasi"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginEnd="@dimen/_10sdp"
+            android:layout_marginStart="@dimen/_20sdp"
+            android:fontFamily="@font/montserrat_reguler"
+            android:text="Lokasi"
+            android:textAlignment="center"
+            android:textSize="@dimen/_8ssp"
+            android:layout_marginTop="@dimen/_2sdp"
+            android:textStyle="bold"
+            app:layout_constraintStart_toEndOf="@+id/img_round"
+            app:layout_constraintTop_toBottomOf="@+id/lbl_diterima" />
+
+        <TextView
+            android:id="@+id/txt_date"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginEnd="@dimen/_10sdp"
+            android:layout_marginStart="@dimen/_20sdp"
+            android:fontFamily="@font/montserrat_reguler"
+            android:text="Date"
+            android:layout_marginTop="@dimen/_2sdp"
+            android:textAlignment="center"
+            android:textColor="@color/gray"
+            android:textSize="@dimen/_6ssp"
+            android:textStyle="bold"
+            app:layout_constraintStart_toEndOf="@+id/img_round"
+            app:layout_constraintTop_toBottomOf="@+id/txt_lokasi" />
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+
+</androidx.cardview.widget.CardView>

@@ -2,6 +2,7 @@ package dev.iconpln.mims.ui.tracking
 
 import android.content.Context
 import android.util.Log
+import android.widget.Toast
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
@@ -31,17 +32,19 @@ class TrackingHistoryViewModel : ViewModel() {
         val apiService = ApiConfig.getApiService(ctx)
         CoroutineScope(Dispatchers.IO).launch {
             val response = apiService.getTrackingHistory(sn)
-
             withContext(Dispatchers.Main) {
                 try {
                     if (response.isSuccessful) {
-                        val loginResult = response.body()
-                        _trackingResponse.postValue(loginResult)
+                        val result = response.body()
+                        _trackingResponse.postValue(result!!)
+                        _isLoading.value = false
                     } else {
                         _isLoading.value = false
+                        Toast.makeText(ctx, "Data tidak ditemukan", Toast.LENGTH_SHORT).show()
+
                     }
                 }catch (e: Exception){
-                    Log.d("checkLogin", e.toString())
+                    Log.d("error", e.toString())
                 }
             }
         }
@@ -57,7 +60,7 @@ class TrackingHistoryViewModel : ViewModel() {
                 try {
                     if (response.isSuccessful) {
                         val loginResult = response.body()
-                        _detailTrackingHistoryResponse.postValue(loginResult)
+                        _detailTrackingHistoryResponse.postValue(loginResult!!)
                     } else {
                         _isLoading.value = false
                     }

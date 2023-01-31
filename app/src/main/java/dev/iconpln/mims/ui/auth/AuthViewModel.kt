@@ -195,7 +195,6 @@ class AuthViewModel: ViewModel() {
         daoSession.tMaterialGroupsDao.deleteAll()
         daoSession.tPrivilegeDao.deleteAll()
         daoSession.tPosSnsDao.deleteAll()
-        daoSession.tLokasiDao.deleteAll()
 
         if (result != null){
             if (result.materialDetails != null){

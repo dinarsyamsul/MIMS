@@ -73,11 +73,17 @@ class HomeFragment : Fragment() {
             startActivity(Intent(requireActivity(), PengujianActivity::class.java))
         }
 
-        binding.btnPenerimaan.setOnClickListener { startActivity(Intent(requireActivity(), PenerimaanActivity::class.java)) }
+        binding.btnPenerimaan.setOnClickListener {
+            startActivity(Intent(requireActivity(), PenerimaanActivity::class.java))
+        }
 
-        binding.btnTracking.setOnClickListener { startActivity(Intent(requireActivity(), TrackingHistoryActivity::class.java)) }
+        binding.btnTracking.setOnClickListener {
+            startActivity(Intent(requireActivity(), TrackingHistoryActivity::class.java))
+        }
 
-        binding.btnPengiriman.setOnClickListener { startActivity(Intent(requireActivity(), PengirimanActivity::class.java)) }
+        binding.btnPengiriman.setOnClickListener {
+            startActivity(Intent(requireActivity(), PengirimanActivity::class.java))
+        }
 
 //        binding.card2.setOnClickListener {
 //            Toast.makeText(context, "Under Maintenance", Toast.LENGTH_SHORT).show()
