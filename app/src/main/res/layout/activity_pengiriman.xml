@@ -51,9 +51,10 @@
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:paddingBottom="10dp">
+            
 
             <TextView
-                android:id="@+id/txt_nomorPOpengiriman"
+                android:id="@+id/lbl_po"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginStart="32dp"
@@ -65,98 +66,50 @@
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toTopOf="parent" />
 
-            <com.google.android.material.textfield.TextInputLayout
-                android:id="@+id/tinp_pilihUrutan"
-                style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox.ExposedDropdownMenu"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
+            <EditText
+                android:id="@+id/txt_po"
+                android:layout_width="0dp"
+                android:layout_height="@dimen/_35sdp"
                 android:layout_marginStart="32dp"
-                android:layout_marginTop="8dp"
                 android:layout_marginEnd="32dp"
+                android:layout_marginTop="@dimen/_6sdp"
+                android:background="@drawable/srchview"
+                android:fontFamily="@font/montserrat_reguler"
+                android:hint="No PO"
+                android:paddingLeft="@dimen/_10sdp"
+                android:textSize="12sp"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@id/txt_nomorPOpengiriman">
-
-                <AutoCompleteTextView
-                    android:id="@+id/auto_complete_textview"
-                    android:layout_width="match_parent"
-                    android:layout_height="match_parent"
-                    android:layout_weight="1"
-                    android:inputType="none"
-                    android:text="Pilih Nomor PO" />
-
-            </com.google.android.material.textfield.TextInputLayout>
+                app:layout_constraintTop_toBottomOf="@+id/lbl_po" />
 
             <TextView
-                android:id="@+id/txt_nomorDOpengiriman"
+                android:id="@+id/lbl_do"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginStart="32dp"
-                android:layout_marginTop="130dp"
+                android:layout_marginTop="@dimen/_10sdp"
                 android:text="Nomor DO"
                 android:textColor="#3F3D56"
                 android:textSize="14sp"
                 android:textStyle="bold"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@id/tinp_pilihUrutan"
-                app:layout_constraintTop_toTopOf="parent" />
+                app:layout_constraintTop_toBottomOf="@id/txt_po" />
 
-            <com.google.android.material.textfield.TextInputLayout
-                android:id="@+id/tinp_pilihUrutan1"
-                style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox.ExposedDropdownMenu"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
+            <EditText
+                android:id="@+id/txt_do"
+                android:layout_width="0dp"
+                android:layout_height="@dimen/_35sdp"
                 android:layout_marginStart="32dp"
-                android:layout_marginTop="8dp"
                 android:layout_marginEnd="32dp"
+                android:layout_marginTop="@dimen/_6sdp"
+                android:background="@drawable/srchview"
+                android:fontFamily="@font/montserrat_reguler"
+                android:hint="No DO"
+                android:paddingLeft="@dimen/_10sdp"
+                android:textSize="12sp"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@id/txt_nomorDOpengiriman">
-
-                <AutoCompleteTextView
-                    android:id="@+id/auto_complete_textview1"
-                    android:layout_width="match_parent"
-                    android:layout_height="match_parent"
-                    android:layout_weight="1"
-                    android:inputType="none"
-                    android:text="Pilih Nomor Delivery Order" />
-
-            </com.google.android.material.textfield.TextInputLayout>
-
-            <TextView
-                android:id="@+id/txt_petugaspengiriman"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginStart="32dp"
-                android:layout_marginTop="15dp"
-                android:text="Status"
-                android:textColor="#3F3D56"
-                android:textSize="14sp"
-                android:textStyle="bold"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/tinp_pilihUrutan1" />
-
-            <com.google.android.material.textfield.TextInputLayout
-                android:id="@+id/tinp_pilihUrutan2"
-                style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox.ExposedDropdownMenu"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginStart="32dp"
-                android:layout_marginTop="8dp"
-                android:layout_marginEnd="32dp"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@id/txt_petugaspengiriman">
-
-                <AutoCompleteTextView
-                    android:id="@+id/auto_complete_textview2"
-                    android:layout_width="match_parent"
-                    android:layout_height="match_parent"
-                    android:layout_weight="1"
-                    android:inputType="none"
-                    android:text="Pilih Status" />
-
-            </com.google.android.material.textfield.TextInputLayout>
+                app:layout_constraintTop_toBottomOf="@+id/lbl_do" />
 
             <androidx.cardview.widget.CardView
                 android:id="@+id/cv_daftarList"
@@ -171,7 +124,7 @@
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/tinp_pilihUrutan2">
+                app:layout_constraintTop_toBottomOf="@+id/txt_do">
 
                 <androidx.constraintlayout.widget.ConstraintLayout
                     android:layout_width="match_parent"

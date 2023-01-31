@@ -30,4 +30,8 @@ object ApiConfig {
     fun sendPenerimaan(): String {
         return BASE_URL + "reports/sendReportPenerimaan"
     }
+
+    fun insertLokasi(): String {
+        return BASE_URL + "reports/insertLokasi"
+    }
 }

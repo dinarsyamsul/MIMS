@@ -84,7 +84,6 @@ class HomeFragment : Fragment() {
         }
 
         binding.btnPenerimaan.setOnClickListener {
-//            startActivity(Intent(requireActivity(), PenerimaanActivity::class.java))
             val dialog = BottomSheetDialog(requireActivity(), R.style.AppBottomSheetDialogTheme)
             val view = layoutInflater.inflate(R.layout.bottom_sheet_dialog, null)
             val btnPemeriksaan = view.findViewById<CardView>(R.id.cv_pemeriksaan)
@@ -100,7 +99,9 @@ class HomeFragment : Fragment() {
             dialog.show()
         }
 
-        binding.btnTracking.setOnClickListener { startActivity(Intent(requireActivity(), TrackingHistoryActivity::class.java)) }
+        binding.btnTracking.setOnClickListener {
+            startActivity(Intent(requireActivity(), TrackingHistoryActivity::class.java))
+        }
 
         binding.btnPengiriman.setOnClickListener {
             startActivity(Intent(requireActivity(), PengirimanActivity::class.java))

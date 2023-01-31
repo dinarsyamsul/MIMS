@@ -1,14 +1,16 @@
 package dev.iconpln.mims.ui.pengiriman
 
+import android.content.Context
+import android.content.Intent
 import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
 import dev.iconpln.mims.data.local.database.TPos
 import dev.iconpln.mims.data.local.database.TPosSns
 import dev.iconpln.mims.databinding.ItemDetailPengirimanBinding
-import dev.iconpln.mims.databinding.ItemPengirimanBinding
+import dev.iconpln.mims.databinding.ItemDataPengirimanBinding
 
-class ListPengirimanAdapter(val lisModels: MutableList<TPos>, var listener: OnAdapterListener)
+class ListPengirimanAdapter(val context: Context, val lisModels: MutableList<TPos>, var listener: OnAdapterListener)
     : RecyclerView.Adapter<ListPengirimanAdapter.ViewHolder>() {
 
     fun setPengirimanList(mat: List<TPos>){
@@ -21,7 +23,7 @@ class ListPengirimanAdapter(val lisModels: MutableList<TPos>, var listener: OnAd
         parent: ViewGroup,
         viewType: Int
     ): ViewHolder {
-        val binding = ItemPengirimanBinding.inflate(LayoutInflater.from(parent.context), parent, false)
+        val binding = ItemDataPengirimanBinding.inflate(LayoutInflater.from(parent.context), parent, false)
         return ViewHolder(binding)
     }
 
@@ -31,15 +33,25 @@ class ListPengirimanAdapter(val lisModels: MutableList<TPos>, var listener: OnAd
 
     override fun getItemCount(): Int = lisModels.size
 
-    inner class ViewHolder(val binding: ItemPengirimanBinding): RecyclerView.ViewHolder(binding.root){
+    inner class ViewHolder(val binding: ItemDataPengirimanBinding): RecyclerView.ViewHolder(binding.root){
         fun bind(data : TPos){
             with(binding){
-                txtIsiNopengiriman.text = data.noDoSmar
-                txtIsiNopo.text = data.poSapNo
-//                txtIsinoDOpengiriman.text = data
-                txtIsiunitpengiriman.text = data.plantName
-                txtIsikuantitaspengiriman.text = data.total
-//                txtStatuspengiriman.text =
+                txtNoPengiriman.text = data.noDoSmar
+                txtNoPo.text = data.poSapNo
+                txtNoDo.text = data.noDoMims
+                txtUnit.text = data.plantName
+                txtQuantity.text = data.total
+                btnDetail.setOnClickListener {
+                    val intent = Intent(context, DetailPengirimanActivity::class.java)
+                    intent.putExtra(DetailPengirimanActivity.EXTRA_NO_PENGIRIMAN, data.noDoSmar)
+                    context.startActivity(intent)
+                }
+                btnLokasi.setOnClickListener {
+                    val intent = Intent(context, UpdateLokasiActivity::class.java)
+                    intent.putExtra(UpdateLokasiActivity.EXTRA_NO_DOMIMS, data.noDoMims)
+                    context.startActivity(intent)
+                }
+                
             }
 
             itemView.setOnClickListener { listener.onClick(data) }
