@@ -39,7 +39,7 @@ public class TPosDetailPenerimaanDao extends AbstractDao<TPosDetailPenerimaan, L
         public final static Property CreatedDate = new Property(14, String.class, "CreatedDate", false, "CREATED_DATE");
         public final static Property Uom = new Property(15, String.class, "Uom", false, "UOM");
         public final static Property NoPemeriksaan = new Property(16, String.class, "NoPemeriksaan", false, "NO_PEMERIKSAAN");
-        public final static Property IsDone = new Property(17, String.class, "isDone", false, "IS_DONE");
+        public final static Property IsDone = new Property(17, Integer.class, "isDone", false, "IS_DONE");
     }
 
 
@@ -72,7 +72,7 @@ public class TPosDetailPenerimaanDao extends AbstractDao<TPosDetailPenerimaan, L
                 "\"CREATED_DATE\" TEXT," + // 14: CreatedDate
                 "\"UOM\" TEXT," + // 15: Uom
                 "\"NO_PEMERIKSAAN\" TEXT," + // 16: NoPemeriksaan
-                "\"IS_DONE\" TEXT);"); // 17: isDone
+                "\"IS_DONE\" INTEGER);"); // 17: isDone
     }
 
     /** Drops the underlying database table. */
@@ -170,9 +170,9 @@ public class TPosDetailPenerimaanDao extends AbstractDao<TPosDetailPenerimaan, L
             stmt.bindString(17, NoPemeriksaan);
         }
  
-        String isDone = entity.getIsDone();
+        Integer isDone = entity.getIsDone();
         if (isDone != null) {
-            stmt.bindString(18, isDone);
+            stmt.bindLong(18, isDone);
         }
     }
 
@@ -265,9 +265,9 @@ public class TPosDetailPenerimaanDao extends AbstractDao<TPosDetailPenerimaan, L
             stmt.bindString(17, NoPemeriksaan);
         }
  
-        String isDone = entity.getIsDone();
+        Integer isDone = entity.getIsDone();
         if (isDone != null) {
-            stmt.bindString(18, isDone);
+            stmt.bindLong(18, isDone);
         }
     }
 
@@ -296,7 +296,7 @@ public class TPosDetailPenerimaanDao extends AbstractDao<TPosDetailPenerimaan, L
             cursor.isNull(offset + 14) ? null : cursor.getString(offset + 14), // CreatedDate
             cursor.isNull(offset + 15) ? null : cursor.getString(offset + 15), // Uom
             cursor.isNull(offset + 16) ? null : cursor.getString(offset + 16), // NoPemeriksaan
-            cursor.isNull(offset + 17) ? null : cursor.getString(offset + 17) // isDone
+            cursor.isNull(offset + 17) ? null : cursor.getInt(offset + 17) // isDone
         );
         return entity;
     }
@@ -320,7 +320,7 @@ public class TPosDetailPenerimaanDao extends AbstractDao<TPosDetailPenerimaan, L
         entity.setCreatedDate(cursor.isNull(offset + 14) ? null : cursor.getString(offset + 14));
         entity.setUom(cursor.isNull(offset + 15) ? null : cursor.getString(offset + 15));
         entity.setNoPemeriksaan(cursor.isNull(offset + 16) ? null : cursor.getString(offset + 16));
-        entity.setIsDone(cursor.isNull(offset + 17) ? null : cursor.getString(offset + 17));
+        entity.setIsDone(cursor.isNull(offset + 17) ? null : cursor.getInt(offset + 17));
      }
     
     @Override

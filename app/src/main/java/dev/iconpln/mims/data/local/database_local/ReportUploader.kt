@@ -1,4 +1,4 @@
-package dev.iconpln.mims.data.local.databasereport
+package dev.iconpln.mims.data.local.database_local
 
 import android.app.Service
 import android.content.Context
@@ -9,6 +9,7 @@ import android.os.Handler
 import android.os.IBinder
 import android.util.Log
 import androidx.localbroadcastmanager.content.LocalBroadcastManager
+import dev.iconpln.mims.ui.transmission_history.TransmissionActivity
 import java.util.*
 
 class ReportUploader : Service() {
@@ -51,11 +52,11 @@ class ReportUploader : Service() {
     }
 
     private fun sendResult() {
-//        if (!TransmissionActivity.isLoading) {
-//            val intent = Intent(Intent.ACTION_SEND)
-//            sendBroadcast(intent)
-//            Log.i("ReportUploader.kt", "Send result reciever")
-//        }
+        if (!TransmissionActivity.isLoading) {
+            val intent = Intent(Intent.ACTION_SEND)
+            sendBroadcast(intent)
+            Log.i("ReportUploader.kt", "Send result reciever")
+        }
     }
 
     private lateinit var broadcaster: LocalBroadcastManager

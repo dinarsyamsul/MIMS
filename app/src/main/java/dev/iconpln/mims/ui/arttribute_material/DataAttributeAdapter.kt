@@ -1,4 +1,4 @@
-package dev.iconpln.mims.ui.role.pabrikan.arttribute_material
+package dev.iconpln.mims.ui.arttribute_material
 
 import android.view.LayoutInflater
 import android.view.ViewGroup

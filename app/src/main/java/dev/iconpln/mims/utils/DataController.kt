@@ -22,7 +22,7 @@ import android.widget.RadioGroup
 import android.widget.TextView
 import android.widget.Toast
 import androidx.multidex.BuildConfig
-import dev.iconpln.mims.data.local.databasereport.DatabaseReport
+import dev.iconpln.mims.data.local.database_local.DatabaseReport
 import java.io.File
 import java.text.SimpleDateFormat
 import java.util.*

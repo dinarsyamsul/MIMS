@@ -24,10 +24,10 @@ class SessionManager (private val context: Context) {
             pref[ROLE_ID]
         }
 
-    val user_email: Flow<String?>
+    val user_email: String
         get() = context.dataStore.data.map { pref ->
             pref[USER_EMAIL]
-        }
+        }.toString()
 
     val session_activity: Flow<String?>
         get() = context.dataStore.data.map { pref ->

@@ -6,51 +6,59 @@ import android.app.DatePickerDialog
 import android.content.Intent
 import android.content.pm.PackageManager
 import android.graphics.Bitmap
+import android.graphics.BitmapFactory
 import android.os.Bundle
 import android.provider.MediaStore
 import android.util.Log
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
+import androidx.cardview.widget.CardView
 import androidx.core.app.ActivityCompat
 import androidx.core.content.ContextCompat
 import androidx.recyclerview.widget.LinearLayoutManager
-import com.google.zxing.integration.android.IntentIntegrator
+import com.google.android.material.bottomsheet.BottomSheetDialog
+import com.journeyapps.barcodescanner.ScanContract
+import com.journeyapps.barcodescanner.ScanIntentResult
+import com.journeyapps.barcodescanner.ScanOptions
 import dev.iconpln.mims.MyApplication
-import dev.iconpln.mims.data.local.database.DaoSession
-import dev.iconpln.mims.data.local.database.TPemeriksaan
-import dev.iconpln.mims.data.local.database.TPosDetailPenerimaan
-import dev.iconpln.mims.data.local.database.TPosDetailPenerimaanDao
-import dev.iconpln.mims.data.local.database.TPosPenerimaan
-import dev.iconpln.mims.data.local.database.TPosPenerimaanDao
+import dev.iconpln.mims.R
+import dev.iconpln.mims.data.local.database.*
 import dev.iconpln.mims.data.local.database_local.GenericReport
-import dev.iconpln.mims.data.local.databasereport.ReportParameter
-import dev.iconpln.mims.data.local.databasereport.ReportUploader
+import dev.iconpln.mims.data.local.database_local.ReportParameter
+import dev.iconpln.mims.data.local.database_local.ReportUploader
 import dev.iconpln.mims.data.remote.service.ApiConfig
+import dev.iconpln.mims.data.scan.CustomScanActivity
 import dev.iconpln.mims.databinding.ActivityDetailPenerimaanBinding
 import dev.iconpln.mims.tasks.Loadable
 import dev.iconpln.mims.tasks.TambahReportTask
 import dev.iconpln.mims.ui.pnerimaan.PenerimaanActivity
 import dev.iconpln.mims.ui.transmission_history.TransmissionActivity
+import dev.iconpln.mims.utils.SessionManager
+import dev.iconpln.mims.utils.SharedPrefsUtils
 import dev.iconpln.mims.utils.StorageUtils
 import org.joda.time.DateTime
 import java.io.File
 import java.io.FileOutputStream
 import java.text.SimpleDateFormat
 import java.util.*
-import kotlin.collections.ArrayList
 
 
 class DetailPenerimaanActivity : AppCompatActivity(),Loadable {
     private lateinit var daoSession: DaoSession
+    private lateinit var session: SessionManager
     private lateinit var binding: ActivityDetailPenerimaanBinding
     private lateinit var adapter: DetailPenerimaanAdapter
     private val cameraRequestFotoBarang = 101
-    private val cameraRequestFotoSuratBarang = 102
+    private val cameraRequestFotoBarangGallery = 102
+    private val cameraRequestFotoSuratBarang = 103
+    private val cameraRequestFotoSuratBarangGallery = 104
     private var filePathFotoBarang: String = ""
     private var filePathFotoSuratBarang: String = ""
     private lateinit var cal: Calendar
     private var noDo: String = ""
     private lateinit var data: TPosPenerimaan
+    private lateinit var packagings: List<TPosDetailPenerimaan>
+    private lateinit var dataDetailPenerimaan: TPosDetailPenerimaan
 
     @SuppressLint("SuspiciousIndentation")
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -59,11 +67,13 @@ class DetailPenerimaanActivity : AppCompatActivity(),Loadable {
         setContentView(binding.root)
         daoSession = (application as MyApplication).daoSession!!
         cal = Calendar.getInstance()
+        session = SessionManager(this)
 
         noDo = intent.getStringExtra("do").toString()
 
         data = daoSession.tPosPenerimaanDao.queryBuilder().where(TPosPenerimaanDao.Properties.NoDoSmar.eq(noDo)).limit(1).unique()
-
+        packagings = daoSession.tPosDetailPenerimaanDao.queryBuilder().where(TPosDetailPenerimaanDao.Properties.NoDoSmar.eq(noDo)).list()
+        dataDetailPenerimaan = daoSession.tPosDetailPenerimaanDao.queryBuilder().where(TPosDetailPenerimaanDao.Properties.NoDoSmar.eq(noDo)).limit(1).unique()
 
         adapter = DetailPenerimaanAdapter(arrayListOf(), object : DetailPenerimaanAdapter.OnAdapterListener{
             override fun onClick(po: TPosDetailPenerimaan) {}
@@ -99,30 +109,74 @@ class DetailPenerimaanActivity : AppCompatActivity(),Loadable {
                 if (ContextCompat.checkSelfPermission(applicationContext, Manifest.permission.CAMERA) == PackageManager.PERMISSION_DENIED)
                     ActivityCompat.requestPermissions(this@DetailPenerimaanActivity, arrayOf(Manifest.permission.CAMERA), cameraRequestFotoSuratBarang)
 
+                val dialog = BottomSheetDialog(this@DetailPenerimaanActivity, R.style.AppBottomSheetDialogTheme)
+                val view = layoutInflater.inflate(R.layout.bottom_sheet_dialog_photo, null)
+                var btnCamera = view.findViewById<CardView>(R.id.cv_kamera)
+                var btnGallery = view.findViewById<CardView>(R.id.cv_gallery)
+
+                btnCamera.setOnClickListener {
                     val cameraIntent = Intent(MediaStore.ACTION_IMAGE_CAPTURE)
                     startActivityForResult(cameraIntent, cameraRequestFotoSuratBarang)
+                    dialog.dismiss()
+                }
 
+                btnGallery.setOnClickListener {
+                    val photoPickerIntent = Intent(Intent.ACTION_PICK)
+                    photoPickerIntent.type = "image/*"
+                    startActivityForResult(photoPickerIntent, cameraRequestFotoSuratBarangGallery)
+                    dialog.dismiss()
+                }
 
+                dialog.setCancelable(true)
+                dialog.setContentView(view)
+                dialog.show()
             }
 
             btnFotoBarang.setOnClickListener {
                 if (ContextCompat.checkSelfPermission(applicationContext, Manifest.permission.CAMERA) == PackageManager.PERMISSION_DENIED)
-                    ActivityCompat.requestPermissions(this@DetailPenerimaanActivity, arrayOf(Manifest.permission.CAMERA), cameraRequestFotoBarang)
+                    ActivityCompat.requestPermissions(this@DetailPenerimaanActivity, arrayOf(Manifest.permission.CAMERA), cameraRequestFotoSuratBarang)
 
-                val cameraIntent = Intent(MediaStore.ACTION_IMAGE_CAPTURE)
-                startActivityForResult(cameraIntent, cameraRequestFotoBarang)
+                val dialog = BottomSheetDialog(this@DetailPenerimaanActivity, R.style.AppBottomSheetDialogTheme)
+                val view = layoutInflater.inflate(R.layout.bottom_sheet_dialog_photo, null)
+                var btnCamera = view.findViewById<CardView>(R.id.cv_kamera)
+                var btnGallery = view.findViewById<CardView>(R.id.cv_gallery)
+
+                btnCamera.setOnClickListener {
+                    val cameraIntent = Intent(MediaStore.ACTION_IMAGE_CAPTURE)
+                    startActivityForResult(cameraIntent, cameraRequestFotoBarang)
+                    dialog.dismiss()
+                }
+
+                btnGallery.setOnClickListener {
+                    val photoPickerIntent = Intent(Intent.ACTION_PICK)
+                    photoPickerIntent.type = "image/*"
+                    startActivityForResult(photoPickerIntent, cameraRequestFotoBarangGallery)
+                    dialog.dismiss()
+                }
+
+                dialog.setCancelable(true)
+                dialog.setContentView(view)
+                dialog.show()
             }
 
             barcode2.setOnClickListener {
-                val intentIntegrator = IntentIntegrator(this@DetailPenerimaanActivity)
-                intentIntegrator.setPrompt("Scan a barcode or QR Code")
-                intentIntegrator.setOrientationLocked(true)
-                intentIntegrator.initiateScan()
+                openScanner()
             }
 
             btnSimpan.setOnClickListener {
                 validatete()
             }
+            txtPrimaryOrder.text = dataDetailPenerimaan.noDoMims
+            txtNoDo.text = dataDetailPenerimaan.noDoSmar
+            txtPlant.text = dataDetailPenerimaan.plantName
+            txtTlsk.text = "01111220011111"
+            txtUnit.text = dataDetailPenerimaan.uom
+            txtKurirPengiriman.text = "-"
+            txtPetugasPengiriman.text = "-"
+            txtSerialNumber.text = "-"
+            txtStoreloc.text = dataDetailPenerimaan.storLoc
+            txtTglKirim.text = dataDetailPenerimaan.createdDate
+            txtVendor.text = dataDetailPenerimaan.plantName
         }
 
         setPackagingList()
@@ -227,24 +281,28 @@ class DetailPenerimaanActivity : AppCompatActivity(),Loadable {
             item.isDone = 0
             daoSession.insert(item)
 
+            var jwt = SharedPrefsUtils.getStringPreference(this@DetailPenerimaanActivity,"jwt","")
+            var username = SharedPrefsUtils.getStringPreference(this@DetailPenerimaanActivity, "username","")
+            var email = SharedPrefsUtils.getStringPreference(this@DetailPenerimaanActivity, "email","")
             val currentDate = DateTime.now().toString("yyyy-MM-dd")
-            val reportId = "ABS" + DateTime.now().toString("yMdHmsSSS")
-            val reportName = "Absensi"
+            val reportId = "Penerimaan" + DateTime.now().toString("yMdHmsSSS")
+            val reportName = "Penerimaan"
+            val reportDescription = "Penerimaan-${item.noDoSmar}-${item.packangings}-${DateTime.now().toString("yyyy-MM-dd")}"
             val params = ArrayList<ReportParameter>()
             params.add(ReportParameter("1", reportId, "plant_code_no", item.planCodeNo, ReportParameter.TEXT ))
             params.add(ReportParameter("2", reportId, "no_do_smar", item.noDoSmar, ReportParameter.TEXT ))
-            params.add(ReportParameter("3", reportId, "no_mat_sap", "", ReportParameter.TEXT ))
+            params.add(ReportParameter("3", reportId, "no_mat_sap", dataDetailPenerimaan.noMatSap, ReportParameter.TEXT ))
             params.add(ReportParameter("4", reportId, "penerima", item.petugasPenerima, ReportParameter.TEXT ))
             params.add(ReportParameter("5", reportId, "tanggal", item.tanggalDiterima, ReportParameter.TEXT ))
             params.add(ReportParameter("6", reportId, "kurir", item.namaKurir, ReportParameter.TEXT ))
             params.add(ReportParameter("7", reportId, "ekspedisi", item.namaEkspedisi, ReportParameter.TEXT ))
-            params.add(ReportParameter("8", reportId, "quantity", "", ReportParameter.TEXT ))
-            params.add(ReportParameter("9", reportId, "username", "", ReportParameter.TEXT ))
-            params.add(ReportParameter("10", reportId, "email", "", ReportParameter.TEXT ))
+            params.add(ReportParameter("8", reportId, "quantity", dataDetailPenerimaan.qty, ReportParameter.TEXT ))
+            params.add(ReportParameter("9", reportId, "username", username!!, ReportParameter.TEXT ))
+            params.add(ReportParameter("10", reportId, "email",email!! , ReportParameter.TEXT ))
             params.add(ReportParameter("11", reportId, "no_packagings", packagings, ReportParameter.TEXT ))
             params.add(ReportParameter("12", reportId, "photo_file", filePathFotoBarang, ReportParameter.FILE ))
             params.add(ReportParameter("13", reportId, "photo_file2", filePathFotoSuratBarang, ReportParameter.FILE ))
-            val reportPenerimaan = GenericReport(reportId, "", reportName, "reportDescription", ApiConfig.sendPenerimaan(), currentDate, 0, 11119209101, params)
+            val reportPenerimaan = GenericReport(reportId, "", reportName, reportDescription, ApiConfig.sendPenerimaan(), currentDate, 0, 11119209101, params,jwt!!)
             reports.add(reportPenerimaan)
 
         }
@@ -259,15 +317,58 @@ class DetailPenerimaanActivity : AppCompatActivity(),Loadable {
     private fun setCardData() {}
 
     private fun setPackagingList() {
-        val list = daoSession.tPosDetailPenerimaanDao.queryBuilder().list()
-        adapter.setPoList(list)
+        adapter.setPoList(packagings)
     }
 
     override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
         super.onActivityResult(requestCode, resultCode, data)
-        val intentResult = IntentIntegrator.parseActivityResult(requestCode, resultCode, data)
 
-        if (requestCode == cameraRequestFotoSuratBarang){
+        if (resultCode == RESULT_OK && requestCode == cameraRequestFotoSuratBarangGallery){
+            val imageUri = data?.data
+            val imageStream = contentResolver.openInputStream(imageUri!!)
+            val bitmap: Bitmap = BitmapFactory.decodeStream(imageStream)
+
+            val file_path = StorageUtils.getDirectory(StorageUtils.DIRECTORY_ROOT) +
+                    "/Images"
+            val dir = File(file_path)
+            if (!dir.exists()) dir.mkdirs()
+            val file = File(dir, "mims" + "picturesFotoSuratBarang${UUID.randomUUID()}" + ".png")
+            val fOut = FileOutputStream(file)
+
+            bitmap.compress(Bitmap.CompressFormat.PNG, 85, fOut)
+            fOut.flush()
+            fOut.close()
+
+            binding.idFileName.setImageBitmap(bitmap)
+            filePathFotoSuratBarang = file.toString()
+
+        }else{
+            Log.d("cancel", "cacelPhoto")
+        }
+
+        if (resultCode == RESULT_OK && requestCode == cameraRequestFotoBarangGallery){
+            val imageUri = data?.data
+            val imageStream = contentResolver.openInputStream(imageUri!!)
+            val bitmap: Bitmap = BitmapFactory.decodeStream(imageStream)
+
+            val file_path = StorageUtils.getDirectory(StorageUtils.DIRECTORY_ROOT) +
+                    "/Images"
+            val dir = File(file_path)
+            if (!dir.exists()) dir.mkdirs()
+            val file = File(dir, "mims" + "picturesFotoBarang${UUID.randomUUID()}" + ".png")
+            val fOut = FileOutputStream(file)
+
+            bitmap.compress(Bitmap.CompressFormat.PNG, 85, fOut)
+            fOut.flush()
+            fOut.close()
+
+            binding.idFileNameBarang.setImageBitmap(bitmap)
+            filePathFotoBarang = file.toString()
+        }else{
+            Log.d("cancel", "cacelPhoto")
+        }
+
+        if (resultCode == RESULT_OK && requestCode == cameraRequestFotoSuratBarang){
             val bitmap: Bitmap = data?.extras?.get("data") as Bitmap
 
             val file_path = StorageUtils.getDirectory(StorageUtils.DIRECTORY_ROOT) +
@@ -281,12 +382,14 @@ class DetailPenerimaanActivity : AppCompatActivity(),Loadable {
             fOut.flush()
             fOut.close()
 
-            binding.idFileName.text = file.toString()
+            binding.idFileName.setImageBitmap(bitmap)
             filePathFotoSuratBarang = file.toString()
 
+        }else{
+            Log.d("cancel", "cacelPhoto")
         }
 
-        if (requestCode == cameraRequestFotoBarang){
+        if (resultCode == RESULT_OK && requestCode == cameraRequestFotoBarang){
             val bitmap: Bitmap = data?.extras?.get("data") as Bitmap
 
             val file_path = StorageUtils.getDirectory(StorageUtils.DIRECTORY_ROOT) +
@@ -300,29 +403,10 @@ class DetailPenerimaanActivity : AppCompatActivity(),Loadable {
             fOut.flush()
             fOut.close()
 
-            binding.idFileNameBarang.text = file.toString()
+            binding.idFileNameBarang.setImageBitmap(bitmap)
             filePathFotoBarang = file.toString()
-        }
-
-        if (intentResult != null) {
-            if (intentResult.getContents() == null) {
-                Toast.makeText(getBaseContext(), "Cancelled", Toast.LENGTH_SHORT).show();
-            } else {
-                Toast.makeText(this, intentResult.contents, Toast.LENGTH_SHORT).show()
-                Toast.makeText(this, intentResult.formatName, Toast.LENGTH_SHORT).show()
-
-                val data = daoSession.tPosDetailPenerimaanDao.queryBuilder().where(TPosDetailPenerimaanDao.Properties.NoPackaging.eq(intentResult.contents)).limit(1).unique()
-                data.isDone = "1"
-                daoSession.update(data)
-
-                val list = daoSession.tPosDetailPenerimaanDao.queryBuilder().list()
-                adapter.setPoList(list)
-                Toast.makeText(this, data.noPackaging, Toast.LENGTH_SHORT).show()
-
-
-            }
-        } else {
-            super.onActivityResult(requestCode, resultCode, data);
+        }else{
+            Log.d("cancel", "cacelPhoto")
         }
     }
 
@@ -332,6 +416,34 @@ class DetailPenerimaanActivity : AppCompatActivity(),Loadable {
         if (result){
             startActivity(Intent(this@DetailPenerimaanActivity, PenerimaanActivity::class.java))
             finish()
+        }
+    }
+
+    private fun openScanner() {
+        val scan = ScanOptions()
+        scan.setDesiredBarcodeFormats(ScanOptions.ALL_CODE_TYPES)
+        scan.setCameraId(0)
+        scan.setBeepEnabled(true)
+        scan.setBarcodeImageEnabled(true)
+        scan.captureActivity = CustomScanActivity::class.java
+        barcodeLauncher.launch(scan)
+    }
+
+    private val barcodeLauncher = registerForActivityResult(
+        ScanContract()
+    ) { result: ScanIntentResult ->
+        try {
+            if (!result.contents.isNullOrEmpty()) {
+
+                val data = daoSession.tPosDetailPenerimaanDao.queryBuilder().where(TPosDetailPenerimaanDao.Properties.NoPackaging.eq(result.contents)).limit(1).unique()
+                data.isDone = 1
+                daoSession.update(data)
+
+                adapter.setPoList(packagings)
+                Toast.makeText(this@DetailPenerimaanActivity, "Scanning success : ${result.contents}",Toast.LENGTH_SHORT).show()
+            }
+        }catch (e: Exception){
+            Log.e("checkException", e.toString())
         }
     }
 }

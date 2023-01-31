@@ -441,16 +441,6 @@
                 app:layout_constraintTop_toBottomOf="@+id/cv_daftarList" />
 
             <ImageButton
-                android:id="@+id/barcode"
-                android:layout_width="30dp"
-                android:layout_height="30dp"
-                android:layout_marginTop="10dp"
-                android:layout_marginEnd="20dp"
-                android:src="@drawable/btn_barcode"
-                app:layout_constraintEnd_toStartOf="@+id/barcode2"
-                app:layout_constraintTop_toBottomOf="@+id/cv_daftarList" />
-
-            <ImageButton
                 android:id="@+id/barcode2"
                 android:layout_width="30dp"
                 android:layout_height="30dp"
@@ -621,71 +611,70 @@
                 android:id="@+id/btn_foto_surat_barang"
                 android:layout_width="0dp"
                 android:layout_height="40dp"
-                android:layout_marginTop="10dp"
+                android:layout_marginStart="16dp"
                 android:background="@drawable/button_upload"
                 android:drawableStart="@drawable/iconupload"
                 android:fontFamily="@font/montserrat_reguler"
                 android:paddingLeft="20dp"
                 android:paddingRight="20dp"
-                app:layout_constraintEnd_toEndOf="@+id/lbl_foto_surat_barang"
-                app:layout_constraintStart_toStartOf="@+id/txt_serialNumber"
-                app:layout_constraintTop_toBottomOf="@+id/lbl_foto_surat_barang" />
+                app:layout_constraintBottom_toBottomOf="@+id/id_file_name"
+                app:layout_constraintStart_toEndOf="@+id/id_file_name"
+                app:layout_constraintTop_toTopOf="@+id/id_file_name" />
 
-            <TextView
+            <ImageView
                 android:id="@+id/id_file_name"
-                android:layout_width="0dp"
-                android:layout_height="wrap_content"
+                android:layout_width="180dp"
+                android:layout_height="150dp"
                 android:layout_marginStart="10dp"
-                android:layout_marginEnd="10dp"
+                android:layout_marginTop="16dp"
+                android:scaleType="centerCrop"
+                android:background="@drawable/ic_image"
                 android:text="Nama File"
-                app:layout_constraintBottom_toBottomOf="@+id/btn_foto_surat_barang"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintStart_toEndOf="@+id/btn_foto_surat_barang"
+                app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@+id/lbl_foto_surat_barang" />
 
-            <TextView
+            <ImageView
                 android:id="@+id/id_file_name_barang"
-                android:layout_width="0dp"
-                android:layout_height="wrap_content"
-                android:layout_marginStart="10dp"
-                android:layout_marginEnd="10dp"
+                android:layout_width="180dp"
+                android:layout_height="150dp"
+                android:layout_marginTop="16dp"
+                android:scaleType="centerCrop"
                 android:text="Nama File"
-                app:layout_constraintBottom_toBottomOf="@+id/btn_foto_barang"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintStart_toEndOf="@+id/btn_foto_surat_barang"
-                app:layout_constraintTop_toTopOf="@+id/btn_foto_barang" />
+                android:background="@drawable/ic_image"
+                app:layout_constraintStart_toStartOf="@+id/lbl_foto_barang"
+                app:layout_constraintTop_toBottomOf="@+id/lbl_foto_barang" />
 
             <TextView
                 android:id="@+id/lbl_foto_barang"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="10dp"
+                android:layout_marginTop="16dp"
                 android:text="Foto Barang"
                 android:textColor="#3F3D56"
                 android:textSize="14sp"
                 android:textStyle="bold"
                 app:layout_constraintStart_toStartOf="@+id/edt_tanggal_diterima"
-                app:layout_constraintTop_toBottomOf="@+id/btn_foto_surat_barang" />
+                app:layout_constraintTop_toBottomOf="@+id/id_file_name" />
 
             <ImageButton
                 android:id="@+id/btn_foto_barang"
                 android:layout_width="0dp"
                 android:layout_height="40dp"
-                android:layout_marginTop="10dp"
                 android:background="@drawable/button_upload"
                 android:drawableStart="@drawable/iconupload"
                 android:fontFamily="@font/montserrat_reguler"
                 android:paddingLeft="20dp"
                 android:paddingRight="20dp"
+                app:layout_constraintBottom_toBottomOf="@+id/id_file_name_barang"
                 app:layout_constraintEnd_toEndOf="@+id/btn_foto_surat_barang"
-                app:layout_constraintStart_toStartOf="@+id/txt_serialNumber"
-                app:layout_constraintTop_toBottomOf="@+id/lbl_foto_barang" />
+                app:layout_constraintStart_toStartOf="@+id/btn_foto_surat_barang"
+                app:layout_constraintTop_toTopOf="@+id/id_file_name_barang" />
 
             <androidx.appcompat.widget.AppCompatButton
                 android:id="@+id/btn_simpan"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="10dp"
+                android:layout_marginTop="20dp"
                 android:background="@drawable/br_btn"
                 android:elevation="8dp"
                 android:fontFamily="@font/montserrat_reguler"
@@ -695,8 +684,8 @@
                 android:textStyle="bold"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintEnd_toEndOf="@+id/edt_ekspedisi"
-                app:layout_constraintStart_toStartOf="@+id/btn_foto_barang"
-                app:layout_constraintTop_toBottomOf="@id/btn_foto_barang" />
+                app:layout_constraintStart_toStartOf="@+id/lbl_foto_barang"
+                app:layout_constraintTop_toBottomOf="@+id/id_file_name_barang" />
         </androidx.constraintlayout.widget.ConstraintLayout>
     </ScrollView>
 

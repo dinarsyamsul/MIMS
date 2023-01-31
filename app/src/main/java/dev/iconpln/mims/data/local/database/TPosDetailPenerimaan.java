@@ -28,7 +28,7 @@ public class TPosDetailPenerimaan {
     private String CreatedDate;
     private String Uom;
     private String NoPemeriksaan;
-    private String isDone;
+    private Integer isDone;
 
     @Generated
     public TPosDetailPenerimaan() {
@@ -39,7 +39,7 @@ public class TPosDetailPenerimaan {
     }
 
     @Generated
-    public TPosDetailPenerimaan(Long id, String NoMatSap, String NoDoSmar, String Qty, String KdPabrikan, String DoStatus, String PoSapNo, String PoMpNo, String NoDoMims, String NoPackaging, String PlantCodeNo, String PlantName, String StorLoc, String LeadTime, String CreatedDate, String Uom, String NoPemeriksaan, String isDone) {
+    public TPosDetailPenerimaan(Long id, String NoMatSap, String NoDoSmar, String Qty, String KdPabrikan, String DoStatus, String PoSapNo, String PoMpNo, String NoDoMims, String NoPackaging, String PlantCodeNo, String PlantName, String StorLoc, String LeadTime, String CreatedDate, String Uom, String NoPemeriksaan, Integer isDone) {
         this.id = id;
         this.NoMatSap = NoMatSap;
         this.NoDoSmar = NoDoSmar;
@@ -196,11 +196,11 @@ public class TPosDetailPenerimaan {
         this.NoPemeriksaan = NoPemeriksaan;
     }
 
-    public String getIsDone() {
+    public Integer getIsDone() {
         return isDone;
     }
 
-    public void setIsDone(String isDone) {
+    public void setIsDone(Integer isDone) {
         this.isDone = isDone;
     }
 

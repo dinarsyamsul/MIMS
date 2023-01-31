@@ -46,7 +46,7 @@
                 android:value="" />
         </activity>
         <activity
-            android:name=".ui.role.pabrikan.arttribute_material.detail_attribute.DetailDataAtributeMaterialActivity"
+            android:name=".ui.arttribute_material.detail_attribute.DetailDataAtributeMaterialActivity"
             android:exported="false">
             <meta-data
                 android:name="android.app.lib_name"
@@ -117,6 +117,20 @@
         </activity>
         <activity
             android:name=".ui.tracking.DataMaterialTrackingActivity"
+            android:exported="false">
+            <meta-data
+                android:name="android.app.lib_name"
+                android:value="" />
+        </activity>
+        <activity
+            android:name=".ui.pengiriman.DetailPengirimanActivity"
+            android:exported="false">
+            <meta-data
+                android:name="android.app.lib_name"
+                android:value="" />
+        </activity>
+        <activity
+            android:name=".ui.transmission_history.TransmissionActivity"
             android:exported="false">
             <meta-data
                 android:name="android.app.lib_name"

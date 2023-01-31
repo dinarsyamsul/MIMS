@@ -104,7 +104,7 @@ public class MainGenerator {
         tPosDetailPenerimaan.addStringProperty("CreatedDate");
         tPosDetailPenerimaan.addStringProperty("Uom");
         tPosDetailPenerimaan.addStringProperty("NoPemeriksaan");
-        tPosDetailPenerimaan.addStringProperty("isDone");
+        tPosDetailPenerimaan.addIntProperty("isDone");
 
         //endregion
 

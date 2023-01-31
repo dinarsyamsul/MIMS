@@ -13,14 +13,11 @@ import dev.iconpln.mims.HomeActivity
 import dev.iconpln.mims.MyApplication
 import dev.iconpln.mims.data.local.database.DaoMaster
 import dev.iconpln.mims.data.local.database.DaoSession
-import dev.iconpln.mims.data.local.databasereport.DatabaseReport
-import dev.iconpln.mims.data.local.databasereport.ReportUploader
+import dev.iconpln.mims.data.local.database_local.DatabaseReport
+import dev.iconpln.mims.data.local.database_local.ReportUploader
 import dev.iconpln.mims.databinding.ActivityLoginBinding
 import dev.iconpln.mims.ui.auth.otp.OtpActivity
-import dev.iconpln.mims.utils.Config
-import dev.iconpln.mims.utils.Helper
-import dev.iconpln.mims.utils.SessionManager
-import dev.iconpln.mims.utils.StorageUtils
+import dev.iconpln.mims.utils.*
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
@@ -70,6 +67,10 @@ class LoginActivity : AppCompatActivity() {
                             it.user?.mail.toString(),
                             it.user?.kdUser.toString()
                         )
+                        SharedPrefsUtils.setStringPreference(this@LoginActivity,"jwt", it.token!!)
+                        SharedPrefsUtils.setStringPreference(this@LoginActivity, "username", username)
+                        SharedPrefsUtils.setStringPreference(this@LoginActivity, "email", it.user?.mail!!)
+                        SharedPrefsUtils.setStringPreference(this@LoginActivity, "password", password)
 
                         withContext(Dispatchers.Main){
                             val intentToHome = Intent(this@LoginActivity, HomeActivity::class.java)

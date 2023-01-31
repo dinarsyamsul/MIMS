@@ -4,7 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".ui.role.pabrikan.arttribute_material.detail_attribute.DetailDataAtributeMaterialActivity">
+    tools:context=".ui.arttribute_material.detail_attribute.DetailDataAtributeMaterialActivity">
 
     <ImageButton
         android:id="@+id/btn_close"

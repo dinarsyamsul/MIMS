@@ -23,6 +23,7 @@ import dev.iconpln.mims.ui.auth.otp.OtpActivity
 import dev.iconpln.mims.utils.Config
 import dev.iconpln.mims.utils.Helper
 import dev.iconpln.mims.utils.SessionManager
+import dev.iconpln.mims.utils.SharedPrefsUtils
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
@@ -62,8 +63,8 @@ class LoginBiometricActivity : AppCompatActivity() {
         dateTimeUtc = DateTimeUtils.currentTimeMillis()
         Log.d("androidID", mAndroidId)
 
-        username = session.username
-        mPassword = session.password
+        username = SharedPrefsUtils.getStringPreference(this@LoginBiometricActivity,"username","14.Hexing_Electric")!!
+        mPassword = SharedPrefsUtils.getStringPreference(this@LoginBiometricActivity,"password","12345")!!
 
 
         biometricPrompt = createBiometricPrompt()
@@ -111,6 +112,8 @@ class LoginBiometricActivity : AppCompatActivity() {
                             it.user?.mail.toString(),
                             it.user?.kdUser.toString()
                         )
+                        SharedPrefsUtils.setStringPreference(this@LoginBiometricActivity,"jwt", it.token!!)
+                        SharedPrefsUtils.setStringPreference(this@LoginBiometricActivity, "email", it.user?.mail!!)
 
                         withContext(Dispatchers.Main){
                             val intentToHome = Intent(this@LoginBiometricActivity, HomeActivity::class.java)
@@ -160,10 +163,11 @@ class LoginBiometricActivity : AppCompatActivity() {
 
             override fun onAuthenticationSucceeded(result: BiometricPrompt.AuthenticationResult) {
                 super.onAuthenticationSucceeded(result)
-                viewModel.getLogin(this@LoginBiometricActivity,
-                    daoSession,"14.Hexing_Electrical", "12345","",
-                    mAndroidId,mAppVersion,mDeviceData,mIpAddress,
-                    androidVersion,dateTimeUtc,session)
+                startActivity(Intent(this@LoginBiometricActivity, HomeActivity::class.java))
+//                viewModel.getLogin(this@LoginBiometricActivity,
+//                    daoSession,username, mPassword,"",
+//                    mAndroidId,mAppVersion,mDeviceData,mIpAddress,
+//                    androidVersion,dateTimeUtc,session)
                 Log.d(ContentValues.TAG, "Authentication was successful")
             }
         }

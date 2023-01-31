@@ -57,14 +57,26 @@
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_marginStart="5dp"
-                android:layout_marginEnd="10dp"
-                android:text="Tanggal terkirim 01-01-2023"
+                android:layout_marginEnd="5dp"
                 android:fontFamily="@font/montserrat_reguler"
+                android:text="Tanggal terkirim 01-01-2023"
                 android:textSize="8dp"
                 app:layout_constraintBottom_toBottomOf="@+id/vw_circle"
-                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintEnd_toStartOf="@+id/is_checked"
+                app:layout_constraintHorizontal_bias="0.0"
                 app:layout_constraintStart_toEndOf="@+id/vw_circle"
-                app:layout_constraintTop_toTopOf="@+id/vw_circle" />
+                app:layout_constraintTop_toTopOf="@+id/vw_circle"
+                app:layout_constraintVertical_bias="0.545" />
+
+            <ImageView
+                android:id="@+id/is_checked"
+                android:layout_width="20dp"
+                android:layout_height="20dp"
+                android:layout_marginEnd="16dp"
+                android:visibility="gone"
+                android:src="@drawable/ic_checked"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintTop_toTopOf="@+id/txt_tgl_kirim" />
 
             <TextView
                 android:id="@+id/txt_delivery_order"

@@ -14,8 +14,8 @@ import androidx.appcompat.app.AppCompatActivity
 import dev.iconpln.mims.MyApplication
 import dev.iconpln.mims.R
 import dev.iconpln.mims.data.local.database.DaoSession
-import dev.iconpln.mims.data.local.databasereport.DatabaseReport
-import dev.iconpln.mims.data.local.databasereport.ReportUploader
+import dev.iconpln.mims.data.local.database_local.DatabaseReport
+import dev.iconpln.mims.data.local.database_local.ReportUploader
 import dev.iconpln.mims.utils.DataController
 import java.util.*
 

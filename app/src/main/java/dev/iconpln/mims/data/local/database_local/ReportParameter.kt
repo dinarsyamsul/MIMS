@@ -1,4 +1,4 @@
-package dev.iconpln.mims.data.local.databasereport
+package dev.iconpln.mims.data.local.database_local
 
 import dev.iconpln.mims.utils.StorageUtils
 import org.apache.http.entity.mime.FormBodyPart

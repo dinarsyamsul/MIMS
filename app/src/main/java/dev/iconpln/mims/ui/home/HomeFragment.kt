@@ -6,11 +6,15 @@ import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.Button
 import android.widget.Toast
+import androidx.cardview.widget.CardView
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.asLiveData
 import androidx.lifecycle.lifecycleScope
+import com.google.android.material.bottomsheet.BottomSheetDialog
 import dev.iconpln.mims.MyApplication
+import dev.iconpln.mims.R
 import dev.iconpln.mims.databinding.FragmentHomeBinding
 import dev.iconpln.mims.ui.auth.LoginActivity
 import dev.iconpln.mims.ui.monitoring.MonitoringActivity
@@ -19,6 +23,7 @@ import dev.iconpln.mims.ui.pnerimaan.PenerimaanActivity
 import dev.iconpln.mims.ui.role.pabrikan.arttribute_material.DataAtributMaterialActivity
 import dev.iconpln.mims.ui.role.pabrikan.pengujian.PengujianActivity
 import dev.iconpln.mims.ui.tracking.TrackingHistoryActivity
+import dev.iconpln.mims.ui.transmission_history.TransmissionActivity
 import dev.iconpln.mims.utils.SessionManager
 import kotlinx.coroutines.launch
 
@@ -43,7 +48,12 @@ class HomeFragment : Fragment() {
         val session = SessionManager(requireContext())
         val daoSession = (requireActivity().application as MyApplication).daoSession!!
 
+
         var listPrivilege = daoSession.tPrivilegeDao.queryBuilder().list()
+
+        binding.back.setOnClickListener {
+            startActivity(Intent(requireActivity(), TransmissionActivity::class.java))
+        }
 
         binding.btnLogout.setOnClickListener {
             val onLogout = Intent(requireContext(), LoginActivity::class.java)
@@ -73,15 +83,28 @@ class HomeFragment : Fragment() {
             startActivity(Intent(requireActivity(), PengujianActivity::class.java))
         }
 
-        binding.btnPenerimaan.setOnClickListener { startActivity(Intent(requireActivity(), PenerimaanActivity::class.java)) }
+        binding.btnPenerimaan.setOnClickListener {
+//            startActivity(Intent(requireActivity(), PenerimaanActivity::class.java))
+            val dialog = BottomSheetDialog(requireActivity(), R.style.AppBottomSheetDialogTheme)
+            val view = layoutInflater.inflate(R.layout.bottom_sheet_dialog, null)
+            val btnPemeriksaan = view.findViewById<CardView>(R.id.cv_pemeriksaan)
+            val btnPenerimaan = view.findViewById<CardView>(R.id.cv_penerimaan)
+            val btnRating = view.findViewById<CardView>(R.id.cv_rating)
+
+            btnPenerimaan.setOnClickListener {
+                startActivity(Intent(requireActivity(), PenerimaanActivity::class.java))
+            }
+
+            dialog.setCancelable(true)
+            dialog.setContentView(view)
+            dialog.show()
+        }
 
         binding.btnTracking.setOnClickListener { startActivity(Intent(requireActivity(), TrackingHistoryActivity::class.java)) }
 
-        binding.btnPengiriman.setOnClickListener { startActivity(Intent(requireActivity(), PengirimanActivity::class.java)) }
-
-//        binding.card2.setOnClickListener {
-//            Toast.makeText(context, "Under Maintenance", Toast.LENGTH_SHORT).show()
-//        }
+        binding.btnPengiriman.setOnClickListener {
+            startActivity(Intent(requireActivity(), PengirimanActivity::class.java))
+        }
     }
 
 

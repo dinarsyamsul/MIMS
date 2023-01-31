@@ -36,11 +36,11 @@ class DetailPenerimaanAdapter(val lisModels: MutableList<TPosDetailPenerimaan>, 
                 txtNoPackaging.text = po.noPackaging
                 checkReceived.setOnCheckedChangeListener { buttonView, isChecked ->
                     if (isChecked) {
-                        po.isDone = "1"
+                        po.isDone = 1
                         daoSession.update(po)
                     }
                 }
-                if(po.isDone == "1"){
+                if(po.isDone == 1){
                     checkReceived.isChecked = true
                     checkReceived.isEnabled = false
                 }

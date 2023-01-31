@@ -189,8 +189,8 @@ class AuthViewModel: ViewModel() {
         daoSession.tMaterialDao.deleteAll()
         daoSession.tMaterialDetailDao.deleteAll()
         daoSession.tPosDao.deleteAll()
-        daoSession.tPengujianDao.deleteAll()
-        daoSession.tPengujianDetailsDao.deleteAll()
+//        daoSession.tPengujianDao.deleteAll()
+//        daoSession.tPengujianDetailsDao.deleteAll()
         daoSession.tPosDetailDao.deleteAll()
         daoSession.tMaterialGroupsDao.deleteAll()
         daoSession.tPrivilegeDao.deleteAll()
@@ -282,44 +282,44 @@ class AuthViewModel: ViewModel() {
                 }
             }
 
-            if (result.pengujians != null){
-                val size = result.pengujians.size
-                if (size > 0) {
-                    val items = arrayOfNulls<TPengujian>(size)
-                    var item: TPengujian
-                    for ((i, model) in result.pengujians.withIndex()){
-                        item = TPengujian()
-                        item.kdPabrikan = model?.kdPabrikan
-                        item.namaKategori = model?.namaKategori
-                        item.noPengujian = model?.noPengujian
-                        item.qtyMaterial = model?.qtyMaterial
-                        item.qtySiap = model?.qtySiap
-                        item.statusUji = model?.statusUji
-                        item.tanggalUji = model?.tanggalUji.toString()
-                        item.unit = model?.unit
-                        items[i] = item
-                    }
-                    daoSession.tPengujianDao.insertInTx(items.toList())
-                }
-            }
+//            if (result.pengujians != null){
+//                val size = result.pengujians.size
+//                if (size > 0) {
+//                    val items = arrayOfNulls<TPengujian>(size)
+//                    var item: TPengujian
+//                    for ((i, model) in result.pengujians.withIndex()){
+//                        item = TPengujian()
+//                        item.kdPabrikan = model?.kdPabrikan
+//                        item.namaKategori = model?.namaKategori
+//                        item.noPengujian = model?.noPengujian
+//                        item.qtyMaterial = model?.qtyMaterial
+//                        item.qtySiap = model?.qtySiap
+//                        item.statusUji = model?.statusUji
+//                        item.tanggalUji = model?.tanggalUji.toString()
+//                        item.unit = model?.unit
+//                        items[i] = item
+//                    }
+//                    daoSession.tPengujianDao.insertInTx(items.toList())
+//                }
+//            }
 
-            if (result.pengujianDetails != null){
-                val size = result.pengujianDetails.size
-                if (size > 0) {
-                    val items = arrayOfNulls<TPengujianDetails>(size)
-                    var item: TPengujianDetails
-                    for ((i, model) in result.pengujianDetails.withIndex()){
-                        item = TPengujianDetails()
-                        item.serialNumber = model?.serialNumber
-                        item.namaKategori = model?.namaKategori
-                        item.noPengujian = model?.noPengujian
-                        item.statusUji = model?.statusUji
-                        item.keteranganMaterial = model?.keteranganMaterial
-                        items[i] = item
-                    }
-                    daoSession.tPengujianDetailsDao.insertInTx(items.toList())
-                }
-            }
+//            if (result.pengujianDetails != null){
+//                val size = result.pengujianDetails.size
+//                if (size > 0) {
+//                    val items = arrayOfNulls<TPengujianDetails>(size)
+//                    var item: TPengujianDetails
+//                    for ((i, model) in result.pengujianDetails.withIndex()){
+//                        item = TPengujianDetails()
+//                        item.serialNumber = model?.serialNumber
+//                        item.namaKategori = model?.namaKategori
+//                        item.noPengujian = model?.noPengujian
+//                        item.statusUji = model?.statusUji
+//                        item.keteranganMaterial = model?.keteranganMaterial
+//                        items[i] = item
+//                    }
+//                    daoSession.tPengujianDetailsDao.insertInTx(items.toList())
+//                }
+//            }
 
             if (result.posDetail != null){
                 val size = result.posDetail.size

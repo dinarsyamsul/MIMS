@@ -5,7 +5,7 @@ import android.os.Build
 import androidx.multidex.MultiDexApplication
 import dev.iconpln.mims.data.local.database.DaoMaster
 import dev.iconpln.mims.data.local.database.DaoSession
-import dev.iconpln.mims.data.local.databasereport.DatabaseReport
+import dev.iconpln.mims.data.local.database_local.DatabaseReport
 import dev.iconpln.mims.utils.Config
 import dev.iconpln.mims.utils.StorageUtils
 

@@ -1,4 +1,4 @@
-package dev.iconpln.mims.ui.role.pabrikan.arttribute_material.detail_attribute
+package dev.iconpln.mims.ui.arttribute_material.detail_attribute
 
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
@@ -10,7 +10,6 @@ import dev.iconpln.mims.MyApplication
 import dev.iconpln.mims.data.local.database.DaoSession
 import dev.iconpln.mims.data.local.database.TMaterialDetail
 import dev.iconpln.mims.databinding.ActivityDetailDataAtributeMaterialBinding
-import dev.iconpln.mims.ui.arttribute_material.detail_attribute.DetailDataAttributeAdapter
 import dev.iconpln.mims.ui.arttribute_material.MaterialViewModel
 
 class DetailDataAtributeMaterialActivity : AppCompatActivity() {

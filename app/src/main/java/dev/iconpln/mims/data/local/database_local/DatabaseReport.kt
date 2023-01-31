@@ -1,4 +1,4 @@
-package dev.iconpln.mims.data.local.databasereport
+package dev.iconpln.mims.data.local.database_local
 
 import android.content.ContentValues
 import android.content.Context
@@ -7,7 +7,6 @@ import android.database.sqlite.SQLiteDatabase
 import android.database.sqlite.SQLiteOpenHelper
 import android.database.sqlite.SQLiteStatement
 import android.util.Log
-import dev.iconpln.mims.data.local.database_local.GenericReport
 import dev.iconpln.mims.utils.DataController
 import org.joda.time.LocalDate
 import java.util.ArrayList
@@ -81,7 +80,7 @@ class DatabaseReport constructor(context: Context) : SQLiteOpenHelper(context, D
         Log.i("DatabaseReport.kt", "Selection: " + selection)
 
         val listReport = ArrayList<GenericReport>()
-        val cursor = database!!.query("report", arrayOf("id_report", "user_id", "nama_report", "deskripsi_report", "url_report", "tanggal_report", "status_done", "waktu_report"),
+        val cursor = database!!.query("report", arrayOf("id_report", "user_id", "nama_report", "deskripsi_report", "url_report", "tanggal_report", "status_done", "waktu_report", "jwt"),
             selection, null, null, null, null)
         if (cursor.moveToFirst()) {
             var report_id: String
@@ -92,6 +91,7 @@ class DatabaseReport constructor(context: Context) : SQLiteOpenHelper(context, D
             var tanggal_report: String
             var status_done: Int
             var waktu_report: Long
+            var jwt: String
 
             var report: GenericReport
 
@@ -104,8 +104,9 @@ class DatabaseReport constructor(context: Context) : SQLiteOpenHelper(context, D
                 tanggal_report = cursor.getString(5)
                 status_done = cursor.getInt(6)
                 waktu_report = cursor.getLong(7)
+                jwt = cursor.getString(8)
 
-                report = GenericReport(report_id, userid, nama_report, deskripsi_report, url_report, tanggal_report, status_done, waktu_report, getParameterByIdReport(report_id, db))
+                report = GenericReport(report_id, userid, nama_report, deskripsi_report, url_report, tanggal_report, status_done, waktu_report, getParameterByIdReport(report_id, db),jwt)
 
                 listReport.add(report)
                 if (!cursor.moveToNext())

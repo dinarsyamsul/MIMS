@@ -4,7 +4,7 @@ import android.content.Context
 import android.os.AsyncTask
 import android.util.Log
 import dev.iconpln.mims.data.local.database_local.GenericReport
-import dev.iconpln.mims.data.local.databasereport.DatabaseReport
+import dev.iconpln.mims.data.local.database_local.DatabaseReport
 
 class TambahReportTask<T : Context> : AsyncTask<GenericReport, String, String> where T : Loadable {
     internal var context: T

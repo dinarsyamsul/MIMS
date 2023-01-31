@@ -1,6 +1,7 @@
 package dev.iconpln.mims.ui.pnerimaan
 
 import android.view.LayoutInflater
+import android.view.View
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
 import dev.iconpln.mims.data.local.database.TPosPenerimaan
@@ -38,6 +39,12 @@ class PenerimaanAdapter(val lisModels: MutableList<TPosPenerimaan>, var listener
                 txtVendorAsal.text = po.plantName
                 txtTglKirim.text = "Tanggal dikirim ${po.createdDate}"
                 txtUnitTujuan.text = "-"
+
+                if(po.isChecked == 1){
+                    isChecked.visibility = View.VISIBLE
+                }else{
+                    isChecked.visibility = View.GONE
+                }
             }
 
             itemView.setOnClickListener { listener.onClick(po) }
