@@ -1,19 +1,22 @@
-package dev.iconpln.mims.ui.pnerimaan
+package dev.iconpln.mims.ui.rating
 
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
+import dev.iconpln.mims.R
+import dev.iconpln.mims.data.local.database.TPemeriksaan
+import dev.iconpln.mims.data.local.database.TPemeriksaanDetail
 import dev.iconpln.mims.data.local.database.TPosPenerimaan
 import dev.iconpln.mims.databinding.ItemDataPenerimaanBinding
 import dev.iconpln.mims.databinding.ItemDataRatingBinding
 
-class PenerimaanAdapter(val lisModels: MutableList<TPosPenerimaan>, var listener: OnAdapterListener)
-    : RecyclerView.Adapter<PenerimaanAdapter.ViewHolder>() {
+class RatingAdapter(val lisModels: MutableList<TPemeriksaan>, var listener: OnAdapterListener)
+    : RecyclerView.Adapter<RatingAdapter.ViewHolder>() {
 
-    fun setPoList(po: List<TPosPenerimaan>){
+    fun setRatingList(rat: List<TPemeriksaan>){
         lisModels.clear()
-        lisModels.addAll(po)
+        lisModels.addAll(rat)
         notifyDataSetChanged()
     }
 
@@ -21,7 +24,7 @@ class PenerimaanAdapter(val lisModels: MutableList<TPosPenerimaan>, var listener
         parent: ViewGroup,
         viewType: Int
     ): ViewHolder {
-        val binding = ItemDataPenerimaanBinding.inflate(LayoutInflater.from(parent.context), parent, false)
+        val binding = ItemDataRatingBinding.inflate(LayoutInflater.from(parent.context), parent, false)
         return ViewHolder(binding)
     }
 
@@ -31,8 +34,8 @@ class PenerimaanAdapter(val lisModels: MutableList<TPosPenerimaan>, var listener
 
     override fun getItemCount(): Int = lisModels.size
 
-    inner class ViewHolder(val binding: ItemDataPenerimaanBinding): RecyclerView.ViewHolder(binding.root){
-        fun bind(po : TPosPenerimaan){
+    inner class ViewHolder(val binding: ItemDataRatingBinding): RecyclerView.ViewHolder(binding.root){
+        fun bind(po : TPemeriksaan){
             with(binding){
                 txtDeliveryOrder.text = po.noDoSmar
                 txtStatusPenerimaan.text = po.doStatus
@@ -41,11 +44,10 @@ class PenerimaanAdapter(val lisModels: MutableList<TPosPenerimaan>, var listener
                 txtTglKirim.text = "Tanggal dikirim ${po.createdDate}"
                 txtUnitTujuan.text = "-"
 
-                if(po.isChecked == 1){
-                    isChecked.visibility = View.VISIBLE
+                if(po.isDone == 1){
+                    ivIsRating.setBackgroundResource(R.drawable.ic_israting)
                 }else{
-                    isChecked.visibility = View.GONE
-                }
+                    ivIsRating.setBackgroundResource(R.drawable.ic_is_not_rating)                }
             }
 
             itemView.setOnClickListener { listener.onClick(po) }
@@ -53,6 +55,6 @@ class PenerimaanAdapter(val lisModels: MutableList<TPosPenerimaan>, var listener
     }
 
     interface OnAdapterListener{
-        fun onClick(po: TPosPenerimaan)
+        fun onClick(po: TPemeriksaan)
     }
 }

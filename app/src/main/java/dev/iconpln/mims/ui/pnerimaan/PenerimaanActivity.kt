@@ -6,6 +6,7 @@ import android.text.Editable
 import android.text.TextWatcher
 import android.view.View
 import android.widget.ArrayAdapter
+import android.widget.Toast
 import androidx.activity.viewModels
 import androidx.appcompat.app.AppCompatActivity
 import androidx.recyclerview.widget.LinearLayoutManager
@@ -41,10 +42,14 @@ class PenerimaanActivity : AppCompatActivity() {
                 val listDetailPenerimaan = daoSession.tPosDetailPenerimaanDao.queryBuilder()
                     .where(TPosDetailPenerimaanDao.Properties.NoDoSmar.eq(po.noDoSmar)).list()
 
-                viewModel.insertDetailPenerimaan(daoSession,po.noDoSmar,listDetailPenerimaan)
+                if (po.isChecked == 1){
+                    Toast.makeText(this@PenerimaanActivity, "Anda sudah melakukan penerimaan", Toast.LENGTH_SHORT).show()
+                }else{
+                    viewModel.insertDetailPenerimaan(daoSession,po.noDoSmar,listDetailPenerimaan)
 
-                startActivity(Intent(this@PenerimaanActivity, DetailPenerimaanActivity::class.java)
-                    .putExtra("do", po.noDoSmar))
+                    startActivity(Intent(this@PenerimaanActivity, DetailPenerimaanActivity::class.java)
+                        .putExtra("do", po.noDoSmar))
+                }
             }
 
         })

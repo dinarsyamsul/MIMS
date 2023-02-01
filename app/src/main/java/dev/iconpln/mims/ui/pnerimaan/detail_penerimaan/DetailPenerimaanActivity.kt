@@ -173,7 +173,6 @@ class DetailPenerimaanActivity : AppCompatActivity(),Loadable {
             txtUnit.text = dataDetailPenerimaan.uom
             txtKurirPengiriman.text = "-"
             txtPetugasPengiriman.text = "-"
-            txtSerialNumber.text = "-"
             txtStoreloc.text = dataDetailPenerimaan.storLoc
             txtTglKirim.text = dataDetailPenerimaan.createdDate
             txtVendor.text = dataDetailPenerimaan.plantName
@@ -219,7 +218,9 @@ class DetailPenerimaanActivity : AppCompatActivity(),Loadable {
 
     private fun submitForm() {
         val reports = java.util.ArrayList<GenericReport>()
-        val list = daoSession.tPosDetailPenerimaanDao.queryBuilder().where(TPosDetailPenerimaanDao.Properties.IsDone.eq("1")).list()
+        val list = daoSession.tPosDetailPenerimaanDao.queryBuilder().whereOr(
+            TPosDetailPenerimaanDao.Properties.IsDone.eq("1",),TPosDetailPenerimaanDao.Properties.NoDoSmar.eq(noDo)
+        ).list()
         var packagings = ""
         for (i in list){
             packagings += "${i.noPackaging},"
@@ -302,7 +303,7 @@ class DetailPenerimaanActivity : AppCompatActivity(),Loadable {
             params.add(ReportParameter("11", reportId, "no_packagings", packagings, ReportParameter.TEXT ))
             params.add(ReportParameter("12", reportId, "photo_file", filePathFotoBarang, ReportParameter.FILE ))
             params.add(ReportParameter("13", reportId, "photo_file2", filePathFotoSuratBarang, ReportParameter.FILE ))
-            val reportPenerimaan = GenericReport(reportId, "", reportName, reportDescription, ApiConfig.sendPenerimaan(), currentDate, 0, 11119209101, params,jwt!!)
+            val reportPenerimaan = GenericReport(reportId, username, reportName, reportDescription, ApiConfig.sendPenerimaan(), currentDate, 0, 11119209101, params)
             reports.add(reportPenerimaan)
 
         }
@@ -414,6 +415,7 @@ class DetailPenerimaanActivity : AppCompatActivity(),Loadable {
 
     override fun setFinish(result: Boolean, message: String) {
         if (result){
+            Toast.makeText(this, message, Toast.LENGTH_LONG).show()
             startActivity(Intent(this@DetailPenerimaanActivity, PenerimaanActivity::class.java))
             finish()
         }

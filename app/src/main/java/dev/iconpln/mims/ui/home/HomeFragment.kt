@@ -18,8 +18,10 @@ import dev.iconpln.mims.R
 import dev.iconpln.mims.databinding.FragmentHomeBinding
 import dev.iconpln.mims.ui.auth.LoginActivity
 import dev.iconpln.mims.ui.monitoring.MonitoringActivity
+import dev.iconpln.mims.ui.pemeriksaan.PemeriksaanActivity
 import dev.iconpln.mims.ui.pengiriman.PengirimanActivity
 import dev.iconpln.mims.ui.pnerimaan.PenerimaanActivity
+import dev.iconpln.mims.ui.rating.RatingActivity
 import dev.iconpln.mims.ui.role.pabrikan.arttribute_material.DataAtributMaterialActivity
 import dev.iconpln.mims.ui.role.pabrikan.pengujian.PengujianActivity
 import dev.iconpln.mims.ui.tracking.TrackingHistoryActivity
@@ -92,6 +94,14 @@ class HomeFragment : Fragment() {
 
             btnPenerimaan.setOnClickListener {
                 startActivity(Intent(requireActivity(), PenerimaanActivity::class.java))
+            }
+
+            btnPemeriksaan.setOnClickListener {
+                startActivity(Intent(requireActivity(), PemeriksaanActivity::class.java))
+            }
+
+            btnRating.setOnClickListener {
+                startActivity(Intent(requireActivity(), RatingActivity::class.java))
             }
 
             dialog.setCancelable(true)

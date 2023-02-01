@@ -12,13 +12,11 @@ import org.json.JSONObject
 import java.io.IOException
 import java.io.UnsupportedEncodingException
 
-class GenericReport(internal var idReport: String, internal var user_id: String, nama: String, internal var deskripsiReport: String, internal var urlReport: String, internal var tanggalReport: String, internal var status_done: Int, internal var waktuReport: Long, listParameter: List<ReportParameter>, jwtToken: String) :
+class GenericReport(internal var idReport: String, internal var user_id: String, nama: String, internal var deskripsiReport: String, internal var urlReport: String, internal var tanggalReport: String, internal var status_done: Int, internal var waktuReport: Long, listParameter: List<ReportParameter>) :
     AbstractReport {
     var namaReport: String
         internal set
     var parameterList: List<ReportParameter>
-        internal set
-    var jwt: String
         internal set
 
     private var returnString: String? = null
@@ -26,7 +24,6 @@ class GenericReport(internal var idReport: String, internal var user_id: String,
     init {
         namaReport = nama
         parameterList = listParameter
-        jwt = jwtToken
     }
 
     private val multipartEntity: MultipartEntity
@@ -43,7 +40,7 @@ class GenericReport(internal var idReport: String, internal var user_id: String,
 
             val me = multipartEntity
             login.entity = me
-            login.addHeader("jwt", jwt)
+            login.addHeader("pitjarus-schema-name", Config.SCHEMA_NAME)
 
             val response = client.execute(login)
             val responseEntity = response.entity

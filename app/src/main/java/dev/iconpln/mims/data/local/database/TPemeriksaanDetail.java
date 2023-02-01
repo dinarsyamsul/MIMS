@@ -9,6 +9,9 @@ import org.greenrobot.greendao.annotation.*;
  */
 @Entity
 public class TPemeriksaanDetail {
+
+    @Id
+    private Long id;
     private String NoPemeriksaan;
     private String Sn;
     private String NoDoSmar;
@@ -21,8 +24,13 @@ public class TPemeriksaanDetail {
     public TPemeriksaanDetail() {
     }
 
+    public TPemeriksaanDetail(Long id) {
+        this.id = id;
+    }
+
     @Generated
-    public TPemeriksaanDetail(String NoPemeriksaan, String Sn, String NoDoSmar, String NoMaterail, String NoPackaging, String Status, Integer IsDone) {
+    public TPemeriksaanDetail(Long id, String NoPemeriksaan, String Sn, String NoDoSmar, String NoMaterail, String NoPackaging, String Status, Integer IsDone) {
+        this.id = id;
         this.NoPemeriksaan = NoPemeriksaan;
         this.Sn = Sn;
         this.NoDoSmar = NoDoSmar;
@@ -30,6 +38,14 @@ public class TPemeriksaanDetail {
         this.NoPackaging = NoPackaging;
         this.Status = Status;
         this.IsDone = IsDone;
+    }
+
+    public Long getId() {
+        return id;
+    }
+
+    public void setId(Long id) {
+        this.id = id;
     }
 
     public String getNoPemeriksaan() {

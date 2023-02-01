@@ -26,24 +26,22 @@ class SplashActivity : AppCompatActivity() {
                     Config.IS_LOGIN -> {
                         startActivity(Intent(this, HomeActivity::class.java))
                         finish()
+                    }else -> {
+                        startActivity(Intent(this, LoginActivity::class.java))
+                        finish()
                     }
                 }
             }
 
-//            session.is_login_biometric.asLiveData().observe(this){
-//                when(it){
-//                    1 -> {
-//                        val intent = Intent(this@SplashActivity, LoginBiometricActivity::class.java)
-//                        startActivity(intent)
-//                        finish()
-//                    }
-//                    else -> {
-//                        val intent = Intent(this@SplashActivity, LoginActivity::class.java)
-//                        startActivity(intent)
-//                        finish()
-//                    }
-//                }
-//            }
+            session.is_login_biometric.asLiveData().observe(this){
+                when(it){
+                    1 -> {
+                        val intent = Intent(this@SplashActivity, LoginBiometricActivity::class.java)
+                        startActivity(intent)
+                        finish()
+                    }
+                }
+            }
         }, 1500)
     }
 }

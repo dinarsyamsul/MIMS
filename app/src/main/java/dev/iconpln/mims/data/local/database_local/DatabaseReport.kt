@@ -80,7 +80,7 @@ class DatabaseReport constructor(context: Context) : SQLiteOpenHelper(context, D
         Log.i("DatabaseReport.kt", "Selection: " + selection)
 
         val listReport = ArrayList<GenericReport>()
-        val cursor = database!!.query("report", arrayOf("id_report", "user_id", "nama_report", "deskripsi_report", "url_report", "tanggal_report", "status_done", "waktu_report", "jwt"),
+        val cursor = database!!.query("report", arrayOf("id_report", "user_id", "nama_report", "deskripsi_report", "url_report", "tanggal_report", "status_done", "waktu_report"),
             selection, null, null, null, null)
         if (cursor.moveToFirst()) {
             var report_id: String
@@ -104,9 +104,8 @@ class DatabaseReport constructor(context: Context) : SQLiteOpenHelper(context, D
                 tanggal_report = cursor.getString(5)
                 status_done = cursor.getInt(6)
                 waktu_report = cursor.getLong(7)
-                jwt = cursor.getString(8)
 
-                report = GenericReport(report_id, userid, nama_report, deskripsi_report, url_report, tanggal_report, status_done, waktu_report, getParameterByIdReport(report_id, db),jwt)
+                report = GenericReport(report_id, userid, nama_report, deskripsi_report, url_report, tanggal_report, status_done, waktu_report, getParameterByIdReport(report_id, db))
 
                 listReport.add(report)
                 if (!cursor.moveToNext())

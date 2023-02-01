@@ -1,0 +1,814 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".ui.pemeriksaan.pemeriksaan_detail.PemeriksaanDetailActivity">
+
+    <ImageView
+        android:id="@+id/header"
+        android:layout_width="match_parent"
+        android:layout_height="84dp"
+        android:background="@drawable/dashboard"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <ImageButton
+        android:id="@+id/btn_back"
+        android:layout_width="50dp"
+        android:layout_height="50dp"
+        android:layout_marginStart="29dp"
+        android:background="#00FFFFFF"
+        android:src="@drawable/ic_baseline_arrow_back_ios_24"
+        app:layout_constraintBottom_toBottomOf="@+id/textView3"
+        app:layout_constraintEnd_toStartOf="@id/textView3"
+        app:layout_constraintHorizontal_chainStyle="spread_inside"
+        app:layout_constraintStart_toStartOf="@+id/header"
+        app:layout_constraintTop_toTopOf="@+id/textView3" />
+
+    <TextView
+        android:id="@+id/textView3"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginEnd="80dp"
+        android:fontFamily="@font/montserrat_reguler"
+        android:text="Data Pemeriksaan"
+        android:textAlignment="center"
+        android:textColor="@color/white"
+        android:textSize="16dp"
+        android:textStyle="bold"
+        app:layout_constraintBottom_toBottomOf="@+id/header"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toEndOf="@+id/btn_back"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <ScrollView
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/header">
+
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:paddingBottom="10dp">
+
+            <androidx.cardview.widget.CardView
+                android:id="@+id/cv_daftarList"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="10dp"
+                android:layout_marginTop="10dp"
+                android:layout_marginEnd="10dp"
+                android:paddingBottom="10dp"
+                app:cardCornerRadius="5dp"
+                app:cardElevation="10dp"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent">
+
+                <androidx.constraintlayout.widget.ConstraintLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:background="#F7F8FA">
+
+                    <View
+                        android:id="@+id/vw_line"
+                        android:layout_width="5dp"
+                        android:layout_height="0dp"
+                        android:background="#26ACE2"
+                        app:layout_constraintBottom_toBottomOf="parent"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintTop_toTopOf="parent" />
+
+                    <TextView
+                        android:id="@+id/lbl_primary_order"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginStart="16dp"
+                        android:layout_marginTop="16dp"
+                        android:fontFamily="@font/montserrat_reguler"
+                        android:text="No. Primary Order"
+                        android:textColor="#3F3D56"
+                        android:textSize="10sp"
+                        app:layout_constraintStart_toStartOf="@+id/vw_line"
+                        app:layout_constraintTop_toTopOf="parent" />
+
+                    <View
+                        android:id="@+id/vw_circle"
+                        android:layout_width="2dp"
+                        android:layout_height="2dp"
+                        android:layout_marginStart="8dp"
+                        android:layout_marginTop="24dp"
+                        android:background="@drawable/dashboard"
+                        app:layout_constraintStart_toEndOf="@+id/lbl_primary_order"
+                        app:layout_constraintTop_toTopOf="parent" />
+
+                    <TextView
+                        android:id="@+id/txt_primary_order"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginStart="16dp"
+                        android:fontFamily="@font/montserrat_reguler"
+                        android:text="123123123123"
+                        android:textColor="#3F3D56"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintTop_toBottomOf="@+id/lbl_primary_order" />
+
+                    <ImageView
+                        android:id="@+id/imageView"
+                        android:layout_width="14dp"
+                        android:layout_height="14dp"
+                        android:layout_marginTop="8dp"
+                        android:src="@drawable/ic_number"
+                        app:layout_constraintStart_toStartOf="@+id/txt_primary_order"
+                        app:layout_constraintTop_toBottomOf="@+id/txt_primary_order" />
+
+                    <TextView
+                        android:id="@+id/lbl_no_do"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_marginStart="5dp"
+                        android:fontFamily="@font/montserrat_reguler"
+                        android:text="No. Do"
+                        android:textColor="#3F3D56"
+                        android:textSize="10sp"
+                        app:layout_constraintBottom_toBottomOf="@+id/imageView"
+                        app:layout_constraintEnd_toStartOf="@+id/imageView1"
+                        app:layout_constraintStart_toEndOf="@+id/imageView"
+                        app:layout_constraintTop_toTopOf="@+id/imageView" />
+
+                    <TextView
+                        android:id="@+id/txt_no_do"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:fontFamily="@font/montserrat_reguler"
+                        android:text="111011"
+                        android:textSize="10sp"
+                        app:layout_constraintEnd_toEndOf="@+id/lbl_no_do"
+                        app:layout_constraintStart_toStartOf="@+id/lbl_no_do"
+                        app:layout_constraintTop_toBottomOf="@+id/lbl_no_do" />
+
+                    <ImageView
+                        android:id="@+id/imageView1"
+                        android:layout_width="14dp"
+                        android:layout_height="14dp"
+                        android:layout_marginStart="5dp"
+                        android:src="@drawable/unit_list_monitoring1"
+                        app:layout_constraintEnd_toStartOf="@+id/lbl_kurir_pengiriman"
+                        app:layout_constraintStart_toEndOf="@+id/lbl_no_do"
+                        app:layout_constraintTop_toTopOf="@+id/lbl_no_do" />
+
+                    <TextView
+                        android:id="@+id/lbl_kurir_pengiriman"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_marginStart="5dp"
+                        android:layout_marginEnd="16dp"
+                        android:fontFamily="@font/montserrat_reguler"
+                        android:text="Kurir Pengiriman"
+                        android:textColor="#3F3D56"
+                        android:textSize="10sp"
+                        app:layout_constraintBottom_toBottomOf="@+id/imageView1"
+                        app:layout_constraintEnd_toEndOf="parent"
+                        app:layout_constraintStart_toEndOf="@+id/imageView1"
+                        app:layout_constraintTop_toTopOf="@+id/imageView1" />
+
+                    <TextView
+                        android:id="@+id/txt_kurir_pengiriman"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_marginStart="5dp"
+                        android:fontFamily="@font/montserrat_reguler"
+                        android:text="111011"
+                        android:textSize="10sp"
+                        app:layout_constraintEnd_toEndOf="@+id/lbl_kurir_pengiriman"
+                        app:layout_constraintStart_toEndOf="@+id/imageView1"
+                        app:layout_constraintTop_toBottomOf="@+id/lbl_no_do" />
+
+                    <ImageView
+                        android:id="@+id/imageView5"
+                        android:layout_width="14dp"
+                        android:layout_height="14dp"
+                        android:layout_marginStart="5dp"
+                        android:layout_marginTop="8dp"
+                        android:src="@drawable/unit_list_monitoring1"
+                        app:layout_constraintEnd_toStartOf="@+id/lbl_kurir_pengiriman"
+                        app:layout_constraintStart_toEndOf="@+id/lbl_no_do"
+                        app:layout_constraintTop_toBottomOf="@+id/txt_kurir_pengiriman" />
+
+                    <TextView
+                        android:id="@+id/lbl_petugas_pengiriman"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_marginStart="5dp"
+                        android:layout_marginEnd="16dp"
+                        android:fontFamily="@font/montserrat_reguler"
+                        android:text="Nama Kurir"
+                        android:textColor="#3F3D56"
+                        android:textSize="10sp"
+                        app:layout_constraintBottom_toBottomOf="@+id/imageView5"
+                        app:layout_constraintEnd_toEndOf="parent"
+                        app:layout_constraintStart_toEndOf="@+id/imageView5"
+                        app:layout_constraintTop_toTopOf="@+id/imageView5" />
+
+                    <TextView
+                        android:id="@+id/txt_petugas_pengiriman"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_marginStart="5dp"
+                        android:fontFamily="@font/montserrat_reguler"
+                        android:text="111011"
+                        android:textSize="10sp"
+                        app:layout_constraintEnd_toEndOf="@+id/lbl_petugas_pengiriman"
+                        app:layout_constraintStart_toEndOf="@+id/imageView5"
+                        app:layout_constraintTop_toBottomOf="@+id/lbl_petugas_pengiriman" />
+
+                    <ImageView
+                        android:id="@+id/imageView7"
+                        android:layout_width="14dp"
+                        android:layout_height="14dp"
+                        android:layout_marginStart="5dp"
+                        android:layout_marginTop="5dp"
+                        android:src="@drawable/unit_list_monitoring1"
+                        app:layout_constraintEnd_toStartOf="@+id/lbl_kurir_pengiriman"
+                        app:layout_constraintStart_toEndOf="@+id/lbl_no_do"
+                        app:layout_constraintTop_toBottomOf="@+id/txt_petugas_pengiriman" />
+
+                    <TextView
+                        android:id="@+id/lbl_dokumentasi"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_marginStart="5dp"
+                        android:layout_marginEnd="16dp"
+                        android:fontFamily="@font/montserrat_reguler"
+                        android:text="dokumentasi"
+                        android:textColor="#3F3D56"
+                        android:textSize="10sp"
+                        app:layout_constraintBottom_toBottomOf="@+id/imageView7"
+                        app:layout_constraintEnd_toEndOf="parent"
+                        app:layout_constraintStart_toEndOf="@+id/imageView5"
+                        app:layout_constraintTop_toTopOf="@+id/imageView7" />
+
+                    <TextView
+                        android:id="@+id/txt_dokumentasi"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_marginStart="5dp"
+                        android:layout_marginBottom="10dp"
+                        android:fontFamily="@font/montserrat_reguler"
+                        android:text="lihat dokumentasi >"
+                        android:textSize="10sp"
+                        app:layout_constraintBottom_toBottomOf="parent"
+                        app:layout_constraintEnd_toEndOf="@+id/lbl_petugas_pengiriman"
+                        app:layout_constraintStart_toEndOf="@+id/imageView5"
+                        app:layout_constraintTop_toBottomOf="@+id/lbl_dokumentasi" />
+
+                    <ImageView
+                        android:id="@+id/imageView2"
+                        android:layout_width="14dp"
+                        android:layout_height="14dp"
+                        android:layout_marginTop="8dp"
+                        android:src="@drawable/ic_number"
+                        app:layout_constraintStart_toStartOf="@+id/imageView"
+                        app:layout_constraintTop_toBottomOf="@+id/txt_no_do" />
+
+                    <TextView
+                        android:id="@+id/lbl_tanggal_diterima"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_marginStart="5dp"
+                        android:fontFamily="@font/montserrat_reguler"
+                        android:text="Tanggal Diterima"
+                        android:textColor="#3F3D56"
+                        android:textSize="10sp"
+                        app:layout_constraintBottom_toBottomOf="@+id/imageView2"
+                        app:layout_constraintEnd_toEndOf="@+id/txt_no_do"
+                        app:layout_constraintStart_toEndOf="@+id/imageView2"
+                        app:layout_constraintTop_toTopOf="@+id/imageView2" />
+
+                    <TextView
+                        android:id="@+id/txt_tanggal_diterima"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_marginStart="5dp"
+                        android:fontFamily="@font/montserrat_reguler"
+                        android:text="PLTA Sumber Waras"
+                        android:textSize="10sp"
+                        app:layout_constraintEnd_toEndOf="@+id/lbl_tanggal_diterima"
+                        app:layout_constraintStart_toEndOf="@+id/imageView2"
+                        app:layout_constraintTop_toBottomOf="@+id/lbl_tanggal_diterima" />
+
+                    <ImageView
+                        android:id="@+id/imageView4"
+                        android:layout_width="14dp"
+                        android:layout_height="14dp"
+                        android:layout_marginTop="8dp"
+                        android:src="@drawable/ic_number"
+                        app:layout_constraintStart_toStartOf="@+id/imageView"
+                        app:layout_constraintTop_toBottomOf="@+id/txt_tanggal_diterima" />
+
+                    <TextView
+                        android:id="@+id/lbl_petugas_penerima"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_marginStart="5dp"
+                        android:fontFamily="@font/montserrat_reguler"
+                        android:text="Petugas Penerima"
+                        android:textColor="#3F3D56"
+                        android:textSize="10sp"
+                        app:layout_constraintBottom_toBottomOf="@+id/imageView4"
+                        app:layout_constraintEnd_toEndOf="@+id/txt_tanggal_diterima"
+                        app:layout_constraintStart_toEndOf="@+id/imageView4"
+                        app:layout_constraintTop_toTopOf="@+id/imageView4" />
+
+                    <TextView
+                        android:id="@+id/txt_petugas_penerima"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_marginStart="5dp"
+                        android:layout_marginBottom="10dp"
+                        android:fontFamily="@font/montserrat_reguler"
+                        android:text="PLTA Sumber Waras"
+                        android:textSize="10sp"
+                        app:layout_constraintBottom_toBottomOf="parent"
+                        app:layout_constraintEnd_toEndOf="@+id/lbl_petugas_penerima"
+                        app:layout_constraintStart_toEndOf="@+id/imageView4"
+                        app:layout_constraintTop_toBottomOf="@+id/lbl_petugas_penerima" />
+
+                </androidx.constraintlayout.widget.ConstraintLayout>
+            </androidx.cardview.widget.CardView>
+
+            <androidx.constraintlayout.widget.ConstraintLayout
+                android:id="@+id/constraint_detail1"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:visibility="visible"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/cv_daftarList">
+
+                <TextView
+                    android:id="@+id/textView7"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="10dp"
+                    android:layout_marginTop="20dp"
+                    android:fontFamily="@font/montserrat_semibold"
+                    android:text="Input Tim Pemeriksa"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toTopOf="parent" />
+
+                <TextView
+                    android:id="@+id/lbl_ketua_tim"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="20dp"
+                    android:layout_marginEnd="10dp"
+                    android:text="Ketua Tim Pemeriksa"
+                    android:textColor="#3F3D56"
+                    android:textSize="14sp"
+                    android:textStyle="bold"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="@+id/textView7"
+                    app:layout_constraintTop_toBottomOf="@+id/textView7" />
+
+                <EditText
+                    android:id="@+id/edt_ketua"
+                    android:layout_width="0dp"
+                    android:layout_height="50dp"
+                    android:layout_marginTop="5dp"
+                    android:background="@drawable/srchview"
+                    android:fontFamily="@font/montserrat_reguler"
+                    android:hint="Nama ketua tim"
+                    android:paddingLeft="20dp"
+                    android:paddingRight="20dp"
+                    android:textSize="12sp"
+                    app:layout_constraintEnd_toEndOf="@+id/lbl_ketua_tim"
+                    app:layout_constraintStart_toStartOf="@+id/lbl_ketua_tim"
+                    app:layout_constraintTop_toBottomOf="@+id/lbl_ketua_tim" />
+
+                <TextView
+                    android:id="@+id/lbl_manager"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="10dp"
+                    android:text="Manager"
+                    android:textColor="#3F3D56"
+                    android:textSize="14sp"
+                    android:textStyle="bold"
+                    app:layout_constraintStart_toStartOf="@+id/edt_ketua"
+                    app:layout_constraintTop_toBottomOf="@+id/edt_ketua" />
+
+                <EditText
+                    android:id="@+id/edt_manager"
+                    android:layout_width="0dp"
+                    android:layout_height="50dp"
+                    android:layout_marginTop="5dp"
+                    android:background="@drawable/srchview"
+                    android:fontFamily="@font/montserrat_reguler"
+                    android:hint="Nama manager"
+                    android:paddingLeft="20dp"
+                    android:paddingRight="20dp"
+                    android:textSize="12sp"
+                    app:layout_constraintEnd_toEndOf="@+id/edt_ketua"
+                    app:layout_constraintStart_toStartOf="@+id/lbl_manager"
+                    app:layout_constraintTop_toBottomOf="@+id/lbl_manager" />
+
+                <TextView
+                    android:id="@+id/lbl_sekretaris"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="10dp"
+                    android:text="Sekretaris"
+                    android:textColor="#3F3D56"
+                    android:textSize="14sp"
+                    android:textStyle="bold"
+                    app:layout_constraintStart_toStartOf="@+id/edt_manager"
+                    app:layout_constraintTop_toBottomOf="@+id/edt_manager" />
+
+                <EditText
+                    android:id="@+id/edt_Sekretaris"
+                    android:layout_width="0dp"
+                    android:layout_height="50dp"
+                    android:layout_marginTop="5dp"
+                    android:background="@drawable/srchview"
+                    android:fontFamily="@font/montserrat_reguler"
+                    android:hint="Nama sekretaris"
+                    android:paddingLeft="20dp"
+                    android:paddingRight="20dp"
+                    android:textSize="12sp"
+                    app:layout_constraintEnd_toEndOf="@+id/edt_manager"
+                    app:layout_constraintStart_toStartOf="@+id/lbl_sekretaris"
+                    app:layout_constraintTop_toBottomOf="@+id/lbl_sekretaris" />
+
+                <TextView
+                    android:id="@+id/lbl_anggota"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="10dp"
+                    android:text="Anggota"
+                    android:textColor="#3F3D56"
+                    android:textSize="14sp"
+                    android:textStyle="bold"
+                    app:layout_constraintStart_toStartOf="@+id/edt_Sekretaris"
+                    app:layout_constraintTop_toBottomOf="@+id/edt_Sekretaris" />
+
+                <EditText
+                    android:id="@+id/edt_anggota"
+                    android:layout_width="0dp"
+                    android:layout_height="50dp"
+                    android:layout_marginTop="5dp"
+                    android:background="@drawable/srchview"
+                    android:fontFamily="@font/montserrat_reguler"
+                    android:hint="Nama anggota"
+                    android:paddingLeft="20dp"
+                    android:paddingRight="20dp"
+                    android:textSize="12sp"
+                    app:layout_constraintEnd_toEndOf="@+id/edt_Sekretaris"
+                    app:layout_constraintStart_toStartOf="@+id/lbl_anggota"
+                    app:layout_constraintTop_toBottomOf="@+id/lbl_anggota" />
+
+                <androidx.appcompat.widget.AppCompatButton
+                    android:id="@+id/btn_lanjut"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="20dp"
+                    android:background="@drawable/br_btn"
+                    android:elevation="8dp"
+                    android:fontFamily="@font/montserrat_reguler"
+                    android:text="Lanjut"
+                    android:textAllCaps="false"
+                    android:textColor="#FFFFFF"
+                    android:textStyle="bold"
+                    app:layout_constraintEnd_toEndOf="@+id/edt_anggota"
+                    app:layout_constraintStart_toStartOf="@+id/edt_anggota"
+                    app:layout_constraintTop_toBottomOf="@+id/edt_anggota" />
+
+            </androidx.constraintlayout.widget.ConstraintLayout>
+
+            <androidx.constraintlayout.widget.ConstraintLayout
+                android:id="@+id/constraint_detail2"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:visibility="gone"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/cv_daftarList">
+
+                <TextView
+                    android:id="@+id/textView8"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="10dp"
+                    android:layout_marginTop="20dp"
+                    android:fontFamily="@font/montserrat_semibold"
+                    android:text="SN Material"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toTopOf="parent" />
+
+                <ImageButton
+                    android:id="@+id/barcode2"
+                    android:layout_width="30dp"
+                    android:layout_height="30dp"
+                    android:layout_marginEnd="10dp"
+                    android:src="@drawable/btn_barcodes"
+                    app:layout_constraintBottom_toBottomOf="@+id/textView8"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintTop_toTopOf="@+id/textView8" />
+
+                <EditText
+                    android:id="@+id/src_serial_number"
+                    android:layout_width="0dp"
+                    android:layout_height="50dp"
+                    android:layout_marginTop="10dp"
+                    android:background="@drawable/srchview"
+                    android:drawableEnd="@drawable/ic_search"
+                    android:fontFamily="@font/montserrat_reguler"
+                    android:hint="Search here"
+                    android:paddingLeft="20dp"
+                    android:paddingRight="20dp"
+                    android:textSize="12sp"
+                    app:layout_constraintEnd_toEndOf="@+id/barcode2"
+                    app:layout_constraintStart_toStartOf="@+id/textView8"
+                    app:layout_constraintTop_toBottomOf="@+id/textView8" />
+
+                <TextView
+                    android:id="@+id/textView9"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="10dp"
+                    android:layout_marginTop="10dp"
+                    android:fontFamily="@font/montserrat_semibold"
+                    android:text="List Material"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@+id/src_serial_number" />
+
+                <androidx.recyclerview.widget.RecyclerView
+                    android:id="@+id/recyclerView2"
+                    android:layout_width="0dp"
+                    android:layout_height="300dp"
+                    android:layout_marginTop="10dp"
+                    app:layout_constraintEnd_toEndOf="@+id/src_serial_number"
+                    app:layout_constraintStart_toStartOf="@+id/src_serial_number"
+                    app:layout_constraintTop_toBottomOf="@+id/textView9"
+                    tools:listitem="@layout/item_packaging_pemeriksaan" />
+
+                <androidx.appcompat.widget.AppCompatButton
+                    android:id="@+id/btn_komplain"
+                    android:layout_width="95dp"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="20dp"
+                    android:background="@drawable/br_btn_komplain"
+                    android:elevation="8dp"
+                    android:fontFamily="@font/montserrat_reguler"
+                    android:text="Komplain"
+                    android:textAllCaps="false"
+                    android:textColor="#FFFFFF"
+                    android:textStyle="bold"
+                    app:layout_constraintEnd_toStartOf="@id/btn_reject"
+                    app:layout_constraintStart_toStartOf="@+id/recyclerView2"
+                    app:layout_constraintTop_toBottomOf="@+id/recyclerView2" />
+
+                <androidx.appcompat.widget.AppCompatButton
+                    android:id="@+id/btn_reject"
+                    android:layout_width="95dp"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="20dp"
+                    android:background="@drawable/br_btn_reject"
+                    android:elevation="8dp"
+                    android:fontFamily="@font/montserrat_reguler"
+                    android:text="Reject"
+                    android:textAllCaps="false"
+                    android:textColor="#FFFFFF"
+                    android:textStyle="bold"
+                    app:layout_constraintEnd_toStartOf="@id/btn_menyetujui"
+                    app:layout_constraintStart_toEndOf="@+id/btn_komplain"
+                    app:layout_constraintTop_toBottomOf="@+id/recyclerView2" />
+
+                <androidx.appcompat.widget.AppCompatButton
+                    android:id="@+id/btn_menyetujui"
+                    android:layout_width="95dp"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="20dp"
+                    android:background="@drawable/br_btn_menyerujui"
+                    android:elevation="8dp"
+                    android:fontFamily="@font/montserrat_reguler"
+                    android:text="Menyetujui"
+                    android:textAllCaps="false"
+                    android:textColor="#FFFFFF"
+                    android:textStyle="bold"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toEndOf="@+id/btn_reject"
+                    app:layout_constraintTop_toBottomOf="@+id/recyclerView2" />
+            </androidx.constraintlayout.widget.ConstraintLayout>
+
+            <androidx.constraintlayout.widget.ConstraintLayout
+                android:id="@+id/constraint_komplain"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:visibility="gone"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/cv_daftarList">
+
+                <TextView
+                    android:id="@+id/textView12"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="10dp"
+                    android:layout_marginTop="20dp"
+                    android:fontFamily="@font/montserrat_semibold"
+                    android:text="Feedback"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toTopOf="parent" />
+
+                <TextView
+                    android:id="@+id/textView13"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="10dp"
+                    android:layout_marginTop="10dp"
+                    android:fontFamily="@font/montserrat_reguler"
+                    android:text="Beri Alasan Komplain"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@+id/textView12" />
+
+                <EditText
+                    android:id="@+id/edt_alasan_komplain"
+                    android:layout_width="0dp"
+                    android:layout_height="100dp"
+                    android:layout_marginTop="10dp"
+                    android:layout_marginEnd="10dp"
+                    android:background="@drawable/srchview"
+                    android:fontFamily="@font/montserrat_reguler"
+                    android:hint="Search here"
+                    android:paddingLeft="20dp"
+                    android:paddingRight="20dp"
+                    android:textSize="12sp"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="@+id/textView13"
+                    app:layout_constraintTop_toBottomOf="@+id/textView13" />
+
+                <TextView
+                    android:id="@+id/textView14"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="10dp"
+                    android:layout_marginTop="10dp"
+                    android:fontFamily="@font/montserrat_reguler"
+                    android:text="Dokumentasi Produk Yang Telah Diterima"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@+id/edt_alasan_komplain" />
+
+                <ImageButton
+                    android:id="@+id/btn_foto_doc_komplain"
+                    android:layout_width="0dp"
+                    android:layout_height="40dp"
+                    android:layout_marginStart="16dp"
+                    android:background="@drawable/button_upload"
+                    android:drawableStart="@drawable/iconupload"
+                    android:fontFamily="@font/montserrat_reguler"
+                    android:paddingLeft="20dp"
+                    android:paddingRight="20dp"
+                    app:layout_constraintBottom_toBottomOf="@+id/iv_dokumentasi_komplain"
+                    app:layout_constraintStart_toEndOf="@+id/iv_dokumentasi_komplain"
+                    app:layout_constraintTop_toTopOf="@+id/iv_dokumentasi_komplain" />
+
+                <ImageView
+                    android:id="@+id/iv_dokumentasi_komplain"
+                    android:layout_width="180dp"
+                    android:layout_height="150dp"
+                    android:layout_marginStart="10dp"
+                    android:layout_marginTop="10dp"
+                    android:background="@drawable/ic_image"
+                    android:scaleType="centerCrop"
+                    android:text="Nama File"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@+id/textView14" />
+
+                <androidx.appcompat.widget.AppCompatButton
+                    android:id="@+id/btn_selesai_komplain"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="10dp"
+                    android:background="@drawable/br_btn"
+                    android:elevation="8dp"
+                    android:fontFamily="@font/montserrat_reguler"
+                    android:text="Komplain"
+                    android:textAllCaps="false"
+                    android:textColor="#FFFFFF"
+                    android:textStyle="bold"
+                    app:layout_constraintEnd_toEndOf="@+id/edt_alasan_komplain"
+                    app:layout_constraintStart_toStartOf="@+id/edt_alasan_komplain"
+                    app:layout_constraintTop_toBottomOf="@+id/iv_dokumentasi_komplain" />
+            </androidx.constraintlayout.widget.ConstraintLayout>
+
+            <androidx.constraintlayout.widget.ConstraintLayout
+                android:id="@+id/constraint_reject"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:visibility="gone"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/cv_daftarList">
+
+                <TextView
+                    android:id="@+id/textView15"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="10dp"
+                    android:layout_marginTop="20dp"
+                    android:fontFamily="@font/montserrat_semibold"
+                    android:text="Feedback"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toTopOf="parent" />
+
+                <TextView
+                    android:id="@+id/textView16"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="10dp"
+                    android:layout_marginTop="10dp"
+                    android:fontFamily="@font/montserrat_reguler"
+                    android:text="Beri Alasan Reject"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@+id/textView15" />
+
+                <EditText
+                    android:id="@+id/edt_alasan_reject"
+                    android:layout_width="0dp"
+                    android:layout_height="100dp"
+                    android:layout_marginTop="10dp"
+                    android:layout_marginEnd="10dp"
+                    android:background="@drawable/srchview"
+                    android:fontFamily="@font/montserrat_reguler"
+                    android:hint="Search here"
+                    android:paddingLeft="20dp"
+                    android:paddingRight="20dp"
+                    android:textSize="12sp"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="@+id/textView16"
+                    app:layout_constraintTop_toBottomOf="@+id/textView16" />
+
+                <TextView
+                    android:id="@+id/textView17"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="10dp"
+                    android:layout_marginTop="10dp"
+                    android:fontFamily="@font/montserrat_reguler"
+                    android:text="Dokumentasi Produk Yang Telah Diterima"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@+id/edt_alasan_reject" />
+
+                <ImageButton
+                    android:id="@+id/btn_foto_doc_reject"
+                    android:layout_width="0dp"
+                    android:layout_height="40dp"
+                    android:layout_marginStart="16dp"
+                    android:background="@drawable/button_upload"
+                    android:drawableStart="@drawable/iconupload"
+                    android:fontFamily="@font/montserrat_reguler"
+                    android:paddingLeft="20dp"
+                    android:paddingRight="20dp"
+                    app:layout_constraintBottom_toBottomOf="@+id/iv_dokumentasi_reject"
+                    app:layout_constraintStart_toEndOf="@+id/iv_dokumentasi_reject"
+                    app:layout_constraintTop_toTopOf="@+id/iv_dokumentasi_reject" />
+
+                <ImageView
+                    android:id="@+id/iv_dokumentasi_reject"
+                    android:layout_width="180dp"
+                    android:layout_height="150dp"
+                    android:layout_marginStart="10dp"
+                    android:layout_marginTop="10dp"
+                    android:background="@drawable/ic_image"
+                    android:scaleType="centerCrop"
+                    android:text="Nama File"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@+id/textView17" />
+
+                <androidx.appcompat.widget.AppCompatButton
+                    android:id="@+id/btn_selesai_reject"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="10dp"
+                    android:background="@drawable/br_btn"
+                    android:elevation="8dp"
+                    android:fontFamily="@font/montserrat_reguler"
+                    android:text="Reject"
+                    android:textAllCaps="false"
+                    android:textColor="#FFFFFF"
+                    android:textStyle="bold"
+                    app:layout_constraintEnd_toEndOf="@+id/edt_alasan_reject"
+                    app:layout_constraintStart_toStartOf="@+id/edt_alasan_reject"
+                    app:layout_constraintTop_toBottomOf="@+id/iv_dokumentasi_reject" />
+            </androidx.constraintlayout.widget.ConstraintLayout>
+        </androidx.constraintlayout.widget.ConstraintLayout>
+    </ScrollView>
+
+</androidx.constraintlayout.widget.ConstraintLayout>

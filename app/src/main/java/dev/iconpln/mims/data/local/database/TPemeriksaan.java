@@ -9,6 +9,9 @@ import org.greenrobot.greendao.annotation.*;
  */
 @Entity
 public class TPemeriksaan {
+
+    @Id
+    private Long id;
     private String NoPemeriksaan;
     private String StorLoc;
     private String Total;
@@ -51,8 +54,13 @@ public class TPemeriksaan {
     public TPemeriksaan() {
     }
 
+    public TPemeriksaan(Long id) {
+        this.id = id;
+    }
+
     @Generated
-    public TPemeriksaan(String NoPemeriksaan, String StorLoc, String Total, String TlskNo, String PoSapNo, String PoMpNo, String NoDoSmar, Integer LeadTime, String Storloc, String CreatedDate, String PlanCodeNo, String PlantName, String NoDoMims, String DoStatus, String Expeditions, String CourierPersonName, String KdPabrikan, String MaterialGroup, String NamaKategoriMaterial, String TanggalDiterima, String PetugasPenerima, String NamaKurir, String NamaEkspedisi, String NamaKetua, String NamaManager, String NamaSekretaris, String Anggota, String RatingPenerimaan, String DescPenerimaan, String RatingQuality, String DescQuality, String RatingWaktu, String DescWaktu, String RatingPath, String Packangings, Integer State, Integer isDone) {
+    public TPemeriksaan(Long id, String NoPemeriksaan, String StorLoc, String Total, String TlskNo, String PoSapNo, String PoMpNo, String NoDoSmar, Integer LeadTime, String Storloc, String CreatedDate, String PlanCodeNo, String PlantName, String NoDoMims, String DoStatus, String Expeditions, String CourierPersonName, String KdPabrikan, String MaterialGroup, String NamaKategoriMaterial, String TanggalDiterima, String PetugasPenerima, String NamaKurir, String NamaEkspedisi, String NamaKetua, String NamaManager, String NamaSekretaris, String Anggota, String RatingPenerimaan, String DescPenerimaan, String RatingQuality, String DescQuality, String RatingWaktu, String DescWaktu, String RatingPath, String Packangings, Integer State, Integer isDone) {
+        this.id = id;
         this.NoPemeriksaan = NoPemeriksaan;
         this.StorLoc = StorLoc;
         this.Total = Total;
@@ -90,6 +98,14 @@ public class TPemeriksaan {
         this.Packangings = Packangings;
         this.State = State;
         this.isDone = isDone;
+    }
+
+    public Long getId() {
+        return id;
+    }
+
+    public void setId(Long id) {
+        this.id = id;
     }
 
     public String getNoPemeriksaan() {

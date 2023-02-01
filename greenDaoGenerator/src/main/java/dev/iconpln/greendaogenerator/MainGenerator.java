@@ -247,6 +247,7 @@ public class MainGenerator {
 
         // region posPenerimaan
         Entity tPemeriksaan = schema.addEntity("TPemeriksaan");
+        tPemeriksaan.addIdProperty();
         tPemeriksaan.addStringProperty("NoPemeriksaan");
         tPemeriksaan.addStringProperty("StorLoc");
         tPemeriksaan.addStringProperty("Total");
@@ -289,6 +290,7 @@ public class MainGenerator {
 
         // region penerimaan detail
         Entity tPemeriksaanDetail = schema.addEntity("TPemeriksaanDetail");
+        tPemeriksaanDetail.addIdProperty();
         tPemeriksaanDetail.addStringProperty("NoPemeriksaan");
         tPemeriksaanDetail.addStringProperty("Sn");
         tPemeriksaanDetail.addStringProperty("NoDoSmar");

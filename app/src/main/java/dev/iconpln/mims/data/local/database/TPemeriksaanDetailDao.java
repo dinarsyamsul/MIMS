@@ -13,7 +13,7 @@ import org.greenrobot.greendao.database.DatabaseStatement;
 /** 
  * DAO for table "TPEMERIKSAAN_DETAIL".
 */
-public class TPemeriksaanDetailDao extends AbstractDao<TPemeriksaanDetail, Void> {
+public class TPemeriksaanDetailDao extends AbstractDao<TPemeriksaanDetail, Long> {
 
     public static final String TABLENAME = "TPEMERIKSAAN_DETAIL";
 
@@ -22,13 +22,14 @@ public class TPemeriksaanDetailDao extends AbstractDao<TPemeriksaanDetail, Void>
      * Can be used for QueryBuilder and for referencing column names.
      */
     public static class Properties {
-        public final static Property NoPemeriksaan = new Property(0, String.class, "NoPemeriksaan", false, "NO_PEMERIKSAAN");
-        public final static Property Sn = new Property(1, String.class, "Sn", false, "SN");
-        public final static Property NoDoSmar = new Property(2, String.class, "NoDoSmar", false, "NO_DO_SMAR");
-        public final static Property NoMaterail = new Property(3, String.class, "NoMaterail", false, "NO_MATERAIL");
-        public final static Property NoPackaging = new Property(4, String.class, "NoPackaging", false, "NO_PACKAGING");
-        public final static Property Status = new Property(5, String.class, "Status", false, "STATUS");
-        public final static Property IsDone = new Property(6, Integer.class, "IsDone", false, "IS_DONE");
+        public final static Property Id = new Property(0, Long.class, "id", true, "_id");
+        public final static Property NoPemeriksaan = new Property(1, String.class, "NoPemeriksaan", false, "NO_PEMERIKSAAN");
+        public final static Property Sn = new Property(2, String.class, "Sn", false, "SN");
+        public final static Property NoDoSmar = new Property(3, String.class, "NoDoSmar", false, "NO_DO_SMAR");
+        public final static Property NoMaterail = new Property(4, String.class, "NoMaterail", false, "NO_MATERAIL");
+        public final static Property NoPackaging = new Property(5, String.class, "NoPackaging", false, "NO_PACKAGING");
+        public final static Property Status = new Property(6, String.class, "Status", false, "STATUS");
+        public final static Property IsDone = new Property(7, Integer.class, "IsDone", false, "IS_DONE");
     }
 
 
@@ -44,13 +45,14 @@ public class TPemeriksaanDetailDao extends AbstractDao<TPemeriksaanDetail, Void>
     public static void createTable(Database db, boolean ifNotExists) {
         String constraint = ifNotExists? "IF NOT EXISTS ": "";
         db.execSQL("CREATE TABLE " + constraint + "\"TPEMERIKSAAN_DETAIL\" (" + //
-                "\"NO_PEMERIKSAAN\" TEXT," + // 0: NoPemeriksaan
-                "\"SN\" TEXT," + // 1: Sn
-                "\"NO_DO_SMAR\" TEXT," + // 2: NoDoSmar
-                "\"NO_MATERAIL\" TEXT," + // 3: NoMaterail
-                "\"NO_PACKAGING\" TEXT," + // 4: NoPackaging
-                "\"STATUS\" TEXT," + // 5: Status
-                "\"IS_DONE\" INTEGER);"); // 6: IsDone
+                "\"_id\" INTEGER PRIMARY KEY ," + // 0: id
+                "\"NO_PEMERIKSAAN\" TEXT," + // 1: NoPemeriksaan
+                "\"SN\" TEXT," + // 2: Sn
+                "\"NO_DO_SMAR\" TEXT," + // 3: NoDoSmar
+                "\"NO_MATERAIL\" TEXT," + // 4: NoMaterail
+                "\"NO_PACKAGING\" TEXT," + // 5: NoPackaging
+                "\"STATUS\" TEXT," + // 6: Status
+                "\"IS_DONE\" INTEGER);"); // 7: IsDone
     }
 
     /** Drops the underlying database table. */
@@ -63,39 +65,44 @@ public class TPemeriksaanDetailDao extends AbstractDao<TPemeriksaanDetail, Void>
     protected final void bindValues(DatabaseStatement stmt, TPemeriksaanDetail entity) {
         stmt.clearBindings();
  
+        Long id = entity.getId();
+        if (id != null) {
+            stmt.bindLong(1, id);
+        }
+ 
         String NoPemeriksaan = entity.getNoPemeriksaan();
         if (NoPemeriksaan != null) {
-            stmt.bindString(1, NoPemeriksaan);
+            stmt.bindString(2, NoPemeriksaan);
         }
  
         String Sn = entity.getSn();
         if (Sn != null) {
-            stmt.bindString(2, Sn);
+            stmt.bindString(3, Sn);
         }
  
         String NoDoSmar = entity.getNoDoSmar();
         if (NoDoSmar != null) {
-            stmt.bindString(3, NoDoSmar);
+            stmt.bindString(4, NoDoSmar);
         }
  
         String NoMaterail = entity.getNoMaterail();
         if (NoMaterail != null) {
-            stmt.bindString(4, NoMaterail);
+            stmt.bindString(5, NoMaterail);
         }
  
         String NoPackaging = entity.getNoPackaging();
         if (NoPackaging != null) {
-            stmt.bindString(5, NoPackaging);
+            stmt.bindString(6, NoPackaging);
         }
  
         String Status = entity.getStatus();
         if (Status != null) {
-            stmt.bindString(6, Status);
+            stmt.bindString(7, Status);
         }
  
         Integer IsDone = entity.getIsDone();
         if (IsDone != null) {
-            stmt.bindLong(7, IsDone);
+            stmt.bindLong(8, IsDone);
         }
     }
 
@@ -103,87 +110,97 @@ public class TPemeriksaanDetailDao extends AbstractDao<TPemeriksaanDetail, Void>
     protected final void bindValues(SQLiteStatement stmt, TPemeriksaanDetail entity) {
         stmt.clearBindings();
  
+        Long id = entity.getId();
+        if (id != null) {
+            stmt.bindLong(1, id);
+        }
+ 
         String NoPemeriksaan = entity.getNoPemeriksaan();
         if (NoPemeriksaan != null) {
-            stmt.bindString(1, NoPemeriksaan);
+            stmt.bindString(2, NoPemeriksaan);
         }
  
         String Sn = entity.getSn();
         if (Sn != null) {
-            stmt.bindString(2, Sn);
+            stmt.bindString(3, Sn);
         }
  
         String NoDoSmar = entity.getNoDoSmar();
         if (NoDoSmar != null) {
-            stmt.bindString(3, NoDoSmar);
+            stmt.bindString(4, NoDoSmar);
         }
  
         String NoMaterail = entity.getNoMaterail();
         if (NoMaterail != null) {
-            stmt.bindString(4, NoMaterail);
+            stmt.bindString(5, NoMaterail);
         }
  
         String NoPackaging = entity.getNoPackaging();
         if (NoPackaging != null) {
-            stmt.bindString(5, NoPackaging);
+            stmt.bindString(6, NoPackaging);
         }
  
         String Status = entity.getStatus();
         if (Status != null) {
-            stmt.bindString(6, Status);
+            stmt.bindString(7, Status);
         }
  
         Integer IsDone = entity.getIsDone();
         if (IsDone != null) {
-            stmt.bindLong(7, IsDone);
+            stmt.bindLong(8, IsDone);
         }
     }
 
     @Override
-    public Void readKey(Cursor cursor, int offset) {
-        return null;
+    public Long readKey(Cursor cursor, int offset) {
+        return cursor.isNull(offset + 0) ? null : cursor.getLong(offset + 0);
     }    
 
     @Override
     public TPemeriksaanDetail readEntity(Cursor cursor, int offset) {
         TPemeriksaanDetail entity = new TPemeriksaanDetail( //
-            cursor.isNull(offset + 0) ? null : cursor.getString(offset + 0), // NoPemeriksaan
-            cursor.isNull(offset + 1) ? null : cursor.getString(offset + 1), // Sn
-            cursor.isNull(offset + 2) ? null : cursor.getString(offset + 2), // NoDoSmar
-            cursor.isNull(offset + 3) ? null : cursor.getString(offset + 3), // NoMaterail
-            cursor.isNull(offset + 4) ? null : cursor.getString(offset + 4), // NoPackaging
-            cursor.isNull(offset + 5) ? null : cursor.getString(offset + 5), // Status
-            cursor.isNull(offset + 6) ? null : cursor.getInt(offset + 6) // IsDone
+            cursor.isNull(offset + 0) ? null : cursor.getLong(offset + 0), // id
+            cursor.isNull(offset + 1) ? null : cursor.getString(offset + 1), // NoPemeriksaan
+            cursor.isNull(offset + 2) ? null : cursor.getString(offset + 2), // Sn
+            cursor.isNull(offset + 3) ? null : cursor.getString(offset + 3), // NoDoSmar
+            cursor.isNull(offset + 4) ? null : cursor.getString(offset + 4), // NoMaterail
+            cursor.isNull(offset + 5) ? null : cursor.getString(offset + 5), // NoPackaging
+            cursor.isNull(offset + 6) ? null : cursor.getString(offset + 6), // Status
+            cursor.isNull(offset + 7) ? null : cursor.getInt(offset + 7) // IsDone
         );
         return entity;
     }
      
     @Override
     public void readEntity(Cursor cursor, TPemeriksaanDetail entity, int offset) {
-        entity.setNoPemeriksaan(cursor.isNull(offset + 0) ? null : cursor.getString(offset + 0));
-        entity.setSn(cursor.isNull(offset + 1) ? null : cursor.getString(offset + 1));
-        entity.setNoDoSmar(cursor.isNull(offset + 2) ? null : cursor.getString(offset + 2));
-        entity.setNoMaterail(cursor.isNull(offset + 3) ? null : cursor.getString(offset + 3));
-        entity.setNoPackaging(cursor.isNull(offset + 4) ? null : cursor.getString(offset + 4));
-        entity.setStatus(cursor.isNull(offset + 5) ? null : cursor.getString(offset + 5));
-        entity.setIsDone(cursor.isNull(offset + 6) ? null : cursor.getInt(offset + 6));
+        entity.setId(cursor.isNull(offset + 0) ? null : cursor.getLong(offset + 0));
+        entity.setNoPemeriksaan(cursor.isNull(offset + 1) ? null : cursor.getString(offset + 1));
+        entity.setSn(cursor.isNull(offset + 2) ? null : cursor.getString(offset + 2));
+        entity.setNoDoSmar(cursor.isNull(offset + 3) ? null : cursor.getString(offset + 3));
+        entity.setNoMaterail(cursor.isNull(offset + 4) ? null : cursor.getString(offset + 4));
+        entity.setNoPackaging(cursor.isNull(offset + 5) ? null : cursor.getString(offset + 5));
+        entity.setStatus(cursor.isNull(offset + 6) ? null : cursor.getString(offset + 6));
+        entity.setIsDone(cursor.isNull(offset + 7) ? null : cursor.getInt(offset + 7));
      }
     
     @Override
-    protected final Void updateKeyAfterInsert(TPemeriksaanDetail entity, long rowId) {
-        // Unsupported or missing PK type
-        return null;
+    protected final Long updateKeyAfterInsert(TPemeriksaanDetail entity, long rowId) {
+        entity.setId(rowId);
+        return rowId;
     }
     
     @Override
-    public Void getKey(TPemeriksaanDetail entity) {
-        return null;
+    public Long getKey(TPemeriksaanDetail entity) {
+        if(entity != null) {
+            return entity.getId();
+        } else {
+            return null;
+        }
     }
 
     @Override
     public boolean hasKey(TPemeriksaanDetail entity) {
-        // TODO
-        return false;
+        return entity.getId() != null;
     }
 
     @Override

@@ -1,19 +1,19 @@
-package dev.iconpln.mims.ui.pnerimaan
+package dev.iconpln.mims.ui.pemeriksaan
 
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
+import dev.iconpln.mims.data.local.database.TPemeriksaan
 import dev.iconpln.mims.data.local.database.TPosPenerimaan
 import dev.iconpln.mims.databinding.ItemDataPenerimaanBinding
-import dev.iconpln.mims.databinding.ItemDataRatingBinding
 
-class PenerimaanAdapter(val lisModels: MutableList<TPosPenerimaan>, var listener: OnAdapterListener)
-    : RecyclerView.Adapter<PenerimaanAdapter.ViewHolder>() {
+class PemeriksaanAdapter(val lisModels: MutableList<TPemeriksaan>, var listener: OnAdapterListener)
+    : RecyclerView.Adapter<PemeriksaanAdapter.ViewHolder>() {
 
-    fun setPoList(po: List<TPosPenerimaan>){
+    fun setPeList(pe: List<TPemeriksaan>){
         lisModels.clear()
-        lisModels.addAll(po)
+        lisModels.addAll(pe)
         notifyDataSetChanged()
     }
 
@@ -32,16 +32,16 @@ class PenerimaanAdapter(val lisModels: MutableList<TPosPenerimaan>, var listener
     override fun getItemCount(): Int = lisModels.size
 
     inner class ViewHolder(val binding: ItemDataPenerimaanBinding): RecyclerView.ViewHolder(binding.root){
-        fun bind(po : TPosPenerimaan){
+        fun bind(po : TPemeriksaan){
             with(binding){
                 txtDeliveryOrder.text = po.noDoSmar
                 txtStatusPenerimaan.text = po.doStatus
-                txtStatusPemeriksaan.text = "-"
-                txtVendorAsal.text = po.plantName
+                txtStatusPemeriksaan.text = "Belum Diperiksa"
+                txtVendorAsal.text = po.planCodeNo
                 txtTglKirim.text = "Tanggal dikirim ${po.createdDate}"
-                txtUnitTujuan.text = "-"
+                txtUnitTujuan.text = po.plantName
 
-                if(po.isChecked == 1){
+                if(po.isDone == 1){
                     isChecked.visibility = View.VISIBLE
                 }else{
                     isChecked.visibility = View.GONE
@@ -53,6 +53,6 @@ class PenerimaanAdapter(val lisModels: MutableList<TPosPenerimaan>, var listener
     }
 
     interface OnAdapterListener{
-        fun onClick(po: TPosPenerimaan)
+        fun onClick(po: TPemeriksaan)
     }
 }
