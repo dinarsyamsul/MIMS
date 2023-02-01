@@ -42,4 +42,8 @@ object ApiConfig {
     fun sendComplaint(): String {
         return BASE_URL + "/reports/sendReportComplaint"
     }
+
+    fun sendRating():String{
+        return BASE_URL + "/reports/sendReportRating"
+    }
 }

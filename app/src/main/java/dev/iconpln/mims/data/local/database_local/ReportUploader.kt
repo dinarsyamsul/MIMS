@@ -20,7 +20,9 @@ class ReportUploader : Service() {
 
     private val updateTask = object : TimerTask() {
         override fun run() {
+            Log.i("workJalan","jalans")
             if (!sending && isInternetConnection)
+                Log.i("workJalan","jalan")
                 sendReport()
             Log.i("ReportUploader.kt", "SendQueue: selesai kirim data")
         }

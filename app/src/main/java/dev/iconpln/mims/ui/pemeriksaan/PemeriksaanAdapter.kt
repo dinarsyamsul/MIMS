@@ -34,7 +34,7 @@ class PemeriksaanAdapter(val lisModels: MutableList<TPemeriksaan>, var listener:
     inner class ViewHolder(val binding: ItemDataPenerimaanBinding): RecyclerView.ViewHolder(binding.root){
         fun bind(po : TPemeriksaan){
             with(binding){
-                txtDeliveryOrder.text = po.noDoSmar
+                txtDeliveryOrder.text = po.noPemeriksaan
                 txtStatusPenerimaan.text = po.doStatus
                 txtStatusPemeriksaan.text = "Belum Diperiksa"
                 txtVendorAsal.text = po.planCodeNo

@@ -48,6 +48,7 @@ class PemeriksaanDetailActivity : AppCompatActivity(), Loadable {
 
     private lateinit var data: TPemeriksaanDetail
     private lateinit var dataPemeriksaan: TPosDetailPenerimaan
+    private lateinit var pemeriksaan: TPemeriksaan
     private lateinit var arrayStringPackaging: List<String>
 
     private val cameraRequestKomplain = 101
@@ -75,9 +76,9 @@ class PemeriksaanDetailActivity : AppCompatActivity(), Loadable {
 
         data = daoSession.tPemeriksaanDetailDao.queryBuilder().where(TPemeriksaanDetailDao.Properties.NoDoSmar.eq(noDo)).limit(1).unique()
         dataPemeriksaan = daoSession.tPosDetailPenerimaanDao.queryBuilder().where(TPosDetailPenerimaanDao.Properties.NoDoSmar.eq(noDo)).limit(1).unique()
-
+        pemeriksaan = daoSession.tPemeriksaanDao.queryBuilder().where(TPemeriksaanDao.Properties.NoDoSmar.eq(noDo)).limit(1).unique()
         arrayStringPackaging = data.noPackaging.split(",")
-
+        Log.d("checkPackaging", arrayStringPackaging.toString())
         adapter = DetailPemeriksaanAdapter(arrayListOf(),object : DetailPemeriksaanAdapter.OnAdapterListener{
             override fun onClick(po: String) {}
 
@@ -242,13 +243,12 @@ class PemeriksaanDetailActivity : AppCompatActivity(), Loadable {
         data.isDone = 1
         daoSession.update(data)
 
-        var item = TPemeriksaan()
-        item.namaKetua = mKetua
-        item.namaManager = mManager
-        item.namaSekretaris = mSekretaris
-        item.anggota = mAnggota
-        item.state = 2
-        daoSession.update(item)
+        pemeriksaan.namaKetua = mKetua
+        pemeriksaan.namaManager = mManager
+        pemeriksaan.namaSekretaris = mSekretaris
+        pemeriksaan.anggota = mAnggota
+        pemeriksaan.state = 2
+        daoSession.update(pemeriksaan)
 
         var jwt = SharedPrefsUtils.getStringPreference(this@PemeriksaanDetailActivity,"jwt","")
         var username = SharedPrefsUtils.getStringPreference(this@PemeriksaanDetailActivity, "username","")
@@ -256,21 +256,21 @@ class PemeriksaanDetailActivity : AppCompatActivity(), Loadable {
         val currentDate = DateTime.now().toString("yyyy-MM-dd")
         val reportId = "Pemeriksaan" + DateTime.now().toString("yMdHmsSSS")
         val reportName = "Pemeriksaan"
-        val reportDescription = "Pemeriksaan-${item.noDoSmar}-${item.packangings}-${DateTime.now().toString("yyyy-MM-dd")}"
+        val reportDescription = "Pemeriksaan-${pemeriksaan.noDoSmar}-${pemeriksaan.packangings}-${DateTime.now().toString("yyyy-MM-dd")}"
         val params = ArrayList<ReportParameter>()
-        params.add(ReportParameter("1", reportId, "plant_code_no", item.planCodeNo, ReportParameter.TEXT ))
-        params.add(ReportParameter("2", reportId, "no_do_smar", item.noDoSmar, ReportParameter.TEXT ))
+        params.add(ReportParameter("1", reportId, "plant_code_no", pemeriksaan.planCodeNo, ReportParameter.TEXT ))
+        params.add(ReportParameter("2", reportId, "no_do_smar", pemeriksaan.noDoSmar, ReportParameter.TEXT ))
         params.add(ReportParameter("3", reportId, "no_mat_sap", dataPemeriksaan.noMatSap, ReportParameter.TEXT ))
-        params.add(ReportParameter("4", reportId, "penerima", item.petugasPenerima, ReportParameter.TEXT ))
-        params.add(ReportParameter("5", reportId, "tanggal", item.tanggalDiterima, ReportParameter.TEXT ))
-        params.add(ReportParameter("6", reportId, "kurir", item.namaKurir, ReportParameter.TEXT ))
-        params.add(ReportParameter("7", reportId, "ekspedisi", item.namaEkspedisi, ReportParameter.TEXT ))
+        params.add(ReportParameter("4", reportId, "penerima", pemeriksaan.petugasPenerima, ReportParameter.TEXT ))
+        params.add(ReportParameter("5", reportId, "tanggal", pemeriksaan.tanggalDiterima, ReportParameter.TEXT ))
+        params.add(ReportParameter("6", reportId, "kurir", pemeriksaan.namaKurir, ReportParameter.TEXT ))
+        params.add(ReportParameter("7", reportId, "ekspedisi", pemeriksaan.namaEkspedisi, ReportParameter.TEXT ))
         params.add(ReportParameter("8", reportId, "quantity", dataPemeriksaan.qty, ReportParameter.TEXT ))
         params.add(ReportParameter("9", reportId, "username", username!!, ReportParameter.TEXT ))
         params.add(ReportParameter("10", reportId, "email",email!! , ReportParameter.TEXT ))
-        params.add(ReportParameter("11", reportId, "no_packaging", item.packangings, ReportParameter.TEXT ))
+        params.add(ReportParameter("11", reportId, "no_packaging", pemeriksaan.packangings, ReportParameter.TEXT ))
         params.add(ReportParameter("12", reportId, "status_name", "COMPLAINT", ReportParameter.TEXT ))
-        params.add(ReportParameter("13", reportId, "sns", item.packangings, ReportParameter.TEXT ))
+        params.add(ReportParameter("13", reportId, "sns", pemeriksaan.packangings, ReportParameter.TEXT ))
         params.add(ReportParameter("14", reportId, "alasan", reasonKomplain, ReportParameter.TEXT ))
         params.add(ReportParameter("15", reportId, "photo_file", filePathKomplain, ReportParameter.FILE ))
         val reportPenerimaan = GenericReport(reportId, username, reportName, reportDescription, ApiConfig.sendComplaint(), currentDate, 0, 11119209101, params)
@@ -380,13 +380,12 @@ class PemeriksaanDetailActivity : AppCompatActivity(), Loadable {
         data.isDone = 1
         daoSession.update(data)
 
-        var item = TPemeriksaan()
-        item.namaKetua = mKetua
-        item.namaManager = mManager
-        item.namaSekretaris = mSekretaris
-        item.anggota = mAnggota
-        item.state = 2
-        daoSession.update(item)
+        pemeriksaan.namaKetua = mKetua
+        pemeriksaan.namaManager = mManager
+        pemeriksaan.namaSekretaris = mSekretaris
+        pemeriksaan.anggota = mAnggota
+        pemeriksaan.state = 2
+        daoSession.update(pemeriksaan)
 
         var jwt = SharedPrefsUtils.getStringPreference(this@PemeriksaanDetailActivity,"jwt","")
         var username = SharedPrefsUtils.getStringPreference(this@PemeriksaanDetailActivity, "username","")
@@ -394,21 +393,21 @@ class PemeriksaanDetailActivity : AppCompatActivity(), Loadable {
         val currentDate = DateTime.now().toString("yyyy-MM-dd")
         val reportId = "Pemeriksaan" + DateTime.now().toString("yMdHmsSSS")
         val reportName = "Pemeriksaan"
-        val reportDescription = "Pemeriksaan-${item.noDoSmar}-${item.packangings}-${DateTime.now().toString("yyyy-MM-dd")}"
+        val reportDescription = "Pemeriksaan-${pemeriksaan.noDoSmar}-${pemeriksaan.packangings}-${DateTime.now().toString("yyyy-MM-dd")}"
         val params = ArrayList<ReportParameter>()
-        params.add(ReportParameter("1", reportId, "plant_code_no", item.planCodeNo, ReportParameter.TEXT ))
-        params.add(ReportParameter("2", reportId, "no_do_smar", item.noDoSmar, ReportParameter.TEXT ))
+        params.add(ReportParameter("1", reportId, "plant_code_no", pemeriksaan.planCodeNo, ReportParameter.TEXT ))
+        params.add(ReportParameter("2", reportId, "no_do_smar", pemeriksaan.noDoSmar, ReportParameter.TEXT ))
         params.add(ReportParameter("3", reportId, "no_mat_sap", dataPemeriksaan.noMatSap, ReportParameter.TEXT ))
-        params.add(ReportParameter("4", reportId, "penerima", item.petugasPenerima, ReportParameter.TEXT ))
-        params.add(ReportParameter("5", reportId, "tanggal", item.tanggalDiterima, ReportParameter.TEXT ))
-        params.add(ReportParameter("6", reportId, "kurir", item.namaKurir, ReportParameter.TEXT ))
-        params.add(ReportParameter("7", reportId, "ekspedisi", item.namaEkspedisi, ReportParameter.TEXT ))
+        params.add(ReportParameter("4", reportId, "penerima", pemeriksaan.petugasPenerima, ReportParameter.TEXT ))
+        params.add(ReportParameter("5", reportId, "tanggal", pemeriksaan.tanggalDiterima, ReportParameter.TEXT ))
+        params.add(ReportParameter("6", reportId, "kurir", pemeriksaan.namaKurir, ReportParameter.TEXT ))
+        params.add(ReportParameter("7", reportId, "ekspedisi", pemeriksaan.namaEkspedisi, ReportParameter.TEXT ))
         params.add(ReportParameter("8", reportId, "quantity", dataPemeriksaan.qty, ReportParameter.TEXT ))
         params.add(ReportParameter("9", reportId, "username", username!!, ReportParameter.TEXT ))
         params.add(ReportParameter("10", reportId, "email",email!! , ReportParameter.TEXT ))
-        params.add(ReportParameter("11", reportId, "no_packaging", item.packangings, ReportParameter.TEXT ))
+        params.add(ReportParameter("11", reportId, "no_packaging", pemeriksaan.packangings, ReportParameter.TEXT ))
         params.add(ReportParameter("12", reportId, "status_name", status, ReportParameter.TEXT ))
-        params.add(ReportParameter("13", reportId, "sns", item.packangings, ReportParameter.TEXT ))
+        params.add(ReportParameter("13", reportId, "sns", pemeriksaan.packangings, ReportParameter.TEXT ))
         val reportPenerimaan = GenericReport(reportId, username, reportName, reportDescription, ApiConfig.sendPemeriksaan(), currentDate, 0, 11119209101, params)
         reports.add(reportPenerimaan)
 

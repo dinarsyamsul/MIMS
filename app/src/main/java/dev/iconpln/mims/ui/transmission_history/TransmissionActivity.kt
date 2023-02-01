@@ -9,6 +9,7 @@ import android.os.Bundle
 import android.os.StrictMode
 import android.util.Log
 import android.widget.ArrayAdapter
+import android.widget.Button
 import android.widget.ListView
 import androidx.appcompat.app.AppCompatActivity
 import dev.iconpln.mims.MyApplication
@@ -33,6 +34,8 @@ class TransmissionActivity : AppCompatActivity() {
     private var switchOn = false
     private var sending = false
 
+    private lateinit var btn : Button
+
     private lateinit var daoSession: DaoSession
 
     //region Privilege Variables
@@ -44,7 +47,11 @@ class TransmissionActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_transmission_history)
-
+        btn = findViewById(R.id.btn_start)
+        btn.setOnClickListener {
+            val iService = Intent(applicationContext, ReportUploader::class.java)
+            startService(iService)
+        }
         initData()
         init()
     }

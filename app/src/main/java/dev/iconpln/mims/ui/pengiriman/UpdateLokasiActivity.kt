@@ -1,6 +1,7 @@
 package dev.iconpln.mims.ui.pengiriman
 
 import android.app.AlertDialog
+import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.util.Log
@@ -12,6 +13,7 @@ import dev.iconpln.mims.data.local.database.TLokasi
 import dev.iconpln.mims.data.local.database.TLokasiDao
 import dev.iconpln.mims.data.local.database_local.GenericReport
 import dev.iconpln.mims.data.local.database_local.ReportParameter
+import dev.iconpln.mims.data.local.database_local.ReportUploader
 import dev.iconpln.mims.data.remote.service.ApiConfig
 import dev.iconpln.mims.databinding.ActivityUpdateLokasiBinding
 import dev.iconpln.mims.tasks.Loadable
@@ -99,6 +101,9 @@ class UpdateLokasiActivity : AppCompatActivity(), Loadable {
 
         val task = TambahReportTask(this, reports)
         task.execute()
+
+        val iService = Intent(applicationContext, ReportUploader::class.java)
+        startService(iService)
     }
 
     private fun validateForm(){
