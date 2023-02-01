@@ -1,14 +1,23 @@
 package dev.iconpln.mims.ui.auth
 
 import android.Manifest
+import android.Manifest.permission.READ_EXTERNAL_STORAGE
+import android.Manifest.permission.WRITE_EXTERNAL_STORAGE
 import android.content.Intent
 import android.content.pm.PackageManager
+import android.net.Uri
 import android.os.Build
+import android.os.Build.VERSION.SDK_INT
 import android.os.Bundle
+import android.os.Environment
+import android.provider.Settings
+import android.util.Log
 import android.view.View
 import android.widget.Toast
 import androidx.activity.viewModels
 import androidx.appcompat.app.AppCompatActivity
+import androidx.core.app.ActivityCompat
+import androidx.core.content.ContextCompat
 import dev.iconpln.mims.HomeActivity
 import dev.iconpln.mims.MyApplication
 import dev.iconpln.mims.data.local.database.DaoMaster
@@ -18,11 +27,13 @@ import dev.iconpln.mims.data.local.database_local.ReportUploader
 import dev.iconpln.mims.databinding.ActivityLoginBinding
 import dev.iconpln.mims.ui.auth.otp.OtpActivity
 import dev.iconpln.mims.utils.*
+import dev.iconpln.mims.utils.StorageUtils.isPermissionAllowed
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.withContext
 import org.joda.time.DateTimeUtils
+
 
 class LoginActivity : AppCompatActivity() {
 
@@ -39,15 +50,15 @@ class LoginActivity : AppCompatActivity() {
     private var mIpAddress: String = ""
     private var androidVersion: Int = 0
     private var dateTimeUtc: Long = 0L
+    private var APP_STORAGE_ACCESS_REQUEST_CODE=501
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         binding = ActivityLoginBinding.inflate(layoutInflater)
         setContentView(binding.root)
-        checkStoragePermission()
+        requestPermission()
 
         session = SessionManager(this)
-        daoSession = (application as MyApplication).daoSession!!
 
         mAndroidId = Helper.getAndroidId(this)
         mAppVersion = Helper.getVersionApp(this)
@@ -108,25 +119,30 @@ class LoginActivity : AppCompatActivity() {
 
     }
 
-    private fun checkStoragePermission() {
-        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
-            if (checkSelfPermission(Manifest.permission.WRITE_EXTERNAL_STORAGE) == PackageManager.PERMISSION_GRANTED) {
-                StorageUtils.createDirectories()
-                initDaoSession()
-                DatabaseReport.getDatabase(this)
-            } else {
-                if (shouldShowRequestPermissionRationale(Manifest.permission.WRITE_EXTERNAL_STORAGE)) {
-                    Toast.makeText(this, "Storage permission is needed to write external storage.", Toast.LENGTH_SHORT).show()
+    private fun requestPermission() {
+        if(!isPermissionAllowed(this@LoginActivity)){
+            if (SDK_INT >= Build.VERSION_CODES.R) {
+                Toast.makeText(this, "Harap izinkan aplikasi mengakses penyimpanan", Toast.LENGTH_SHORT).show();
+                try {
+                    val intent = Intent(Settings.ACTION_MANAGE_APP_ALL_FILES_ACCESS_PERMISSION)
+                    intent.addCategory("android.intent.category.DEFAULT")
+                    intent.data = Uri.parse(String.format("package:%s", applicationContext.packageName))
+                    startActivityForResult(intent, APP_STORAGE_ACCESS_REQUEST_CODE)
+                } catch (e: Exception) {
+                    val intent = Intent()
+                    intent.action = Settings.ACTION_MANAGE_ALL_FILES_ACCESS_PERMISSION
+                    startActivityForResult(intent, APP_STORAGE_ACCESS_REQUEST_CODE)
                 }
-                requestPermissions(arrayOf(Manifest.permission.WRITE_EXTERNAL_STORAGE, Manifest.permission.CAMERA), Config.REQUEST_CODE_WRITE_EXTERNAL_STORAGE)
+            } else {
+                //below android 11
+                ActivityCompat.requestPermissions(
+                    this@LoginActivity, arrayOf(WRITE_EXTERNAL_STORAGE,READ_EXTERNAL_STORAGE), APP_STORAGE_ACCESS_REQUEST_CODE
+                )
             }
-        } else {
-            StorageUtils.createDirectories()
-            DatabaseReport.getDatabase(this)
-            val iService = Intent(applicationContext, ReportUploader::class.java)
-            startService(iService)
         }
+
     }
+
 
     private fun initDaoSession() {
         if ((application as MyApplication).daoSession == null) {
@@ -174,10 +190,50 @@ class LoginActivity : AppCompatActivity() {
                 }
             }
 
+            daoSession = (application as MyApplication).daoSession!!
             loginViewModel.getLogin(this@LoginActivity,
                 daoSession,username, password,"",
                 mAndroidId,mAppVersion,mDeviceData,mIpAddress,
                 androidVersion,dateTimeUtc,session)
+        }
+    }
+
+    override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
+        super.onActivityResult(requestCode, resultCode, data)
+        if (requestCode == APP_STORAGE_ACCESS_REQUEST_CODE) {
+            if (SDK_INT >= Build.VERSION_CODES.R) {
+                Log.i("Permission","OS11")
+                if (Environment.isExternalStorageManager()) {
+                    // perform action when allow permission success
+                    StorageUtils.createDirectories()
+                    initDaoSession()
+                    DatabaseReport.getDatabase(this)
+                    val iService = Intent(applicationContext, ReportUploader::class.java)
+                    startService(iService)
+                } else {
+                    Toast.makeText(this, "Harap izinkan aplikasi mengakses penyimpanan!", Toast.LENGTH_SHORT).show();
+                }
+            }
+        }
+    }
+
+    override fun onRequestPermissionsResult(requestCode: Int, permissions: Array<out String>, grantResults: IntArray) {
+        super.onRequestPermissionsResult(requestCode, permissions, grantResults)
+        when (requestCode) {
+            APP_STORAGE_ACCESS_REQUEST_CODE -> if (grantResults.size > 0) {
+                Log.i("Permission","Dibawah OS11")
+                val READ_EXTERNAL_STORAGE = grantResults[0] === PackageManager.PERMISSION_GRANTED
+                val WRITE_EXTERNAL_STORAGE = grantResults[1] === PackageManager.PERMISSION_GRANTED
+                if (READ_EXTERNAL_STORAGE && WRITE_EXTERNAL_STORAGE) {
+                    StorageUtils.createDirectories()
+                    initDaoSession()
+                    DatabaseReport.getDatabase(this)
+                    val iService = Intent(applicationContext, ReportUploader::class.java)
+                    startService(iService)
+                } else {
+                    Toast.makeText(this, "Harap izinkan aplikasi mengakses penyimpanan!", Toast.LENGTH_SHORT).show()
+                }
+            }
         }
     }
 }
