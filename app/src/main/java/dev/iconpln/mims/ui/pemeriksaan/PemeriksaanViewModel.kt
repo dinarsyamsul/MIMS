@@ -1,12 +1,15 @@
 package dev.iconpln.mims.ui.pemeriksaan
 
+import android.util.Log
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import dev.iconpln.mims.data.local.database.DaoSession
 import dev.iconpln.mims.data.local.database.TPemeriksaan
+import dev.iconpln.mims.data.local.database.TPemeriksaanDao
 import dev.iconpln.mims.data.local.database.TPemeriksaanDetail
 import dev.iconpln.mims.data.local.database.TPosDetailPenerimaan
+import dev.iconpln.mims.data.local.database.TPosSnsDao
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
@@ -38,32 +41,33 @@ class PemeriksaanViewModel: ViewModel() {
         }
     }
 
-    fun setDataDetailPemeriksaan(daoSession: DaoSession,listPemeriksaan: List<TPemeriksaanDetail>,noDo: String){
+    fun setDataDetailPemeriksaan(daoSession: DaoSession,listPemeriksaan: List<TPemeriksaanDetail>,noPemeriksaan: String){
         CoroutineScope(Dispatchers.Main).launch {
             try {
                 _isLoading.value = true
+                val pemeriksaan = daoSession.tPemeriksaanDao.queryBuilder().where(TPemeriksaanDao.Properties.NoPemeriksaan.eq(noPemeriksaan)).limit(1).unique()
+//                var listSns = daoSession.tPosSnsDao.queryBuilder().where(TPosSnsDao.Properties.NoDoSmar.eq(noDo)).list()
 
-                if (listPemeriksaan.isNotEmpty()){
-                    _pemeriksaanDetailResponse.postValue(listPemeriksaan)
-                }else{
-                    val listPem = daoSession.tPemeriksaanDao.queryBuilder().list()
-                    val size = listPem.size
-                    if (size > 0) {
-                        val items = arrayOfNulls<TPemeriksaanDetail>(size)
-                        var item: TPemeriksaanDetail
-                        for ((i, model) in listPem.withIndex()){
-                            item = TPemeriksaanDetail()
+                Log.d("checkPemerikssanDetail", "${listPemeriksaan.size}")
+                if (!listPemeriksaan.isNotEmpty()){
+                    var listPackagings = pemeriksaan.packangings.split(",")
+                    for (i in listPackagings){
+                        var listSns = daoSession.tPosSnsDao.queryBuilder().where(TPosSnsDao.Properties.NoPackaging.eq(i)).list()
+                        if (listSns.size > 0){
+                            for (h in listSns){
+                                Log.d("testInser", h.noSerial)
+                                var item = TPemeriksaanDetail()
+                                item.sn = h.noSerial
+                                item.noDoSmar = pemeriksaan.noDoSmar
+                                item.noMaterail = pemeriksaan.materialGroup
+                                item.noPackaging = i
+                                item.status = pemeriksaan.doStatus
+                                item.noPemeriksaan = pemeriksaan.noPemeriksaan
+                                item.isDone = 0
 
-                            item.noPemeriksaan = model.noPemeriksaan
-                            item.sn = ""
-                            item.noDoSmar = model.noDoSmar
-                            item.noMaterail = model.materialGroup
-                            item.noPackaging = model.packangings
-                            item.status = model.doStatus
-                            item.isDone = 0
-                            items[i] = item
+                                daoSession.tPemeriksaanDetailDao.insert(item)
+                            }
                         }
-                        daoSession.tPemeriksaanDetailDao.insertInTx(items.toList())
                     }
                 }
 

@@ -47,7 +47,7 @@ public class TPosPenerimaanDao extends AbstractDao<TPosPenerimaan, Long> {
         public final static Property PetugasPenerima = new Property(22, String.class, "PetugasPenerima", false, "PETUGAS_PENERIMA");
         public final static Property NamaKurir = new Property(23, String.class, "NamaKurir", false, "NAMA_KURIR");
         public final static Property NamaEkspedisi = new Property(24, String.class, "NamaEkspedisi", false, "NAMA_EKSPEDISI");
-        public final static Property IsChecked = new Property(25, Integer.class, "isChecked", false, "IS_CHECKED");
+        public final static Property IsDone = new Property(25, Integer.class, "isDone", false, "IS_DONE");
     }
 
 
@@ -88,7 +88,7 @@ public class TPosPenerimaanDao extends AbstractDao<TPosPenerimaan, Long> {
                 "\"PETUGAS_PENERIMA\" TEXT," + // 22: PetugasPenerima
                 "\"NAMA_KURIR\" TEXT," + // 23: NamaKurir
                 "\"NAMA_EKSPEDISI\" TEXT," + // 24: NamaEkspedisi
-                "\"IS_CHECKED\" INTEGER);"); // 25: isChecked
+                "\"IS_DONE\" INTEGER);"); // 25: isDone
     }
 
     /** Drops the underlying database table. */
@@ -226,9 +226,9 @@ public class TPosPenerimaanDao extends AbstractDao<TPosPenerimaan, Long> {
             stmt.bindString(25, NamaEkspedisi);
         }
  
-        Integer isChecked = entity.getIsChecked();
-        if (isChecked != null) {
-            stmt.bindLong(26, isChecked);
+        Integer isDone = entity.getIsDone();
+        if (isDone != null) {
+            stmt.bindLong(26, isDone);
         }
     }
 
@@ -361,9 +361,9 @@ public class TPosPenerimaanDao extends AbstractDao<TPosPenerimaan, Long> {
             stmt.bindString(25, NamaEkspedisi);
         }
  
-        Integer isChecked = entity.getIsChecked();
-        if (isChecked != null) {
-            stmt.bindLong(26, isChecked);
+        Integer isDone = entity.getIsDone();
+        if (isDone != null) {
+            stmt.bindLong(26, isDone);
         }
     }
 
@@ -400,7 +400,7 @@ public class TPosPenerimaanDao extends AbstractDao<TPosPenerimaan, Long> {
             cursor.isNull(offset + 22) ? null : cursor.getString(offset + 22), // PetugasPenerima
             cursor.isNull(offset + 23) ? null : cursor.getString(offset + 23), // NamaKurir
             cursor.isNull(offset + 24) ? null : cursor.getString(offset + 24), // NamaEkspedisi
-            cursor.isNull(offset + 25) ? null : cursor.getInt(offset + 25) // isChecked
+            cursor.isNull(offset + 25) ? null : cursor.getInt(offset + 25) // isDone
         );
         return entity;
     }
@@ -432,7 +432,7 @@ public class TPosPenerimaanDao extends AbstractDao<TPosPenerimaan, Long> {
         entity.setPetugasPenerima(cursor.isNull(offset + 22) ? null : cursor.getString(offset + 22));
         entity.setNamaKurir(cursor.isNull(offset + 23) ? null : cursor.getString(offset + 23));
         entity.setNamaEkspedisi(cursor.isNull(offset + 24) ? null : cursor.getString(offset + 24));
-        entity.setIsChecked(cursor.isNull(offset + 25) ? null : cursor.getInt(offset + 25));
+        entity.setIsDone(cursor.isNull(offset + 25) ? null : cursor.getInt(offset + 25));
      }
     
     @Override

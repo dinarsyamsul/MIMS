@@ -73,7 +73,7 @@
                 app:layout_constraintTop_toTopOf="@id/txtdash" />
 
             <ImageButton
-                android:id="@+id/btn_logout"
+                android:id="@+id/btn_sync"
                 android:layout_width="40dp"
                 android:layout_height="40dp"
                 android:layout_alignParentEnd="true"
@@ -81,7 +81,7 @@
                 android:layout_marginEnd="24dp"
                 android:background="@drawable/textfield"
                 android:elevation="10dp"
-                android:src="@drawable/ic_baseline_logout_24"
+                android:src="@drawable/ic_sync"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintTop_toTopOf="parent" />
 
@@ -375,9 +375,16 @@
 
                     </androidx.cardview.widget.CardView>
 
-
                 </androidx.constraintlayout.widget.ConstraintLayout>
             </ScrollView>
+            <ProgressBar
+                android:id="@+id/pg_bar"
+                android:layout_width="80dp"
+                android:layout_height="80dp"
+                android:visibility="gone"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent" />
         </androidx.constraintlayout.widget.ConstraintLayout>
     </androidx.constraintlayout.widget.ConstraintLayout>
 </ScrollView>

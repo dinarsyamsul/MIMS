@@ -36,7 +36,9 @@ public class MainGenerator {
         tPengujian.addStringProperty("NoPengujian");
         tPengujian.addStringProperty("NamaKategori");
         tPengujian.addStringProperty("QtyMaterial");
-        tPengujian.addStringProperty("QtySiap");
+        tPengujian.addStringProperty("QtyLolos");
+        tPengujian.addStringProperty("QtyTdkLolos");
+        tPengujian.addStringProperty("QtyRusak");
         tPengujian.addStringProperty("Unit");
         tPengujian.addStringProperty("StatusUji");
         tPengujian.addStringProperty("KdPabrikan");
@@ -103,8 +105,9 @@ public class MainGenerator {
         tPosDetailPenerimaan.addStringProperty("LeadTime");
         tPosDetailPenerimaan.addStringProperty("CreatedDate");
         tPosDetailPenerimaan.addStringProperty("Uom");
-        tPosDetailPenerimaan.addStringProperty("NoPemeriksaan");
-        tPosDetailPenerimaan.addIntProperty("isDone");
+        tPosDetailPenerimaan.addStringProperty("NoPemeriksaan").notNull();
+        tPosDetailPenerimaan.addStringProperty("Barcode").notNull();
+        tPosDetailPenerimaan.addIntProperty("isChecked");
 
         //endregion
 
@@ -219,7 +222,7 @@ public class MainGenerator {
         tPosPenerimaan.addStringProperty("PetugasPenerima");
         tPosPenerimaan.addStringProperty("NamaKurir");
         tPosPenerimaan.addStringProperty("NamaEkspedisi");
-        tPosPenerimaan.addIntProperty("isChecked");
+        tPosPenerimaan.addIntProperty("isDone");
 
         // endregion
 
@@ -243,6 +246,7 @@ public class MainGenerator {
         tPosSns.addStringProperty("MaterialId");
         tPosSns.addStringProperty("MasaGaransi");
         tPosSns.addStringProperty("DoStatus");
+        tPosSns.addStringProperty("NoPackaging");
         tPosSns.addStringProperty("Status");
 
         // region posPenerimaan

@@ -1,6 +1,5 @@
 package dev.iconpln.mims.ui.auth
 
-import android.Manifest
 import android.Manifest.permission.READ_EXTERNAL_STORAGE
 import android.Manifest.permission.WRITE_EXTERNAL_STORAGE
 import android.content.Intent
@@ -17,7 +16,6 @@ import android.widget.Toast
 import androidx.activity.viewModels
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.app.ActivityCompat
-import androidx.core.content.ContextCompat
 import dev.iconpln.mims.HomeActivity
 import dev.iconpln.mims.MyApplication
 import dev.iconpln.mims.data.local.database.DaoMaster

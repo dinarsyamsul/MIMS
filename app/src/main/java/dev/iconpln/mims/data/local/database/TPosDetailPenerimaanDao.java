@@ -39,7 +39,8 @@ public class TPosDetailPenerimaanDao extends AbstractDao<TPosDetailPenerimaan, L
         public final static Property CreatedDate = new Property(14, String.class, "CreatedDate", false, "CREATED_DATE");
         public final static Property Uom = new Property(15, String.class, "Uom", false, "UOM");
         public final static Property NoPemeriksaan = new Property(16, String.class, "NoPemeriksaan", false, "NO_PEMERIKSAAN");
-        public final static Property IsDone = new Property(17, Integer.class, "isDone", false, "IS_DONE");
+        public final static Property Barcode = new Property(17, String.class, "Barcode", false, "BARCODE");
+        public final static Property IsChecked = new Property(18, Integer.class, "isChecked", false, "IS_CHECKED");
     }
 
 
@@ -71,8 +72,9 @@ public class TPosDetailPenerimaanDao extends AbstractDao<TPosDetailPenerimaan, L
                 "\"LEAD_TIME\" TEXT," + // 13: LeadTime
                 "\"CREATED_DATE\" TEXT," + // 14: CreatedDate
                 "\"UOM\" TEXT," + // 15: Uom
-                "\"NO_PEMERIKSAAN\" TEXT," + // 16: NoPemeriksaan
-                "\"IS_DONE\" INTEGER);"); // 17: isDone
+                "\"NO_PEMERIKSAAN\" TEXT NOT NULL ," + // 16: NoPemeriksaan
+                "\"BARCODE\" TEXT NOT NULL ," + // 17: Barcode
+                "\"IS_CHECKED\" INTEGER);"); // 18: isChecked
     }
 
     /** Drops the underlying database table. */
@@ -164,15 +166,12 @@ public class TPosDetailPenerimaanDao extends AbstractDao<TPosDetailPenerimaan, L
         if (Uom != null) {
             stmt.bindString(16, Uom);
         }
+        stmt.bindString(17, entity.getNoPemeriksaan());
+        stmt.bindString(18, entity.getBarcode());
  
-        String NoPemeriksaan = entity.getNoPemeriksaan();
-        if (NoPemeriksaan != null) {
-            stmt.bindString(17, NoPemeriksaan);
-        }
- 
-        Integer isDone = entity.getIsDone();
-        if (isDone != null) {
-            stmt.bindLong(18, isDone);
+        Integer isChecked = entity.getIsChecked();
+        if (isChecked != null) {
+            stmt.bindLong(19, isChecked);
         }
     }
 
@@ -259,15 +258,12 @@ public class TPosDetailPenerimaanDao extends AbstractDao<TPosDetailPenerimaan, L
         if (Uom != null) {
             stmt.bindString(16, Uom);
         }
+        stmt.bindString(17, entity.getNoPemeriksaan());
+        stmt.bindString(18, entity.getBarcode());
  
-        String NoPemeriksaan = entity.getNoPemeriksaan();
-        if (NoPemeriksaan != null) {
-            stmt.bindString(17, NoPemeriksaan);
-        }
- 
-        Integer isDone = entity.getIsDone();
-        if (isDone != null) {
-            stmt.bindLong(18, isDone);
+        Integer isChecked = entity.getIsChecked();
+        if (isChecked != null) {
+            stmt.bindLong(19, isChecked);
         }
     }
 
@@ -295,8 +291,9 @@ public class TPosDetailPenerimaanDao extends AbstractDao<TPosDetailPenerimaan, L
             cursor.isNull(offset + 13) ? null : cursor.getString(offset + 13), // LeadTime
             cursor.isNull(offset + 14) ? null : cursor.getString(offset + 14), // CreatedDate
             cursor.isNull(offset + 15) ? null : cursor.getString(offset + 15), // Uom
-            cursor.isNull(offset + 16) ? null : cursor.getString(offset + 16), // NoPemeriksaan
-            cursor.isNull(offset + 17) ? null : cursor.getInt(offset + 17) // isDone
+            cursor.getString(offset + 16), // NoPemeriksaan
+            cursor.getString(offset + 17), // Barcode
+            cursor.isNull(offset + 18) ? null : cursor.getInt(offset + 18) // isChecked
         );
         return entity;
     }
@@ -319,8 +316,9 @@ public class TPosDetailPenerimaanDao extends AbstractDao<TPosDetailPenerimaan, L
         entity.setLeadTime(cursor.isNull(offset + 13) ? null : cursor.getString(offset + 13));
         entity.setCreatedDate(cursor.isNull(offset + 14) ? null : cursor.getString(offset + 14));
         entity.setUom(cursor.isNull(offset + 15) ? null : cursor.getString(offset + 15));
-        entity.setNoPemeriksaan(cursor.isNull(offset + 16) ? null : cursor.getString(offset + 16));
-        entity.setIsDone(cursor.isNull(offset + 17) ? null : cursor.getInt(offset + 17));
+        entity.setNoPemeriksaan(cursor.getString(offset + 16));
+        entity.setBarcode(cursor.getString(offset + 17));
+        entity.setIsChecked(cursor.isNull(offset + 18) ? null : cursor.getInt(offset + 18));
      }
     
     @Override

@@ -47,11 +47,6 @@ class TransmissionActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_transmission_history)
-        btn = findViewById(R.id.btn_start)
-        btn.setOnClickListener {
-            val iService = Intent(applicationContext, ReportUploader::class.java)
-            startService(iService)
-        }
         initData()
         init()
     }

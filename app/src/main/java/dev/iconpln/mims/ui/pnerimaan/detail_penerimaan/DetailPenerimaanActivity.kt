@@ -57,7 +57,7 @@ class DetailPenerimaanActivity : AppCompatActivity(),Loadable {
     private lateinit var cal: Calendar
     private var noDo: String = ""
     private lateinit var data: TPosPenerimaan
-    private lateinit var packagings: List<TPosDetailPenerimaan>
+    private lateinit var packagingList: List<TPosDetailPenerimaan>
     private lateinit var dataDetailPenerimaan: TPosDetailPenerimaan
 
     @SuppressLint("SuspiciousIndentation")
@@ -72,8 +72,17 @@ class DetailPenerimaanActivity : AppCompatActivity(),Loadable {
         noDo = intent.getStringExtra("do").toString()
 
         data = daoSession.tPosPenerimaanDao.queryBuilder().where(TPosPenerimaanDao.Properties.NoDoSmar.eq(noDo)).limit(1).unique()
-        packagings = daoSession.tPosDetailPenerimaanDao.queryBuilder().where(TPosDetailPenerimaanDao.Properties.NoDoSmar.eq(noDo)).list()
         dataDetailPenerimaan = daoSession.tPosDetailPenerimaanDao.queryBuilder().where(TPosDetailPenerimaanDao.Properties.NoDoSmar.eq(noDo)).limit(1).unique()
+
+        packagingList = daoSession.tPosDetailPenerimaanDao.queryBuilder()
+            .where(TPosDetailPenerimaanDao.Properties.NoDoSmar.eq(noDo))
+            .where(TPosDetailPenerimaanDao.Properties.NoPemeriksaan.eq("")).list()
+        Log.d("checkSizePackagingList", packagingList.size.toString())
+
+        if (packagingList.isEmpty()){
+            Toast.makeText(this@DetailPenerimaanActivity, "data packaging tidak ditemukan", Toast.LENGTH_SHORT).show()
+            binding.btnSimpan.isEnabled = false
+        }
 
         adapter = DetailPenerimaanAdapter(arrayListOf(), object : DetailPenerimaanAdapter.OnAdapterListener{
             override fun onClick(po: TPosDetailPenerimaan) {}
@@ -85,7 +94,7 @@ class DetailPenerimaanActivity : AppCompatActivity(),Loadable {
             recyclerView2.setHasFixedSize(true)
             recyclerView2.layoutManager = LinearLayoutManager(this@DetailPenerimaanActivity, LinearLayoutManager.VERTICAL, false)
 
-            btnBack.setOnClickListener { startActivity(Intent(this@DetailPenerimaanActivity, TransmissionActivity::class.java)) }
+            btnBack.setOnClickListener { onBackPressed() }
 
             val dateSetListener = DatePickerDialog.OnDateSetListener { view, year, monthOfYear, dayOfMonth ->
                 cal.set(Calendar.YEAR, year)
@@ -169,10 +178,10 @@ class DetailPenerimaanActivity : AppCompatActivity(),Loadable {
             txtPrimaryOrder.text = dataDetailPenerimaan.noDoMims
             txtNoDo.text = dataDetailPenerimaan.noDoSmar
             txtPlant.text = dataDetailPenerimaan.plantName
-            txtTlsk.text = "01111220011111"
+            txtTlsk.text = data.tlskNo
             txtUnit.text = dataDetailPenerimaan.uom
-            txtKurirPengiriman.text = "-"
-            txtPetugasPengiriman.text = "-"
+            txtKurirPengiriman.text = data.namaKurir
+            txtPetugasPengiriman.text = data.courierPersonName
             txtStoreloc.text = dataDetailPenerimaan.storLoc
             txtTglKirim.text = dataDetailPenerimaan.createdDate
             txtVendor.text = dataDetailPenerimaan.plantName
@@ -218,9 +227,10 @@ class DetailPenerimaanActivity : AppCompatActivity(),Loadable {
 
     private fun submitForm() {
         val reports = java.util.ArrayList<GenericReport>()
-        val list = daoSession.tPosDetailPenerimaanDao.queryBuilder().whereOr(
-            TPosDetailPenerimaanDao.Properties.IsDone.eq("1",),TPosDetailPenerimaanDao.Properties.NoDoSmar.eq(noDo)
-        ).list()
+        val list = daoSession.tPosDetailPenerimaanDao.queryBuilder()
+            .where(TPosDetailPenerimaanDao.Properties.NoDoSmar.eq(noDo))
+            .where(TPosDetailPenerimaanDao.Properties.NoPemeriksaan.eq(""))
+            .where(TPosDetailPenerimaanDao.Properties.IsChecked.eq(1)).list()
         var packagings = ""
         for (i in list){
             packagings += "${i.noPackaging},"
@@ -232,18 +242,35 @@ class DetailPenerimaanActivity : AppCompatActivity(),Loadable {
         }
 
         with(binding){
+            val noPackagings = packagingList.filter { it.isChecked == 1 }.size
             data.petugasPenerima = edtPetugasPenerima.text.toString()
             data.namaEkspedisi = edtEkspedisi.text.toString()
             data.namaKurir = edtNamaKurir.text.toString()
             data.photoSuratBarang = filePathFotoSuratBarang
             data.photoBarang = filePathFotoBarang
             data.tanggalDiterima = edtTanggalDiterima.text.toString()
-            data.isChecked = 1
+            Log.d("noPackagings", noPackagings.toString())
+            if (noPackagings == packagingList.size){
+                data.isDone = 1
+            }else{
+                data.isDone = 0
+            }
             daoSession.update(data)
+
+            val noPemeriksaan = "P.${data.noDoSmar}.${ DateTime.now().toString("yyMMddHHmmssSS")}"
+
+            if (packagingList.isNotEmpty()){
+               for (i in packagingList){
+                   if (i.isChecked == 1){
+                       i.noPemeriksaan = noPemeriksaan
+                       daoSession.tPosDetailPenerimaanDao.update(i)
+                   }
+               }
+            }
 
 
             var item = TPemeriksaan()
-            item.noPemeriksaan = "V.${data.noDoSmar}.${ DateTime.now().toString("yyMMddHHmmssSS")}"
+            item.noPemeriksaan = noPemeriksaan
             item.createdDate = data.createdDate
             item.leadTime = data.leadTime
             item.storloc = data.storLoc
@@ -263,7 +290,6 @@ class DetailPenerimaanActivity : AppCompatActivity(),Loadable {
             item.namaKurir = data.namaKurir
             item.namaEkspedisi = data.namaEkspedisi
             item.petugasPenerima = data.petugasPenerima
-            item.isDone = 0
 
             //baru
             item.namaKetua = ""
@@ -303,7 +329,7 @@ class DetailPenerimaanActivity : AppCompatActivity(),Loadable {
             params.add(ReportParameter("11", reportId, "no_packagings", packagings, ReportParameter.TEXT ))
             params.add(ReportParameter("12", reportId, "photo_file", filePathFotoBarang, ReportParameter.FILE ))
             params.add(ReportParameter("13", reportId, "photo_file2", filePathFotoSuratBarang, ReportParameter.FILE ))
-            val reportPenerimaan = GenericReport(reportId, username, reportName, reportDescription, ApiConfig.sendPenerimaan(), currentDate, 0, 11119209101, params)
+            val reportPenerimaan = GenericReport(reportId, jwt!!, reportName, reportDescription, ApiConfig.sendPenerimaan(), currentDate, 0, 11119209101, params)
             reports.add(reportPenerimaan)
 
         }
@@ -318,7 +344,7 @@ class DetailPenerimaanActivity : AppCompatActivity(),Loadable {
     private fun setCardData() {}
 
     private fun setPackagingList() {
-        adapter.setPoList(packagings)
+        adapter.setPoList(packagingList)
     }
 
     override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
@@ -415,9 +441,9 @@ class DetailPenerimaanActivity : AppCompatActivity(),Loadable {
 
     override fun setFinish(result: Boolean, message: String) {
         if (result){
-            Toast.makeText(this, message, Toast.LENGTH_LONG).show()
-            startActivity(Intent(this@DetailPenerimaanActivity, PenerimaanActivity::class.java))
+            startActivity(Intent(this, PenerimaanActivity::class.java))
             finish()
+            Toast.makeText(this, message, Toast.LENGTH_LONG).show()
         }
     }
 
@@ -437,12 +463,14 @@ class DetailPenerimaanActivity : AppCompatActivity(),Loadable {
         try {
             if (!result.contents.isNullOrEmpty()) {
 
-                val data = daoSession.tPosDetailPenerimaanDao.queryBuilder().where(TPosDetailPenerimaanDao.Properties.NoPackaging.eq(result.contents)).limit(1).unique()
-                data.isDone = 1
+                val data = daoSession.tPosDetailPenerimaanDao.queryBuilder().where(TPosDetailPenerimaanDao.Properties.Barcode.eq(result.contents)).limit(1).unique()
+                data.isChecked = 1
                 daoSession.update(data)
 
-                adapter.setPoList(packagings)
+                adapter.setPoList(packagingList)
                 Toast.makeText(this@DetailPenerimaanActivity, "Scanning success : ${result.contents}",Toast.LENGTH_SHORT).show()
+                startActivity(Intent(this, PenerimaanActivity::class.java))
+                finish()
             }
         }catch (e: Exception){
             Log.e("checkException", e.toString())

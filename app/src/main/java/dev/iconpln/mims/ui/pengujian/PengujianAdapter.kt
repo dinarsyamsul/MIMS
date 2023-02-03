@@ -39,7 +39,7 @@ class PengujianAdapter(val lisModels: MutableList<TPengujian>, var listener: OnA
                 txtNoPengujian.text = pengujian.noPengujian
                 txtKategori.text = pengujian.namaKategori
                 txtSatuan.text = pengujian.unit
-                txtSiapTotal.text = "${pengujian.qtySiap}/${pengujian.qtyMaterial}"
+                txtSiapTotal.text = "${pengujian.qtyLolos}/${pengujian.qtyMaterial}"
                 txtTanggalUji.text = pengujian.tanggalUji
                 txtStatus.text = pengujian.statusUji.trim()
             }

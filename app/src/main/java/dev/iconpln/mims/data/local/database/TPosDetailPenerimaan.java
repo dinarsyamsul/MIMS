@@ -27,8 +27,13 @@ public class TPosDetailPenerimaan {
     private String LeadTime;
     private String CreatedDate;
     private String Uom;
+
+    @NotNull
     private String NoPemeriksaan;
-    private Integer isDone;
+
+    @NotNull
+    private String Barcode;
+    private Integer isChecked;
 
     @Generated
     public TPosDetailPenerimaan() {
@@ -39,7 +44,7 @@ public class TPosDetailPenerimaan {
     }
 
     @Generated
-    public TPosDetailPenerimaan(Long id, String NoMatSap, String NoDoSmar, String Qty, String KdPabrikan, String DoStatus, String PoSapNo, String PoMpNo, String NoDoMims, String NoPackaging, String PlantCodeNo, String PlantName, String StorLoc, String LeadTime, String CreatedDate, String Uom, String NoPemeriksaan, Integer isDone) {
+    public TPosDetailPenerimaan(Long id, String NoMatSap, String NoDoSmar, String Qty, String KdPabrikan, String DoStatus, String PoSapNo, String PoMpNo, String NoDoMims, String NoPackaging, String PlantCodeNo, String PlantName, String StorLoc, String LeadTime, String CreatedDate, String Uom, String NoPemeriksaan, String Barcode, Integer isChecked) {
         this.id = id;
         this.NoMatSap = NoMatSap;
         this.NoDoSmar = NoDoSmar;
@@ -57,7 +62,8 @@ public class TPosDetailPenerimaan {
         this.CreatedDate = CreatedDate;
         this.Uom = Uom;
         this.NoPemeriksaan = NoPemeriksaan;
-        this.isDone = isDone;
+        this.Barcode = Barcode;
+        this.isChecked = isChecked;
     }
 
     public Long getId() {
@@ -188,20 +194,32 @@ public class TPosDetailPenerimaan {
         this.Uom = Uom;
     }
 
+    @NotNull
     public String getNoPemeriksaan() {
         return NoPemeriksaan;
     }
 
-    public void setNoPemeriksaan(String NoPemeriksaan) {
+    /** Not-null value; ensure this value is available before it is saved to the database. */
+    public void setNoPemeriksaan(@NotNull String NoPemeriksaan) {
         this.NoPemeriksaan = NoPemeriksaan;
     }
 
-    public Integer getIsDone() {
-        return isDone;
+    @NotNull
+    public String getBarcode() {
+        return Barcode;
     }
 
-    public void setIsDone(Integer isDone) {
-        this.isDone = isDone;
+    /** Not-null value; ensure this value is available before it is saved to the database. */
+    public void setBarcode(@NotNull String Barcode) {
+        this.Barcode = Barcode;
+    }
+
+    public Integer getIsChecked() {
+        return isChecked;
+    }
+
+    public void setIsChecked(Integer isChecked) {
+        this.isChecked = isChecked;
     }
 
 }

@@ -32,20 +32,17 @@ class PenerimaanActivity : AppCompatActivity() {
         binding = ActivityPenerimaanBinding.inflate(layoutInflater)
         setContentView(binding.root)
         daoSession = (application as MyApplication).daoSession!!
-
         listPenerimaan = daoSession.tPosPenerimaanDao.queryBuilder().list()
-
-        viewModel.getPenerimaan(daoSession, listPenerimaan)
 
         adapter = PenerimaanAdapter(arrayListOf(), object : PenerimaanAdapter.OnAdapterListener{
             override fun onClick(po: TPosPenerimaan) {
                 val listDetailPenerimaan = daoSession.tPosDetailPenerimaanDao.queryBuilder()
                     .where(TPosDetailPenerimaanDao.Properties.NoDoSmar.eq(po.noDoSmar)).list()
 
-                if (po.isChecked == 1){
-                    Toast.makeText(this@PenerimaanActivity, "Anda sudah melakukan penerimaan", Toast.LENGTH_SHORT).show()
+                if (po.isDone == 1){
+                    Toast.makeText(this@PenerimaanActivity, "Anda sudah melakukan penerimaan ini", Toast.LENGTH_SHORT).show()
                 }else{
-                    viewModel.insertDetailPenerimaan(daoSession,po.noDoSmar,listDetailPenerimaan)
+                    viewModel.insertDetailPenerimaan(daoSession,listDetailPenerimaan)
 
                     startActivity(Intent(this@PenerimaanActivity, DetailPenerimaanActivity::class.java)
                         .putExtra("do", po.noDoSmar))
@@ -54,9 +51,7 @@ class PenerimaanActivity : AppCompatActivity() {
 
         })
 
-        viewModel.penerimaanResponse.observe(this){
-            adapter.setPoList(listPenerimaan)
-        }
+        adapter.setPoList(listPenerimaan)
 
         with(binding){
             rvPenerimaan.adapter = adapter
@@ -106,13 +101,6 @@ class PenerimaanActivity : AppCompatActivity() {
                 }
 
             })
-
-            viewModel.isLoading.observe(this@PenerimaanActivity){
-                when(it){
-                    true -> progressBar.visibility = View.VISIBLE
-                    false -> progressBar.visibility = View.GONE
-                }
-            }
         }
     }
 }

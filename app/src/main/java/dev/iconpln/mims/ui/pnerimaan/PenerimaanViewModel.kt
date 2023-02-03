@@ -7,6 +7,7 @@ import dev.iconpln.mims.data.local.database.*
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
+import java.util.UUID
 
 class PenerimaanViewModel: ViewModel() {
 
@@ -19,7 +20,7 @@ class PenerimaanViewModel: ViewModel() {
     private val _penerimaanDetailResponse = MutableLiveData<List<TPosDetailPenerimaan>>()
     val penerimaanDetailResponse: LiveData<List<TPosDetailPenerimaan>> = _penerimaanDetailResponse
 
-    fun insertDetailPenerimaan(daoSession: DaoSession,noDo: String, listDetailPenerimaan: List<TPosDetailPenerimaan>){
+    fun insertDetailPenerimaan(daoSession: DaoSession, listDetailPenerimaan: List<TPosDetailPenerimaan>){
         CoroutineScope(Dispatchers.Main).launch {
             try {
                 _isLoading.value = true
@@ -50,8 +51,13 @@ class PenerimaanViewModel: ViewModel() {
                             item.leadTime = model.leadTime
                             item.createdDate = model.createdDate
                             item.uom = model.uom
-                            item.noPemeriksaan = model.noPemeriksaan
-                            item.isDone = 0
+                            item.barcode = "${model.noPackaging}-1928379128739218'"
+                            if (model.noPemeriksaan.isNullOrEmpty()){
+                                item.noPemeriksaan = ""
+                            }else{
+                                item.noPemeriksaan = model.noPemeriksaan
+                            }
+                            item.isChecked = 0
                             items[i] = item
                         }
                         daoSession.tPosDetailPenerimaanDao.insertInTx(items.toList())
@@ -106,7 +112,7 @@ class PenerimaanViewModel: ViewModel() {
                             item.petugasPenerima = ""
                             item.namaKurir = ""
                             item.namaEkspedisi = ""
-                            item.isChecked = 0
+                            item.isDone = 0
                             items[i] = item
                         }
                         daoSession.tPosPenerimaanDao.insertInTx(items.toList())

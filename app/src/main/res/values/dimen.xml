@@ -1,0 +1,61 @@
+<resources>
+    <!-- Default screen margins, per the Android Design guidelines. -->
+    <dimen name="activity_horizontal_margin">16dp</dimen>
+    <dimen name="activity_vertical_margin">16dp</dimen>
+
+    <!-- Spacing constants (for margins and paddings) -->
+    <dimen name="spacing_extra_extra_large">@dimen/_70sdp</dimen>
+    <dimen name="spacing_extra_large">@dimen/_50sdp</dimen>
+    <dimen name="spacing_large">@dimen/_32sdp</dimen>
+    <dimen name="spacing_normal">@dimen/_16sdp</dimen>
+    <dimen name="spacing_small">@dimen/_8sdp</dimen>
+    <dimen name="spacing_extra_small">@dimen/_4sdp</dimen>
+    <dimen name="spacing_extra_extra_small">@dimen/_2sdp</dimen>
+
+    <!-- Font sizes -->
+    <dimen name="font_size_text_box">15sp</dimen>
+    <dimen name="font_size_main_menu">14sp</dimen>
+    <dimen name="font_size_extra_large">24sp</dimen>
+    <dimen name="font_size_large">20sp</dimen>
+    <dimen name="font_size_normal">@dimen/_14ssp</dimen>
+    <dimen name="font_size_small">@dimen/_12ssp</dimen>
+    <dimen name="font_size_extra_small">@dimen/_10ssp</dimen>
+    <dimen name="font_size_mini">@dimen/_8ssp</dimen>
+
+    <!-- Button sizes -->
+    <dimen name="button_width_small">50dp</dimen>
+    <dimen name="button_width_normal">100dp</dimen>
+    <dimen name="button_width_large">150dp</dimen>
+    <dimen name="button_width_extra_large">180dp</dimen>
+    <dimen name="button_height_extra_small">15dp</dimen>
+    <dimen name="button_height_small">@dimen/_25sdp</dimen>
+    <dimen name="button_height_normal">@dimen/_35sdp</dimen>
+    <dimen name="button_height_medium">@dimen/_40sdp</dimen>
+    <dimen name="button_height_large">@dimen/_45sdp</dimen>
+    <dimen name="button_height_extra_large">@dimen/_70sdp</dimen>
+    <dimen name="button_camera_height">@dimen/_65sdp</dimen>
+
+    <!-- TextBox sizes -->
+    <dimen name="textbox_height_normal">30dp</dimen>
+    <dimen name="textbox_width_small">70dp</dimen>
+
+    <!-- Spinner sizes -->
+    <dimen name="spinner_width_large">250dp</dimen>
+    <dimen name="spinner_width_normal">100dp</dimen>
+    <dimen name="spinner_height_normal">35dp</dimen>
+
+    <!-- Thumbnail sizes -->
+    <dimen name="thumbnail_height_extra_small">30dp</dimen>
+    <dimen name="thumbnail_height_small">75dp</dimen>
+    <dimen name="thumbnail_height_normal">100dp</dimen>
+    <dimen name="thumbnail_height_medium">125dp</dimen>
+    <dimen name="thumbnail_height_large">150dp</dimen>
+    <dimen name="thumbnail_height_extra_large">220dp</dimen>
+    <dimen name="thumbnail_width_small">50dp</dimen>
+    <dimen name="thumbnail_width_normal">100dp</dimen>
+
+    <!-- Icon sizes -->
+    <dimen name="icon_height_normal">20dp</dimen>
+    <dimen name="icon_height_medium">30dp</dimen>
+    <dimen name="icon_height_large">40dp</dimen>
+</resources>

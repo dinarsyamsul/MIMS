@@ -27,10 +27,12 @@ public class TPengujianDao extends AbstractDao<TPengujian, Long> {
         public final static Property NoPengujian = new Property(2, String.class, "NoPengujian", false, "NO_PENGUJIAN");
         public final static Property NamaKategori = new Property(3, String.class, "NamaKategori", false, "NAMA_KATEGORI");
         public final static Property QtyMaterial = new Property(4, String.class, "QtyMaterial", false, "QTY_MATERIAL");
-        public final static Property QtySiap = new Property(5, String.class, "QtySiap", false, "QTY_SIAP");
-        public final static Property Unit = new Property(6, String.class, "Unit", false, "UNIT");
-        public final static Property StatusUji = new Property(7, String.class, "StatusUji", false, "STATUS_UJI");
-        public final static Property KdPabrikan = new Property(8, String.class, "KdPabrikan", false, "KD_PABRIKAN");
+        public final static Property QtyLolos = new Property(5, String.class, "QtyLolos", false, "QTY_LOLOS");
+        public final static Property QtyTdkLolos = new Property(6, String.class, "QtyTdkLolos", false, "QTY_TDK_LOLOS");
+        public final static Property QtyRusak = new Property(7, String.class, "QtyRusak", false, "QTY_RUSAK");
+        public final static Property Unit = new Property(8, String.class, "Unit", false, "UNIT");
+        public final static Property StatusUji = new Property(9, String.class, "StatusUji", false, "STATUS_UJI");
+        public final static Property KdPabrikan = new Property(10, String.class, "KdPabrikan", false, "KD_PABRIKAN");
     }
 
 
@@ -51,10 +53,12 @@ public class TPengujianDao extends AbstractDao<TPengujian, Long> {
                 "\"NO_PENGUJIAN\" TEXT," + // 2: NoPengujian
                 "\"NAMA_KATEGORI\" TEXT," + // 3: NamaKategori
                 "\"QTY_MATERIAL\" TEXT," + // 4: QtyMaterial
-                "\"QTY_SIAP\" TEXT," + // 5: QtySiap
-                "\"UNIT\" TEXT," + // 6: Unit
-                "\"STATUS_UJI\" TEXT," + // 7: StatusUji
-                "\"KD_PABRIKAN\" TEXT);"); // 8: KdPabrikan
+                "\"QTY_LOLOS\" TEXT," + // 5: QtyLolos
+                "\"QTY_TDK_LOLOS\" TEXT," + // 6: QtyTdkLolos
+                "\"QTY_RUSAK\" TEXT," + // 7: QtyRusak
+                "\"UNIT\" TEXT," + // 8: Unit
+                "\"STATUS_UJI\" TEXT," + // 9: StatusUji
+                "\"KD_PABRIKAN\" TEXT);"); // 10: KdPabrikan
     }
 
     /** Drops the underlying database table. */
@@ -92,24 +96,34 @@ public class TPengujianDao extends AbstractDao<TPengujian, Long> {
             stmt.bindString(5, QtyMaterial);
         }
  
-        String QtySiap = entity.getQtySiap();
-        if (QtySiap != null) {
-            stmt.bindString(6, QtySiap);
+        String QtyLolos = entity.getQtyLolos();
+        if (QtyLolos != null) {
+            stmt.bindString(6, QtyLolos);
+        }
+ 
+        String QtyTdkLolos = entity.getQtyTdkLolos();
+        if (QtyTdkLolos != null) {
+            stmt.bindString(7, QtyTdkLolos);
+        }
+ 
+        String QtyRusak = entity.getQtyRusak();
+        if (QtyRusak != null) {
+            stmt.bindString(8, QtyRusak);
         }
  
         String Unit = entity.getUnit();
         if (Unit != null) {
-            stmt.bindString(7, Unit);
+            stmt.bindString(9, Unit);
         }
  
         String StatusUji = entity.getStatusUji();
         if (StatusUji != null) {
-            stmt.bindString(8, StatusUji);
+            stmt.bindString(10, StatusUji);
         }
  
         String KdPabrikan = entity.getKdPabrikan();
         if (KdPabrikan != null) {
-            stmt.bindString(9, KdPabrikan);
+            stmt.bindString(11, KdPabrikan);
         }
     }
 
@@ -142,24 +156,34 @@ public class TPengujianDao extends AbstractDao<TPengujian, Long> {
             stmt.bindString(5, QtyMaterial);
         }
  
-        String QtySiap = entity.getQtySiap();
-        if (QtySiap != null) {
-            stmt.bindString(6, QtySiap);
+        String QtyLolos = entity.getQtyLolos();
+        if (QtyLolos != null) {
+            stmt.bindString(6, QtyLolos);
+        }
+ 
+        String QtyTdkLolos = entity.getQtyTdkLolos();
+        if (QtyTdkLolos != null) {
+            stmt.bindString(7, QtyTdkLolos);
+        }
+ 
+        String QtyRusak = entity.getQtyRusak();
+        if (QtyRusak != null) {
+            stmt.bindString(8, QtyRusak);
         }
  
         String Unit = entity.getUnit();
         if (Unit != null) {
-            stmt.bindString(7, Unit);
+            stmt.bindString(9, Unit);
         }
  
         String StatusUji = entity.getStatusUji();
         if (StatusUji != null) {
-            stmt.bindString(8, StatusUji);
+            stmt.bindString(10, StatusUji);
         }
  
         String KdPabrikan = entity.getKdPabrikan();
         if (KdPabrikan != null) {
-            stmt.bindString(9, KdPabrikan);
+            stmt.bindString(11, KdPabrikan);
         }
     }
 
@@ -176,10 +200,12 @@ public class TPengujianDao extends AbstractDao<TPengujian, Long> {
             cursor.isNull(offset + 2) ? null : cursor.getString(offset + 2), // NoPengujian
             cursor.isNull(offset + 3) ? null : cursor.getString(offset + 3), // NamaKategori
             cursor.isNull(offset + 4) ? null : cursor.getString(offset + 4), // QtyMaterial
-            cursor.isNull(offset + 5) ? null : cursor.getString(offset + 5), // QtySiap
-            cursor.isNull(offset + 6) ? null : cursor.getString(offset + 6), // Unit
-            cursor.isNull(offset + 7) ? null : cursor.getString(offset + 7), // StatusUji
-            cursor.isNull(offset + 8) ? null : cursor.getString(offset + 8) // KdPabrikan
+            cursor.isNull(offset + 5) ? null : cursor.getString(offset + 5), // QtyLolos
+            cursor.isNull(offset + 6) ? null : cursor.getString(offset + 6), // QtyTdkLolos
+            cursor.isNull(offset + 7) ? null : cursor.getString(offset + 7), // QtyRusak
+            cursor.isNull(offset + 8) ? null : cursor.getString(offset + 8), // Unit
+            cursor.isNull(offset + 9) ? null : cursor.getString(offset + 9), // StatusUji
+            cursor.isNull(offset + 10) ? null : cursor.getString(offset + 10) // KdPabrikan
         );
         return entity;
     }
@@ -191,10 +217,12 @@ public class TPengujianDao extends AbstractDao<TPengujian, Long> {
         entity.setNoPengujian(cursor.isNull(offset + 2) ? null : cursor.getString(offset + 2));
         entity.setNamaKategori(cursor.isNull(offset + 3) ? null : cursor.getString(offset + 3));
         entity.setQtyMaterial(cursor.isNull(offset + 4) ? null : cursor.getString(offset + 4));
-        entity.setQtySiap(cursor.isNull(offset + 5) ? null : cursor.getString(offset + 5));
-        entity.setUnit(cursor.isNull(offset + 6) ? null : cursor.getString(offset + 6));
-        entity.setStatusUji(cursor.isNull(offset + 7) ? null : cursor.getString(offset + 7));
-        entity.setKdPabrikan(cursor.isNull(offset + 8) ? null : cursor.getString(offset + 8));
+        entity.setQtyLolos(cursor.isNull(offset + 5) ? null : cursor.getString(offset + 5));
+        entity.setQtyTdkLolos(cursor.isNull(offset + 6) ? null : cursor.getString(offset + 6));
+        entity.setQtyRusak(cursor.isNull(offset + 7) ? null : cursor.getString(offset + 7));
+        entity.setUnit(cursor.isNull(offset + 8) ? null : cursor.getString(offset + 8));
+        entity.setStatusUji(cursor.isNull(offset + 9) ? null : cursor.getString(offset + 9));
+        entity.setKdPabrikan(cursor.isNull(offset + 10) ? null : cursor.getString(offset + 10));
      }
     
     @Override

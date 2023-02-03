@@ -41,7 +41,7 @@ class PenerimaanAdapter(val lisModels: MutableList<TPosPenerimaan>, var listener
                 txtTglKirim.text = "Tanggal dikirim ${po.createdDate}"
                 txtUnitTujuan.text = "-"
 
-                if(po.isChecked == 1){
+                if(po.isDone == 1){
                     isChecked.visibility = View.VISIBLE
                 }else{
                     isChecked.visibility = View.GONE

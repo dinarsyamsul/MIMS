@@ -40,7 +40,7 @@ class GenericReport(internal var idReport: String, internal var user_id: String,
 
             val me = multipartEntity
             login.entity = me
-            login.addHeader("pitjarus-schema-name", Config.SCHEMA_NAME)
+            login.addHeader("jwt", user_id)
 
             val response = client.execute(login)
             val responseEntity = response.entity

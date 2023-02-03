@@ -45,9 +45,10 @@ class RatingAdapter(val lisModels: MutableList<TPemeriksaan>, var listener: OnAd
                 txtUnitTujuan.text = "-"
 
                 if(po.isDone == 1){
-                    ivIsRating.setBackgroundResource(R.drawable.ic_israting)
+                    ivIsRating.setImageResource(R.drawable.ic_israting)
                 }else{
-                    ivIsRating.setBackgroundResource(R.drawable.ic_is_not_rating)                }
+                    ivIsRating.setImageResource(R.drawable.ic_is_not_rating)
+                }
             }
 
             itemView.setOnClickListener { listener.onClick(po) }

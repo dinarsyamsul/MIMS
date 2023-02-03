@@ -16,6 +16,7 @@ import dev.iconpln.mims.databinding.FragmentProfileBinding
 import dev.iconpln.mims.ui.auth.LoginActivity
 import dev.iconpln.mims.ui.auth.LoginBiometricActivity
 import dev.iconpln.mims.ui.auth.change_password.ChangePasswordActivity
+import dev.iconpln.mims.ui.transmission_history.TransmissionActivity
 import dev.iconpln.mims.utils.SessionManager
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
@@ -45,6 +46,10 @@ class ProfileFragment : Fragment() {
                 1 -> binding.btnSwitch.isChecked = true
                 else -> binding.btnSwitch.isChecked = false
             }
+        }
+
+        binding.cvTransmisson.setOnClickListener {
+            startActivity(Intent(requireActivity(), TransmissionActivity::class.java))
         }
 
         binding.cvUbahPassword.setOnClickListener {

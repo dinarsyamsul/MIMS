@@ -9,11 +9,11 @@ import dev.iconpln.mims.data.local.database.TPosDetailPenerimaan
 import dev.iconpln.mims.databinding.ItemPackagingBinding
 import dev.iconpln.mims.databinding.ItemPackagingPemeriksaanBinding
 
-class DetailPemeriksaanAdapter(val lisModels: MutableList<String>,
+class DetailPemeriksaanAdapter(val lisModels: MutableList<TPemeriksaanDetail>,
                                var listener: OnAdapterListener, var daoSession: DaoSession)
     : RecyclerView.Adapter<DetailPemeriksaanAdapter.ViewHolder>() {
 
-    fun setPedList(po: List<String>){
+    fun setPedList(po: List<TPemeriksaanDetail>){
         lisModels.clear()
         lisModels.addAll(po)
         notifyDataSetChanged()
@@ -34,12 +34,14 @@ class DetailPemeriksaanAdapter(val lisModels: MutableList<String>,
     override fun getItemCount(): Int = lisModels.size
 
     inner class ViewHolder(val binding: ItemPackagingPemeriksaanBinding): RecyclerView.ViewHolder(binding.root){
-        fun bind(po : String){
+        fun bind(po : TPemeriksaanDetail){
 
             with(binding){
-                txtSnMaterial.text = "SN Material : $po"
+                txtSnMaterial.text = "SN Material : ${po.sn}"
                 txtKategori.text = "Kategori: -"
                 txtVendor.text = "Vendor: -"
+
+                checkNormal.isChecked = po.isDone == 1
 
                 checkCacat.setOnCheckedChangeListener { buttonView, isChecked ->
                     checkNormal.isEnabled = !isChecked
@@ -54,6 +56,6 @@ class DetailPemeriksaanAdapter(val lisModels: MutableList<String>,
     }
 
     interface OnAdapterListener{
-        fun onClick(po: String)
+        fun onClick(po: TPemeriksaanDetail)
     }
 }

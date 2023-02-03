@@ -46,10 +46,9 @@ class PemeriksaanDetailActivity : AppCompatActivity(), Loadable {
     private lateinit var daoSession: DaoSession
     private lateinit var adapter: DetailPemeriksaanAdapter
 
-    private lateinit var data: TPemeriksaanDetail
+    private lateinit var detailPemeriksaans: List<TPemeriksaanDetail>
     private lateinit var dataPemeriksaan: TPosDetailPenerimaan
     private lateinit var pemeriksaan: TPemeriksaan
-    private lateinit var arrayStringPackaging: List<String>
 
     private val cameraRequestKomplain = 101
     private val cameraRequestKomplainGallery = 102
@@ -61,7 +60,7 @@ class PemeriksaanDetailActivity : AppCompatActivity(), Loadable {
     private var reasonReject: String = ""
     private var reasonKomplain: String = ""
 
-    private var noDo: String = ""
+    private var noPemeriksaan: String = ""
     private var mAnggota: String = ""
     private var mKetua: String = ""
     private var mManager: String = ""
@@ -72,19 +71,18 @@ class PemeriksaanDetailActivity : AppCompatActivity(), Loadable {
         binding = ActivityPemeriksaanDetailBinding.inflate(layoutInflater)
         setContentView(binding.root)
         daoSession = (application as MyApplication).daoSession!!
-        noDo = intent.getStringExtra("noDo")!!
+        noPemeriksaan = intent.getStringExtra("noPemeriksaan")!!
 
-        data = daoSession.tPemeriksaanDetailDao.queryBuilder().where(TPemeriksaanDetailDao.Properties.NoDoSmar.eq(noDo)).limit(1).unique()
-        dataPemeriksaan = daoSession.tPosDetailPenerimaanDao.queryBuilder().where(TPosDetailPenerimaanDao.Properties.NoDoSmar.eq(noDo)).limit(1).unique()
-        pemeriksaan = daoSession.tPemeriksaanDao.queryBuilder().where(TPemeriksaanDao.Properties.NoDoSmar.eq(noDo)).limit(1).unique()
-        arrayStringPackaging = data.noPackaging.split(",")
-        Log.d("checkPackaging", arrayStringPackaging.toString())
+        detailPemeriksaans = daoSession.tPemeriksaanDetailDao.queryBuilder().where(TPemeriksaanDetailDao.Properties.NoPemeriksaan.eq(noPemeriksaan)).list()
+
+        pemeriksaan = daoSession.tPemeriksaanDao.queryBuilder().where(TPemeriksaanDao.Properties.NoPemeriksaan.eq(noPemeriksaan)).limit(1).unique()
+
         adapter = DetailPemeriksaanAdapter(arrayListOf(),object : DetailPemeriksaanAdapter.OnAdapterListener{
-            override fun onClick(po: String) {}
+            override fun onClick(po: TPemeriksaanDetail) {}
 
         }, daoSession)
 
-        adapter.setPedList(arrayStringPackaging)
+        adapter.setPedList(detailPemeriksaans)
 
         with(binding){
             btnLanjut.setOnClickListener {
@@ -186,11 +184,17 @@ class PemeriksaanDetailActivity : AppCompatActivity(), Loadable {
                 override fun onTextChanged(s: CharSequence?, start: Int, before: Int, count: Int) {}
 
                 override fun afterTextChanged(s: Editable?) {
-                    val filter = arrayStringPackaging.filter { it.lowercase().contains(s.toString().lowercase()) }
+                    val filter = detailPemeriksaans.filter { it.sn.lowercase().contains(s.toString().lowercase()) }
                     adapter.setPedList(filter)
                 }
 
             })
+            txtPrimaryOrder.text = pemeriksaan.poSapNo
+            txtNoDo.text = pemeriksaan.noDoSmar
+            txtTanggalDiterima.text = pemeriksaan.tanggalDiterima
+            txtPetugasPenerima.text = pemeriksaan.petugasPenerima
+            txtKurirPengiriman.text = pemeriksaan.namaEkspedisi
+            txtPetugasPengiriman.text = pemeriksaan.namaKurir
         }
     }
 
@@ -239,16 +243,29 @@ class PemeriksaanDetailActivity : AppCompatActivity(), Loadable {
     private fun submitFormKomplain() {
         val reports = java.util.ArrayList<GenericReport>()
 
-        data.status = "COMPLAINT"
-        data.isDone = 1
-        daoSession.update(data)
+        for (i in detailPemeriksaans){
+            i.status = "COMPLAINT"
+            i.noPemeriksaan= pemeriksaan.noPemeriksaan
+            i.isDone = 1
+            daoSession.update(i)
+        }
 
         pemeriksaan.namaKetua = mKetua
         pemeriksaan.namaManager = mManager
         pemeriksaan.namaSekretaris = mSekretaris
         pemeriksaan.anggota = mAnggota
         pemeriksaan.state = 2
+        pemeriksaan.isDone = 1
         daoSession.update(pemeriksaan)
+
+        var sns = ""
+        for (i in detailPemeriksaans){
+            sns += "${i.sn},${i.noPackaging};"
+        }
+
+        if (sns != "") {
+            sns = sns.substring(0, sns.length - 1)
+        }
 
         var jwt = SharedPrefsUtils.getStringPreference(this@PemeriksaanDetailActivity,"jwt","")
         var username = SharedPrefsUtils.getStringPreference(this@PemeriksaanDetailActivity, "username","")
@@ -268,12 +285,12 @@ class PemeriksaanDetailActivity : AppCompatActivity(), Loadable {
         params.add(ReportParameter("8", reportId, "quantity", dataPemeriksaan.qty, ReportParameter.TEXT ))
         params.add(ReportParameter("9", reportId, "username", username!!, ReportParameter.TEXT ))
         params.add(ReportParameter("10", reportId, "email",email!! , ReportParameter.TEXT ))
-        params.add(ReportParameter("11", reportId, "no_packaging", pemeriksaan.packangings, ReportParameter.TEXT ))
+        params.add(ReportParameter("11", reportId, "no_packaging", dataPemeriksaan.noPackaging, ReportParameter.TEXT ))
         params.add(ReportParameter("12", reportId, "status_name", "COMPLAINT", ReportParameter.TEXT ))
-        params.add(ReportParameter("13", reportId, "sns", pemeriksaan.packangings, ReportParameter.TEXT ))
+        params.add(ReportParameter("13", reportId, "sns", sns, ReportParameter.TEXT ))
         params.add(ReportParameter("14", reportId, "alasan", reasonKomplain, ReportParameter.TEXT ))
         params.add(ReportParameter("15", reportId, "photo_file", filePathKomplain, ReportParameter.FILE ))
-        val reportPenerimaan = GenericReport(reportId, username, reportName, reportDescription, ApiConfig.sendComplaint(), currentDate, 0, 11119209101, params)
+        val reportPenerimaan = GenericReport(reportId, jwt!!, reportName, reportDescription, ApiConfig.sendComplaint(), currentDate, 0, 11119209101, params)
         reports.add(reportPenerimaan)
 
         val task = TambahReportTask(this, reports)
@@ -376,16 +393,29 @@ class PemeriksaanDetailActivity : AppCompatActivity(), Loadable {
     private fun submitForm(status: String) {
         val reports = java.util.ArrayList<GenericReport>()
 
-        data.status = status
-        data.isDone = 1
-        daoSession.update(data)
+        for (i in detailPemeriksaans){
+            i.status = status
+            i.noPemeriksaan= pemeriksaan.noPemeriksaan
+            i.isDone = 1
+            daoSession.update(i)
+        }
 
         pemeriksaan.namaKetua = mKetua
         pemeriksaan.namaManager = mManager
         pemeriksaan.namaSekretaris = mSekretaris
         pemeriksaan.anggota = mAnggota
         pemeriksaan.state = 2
+        pemeriksaan.isDone = 1
         daoSession.update(pemeriksaan)
+
+        var sns = ""
+        for (i in detailPemeriksaans){
+            sns += "${i.sn},${i.noPackaging};"
+        }
+
+        if (sns != "") {
+            sns = sns.substring(0, sns.length - 1)
+        }
 
         var jwt = SharedPrefsUtils.getStringPreference(this@PemeriksaanDetailActivity,"jwt","")
         var username = SharedPrefsUtils.getStringPreference(this@PemeriksaanDetailActivity, "username","")
@@ -405,10 +435,10 @@ class PemeriksaanDetailActivity : AppCompatActivity(), Loadable {
         params.add(ReportParameter("8", reportId, "quantity", dataPemeriksaan.qty, ReportParameter.TEXT ))
         params.add(ReportParameter("9", reportId, "username", username!!, ReportParameter.TEXT ))
         params.add(ReportParameter("10", reportId, "email",email!! , ReportParameter.TEXT ))
-        params.add(ReportParameter("11", reportId, "no_packaging", pemeriksaan.packangings, ReportParameter.TEXT ))
+        params.add(ReportParameter("11", reportId, "no_packaging", dataPemeriksaan.noPackaging, ReportParameter.TEXT ))
         params.add(ReportParameter("12", reportId, "status_name", status, ReportParameter.TEXT ))
-        params.add(ReportParameter("13", reportId, "sns", pemeriksaan.packangings, ReportParameter.TEXT ))
-        val reportPenerimaan = GenericReport(reportId, username, reportName, reportDescription, ApiConfig.sendPemeriksaan(), currentDate, 0, 11119209101, params)
+        params.add(ReportParameter("13", reportId, "sns", sns, ReportParameter.TEXT ))
+        val reportPenerimaan = GenericReport(reportId, jwt!!, reportName, reportDescription, ApiConfig.sendPemeriksaan(), currentDate, 0, 11119209101, params)
         reports.add(reportPenerimaan)
 
         val task = TambahReportTask(this, reports)
@@ -471,8 +501,14 @@ class PemeriksaanDetailActivity : AppCompatActivity(), Loadable {
     ) { result: ScanIntentResult ->
         try {
             if (!result.contents.isNullOrEmpty()) {
-
-                Toast.makeText(this@PemeriksaanDetailActivity, "Scanning success : ${result.contents}",Toast.LENGTH_SHORT).show()
+                for (i in detailPemeriksaans){
+                    if (i.sn == result.contents){
+                        i.isDone = 1
+                        daoSession.tPemeriksaanDetailDao.update(i)
+                        Toast.makeText(this@PemeriksaanDetailActivity, "Scanning success : ${result.contents}",Toast.LENGTH_SHORT).show()
+                    }
+                }
+                adapter.setPedList(detailPemeriksaans)
             }
         }catch (e: Exception){
             Log.e("checkException", e.toString())

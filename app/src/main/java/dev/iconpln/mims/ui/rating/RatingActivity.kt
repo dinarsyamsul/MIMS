@@ -3,6 +3,7 @@ package dev.iconpln.mims.ui.rating
 import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import android.widget.Toast
 import androidx.activity.viewModels
 import androidx.recyclerview.widget.LinearLayoutManager
 import dev.iconpln.mims.MyApplication
@@ -30,8 +31,12 @@ class RatingActivity : AppCompatActivity() {
 
         adapter = RatingAdapter(arrayListOf(), object : RatingAdapter.OnAdapterListener{
             override fun onClick(po: TPemeriksaan) {
-                startActivity(Intent(this@RatingActivity, DetailRatingActivity::class.java)
-                    .putExtra("noDo", po.noDoSmar))
+                if(po.isDone == 1){
+                    Toast.makeText(this@RatingActivity, "Anda sudah melakukan rating di pengiriman ini", Toast.LENGTH_SHORT).show()
+                }else{
+                    startActivity(Intent(this@RatingActivity, DetailRatingActivity::class.java)
+                        .putExtra("noDo", po.noDoSmar))
+                }
             }
 
         })

@@ -36,7 +36,7 @@ public class TPosPenerimaan {
     private String PetugasPenerima;
     private String NamaKurir;
     private String NamaEkspedisi;
-    private Integer isChecked;
+    private Integer isDone;
 
     @Generated
     public TPosPenerimaan() {
@@ -47,7 +47,7 @@ public class TPosPenerimaan {
     }
 
     @Generated
-    public TPosPenerimaan(Long id, String StorLoc, String Total, String TlskNo, String PoSapNo, String PoMpNo, String NoDoSmar, Integer LeadTime, String Storloc, String CreatedDate, String PlanCodeNo, String PlantName, String NoDoMims, String DoStatus, String Expeditions, String CourierPersonName, String KdPabrikan, String MaterialGroup, String NamaKategoriMaterial, String PhotoSuratBarang, String PhotoBarang, String TanggalDiterima, String PetugasPenerima, String NamaKurir, String NamaEkspedisi, Integer isChecked) {
+    public TPosPenerimaan(Long id, String StorLoc, String Total, String TlskNo, String PoSapNo, String PoMpNo, String NoDoSmar, Integer LeadTime, String Storloc, String CreatedDate, String PlanCodeNo, String PlantName, String NoDoMims, String DoStatus, String Expeditions, String CourierPersonName, String KdPabrikan, String MaterialGroup, String NamaKategoriMaterial, String PhotoSuratBarang, String PhotoBarang, String TanggalDiterima, String PetugasPenerima, String NamaKurir, String NamaEkspedisi, Integer isDone) {
         this.id = id;
         this.StorLoc = StorLoc;
         this.Total = Total;
@@ -73,7 +73,7 @@ public class TPosPenerimaan {
         this.PetugasPenerima = PetugasPenerima;
         this.NamaKurir = NamaKurir;
         this.NamaEkspedisi = NamaEkspedisi;
-        this.isChecked = isChecked;
+        this.isDone = isDone;
     }
 
     public Long getId() {
@@ -276,12 +276,12 @@ public class TPosPenerimaan {
         this.NamaEkspedisi = NamaEkspedisi;
     }
 
-    public Integer getIsChecked() {
-        return isChecked;
+    public Integer getIsDone() {
+        return isDone;
     }
 
-    public void setIsChecked(Integer isChecked) {
-        this.isChecked = isChecked;
+    public void setIsDone(Integer isDone) {
+        this.isDone = isDone;
     }
 
 }

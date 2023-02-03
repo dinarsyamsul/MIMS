@@ -40,7 +40,8 @@ public class TPosSnsDao extends AbstractDao<TPosSns, Long> {
         public final static Property MaterialId = new Property(15, String.class, "MaterialId", false, "MATERIAL_ID");
         public final static Property MasaGaransi = new Property(16, String.class, "MasaGaransi", false, "MASA_GARANSI");
         public final static Property DoStatus = new Property(17, String.class, "DoStatus", false, "DO_STATUS");
-        public final static Property Status = new Property(18, String.class, "Status", false, "STATUS");
+        public final static Property NoPackaging = new Property(18, String.class, "NoPackaging", false, "NO_PACKAGING");
+        public final static Property Status = new Property(19, String.class, "Status", false, "STATUS");
     }
 
 
@@ -74,7 +75,8 @@ public class TPosSnsDao extends AbstractDao<TPosSns, Long> {
                 "\"MATERIAL_ID\" TEXT," + // 15: MaterialId
                 "\"MASA_GARANSI\" TEXT," + // 16: MasaGaransi
                 "\"DO_STATUS\" TEXT," + // 17: DoStatus
-                "\"STATUS\" TEXT);"); // 18: Status
+                "\"NO_PACKAGING\" TEXT," + // 18: NoPackaging
+                "\"STATUS\" TEXT);"); // 19: Status
     }
 
     /** Drops the underlying database table. */
@@ -177,9 +179,14 @@ public class TPosSnsDao extends AbstractDao<TPosSns, Long> {
             stmt.bindString(18, DoStatus);
         }
  
+        String NoPackaging = entity.getNoPackaging();
+        if (NoPackaging != null) {
+            stmt.bindString(19, NoPackaging);
+        }
+ 
         String Status = entity.getStatus();
         if (Status != null) {
-            stmt.bindString(19, Status);
+            stmt.bindString(20, Status);
         }
     }
 
@@ -277,9 +284,14 @@ public class TPosSnsDao extends AbstractDao<TPosSns, Long> {
             stmt.bindString(18, DoStatus);
         }
  
+        String NoPackaging = entity.getNoPackaging();
+        if (NoPackaging != null) {
+            stmt.bindString(19, NoPackaging);
+        }
+ 
         String Status = entity.getStatus();
         if (Status != null) {
-            stmt.bindString(19, Status);
+            stmt.bindString(20, Status);
         }
     }
 
@@ -309,7 +321,8 @@ public class TPosSnsDao extends AbstractDao<TPosSns, Long> {
             cursor.isNull(offset + 15) ? null : cursor.getString(offset + 15), // MaterialId
             cursor.isNull(offset + 16) ? null : cursor.getString(offset + 16), // MasaGaransi
             cursor.isNull(offset + 17) ? null : cursor.getString(offset + 17), // DoStatus
-            cursor.isNull(offset + 18) ? null : cursor.getString(offset + 18) // Status
+            cursor.isNull(offset + 18) ? null : cursor.getString(offset + 18), // NoPackaging
+            cursor.isNull(offset + 19) ? null : cursor.getString(offset + 19) // Status
         );
         return entity;
     }
@@ -334,7 +347,8 @@ public class TPosSnsDao extends AbstractDao<TPosSns, Long> {
         entity.setMaterialId(cursor.isNull(offset + 15) ? null : cursor.getString(offset + 15));
         entity.setMasaGaransi(cursor.isNull(offset + 16) ? null : cursor.getString(offset + 16));
         entity.setDoStatus(cursor.isNull(offset + 17) ? null : cursor.getString(offset + 17));
-        entity.setStatus(cursor.isNull(offset + 18) ? null : cursor.getString(offset + 18));
+        entity.setNoPackaging(cursor.isNull(offset + 18) ? null : cursor.getString(offset + 18));
+        entity.setStatus(cursor.isNull(offset + 19) ? null : cursor.getString(offset + 19));
      }
     
     @Override

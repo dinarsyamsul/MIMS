@@ -22,14 +22,14 @@ data class LoginResponse(
 	@field:SerializedName("pos_detail")
 	val posDetail: List<PosDetailItem?>? = null,
 
-//	@field:SerializedName("pengujians")
-//	val pengujians: List<PengujiansItem?>? = null,
+	@field:SerializedName("pengujians")
+	val pengujians: List<PengujiansItem?>? = null,
 
 	@field:SerializedName("pos")
 	val pos: List<PosItem?>? = null,
 
-//	@field:SerializedName("pengujian_details")
-//	val pengujianDetails: List<PengujianDetailsItem?>? = null,
+	@field:SerializedName("pengujian_details")
+	val pengujianDetails: List<PengujianDetailsItem?>? = null,
 
 	@field:SerializedName("materials")
 	val materials: List<MaterialsItem?>? = null,
@@ -53,359 +53,366 @@ data class LoginResponse(
 data class PosDetailItem(
 
 	@field:SerializedName("no_mat_sap")
-	val noMatSap: String? = null,
+	val noMatSap: String? = "",
 
 	@field:SerializedName("kd_pabrikan")
-	val kdPabrikan: String? = null,
+	val kdPabrikan: String? = "",
 
 	@field:SerializedName("no_do_mims")
-	val noDoMims: String? = null,
+	val noDoMims: String? = "",
 
 	@field:SerializedName("no_packaging")
-	val noPackaging: String? = null,
+	val noPackaging: String? = "",
 
 	@field:SerializedName("plant_code_no")
-	val plantCodeNo: String? = null,
+	val plantCodeNo: String? = "",
 
 	@field:SerializedName("stor_loc")
-	val storLoc: String? = null,
+	val storLoc: String? = "",
 
 	@field:SerializedName("uom")
-	val uom: String? = null,
+	val uom: String? = "",
 
 	@field:SerializedName("no_pemeriksaan")
-	val noPemeriksaan: Any? = null,
+	val noPemeriksaan: String? = "",
 
 	@field:SerializedName("po_sap_no")
-	val poSapNo: String? = null,
+	val poSapNo: String? = "",
 
 	@field:SerializedName("po_mp_no")
-	val poMpNo: String? = null,
+	val poMpNo: String? = "",
 
 	@field:SerializedName("no_do_smar")
-	val noDoSmar: String? = null,
+	val noDoSmar: String? = "",
 
 	@field:SerializedName("qty")
-	val qty: String? = null,
+	val qty: String? = "",
 
 	@field:SerializedName("lead_time")
-	val leadTime: Int? = null,
+	val leadTime: Int? = 0,
 
 	@field:SerializedName("created_date")
-	val createdDate: String? = null,
+	val createdDate: String? = "",
 
 	@field:SerializedName("do_status")
-	val doStatus: String? = null,
+	val doStatus: String? = "",
 
 	@field:SerializedName("plant_name")
-	val plantName: String? = null
+	val plantName: String? = ""
 )
 
-//data class PengujianDetailsItem(
-//
-//	@field:SerializedName("keterangan_material")
-//	val keteranganMaterial: String? = null,
-//
-//	@field:SerializedName("serial_number")
-//	val serialNumber: String? = null,
-//
-//	@field:SerializedName("status_uji")
-//	val statusUji: String? = null,
-//
-//	@field:SerializedName("no_pengujian")
-//	val noPengujian: String? = null,
-//
-//	@field:SerializedName("nama_kategori")
-//	val namaKategori: String? = null
-//)
+data class PengujianDetailsItem(
+
+	@field:SerializedName("keterangan_material")
+	val keteranganMaterial: String? = null,
+
+	@field:SerializedName("serial_number")
+	val serialNumber: String? = null,
+
+	@field:SerializedName("status_uji")
+	val statusUji: String? = null,
+
+	@field:SerializedName("no_pengujian")
+	val noPengujian: String? = null,
+
+	@field:SerializedName("nama_kategori")
+	val namaKategori: String? = null
+)
 
 data class PosSnsItem(
 
 	@field:SerializedName("no_mat_sap")
-	val noMatSap: String? = null,
+	val noMatSap: String? = "",
 
 	@field:SerializedName("mmc")
-	val mmc: String? = null,
+	val mmc: String? = "",
 
 	@field:SerializedName("material_group")
-	val materialGroup: String? = null,
+	val materialGroup: String? = "",
 
 	@field:SerializedName("tgl_produksi")
-	val tglProduksi: String? = null,
+	val tglProduksi: String? = "",
 
 	@field:SerializedName("kd_pabrikan")
-	val kdPabrikan: String? = null,
+	val kdPabrikan: String? = "",
 
 	@field:SerializedName("nomor_sert_materologi")
-	val nomorSertMaterologi: String? = null,
+	val nomorSertMaterologi: String? = "",
 
 	@field:SerializedName("spln")
-	val spln: String? = null,
+	val spln: String? = "",
 
 	@field:SerializedName("no_produksi")
-	val noProduksi: String? = null,
+	val noProduksi: String? = "",
 
 	@field:SerializedName("storloc")
-	val storloc: String? = null,
+	val storloc: String? = "",
 
 	@field:SerializedName("nama_kategori_material")
-	val namaKategoriMaterial: String? = null,
+	val namaKategoriMaterial: String? = "",
 
 	@field:SerializedName("no_packaging")
-	val noPackaging: String? = null,
+	val noPackaging: String? = "",
 
 	@field:SerializedName("no_serial")
-	val noSerial: String? = null,
+	val noSerial: String? = "",
 
 	@field:SerializedName("no_do_smar")
-	val noDoSmar: String? = null,
+	val noDoSmar: String? = "",
 
 	@field:SerializedName("spesifikasi")
-	val spesifikasi: String? = null,
+	val spesifikasi: String? = "",
 
 	@field:SerializedName("plant")
-	val plant: String? = null,
+	val plant: String? = "",
 
 	@field:SerializedName("material_id")
-	val materialId: String? = null,
+	val materialId: String? = "",
 
 	@field:SerializedName("masa_garansi")
-	val masaGaransi: String? = null,
+	val masaGaransi: String? = "",
 
 	@field:SerializedName("do_status")
-	val doStatus: String? = null,
+	val doStatus: String? = "",
 
 	@field:SerializedName("status")
-	val status: String? = null
+	val status: String? = ""
 )
 
 data class MaterialsItem(
 
 	@field:SerializedName("nomor_material")
-	val nomorMaterial: String? = null,
+	val nomorMaterial: String? = "",
 
 	@field:SerializedName("mmc")
-	val mmc: String? = null,
+	val mmc: String? = "",
 
 	@field:SerializedName("material_group")
-	val materialGroup: String? = null,
+	val materialGroup: String? = "",
 
 	@field:SerializedName("tahun")
-	val tahun: Int? = null,
+	val tahun: Int? = 0,
 
 	@field:SerializedName("tgl_produksi")
-	val tglProduksi: String? = null,
+	val tglProduksi: String? = "",
 
 	@field:SerializedName("kd_pabrikan")
-	val kdPabrikan: String? = null,
+	val kdPabrikan: String? = "",
 
 	@field:SerializedName("nomor_sert_materologi")
-	val nomorSertMaterologi: String? = null,
+	val nomorSertMaterologi: String? = "",
 
 	@field:SerializedName("no_produksi")
-	val noProduksi: String? = null,
+	val noProduksi: String? = "",
 
 	@field:SerializedName("storloc")
-	val storloc: String? = null,
+	val storloc: String? = "",
 
 	@field:SerializedName("nama_kategori_material")
-	val namaKategoriMaterial: String? = null,
+	val namaKategoriMaterial: String? = "",
 
 	@field:SerializedName("plant")
-	val plant: String? = null,
+	val plant: String? = "",
 
 	@field:SerializedName("material_id")
-	val materialId: String? = null,
+	val materialId: String? = "",
 
 	@field:SerializedName("masa_garansi")
-	val masaGaransi: String? = null
+	val masaGaransi: String? = ""
 )
 
 data class PosItem(
 
 	@field:SerializedName("material_group")
-	val materialGroup: String? = null,
+	val materialGroup: String? = "",
 
 	@field:SerializedName("kd_pabrikan")
-	val kdPabrikan: String? = null,
+	val kdPabrikan: String? = "",
 
 	@field:SerializedName("no_do_mims")
-	val noDoMims: String? = null,
+	val noDoMims: String? = "",
 
 	@field:SerializedName("nama_kategori_material")
-	val namaKategoriMaterial: String? = null,
+	val namaKategoriMaterial: String? = "",
 
 	@field:SerializedName("plant_code_no")
-	val plantCodeNo: String? = null,
+	val plantCodeNo: String? = "",
 
 	@field:SerializedName("stor_loc")
-	val storLoc: String? = null,
+	val storLoc: String? = "",
 
 	@field:SerializedName("total")
-	val total: String? = null,
+	val total: String? = "",
 
 	@field:SerializedName("tlsk_no")
-	val tlskNo: String? = null,
+	val tlskNo: String? = "",
 
 	@field:SerializedName("po_sap_no")
-	val poSapNo: String? = null,
+	val poSapNo: String? = "",
 
 	@field:SerializedName("po_mp_no")
-	val poMpNo: String? = null,
+	val poMpNo: String? = "",
 
 	@field:SerializedName("no_do_smar")
-	val noDoSmar: String? = null,
+	val noDoSmar: String? = "",
 
 	@field:SerializedName("lead_time")
-	val leadTime: Int? = null,
+	val leadTime: Int? = 0,
 
 	@field:SerializedName("created_date")
-	val createdDate: String? = null,
+	val createdDate: String? = "",
 
 	@field:SerializedName("courier_person_name")
-	val courierPersonName: String? = null,
+	val courierPersonName: String? = "",
 
 	@field:SerializedName("do_status")
-	val doStatus: String? = null,
+	val doStatus: String? = "",
 
 	@field:SerializedName("ekspedition")
-	val ekspedition: String? = null,
+	val ekspedition: String? = "",
 
 	@field:SerializedName("plant_name")
-	val plantName: String? = null
+	val plantName: String? = ""
 )
 
-//data class PengujiansItem(
-//
-//	@field:SerializedName("unit")
-//	val unit: String? = null,
-//
-//	@field:SerializedName("kd_pabrikan")
-//	val kdPabrikan: String? = null,
-//
-//	@field:SerializedName("qty_material")
-//	val qtyMaterial: String? = null,
-//
-//	@field:SerializedName("status_uji")
-//	val statusUji: String? = null,
-//
-//	@field:SerializedName("no_pengujian")
-//	val noPengujian: String? = null,
-//
-//	@field:SerializedName("qty_siap")
-//	val qtySiap: String? = null,
-//
-//	@field:SerializedName("tanggal_uji")
-//	val tanggalUji: Any? = null,
-//
-//	@field:SerializedName("nama_kategori")
-//	val namaKategori: String? = null
-//)
+data class PengujiansItem(
+
+	@field:SerializedName("tanggal_uji")
+	val tglUji: String? = null,
+
+	@field:SerializedName("no_pengujian")
+	val noPengujian: String? = null,
+
+	@field:SerializedName("nama_kategori")
+	val namaKategori: String? = null,
+
+	@field:SerializedName("qty_material")
+	val qtyMaterial: String? = null,
+
+	@field:SerializedName("qty_lolos")
+	val qtyLolos: String? = null,
+
+	@field:SerializedName("qty_tdk_lolos")
+	val qtyTdkLolos: String? = null,
+
+	@field:SerializedName("qty_rusak")
+	val qtyRusak: Any? = null,
+
+	@field:SerializedName("unit")
+	val unit: String? = null,
+
+	@field:SerializedName("status_uji")
+	val statusUji: String? = null,
+
+	@field:SerializedName("kd_pabrikan")
+	val kdPabrikan: String? = null
+
+)
 
 data class MaterialGroupsItem(
 
 	@field:SerializedName("material_group")
-	val materialGroup: String? = null,
+	val materialGroup: String? = "",
 
 	@field:SerializedName("nama_kategori_material")
-	val namaKategoriMaterial: String? = null
+	val namaKategoriMaterial: String? = ""
 )
 
 data class MaterialDetailsItem(
 
 	@field:SerializedName("nomor_material")
-	val nomorMaterial: String? = null,
+	val nomorMaterial: String? = "",
 
 	@field:SerializedName("mmc")
-	val mmc: String? = null,
+	val mmc: String? = "",
 
 	@field:SerializedName("material_group")
-	val materialGroup: String? = null,
+	val materialGroup: String? = "",
 
 	@field:SerializedName("tahun")
-	val tahun: Int? = null,
+	val tahun: Int? = 0,
 
 	@field:SerializedName("tgl_produksi")
-	val tglProduksi: String? = null,
+	val tglProduksi: String? = "",
 
 	@field:SerializedName("kd_pabrikan")
-	val kdPabrikan: String? = null,
+	val kdPabrikan: String? = "",
 
 	@field:SerializedName("serial_number")
-	val serialNumber: String? = null,
+	val serialNumber: String? = "",
 
 	@field:SerializedName("nomor_sert_materologi")
-	val nomorSertMaterologi: String? = null,
+	val nomorSertMaterologi: String? = "",
 
 	@field:SerializedName("spln")
-	val spln: String? = null,
+	val spln: String? = "",
 
 	@field:SerializedName("no_produksi")
-	val noProduksi: String? = null,
+	val noProduksi: String? = "",
 
 	@field:SerializedName("storloc")
-	val storloc: String? = null,
+	val storloc: String? = "",
 
 	@field:SerializedName("nama_kategori_material")
-	val namaKategoriMaterial: String? = null,
+	val namaKategoriMaterial: String? = "",
 
 	@field:SerializedName("no_packaging")
-	val noPackaging: String? = null,
+	val noPackaging: String? = "",
 
 	@field:SerializedName("spesifikasi")
-	val spesifikasi: String? = null,
+	val spesifikasi: String? = "",
 
 	@field:SerializedName("plant")
-	val plant: String? = null,
+	val plant: String? = "",
 
 	@field:SerializedName("material_id")
-	val materialId: String? = null,
+	val materialId: String? = "",
 
 	@field:SerializedName("masa_garansi")
-	val masaGaransi: String? = null
+	val masaGaransi: String? = ""
 )
 
 data class User(
 
 	@field:SerializedName("kd_user")
-	val kdUser: String? = null,
+	val kdUser: String? = "",
 
 	@field:SerializedName("mail")
-	val mail: String? = null,
+	val mail: String? = "",
 
 	@field:SerializedName("user_id")
-	val userId: Int? = null,
+	val userId: Int? = 0,
 
 	@field:SerializedName("role_id")
-	val roleId: Int? = null
+	val roleId: Int? = 0
 )
 
 data class PrivilegeItem(
 
 	@field:SerializedName("module_id")
-	val moduleId: String? = null,
+	val moduleId: String? = "",
 
 	@field:SerializedName("is_active")
-	val isActive: Int? = null,
+	val isActive: Int? = 0,
 
 	@field:SerializedName("role_id")
-	val roleId: Int? = null,
+	val roleId: Int? = 0,
 
 	@field:SerializedName("method_id")
-	val methodId: String? = null,
+	val methodId: String? = "",
 
 	@field:SerializedName("method_value")
-	val methodValue: String? = null
+	val methodValue: String? = ""
 )
 
 data class LokasisItem(
 
 	@field:SerializedName("no_do_mims")
-	val noDoMims: String? = null,
+	val noDoMims: String? = "",
 
 	@field:SerializedName("ket")
-	val ket: String? = null,
+	val ket: String? = "",
 
 	@field:SerializedName("updated_date")
-	val updatedDate: String? = null
+	val updatedDate: String? = ""
 )

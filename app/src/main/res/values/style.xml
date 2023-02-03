@@ -16,4 +16,8 @@
     <style name="AppModalStyle" parent="Widget.Design.BottomSheet.Modal">
         <item name="android:background">@drawable/rounded_corner_bottom_sheet</item>
     </style>
+
+    <style name="dialog_untran" parent="dialog_tran">
+        <item name="android:backgroundDimEnabled">true</item>
+    </style>
 </resources>

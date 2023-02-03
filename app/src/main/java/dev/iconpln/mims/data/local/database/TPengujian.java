@@ -16,7 +16,9 @@ public class TPengujian {
     private String NoPengujian;
     private String NamaKategori;
     private String QtyMaterial;
-    private String QtySiap;
+    private String QtyLolos;
+    private String QtyTdkLolos;
+    private String QtyRusak;
     private String Unit;
     private String StatusUji;
     private String KdPabrikan;
@@ -30,13 +32,15 @@ public class TPengujian {
     }
 
     @Generated
-    public TPengujian(Long id, String TanggalUji, String NoPengujian, String NamaKategori, String QtyMaterial, String QtySiap, String Unit, String StatusUji, String KdPabrikan) {
+    public TPengujian(Long id, String TanggalUji, String NoPengujian, String NamaKategori, String QtyMaterial, String QtyLolos, String QtyTdkLolos, String QtyRusak, String Unit, String StatusUji, String KdPabrikan) {
         this.id = id;
         this.TanggalUji = TanggalUji;
         this.NoPengujian = NoPengujian;
         this.NamaKategori = NamaKategori;
         this.QtyMaterial = QtyMaterial;
-        this.QtySiap = QtySiap;
+        this.QtyLolos = QtyLolos;
+        this.QtyTdkLolos = QtyTdkLolos;
+        this.QtyRusak = QtyRusak;
         this.Unit = Unit;
         this.StatusUji = StatusUji;
         this.KdPabrikan = KdPabrikan;
@@ -82,12 +86,28 @@ public class TPengujian {
         this.QtyMaterial = QtyMaterial;
     }
 
-    public String getQtySiap() {
-        return QtySiap;
+    public String getQtyLolos() {
+        return QtyLolos;
     }
 
-    public void setQtySiap(String QtySiap) {
-        this.QtySiap = QtySiap;
+    public void setQtyLolos(String QtyLolos) {
+        this.QtyLolos = QtyLolos;
+    }
+
+    public String getQtyTdkLolos() {
+        return QtyTdkLolos;
+    }
+
+    public void setQtyTdkLolos(String QtyTdkLolos) {
+        this.QtyTdkLolos = QtyTdkLolos;
+    }
+
+    public String getQtyRusak() {
+        return QtyRusak;
+    }
+
+    public void setQtyRusak(String QtyRusak) {
+        this.QtyRusak = QtyRusak;
     }
 
     public String getUnit() {

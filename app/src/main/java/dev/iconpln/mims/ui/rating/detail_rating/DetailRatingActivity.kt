@@ -29,6 +29,7 @@ import dev.iconpln.mims.databinding.ActivityDetailRatingBinding
 import dev.iconpln.mims.databinding.ItemDataPenerimaanBinding
 import dev.iconpln.mims.tasks.Loadable
 import dev.iconpln.mims.tasks.TambahReportTask
+import dev.iconpln.mims.ui.pnerimaan.PenerimaanActivity
 import dev.iconpln.mims.ui.rating.RatingActivity
 import dev.iconpln.mims.utils.SharedPrefsUtils
 import dev.iconpln.mims.utils.StorageUtils
@@ -62,6 +63,11 @@ class DetailRatingActivity : AppCompatActivity(),Loadable {
         dataDetail = daoSession.tPemeriksaanDetailDao.queryBuilder().where(TPemeriksaanDetailDao.Properties.NoDoSmar.eq(noDo)).limit(1).unique()
 
         with(binding){
+            txtNoDo.text = noDo
+            txtTanggalDiterima.text = data.tanggalDiterima
+            txtPetugasPenerima.text = data.petugasPenerima
+            txtKurirPengiriman.text = data.namaKurir
+            txtPetugasPengiriman.text = data.courierPersonName
 
             btnSimpan.setOnClickListener {
                 submitForm()
@@ -95,25 +101,25 @@ class DetailRatingActivity : AppCompatActivity(),Loadable {
             }
             kualitasMaterial1.setOnClickListener{
                 kualitasMaterial1.setImageResource(R.drawable.ic_star_true)
-                nilaiKualitasMaterial = "20"
+                nilaiKualitasMaterial = "11"
             }
             kualitasMaterial2.setOnClickListener{
                 kualitasMaterial1.setImageResource(R.drawable.ic_star_true)
                 kualitasMaterial2.setImageResource(R.drawable.ic_star_true)
-                nilaiKualitasMaterial = "40"
+                nilaiKualitasMaterial = "12"
             }
             kualitasMaterial3.setOnClickListener{
                 kualitasMaterial1.setImageResource(R.drawable.ic_star_true)
                 kualitasMaterial2.setImageResource(R.drawable.ic_star_true)
                 kualitasMaterial3.setImageResource(R.drawable.ic_star_true)
-                nilaiKualitasMaterial = "60"
+                nilaiKualitasMaterial = "13"
             }
             kualitasMaterial4.setOnClickListener{
                 kualitasMaterial1.setImageResource(R.drawable.ic_star_true)
                 kualitasMaterial2.setImageResource(R.drawable.ic_star_true)
                 kualitasMaterial3.setImageResource(R.drawable.ic_star_true)
                 kualitasMaterial4.setImageResource(R.drawable.ic_star_true)
-                nilaiKualitasMaterial = "80"
+                nilaiKualitasMaterial = "14"
             }
             kualitasMaterial5.setOnClickListener{
                 kualitasMaterial1.setImageResource(R.drawable.ic_star_true)
@@ -121,30 +127,30 @@ class DetailRatingActivity : AppCompatActivity(),Loadable {
                 kualitasMaterial3.setImageResource(R.drawable.ic_star_true)
                 kualitasMaterial4.setImageResource(R.drawable.ic_star_true)
                 kualitasMaterial5.setImageResource(R.drawable.ic_star_true)
-                nilaiKualitasMaterial = "100"
+                nilaiKualitasMaterial = "15"
             }
 
             kualitasRespon1.setOnClickListener{
                 kualitasRespon1.setImageResource(R.drawable.ic_star_true)
-                nilaiRespon = "20"
+                nilaiRespon = "21"
             }
             kualitasRespon2.setOnClickListener{
                 kualitasRespon1.setImageResource(R.drawable.ic_star_true)
                 kualitasRespon2.setImageResource(R.drawable.ic_star_true)
-                nilaiRespon = "40"
+                nilaiRespon = "22"
             }
             kualitasRespon3.setOnClickListener{
                 kualitasRespon1.setImageResource(R.drawable.ic_star_true)
                 kualitasRespon2.setImageResource(R.drawable.ic_star_true)
                 kualitasRespon3.setImageResource(R.drawable.ic_star_true)
-                nilaiRespon = "60"
+                nilaiRespon = "23"
             }
             kualitasRespon4.setOnClickListener{
                 kualitasRespon1.setImageResource(R.drawable.ic_star_true)
                 kualitasRespon2.setImageResource(R.drawable.ic_star_true)
                 kualitasRespon3.setImageResource(R.drawable.ic_star_true)
                 kualitasRespon4.setImageResource(R.drawable.ic_star_true)
-                nilaiRespon = "80"
+                nilaiRespon = "24"
             }
             kualitasRespon5.setOnClickListener{
                 kualitasRespon1.setImageResource(R.drawable.ic_star_true)
@@ -152,30 +158,30 @@ class DetailRatingActivity : AppCompatActivity(),Loadable {
                 kualitasRespon3.setImageResource(R.drawable.ic_star_true)
                 kualitasRespon4.setImageResource(R.drawable.ic_star_true)
                 kualitasRespon5.setImageResource(R.drawable.ic_star_true)
-                nilaiRespon = "100"
+                nilaiRespon = "25"
             }
 
             kualitasWaktu1.setOnClickListener{
                 kualitasWaktu1.setImageResource(R.drawable.ic_star_true)
-                nilaiWaktu = "20"
+                nilaiWaktu = "31"
             }
             kualitasWaktu2.setOnClickListener{
                 kualitasWaktu1.setImageResource(R.drawable.ic_star_true)
                 kualitasWaktu2.setImageResource(R.drawable.ic_star_true)
-                nilaiWaktu = "40"
+                nilaiWaktu = "32"
             }
             kualitasWaktu3.setOnClickListener{
                 kualitasWaktu1.setImageResource(R.drawable.ic_star_true)
                 kualitasWaktu2.setImageResource(R.drawable.ic_star_true)
                 kualitasWaktu3.setImageResource(R.drawable.ic_star_true)
-                nilaiWaktu = "60"
+                nilaiWaktu = "33"
             }
             kualitasWaktu4.setOnClickListener{
                 kualitasWaktu1.setImageResource(R.drawable.ic_star_true)
                 kualitasWaktu2.setImageResource(R.drawable.ic_star_true)
                 kualitasWaktu3.setImageResource(R.drawable.ic_star_true)
                 kualitasWaktu4.setImageResource(R.drawable.ic_star_true)
-                nilaiWaktu = "80"
+                nilaiWaktu = "34"
             }
             kualitasWaktu5.setOnClickListener{
                 kualitasWaktu1.setImageResource(R.drawable.ic_star_true)
@@ -183,7 +189,7 @@ class DetailRatingActivity : AppCompatActivity(),Loadable {
                 kualitasWaktu3.setImageResource(R.drawable.ic_star_true)
                 kualitasWaktu4.setImageResource(R.drawable.ic_star_true)
                 kualitasWaktu5.setImageResource(R.drawable.ic_star_true)
-                nilaiWaktu = "100"
+                nilaiWaktu = "35"
             }
 
         }
@@ -197,7 +203,6 @@ class DetailRatingActivity : AppCompatActivity(),Loadable {
         data.ratingQuality = nilaiKualitasMaterial
         data.ratingPenerimaan = nilaiRespon
         data.isDone = 1
-        data.state = 3
         daoSession.update(data)
 
         var jwt = SharedPrefsUtils.getStringPreference(this@DetailRatingActivity,"jwt","")
@@ -219,7 +224,7 @@ class DetailRatingActivity : AppCompatActivity(),Loadable {
         params.add(ReportParameter("9", reportId, "rating_response", nilaiRespon, ReportParameter.TEXT ))
         params.add(ReportParameter("10", reportId, "rating_quality",nilaiKualitasMaterial , ReportParameter.TEXT ))
         params.add(ReportParameter("11", reportId, "photo_file", filePath, ReportParameter.FILE ))
-        val reportPenerimaan = GenericReport(reportId, username, reportName, reportDescription, ApiConfig.sendRating(), currentDate, 0, 11119209101, params)
+        val reportPenerimaan = GenericReport(reportId, jwt!!, reportName, reportDescription, ApiConfig.sendRating(), currentDate, 0, 11119209101, params)
         reports.add(reportPenerimaan)
 
         val task = TambahReportTask(this, reports)
@@ -234,8 +239,11 @@ class DetailRatingActivity : AppCompatActivity(),Loadable {
     }
 
     override fun setFinish(result: Boolean, message: String) {
-        Toast.makeText(this,message,Toast.LENGTH_SHORT)
-        startActivity(Intent(this, RatingActivity::class.java))
+        if (result){
+            Toast.makeText(this, message, Toast.LENGTH_LONG).show()
+            startActivity(Intent(this@DetailRatingActivity, RatingActivity::class.java))
+            finish()
+        }
     }
 
     override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {

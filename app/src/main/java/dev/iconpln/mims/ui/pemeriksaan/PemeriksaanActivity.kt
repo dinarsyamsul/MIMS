@@ -5,6 +5,7 @@ import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.text.Editable
 import android.text.TextWatcher
+import android.util.Log
 import android.view.View
 import android.widget.ArrayAdapter
 import android.widget.Toast
@@ -46,14 +47,15 @@ class PemeriksaanActivity : AppCompatActivity() {
         adapter = PemeriksaanAdapter(arrayListOf(), object : PemeriksaanAdapter.OnAdapterListener{
             override fun onClick(po: TPemeriksaan) {
                 val listPemeriksaanDetail = daoSession.tPemeriksaanDetailDao.queryBuilder().where(
-                    TPemeriksaanDetailDao.Properties.NoDoSmar.eq(po.noDoSmar)
+                    TPemeriksaanDetailDao.Properties.NoPemeriksaan.eq(po.noPemeriksaan)
                 ).list()
                 if (po.isDone == 1){
                     Toast.makeText(this@PemeriksaanActivity, "Anda sudah melakukan pemeriksaan terkait data ini", Toast.LENGTH_SHORT).show()
                 }else{
-                    viewModel.setDataDetailPemeriksaan(daoSession,listPemeriksaanDetail,po.noDoSmar)
+                    viewModel.setDataDetailPemeriksaan(daoSession,listPemeriksaanDetail,po.noPemeriksaan)
+                    Log.d("checkSetDetail", "oke")
                     startActivity(Intent(this@PemeriksaanActivity, PemeriksaanDetailActivity::class.java)
-                        .putExtra("noDo", po.noDoSmar))
+                        .putExtra("noPemeriksaan", po.noPemeriksaan))
                 }
             }
 

@@ -95,7 +95,7 @@ class UpdateLokasiActivity : AppCompatActivity(), Loadable {
         val params = ArrayList<ReportParameter>()
         params.add(ReportParameter("1", reportId, "do_mims", mLokasi.noDoSns, ReportParameter.TEXT))
         params.add(ReportParameter("2", reportId, "lokasi", mLokasi.ket, ReportParameter.TEXT))
-       val report = GenericReport(reportId, session.username, reportName, reportDescription, ApiConfig.insertLokasi(), currentDate, Config.NO_CODE, currentUtc, params)
+       val report = GenericReport(reportId, jwt!!, reportName, reportDescription, ApiConfig.insertLokasi(), currentDate, Config.NO_CODE, currentUtc, params)
         reports.add(report)
         //endregion
 
