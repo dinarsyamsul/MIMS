@@ -51,7 +51,7 @@ class PenerimaanViewModel: ViewModel() {
                             item.leadTime = model.leadTime
                             item.createdDate = model.createdDate
                             item.uom = model.uom
-                            item.barcode = "${model.noPackaging}-1928379128739218'"
+                            item.barcode = model.noPackaging
                             if (model.noPemeriksaan.isNullOrEmpty()){
                                 item.noPemeriksaan = ""
                             }else{

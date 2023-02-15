@@ -82,11 +82,12 @@ dependencies {
     // CameraX Library
     implementation 'com.google.mlkit:barcode-scanning:17.0.3'
     implementation 'androidx.appcompat:appcompat:1.5.1'
-    def camerax_version = "1.2.0"
+
+//    def camerax_version = "1.2.0"
 //    def camerax_version = "1.0.1"
-    implementation "androidx.camera:camera-camera2:$camerax_version"
-    implementation "androidx.camera:camera-lifecycle:$camerax_version"
-    implementation "androidx.camera:camera-view:$camerax_version"
+//    implementation "androidx.camera:camera-camera2:$camerax_version"
+//    implementation "androidx.camera:camera-lifecycle:$camerax_version"
+//    implementation "androidx.camera:camera-view:$camerax_version"
 
     //hilt
 //    implementation 'com.google.dagger:hilt-android:2.44'
@@ -116,6 +117,18 @@ dependencies {
     implementation 'com.intuit.ssp:ssp-android:1.0.5'
 
     implementation 'com.github.sd6352051:NiftyDialogEffects:v1.0.3'
+
+    // CameraX core library using camera2 implementation
+    implementation "androidx.camera:camera-camera2:1.0.1"
+
+    // CameraX Lifecycle Library
+    implementation "androidx.camera:camera-lifecycle:1.0.1"
+
+    // CameraX View class
+    implementation "androidx.camera:camera-view:1.0.0-alpha27"
+
+    //image compressor
+    implementation 'id.zelory:compressor:2.1.1'
 
     testImplementation 'junit:junit:4.13.2'
     androidTestImplementation 'androidx.test.ext:junit:1.1.5'

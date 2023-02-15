@@ -59,6 +59,8 @@ class TrackingHistoryActivity : AppCompatActivity() {
             }
         }
 
+        binding.btnBack.setOnClickListener { onBackPressed() }
+
 
     }
 

@@ -199,6 +199,7 @@ class AuthViewModel: ViewModel() {
         daoSession.tPemeriksaanDetailDao.deleteAll()
         daoSession.tPosDetailPenerimaanDao.deleteAll()
         daoSession.tPosPenerimaanDao.deleteAll()
+        daoSession.tRatingDao.deleteAll()
 
         if (result != null){
             if (result.materialDetails != null){
@@ -275,6 +276,7 @@ class AuthViewModel: ViewModel() {
                         item.storLoc = model?.storLoc
                         item.tlskNo = model?.tlskNo
                         item.total = model?.total
+                        item.kodeStatusDoMims = model?.kodeStatusDoMims
                         item.kdPabrikan = model?.kdPabrikan
                         item.materialGroup = model?.materialGroup
                         item.namaKategoriMaterial = model?.namaKategoriMaterial
@@ -432,6 +434,35 @@ class AuthViewModel: ViewModel() {
                         items[i] = item
                     }
                     daoSession.tLokasiDao.insertInTx(items.toList())
+                }
+            }
+
+            if (result.ratings != null){
+                val size = result.ratings.size
+                if (size > 0) {
+                    val items = arrayOfNulls<TRating>(size)
+                    var item: TRating
+                    for ((i, model) in result.ratings.withIndex()){
+                        item = TRating()
+                        item.kdRating = model?.kdRating
+                        item.nilai = model?.nilai
+                        item.keterangan = model?.keterangan
+                        item.isActive = 0
+                        when (model?.kdRating) {
+                            "11", "12", "13", "14", "15" -> {
+                                item.type = "Kualitas Penerimaan"
+                            }
+                            "21", "22", "23", "24", "25" -> {
+                                item.type = "Waktu Pengiriman"
+                            }
+                            "31", "32", "33", "34", "35" -> {
+                                item.type = "Respon Penyedia"
+                            }
+                        }
+
+                        items[i] = item
+                    }
+                    daoSession.tRatingDao.insertInTx(items.toList())
                 }
             }
         }

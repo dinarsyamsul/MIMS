@@ -33,6 +33,8 @@ class DetailDataAtributeMaterialActivity : AppCompatActivity() {
         fetchLocal()
 
         with(binding){
+            btnClose.setOnClickListener { onBackPressed() }
+
             rvDetailMaterial.adapter = adapter
             rvDetailMaterial.setHasFixedSize(true)
             rvDetailMaterial.layoutManager = LinearLayoutManager(this@DetailDataAtributeMaterialActivity, LinearLayoutManager.VERTICAL, false)

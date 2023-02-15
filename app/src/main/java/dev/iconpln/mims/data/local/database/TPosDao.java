@@ -37,10 +37,11 @@ public class TPosDao extends AbstractDao<TPos, Long> {
         public final static Property NoDoMims = new Property(12, String.class, "NoDoMims", false, "NO_DO_MIMS");
         public final static Property DoStatus = new Property(13, String.class, "DoStatus", false, "DO_STATUS");
         public final static Property Expeditions = new Property(14, String.class, "Expeditions", false, "EXPEDITIONS");
-        public final static Property CourierPersonName = new Property(15, String.class, "CourierPersonName", false, "COURIER_PERSON_NAME");
-        public final static Property KdPabrikan = new Property(16, String.class, "KdPabrikan", false, "KD_PABRIKAN");
-        public final static Property MaterialGroup = new Property(17, String.class, "MaterialGroup", false, "MATERIAL_GROUP");
-        public final static Property NamaKategoriMaterial = new Property(18, String.class, "NamaKategoriMaterial", false, "NAMA_KATEGORI_MATERIAL");
+        public final static Property KodeStatusDoMims = new Property(15, String.class, "KodeStatusDoMims", false, "KODE_STATUS_DO_MIMS");
+        public final static Property CourierPersonName = new Property(16, String.class, "CourierPersonName", false, "COURIER_PERSON_NAME");
+        public final static Property KdPabrikan = new Property(17, String.class, "KdPabrikan", false, "KD_PABRIKAN");
+        public final static Property MaterialGroup = new Property(18, String.class, "MaterialGroup", false, "MATERIAL_GROUP");
+        public final static Property NamaKategoriMaterial = new Property(19, String.class, "NamaKategoriMaterial", false, "NAMA_KATEGORI_MATERIAL");
     }
 
 
@@ -71,10 +72,11 @@ public class TPosDao extends AbstractDao<TPos, Long> {
                 "\"NO_DO_MIMS\" TEXT," + // 12: NoDoMims
                 "\"DO_STATUS\" TEXT," + // 13: DoStatus
                 "\"EXPEDITIONS\" TEXT," + // 14: Expeditions
-                "\"COURIER_PERSON_NAME\" TEXT," + // 15: CourierPersonName
-                "\"KD_PABRIKAN\" TEXT," + // 16: KdPabrikan
-                "\"MATERIAL_GROUP\" TEXT," + // 17: MaterialGroup
-                "\"NAMA_KATEGORI_MATERIAL\" TEXT);"); // 18: NamaKategoriMaterial
+                "\"KODE_STATUS_DO_MIMS\" TEXT," + // 15: KodeStatusDoMims
+                "\"COURIER_PERSON_NAME\" TEXT," + // 16: CourierPersonName
+                "\"KD_PABRIKAN\" TEXT," + // 17: KdPabrikan
+                "\"MATERIAL_GROUP\" TEXT," + // 18: MaterialGroup
+                "\"NAMA_KATEGORI_MATERIAL\" TEXT);"); // 19: NamaKategoriMaterial
     }
 
     /** Drops the underlying database table. */
@@ -162,24 +164,29 @@ public class TPosDao extends AbstractDao<TPos, Long> {
             stmt.bindString(15, Expeditions);
         }
  
+        String KodeStatusDoMims = entity.getKodeStatusDoMims();
+        if (KodeStatusDoMims != null) {
+            stmt.bindString(16, KodeStatusDoMims);
+        }
+ 
         String CourierPersonName = entity.getCourierPersonName();
         if (CourierPersonName != null) {
-            stmt.bindString(16, CourierPersonName);
+            stmt.bindString(17, CourierPersonName);
         }
  
         String KdPabrikan = entity.getKdPabrikan();
         if (KdPabrikan != null) {
-            stmt.bindString(17, KdPabrikan);
+            stmt.bindString(18, KdPabrikan);
         }
  
         String MaterialGroup = entity.getMaterialGroup();
         if (MaterialGroup != null) {
-            stmt.bindString(18, MaterialGroup);
+            stmt.bindString(19, MaterialGroup);
         }
  
         String NamaKategoriMaterial = entity.getNamaKategoriMaterial();
         if (NamaKategoriMaterial != null) {
-            stmt.bindString(19, NamaKategoriMaterial);
+            stmt.bindString(20, NamaKategoriMaterial);
         }
     }
 
@@ -262,24 +269,29 @@ public class TPosDao extends AbstractDao<TPos, Long> {
             stmt.bindString(15, Expeditions);
         }
  
+        String KodeStatusDoMims = entity.getKodeStatusDoMims();
+        if (KodeStatusDoMims != null) {
+            stmt.bindString(16, KodeStatusDoMims);
+        }
+ 
         String CourierPersonName = entity.getCourierPersonName();
         if (CourierPersonName != null) {
-            stmt.bindString(16, CourierPersonName);
+            stmt.bindString(17, CourierPersonName);
         }
  
         String KdPabrikan = entity.getKdPabrikan();
         if (KdPabrikan != null) {
-            stmt.bindString(17, KdPabrikan);
+            stmt.bindString(18, KdPabrikan);
         }
  
         String MaterialGroup = entity.getMaterialGroup();
         if (MaterialGroup != null) {
-            stmt.bindString(18, MaterialGroup);
+            stmt.bindString(19, MaterialGroup);
         }
  
         String NamaKategoriMaterial = entity.getNamaKategoriMaterial();
         if (NamaKategoriMaterial != null) {
-            stmt.bindString(19, NamaKategoriMaterial);
+            stmt.bindString(20, NamaKategoriMaterial);
         }
     }
 
@@ -306,10 +318,11 @@ public class TPosDao extends AbstractDao<TPos, Long> {
             cursor.isNull(offset + 12) ? null : cursor.getString(offset + 12), // NoDoMims
             cursor.isNull(offset + 13) ? null : cursor.getString(offset + 13), // DoStatus
             cursor.isNull(offset + 14) ? null : cursor.getString(offset + 14), // Expeditions
-            cursor.isNull(offset + 15) ? null : cursor.getString(offset + 15), // CourierPersonName
-            cursor.isNull(offset + 16) ? null : cursor.getString(offset + 16), // KdPabrikan
-            cursor.isNull(offset + 17) ? null : cursor.getString(offset + 17), // MaterialGroup
-            cursor.isNull(offset + 18) ? null : cursor.getString(offset + 18) // NamaKategoriMaterial
+            cursor.isNull(offset + 15) ? null : cursor.getString(offset + 15), // KodeStatusDoMims
+            cursor.isNull(offset + 16) ? null : cursor.getString(offset + 16), // CourierPersonName
+            cursor.isNull(offset + 17) ? null : cursor.getString(offset + 17), // KdPabrikan
+            cursor.isNull(offset + 18) ? null : cursor.getString(offset + 18), // MaterialGroup
+            cursor.isNull(offset + 19) ? null : cursor.getString(offset + 19) // NamaKategoriMaterial
         );
         return entity;
     }
@@ -331,10 +344,11 @@ public class TPosDao extends AbstractDao<TPos, Long> {
         entity.setNoDoMims(cursor.isNull(offset + 12) ? null : cursor.getString(offset + 12));
         entity.setDoStatus(cursor.isNull(offset + 13) ? null : cursor.getString(offset + 13));
         entity.setExpeditions(cursor.isNull(offset + 14) ? null : cursor.getString(offset + 14));
-        entity.setCourierPersonName(cursor.isNull(offset + 15) ? null : cursor.getString(offset + 15));
-        entity.setKdPabrikan(cursor.isNull(offset + 16) ? null : cursor.getString(offset + 16));
-        entity.setMaterialGroup(cursor.isNull(offset + 17) ? null : cursor.getString(offset + 17));
-        entity.setNamaKategoriMaterial(cursor.isNull(offset + 18) ? null : cursor.getString(offset + 18));
+        entity.setKodeStatusDoMims(cursor.isNull(offset + 15) ? null : cursor.getString(offset + 15));
+        entity.setCourierPersonName(cursor.isNull(offset + 16) ? null : cursor.getString(offset + 16));
+        entity.setKdPabrikan(cursor.isNull(offset + 17) ? null : cursor.getString(offset + 17));
+        entity.setMaterialGroup(cursor.isNull(offset + 18) ? null : cursor.getString(offset + 18));
+        entity.setNamaKategoriMaterial(cursor.isNull(offset + 19) ? null : cursor.getString(offset + 19));
      }
     
     @Override

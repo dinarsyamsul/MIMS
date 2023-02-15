@@ -17,7 +17,9 @@ public class TPemeriksaanDetail {
     private String NoDoSmar;
     private String NoMaterail;
     private String NoPackaging;
-    private String Status;
+    private String Kategori;
+    private String StatusSn;
+    private Integer IsChecked;
     private Integer IsDone;
 
     @Generated
@@ -29,14 +31,16 @@ public class TPemeriksaanDetail {
     }
 
     @Generated
-    public TPemeriksaanDetail(Long id, String NoPemeriksaan, String Sn, String NoDoSmar, String NoMaterail, String NoPackaging, String Status, Integer IsDone) {
+    public TPemeriksaanDetail(Long id, String NoPemeriksaan, String Sn, String NoDoSmar, String NoMaterail, String NoPackaging, String Kategori, String StatusSn, Integer IsChecked, Integer IsDone) {
         this.id = id;
         this.NoPemeriksaan = NoPemeriksaan;
         this.Sn = Sn;
         this.NoDoSmar = NoDoSmar;
         this.NoMaterail = NoMaterail;
         this.NoPackaging = NoPackaging;
-        this.Status = Status;
+        this.Kategori = Kategori;
+        this.StatusSn = StatusSn;
+        this.IsChecked = IsChecked;
         this.IsDone = IsDone;
     }
 
@@ -88,12 +92,28 @@ public class TPemeriksaanDetail {
         this.NoPackaging = NoPackaging;
     }
 
-    public String getStatus() {
-        return Status;
+    public String getKategori() {
+        return Kategori;
     }
 
-    public void setStatus(String Status) {
-        this.Status = Status;
+    public void setKategori(String Kategori) {
+        this.Kategori = Kategori;
+    }
+
+    public String getStatusSn() {
+        return StatusSn;
+    }
+
+    public void setStatusSn(String StatusSn) {
+        this.StatusSn = StatusSn;
+    }
+
+    public Integer getIsChecked() {
+        return IsChecked;
+    }
+
+    public void setIsChecked(Integer IsChecked) {
+        this.IsChecked = IsChecked;
     }
 
     public Integer getIsDone() {

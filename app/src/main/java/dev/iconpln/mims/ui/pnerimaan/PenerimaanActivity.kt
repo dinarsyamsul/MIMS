@@ -54,15 +54,17 @@ class PenerimaanActivity : AppCompatActivity() {
         adapter.setPoList(listPenerimaan)
 
         with(binding){
+            btnBack.setOnClickListener {
+                onBackPressed()
+            }
+
             rvPenerimaan.adapter = adapter
             rvPenerimaan.setHasFixedSize(true)
             rvPenerimaan.layoutManager = LinearLayoutManager(this@PenerimaanActivity, LinearLayoutManager.VERTICAL, false)
 
             val statusArray = arrayOf(
-                "DIKIRIM",
-                "REJECTED",
-                "PROCESSED",
-                "APPROVED"
+                "TERBARU",
+                "TERLAMA"
             )
             val adapterStatus = ArrayAdapter(this@PenerimaanActivity, android.R.layout.simple_dropdown_item_1line, statusArray)
             dropdownStatusPenerimaan.setAdapter(adapterStatus)

@@ -28,22 +28,22 @@ object ApiConfig {
     }
 
     fun sendPenerimaan(): String {
-        return BASE_URL + "/reports/sendReportPenerimaan"
+        return "$BASE_URL/reports/sendReportPenerimaan"
     }
 
     fun insertLokasi(): String {
-        return BASE_URL + "/reports/insertLokasi"
+        return "$BASE_URL/reports/insertLokasi"
     }
 
     fun sendPemeriksaan(): String {
-        return BASE_URL + "/reports/sendReportPemeriksaan"
+        return "$BASE_URL/reports/sendReportPemeriksaan"
     }
 
     fun sendComplaint(): String {
-        return BASE_URL + "/reports/sendReportComplaint"
+        return "$BASE_URL/reports/sendReportComplaint"
     }
 
     fun sendRating():String{
-        return BASE_URL + "/reports/sendReportRating"
+        return "$BASE_URL/reports/sendReportRating"
     }
 }

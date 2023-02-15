@@ -21,6 +21,7 @@ import dev.iconpln.mims.utils.SessionManager
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
+import kotlinx.coroutines.withContext
 
 class ProfileFragment : Fragment() {
 
@@ -72,39 +73,32 @@ class ProfileFragment : Fragment() {
 
         binding.cvLogout.setOnClickListener {
             session.is_login_biometric.asLiveData().observe(requireActivity()){
+                Log.d("isClicked", "logout")
                 when(it){
                     1 -> {
-                        val onLogout = Intent(requireContext(), LoginBiometricActivity::class.java)
-                        onLogout.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP)
-                        onLogout.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK)
-
-                        lifecycleScope.launch {
+                        CoroutineScope(Dispatchers.IO).launch {
                             session.clearUserToken()
                             session.clearSaveAuthToken()
-                            session.clearSessionActivity()
-                        }
-                        session.user_token.asLiveData().observe(viewLifecycleOwner) {
-                            Log.d("MainActivity", "cek token : $it")
-                        }
-                        onLogout.flags = Intent.FLAG_ACTIVITY_NEW_TASK
-                        startActivity(onLogout)
-                        activity?.finish()
-                    }else -> {
-                        val onLogout = Intent(requireContext(), LoginActivity::class.java)
-                        onLogout.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP)
-                        onLogout.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK)
 
-                        lifecycleScope.launch {
-                           session.clearUserToken()
-                           session.clearSaveAuthToken()
-                           session.clearSessionActivity()
+                            withContext(Dispatchers.Main){
+                                startActivity(Intent(requireActivity(), LoginBiometricActivity::class.java)
+                                    .addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP)
+                                    .addFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK))
+                                requireActivity().finish()
+                            }
                         }
-                     session.user_token.asLiveData().observe(viewLifecycleOwner) {
-                            Log.d("MainActivity", "cek token : $it")
-                        }
-                        onLogout.flags = Intent.FLAG_ACTIVITY_NEW_TASK
-                        startActivity(onLogout)
-                        activity?.finish()
+                    }else -> {
+                            CoroutineScope(Dispatchers.IO).launch {
+                                session.clearUserToken()
+                                session.clearSaveAuthToken()
+
+                                withContext(Dispatchers.Main){
+                                    startActivity(Intent(requireActivity(), LoginActivity::class.java)
+                                        .addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP)
+                                        .addFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK))
+                                    requireActivity().finish()
+                                }
+                            }
                     }
                 }
             }

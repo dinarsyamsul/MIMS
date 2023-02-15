@@ -1,529 +1,279 @@
 package dev.iconpln.mims.ui.pemeriksaan.pemeriksaan_detail
 
-import android.Manifest
+
+import android.app.Dialog
 import android.content.Intent
-import android.content.pm.PackageManager
-import android.graphics.Bitmap
-import android.graphics.BitmapFactory
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
-import android.provider.MediaStore
 import android.text.Editable
 import android.text.TextWatcher
 import android.util.Log
-import android.view.View
+import android.view.ViewGroup
+import android.widget.TextView
 import android.widget.Toast
-import androidx.cardview.widget.CardView
-import androidx.core.app.ActivityCompat
-import androidx.core.content.ContextCompat
+import androidx.appcompat.widget.AppCompatButton
 import androidx.recyclerview.widget.LinearLayoutManager
-import com.google.android.material.bottomsheet.BottomSheetDialog
 import com.journeyapps.barcodescanner.ScanContract
 import com.journeyapps.barcodescanner.ScanIntentResult
 import com.journeyapps.barcodescanner.ScanOptions
 import dev.iconpln.mims.MyApplication
 import dev.iconpln.mims.R
 import dev.iconpln.mims.data.local.database.*
-import dev.iconpln.mims.data.local.database_local.GenericReport
-import dev.iconpln.mims.data.local.database_local.ReportParameter
-import dev.iconpln.mims.data.local.database_local.ReportUploader
-import dev.iconpln.mims.data.remote.service.ApiConfig
 import dev.iconpln.mims.data.scan.CustomScanActivity
-import dev.iconpln.mims.databinding.ActivityDetailPenerimaanBinding
 import dev.iconpln.mims.databinding.ActivityPemeriksaanDetailBinding
 import dev.iconpln.mims.tasks.Loadable
-import dev.iconpln.mims.tasks.TambahReportTask
-import dev.iconpln.mims.ui.pnerimaan.PenerimaanActivity
-import dev.iconpln.mims.utils.SharedPrefsUtils
-import dev.iconpln.mims.utils.StorageUtils
-import org.joda.time.DateTime
-import java.io.File
-import java.io.FileOutputStream
-import java.util.*
+import dev.iconpln.mims.ui.pemeriksaan.complaint.ComplaintActivity
 
 class PemeriksaanDetailActivity : AppCompatActivity(), Loadable {
     private lateinit var binding: ActivityPemeriksaanDetailBinding
     private lateinit var daoSession: DaoSession
     private lateinit var adapter: DetailPemeriksaanAdapter
-
-    private lateinit var detailPemeriksaans: List<TPemeriksaanDetail>
-    private lateinit var dataPemeriksaan: TPosDetailPenerimaan
+    private lateinit var listSns: MutableList<TPosSns>
+    private lateinit var listPemDetail: MutableList<TPemeriksaanDetail>
     private lateinit var pemeriksaan: TPemeriksaan
-
-    private val cameraRequestKomplain = 101
-    private val cameraRequestKomplainGallery = 102
-    private val cameraRequestReject = 103
-    private val cameraRequestRejectGallery = 104
-    private var filePathKomplain: String = ""
-    private var filePathReject: String = ""
-
-    private var reasonReject: String = ""
-    private var reasonKomplain: String = ""
-
-    private var noPemeriksaan: String = ""
-    private var mAnggota: String = ""
-    private var mKetua: String = ""
-    private var mManager: String = ""
-    private var mSekretaris: String = ""
+    private var noPem: String = ""
+    private var noDo: String = ""
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         binding = ActivityPemeriksaanDetailBinding.inflate(layoutInflater)
         setContentView(binding.root)
         daoSession = (application as MyApplication).daoSession!!
-        noPemeriksaan = intent.getStringExtra("noPemeriksaan")!!
+        noPem = intent.getStringExtra("noPemeriksaan")!!
+        noDo = intent.getStringExtra("noDo")!!
 
-        detailPemeriksaans = daoSession.tPemeriksaanDetailDao.queryBuilder().where(TPemeriksaanDetailDao.Properties.NoPemeriksaan.eq(noPemeriksaan)).list()
+        listSns = daoSession.tPosSnsDao.queryBuilder().where(TPosSnsDao.Properties.NoDoSmar.eq(noDo)).list()
+        Log.d("checkSns", listSns.size.toString())
+        listPemDetail = daoSession.tPemeriksaanDetailDao.queryBuilder()
+            .where(TPemeriksaanDetailDao.Properties.NoPemeriksaan.eq(noPem))
+            .list()
+        pemeriksaan = daoSession.tPemeriksaanDao.queryBuilder()
+            .where(TPemeriksaanDao.Properties.NoDoSmar.eq(noDo)).limit(1).unique()
 
-        pemeriksaan = daoSession.tPemeriksaanDao.queryBuilder().where(TPemeriksaanDao.Properties.NoPemeriksaan.eq(noPemeriksaan)).limit(1).unique()
+        adapter = DetailPemeriksaanAdapter(arrayListOf(), object : DetailPemeriksaanAdapter.OnAdapterListener{
+            override fun onClick(po: TPemeriksaanDetail) {
 
-        adapter = DetailPemeriksaanAdapter(arrayListOf(),object : DetailPemeriksaanAdapter.OnAdapterListener{
-            override fun onClick(po: TPemeriksaanDetail) {}
+            }
 
-        }, daoSession)
+        },daoSession)
 
-        adapter.setPedList(detailPemeriksaans)
+        adapter.setPedList(listPemDetail)
 
         with(binding){
-            btnLanjut.setOnClickListener {
-                validation()
+            rvListSn.adapter = adapter
+            rvListSn.layoutManager = LinearLayoutManager(this@PemeriksaanDetailActivity, LinearLayoutManager.VERTICAL, false)
+            rvListSn.setHasFixedSize(true)
+
+            txtKurirPengiriman.text = pemeriksaan.namaEkspedisi
+            txtTglKirim.text = "Tgl ${pemeriksaan.createdDate}"
+            txtPetugasPenerima.text = pemeriksaan.petugasPenerima
+            txtDeliveryOrder.text = pemeriksaan.noDoSmar
+            txtNamaKurir.text = pemeriksaan.namaKurir
+
+            btnScanPackaging.setOnClickListener {
+                openScanner(1)
             }
 
-            btnKomplain.setOnClickListener {
-                constraintDetail2.visibility = View.GONE
-                constraintKomplain.visibility = View.VISIBLE
+            btnScanSn.setOnClickListener {
+                openScanner(2)
             }
 
-            btnReject.setOnClickListener {
-                constraintDetail2.visibility = View.GONE
-                constraintReject.visibility = View.VISIBLE
-            }
-
-            btnMenyetujui.setOnClickListener {
-                submitForm("APPROVED")
-            }
-
-            btnSelesaiReject.setOnClickListener {
-                validateReject()
-            }
-
-            btnSelesaiKomplain.setOnClickListener {
-                validateKomplain()
-            }
-
-            btnFotoDocKomplain.setOnClickListener {
-                if (ContextCompat.checkSelfPermission(applicationContext, Manifest.permission.CAMERA) == PackageManager.PERMISSION_DENIED)
-                    ActivityCompat.requestPermissions(this@PemeriksaanDetailActivity, arrayOf(
-                        Manifest.permission.CAMERA), cameraRequestKomplain)
-
-                val dialog = BottomSheetDialog(this@PemeriksaanDetailActivity, R.style.AppBottomSheetDialogTheme)
-                val view = layoutInflater.inflate(R.layout.bottom_sheet_dialog_photo, null)
-                var btnCamera = view.findViewById<CardView>(R.id.cv_kamera)
-                var btnGallery = view.findViewById<CardView>(R.id.cv_gallery)
-
-                btnCamera.setOnClickListener {
-                    val cameraIntent = Intent(MediaStore.ACTION_IMAGE_CAPTURE)
-                    startActivityForResult(cameraIntent, cameraRequestKomplain)
-                    dialog.dismiss()
-                }
-
-                btnGallery.setOnClickListener {
-                    val photoPickerIntent = Intent(Intent.ACTION_PICK)
-                    photoPickerIntent.type = "image/*"
-                    startActivityForResult(photoPickerIntent, cameraRequestKomplainGallery)
-                    dialog.dismiss()
-                }
-
-                dialog.setCancelable(true)
-                dialog.setContentView(view)
-                dialog.show()
-            }
-
-            btnFotoDocReject.setOnClickListener {
-                if (ContextCompat.checkSelfPermission(applicationContext, Manifest.permission.CAMERA) == PackageManager.PERMISSION_DENIED)
-                    ActivityCompat.requestPermissions(this@PemeriksaanDetailActivity, arrayOf(
-                        Manifest.permission.CAMERA), cameraRequestReject)
-
-                val dialog = BottomSheetDialog(this@PemeriksaanDetailActivity, R.style.AppBottomSheetDialogTheme)
-                val view = layoutInflater.inflate(R.layout.bottom_sheet_dialog_photo, null)
-                var btnCamera = view.findViewById<CardView>(R.id.cv_kamera)
-                var btnGallery = view.findViewById<CardView>(R.id.cv_gallery)
-
-                btnCamera.setOnClickListener {
-                    val cameraIntent = Intent(MediaStore.ACTION_IMAGE_CAPTURE)
-                    startActivityForResult(cameraIntent, cameraRequestReject)
-                    dialog.dismiss()
-                }
-
-                btnGallery.setOnClickListener {
-                    val photoPickerIntent = Intent(Intent.ACTION_PICK)
-                    photoPickerIntent.type = "image/*"
-                    startActivityForResult(photoPickerIntent, cameraRequestRejectGallery)
-                    dialog.dismiss()
-                }
-
-                dialog.setCancelable(true)
-                dialog.setContentView(view)
-                dialog.show()
-            }
-
-            barcode2.setOnClickListener { openScanner() }
-
-            recyclerView2.adapter = adapter
-            recyclerView2.setHasFixedSize(true)
-            recyclerView2.layoutManager = LinearLayoutManager(this@PemeriksaanDetailActivity, LinearLayoutManager.VERTICAL, false)
-
-            srcSerialNumber.addTextChangedListener(object : TextWatcher{
-                override fun beforeTextChanged(
-                    s: CharSequence?,
-                    start: Int,
-                    count: Int,
-                    after: Int
-                ) {}
+            srcNoSn.addTextChangedListener(object : TextWatcher{
+                override fun beforeTextChanged(s: CharSequence?, start: Int, count: Int, after: Int) {}
 
                 override fun onTextChanged(s: CharSequence?, start: Int, before: Int, count: Int) {}
 
                 override fun afterTextChanged(s: Editable?) {
-                    val filter = detailPemeriksaans.filter { it.sn.lowercase().contains(s.toString().lowercase()) }
-                    adapter.setPedList(filter)
+                    val listSnsFilter = listPemDetail.filter {
+                        it.sn.toLowerCase().contains(s.toString().toLowerCase())
+                    }
+                    adapter.setPedList(listSnsFilter)
                 }
 
             })
-            txtPrimaryOrder.text = pemeriksaan.poSapNo
-            txtNoDo.text = pemeriksaan.noDoSmar
-            txtTanggalDiterima.text = pemeriksaan.tanggalDiterima
-            txtPetugasPenerima.text = pemeriksaan.petugasPenerima
-            txtKurirPengiriman.text = pemeriksaan.namaEkspedisi
-            txtPetugasPengiriman.text = pemeriksaan.namaKurir
+
+            cbSesuai.setOnCheckedChangeListener { buttonView, isChecked ->
+                cbTidakSesuai.isEnabled = !isChecked
+                if (isChecked){
+                    for (i in listPemDetail){
+                        i.statusSn = "SESUAI"
+                        i.isChecked = 1
+                        daoSession.update(i)
+                    }
+                    adapter.setPedList(listPemDetail)
+                }else{
+                    for (i in listPemDetail){
+                        i.statusSn = ""
+                        i.isChecked = 0
+                        daoSession.update(i)
+                    }
+                    adapter.setPedList(listPemDetail)
+                }
+            }
+
+            cbTidakSesuai.setOnCheckedChangeListener { buttonView, isChecked ->
+                cbSesuai.isEnabled = !isChecked
+                if (isChecked){
+                    for (i in listPemDetail){
+                        i.statusSn = "TIDAK SESUAI"
+                        i.isChecked = 1
+                        daoSession.update(i)
+                    }
+                    adapter.setPedList(listPemDetail)
+                }else{
+                    for (i in listPemDetail){
+                        i.statusSn = ""
+                        i.isChecked = 0
+                        daoSession.update(i)
+                    }
+                    adapter.setPedList(listPemDetail)
+                }
+            }
+
+            btnKomplain.setOnClickListener {
+                validComplaint()
+            }
+
+            btnTerima.setOnClickListener {
+                validTerima()
+            }
+
+            btnBack.setOnClickListener { onBackPressed() }
         }
     }
 
-    private fun validateReject() {
-
-        with(binding){
-            val reason = edtAlasanReject.text.toString()
-
-            if (reason.isNullOrEmpty()){
-                Toast.makeText(this@PemeriksaanDetailActivity, "Silahkan isi semua data field yang di butuhkan", Toast.LENGTH_SHORT).show()
+    private fun validTerima() {
+        for (i in listPemDetail){
+            Log.d("checkList", i.statusSn)
+            if (i.statusSn == "TIDAK SESUAI" ){
+                Toast.makeText(this@PemeriksaanDetailActivity, "Tidak boleh terima dengan status tidak sesuao atau kosong", Toast.LENGTH_SHORT).show()
                 return
             }
-
-            if (filePathReject.isNullOrEmpty()){
-                Toast.makeText(this@PemeriksaanDetailActivity, "Silahkan isi semua data field yang di butuhkan", Toast.LENGTH_SHORT).show()
-                return
-            }
-
-            reasonReject = reason
-            submitForm("Reject")
-
         }
 
+        val dialog = Dialog(this@PemeriksaanDetailActivity)
+        dialog.setContentView(R.layout.popup_validation);
+        dialog.window!!.setLayout(ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.WRAP_CONTENT);
+        dialog.setCancelable(false);
+        dialog.window!!.attributes.windowAnimations = R.style.DialogUpDown;
+        val btnYa = dialog.findViewById(R.id.btn_ya) as AppCompatButton
+        val btnTidak = dialog.findViewById(R.id.btn_tidak) as AppCompatButton
+
+        btnTidak.setOnClickListener {
+            dialog.dismiss();
+        }
+
+        btnYa.setOnClickListener {
+            updateData()
+            dialog.dismiss()
+        }
+
+        dialog.show();
     }
 
-    private fun validateKomplain() {
-        with(binding){
-            val reason = edtAlasanKomplain.text.toString()
-
-            if (reason.isNullOrEmpty()){
-                Toast.makeText(this@PemeriksaanDetailActivity, "Silahkan isi semua data field yang di butuhkan", Toast.LENGTH_SHORT).show()
-                return
-            }
-
-            if (filePathKomplain.isNullOrEmpty()){
-                Toast.makeText(this@PemeriksaanDetailActivity, "Silahkan isi semua data field yang di butuhkan", Toast.LENGTH_SHORT).show()
-                return
-            }
-
-            reasonKomplain = reason
-            submitFormKomplain()
+    private fun updateData() {
+        var packagings = ""
+        for (i in listPemDetail){
+            packagings += "${i.noPackaging},"
+            Log.i("noPackaging", i.noPackaging)
 
         }
-    }
-
-    private fun submitFormKomplain() {
-        val reports = java.util.ArrayList<GenericReport>()
-
-        for (i in detailPemeriksaans){
-            i.status = "COMPLAINT"
-            i.noPemeriksaan= pemeriksaan.noPemeriksaan
-            i.isDone = 1
-            daoSession.update(i)
+        if (packagings != "") {
+            packagings = packagings.substring(0, packagings.length - 1)
         }
 
-        pemeriksaan.namaKetua = mKetua
-        pemeriksaan.namaManager = mManager
-        pemeriksaan.namaSekretaris = mSekretaris
-        pemeriksaan.anggota = mAnggota
         pemeriksaan.state = 2
-        pemeriksaan.isDone = 1
-        daoSession.update(pemeriksaan)
+        pemeriksaan.packangings = packagings
+        daoSession.tPemeriksaanDao.update(pemeriksaan)
 
-        var sns = ""
-        for (i in detailPemeriksaans){
-            sns += "${i.sn},${i.noPackaging};"
+        val dialog = Dialog(this@PemeriksaanDetailActivity)
+        dialog.setContentView(R.layout.popup_complaint);
+        dialog.window!!.setLayout(ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.WRAP_CONTENT);
+        dialog.setCancelable(false);
+        dialog.window!!.attributes.windowAnimations = R.style.DialogUpDown;
+        val btnOk = dialog.findViewById(R.id.btn_ok) as AppCompatButton
+        val txtMessage = dialog.findViewById(R.id.txt_message) as TextView
+
+        txtMessage.text = "Material berhasil diajukan ke tim pemeriksa"
+
+        btnOk.setOnClickListener {
+            dialog.dismiss();
+            onBackPressed()
+            finish()
         }
-
-        if (sns != "") {
-            sns = sns.substring(0, sns.length - 1)
-        }
-
-        var jwt = SharedPrefsUtils.getStringPreference(this@PemeriksaanDetailActivity,"jwt","")
-        var username = SharedPrefsUtils.getStringPreference(this@PemeriksaanDetailActivity, "username","")
-        var email = SharedPrefsUtils.getStringPreference(this@PemeriksaanDetailActivity, "email","")
-        val currentDate = DateTime.now().toString("yyyy-MM-dd")
-        val reportId = "Pemeriksaan" + DateTime.now().toString("yMdHmsSSS")
-        val reportName = "Pemeriksaan"
-        val reportDescription = "Pemeriksaan-${pemeriksaan.noDoSmar}-${pemeriksaan.packangings}-${DateTime.now().toString("yyyy-MM-dd")}"
-        val params = ArrayList<ReportParameter>()
-        params.add(ReportParameter("1", reportId, "plant_code_no", pemeriksaan.planCodeNo, ReportParameter.TEXT ))
-        params.add(ReportParameter("2", reportId, "no_do_smar", pemeriksaan.noDoSmar, ReportParameter.TEXT ))
-        params.add(ReportParameter("3", reportId, "no_mat_sap", dataPemeriksaan.noMatSap, ReportParameter.TEXT ))
-        params.add(ReportParameter("4", reportId, "penerima", pemeriksaan.petugasPenerima, ReportParameter.TEXT ))
-        params.add(ReportParameter("5", reportId, "tanggal", pemeriksaan.tanggalDiterima, ReportParameter.TEXT ))
-        params.add(ReportParameter("6", reportId, "kurir", pemeriksaan.namaKurir, ReportParameter.TEXT ))
-        params.add(ReportParameter("7", reportId, "ekspedisi", pemeriksaan.namaEkspedisi, ReportParameter.TEXT ))
-        params.add(ReportParameter("8", reportId, "quantity", dataPemeriksaan.qty, ReportParameter.TEXT ))
-        params.add(ReportParameter("9", reportId, "username", username!!, ReportParameter.TEXT ))
-        params.add(ReportParameter("10", reportId, "email",email!! , ReportParameter.TEXT ))
-        params.add(ReportParameter("11", reportId, "no_packaging", dataPemeriksaan.noPackaging, ReportParameter.TEXT ))
-        params.add(ReportParameter("12", reportId, "status_name", "COMPLAINT", ReportParameter.TEXT ))
-        params.add(ReportParameter("13", reportId, "sns", sns, ReportParameter.TEXT ))
-        params.add(ReportParameter("14", reportId, "alasan", reasonKomplain, ReportParameter.TEXT ))
-        params.add(ReportParameter("15", reportId, "photo_file", filePathKomplain, ReportParameter.FILE ))
-        val reportPenerimaan = GenericReport(reportId, jwt!!, reportName, reportDescription, ApiConfig.sendComplaint(), currentDate, 0, 11119209101, params)
-        reports.add(reportPenerimaan)
-
-        val task = TambahReportTask(this, reports)
-        task.execute()
-
-        val iService = Intent(this@PemeriksaanDetailActivity, ReportUploader::class.java)
-        startService(iService)
+        dialog.show();
     }
 
-    override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
-        super.onActivityResult(requestCode, resultCode, data)
-
-        if (resultCode == RESULT_OK && requestCode == cameraRequestRejectGallery){
-            val imageUri = data?.data
-            val imageStream = contentResolver.openInputStream(imageUri!!)
-            val bitmap: Bitmap = BitmapFactory.decodeStream(imageStream)
-
-            val file_path = StorageUtils.getDirectory(StorageUtils.DIRECTORY_ROOT) +
-                    "/Images"
-            val dir = File(file_path)
-            if (!dir.exists()) dir.mkdirs()
-            val file = File(dir, "mims" + "picturesFotoReject${UUID.randomUUID()}" + ".png")
-            val fOut = FileOutputStream(file)
-
-            bitmap.compress(Bitmap.CompressFormat.PNG, 85, fOut)
-            fOut.flush()
-            fOut.close()
-
-            binding.ivDokumentasiReject.setImageBitmap(bitmap)
-            filePathReject = file.toString()
-
-        }else{
-            Log.d("cancel", "cacelPhoto")
+    private fun validComplaint() {
+        for (i in listPemDetail){
+            Log.d("checkList", i.statusSn)
+            if (i.statusSn == "SESUAI"){
+                Toast.makeText(this@PemeriksaanDetailActivity, "Tidak boleh melakukan komplain dengan status sesuai atau kosong", Toast.LENGTH_SHORT).show()
+                return
+            }
         }
 
-        if (resultCode == RESULT_OK && requestCode == cameraRequestKomplainGallery){
-            val imageUri = data?.data
-            val imageStream = contentResolver.openInputStream(imageUri!!)
-            val bitmap: Bitmap = BitmapFactory.decodeStream(imageStream)
-
-            val file_path = StorageUtils.getDirectory(StorageUtils.DIRECTORY_ROOT) +
-                    "/Images"
-            val dir = File(file_path)
-            if (!dir.exists()) dir.mkdirs()
-            val file = File(dir, "mims" + "picturesFotoKomplain${UUID.randomUUID()}" + ".png")
-            val fOut = FileOutputStream(file)
-
-            bitmap.compress(Bitmap.CompressFormat.PNG, 85, fOut)
-            fOut.flush()
-            fOut.close()
-
-            binding.ivDokumentasiReject.setImageBitmap(bitmap)
-            filePathReject = file.toString()
-        }else{
-            Log.d("cancel", "cacelPhoto")
-        }
-
-        if (resultCode == RESULT_OK && requestCode == cameraRequestReject){
-            val bitmap: Bitmap = data?.extras?.get("data") as Bitmap
-
-            val file_path = StorageUtils.getDirectory(StorageUtils.DIRECTORY_ROOT) +
-                    "/Images"
-            val dir = File(file_path)
-            if (!dir.exists()) dir.mkdirs()
-            val file = File(dir, "mims" + "picturesFotoReject${UUID.randomUUID()}" + ".png")
-            val fOut = FileOutputStream(file)
-
-            bitmap.compress(Bitmap.CompressFormat.PNG, 85, fOut)
-            fOut.flush()
-            fOut.close()
-
-            binding.ivDokumentasiReject.setImageBitmap(bitmap)
-            filePathReject = file.toString()
-
-        }else{
-            Log.d("cancel", "cacelPhoto")
-        }
-
-        if (resultCode == RESULT_OK && requestCode == cameraRequestKomplain){
-            val bitmap: Bitmap = data?.extras?.get("data") as Bitmap
-
-            val file_path = StorageUtils.getDirectory(StorageUtils.DIRECTORY_ROOT) +
-                    "/Images"
-            val dir = File(file_path)
-            if (!dir.exists()) dir.mkdirs()
-            val file = File(dir, "mims" + "picturesFotoKomplain${UUID.randomUUID()}" + ".png")
-            val fOut = FileOutputStream(file)
-
-            bitmap.compress(Bitmap.CompressFormat.PNG, 85, fOut)
-            fOut.flush()
-            fOut.close()
-
-            binding.ivDokumentasiKomplain.setImageBitmap(bitmap)
-            filePathKomplain = file.toString()
-        }else{
-            Log.d("cancel", "cacelPhoto")
-        }
+        startActivity(Intent(this@PemeriksaanDetailActivity, ComplaintActivity::class.java)
+            .putExtra("noDo", noDo))
     }
 
-    private fun submitForm(status: String) {
-        val reports = java.util.ArrayList<GenericReport>()
-
-        for (i in detailPemeriksaans){
-            i.status = status
-            i.noPemeriksaan= pemeriksaan.noPemeriksaan
-            i.isDone = 1
-            daoSession.update(i)
-        }
-
-        pemeriksaan.namaKetua = mKetua
-        pemeriksaan.namaManager = mManager
-        pemeriksaan.namaSekretaris = mSekretaris
-        pemeriksaan.anggota = mAnggota
-        pemeriksaan.state = 2
-        pemeriksaan.isDone = 1
-        daoSession.update(pemeriksaan)
-
-        var sns = ""
-        for (i in detailPemeriksaans){
-            sns += "${i.sn},${i.noPackaging};"
-        }
-
-        if (sns != "") {
-            sns = sns.substring(0, sns.length - 1)
-        }
-
-        var jwt = SharedPrefsUtils.getStringPreference(this@PemeriksaanDetailActivity,"jwt","")
-        var username = SharedPrefsUtils.getStringPreference(this@PemeriksaanDetailActivity, "username","")
-        var email = SharedPrefsUtils.getStringPreference(this@PemeriksaanDetailActivity, "email","")
-        val currentDate = DateTime.now().toString("yyyy-MM-dd")
-        val reportId = "Pemeriksaan" + DateTime.now().toString("yMdHmsSSS")
-        val reportName = "Pemeriksaan"
-        val reportDescription = "Pemeriksaan-${pemeriksaan.noDoSmar}-${pemeriksaan.packangings}-${DateTime.now().toString("yyyy-MM-dd")}"
-        val params = ArrayList<ReportParameter>()
-        params.add(ReportParameter("1", reportId, "plant_code_no", pemeriksaan.planCodeNo, ReportParameter.TEXT ))
-        params.add(ReportParameter("2", reportId, "no_do_smar", pemeriksaan.noDoSmar, ReportParameter.TEXT ))
-        params.add(ReportParameter("3", reportId, "no_mat_sap", dataPemeriksaan.noMatSap, ReportParameter.TEXT ))
-        params.add(ReportParameter("4", reportId, "penerima", pemeriksaan.petugasPenerima, ReportParameter.TEXT ))
-        params.add(ReportParameter("5", reportId, "tanggal", pemeriksaan.tanggalDiterima, ReportParameter.TEXT ))
-        params.add(ReportParameter("6", reportId, "kurir", pemeriksaan.namaKurir, ReportParameter.TEXT ))
-        params.add(ReportParameter("7", reportId, "ekspedisi", pemeriksaan.namaEkspedisi, ReportParameter.TEXT ))
-        params.add(ReportParameter("8", reportId, "quantity", dataPemeriksaan.qty, ReportParameter.TEXT ))
-        params.add(ReportParameter("9", reportId, "username", username!!, ReportParameter.TEXT ))
-        params.add(ReportParameter("10", reportId, "email",email!! , ReportParameter.TEXT ))
-        params.add(ReportParameter("11", reportId, "no_packaging", dataPemeriksaan.noPackaging, ReportParameter.TEXT ))
-        params.add(ReportParameter("12", reportId, "status_name", status, ReportParameter.TEXT ))
-        params.add(ReportParameter("13", reportId, "sns", sns, ReportParameter.TEXT ))
-        val reportPenerimaan = GenericReport(reportId, jwt!!, reportName, reportDescription, ApiConfig.sendPemeriksaan(), currentDate, 0, 11119209101, params)
-        reports.add(reportPenerimaan)
-
-        val task = TambahReportTask(this, reports)
-        task.execute()
-
-        val iService = Intent(this@PemeriksaanDetailActivity, ReportUploader::class.java)
-        startService(iService)
-    }
-
-    private fun validation() {
-        with(binding){
-            val anggota = edtAnggota.text.toString()
-            val ketua = edtKetua.text.toString()
-            val manager = edtManager.text.toString()
-            val sekretaris = edtSekretaris.text.toString()
-
-            if (anggota.isNullOrEmpty()){
-                Toast.makeText(this@PemeriksaanDetailActivity, "Silahkan isi semua data field yang di butuhkan", Toast.LENGTH_SHORT).show()
-                return
-            }
-
-            if (ketua.isNullOrEmpty()){
-                Toast.makeText(this@PemeriksaanDetailActivity, "Silahkan isi semua data field yang di butuhkan", Toast.LENGTH_SHORT).show()
-                return
-            }
-
-            if (manager.isNullOrEmpty()){
-                Toast.makeText(this@PemeriksaanDetailActivity, "Silahkan isi semua data field yang di butuhkan", Toast.LENGTH_SHORT).show()
-                return
-            }
-
-            if (sekretaris.isNullOrEmpty()){
-                Toast.makeText(this@PemeriksaanDetailActivity, "Silahkan isi semua data field yang di butuhkan", Toast.LENGTH_SHORT).show()
-                return
-            }
-
-            mAnggota = anggota
-            mSekretaris = sekretaris
-            mKetua = ketua
-            mManager = manager
-
-            constraintDetail1.visibility = View.GONE
-            constraintDetail2.visibility = View.VISIBLE
-
-        }
-    }
-
-    private fun openScanner() {
+    private fun openScanner(typeScanning: Int) {
         val scan = ScanOptions()
         scan.setDesiredBarcodeFormats(ScanOptions.ALL_CODE_TYPES)
         scan.setCameraId(0)
         scan.setBeepEnabled(true)
         scan.setBarcodeImageEnabled(true)
         scan.captureActivity = CustomScanActivity::class.java
-        barcodeLauncher.launch(scan)
+        when(typeScanning){
+            1 -> barcodeLauncherPackaging.launch(scan)
+            2 -> barcodeLauncherSn.launch(scan)
+        }
     }
 
-    private val barcodeLauncher = registerForActivityResult(
+    private val barcodeLauncherPackaging = registerForActivityResult(
         ScanContract()
     ) { result: ScanIntentResult ->
         try {
-            if (!result.contents.isNullOrEmpty()) {
-                for (i in detailPemeriksaans){
-                    if (i.sn == result.contents){
-                        i.isDone = 1
-                        daoSession.tPemeriksaanDetailDao.update(i)
-                        Toast.makeText(this@PemeriksaanDetailActivity, "Scanning success : ${result.contents}",Toast.LENGTH_SHORT).show()
-                    }
+            if(!result.contents.isNullOrEmpty()){
+                Log.i("hit barcode","${result.contents}")
+                val listPackagings = daoSession.tPemeriksaanDetailDao.queryBuilder().where(TPemeriksaanDetailDao.Properties.NoPackaging.eq(result.contents)).list()
+                Log.d("listPackaging", listPackagings.size.toString())
+                for (i in listPackagings){
+                    i.statusSn = "SESUAI"
+                    i.isChecked = 1
+                    daoSession.tPemeriksaanDetailDao.update(i)
                 }
-                adapter.setPedList(detailPemeriksaans)
+                adapter.setPedList(listPemDetail)
             }
         }catch (e: Exception){
-            Log.e("checkException", e.toString())
+            Log.e("exception", e.toString())
+        }
+    }
+
+    private val barcodeLauncherSn = registerForActivityResult(
+        ScanContract()
+    ) { result: ScanIntentResult ->
+        try {
+            if(!result.contents.isNullOrEmpty()){
+                Log.i("hit barcode","${result.contents}")
+                val listSns = daoSession.tPemeriksaanDetailDao.queryBuilder()
+                    .where(TPemeriksaanDetailDao.Properties.Sn.eq(result.contents)).limit(1).unique()
+                Log.i("hit sns", listSns.toString())
+
+                listSns.statusSn = "SESUAI"
+                listSns.isChecked = 1
+                daoSession.tPemeriksaanDetailDao.update(listSns)
+
+                adapter.setPedList(listPemDetail)
+            }
+        }catch (e: Exception){
+            Log.e("exception", e.toString())
         }
     }
 
     override fun setLoading(show: Boolean, title: String, message: String) {
-
     }
 
     override fun setFinish(result: Boolean, message: String) {
-        if (result){
-            Toast.makeText(this, message, Toast.LENGTH_LONG).show()
-            startActivity(Intent(this@PemeriksaanDetailActivity, PenerimaanActivity::class.java))
-            finish()
-        }
     }
 }

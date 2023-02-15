@@ -164,10 +164,10 @@ class LoginBiometricActivity : AppCompatActivity() {
             override fun onAuthenticationSucceeded(result: BiometricPrompt.AuthenticationResult) {
                 super.onAuthenticationSucceeded(result)
                 startActivity(Intent(this@LoginBiometricActivity, HomeActivity::class.java))
-//                viewModel.getLogin(this@LoginBiometricActivity,
-//                    daoSession,username, mPassword,"",
-//                    mAndroidId,mAppVersion,mDeviceData,mIpAddress,
-//                    androidVersion,dateTimeUtc,session)
+                viewModel.getLogin(this@LoginBiometricActivity,
+                    daoSession,username, mPassword,"",
+                    mAndroidId,mAppVersion,mDeviceData,mIpAddress,
+                    androidVersion,dateTimeUtc,session)
                 Log.d(ContentValues.TAG, "Authentication was successful")
             }
         }

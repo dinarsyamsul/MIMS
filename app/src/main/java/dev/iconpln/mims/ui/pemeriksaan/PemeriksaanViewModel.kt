@@ -1,15 +1,9 @@
 package dev.iconpln.mims.ui.pemeriksaan
 
-import android.util.Log
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
-import dev.iconpln.mims.data.local.database.DaoSession
-import dev.iconpln.mims.data.local.database.TPemeriksaan
-import dev.iconpln.mims.data.local.database.TPemeriksaanDao
-import dev.iconpln.mims.data.local.database.TPemeriksaanDetail
-import dev.iconpln.mims.data.local.database.TPosDetailPenerimaan
-import dev.iconpln.mims.data.local.database.TPosSnsDao
+import dev.iconpln.mims.data.local.database.*
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
@@ -26,51 +20,117 @@ class PemeriksaanViewModel: ViewModel() {
     private val _pemeriksaanDetailResponse = MutableLiveData<List<TPemeriksaanDetail>>()
     val pemeriksaanDetailResponse: LiveData<List<TPemeriksaanDetail>> = _pemeriksaanDetailResponse
 
-    fun getPemeriksaan(daoSession: DaoSession){
+    fun setPemeriksaan(daoSession: DaoSession,listPem: List<TPemeriksaan>){
         CoroutineScope(Dispatchers.Main).launch {
             try {
                 _isLoading.value = true
-                val listPemeriksaan = daoSession.tPemeriksaanDao.queryBuilder().list()
-                _pemeriksaanResponse.postValue(listPemeriksaan)
+
+                if (listPem.isNotEmpty()){
+                    _pemeriksaanResponse.postValue(listPem)
+                }else{
+                    val listPos = daoSession.tPosDao.queryBuilder().list()
+                    val size = listPos.size
+                    if (size > 0) {
+                        val items = arrayOfNulls<TPemeriksaan>(size)
+                        var item: TPemeriksaan
+                        for ((i, model) in listPos.withIndex()){
+                            item = TPemeriksaan()
+                            item.noPemeriksaan = ""
+                            item.storloc = model.storloc
+                            item.total = model.total
+                            item.tlskNo = model.tlskNo
+                            item.poSapNo = model.poSapNo
+                            item.poMpNo = model.poMpNo
+                            item.noDoSmar = model.noDoSmar
+                            item.leadTime = model.leadTime
+                            item.createdDate = model.createdDate
+                            item.planCodeNo = model.planCodeNo
+                            item.plantName = model.plantName
+                            item.noDoMims = model.noDoMims
+                            item.doStatus = model.doStatus
+                            item.expeditions = model.expeditions
+                            item.courierPersonName = model.courierPersonName
+                            item.kdPabrikan = model.kdPabrikan
+                            item.materialGroup = model.materialGroup
+                            item.namaKategoriMaterial = model.namaKategoriMaterial
+                            item.tanggalDiterima = ""
+                            item.petugasPenerima = ""
+                            item.namaKurir = ""
+                            item.namaEkspedisi = ""
+
+                            item.namaKetua = ""
+                            item.namaManager = ""
+                            item.namaSekretaris = ""
+                            item.anggota = ""
+
+
+                            item.ratingPenerimaan = ""
+                            item.descPenerimaan = ""
+                            item.ratingQuality = ""
+                            item.descQuality = ""
+                            item.ratingWaktu = ""
+                            item.descWaktu = ""
+                            item.ratingPath = ""
+                            item.packangings = ""
+
+                            item.state = 0
+                            item.isDone = 0
+                            items[i] = item
+                        }
+                        daoSession.tPemeriksaanDao.insertInTx(items.toList())
+                    }
+                }
+
+                _pemeriksaanResponse.postValue(daoSession.tPemeriksaanDao.loadAll())
                 _isLoading.value = false
             }catch (e: Exception){
                 e.printStackTrace()
             }finally {
                 _isLoading.value = false
             }
+
         }
     }
 
-    fun setDataDetailPemeriksaan(daoSession: DaoSession,listPemeriksaan: List<TPemeriksaanDetail>,noPemeriksaan: String){
+    fun setDataDetailPemeriksaan(
+        daoSession: DaoSession,
+        noPem: String,
+        noDo: String?
+    ){
         CoroutineScope(Dispatchers.Main).launch {
             try {
                 _isLoading.value = true
-                val pemeriksaan = daoSession.tPemeriksaanDao.queryBuilder().where(TPemeriksaanDao.Properties.NoPemeriksaan.eq(noPemeriksaan)).limit(1).unique()
-//                var listSns = daoSession.tPosSnsDao.queryBuilder().where(TPosSnsDao.Properties.NoDoSmar.eq(noDo)).list()
+                val listPemDetail = daoSession.tPemeriksaanDetailDao.queryBuilder().where(TPemeriksaanDetailDao.Properties.NoPemeriksaan.eq(noPem)).list()
+                val listSns = daoSession.tPosSnsDao.queryBuilder().where(TPosSnsDao.Properties.NoDoSmar.eq(noDo)).list()
+                if (listPemDetail.isNotEmpty()){
+                    _pemeriksaanDetailResponse.postValue(listPemDetail)
+                }else{
+                    val size = listSns.size
+                    if (size > 0){
+                        val items = arrayOfNulls<TPemeriksaanDetail>(size)
+                        var item: TPemeriksaanDetail
+                        for ((i, model) in listSns.withIndex()){
+                            item = TPemeriksaanDetail()
+                            item.noPemeriksaan = noPem
+                            item.noDoSmar = model.noDoSmar
+                            item.statusSn = ""
+                            item.sn = model.noSerial
+                            item.noPackaging = model.noPackaging
+                            item.noMaterail = model.noMatSap
+                            item.kategori = model.namaKategoriMaterial
+                            item.isChecked = 0
+                            item.isDone = 0
 
-                Log.d("checkPemerikssanDetail", "${listPemeriksaan.size}")
-                if (!listPemeriksaan.isNotEmpty()){
-                    var listPackagings = pemeriksaan.packangings.split(",")
-                    for (i in listPackagings){
-                        var listSns = daoSession.tPosSnsDao.queryBuilder().where(TPosSnsDao.Properties.NoPackaging.eq(i)).list()
-                        if (listSns.size > 0){
-                            for (h in listSns){
-                                Log.d("testInser", h.noSerial)
-                                var item = TPemeriksaanDetail()
-                                item.sn = h.noSerial
-                                item.noDoSmar = pemeriksaan.noDoSmar
-                                item.noMaterail = pemeriksaan.materialGroup
-                                item.noPackaging = i
-                                item.status = pemeriksaan.doStatus
-                                item.noPemeriksaan = pemeriksaan.noPemeriksaan
-                                item.isDone = 0
-
-                                daoSession.tPemeriksaanDetailDao.insert(item)
-                            }
+                            items[i] = item
                         }
+                        daoSession.tPemeriksaanDetailDao.insertInTx(items.toList())
                     }
+                    _pemeriksaanDetailResponse.postValue(
+                        daoSession.tPemeriksaanDetailDao.queryBuilder()
+                            .where(TPemeriksaanDao.Properties.NoPemeriksaan.eq(noPem)).list()
+                    )
                 }
-
+                _isLoading.value = false
             }catch (e: Exception){
                 _isLoading.value = false
                 e.printStackTrace()

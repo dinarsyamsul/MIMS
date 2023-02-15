@@ -64,6 +64,7 @@
             android:textColor="#3F3D56"
             android:textSize="14sp"
             android:textStyle="bold"
+            android:fontFamily="@font/montserrat_reguler"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent" />
 
@@ -93,7 +94,7 @@
             android:fontFamily="@font/montserrat_reguler"
             android:text="No DO"
             android:textColor="#3F3D56"
-            android:textSize="16sp"
+            android:textSize="14sp"
             android:textStyle="bold"
             app:layout_constraintStart_toStartOf="@+id/txt_nomorPo"
             app:layout_constraintTop_toBottomOf="@id/src_nomorPo" />

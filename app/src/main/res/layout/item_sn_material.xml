@@ -1,0 +1,172 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content">
+
+    <androidx.cardview.widget.CardView
+        android:id="@+id/cardView2"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="25dp"
+        android:layout_marginTop="10dp"
+        android:layout_marginEnd="25dp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent">
+
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+
+            <View
+                android:id="@+id/view"
+                android:layout_width="10dp"
+                android:layout_height="0dp"
+                android:background="#F8951D"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent" />
+
+            <ImageView
+                android:id="@+id/imageView1"
+                android:layout_width="14dp"
+                android:layout_height="14dp"
+                android:layout_marginStart="14dp"
+                android:src="@drawable/ic_number"
+                app:layout_constraintBottom_toBottomOf="@+id/lbl_sn_material"
+                app:layout_constraintEnd_toStartOf="@id/lbl_sn_material"
+                app:layout_constraintStart_toEndOf="@+id/view"
+                app:layout_constraintTop_toTopOf="@+id/lbl_sn_material" />
+
+            <TextView
+                android:id="@+id/lbl_sn_material"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="5dp"
+                android:layout_marginTop="15dp"
+                android:layout_marginEnd="10dp"
+                android:fontFamily="@font/montserrat_reguler"
+                android:text="SN Material"
+                android:textSize="10sp"
+                app:layout_constraintEnd_toStartOf="@id/imageView2"
+                app:layout_constraintStart_toEndOf="@+id/imageView1"
+                app:layout_constraintTop_toTopOf="parent" />
+
+            <TextView
+                android:id="@+id/txt_sn_material"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="1dp"
+                android:fontFamily="@font/montserrat_reguler"
+                android:text="XXX-XXX"
+                android:textSize="10sp"
+                app:layout_constraintEnd_toEndOf="@+id/lbl_sn_material"
+                app:layout_constraintStart_toStartOf="@+id/lbl_sn_material"
+                app:layout_constraintTop_toBottomOf="@+id/lbl_sn_material" />
+
+            <ImageView
+                android:id="@+id/imageView2"
+                android:layout_width="14dp"
+                android:layout_height="14dp"
+                android:src="@drawable/ic_number"
+                app:layout_constraintBottom_toBottomOf="@+id/lbl_kategori"
+                app:layout_constraintEnd_toStartOf="@id/lbl_kategori"
+                app:layout_constraintStart_toEndOf="@+id/lbl_sn_material"
+                app:layout_constraintTop_toTopOf="@+id/lbl_kategori" />
+
+            <TextView
+                android:id="@+id/lbl_kategori"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="5dp"
+                android:layout_marginTop="15dp"
+                android:layout_marginEnd="10dp"
+                android:fontFamily="@font/montserrat_reguler"
+                android:text="Kategori"
+                android:textSize="10sp"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toEndOf="@+id/imageView2"
+                app:layout_constraintTop_toTopOf="parent" />
+
+            <TextView
+                android:id="@+id/txt_kategori"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="1dp"
+                android:fontFamily="@font/montserrat_reguler"
+                android:text="XXX-XXX"
+                android:textSize="10sp"
+                app:layout_constraintEnd_toEndOf="@+id/lbl_kategori"
+                app:layout_constraintStart_toStartOf="@+id/lbl_kategori"
+                app:layout_constraintTop_toBottomOf="@+id/lbl_kategori" />
+
+            <ImageView
+                android:id="@+id/imageView3"
+                android:layout_width="14dp"
+                android:layout_height="14dp"
+                android:layout_marginStart="14dp"
+                android:src="@drawable/ic_number"
+                app:layout_constraintBottom_toBottomOf="@+id/lbl_vendor"
+                app:layout_constraintEnd_toStartOf="@id/lbl_vendor"
+                app:layout_constraintStart_toEndOf="@+id/view"
+                app:layout_constraintTop_toTopOf="@+id/lbl_vendor" />
+
+            <TextView
+                android:id="@+id/lbl_vendor"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="5dp"
+                android:layout_marginTop="7dp"
+                android:layout_marginEnd="10dp"
+                android:fontFamily="@font/montserrat_reguler"
+                android:text="Vendor"
+                android:textSize="10sp"
+                app:layout_constraintEnd_toStartOf="@id/imageView2"
+                app:layout_constraintStart_toEndOf="@+id/imageView1"
+                app:layout_constraintTop_toBottomOf="@+id/txt_sn_material" />
+
+            <TextView
+                android:id="@+id/txt_vendor"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="15dp"
+                android:fontFamily="@font/montserrat_reguler"
+                android:text="XXX-XXX"
+                android:textSize="10sp"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toEndOf="@+id/lbl_sn_material"
+                app:layout_constraintStart_toStartOf="@+id/lbl_sn_material"
+                app:layout_constraintTop_toBottomOf="@+id/lbl_vendor" />
+
+        </androidx.constraintlayout.widget.ConstraintLayout>
+    </androidx.cardview.widget.CardView>
+
+    <CheckBox
+        android:id="@+id/cb_sesuai"
+        android:layout_width="wrap_content"
+        android:layout_height="20dp"
+        android:scaleX="0.80"
+        android:scaleY="0.80"
+        android:text="Sesuai"
+        android:textSize="12dp"
+        app:layout_constraintBottom_toBottomOf="@+id/cb_tidak_sesuai"
+        app:layout_constraintEnd_toEndOf="@+id/cardView2"
+        app:layout_constraintTop_toBottomOf="@+id/cardView2"
+        app:layout_constraintVertical_bias="1.0" />
+
+    <CheckBox
+        android:id="@+id/cb_tidak_sesuai"
+        android:layout_width="wrap_content"
+        android:layout_height="20dp"
+        android:layout_marginTop="5dp"
+        android:layout_marginEnd="25dp"
+        android:scaleX="0.80"
+        android:scaleY="0.80"
+        android:text="Tidak Sesuai"
+        android:textSize="12dp"
+        app:layout_constraintEnd_toStartOf="@+id/cb_sesuai"
+        app:layout_constraintTop_toBottomOf="@+id/cardView2" />
+
+</androidx.constraintlayout.widget.ConstraintLayout>

@@ -43,11 +43,27 @@ data class LoginResponse(
 	@field:SerializedName("material_details")
 	val materialDetails: List<MaterialDetailsItem?>? = null,
 
+	@field:SerializedName("ratings")
+	val ratings: List<RatingsItem?>? = null,
+
 	@field:SerializedName("user")
 	val user: User? = null,
 
 	@field:SerializedName("status")
 	val status: String? = null
+)
+
+data class RatingsItem(
+
+	@field:SerializedName("kd_rating")
+	val kdRating: String? = "",
+
+	@field:SerializedName("keterangan")
+	val keterangan: String? = "",
+
+	@field:SerializedName("nilai")
+	val nilai: Int? = 0
+
 )
 
 data class PosDetailItem(
@@ -270,6 +286,9 @@ data class PosItem(
 
 	@field:SerializedName("ekspedition")
 	val ekspedition: String? = "",
+
+	@field:SerializedName("kode_status_do_mims")
+	val kodeStatusDoMims: String? = "",
 
 	@field:SerializedName("plant_name")
 	val plantName: String? = ""

@@ -20,6 +20,7 @@ import com.google.android.material.bottomsheet.BottomSheetDialog
 import com.journeyapps.barcodescanner.ScanContract
 import com.journeyapps.barcodescanner.ScanIntentResult
 import com.journeyapps.barcodescanner.ScanOptions
+import dev.iconpln.mims.CameraXActivity
 import dev.iconpln.mims.MyApplication
 import dev.iconpln.mims.R
 import dev.iconpln.mims.data.local.database.*
@@ -124,8 +125,11 @@ class DetailPenerimaanActivity : AppCompatActivity(),Loadable {
                 var btnGallery = view.findViewById<CardView>(R.id.cv_gallery)
 
                 btnCamera.setOnClickListener {
-                    val cameraIntent = Intent(MediaStore.ACTION_IMAGE_CAPTURE)
-                    startActivityForResult(cameraIntent, cameraRequestFotoSuratBarang)
+//                    val cameraIntent = Intent(MediaStore.ACTION_IMAGE_CAPTURE)
+//                    startActivityForResult(cameraIntent, cameraRequestFotoSuratBarang)
+                    val intent = Intent(this@DetailPenerimaanActivity, CameraXActivity::class.java)
+                        .putExtra("fotoName", "fotoSuratBarang")
+                    startActivityForResult(intent,cameraRequestFotoSuratBarang)
                     dialog.dismiss()
                 }
 
@@ -151,8 +155,12 @@ class DetailPenerimaanActivity : AppCompatActivity(),Loadable {
                 var btnGallery = view.findViewById<CardView>(R.id.cv_gallery)
 
                 btnCamera.setOnClickListener {
-                    val cameraIntent = Intent(MediaStore.ACTION_IMAGE_CAPTURE)
-                    startActivityForResult(cameraIntent, cameraRequestFotoBarang)
+//                    val cameraIntent = Intent(MediaStore.ACTION_IMAGE_CAPTURE)
+//                    startActivityForResult(cameraIntent, cameraRequestFotoBarang)
+
+                    val intent = Intent(this@DetailPenerimaanActivity, CameraXActivity::class.java)
+                        .putExtra("fotoName", "fotoBarang")
+                    startActivityForResult(intent,cameraRequestFotoBarang)
                     dialog.dismiss()
                 }
 
@@ -396,42 +404,20 @@ class DetailPenerimaanActivity : AppCompatActivity(),Loadable {
         }
 
         if (resultCode == RESULT_OK && requestCode == cameraRequestFotoSuratBarang){
-            val bitmap: Bitmap = data?.extras?.get("data") as Bitmap
+            val mPhotoCompetitorPath = data?.getStringExtra("Path")
 
-            val file_path = StorageUtils.getDirectory(StorageUtils.DIRECTORY_ROOT) +
-                    "/Images"
-            val dir = File(file_path)
-            if (!dir.exists()) dir.mkdirs()
-            val file = File(dir, "mims" + "picturesFotoSuratBarang${UUID.randomUUID()}" + ".png")
-            val fOut = FileOutputStream(file)
-
-            bitmap.compress(Bitmap.CompressFormat.PNG, 85, fOut)
-            fOut.flush()
-            fOut.close()
-
-            binding.idFileName.setImageBitmap(bitmap)
-            filePathFotoSuratBarang = file.toString()
+            binding.idFileName.setImageBitmap(BitmapFactory.decodeFile(mPhotoCompetitorPath))
+            filePathFotoSuratBarang = mPhotoCompetitorPath.toString()
 
         }else{
             Log.d("cancel", "cacelPhoto")
         }
 
         if (resultCode == RESULT_OK && requestCode == cameraRequestFotoBarang){
-            val bitmap: Bitmap = data?.extras?.get("data") as Bitmap
+            val mPhotoCompetitorPath = data?.getStringExtra("Path")
 
-            val file_path = StorageUtils.getDirectory(StorageUtils.DIRECTORY_ROOT) +
-                    "/Images"
-            val dir = File(file_path)
-            if (!dir.exists()) dir.mkdirs()
-            val file = File(dir, "mims" + "picturesFotoBarang${UUID.randomUUID()}" + ".png")
-            val fOut = FileOutputStream(file)
-
-            bitmap.compress(Bitmap.CompressFormat.PNG, 85, fOut)
-            fOut.flush()
-            fOut.close()
-
-            binding.idFileNameBarang.setImageBitmap(bitmap)
-            filePathFotoBarang = file.toString()
+            binding.idFileNameBarang.setImageBitmap(BitmapFactory.decodeFile(mPhotoCompetitorPath))
+            filePathFotoBarang = mPhotoCompetitorPath.toString()
         }else{
             Log.d("cancel", "cacelPhoto")
         }
@@ -469,8 +455,6 @@ class DetailPenerimaanActivity : AppCompatActivity(),Loadable {
 
                 adapter.setPoList(packagingList)
                 Toast.makeText(this@DetailPenerimaanActivity, "Scanning success : ${result.contents}",Toast.LENGTH_SHORT).show()
-                startActivity(Intent(this, PenerimaanActivity::class.java))
-                finish()
             }
         }catch (e: Exception){
             Log.e("checkException", e.toString())

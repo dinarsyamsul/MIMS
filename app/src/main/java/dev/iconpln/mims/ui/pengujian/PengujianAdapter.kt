@@ -44,6 +44,18 @@ class PengujianAdapter(val lisModels: MutableList<TPengujian>, var listener: OnA
                 txtStatus.text = pengujian.statusUji.trim()
             }
 
+            if (pengujian.statusUji == "LOLOS") {
+                binding.txtStatus.setBackgroundColor(Color.parseColor("#4600C637"))
+            }else if (pengujian.statusUji == "TIDAK LOLOS"){
+                binding.txtStatus.setBackgroundColor(Color.parseColor("#3EB80F0A"))
+            }else if (pengujian.statusUji == "BELUM UJI"){
+                binding.txtStatus.setBackgroundColor(Color.parseColor("#41F8951D"))
+            }else if (pengujian.statusUji == "SEDANG UJI"){
+                binding.txtStatus.setBackgroundColor(Color.parseColor("#52F8951D"))
+            }else {
+                binding.txtStatus.setBackgroundColor(Color.parseColor("#FFFFFF"))
+            }
+
             itemView.setOnClickListener { listener.onClick(pengujian) }
         }
     }

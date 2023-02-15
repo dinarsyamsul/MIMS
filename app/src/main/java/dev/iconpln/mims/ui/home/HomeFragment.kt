@@ -1,21 +1,19 @@
 package dev.iconpln.mims.ui.home
 
 import android.app.AlertDialog
+import android.app.Dialog
 import android.content.Context
 import android.content.Intent
 import android.os.Build
 import android.os.Bundle
-import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.Button
+import android.widget.TextView
 import android.widget.Toast
-import androidx.activity.viewModels
+import androidx.appcompat.widget.AppCompatButton
 import androidx.cardview.widget.CardView
 import androidx.fragment.app.Fragment
-import androidx.lifecycle.asLiveData
-import androidx.lifecycle.lifecycleScope
 import com.google.android.material.bottomsheet.BottomSheetDialog
 import dev.iconpln.mims.HomeActivity
 import dev.iconpln.mims.MyApplication
@@ -24,18 +22,13 @@ import dev.iconpln.mims.data.local.database.*
 import dev.iconpln.mims.data.remote.response.LoginResponse
 import dev.iconpln.mims.data.remote.service.ApiConfig
 import dev.iconpln.mims.databinding.FragmentHomeBinding
-import dev.iconpln.mims.ui.auth.LoginActivity
 import dev.iconpln.mims.ui.monitoring.MonitoringActivity
 import dev.iconpln.mims.ui.pemeriksaan.PemeriksaanActivity
-import dev.iconpln.mims.ui.pemeriksaan.PemeriksaanViewModel
 import dev.iconpln.mims.ui.pengiriman.PengirimanActivity
 import dev.iconpln.mims.ui.pnerimaan.PenerimaanActivity
-import dev.iconpln.mims.ui.rating.RatingActivity
-import dev.iconpln.mims.ui.role.pabrikan.arttribute_material.DataAtributMaterialActivity
-import dev.iconpln.mims.ui.role.pabrikan.pengujian.PengujianActivity
+import dev.iconpln.mims.ui.arttribute_material.DataAtributMaterialActivity
+import dev.iconpln.mims.ui.pengujian.PengujianActivity
 import dev.iconpln.mims.ui.tracking.TrackingHistoryActivity
-import dev.iconpln.mims.ui.transmission_history.TransmissionActivity
-import dev.iconpln.mims.utils.DialogUtils
 import dev.iconpln.mims.utils.Helper
 import dev.iconpln.mims.utils.SessionManager
 import dev.iconpln.mims.utils.SharedPrefsUtils
@@ -44,6 +37,7 @@ import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.withContext
 import org.joda.time.DateTimeUtils
+import org.w3c.dom.Text
 
 class HomeFragment : Fragment() {
 
@@ -72,6 +66,7 @@ class HomeFragment : Fragment() {
         var username = SharedPrefsUtils.getStringPreference(requireActivity(),"username","14.Hexing_Electric")!!
         var mPassword = SharedPrefsUtils.getStringPreference(requireActivity(),"password","12345")!!
 
+        binding.txtdash1.text = "John Doe"
 
         var listPrivilege = daoSession.tPrivilegeDao.queryBuilder().list()
 
@@ -80,24 +75,34 @@ class HomeFragment : Fragment() {
         }
 
         binding.btnSync.setOnClickListener {
-            val builder = AlertDialog.Builder(requireActivity())
-            builder.setTitle("Yakin untuk melakukan synchronize data?")
-            builder.setMessage("Klik ya untuk memulai")
+            val dialog = Dialog(requireActivity())
+            dialog.setContentView(R.layout.popup_validation);
+            dialog.window!!.setLayout(ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.WRAP_CONTENT);
+            dialog.setCancelable(false);
+            dialog.window!!.attributes.windowAnimations = R.style.DialogUpDown;
+            val btnYa = dialog.findViewById(R.id.btn_ya) as AppCompatButton
+            val btnTidak = dialog.findViewById(R.id.btn_tidak) as AppCompatButton
+            val message = dialog.findViewById(R.id.message) as TextView
+            val textMessage = dialog.findViewById(R.id.txt_message) as TextView
 
-            builder.setPositiveButton(android.R.string.yes) { dialog, which ->
-                    btnSync(requireActivity(),
+            message.text = "Yakin untuk melakukan synchronize data?"
+            textMessage.text = "Klik ya untuk melakukan synchronize data"
+
+            btnTidak.setOnClickListener {
+                dialog.dismiss();
+            }
+
+            btnYa.setOnClickListener {
+                btnSync(requireActivity(),
                     daoSession,username, mPassword,"",
                     mAndroidId,mAppVersion,mDeviceData,mIpAddress,
                     androidVersion,dateTimeUtc,session)
                 Toast.makeText(requireActivity(),
                     android.R.string.yes, Toast.LENGTH_SHORT).show()
+                dialog.dismiss()
             }
 
-            builder.setNegativeButton(android.R.string.no) { dialog, which ->
-                Toast.makeText(requireActivity(),
-                    android.R.string.no, Toast.LENGTH_SHORT).show()
-            }
-            builder.show()
+            dialog.show();
         }
 
         binding.btnMonitoring.setOnClickListener {
@@ -117,18 +122,13 @@ class HomeFragment : Fragment() {
             val view = layoutInflater.inflate(R.layout.bottom_sheet_dialog, null)
             val btnPemeriksaan = view.findViewById<CardView>(R.id.cv_pemeriksaan)
             val btnPenerimaan = view.findViewById<CardView>(R.id.cv_penerimaan)
-            val btnRating = view.findViewById<CardView>(R.id.cv_rating)
 
             btnPenerimaan.setOnClickListener {
-                startActivity(Intent(requireActivity(), PenerimaanActivity::class.java))
-            }
-
-            btnPemeriksaan.setOnClickListener {
                 startActivity(Intent(requireActivity(), PemeriksaanActivity::class.java))
             }
 
-            btnRating.setOnClickListener {
-                startActivity(Intent(requireActivity(), RatingActivity::class.java))
+            btnPemeriksaan.setOnClickListener {
+                startActivity(Intent(requireActivity(), PenerimaanActivity::class.java))
             }
 
             dialog.setCancelable(true)

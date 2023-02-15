@@ -1,14 +1,21 @@
 package dev.iconpln.mims.ui.tracking
 
 
+import android.app.Dialog
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.util.Log
+import android.view.Window
+import android.view.WindowManager
+import android.widget.Button
 import android.widget.GridLayout
+import android.widget.ImageButton
 import android.widget.Toast
 import androidx.activity.viewModels
+import androidx.appcompat.widget.AppCompatButton
 import androidx.recyclerview.widget.GridLayoutManager
 import androidx.recyclerview.widget.LinearLayoutManager
+import dev.iconpln.mims.R
 import dev.iconpln.mims.data.remote.response.DatasItem
 import dev.iconpln.mims.data.remote.response.HistorisItem
 import dev.iconpln.mims.databinding.ActivitySpecMaterialTrackingBinding
@@ -42,7 +49,7 @@ class SpecMaterialActivity : AppCompatActivity() {
 
         rvHistoryAdapter= HistorySpecAdapter(arrayListOf(), object: HistorySpecAdapter.OnAdapterListener {
             override fun onClick(data: HistorisItem) {
-
+                showPopUp()
             }
         })
 
@@ -75,6 +82,21 @@ class SpecMaterialActivity : AppCompatActivity() {
             }
         }
 
+    }
+
+    private fun showPopUp() {
+        val dialog = Dialog(this@SpecMaterialActivity)
+        dialog.setContentView(R.layout.pop_up_tracking_history_detail)
+        val btnOk = dialog.findViewById(R.id.btn_ok) as Button
+
+        btnOk.setOnClickListener {
+            dialog.dismiss()
+        }
+
+        val window : Window = dialog.window!!
+        window.setLayout(WindowManager.LayoutParams.FILL_PARENT, WindowManager.LayoutParams.WRAP_CONTENT)
+        window.setWindowAnimations(R.style.DialogUpDown)
+        dialog.show()
     }
 
     private fun fetchDataLocal(datas:List<DatasItem>) {

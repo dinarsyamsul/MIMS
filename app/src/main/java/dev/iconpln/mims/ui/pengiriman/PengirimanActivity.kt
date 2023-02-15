@@ -62,6 +62,8 @@ class PengirimanActivity : AppCompatActivity() {
             }
         })
 
+        binding.btnBack.setOnClickListener { onBackPressed() }
+
         fetchDataLocal()
     }
 

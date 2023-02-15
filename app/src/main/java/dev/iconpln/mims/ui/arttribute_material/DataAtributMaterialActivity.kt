@@ -1,4 +1,4 @@
-package dev.iconpln.mims.ui.role.pabrikan.arttribute_material
+package dev.iconpln.mims.ui.arttribute_material
 
 import android.R
 import android.app.DatePickerDialog
@@ -15,8 +15,6 @@ import dev.iconpln.mims.data.local.database.DaoSession
 import dev.iconpln.mims.data.local.database.TMaterial
 import dev.iconpln.mims.data.local.database.TMaterialDao
 import dev.iconpln.mims.databinding.ActivityDataAtributMaterialBinding
-import dev.iconpln.mims.ui.arttribute_material.DataAttributeAdapter
-import dev.iconpln.mims.ui.arttribute_material.MaterialViewModel
 import dev.iconpln.mims.ui.arttribute_material.detail_attribute.DetailDataAtributeMaterialActivity
 import java.text.SimpleDateFormat
 import java.util.*
@@ -60,6 +58,8 @@ class DataAtributMaterialActivity : AppCompatActivity() {
             setCategoryTahun()
             setBatcSn()
             setDatePicker()
+
+            btnBack.setOnClickListener { onBackPressed() }
         }
     }
 

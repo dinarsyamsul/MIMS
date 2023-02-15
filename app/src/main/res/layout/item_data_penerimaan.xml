@@ -36,7 +36,7 @@
                 android:layout_marginStart="16dp"
                 android:layout_marginTop="16dp"
                 android:fontFamily="@font/montserrat_reguler"
-                android:text="No. Delivery Order"
+                android:text="No. DO"
                 android:textSize="10sp"
                 android:textColor="#3F3D56"
                 app:layout_constraintStart_toStartOf="@+id/vw_line"
@@ -57,25 +57,42 @@
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_marginStart="5dp"
-                android:layout_marginEnd="5dp"
                 android:fontFamily="@font/montserrat_reguler"
-                android:text="Tanggal terkirim 01-01-2023"
+                android:text="Tgl PO 01-01-2023"
                 android:textSize="8dp"
                 app:layout_constraintBottom_toBottomOf="@+id/vw_circle"
-                app:layout_constraintEnd_toStartOf="@+id/is_checked"
-                app:layout_constraintHorizontal_bias="0.0"
                 app:layout_constraintStart_toEndOf="@+id/vw_circle"
                 app:layout_constraintTop_toTopOf="@+id/vw_circle"
                 app:layout_constraintVertical_bias="0.545" />
 
             <ImageView
-                android:id="@+id/is_checked"
-                android:layout_width="20dp"
-                android:layout_height="20dp"
+                android:id="@+id/iv_delivery"
+                android:layout_width="30dp"
+                android:layout_height="30dp"
                 android:layout_marginEnd="16dp"
                 android:visibility="visible"
-                android:src="@drawable/ic_checked"
+                android:src="@drawable/ic_input_delivery_to_rating_active"
                 app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintTop_toTopOf="@+id/txt_tgl_kirim" />
+
+            <ImageView
+                android:id="@+id/iv_doc"
+                android:layout_width="30dp"
+                android:layout_height="30dp"
+                android:layout_marginEnd="10dp"
+                android:src="@drawable/ic_input_doc_done"
+                android:visibility="visible"
+                app:layout_constraintEnd_toStartOf="@+id/iv_delivery"
+                app:layout_constraintTop_toTopOf="@+id/txt_tgl_kirim" />
+
+            <ImageView
+                android:id="@+id/iv_input_person"
+                android:layout_width="30dp"
+                android:layout_height="30dp"
+                android:layout_marginEnd="10dp"
+                android:src="@drawable/ic_input_petugas_done"
+                android:visibility="visible"
+                app:layout_constraintEnd_toStartOf="@+id/iv_doc"
                 app:layout_constraintTop_toTopOf="@+id/txt_tgl_kirim" />
 
             <TextView
@@ -104,7 +121,7 @@
                 android:layout_height="wrap_content"
                 android:layout_marginStart="5dp"
                 android:fontFamily="@font/montserrat_reguler"
-                android:text="Vendor Asal"
+                android:text="No. PO SAP"
                 android:textColor="#3F3D56"
                 android:textSize="10sp"
                 app:layout_constraintEnd_toStartOf="@+id/imageView1"
@@ -215,7 +232,7 @@
                 android:layout_height="wrap_content"
                 android:layout_marginStart="5dp"
                 android:fontFamily="@font/montserrat_reguler"
-                android:text="Unit Tujuan"
+                android:text="Vendor"
                 android:textColor="#3F3D56"
                 android:textSize="10sp"
                 app:layout_constraintBottom_toBottomOf="@+id/imageView2"

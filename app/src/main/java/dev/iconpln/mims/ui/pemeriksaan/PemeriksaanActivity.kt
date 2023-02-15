@@ -17,11 +17,14 @@ import dev.iconpln.mims.data.local.database.DaoSession
 import dev.iconpln.mims.data.local.database.TPemeriksaan
 import dev.iconpln.mims.data.local.database.TPemeriksaanDetail
 import dev.iconpln.mims.data.local.database.TPemeriksaanDetailDao
+import dev.iconpln.mims.data.local.database.TPos
 import dev.iconpln.mims.data.local.database.TPosPenerimaan
 import dev.iconpln.mims.databinding.ActivityPemeriksaanBinding
+import dev.iconpln.mims.ui.pemeriksaan.input_petugas_penerimaan.InputPetugasPenerimaanActivity
 import dev.iconpln.mims.ui.pemeriksaan.pemeriksaan_detail.PemeriksaanDetailActivity
 import dev.iconpln.mims.ui.pnerimaan.PenerimaanAdapter
 import dev.iconpln.mims.ui.pnerimaan.PenerimaanViewModel
+import dev.iconpln.mims.ui.rating.RatingActivity
 
 class PemeriksaanActivity : AppCompatActivity() {
     private lateinit var binding: ActivityPemeriksaanBinding
@@ -42,21 +45,49 @@ class PemeriksaanActivity : AppCompatActivity() {
         listPemeriksaan = daoSession.tPemeriksaanDao.queryBuilder().list()
 
 
-        viewModel.getPemeriksaan(daoSession)
+        viewModel.setPemeriksaan(daoSession,listPemeriksaan)
 
         adapter = PemeriksaanAdapter(arrayListOf(), object : PemeriksaanAdapter.OnAdapterListener{
             override fun onClick(po: TPemeriksaan) {
-                val listPemeriksaanDetail = daoSession.tPemeriksaanDetailDao.queryBuilder().where(
-                    TPemeriksaanDetailDao.Properties.NoPemeriksaan.eq(po.noPemeriksaan)
-                ).list()
                 if (po.isDone == 1){
-                    Toast.makeText(this@PemeriksaanActivity, "Anda sudah melakukan pemeriksaan terkait data ini", Toast.LENGTH_SHORT).show()
+                    Toast.makeText(this@PemeriksaanActivity, "Kamu sudah menyelesaikan DO ini", Toast.LENGTH_SHORT).show()
                 }else{
-                    viewModel.setDataDetailPemeriksaan(daoSession,listPemeriksaanDetail,po.noPemeriksaan)
-                    Log.d("checkSetDetail", "oke")
-                    startActivity(Intent(this@PemeriksaanActivity, PemeriksaanDetailActivity::class.java)
-                        .putExtra("noPemeriksaan", po.noPemeriksaan))
+                    startActivity(Intent(this@PemeriksaanActivity, InputPetugasPenerimaanActivity::class.java)
+                        .putExtra("noDo", po.noDoSmar))
                 }
+            }
+
+        }, object: PemeriksaanAdapter.OnAdapterListenerDoc{
+            override fun onClick(po: TPemeriksaan) {
+                if (po.isDone == 1){
+                    Toast.makeText(this@PemeriksaanActivity, "Kamu sudah menyelesaikan DO ini", Toast.LENGTH_SHORT).show()
+                }else{
+                    if (po.state != 2){
+                        Toast.makeText(this@PemeriksaanActivity, "Kamu belum bisa melakukan laporan dokumen", Toast.LENGTH_SHORT).show()
+                    }else{
+                        startActivity(Intent(this@PemeriksaanActivity, PemeriksaanDetailActivity::class.java)
+                            .putExtra("noPemeriksaan", po.noPemeriksaan)
+                            .putExtra("noDo", po.noDoSmar))
+                    }
+                }
+            }
+
+        }, object : PemeriksaanAdapter.OnAdapterListenerRate {
+            override fun onClick(po: TPemeriksaan) {
+                if (po.isDone == 1){
+                    Toast.makeText(this@PemeriksaanActivity, "Kamu sudah menyelesaikan DO ini", Toast.LENGTH_SHORT).show()
+                }else{
+                    if (po.state != 2){
+                        Toast.makeText(this@PemeriksaanActivity, "Kamu belum bisa melakukan laporan dokumen", Toast.LENGTH_SHORT).show()
+                    }else{
+                        startActivity(Intent(this@PemeriksaanActivity, RatingActivity::class.java)
+                            .putExtra("noPemeriksaan", po.noPemeriksaan)
+                            .putExtra("noDo", po.noDoSmar))
+                    }
+                }
+//                startActivity(Intent(this@PemeriksaanActivity, RatingActivity::class.java)
+//                        .putExtra("noPemeriksaan", po.noPemeriksaan)
+//                        .putExtra("noDo", po.noDoSmar))
             }
 
         })
@@ -73,6 +104,7 @@ class PemeriksaanActivity : AppCompatActivity() {
         }
 
         with(binding){
+            btnBack.setOnClickListener { onBackPressed() }
             rvPemeriksaan.adapter = adapter
             rvPemeriksaan.setHasFixedSize(true)
             rvPemeriksaan.layoutManager = LinearLayoutManager(this@PemeriksaanActivity,LinearLayoutManager.VERTICAL, false)
@@ -98,11 +130,11 @@ class PemeriksaanActivity : AppCompatActivity() {
             })
 
             val statusArray = arrayOf(
-                "BELUM DIPERIKSA"
+                "TERBARU","TERLAMA"
             )
             val adapterStatus = ArrayAdapter(this@PemeriksaanActivity, android.R.layout.simple_dropdown_item_1line, statusArray)
-            dropdownStatusPemeriksaan.setAdapter(adapterStatus)
-            dropdownStatusPemeriksaan.setOnItemClickListener { parent, view, position, id ->
+            dropdownUrutkan.setAdapter(adapterStatus)
+            dropdownUrutkan.setOnItemClickListener { parent, view, position, id ->
                 statusPemeriksaan = statusArray[position]
                 if (noDo.isNotEmpty()){
                     val filter = listPemeriksaan.filter { it.noDoSmar.lowercase().contains(noDo.lowercase())

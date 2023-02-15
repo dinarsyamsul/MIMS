@@ -34,19 +34,19 @@ class DetailPenerimaanAdapter(val lisModels: MutableList<TPosDetailPenerimaan>, 
         fun bind(po : TPosDetailPenerimaan){
             with(binding){
                 txtNoPackaging.text = po.noPackaging
-                checkReceived.setOnCheckedChangeListener { buttonView, isChecked ->
-                    if (isChecked) {
-                        po.isChecked = 1
-                        daoSession.update(po)
-                    }else{
-                        po.isChecked = 0
-                        daoSession.update(po)
-                    }
-                }
-                if(po.isChecked == 1){
-                    checkReceived.isChecked = true
-                    checkReceived.isEnabled = false
-                }
+//                checkReceived.setOnCheckedChangeListener { buttonView, isChecked ->
+//                    if (isChecked) {
+//                        po.isChecked = 1
+//                        daoSession.update(po)
+//                    }else{
+//                        po.isChecked = 0
+//                        daoSession.update(po)
+//                    }
+//                }
+//                if(po.isChecked == 1){
+//                    checkReceived.isChecked = true
+//                    checkReceived.isEnabled = false
+//                }
             }
 
             itemView.setOnClickListener { listener.onClick(po) }

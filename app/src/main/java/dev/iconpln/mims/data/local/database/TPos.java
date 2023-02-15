@@ -26,6 +26,7 @@ public class TPos {
     private String NoDoMims;
     private String DoStatus;
     private String Expeditions;
+    private String KodeStatusDoMims;
     private String CourierPersonName;
     private String KdPabrikan;
     private String MaterialGroup;
@@ -40,7 +41,7 @@ public class TPos {
     }
 
     @Generated
-    public TPos(Long id, String StorLoc, String Total, String TlskNo, String PoSapNo, String PoMpNo, String NoDoSmar, Integer LeadTime, String Storloc, String CreatedDate, String PlanCodeNo, String PlantName, String NoDoMims, String DoStatus, String Expeditions, String CourierPersonName, String KdPabrikan, String MaterialGroup, String NamaKategoriMaterial) {
+    public TPos(Long id, String StorLoc, String Total, String TlskNo, String PoSapNo, String PoMpNo, String NoDoSmar, Integer LeadTime, String Storloc, String CreatedDate, String PlanCodeNo, String PlantName, String NoDoMims, String DoStatus, String Expeditions, String KodeStatusDoMims, String CourierPersonName, String KdPabrikan, String MaterialGroup, String NamaKategoriMaterial) {
         this.id = id;
         this.StorLoc = StorLoc;
         this.Total = Total;
@@ -56,6 +57,7 @@ public class TPos {
         this.NoDoMims = NoDoMims;
         this.DoStatus = DoStatus;
         this.Expeditions = Expeditions;
+        this.KodeStatusDoMims = KodeStatusDoMims;
         this.CourierPersonName = CourierPersonName;
         this.KdPabrikan = KdPabrikan;
         this.MaterialGroup = MaterialGroup;
@@ -180,6 +182,14 @@ public class TPos {
 
     public void setExpeditions(String Expeditions) {
         this.Expeditions = Expeditions;
+    }
+
+    public String getKodeStatusDoMims() {
+        return KodeStatusDoMims;
+    }
+
+    public void setKodeStatusDoMims(String KodeStatusDoMims) {
+        this.KodeStatusDoMims = KodeStatusDoMims;
     }
 
     public String getCourierPersonName() {

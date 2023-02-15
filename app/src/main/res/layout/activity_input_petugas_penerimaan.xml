@@ -1,0 +1,223 @@
+<?xml version="1.0" encoding="utf-8"?>
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    tools:context=".ui.pemeriksaan.input_petugas_penerimaan.InputPetugasPenerimaanActivity">
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:id="@+id/constraint_detail1"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:visibility="visible"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent">
+
+        <ImageView
+            android:id="@+id/header"
+            android:layout_width="match_parent"
+            android:layout_height="84dp"
+            android:background="@drawable/dashboard"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <ImageButton
+            android:id="@+id/btn_back"
+            android:layout_width="50dp"
+            android:layout_height="50dp"
+            android:layout_marginStart="29dp"
+            android:background="#00FFFFFF"
+            android:src="@drawable/ic_baseline_arrow_back_ios_24"
+            app:layout_constraintBottom_toBottomOf="@+id/textView3"
+            app:layout_constraintEnd_toStartOf="@id/textView3"
+            app:layout_constraintHorizontal_chainStyle="spread_inside"
+            app:layout_constraintStart_toStartOf="@+id/header"
+            app:layout_constraintTop_toTopOf="@+id/textView3" />
+
+        <TextView
+            android:id="@+id/textView3"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginEnd="80dp"
+            android:fontFamily="@font/montserrat_reguler"
+            android:text="Input Petugas Penerimaan"
+            android:textAlignment="center"
+            android:textColor="@color/white"
+            android:textSize="16dp"
+            android:textStyle="bold"
+            app:layout_constraintBottom_toBottomOf="@+id/header"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toEndOf="@+id/btn_back"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <TextView
+            android:id="@+id/lbl_tanggal_diterima"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="25dp"
+            android:layout_marginTop="20dp"
+            android:text="Tanggal Diterima"
+            android:textColor="#3F3D56"
+            android:textSize="14sp"
+            android:textStyle="bold"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/header" />
+
+        <EditText
+            android:id="@+id/edt_tanggal_diterima"
+            android:layout_width="0dp"
+            android:layout_height="50dp"
+            android:layout_marginTop="10dp"
+            android:layout_marginEnd="25dp"
+            android:background="@drawable/srchview"
+            android:drawableEnd="@drawable/ic_baseline_date_range_24"
+            android:focusable="false"
+            android:fontFamily="@font/montserrat_reguler"
+            android:paddingLeft="20dp"
+            android:paddingRight="20dp"
+            android:textSize="12sp"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="@+id/lbl_tanggal_diterima"
+            app:layout_constraintTop_toBottomOf="@+id/lbl_tanggal_diterima" />
+
+        <TextView
+            android:id="@+id/lbl_petugas_penerima"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="10dp"
+            android:text="Petugas Penerima"
+            android:textColor="#3F3D56"
+            android:textSize="14sp"
+            android:textStyle="bold"
+            app:layout_constraintStart_toStartOf="@+id/edt_tanggal_diterima"
+            app:layout_constraintTop_toBottomOf="@+id/edt_tanggal_diterima" />
+
+        <EditText
+            android:id="@+id/edt_petugas_penerima"
+            android:layout_width="0dp"
+            android:layout_height="50dp"
+            android:layout_marginTop="10dp"
+            android:background="@drawable/srchview"
+            android:fontFamily="@font/montserrat_reguler"
+            android:hint="Nama petugas penerima"
+            android:paddingLeft="20dp"
+            android:paddingRight="20dp"
+            android:textSize="12sp"
+            app:layout_constraintEnd_toEndOf="@+id/edt_tanggal_diterima"
+            app:layout_constraintStart_toStartOf="@+id/lbl_petugas_penerima"
+            app:layout_constraintTop_toBottomOf="@+id/lbl_petugas_penerima" />
+
+        <TextView
+            android:id="@+id/lbl_nama_kurir"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="10dp"
+            android:text="Nama Kurir"
+            android:textColor="#3F3D56"
+            android:textSize="14sp"
+            android:textStyle="bold"
+            app:layout_constraintStart_toStartOf="@+id/edt_tanggal_diterima"
+            app:layout_constraintTop_toBottomOf="@+id/edt_petugas_penerima" />
+
+        <EditText
+            android:id="@+id/edt_nama_kurir"
+            android:layout_width="0dp"
+            android:layout_height="50dp"
+            android:layout_marginTop="10dp"
+            android:background="@drawable/srchview"
+            android:fontFamily="@font/montserrat_reguler"
+            android:hint="Nama ekspedisi"
+            android:paddingLeft="20dp"
+            android:paddingRight="20dp"
+            android:textSize="12sp"
+            app:layout_constraintEnd_toEndOf="@+id/edt_petugas_penerima"
+            app:layout_constraintStart_toStartOf="@+id/lbl_nama_kurir"
+            app:layout_constraintTop_toBottomOf="@+id/lbl_nama_kurir" />
+
+        <TextView
+            android:id="@+id/lbl_ekspedisi"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="10dp"
+            android:text="Nama Ekspedisi"
+            android:textColor="#3F3D56"
+            android:textSize="14sp"
+            android:textStyle="bold"
+            app:layout_constraintStart_toStartOf="@+id/edt_tanggal_diterima"
+            app:layout_constraintTop_toBottomOf="@+id/edt_nama_kurir" />
+
+        <EditText
+            android:id="@+id/edt_ekspedisi"
+            android:layout_width="0dp"
+            android:layout_height="50dp"
+            android:layout_marginTop="10dp"
+            android:background="@drawable/srchview"
+            android:fontFamily="@font/montserrat_reguler"
+            android:hint="Nama ekspedisi"
+            android:paddingLeft="20dp"
+            android:paddingRight="20dp"
+            android:textSize="12sp"
+            app:layout_constraintEnd_toEndOf="@+id/edt_nama_kurir"
+            app:layout_constraintStart_toStartOf="@+id/lbl_ekspedisi"
+            app:layout_constraintTop_toBottomOf="@+id/lbl_ekspedisi" />
+
+        <TextView
+            android:id="@+id/lbl_foto_surat_barang"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="10dp"
+            android:text="Dokumentasi Foto"
+            android:textColor="#3F3D56"
+            android:textSize="14sp"
+            android:textStyle="bold"
+            app:layout_constraintStart_toStartOf="@+id/edt_tanggal_diterima"
+            app:layout_constraintTop_toBottomOf="@+id/edt_ekspedisi" />
+
+        <ImageButton
+            android:id="@+id/btn_upload_photo"
+            android:layout_width="0dp"
+            android:layout_height="40dp"
+            android:layout_marginTop="10dp"
+            android:background="@drawable/button_upload"
+            android:drawableStart="@drawable/iconupload"
+            android:fontFamily="@font/montserrat_reguler"
+            android:paddingLeft="20dp"
+            android:paddingRight="20dp"
+            app:layout_constraintStart_toStartOf="@+id/lbl_foto_surat_barang"
+            app:layout_constraintTop_toBottomOf="@+id/lbl_foto_surat_barang" />
+
+        <androidx.recyclerview.widget.RecyclerView
+            android:id="@+id/rv_add_foto"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="10dp"
+            android:visibility="visible"
+            app:layout_constraintEnd_toEndOf="@+id/edt_ekspedisi"
+            app:layout_constraintStart_toStartOf="@+id/btn_upload_photo"
+            app:layout_constraintTop_toBottomOf="@+id/btn_upload_photo"
+            tools:listitem="@layout/item_photo" />
+
+
+        <androidx.appcompat.widget.AppCompatButton
+            android:id="@+id/btn_simpan"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="20dp"
+            android:layout_marginBottom="20dp"
+            android:background="@drawable/br_btn"
+            android:elevation="8dp"
+            android:fontFamily="@font/montserrat_reguler"
+            android:text="Simpan"
+            android:textAllCaps="false"
+            android:textColor="#FFFFFF"
+            android:textStyle="bold"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="@+id/edt_ekspedisi"
+            app:layout_constraintStart_toStartOf="@+id/edt_ekspedisi"
+            app:layout_constraintTop_toBottomOf="@+id/rv_add_foto" />
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+</ScrollView>

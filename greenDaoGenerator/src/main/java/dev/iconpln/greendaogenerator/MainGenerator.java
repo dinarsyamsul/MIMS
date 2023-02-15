@@ -188,6 +188,7 @@ public class MainGenerator {
         tPos.addStringProperty("NoDoMims");
         tPos.addStringProperty("DoStatus");
         tPos.addStringProperty("Expeditions");
+        tPos.addStringProperty("KodeStatusDoMims");
         tPos.addStringProperty("CourierPersonName");
         tPos.addStringProperty("KdPabrikan");
         tPos.addStringProperty("MaterialGroup");
@@ -300,11 +301,30 @@ public class MainGenerator {
         tPemeriksaanDetail.addStringProperty("NoDoSmar");
         tPemeriksaanDetail.addStringProperty("NoMaterail");
         tPemeriksaanDetail.addStringProperty("NoPackaging");
-        tPemeriksaanDetail.addStringProperty("Status");//REJECTED || APPROVED
+        tPemeriksaanDetail.addStringProperty("Kategori");
+        tPemeriksaanDetail.addStringProperty("StatusSn");
+        tPemeriksaanDetail.addIntProperty("IsChecked");
         tPemeriksaanDetail.addIntProperty("IsDone");
 
+        // endregion
+
+        // region photo
+        Entity tPhoto = schema.addEntity("TPhoto");
+        tPhoto.addIdProperty();
+        tPhoto.addIntProperty("PhotoNumber");
+        tPhoto.addStringProperty("NoDo");
+        tPhoto.addStringProperty("Path");
+        tPhoto.addStringProperty("Type");
 
         // endregion
+
+        Entity tRating = schema.addEntity("TRating");
+        tRating.addIdProperty();
+        tRating.addStringProperty("KdRating");
+        tRating.addStringProperty("Keterangan");
+        tRating.addIntProperty("Nilai");
+        tRating.addStringProperty("Type");
+        tRating.addIntProperty("IsActive");
 
         new DaoGenerator().generateAll(schema, "../MIMS-Master/app/src/main/java");
 

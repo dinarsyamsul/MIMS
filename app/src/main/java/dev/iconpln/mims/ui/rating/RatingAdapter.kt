@@ -4,19 +4,18 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
-import dev.iconpln.mims.R
-import dev.iconpln.mims.data.local.database.TPemeriksaan
 import dev.iconpln.mims.data.local.database.TPemeriksaanDetail
 import dev.iconpln.mims.data.local.database.TPosPenerimaan
 import dev.iconpln.mims.databinding.ItemDataPenerimaanBinding
 import dev.iconpln.mims.databinding.ItemDataRatingBinding
+import dev.iconpln.mims.databinding.ItemPackagingBinding
 
-class RatingAdapter(val lisModels: MutableList<TPemeriksaan>, var listener: OnAdapterListener)
+class RatingAdapter(val lisModels: MutableList<TPemeriksaanDetail>, var listener: OnAdapterListener)
     : RecyclerView.Adapter<RatingAdapter.ViewHolder>() {
 
-    fun setRatingList(rat: List<TPemeriksaan>){
+    fun setPedList(ped: List<TPemeriksaanDetail>){
         lisModels.clear()
-        lisModels.addAll(rat)
+        lisModels.addAll(ped)
         notifyDataSetChanged()
     }
 
@@ -24,7 +23,7 @@ class RatingAdapter(val lisModels: MutableList<TPemeriksaan>, var listener: OnAd
         parent: ViewGroup,
         viewType: Int
     ): ViewHolder {
-        val binding = ItemDataRatingBinding.inflate(LayoutInflater.from(parent.context), parent, false)
+        val binding = ItemPackagingBinding.inflate(LayoutInflater.from(parent.context), parent, false)
         return ViewHolder(binding)
     }
 
@@ -34,21 +33,10 @@ class RatingAdapter(val lisModels: MutableList<TPemeriksaan>, var listener: OnAd
 
     override fun getItemCount(): Int = lisModels.size
 
-    inner class ViewHolder(val binding: ItemDataRatingBinding): RecyclerView.ViewHolder(binding.root){
-        fun bind(po : TPemeriksaan){
+    inner class ViewHolder(val binding: ItemPackagingBinding): RecyclerView.ViewHolder(binding.root){
+        fun bind(po : TPemeriksaanDetail){
             with(binding){
-                txtDeliveryOrder.text = po.noDoSmar
-                txtStatusPenerimaan.text = po.doStatus
-                txtStatusPemeriksaan.text = "-"
-                txtVendorAsal.text = po.plantName
-                txtTglKirim.text = "Tanggal dikirim ${po.createdDate}"
-                txtUnitTujuan.text = "-"
-
-                if(po.isDone == 1){
-                    ivIsRating.setImageResource(R.drawable.ic_israting)
-                }else{
-                    ivIsRating.setImageResource(R.drawable.ic_is_not_rating)
-                }
+                txtNoPackaging.text = po.noPackaging
             }
 
             itemView.setOnClickListener { listener.onClick(po) }
@@ -56,6 +44,6 @@ class RatingAdapter(val lisModels: MutableList<TPemeriksaan>, var listener: OnAd
     }
 
     interface OnAdapterListener{
-        fun onClick(po: TPemeriksaan)
+        fun onClick(po: TPemeriksaanDetail)
     }
 }

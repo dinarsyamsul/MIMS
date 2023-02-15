@@ -17,7 +17,7 @@ class PengujianDetailActivity : AppCompatActivity() {
     private lateinit var daoSession: DaoSession
     private lateinit var adapter: PengujianDetailAdapter
     private var serNumb: String = ""
-    private var filter: String = "ALL"
+    private var filter: String = ""
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -30,9 +30,15 @@ class PengujianDetailActivity : AppCompatActivity() {
             override fun onClick(pengujian: TPengujianDetails) {}
 
         })
+
         fetchLocalData()
 
         with(binding){
+
+            btnClose.setOnClickListener {
+                onBackPressed()
+            }
+
             rvPengujianDetail.adapter = adapter
             rvPengujianDetail.setHasFixedSize(true)
             rvPengujianDetail.layoutManager = LinearLayoutManager(this@PengujianDetailActivity, LinearLayoutManager.VERTICAL, false)
@@ -57,8 +63,7 @@ class PengujianDetailActivity : AppCompatActivity() {
             tabLayout.addOnTabSelectedListener(object : com.google.android.material.tabs.TabLayout.OnTabSelectedListener{
                 override fun onTabSelected(tab: com.google.android.material.tabs.TabLayout.Tab?) {
                     if (tab?.text == "ALL"){
-                        filter = tab?.text.toString()
-                        doSearch()
+                        fetchLocalData()
                     }else if (tab?.text == "LOLOS"){
                         filter = tab?.text.toString()
                         doSearch()

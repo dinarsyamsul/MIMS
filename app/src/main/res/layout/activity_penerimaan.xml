@@ -34,7 +34,7 @@
         android:layout_height="wrap_content"
         android:layout_marginEnd="80dp"
         android:fontFamily="@font/montserrat_reguler"
-        android:text="Daftar Penerimaan"
+        android:text="Data Penerimaan"
         android:textAlignment="center"
         android:textColor="@color/white"
         android:textSize="16dp"
@@ -45,17 +45,55 @@
         app:layout_constraintTop_toTopOf="parent" />
 
     <TextView
+        android:id="@+id/txt_urutkan"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="20dp"
+        android:layout_marginStart="24dp"
+        android:fontFamily="@font/montserrat_reguler"
+        android:text="Urutkan Berdasarkan"
+        android:textColor="#3F3D56"
+        android:textSize="16sp"
+        android:textStyle="bold"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/header" />
+
+    <com.google.android.material.textfield.TextInputLayout
+        android:id="@+id/tinp_status_penerimaan"
+        style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox.ExposedDropdownMenu"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="10dp"
+        android:layout_marginEnd="25dp"
+        app:hintAnimationEnabled="true"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="@+id/txt_urutkan"
+        app:layout_constraintTop_toBottomOf="@+id/txt_urutkan">
+
+        <AutoCompleteTextView
+            android:id="@+id/dropdown_status_penerimaan"
+            style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox.ExposedDropdownMenu"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:background="@drawable/txt_input_layout"
+            android:inputType="none"
+            android:text="Pilih Urutan" />
+
+    </com.google.android.material.textfield.TextInputLayout>
+
+    <TextView
         android:id="@+id/txt_nomorPo"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginStart="23dp"
-        android:layout_marginTop="20dp"
+        android:layout_marginTop="10dp"
         android:text="No. PO / No. DO"
         android:textColor="#3F3D56"
         android:textSize="14sp"
         android:textStyle="bold"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/header" />
+        app:layout_constraintTop_toBottomOf="@+id/tinp_status_penerimaan" />
 
     <EditText
         android:id="@+id/src_nomorPoDo"
@@ -75,62 +113,29 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/txt_nomorPo" />
 
-    <TextView
-        android:id="@+id/txt_kategori"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="24dp"
-        android:layout_marginTop="10dp"
-        android:fontFamily="@font/montserrat_reguler"
-        android:text="Status Penerimaan"
-        android:textColor="#3F3D56"
-        android:textSize="16sp"
-        android:textStyle="bold"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/src_nomorPoDo" />
-
-    <com.google.android.material.textfield.TextInputLayout
-        android:id="@+id/tinp_status_penerimaan"
-        style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox.ExposedDropdownMenu"
-        android:layout_width="0dp"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="10dp"
-        android:layout_marginEnd="25dp"
-        app:hintAnimationEnabled="true"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="@+id/txt_kategori"
-        app:layout_constraintTop_toBottomOf="@+id/txt_kategori">
-
-        <AutoCompleteTextView
-            android:id="@+id/dropdown_status_penerimaan"
-            style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox.ExposedDropdownMenu"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_weight="1"
-            android:background="@drawable/txt_input_layout"
-            android:inputType="none"
-            android:text="Pilih Kategori" />
-
-    </com.google.android.material.textfield.TextInputLayout>
-
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/rv_penerimaan"
         android:layout_width="0dp"
         android:layout_height="0dp"
-        android:layout_marginTop="10dp"
-        app:layout_constraintBottom_toBottomOf="parent"
+        android:layout_marginBottom="5dp"
+        app:layout_constraintBottom_toTopOf="@+id/lbl_total_data"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/tinp_status_penerimaan"
-        tools:listitem="@layout/item_data_penerimaan"/>
+        app:layout_constraintTop_toBottomOf="@+id/src_nomorPoDo"
+        tools:listitem="@layout/item_data_penerimaan" />
 
-<!--    <ProgressBar-->
-<!--        android:id="@+id/progress_bar"-->
-<!--        android:layout_width="wrap_content"-->
-<!--        android:layout_height="wrap_content"-->
-<!--        app:layout_constraintEnd_toEndOf="parent"-->
-<!--        app:layout_constraintStart_toStartOf="parent"-->
-<!--        app:layout_constraintTop_toTopOf="@+id/rv_penerimaan" />-->
+    <TextView
+        android:id="@+id/lbl_total_data"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="10dp"
+        android:layout_marginBottom="10dp"
+        android:text="Total : 10 Data"
+        android:textSize="10sp"
+        android:fontFamily="@font/montserrat_reguler"
+        android:textColor="#96979B"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintStart_toStartOf="parent" />
 
 
 </androidx.constraintlayout.widget.ConstraintLayout>

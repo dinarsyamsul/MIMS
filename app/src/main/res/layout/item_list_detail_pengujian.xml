@@ -34,26 +34,19 @@
                 app:layout_constraintTop_toTopOf="parent" />
 
             <TextView
-                android:id="@+id/txt_noBatch"
-                android:layout_width="wrap_content"
+                android:id="@+id/txt_sn"
+                android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_marginStart="16dp"
                 android:layout_marginTop="10dp"
+                android:layout_marginEnd="16dp"
                 android:fontFamily="@font/montserrat_reguler"
                 android:text="SN Material"
                 android:textColor="#3F3D56"
                 android:textSize="10sp"
+                app:layout_constraintEnd_toStartOf="@+id/status"
+                app:layout_constraintHorizontal_chainStyle="packed"
                 app:layout_constraintStart_toStartOf="@+id/vw_line"
-                app:layout_constraintTop_toTopOf="parent" />
-
-            <View
-                android:id="@+id/vw_circle"
-                android:layout_width="2dp"
-                android:layout_height="2dp"
-                android:layout_marginStart="8dp"
-                android:layout_marginTop="24dp"
-                android:background="@drawable/dashboard"
-                app:layout_constraintStart_toEndOf="@+id/txt_noBatch"
                 app:layout_constraintTop_toTopOf="parent" />
 
             <TextView
@@ -67,24 +60,26 @@
                 android:textColor="#3F3D56"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/txt_noBatch" />
+                app:layout_constraintTop_toBottomOf="@+id/txt_sn" />
 
             <TextView
                 android:id="@+id/status"
-                android:layout_width="0dp"
+                android:layout_width="wrap_content"
                 android:layout_height="match_parent"
                 android:layout_marginEnd="10dp"
-                android:paddingTop="3dp"
-                android:paddingBottom="3dp"
-                android:paddingLeft="10dp"
-                android:paddingRight="10dp"
-                android:text="Status"
-                android:textSize="7sp"
-                android:textColor="#D5C63733"
                 android:background="#60C63733"
-                app:layout_constraintBottom_toBottomOf="@+id/txt_noBatch"
+                android:paddingLeft="10dp"
+                android:paddingTop="3dp"
+                android:paddingRight="10dp"
+                android:paddingBottom="3dp"
+                android:text="Status"
+                android:textAlignment="center"
+                android:textColor="#D11717"
+                android:textSize="7sp"
+                app:layout_constraintBottom_toBottomOf="@+id/txt_sn"
                 app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintTop_toTopOf="@+id/txt_noBatch" />
+                app:layout_constraintStart_toEndOf="@+id/txt_sn"
+                app:layout_constraintTop_toTopOf="@+id/txt_sn" />
 
 
         </androidx.constraintlayout.widget.ConstraintLayout>

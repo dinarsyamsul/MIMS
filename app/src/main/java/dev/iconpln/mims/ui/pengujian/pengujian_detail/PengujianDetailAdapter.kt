@@ -1,7 +1,9 @@
 package dev.iconpln.mims.ui.pengujian.pengujian_detail
 
+import android.graphics.Color
 import android.view.LayoutInflater
 import android.view.ViewGroup
+import androidx.core.content.ContextCompat
 import androidx.recyclerview.widget.RecyclerView
 import dev.iconpln.mims.data.local.database.TPengujianDetails
 import dev.iconpln.mims.databinding.ItemListDetailPengujianBinding
@@ -34,6 +36,18 @@ class PengujianDetailAdapter(val lisModels: MutableList<TPengujianDetails>, var 
             with(binding){
                 txtSerialNumber.text = pengujian.serialNumber
                 status.text = pengujian.statusUji
+            }
+
+            if (pengujian.statusUji == "LOLOS") {
+                binding.status.setBackgroundColor(Color.parseColor("#4600C637"))
+            }else if (pengujian.statusUji == "TIDAK LOLOS"){
+                binding.status.setBackgroundColor(Color.parseColor("#3EB80F0A"))
+            }else if (pengujian.statusUji == "BELUM UJI"){
+                binding.status.setBackgroundColor(Color.parseColor("#41F8951D"))
+            }else if (pengujian.statusUji == "SEDANG UJI"){
+                binding.status.setBackgroundColor(Color.parseColor("#52F8951D"))
+            }else {
+                binding.status.setBackgroundColor(Color.parseColor("#FFFFFF"))
             }
 
             itemView.setOnClickListener { listener.onClick(pengujian) }
