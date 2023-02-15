@@ -16,6 +16,7 @@ class DataMaterialTrackingActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         binding = ActivityDataMaterialTrackingBinding.inflate(layoutInflater)
         setContentView(binding.root)
+        binding.btnBack.setOnClickListener { onBackPressed() }
 
 
         try {

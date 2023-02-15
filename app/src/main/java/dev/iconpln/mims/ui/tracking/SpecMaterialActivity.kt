@@ -81,6 +81,7 @@ class SpecMaterialActivity : AppCompatActivity() {
                 }
             }
         }
+        binding.btnBack.setOnClickListener { onBackPressed() }
 
     }
 
