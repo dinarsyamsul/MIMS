@@ -70,10 +70,6 @@ class HomeFragment : Fragment() {
 
         var listPrivilege = daoSession.tPrivilegeDao.queryBuilder().list()
 
-        binding.back.setOnClickListener {
-//            startActivity(Intent(requireActivity(), TransmissionActivity::class.java))
-        }
-
         binding.btnSync.setOnClickListener {
             val dialog = Dialog(requireActivity())
             dialog.setContentView(R.layout.popup_validation);
@@ -124,11 +120,11 @@ class HomeFragment : Fragment() {
             val btnPenerimaan = view.findViewById<CardView>(R.id.cv_penerimaan)
 
             btnPenerimaan.setOnClickListener {
-                startActivity(Intent(requireActivity(), PemeriksaanActivity::class.java))
+                startActivity(Intent(requireActivity(), PenerimaanActivity::class.java))
             }
 
             btnPemeriksaan.setOnClickListener {
-                startActivity(Intent(requireActivity(), PenerimaanActivity::class.java))
+                startActivity(Intent(requireActivity(), PemeriksaanActivity::class.java))
             }
 
             dialog.setCancelable(true)

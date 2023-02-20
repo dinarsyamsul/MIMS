@@ -191,6 +191,9 @@ data class PosSnsItem(
 	@field:SerializedName("do_status")
 	val doStatus: String? = "",
 
+	@field:SerializedName("do_line_item")
+	val doLineItem: String? = "",
+
 	@field:SerializedName("status")
 	val status: String? = ""
 )
@@ -289,6 +292,18 @@ data class PosItem(
 
 	@field:SerializedName("kode_status_do_mims")
 	val kodeStatusDoMims: String? = "",
+
+	@field:SerializedName("do_line_item")
+	val DoLineItem: String? = "",
+
+	@field:SerializedName("petugas_penerima")
+	val PetugasPenerima: String? = "",
+
+	@field:SerializedName("tgl_serah_terima")
+	val TglSerahTerima: String? = "",
+
+	@field:SerializedName("kurir_pengirim")
+	val KurirPengirim: String? = "",
 
 	@field:SerializedName("plant_name")
 	val plantName: String? = ""

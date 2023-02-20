@@ -1,6 +1,7 @@
 package dev.iconpln.mims.ui.pemeriksaan.pemeriksaan_detail
 
 
+import android.app.AlertDialog
 import android.app.Dialog
 import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
@@ -31,6 +32,7 @@ class PemeriksaanDetailActivity : AppCompatActivity(), Loadable {
     private lateinit var listSns: MutableList<TPosSns>
     private lateinit var listPemDetail: MutableList<TPemeriksaanDetail>
     private lateinit var pemeriksaan: TPemeriksaan
+    private var progressDialog: AlertDialog? = null
     private var noPem: String = ""
     private var noDo: String = ""
 
@@ -272,8 +274,22 @@ class PemeriksaanDetailActivity : AppCompatActivity(), Loadable {
     }
 
     override fun setLoading(show: Boolean, title: String, message: String) {
+        try {
+            if (progressDialog != null){
+                if (show) {
+                    progressDialog!!.apply { show() }
+                } else {
+                    progressDialog!!.dismiss()
+                }
+            }
+
+        } catch (e: Exception) {
+            progressDialog!!.dismiss()
+            e.printStackTrace()
+        }
     }
 
     override fun setFinish(result: Boolean, message: String) {
+        Toast.makeText(this, message, Toast.LENGTH_LONG).show()
     }
 }

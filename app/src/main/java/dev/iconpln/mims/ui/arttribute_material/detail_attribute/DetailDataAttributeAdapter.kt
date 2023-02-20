@@ -32,7 +32,8 @@ class DetailDataAttributeAdapter(val lisModels: MutableList<TMaterialDetail>, va
     inner class ViewHolder(val binding: ItemDataDetailMaterialPabrikanBinding): RecyclerView.ViewHolder(binding.root){
         fun bind(mat : TMaterialDetail){
             with(binding){
-                txtSerialNumber.text = mat.noProduksi
+                lblNoGaransi.text = "Masa Akhir Garansi"
+                txtSerialNumber.text = mat.serialNumber
                 txtNoMaterial.text = mat.nomorMaterial
                 txtGaransi.text = mat.masaGaransi
                 txtKategori.text = mat.namaKategoriMaterial

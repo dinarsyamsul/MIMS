@@ -42,6 +42,10 @@ public class TPosDao extends AbstractDao<TPos, Long> {
         public final static Property KdPabrikan = new Property(17, String.class, "KdPabrikan", false, "KD_PABRIKAN");
         public final static Property MaterialGroup = new Property(18, String.class, "MaterialGroup", false, "MATERIAL_GROUP");
         public final static Property NamaKategoriMaterial = new Property(19, String.class, "NamaKategoriMaterial", false, "NAMA_KATEGORI_MATERIAL");
+        public final static Property PetugasPenerima = new Property(20, String.class, "PetugasPenerima", false, "PETUGAS_PENERIMA");
+        public final static Property TglDiterima = new Property(21, String.class, "TglDiterima", false, "TGL_DITERIMA");
+        public final static Property KurirPengantar = new Property(22, String.class, "KurirPengantar", false, "KURIR_PENGANTAR");
+        public final static Property DoLineItem = new Property(23, String.class, "DoLineItem", false, "DO_LINE_ITEM");
     }
 
 
@@ -76,7 +80,11 @@ public class TPosDao extends AbstractDao<TPos, Long> {
                 "\"COURIER_PERSON_NAME\" TEXT," + // 16: CourierPersonName
                 "\"KD_PABRIKAN\" TEXT," + // 17: KdPabrikan
                 "\"MATERIAL_GROUP\" TEXT," + // 18: MaterialGroup
-                "\"NAMA_KATEGORI_MATERIAL\" TEXT);"); // 19: NamaKategoriMaterial
+                "\"NAMA_KATEGORI_MATERIAL\" TEXT," + // 19: NamaKategoriMaterial
+                "\"PETUGAS_PENERIMA\" TEXT," + // 20: PetugasPenerima
+                "\"TGL_DITERIMA\" TEXT," + // 21: TglDiterima
+                "\"KURIR_PENGANTAR\" TEXT," + // 22: KurirPengantar
+                "\"DO_LINE_ITEM\" TEXT);"); // 23: DoLineItem
     }
 
     /** Drops the underlying database table. */
@@ -188,6 +196,26 @@ public class TPosDao extends AbstractDao<TPos, Long> {
         if (NamaKategoriMaterial != null) {
             stmt.bindString(20, NamaKategoriMaterial);
         }
+ 
+        String PetugasPenerima = entity.getPetugasPenerima();
+        if (PetugasPenerima != null) {
+            stmt.bindString(21, PetugasPenerima);
+        }
+ 
+        String TglDiterima = entity.getTglDiterima();
+        if (TglDiterima != null) {
+            stmt.bindString(22, TglDiterima);
+        }
+ 
+        String KurirPengantar = entity.getKurirPengantar();
+        if (KurirPengantar != null) {
+            stmt.bindString(23, KurirPengantar);
+        }
+ 
+        String DoLineItem = entity.getDoLineItem();
+        if (DoLineItem != null) {
+            stmt.bindString(24, DoLineItem);
+        }
     }
 
     @Override
@@ -293,6 +321,26 @@ public class TPosDao extends AbstractDao<TPos, Long> {
         if (NamaKategoriMaterial != null) {
             stmt.bindString(20, NamaKategoriMaterial);
         }
+ 
+        String PetugasPenerima = entity.getPetugasPenerima();
+        if (PetugasPenerima != null) {
+            stmt.bindString(21, PetugasPenerima);
+        }
+ 
+        String TglDiterima = entity.getTglDiterima();
+        if (TglDiterima != null) {
+            stmt.bindString(22, TglDiterima);
+        }
+ 
+        String KurirPengantar = entity.getKurirPengantar();
+        if (KurirPengantar != null) {
+            stmt.bindString(23, KurirPengantar);
+        }
+ 
+        String DoLineItem = entity.getDoLineItem();
+        if (DoLineItem != null) {
+            stmt.bindString(24, DoLineItem);
+        }
     }
 
     @Override
@@ -322,7 +370,11 @@ public class TPosDao extends AbstractDao<TPos, Long> {
             cursor.isNull(offset + 16) ? null : cursor.getString(offset + 16), // CourierPersonName
             cursor.isNull(offset + 17) ? null : cursor.getString(offset + 17), // KdPabrikan
             cursor.isNull(offset + 18) ? null : cursor.getString(offset + 18), // MaterialGroup
-            cursor.isNull(offset + 19) ? null : cursor.getString(offset + 19) // NamaKategoriMaterial
+            cursor.isNull(offset + 19) ? null : cursor.getString(offset + 19), // NamaKategoriMaterial
+            cursor.isNull(offset + 20) ? null : cursor.getString(offset + 20), // PetugasPenerima
+            cursor.isNull(offset + 21) ? null : cursor.getString(offset + 21), // TglDiterima
+            cursor.isNull(offset + 22) ? null : cursor.getString(offset + 22), // KurirPengantar
+            cursor.isNull(offset + 23) ? null : cursor.getString(offset + 23) // DoLineItem
         );
         return entity;
     }
@@ -349,6 +401,10 @@ public class TPosDao extends AbstractDao<TPos, Long> {
         entity.setKdPabrikan(cursor.isNull(offset + 17) ? null : cursor.getString(offset + 17));
         entity.setMaterialGroup(cursor.isNull(offset + 18) ? null : cursor.getString(offset + 18));
         entity.setNamaKategoriMaterial(cursor.isNull(offset + 19) ? null : cursor.getString(offset + 19));
+        entity.setPetugasPenerima(cursor.isNull(offset + 20) ? null : cursor.getString(offset + 20));
+        entity.setTglDiterima(cursor.isNull(offset + 21) ? null : cursor.getString(offset + 21));
+        entity.setKurirPengantar(cursor.isNull(offset + 22) ? null : cursor.getString(offset + 22));
+        entity.setDoLineItem(cursor.isNull(offset + 23) ? null : cursor.getString(offset + 23));
      }
     
     @Override

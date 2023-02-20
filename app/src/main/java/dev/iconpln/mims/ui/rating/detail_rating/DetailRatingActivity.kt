@@ -8,7 +8,6 @@ import android.graphics.Bitmap
 import android.graphics.BitmapFactory
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
-import android.provider.MediaStore
 import android.util.Log
 import android.view.View
 import android.view.ViewGroup
@@ -30,15 +29,15 @@ import dev.iconpln.mims.data.local.database_local.ReportParameter
 import dev.iconpln.mims.data.local.database_local.ReportUploader
 import dev.iconpln.mims.data.remote.service.ApiConfig
 import dev.iconpln.mims.databinding.ActivityDetailRatingBinding
-import dev.iconpln.mims.databinding.ItemDataPenerimaanBinding
 import dev.iconpln.mims.tasks.Loadable
 import dev.iconpln.mims.tasks.TambahReportTask
-import dev.iconpln.mims.ui.pemeriksaan.PemeriksaanActivity
-import dev.iconpln.mims.ui.pnerimaan.PenerimaanActivity
 import dev.iconpln.mims.ui.rating.RatingActivity
+import dev.iconpln.mims.utils.Config
+import dev.iconpln.mims.utils.DateTimeUtils
 import dev.iconpln.mims.utils.SharedPrefsUtils
 import dev.iconpln.mims.utils.StorageUtils
 import org.joda.time.DateTime
+import org.joda.time.LocalDateTime
 import java.io.File
 import java.io.FileOutputStream
 import java.util.*
@@ -54,11 +53,11 @@ class DetailRatingActivity : AppCompatActivity(),Loadable {
     private lateinit var penyediaAdapter: RatingPenyediaAdapter
     private lateinit var penerimaanAdapter: RatingPenerimaanAdapter
     private lateinit var waktuAdapter: RatingWaktuAdapter
-    private lateinit var pemeriksaan: TPemeriksaan
+    private lateinit var penerimaan: TPosPenerimaan
+    private lateinit var detailPenerimaan: List<TPosDetailPenerimaan>
     private val cameraRequestFoto = 101
     private val galleryRequestFoto = 102
     private var noDo: String? = ""
-    private var noPem: String? = ""
     private var photoNumber: Int = 0
     var ketPenyedia: String? = ""
     var ketWaktu: String? = ""
@@ -66,6 +65,9 @@ class DetailRatingActivity : AppCompatActivity(),Loadable {
     var nilaiPenyedia: Int? = 0
     var nilaiWaktu: Int? = 0
     var nilaiPenerimaan: Int? = 0
+    var ratingPenyedia: String? = ""
+    var ratingWaktu: String? = ""
+    var ratingPenerimaan: String? = ""
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -73,15 +75,19 @@ class DetailRatingActivity : AppCompatActivity(),Loadable {
         setContentView(binding.root)
         daoSession = (application as MyApplication).daoSession!!
         noDo = intent.getStringExtra("noDo")
-        noPem = intent.getStringExtra("noPem")
 
         listPhoto = daoSession.tPhotoDao.queryBuilder()
             .where(TPhotoDao.Properties.NoDo.eq(noDo))
             .where(TPhotoDao.Properties.Type.eq("rating"))
             .list()
 
-        pemeriksaan = daoSession.tPemeriksaanDao.queryBuilder()
-            .where(TPemeriksaanDao.Properties.NoDoSmar.eq(noDo)).limit(1).unique()
+        penerimaan = daoSession.tPosPenerimaanDao.queryBuilder()
+            .where(TPosPenerimaanDao.Properties.NoDoSmar.eq(noDo)).limit(1).unique()
+
+        detailPenerimaan = daoSession.tPosDetailPenerimaanDao.queryBuilder()
+            .where(TPosDetailPenerimaanDao.Properties.NoDoSmar.eq(noDo))
+            .where(TPosDetailPenerimaanDao.Properties.IsChecked.eq(1))
+            .where(TPosDetailPenerimaanDao.Properties.IsDone.eq(1)).list()
 
         ratingPenyedias = daoSession.tRatingDao.queryBuilder()
             .where(TRatingDao.Properties.Type.eq("Respon Penyedia")).list()
@@ -103,7 +109,7 @@ class DetailRatingActivity : AppCompatActivity(),Loadable {
                 }
             }
 
-        })
+        }, true)
 
         penyediaAdapter = RatingPenyediaAdapter(arrayListOf(), object : RatingPenyediaAdapter.OnAdapterListener{
             override fun onClick(po: TRating) {
@@ -119,6 +125,7 @@ class DetailRatingActivity : AppCompatActivity(),Loadable {
                                 binding.txtMessageRespon.text = po.keterangan
                                 ketPenyedia = po.keterangan
                                 nilaiPenyedia = po.nilai
+                                ratingPenyedia = po.kdRating
                                 penyediaAdapter.setRatList(rating)
                             }else{
                                 i.isActive = 0
@@ -139,6 +146,7 @@ class DetailRatingActivity : AppCompatActivity(),Loadable {
                                 penyediaAdapter.setRatList(rating)
                                 ketPenyedia = po.keterangan
                                 nilaiPenyedia = po.nilai
+                                ratingPenyedia = po.kdRating
                                 binding.txtMessageRespon.visibility = View.VISIBLE
                                 binding.txtMessageRespon.text = po.keterangan
                             }else{
@@ -160,6 +168,7 @@ class DetailRatingActivity : AppCompatActivity(),Loadable {
                                 penyediaAdapter.setRatList(rating)
                                 ketPenyedia = po.keterangan
                                 nilaiPenyedia = po.nilai
+                                ratingPenyedia = po.kdRating
                                 binding.txtMessageRespon.visibility = View.VISIBLE
                                 binding.txtMessageRespon.text = po.keterangan
                             }else{
@@ -181,6 +190,7 @@ class DetailRatingActivity : AppCompatActivity(),Loadable {
                                 penyediaAdapter.setRatList(rating)
                                 ketPenyedia = po.keterangan
                                 nilaiPenyedia = po.nilai
+                                ratingPenyedia = po.kdRating
                                 binding.txtMessageRespon.visibility = View.VISIBLE
                                 binding.txtMessageRespon.text = po.keterangan
                             }else{
@@ -202,6 +212,7 @@ class DetailRatingActivity : AppCompatActivity(),Loadable {
                                 penyediaAdapter.setRatList(rating)
                                 ketPenyedia = po.keterangan
                                 nilaiPenyedia = po.nilai
+                                ratingPenyedia = po.kdRating
                                 binding.txtMessageRespon.visibility = View.VISIBLE
                                 binding.txtMessageRespon.text = po.keterangan
                             }else{
@@ -232,6 +243,7 @@ class DetailRatingActivity : AppCompatActivity(),Loadable {
                                 binding.txtMessageWaktu.text = po.keterangan
                                 ketWaktu = po.keterangan
                                 nilaiWaktu = po.nilai
+                                ratingWaktu = po.kdRating
                                 waktuAdapter.setRatList(rating)
                             }else{
                                 i.isActive = 0
@@ -252,6 +264,7 @@ class DetailRatingActivity : AppCompatActivity(),Loadable {
                                 waktuAdapter.setRatList(rating)
                                 ketWaktu = po.keterangan
                                 nilaiWaktu = po.nilai
+                                ratingWaktu = po.kdRating
                                 binding.txtMessageWaktu.visibility = View.VISIBLE
                                 binding.txtMessageWaktu.text = po.keterangan
                             }else{
@@ -273,6 +286,7 @@ class DetailRatingActivity : AppCompatActivity(),Loadable {
                                 waktuAdapter.setRatList(rating)
                                 ketWaktu = po.keterangan
                                 nilaiWaktu = po.nilai
+                                ratingWaktu = po.kdRating
                                 binding.txtMessageWaktu.visibility = View.VISIBLE
                                 binding.txtMessageWaktu.text = po.keterangan
                             }else{
@@ -294,6 +308,7 @@ class DetailRatingActivity : AppCompatActivity(),Loadable {
                                 waktuAdapter.setRatList(rating)
                                 ketWaktu = po.keterangan
                                 nilaiWaktu = po.nilai
+                                ratingWaktu = po.kdRating
                                 binding.txtMessageWaktu.visibility = View.VISIBLE
                                 binding.txtMessageWaktu.text = po.keterangan
                             }else{
@@ -315,6 +330,7 @@ class DetailRatingActivity : AppCompatActivity(),Loadable {
                                 waktuAdapter.setRatList(rating)
                                 ketWaktu = po.keterangan
                                 nilaiWaktu = po.nilai
+                                ratingWaktu = po.kdRating
                                 binding.txtMessageWaktu.visibility = View.VISIBLE
                                 binding.txtMessageWaktu.text = po.keterangan
                             }else{
@@ -345,6 +361,7 @@ class DetailRatingActivity : AppCompatActivity(),Loadable {
                                 binding.txtMessagePenerimaan.text = po.keterangan
                                 ketPenerimaan = po.keterangan
                                 nilaiPenerimaan = po.nilai
+                                ratingPenerimaan = po.kdRating
                                 penerimaanAdapter.setRatList(rating)
                             }else{
                                 i.isActive = 0
@@ -366,6 +383,7 @@ class DetailRatingActivity : AppCompatActivity(),Loadable {
                                 binding.txtMessagePenerimaan.text = po.keterangan
                                 ketPenerimaan = po.keterangan
                                 nilaiPenerimaan = po.nilai
+                                ratingPenerimaan = po.kdRating
                                 penerimaanAdapter.setRatList(rating)
                             }else{
                                 i.isActive = 0
@@ -387,6 +405,7 @@ class DetailRatingActivity : AppCompatActivity(),Loadable {
                                 binding.txtMessagePenerimaan.text = po.keterangan
                                 ketPenerimaan = po.keterangan
                                 nilaiPenerimaan = po.nilai
+                                ratingPenerimaan = po.kdRating
                                 penerimaanAdapter.setRatList(rating)
                             }else{
                                 i.isActive = 0
@@ -408,6 +427,7 @@ class DetailRatingActivity : AppCompatActivity(),Loadable {
                                 binding.txtMessagePenerimaan.text = po.keterangan
                                 ketPenerimaan = po.keterangan
                                 nilaiPenerimaan = po.nilai
+                                ratingPenerimaan = po.kdRating
                                 penerimaanAdapter.setRatList(rating)
                             }else{
                                 i.isActive = 0
@@ -429,6 +449,7 @@ class DetailRatingActivity : AppCompatActivity(),Loadable {
                                 binding.txtMessagePenerimaan.text = po.keterangan
                                 ketPenerimaan = po.keterangan
                                 nilaiPenerimaan = po.nilai
+                                ratingPenerimaan = po.kdRating
                                 penerimaanAdapter.setRatList(rating)
                             }else{
                                 i.isActive = 0
@@ -450,6 +471,13 @@ class DetailRatingActivity : AppCompatActivity(),Loadable {
         penerimaanAdapter.setRatList(ratingPenerimaans)
 
         with(binding){
+
+            if (listPhoto.isEmpty()){
+                btnUploadPhoto.visibility = View.VISIBLE
+            }else {
+                btnUploadPhoto.visibility = View.GONE
+            }
+
             rvAddFoto.adapter = adapter
             rvAddFoto.setHasFixedSize(true)
             rvAddFoto.layoutManager = LinearLayoutManager(this@DetailRatingActivity, LinearLayoutManager.VERTICAL, false)
@@ -534,15 +562,15 @@ class DetailRatingActivity : AppCompatActivity(),Loadable {
             daoSession.tRatingDao.update(i)
         }
 
-        pemeriksaan.descWaktu = ketWaktu
-        pemeriksaan.descQuality = ketPenyedia
-        pemeriksaan.descPenerimaan = ketPenerimaan
-        pemeriksaan.ratingQuality = nilaiPenyedia.toString()
-        pemeriksaan.ratingPenerimaan = nilaiPenerimaan.toString()
-        pemeriksaan.ratingWaktu = nilaiWaktu.toString()
-        pemeriksaan.isDone = 1
+        penerimaan.descWaktu = ketWaktu
+        penerimaan.descQuality = ketPenyedia
+        penerimaan.descPenerimaan = ketPenerimaan
+        penerimaan.ratingQuality = nilaiPenyedia.toString()
+        penerimaan.ratingPenerimaan = nilaiPenerimaan.toString()
+        penerimaan.ratingWaktu = nilaiWaktu.toString()
+        penerimaan.isDone = 1
 
-        daoSession.tPemeriksaanDao.update(pemeriksaan)
+        daoSession.tPosPenerimaanDao.update(penerimaan)
 
         val dialog = Dialog(this@DetailRatingActivity)
         dialog.setContentView(R.layout.popup_penerimaan);
@@ -557,11 +585,8 @@ class DetailRatingActivity : AppCompatActivity(),Loadable {
         txtMessage.text = "Data berhasil dirating"
 
         btnOk.setOnClickListener {
+            submitForm()
             dialog.dismiss();
-            startActivity(Intent(this@DetailRatingActivity, RatingActivity::class.java )
-                .putExtra("noDo", noDo)
-                .putExtra("noPemeriksaan", noPem))
-            finish()
         }
 
         dialog.show();
@@ -598,6 +623,53 @@ class DetailRatingActivity : AppCompatActivity(),Loadable {
         dialog.show()
     }
 
+    private fun submitForm() {
+        val reports = ArrayList<GenericReport>()
+        val currentDate = LocalDateTime.now().toString(Config.DATE)
+        val currentDateTime = LocalDateTime.now().toString(Config.DATETIME)
+        val currentUtc = DateTimeUtils.currentUtc
+        Log.i("datime","${currentDateTime}")
+
+        //region Add report visit to queue
+        var jwt = SharedPrefsUtils.getStringPreference(this@DetailRatingActivity,"jwt","")
+        var username = SharedPrefsUtils.getStringPreference(this@DetailRatingActivity, "username","14.Hexing_Electrical")
+        val reportId = "temp_penerimaan" + username + "_" + noDo + "_" + DateTime.now().toString(
+            Config.DATETIME)
+        val reportName = "Update Data Penerimaan"
+        val reportDescription = "$reportName: "+ " (" + reportId + ")"
+        val params = ArrayList<ReportParameter>()
+        params.add(ReportParameter("1", reportId, "no_do_smar", noDo!!, ReportParameter.TEXT))
+        params.add(ReportParameter("2", reportId, "qty_terima", detailPenerimaan.size.toString(), ReportParameter.TEXT))
+        params.add(ReportParameter("3", reportId, "qty_reject", "0", ReportParameter.TEXT))
+        params.add(ReportParameter("4", reportId, "rating_delivery", ratingWaktu!!, ReportParameter.TEXT))
+        params.add(ReportParameter("5", reportId, "rating_response", ratingPenyedia!!, ReportParameter.TEXT))
+        params.add(ReportParameter("6", reportId, "rating_quality", ratingPenerimaan!!, ReportParameter.TEXT))
+        params.add(ReportParameter("7", reportId, "rating_delivery_point", nilaiWaktu.toString(), ReportParameter.TEXT))
+        params.add(ReportParameter("8", reportId, "rating_response_point", nilaiPenyedia.toString(), ReportParameter.TEXT))
+        params.add(ReportParameter("9", reportId, "rating_quality_point", nilaiPenerimaan.toString(), ReportParameter.TEXT))
+        params.add(ReportParameter("10", reportId, "username", username!!, ReportParameter.TEXT))
+        params.add(ReportParameter("11", reportId, "email", username!!, ReportParameter.TEXT))
+
+
+        var i = 1
+        var reportParameter = 12
+        for (j in listPhoto){
+            params.add(ReportParameter(reportParameter.toString(), reportId, "photos$i", j.path, ReportParameter.FILE))
+            i++
+            reportParameter++
+        }
+
+        val report = GenericReport(reportId, jwt!!, reportName, reportDescription, ApiConfig.sendRating(), currentDate, Config.NO_CODE, currentUtc, params)
+        reports.add(report)
+        //endregion
+
+        val task = TambahReportTask(this, reports)
+        task.execute()
+
+        val iService = Intent(applicationContext, ReportUploader::class.java)
+        startService(iService)
+    }
+
     override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
         super.onActivityResult(requestCode, resultCode, data)
 
@@ -630,6 +702,12 @@ class DetailRatingActivity : AppCompatActivity(),Loadable {
                 .list()
 
             adapter.setPhotoList(listPhoto)
+
+            if (listPhoto.isEmpty()){
+                binding.btnUploadPhoto.visibility = View.VISIBLE
+            }else {
+                binding.btnUploadPhoto.visibility = View.GONE
+            }
         }else{
             Log.d("cancel", "cacelPhoto")
         }
@@ -650,6 +728,12 @@ class DetailRatingActivity : AppCompatActivity(),Loadable {
                 .list()
 
             adapter.setPhotoList(listPhoto)
+
+            if (listPhoto.isEmpty()){
+                binding.btnUploadPhoto.visibility = View.VISIBLE
+            }else {
+                binding.btnUploadPhoto.visibility = View.GONE
+            }
         }else{
             Log.d("cancel", "cacelPhoto")
         }
@@ -659,5 +743,9 @@ class DetailRatingActivity : AppCompatActivity(),Loadable {
     }
 
     override fun setFinish(result: Boolean, message: String) {
+        startActivity(Intent(this@DetailRatingActivity, RatingActivity::class.java )
+            .putExtra("noDo", noDo))
+        finish()
+        Toast.makeText(this, message, Toast.LENGTH_LONG).show()
     }
 }

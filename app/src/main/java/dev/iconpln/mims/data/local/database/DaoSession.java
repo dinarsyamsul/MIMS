@@ -13,13 +13,13 @@ import dev.iconpln.mims.data.local.database.TPengujian;
 import dev.iconpln.mims.data.local.database.TPengujianDetails;
 import dev.iconpln.mims.data.local.database.TLokasi;
 import dev.iconpln.mims.data.local.database.TPosDetail;
-import dev.iconpln.mims.data.local.database.TPosDetailPenerimaan;
 import dev.iconpln.mims.data.local.database.TMaterialDetail;
 import dev.iconpln.mims.data.local.database.TMaterialGroups;
 import dev.iconpln.mims.data.local.database.TPrivilege;
 import dev.iconpln.mims.data.local.database.TMaterial;
 import dev.iconpln.mims.data.local.database.TPos;
 import dev.iconpln.mims.data.local.database.TPosPenerimaan;
+import dev.iconpln.mims.data.local.database.TPosDetailPenerimaan;
 import dev.iconpln.mims.data.local.database.TPosSns;
 import dev.iconpln.mims.data.local.database.TPemeriksaan;
 import dev.iconpln.mims.data.local.database.TPemeriksaanDetail;
@@ -31,13 +31,13 @@ import dev.iconpln.mims.data.local.database.TPengujianDao;
 import dev.iconpln.mims.data.local.database.TPengujianDetailsDao;
 import dev.iconpln.mims.data.local.database.TLokasiDao;
 import dev.iconpln.mims.data.local.database.TPosDetailDao;
-import dev.iconpln.mims.data.local.database.TPosDetailPenerimaanDao;
 import dev.iconpln.mims.data.local.database.TMaterialDetailDao;
 import dev.iconpln.mims.data.local.database.TMaterialGroupsDao;
 import dev.iconpln.mims.data.local.database.TPrivilegeDao;
 import dev.iconpln.mims.data.local.database.TMaterialDao;
 import dev.iconpln.mims.data.local.database.TPosDao;
 import dev.iconpln.mims.data.local.database.TPosPenerimaanDao;
+import dev.iconpln.mims.data.local.database.TPosDetailPenerimaanDao;
 import dev.iconpln.mims.data.local.database.TPosSnsDao;
 import dev.iconpln.mims.data.local.database.TPemeriksaanDao;
 import dev.iconpln.mims.data.local.database.TPemeriksaanDetailDao;
@@ -58,13 +58,13 @@ public class DaoSession extends AbstractDaoSession {
     private final DaoConfig tPengujianDetailsDaoConfig;
     private final DaoConfig tLokasiDaoConfig;
     private final DaoConfig tPosDetailDaoConfig;
-    private final DaoConfig tPosDetailPenerimaanDaoConfig;
     private final DaoConfig tMaterialDetailDaoConfig;
     private final DaoConfig tMaterialGroupsDaoConfig;
     private final DaoConfig tPrivilegeDaoConfig;
     private final DaoConfig tMaterialDaoConfig;
     private final DaoConfig tPosDaoConfig;
     private final DaoConfig tPosPenerimaanDaoConfig;
+    private final DaoConfig tPosDetailPenerimaanDaoConfig;
     private final DaoConfig tPosSnsDaoConfig;
     private final DaoConfig tPemeriksaanDaoConfig;
     private final DaoConfig tPemeriksaanDetailDaoConfig;
@@ -76,13 +76,13 @@ public class DaoSession extends AbstractDaoSession {
     private final TPengujianDetailsDao tPengujianDetailsDao;
     private final TLokasiDao tLokasiDao;
     private final TPosDetailDao tPosDetailDao;
-    private final TPosDetailPenerimaanDao tPosDetailPenerimaanDao;
     private final TMaterialDetailDao tMaterialDetailDao;
     private final TMaterialGroupsDao tMaterialGroupsDao;
     private final TPrivilegeDao tPrivilegeDao;
     private final TMaterialDao tMaterialDao;
     private final TPosDao tPosDao;
     private final TPosPenerimaanDao tPosPenerimaanDao;
+    private final TPosDetailPenerimaanDao tPosDetailPenerimaanDao;
     private final TPosSnsDao tPosSnsDao;
     private final TPemeriksaanDao tPemeriksaanDao;
     private final TPemeriksaanDetailDao tPemeriksaanDetailDao;
@@ -108,9 +108,6 @@ public class DaoSession extends AbstractDaoSession {
         tPosDetailDaoConfig = daoConfigMap.get(TPosDetailDao.class).clone();
         tPosDetailDaoConfig.initIdentityScope(type);
 
-        tPosDetailPenerimaanDaoConfig = daoConfigMap.get(TPosDetailPenerimaanDao.class).clone();
-        tPosDetailPenerimaanDaoConfig.initIdentityScope(type);
-
         tMaterialDetailDaoConfig = daoConfigMap.get(TMaterialDetailDao.class).clone();
         tMaterialDetailDaoConfig.initIdentityScope(type);
 
@@ -128,6 +125,9 @@ public class DaoSession extends AbstractDaoSession {
 
         tPosPenerimaanDaoConfig = daoConfigMap.get(TPosPenerimaanDao.class).clone();
         tPosPenerimaanDaoConfig.initIdentityScope(type);
+
+        tPosDetailPenerimaanDaoConfig = daoConfigMap.get(TPosDetailPenerimaanDao.class).clone();
+        tPosDetailPenerimaanDaoConfig.initIdentityScope(type);
 
         tPosSnsDaoConfig = daoConfigMap.get(TPosSnsDao.class).clone();
         tPosSnsDaoConfig.initIdentityScope(type);
@@ -149,13 +149,13 @@ public class DaoSession extends AbstractDaoSession {
         tPengujianDetailsDao = new TPengujianDetailsDao(tPengujianDetailsDaoConfig, this);
         tLokasiDao = new TLokasiDao(tLokasiDaoConfig, this);
         tPosDetailDao = new TPosDetailDao(tPosDetailDaoConfig, this);
-        tPosDetailPenerimaanDao = new TPosDetailPenerimaanDao(tPosDetailPenerimaanDaoConfig, this);
         tMaterialDetailDao = new TMaterialDetailDao(tMaterialDetailDaoConfig, this);
         tMaterialGroupsDao = new TMaterialGroupsDao(tMaterialGroupsDaoConfig, this);
         tPrivilegeDao = new TPrivilegeDao(tPrivilegeDaoConfig, this);
         tMaterialDao = new TMaterialDao(tMaterialDaoConfig, this);
         tPosDao = new TPosDao(tPosDaoConfig, this);
         tPosPenerimaanDao = new TPosPenerimaanDao(tPosPenerimaanDaoConfig, this);
+        tPosDetailPenerimaanDao = new TPosDetailPenerimaanDao(tPosDetailPenerimaanDaoConfig, this);
         tPosSnsDao = new TPosSnsDao(tPosSnsDaoConfig, this);
         tPemeriksaanDao = new TPemeriksaanDao(tPemeriksaanDaoConfig, this);
         tPemeriksaanDetailDao = new TPemeriksaanDetailDao(tPemeriksaanDetailDaoConfig, this);
@@ -167,13 +167,13 @@ public class DaoSession extends AbstractDaoSession {
         registerDao(TPengujianDetails.class, tPengujianDetailsDao);
         registerDao(TLokasi.class, tLokasiDao);
         registerDao(TPosDetail.class, tPosDetailDao);
-        registerDao(TPosDetailPenerimaan.class, tPosDetailPenerimaanDao);
         registerDao(TMaterialDetail.class, tMaterialDetailDao);
         registerDao(TMaterialGroups.class, tMaterialGroupsDao);
         registerDao(TPrivilege.class, tPrivilegeDao);
         registerDao(TMaterial.class, tMaterialDao);
         registerDao(TPos.class, tPosDao);
         registerDao(TPosPenerimaan.class, tPosPenerimaanDao);
+        registerDao(TPosDetailPenerimaan.class, tPosDetailPenerimaanDao);
         registerDao(TPosSns.class, tPosSnsDao);
         registerDao(TPemeriksaan.class, tPemeriksaanDao);
         registerDao(TPemeriksaanDetail.class, tPemeriksaanDetailDao);
@@ -187,13 +187,13 @@ public class DaoSession extends AbstractDaoSession {
         tPengujianDetailsDaoConfig.clearIdentityScope();
         tLokasiDaoConfig.clearIdentityScope();
         tPosDetailDaoConfig.clearIdentityScope();
-        tPosDetailPenerimaanDaoConfig.clearIdentityScope();
         tMaterialDetailDaoConfig.clearIdentityScope();
         tMaterialGroupsDaoConfig.clearIdentityScope();
         tPrivilegeDaoConfig.clearIdentityScope();
         tMaterialDaoConfig.clearIdentityScope();
         tPosDaoConfig.clearIdentityScope();
         tPosPenerimaanDaoConfig.clearIdentityScope();
+        tPosDetailPenerimaanDaoConfig.clearIdentityScope();
         tPosSnsDaoConfig.clearIdentityScope();
         tPemeriksaanDaoConfig.clearIdentityScope();
         tPemeriksaanDetailDaoConfig.clearIdentityScope();
@@ -221,10 +221,6 @@ public class DaoSession extends AbstractDaoSession {
         return tPosDetailDao;
     }
 
-    public TPosDetailPenerimaanDao getTPosDetailPenerimaanDao() {
-        return tPosDetailPenerimaanDao;
-    }
-
     public TMaterialDetailDao getTMaterialDetailDao() {
         return tMaterialDetailDao;
     }
@@ -247,6 +243,10 @@ public class DaoSession extends AbstractDaoSession {
 
     public TPosPenerimaanDao getTPosPenerimaanDao() {
         return tPosPenerimaanDao;
+    }
+
+    public TPosDetailPenerimaanDao getTPosDetailPenerimaanDao() {
+        return tPosDetailPenerimaanDao;
     }
 
     public TPosSnsDao getTPosSnsDao() {

@@ -1,6 +1,7 @@
 package dev.iconpln.mims.ui.pemeriksaan.complaint
 
 import android.Manifest
+import android.app.AlertDialog
 import android.app.Dialog
 import android.content.Intent
 import android.content.pm.PackageManager
@@ -10,7 +11,6 @@ import android.os.Bundle
 import android.util.Log
 import android.view.View
 import android.view.ViewGroup
-import android.widget.Button
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import androidx.appcompat.widget.AppCompatButton
@@ -24,23 +24,37 @@ import dev.iconpln.mims.CameraXActivity
 import dev.iconpln.mims.MyApplication
 import dev.iconpln.mims.R
 import dev.iconpln.mims.data.local.database.*
+import dev.iconpln.mims.data.local.database_local.GenericReport
+import dev.iconpln.mims.data.local.database_local.ReportParameter
+import dev.iconpln.mims.data.local.database_local.ReportUploader
+import dev.iconpln.mims.data.remote.service.ApiConfig
 import dev.iconpln.mims.databinding.ActivityComplaintBinding
+import dev.iconpln.mims.tasks.Loadable
+import dev.iconpln.mims.tasks.TambahReportTask
 import dev.iconpln.mims.ui.pemeriksaan.PemeriksaanActivity
+import dev.iconpln.mims.ui.pnerimaan.PenerimaanActivity
+import dev.iconpln.mims.utils.Config
+import dev.iconpln.mims.utils.DateTimeUtils
+import dev.iconpln.mims.utils.SharedPrefsUtils
 import dev.iconpln.mims.utils.StorageUtils
+import org.joda.time.DateTime
+import org.joda.time.LocalDateTime
 import java.io.File
 import java.io.FileOutputStream
 import java.util.*
 
-class ComplaintActivity : AppCompatActivity() {
+class ComplaintActivity : AppCompatActivity(), Loadable {
     private lateinit var binding: ActivityComplaintBinding
+    private var progressDialog: AlertDialog? = null
     private lateinit var daoSession: DaoSession
     private lateinit var listPhoto: List<TPhoto>
-    private lateinit var dataPem: TPemeriksaan
+    private lateinit var penerimaan: TPosPenerimaan
     private lateinit var adapter: AddPhotoAdapter
     private val cameraRequestFoto = 101
     private val galleryRequestFoto = 102
     private var noDo: String? = ""
     private var photoNumber: Int = 0
+    private lateinit var listDetailPen: MutableList<TPosDetailPenerimaan>
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -53,7 +67,13 @@ class ComplaintActivity : AppCompatActivity() {
             .where(TPhotoDao.Properties.NoDo.eq(noDo))
             .where(TPhotoDao.Properties.Type.eq("complaint"))
             .list()
-        dataPem = daoSession.tPemeriksaanDao.queryBuilder().where(TPemeriksaanDao.Properties.NoDoSmar.eq(noDo)).limit(1).unique()
+
+        listDetailPen = daoSession.tPosDetailPenerimaanDao.queryBuilder()
+            .where(TPosDetailPenerimaanDao.Properties.NoDoSmar.eq(noDo))
+            .where(TPosDetailPenerimaanDao.Properties.IsDone.eq(0))
+            .where(TPosDetailPenerimaanDao.Properties.IsChecked.eq(0)).list()
+
+        penerimaan = daoSession.tPosPenerimaanDao.queryBuilder().where(TPosPenerimaanDao.Properties.NoDoSmar.eq(noDo)).limit(1).unique()
         photoNumber = listPhoto.size + 1
 
         adapter = AddPhotoAdapter(arrayListOf(), object : AddPhotoAdapter.OnAdapterListener{
@@ -65,7 +85,7 @@ class ComplaintActivity : AppCompatActivity() {
                 }
             }
 
-        })
+        }, true)
 
         adapter.setPhotoList(listPhoto)
 
@@ -74,10 +94,10 @@ class ComplaintActivity : AppCompatActivity() {
             rvAddFoto.layoutManager = LinearLayoutManager(this@ComplaintActivity, LinearLayoutManager.VERTICAL,false)
             rvAddFoto.setHasFixedSize(true)
 
-            txtDeliveryOrder.text = dataPem.noDoSmar
-            txtKurirPengiriman.text = dataPem.namaEkspedisi
-            txtNamaKurir.text = dataPem.namaKurir
-            txtTglKirim.text = "Tgl ${dataPem.createdDate}"
+            txtDeliveryOrder.text = penerimaan.noDoSmar
+            txtKurirPengiriman.text = penerimaan.expeditions
+            txtNamaKurir.text = penerimaan.kurirPengantar
+            txtTglKirim.text = "Tgl ${penerimaan.createdDate}"
 
             if (listPhoto.isEmpty()){
                 btnUploadPhoto.visibility = View.VISIBLE
@@ -123,17 +143,69 @@ class ComplaintActivity : AppCompatActivity() {
 
         btnOk.setOnClickListener {
             dialog.dismiss();
-            startActivity(Intent(this@ComplaintActivity, PemeriksaanActivity::class.java))
-            finish()
+            insertData()
         }
-
-        insertData()
 
         dialog.show();
 
     }
 
     private fun insertData() {
+        var sns = ""
+        var checkedDetPen = listDetailPen.filter { it.isChecked == 1 }
+        for (i in checkedDetPen){
+            sns += "${i.noPackaging},${i.serialNumber},${i.noMaterial};"
+            Log.i("noPackaging", i.noPackaging)
+
+        }
+        if (sns != "") {
+            sns = sns.substring(0, sns.length - 1)
+        }
+
+        for (i in checkedDetPen){
+            i.isDone = 1
+            daoSession.tPosDetailPenerimaanDao.update(i)
+        }
+
+        val reports = ArrayList<GenericReport>()
+        val currentDate = LocalDateTime.now().toString(Config.DATE)
+        val currentDateTime = LocalDateTime.now().toString(Config.DATETIME)
+        val currentUtc = DateTimeUtils.currentUtc
+        Log.i("datime","${currentDateTime}")
+
+        //region Add report visit to queue
+        var jwt = SharedPrefsUtils.getStringPreference(this@ComplaintActivity,"jwt","")
+        var username = SharedPrefsUtils.getStringPreference(this@ComplaintActivity, "username","14.Hexing_Electrical")
+        val reportId = "temp_penerimaan" + username + "_" + noDo + "_" + DateTime.now().toString(
+            Config.DATETIME)
+        val reportName = "Update Data Komplain Penerimaan"
+        val reportDescription = "$reportName: "+ " (" + reportId + ")"
+        val params = ArrayList<ReportParameter>()
+        params.add(ReportParameter("1", reportId, "no_do_smar", noDo!!, ReportParameter.TEXT))
+        params.add(ReportParameter("2", reportId, "alasan", binding.editText.text.toString(), ReportParameter.TEXT))
+        params.add(ReportParameter("3", reportId, "quantity", listDetailPen.size.toString(), ReportParameter.TEXT))
+        params.add(ReportParameter("4", reportId, "username", username!!, ReportParameter.TEXT))
+        params.add(ReportParameter("5", reportId, "email", username, ReportParameter.TEXT))
+        params.add(ReportParameter("6", reportId, "sns", sns, ReportParameter.TEXT))
+        params.add(ReportParameter("7", reportId, "status", "PENDING", ReportParameter.TEXT))
+
+        var i = 1
+        var reportParameter = 8
+        for (j in listPhoto){
+            params.add(ReportParameter(reportParameter.toString(), reportId, "photos$i", j.path, ReportParameter.FILE))
+            i++
+            reportParameter++
+        }
+
+        val report = GenericReport(reportId, jwt!!, reportName, reportDescription, ApiConfig.sendComplaint(), currentDate, Config.NO_CODE, currentUtc, params)
+        reports.add(report)
+        //endregion
+
+        val task = TambahReportTask(this, reports)
+        task.execute()
+
+        val iService = Intent(applicationContext, ReportUploader::class.java)
+        startService(iService)
 
     }
 
@@ -199,6 +271,12 @@ class ComplaintActivity : AppCompatActivity() {
                 .where(TPhotoDao.Properties.NoDo.eq(noDo))
                 .list()
 
+            if (listPhoto.isEmpty()){
+                binding.btnUploadPhoto.visibility = View.VISIBLE
+            }else {
+                binding.btnUploadPhoto.visibility = View.GONE
+            }
+
             adapter.setPhotoList(listPhoto)
         }else{
             Log.d("cancel", "cacelPhoto")
@@ -218,9 +296,40 @@ class ComplaintActivity : AppCompatActivity() {
                 .where(TPhotoDao.Properties.Type.eq("complaint"))
                 .where(TPhotoDao.Properties.NoDo.eq(noDo)).list()
 
+            if (listPhoto.isEmpty()){
+                binding.btnUploadPhoto.visibility = View.VISIBLE
+            }else {
+                binding.btnUploadPhoto.visibility = View.GONE
+            }
+
             adapter.setPhotoList(listPhoto)
         }else{
             Log.d("cancel", "cacelPhoto")
         }
+    }
+
+    override fun setLoading(show: Boolean, title: String, message: String) {
+        try {
+            if (progressDialog != null){
+                if (show) {
+                    progressDialog!!.apply { show() }
+                } else {
+                    progressDialog!!.dismiss()
+                }
+            }
+
+        } catch (e: Exception) {
+            progressDialog!!.dismiss()
+            e.printStackTrace()
+        }
+    }
+
+    override fun setFinish(result: Boolean, message: String) {
+        if (result) {
+            Log.i("finish","Yes")
+        }
+        startActivity(Intent(this@ComplaintActivity, PenerimaanActivity::class.java ))
+        finish()
+        Toast.makeText(this, message, Toast.LENGTH_LONG).show()
     }
 }

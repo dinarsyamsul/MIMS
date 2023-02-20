@@ -31,6 +31,10 @@ public class TPos {
     private String KdPabrikan;
     private String MaterialGroup;
     private String NamaKategoriMaterial;
+    private String PetugasPenerima;
+    private String TglDiterima;
+    private String KurirPengantar;
+    private String DoLineItem;
 
     @Generated
     public TPos() {
@@ -41,7 +45,7 @@ public class TPos {
     }
 
     @Generated
-    public TPos(Long id, String StorLoc, String Total, String TlskNo, String PoSapNo, String PoMpNo, String NoDoSmar, Integer LeadTime, String Storloc, String CreatedDate, String PlanCodeNo, String PlantName, String NoDoMims, String DoStatus, String Expeditions, String KodeStatusDoMims, String CourierPersonName, String KdPabrikan, String MaterialGroup, String NamaKategoriMaterial) {
+    public TPos(Long id, String StorLoc, String Total, String TlskNo, String PoSapNo, String PoMpNo, String NoDoSmar, Integer LeadTime, String Storloc, String CreatedDate, String PlanCodeNo, String PlantName, String NoDoMims, String DoStatus, String Expeditions, String KodeStatusDoMims, String CourierPersonName, String KdPabrikan, String MaterialGroup, String NamaKategoriMaterial, String PetugasPenerima, String TglDiterima, String KurirPengantar, String DoLineItem) {
         this.id = id;
         this.StorLoc = StorLoc;
         this.Total = Total;
@@ -62,6 +66,10 @@ public class TPos {
         this.KdPabrikan = KdPabrikan;
         this.MaterialGroup = MaterialGroup;
         this.NamaKategoriMaterial = NamaKategoriMaterial;
+        this.PetugasPenerima = PetugasPenerima;
+        this.TglDiterima = TglDiterima;
+        this.KurirPengantar = KurirPengantar;
+        this.DoLineItem = DoLineItem;
     }
 
     public Long getId() {
@@ -222,6 +230,38 @@ public class TPos {
 
     public void setNamaKategoriMaterial(String NamaKategoriMaterial) {
         this.NamaKategoriMaterial = NamaKategoriMaterial;
+    }
+
+    public String getPetugasPenerima() {
+        return PetugasPenerima;
+    }
+
+    public void setPetugasPenerima(String PetugasPenerima) {
+        this.PetugasPenerima = PetugasPenerima;
+    }
+
+    public String getTglDiterima() {
+        return TglDiterima;
+    }
+
+    public void setTglDiterima(String TglDiterima) {
+        this.TglDiterima = TglDiterima;
+    }
+
+    public String getKurirPengantar() {
+        return KurirPengantar;
+    }
+
+    public void setKurirPengantar(String KurirPengantar) {
+        this.KurirPengantar = KurirPengantar;
+    }
+
+    public String getDoLineItem() {
+        return DoLineItem;
+    }
+
+    public void setDoLineItem(String DoLineItem) {
+        this.DoLineItem = DoLineItem;
     }
 
 }

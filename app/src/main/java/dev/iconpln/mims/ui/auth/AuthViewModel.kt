@@ -281,6 +281,10 @@ class AuthViewModel: ViewModel() {
                         item.materialGroup = model?.materialGroup
                         item.namaKategoriMaterial = model?.namaKategoriMaterial
                         item.noDoMims = model?.noDoMims
+                        item.tglDiterima = model?.TglSerahTerima
+                        item.kurirPengantar = model?.KurirPengirim
+                        item.petugasPenerima = model?.PetugasPenerima
+                        item.doLineItem = model?.DoLineItem
                         items[i] = item
                     }
                     daoSession.tPosDao.insertInTx(items.toList())
@@ -409,10 +413,11 @@ class AuthViewModel: ViewModel() {
                         item.plant = model?.plant
                         item.spesifikasi = model?.spesifikasi
                         item.spln = model?.spln
-                        item.status = model?.status.toString()
+                        if(model?.status.isNullOrEmpty()) item.status = "" else item.status = model?.status
                         item.storLoc = model?.storloc
                         item.tglProduksi = model?.tglProduksi
                         item.noPackaging = model?.noPackaging
+                        item.doLineItem = model?.doLineItem
 
                         items[i] = item
                     }

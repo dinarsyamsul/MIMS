@@ -12,28 +12,18 @@ public class TPosDetailPenerimaan {
 
     @Id
     private Long id;
-    private String NoMatSap;
     private String NoDoSmar;
     private String Qty;
     private String KdPabrikan;
     private String DoStatus;
-    private String PoSapNo;
-    private String PoMpNo;
-    private String NoDoMims;
     private String NoPackaging;
-    private String PlantCodeNo;
-    private String PlantName;
+    private String SerialNumber;
+    private String NoMaterial;
+    private String NamaKategoriMaterial;
     private String StorLoc;
-    private String LeadTime;
-    private String CreatedDate;
-    private String Uom;
-
-    @NotNull
-    private String NoPemeriksaan;
-
-    @NotNull
-    private String Barcode;
-    private Integer isChecked;
+    private String Status;
+    private Integer IsChecked;
+    private Integer IsDone;
 
     @Generated
     public TPosDetailPenerimaan() {
@@ -44,26 +34,20 @@ public class TPosDetailPenerimaan {
     }
 
     @Generated
-    public TPosDetailPenerimaan(Long id, String NoMatSap, String NoDoSmar, String Qty, String KdPabrikan, String DoStatus, String PoSapNo, String PoMpNo, String NoDoMims, String NoPackaging, String PlantCodeNo, String PlantName, String StorLoc, String LeadTime, String CreatedDate, String Uom, String NoPemeriksaan, String Barcode, Integer isChecked) {
+    public TPosDetailPenerimaan(Long id, String NoDoSmar, String Qty, String KdPabrikan, String DoStatus, String NoPackaging, String SerialNumber, String NoMaterial, String NamaKategoriMaterial, String StorLoc, String Status, Integer IsChecked, Integer IsDone) {
         this.id = id;
-        this.NoMatSap = NoMatSap;
         this.NoDoSmar = NoDoSmar;
         this.Qty = Qty;
         this.KdPabrikan = KdPabrikan;
         this.DoStatus = DoStatus;
-        this.PoSapNo = PoSapNo;
-        this.PoMpNo = PoMpNo;
-        this.NoDoMims = NoDoMims;
         this.NoPackaging = NoPackaging;
-        this.PlantCodeNo = PlantCodeNo;
-        this.PlantName = PlantName;
+        this.SerialNumber = SerialNumber;
+        this.NoMaterial = NoMaterial;
+        this.NamaKategoriMaterial = NamaKategoriMaterial;
         this.StorLoc = StorLoc;
-        this.LeadTime = LeadTime;
-        this.CreatedDate = CreatedDate;
-        this.Uom = Uom;
-        this.NoPemeriksaan = NoPemeriksaan;
-        this.Barcode = Barcode;
-        this.isChecked = isChecked;
+        this.Status = Status;
+        this.IsChecked = IsChecked;
+        this.IsDone = IsDone;
     }
 
     public Long getId() {
@@ -72,14 +56,6 @@ public class TPosDetailPenerimaan {
 
     public void setId(Long id) {
         this.id = id;
-    }
-
-    public String getNoMatSap() {
-        return NoMatSap;
-    }
-
-    public void setNoMatSap(String NoMatSap) {
-        this.NoMatSap = NoMatSap;
     }
 
     public String getNoDoSmar() {
@@ -114,30 +90,6 @@ public class TPosDetailPenerimaan {
         this.DoStatus = DoStatus;
     }
 
-    public String getPoSapNo() {
-        return PoSapNo;
-    }
-
-    public void setPoSapNo(String PoSapNo) {
-        this.PoSapNo = PoSapNo;
-    }
-
-    public String getPoMpNo() {
-        return PoMpNo;
-    }
-
-    public void setPoMpNo(String PoMpNo) {
-        this.PoMpNo = PoMpNo;
-    }
-
-    public String getNoDoMims() {
-        return NoDoMims;
-    }
-
-    public void setNoDoMims(String NoDoMims) {
-        this.NoDoMims = NoDoMims;
-    }
-
     public String getNoPackaging() {
         return NoPackaging;
     }
@@ -146,20 +98,28 @@ public class TPosDetailPenerimaan {
         this.NoPackaging = NoPackaging;
     }
 
-    public String getPlantCodeNo() {
-        return PlantCodeNo;
+    public String getSerialNumber() {
+        return SerialNumber;
     }
 
-    public void setPlantCodeNo(String PlantCodeNo) {
-        this.PlantCodeNo = PlantCodeNo;
+    public void setSerialNumber(String SerialNumber) {
+        this.SerialNumber = SerialNumber;
     }
 
-    public String getPlantName() {
-        return PlantName;
+    public String getNoMaterial() {
+        return NoMaterial;
     }
 
-    public void setPlantName(String PlantName) {
-        this.PlantName = PlantName;
+    public void setNoMaterial(String NoMaterial) {
+        this.NoMaterial = NoMaterial;
+    }
+
+    public String getNamaKategoriMaterial() {
+        return NamaKategoriMaterial;
+    }
+
+    public void setNamaKategoriMaterial(String NamaKategoriMaterial) {
+        this.NamaKategoriMaterial = NamaKategoriMaterial;
     }
 
     public String getStorLoc() {
@@ -170,56 +130,28 @@ public class TPosDetailPenerimaan {
         this.StorLoc = StorLoc;
     }
 
-    public String getLeadTime() {
-        return LeadTime;
+    public String getStatus() {
+        return Status;
     }
 
-    public void setLeadTime(String LeadTime) {
-        this.LeadTime = LeadTime;
-    }
-
-    public String getCreatedDate() {
-        return CreatedDate;
-    }
-
-    public void setCreatedDate(String CreatedDate) {
-        this.CreatedDate = CreatedDate;
-    }
-
-    public String getUom() {
-        return Uom;
-    }
-
-    public void setUom(String Uom) {
-        this.Uom = Uom;
-    }
-
-    @NotNull
-    public String getNoPemeriksaan() {
-        return NoPemeriksaan;
-    }
-
-    /** Not-null value; ensure this value is available before it is saved to the database. */
-    public void setNoPemeriksaan(@NotNull String NoPemeriksaan) {
-        this.NoPemeriksaan = NoPemeriksaan;
-    }
-
-    @NotNull
-    public String getBarcode() {
-        return Barcode;
-    }
-
-    /** Not-null value; ensure this value is available before it is saved to the database. */
-    public void setBarcode(@NotNull String Barcode) {
-        this.Barcode = Barcode;
+    public void setStatus(String Status) {
+        this.Status = Status;
     }
 
     public Integer getIsChecked() {
-        return isChecked;
+        return IsChecked;
     }
 
-    public void setIsChecked(Integer isChecked) {
-        this.isChecked = isChecked;
+    public void setIsChecked(Integer IsChecked) {
+        this.IsChecked = IsChecked;
+    }
+
+    public Integer getIsDone() {
+        return IsDone;
+    }
+
+    public void setIsDone(Integer IsDone) {
+        this.IsDone = IsDone;
     }
 
 }

@@ -12,7 +12,6 @@ public class TPosPenerimaan {
 
     @Id
     private Long id;
-    private String StorLoc;
     private String Total;
     private String TlskNo;
     private String PoSapNo;
@@ -30,12 +29,21 @@ public class TPosPenerimaan {
     private String KdPabrikan;
     private String MaterialGroup;
     private String NamaKategoriMaterial;
-    private String PhotoSuratBarang;
-    private String PhotoBarang;
+    private String RatingPenerimaan;
+    private String DescPenerimaan;
+    private String RatingQuality;
+    private String DescQuality;
+    private String RatingWaktu;
+    private String DescWaktu;
     private String TanggalDiterima;
     private String PetugasPenerima;
-    private String NamaKurir;
-    private String NamaEkspedisi;
+    private String KodeStatusDoMims;
+    private String StatusPemeriksaan;
+    private String KurirPengantar;
+    private String NilaiRatingPenerimaan;
+    private String NilaiRatingWaktu;
+    private String NilaiRatingQuality;
+    private String DoLineItem;
     private Integer isDone;
 
     @Generated
@@ -47,9 +55,8 @@ public class TPosPenerimaan {
     }
 
     @Generated
-    public TPosPenerimaan(Long id, String StorLoc, String Total, String TlskNo, String PoSapNo, String PoMpNo, String NoDoSmar, Integer LeadTime, String Storloc, String CreatedDate, String PlanCodeNo, String PlantName, String NoDoMims, String DoStatus, String Expeditions, String CourierPersonName, String KdPabrikan, String MaterialGroup, String NamaKategoriMaterial, String PhotoSuratBarang, String PhotoBarang, String TanggalDiterima, String PetugasPenerima, String NamaKurir, String NamaEkspedisi, Integer isDone) {
+    public TPosPenerimaan(Long id, String Total, String TlskNo, String PoSapNo, String PoMpNo, String NoDoSmar, Integer LeadTime, String Storloc, String CreatedDate, String PlanCodeNo, String PlantName, String NoDoMims, String DoStatus, String Expeditions, String CourierPersonName, String KdPabrikan, String MaterialGroup, String NamaKategoriMaterial, String RatingPenerimaan, String DescPenerimaan, String RatingQuality, String DescQuality, String RatingWaktu, String DescWaktu, String TanggalDiterima, String PetugasPenerima, String KodeStatusDoMims, String StatusPemeriksaan, String KurirPengantar, String NilaiRatingPenerimaan, String NilaiRatingWaktu, String NilaiRatingQuality, String DoLineItem, Integer isDone) {
         this.id = id;
-        this.StorLoc = StorLoc;
         this.Total = Total;
         this.TlskNo = TlskNo;
         this.PoSapNo = PoSapNo;
@@ -67,12 +74,21 @@ public class TPosPenerimaan {
         this.KdPabrikan = KdPabrikan;
         this.MaterialGroup = MaterialGroup;
         this.NamaKategoriMaterial = NamaKategoriMaterial;
-        this.PhotoSuratBarang = PhotoSuratBarang;
-        this.PhotoBarang = PhotoBarang;
+        this.RatingPenerimaan = RatingPenerimaan;
+        this.DescPenerimaan = DescPenerimaan;
+        this.RatingQuality = RatingQuality;
+        this.DescQuality = DescQuality;
+        this.RatingWaktu = RatingWaktu;
+        this.DescWaktu = DescWaktu;
         this.TanggalDiterima = TanggalDiterima;
         this.PetugasPenerima = PetugasPenerima;
-        this.NamaKurir = NamaKurir;
-        this.NamaEkspedisi = NamaEkspedisi;
+        this.KodeStatusDoMims = KodeStatusDoMims;
+        this.StatusPemeriksaan = StatusPemeriksaan;
+        this.KurirPengantar = KurirPengantar;
+        this.NilaiRatingPenerimaan = NilaiRatingPenerimaan;
+        this.NilaiRatingWaktu = NilaiRatingWaktu;
+        this.NilaiRatingQuality = NilaiRatingQuality;
+        this.DoLineItem = DoLineItem;
         this.isDone = isDone;
     }
 
@@ -82,14 +98,6 @@ public class TPosPenerimaan {
 
     public void setId(Long id) {
         this.id = id;
-    }
-
-    public String getStorLoc() {
-        return StorLoc;
-    }
-
-    public void setStorLoc(String StorLoc) {
-        this.StorLoc = StorLoc;
     }
 
     public String getTotal() {
@@ -228,20 +236,52 @@ public class TPosPenerimaan {
         this.NamaKategoriMaterial = NamaKategoriMaterial;
     }
 
-    public String getPhotoSuratBarang() {
-        return PhotoSuratBarang;
+    public String getRatingPenerimaan() {
+        return RatingPenerimaan;
     }
 
-    public void setPhotoSuratBarang(String PhotoSuratBarang) {
-        this.PhotoSuratBarang = PhotoSuratBarang;
+    public void setRatingPenerimaan(String RatingPenerimaan) {
+        this.RatingPenerimaan = RatingPenerimaan;
     }
 
-    public String getPhotoBarang() {
-        return PhotoBarang;
+    public String getDescPenerimaan() {
+        return DescPenerimaan;
     }
 
-    public void setPhotoBarang(String PhotoBarang) {
-        this.PhotoBarang = PhotoBarang;
+    public void setDescPenerimaan(String DescPenerimaan) {
+        this.DescPenerimaan = DescPenerimaan;
+    }
+
+    public String getRatingQuality() {
+        return RatingQuality;
+    }
+
+    public void setRatingQuality(String RatingQuality) {
+        this.RatingQuality = RatingQuality;
+    }
+
+    public String getDescQuality() {
+        return DescQuality;
+    }
+
+    public void setDescQuality(String DescQuality) {
+        this.DescQuality = DescQuality;
+    }
+
+    public String getRatingWaktu() {
+        return RatingWaktu;
+    }
+
+    public void setRatingWaktu(String RatingWaktu) {
+        this.RatingWaktu = RatingWaktu;
+    }
+
+    public String getDescWaktu() {
+        return DescWaktu;
+    }
+
+    public void setDescWaktu(String DescWaktu) {
+        this.DescWaktu = DescWaktu;
     }
 
     public String getTanggalDiterima() {
@@ -260,20 +300,60 @@ public class TPosPenerimaan {
         this.PetugasPenerima = PetugasPenerima;
     }
 
-    public String getNamaKurir() {
-        return NamaKurir;
+    public String getKodeStatusDoMims() {
+        return KodeStatusDoMims;
     }
 
-    public void setNamaKurir(String NamaKurir) {
-        this.NamaKurir = NamaKurir;
+    public void setKodeStatusDoMims(String KodeStatusDoMims) {
+        this.KodeStatusDoMims = KodeStatusDoMims;
     }
 
-    public String getNamaEkspedisi() {
-        return NamaEkspedisi;
+    public String getStatusPemeriksaan() {
+        return StatusPemeriksaan;
     }
 
-    public void setNamaEkspedisi(String NamaEkspedisi) {
-        this.NamaEkspedisi = NamaEkspedisi;
+    public void setStatusPemeriksaan(String StatusPemeriksaan) {
+        this.StatusPemeriksaan = StatusPemeriksaan;
+    }
+
+    public String getKurirPengantar() {
+        return KurirPengantar;
+    }
+
+    public void setKurirPengantar(String KurirPengantar) {
+        this.KurirPengantar = KurirPengantar;
+    }
+
+    public String getNilaiRatingPenerimaan() {
+        return NilaiRatingPenerimaan;
+    }
+
+    public void setNilaiRatingPenerimaan(String NilaiRatingPenerimaan) {
+        this.NilaiRatingPenerimaan = NilaiRatingPenerimaan;
+    }
+
+    public String getNilaiRatingWaktu() {
+        return NilaiRatingWaktu;
+    }
+
+    public void setNilaiRatingWaktu(String NilaiRatingWaktu) {
+        this.NilaiRatingWaktu = NilaiRatingWaktu;
+    }
+
+    public String getNilaiRatingQuality() {
+        return NilaiRatingQuality;
+    }
+
+    public void setNilaiRatingQuality(String NilaiRatingQuality) {
+        this.NilaiRatingQuality = NilaiRatingQuality;
+    }
+
+    public String getDoLineItem() {
+        return DoLineItem;
+    }
+
+    public void setDoLineItem(String DoLineItem) {
+        this.DoLineItem = DoLineItem;
     }
 
     public Integer getIsDone() {

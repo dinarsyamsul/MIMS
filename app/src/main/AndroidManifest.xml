@@ -50,7 +50,7 @@
                 android:value="" />
         </activity>
         <activity
-            android:name=".ui.pemeriksaan.input_petugas_penerimaan.InputPetugasPenerimaanActivity"
+            android:name=".ui.pnerimaan.input_petugas.InputPetugasPenerimaanActivity"
             android:exported="false">
             <meta-data
                 android:name="android.app.lib_name"

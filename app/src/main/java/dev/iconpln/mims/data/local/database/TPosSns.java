@@ -30,6 +30,7 @@ public class TPosSns {
     private String MasaGaransi;
     private String DoStatus;
     private String NoPackaging;
+    private String DoLineItem;
     private String Status;
 
     @Generated
@@ -41,7 +42,7 @@ public class TPosSns {
     }
 
     @Generated
-    public TPosSns(Long id, String noMatSap, String Mmc, String MaterialGroup, String TglProduksi, String KdPabrikan, String NoSertMeterologi, String Spln, String NoProduksi, String StorLoc, String NamaKategoriMaterial, String NoSerial, String NoDoSmar, String Spesifikasi, String Plant, String MaterialId, String MasaGaransi, String DoStatus, String NoPackaging, String Status) {
+    public TPosSns(Long id, String noMatSap, String Mmc, String MaterialGroup, String TglProduksi, String KdPabrikan, String NoSertMeterologi, String Spln, String NoProduksi, String StorLoc, String NamaKategoriMaterial, String NoSerial, String NoDoSmar, String Spesifikasi, String Plant, String MaterialId, String MasaGaransi, String DoStatus, String NoPackaging, String DoLineItem, String Status) {
         this.id = id;
         this.noMatSap = noMatSap;
         this.Mmc = Mmc;
@@ -61,6 +62,7 @@ public class TPosSns {
         this.MasaGaransi = MasaGaransi;
         this.DoStatus = DoStatus;
         this.NoPackaging = NoPackaging;
+        this.DoLineItem = DoLineItem;
         this.Status = Status;
     }
 
@@ -214,6 +216,14 @@ public class TPosSns {
 
     public void setNoPackaging(String NoPackaging) {
         this.NoPackaging = NoPackaging;
+    }
+
+    public String getDoLineItem() {
+        return DoLineItem;
+    }
+
+    public void setDoLineItem(String DoLineItem) {
+        this.DoLineItem = DoLineItem;
     }
 
     public String getStatus() {

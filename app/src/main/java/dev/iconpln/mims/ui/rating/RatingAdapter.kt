@@ -5,15 +5,16 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
 import dev.iconpln.mims.data.local.database.TPemeriksaanDetail
+import dev.iconpln.mims.data.local.database.TPosDetailPenerimaan
 import dev.iconpln.mims.data.local.database.TPosPenerimaan
 import dev.iconpln.mims.databinding.ItemDataPenerimaanBinding
 import dev.iconpln.mims.databinding.ItemDataRatingBinding
 import dev.iconpln.mims.databinding.ItemPackagingBinding
 
-class RatingAdapter(val lisModels: MutableList<TPemeriksaanDetail>, var listener: OnAdapterListener)
+class RatingAdapter(val lisModels: MutableList<TPosDetailPenerimaan>, var listener: OnAdapterListener)
     : RecyclerView.Adapter<RatingAdapter.ViewHolder>() {
 
-    fun setPedList(ped: List<TPemeriksaanDetail>){
+    fun setPedList(ped: List<TPosDetailPenerimaan>){
         lisModels.clear()
         lisModels.addAll(ped)
         notifyDataSetChanged()
@@ -34,7 +35,7 @@ class RatingAdapter(val lisModels: MutableList<TPemeriksaanDetail>, var listener
     override fun getItemCount(): Int = lisModels.size
 
     inner class ViewHolder(val binding: ItemPackagingBinding): RecyclerView.ViewHolder(binding.root){
-        fun bind(po : TPemeriksaanDetail){
+        fun bind(po : TPosDetailPenerimaan){
             with(binding){
                 txtNoPackaging.text = po.noPackaging
             }
@@ -44,6 +45,6 @@ class RatingAdapter(val lisModels: MutableList<TPemeriksaanDetail>, var listener
     }
 
     interface OnAdapterListener{
-        fun onClick(po: TPemeriksaanDetail)
+        fun onClick(po: TPosDetailPenerimaan)
     }
 }

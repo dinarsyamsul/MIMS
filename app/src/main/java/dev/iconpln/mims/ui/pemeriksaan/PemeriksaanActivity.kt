@@ -5,25 +5,18 @@ import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.text.Editable
 import android.text.TextWatcher
-import android.util.Log
 import android.view.View
 import android.widget.ArrayAdapter
 import android.widget.Toast
 import androidx.activity.viewModels
 import androidx.recyclerview.widget.LinearLayoutManager
 import dev.iconpln.mims.MyApplication
-import dev.iconpln.mims.R
 import dev.iconpln.mims.data.local.database.DaoSession
 import dev.iconpln.mims.data.local.database.TPemeriksaan
 import dev.iconpln.mims.data.local.database.TPemeriksaanDetail
-import dev.iconpln.mims.data.local.database.TPemeriksaanDetailDao
-import dev.iconpln.mims.data.local.database.TPos
-import dev.iconpln.mims.data.local.database.TPosPenerimaan
 import dev.iconpln.mims.databinding.ActivityPemeriksaanBinding
-import dev.iconpln.mims.ui.pemeriksaan.input_petugas_penerimaan.InputPetugasPenerimaanActivity
 import dev.iconpln.mims.ui.pemeriksaan.pemeriksaan_detail.PemeriksaanDetailActivity
-import dev.iconpln.mims.ui.pnerimaan.PenerimaanAdapter
-import dev.iconpln.mims.ui.pnerimaan.PenerimaanViewModel
+import dev.iconpln.mims.ui.pnerimaan.input_petugas.InputPetugasPenerimaanActivity
 import dev.iconpln.mims.ui.rating.RatingActivity
 
 class PemeriksaanActivity : AppCompatActivity() {

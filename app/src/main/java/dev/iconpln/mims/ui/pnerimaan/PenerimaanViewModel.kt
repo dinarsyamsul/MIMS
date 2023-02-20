@@ -28,7 +28,7 @@ class PenerimaanViewModel: ViewModel() {
                 if (listDetailPenerimaan.isNotEmpty()){
                     _penerimaanDetailResponse.postValue(listDetailPenerimaan)
                 }else{
-                    val listPos = daoSession.tPosDetailDao.queryBuilder().list()
+                    val listPos = daoSession.tPosSnsDao.queryBuilder().list()
                     val size = listPos.size
                     if (size > 0) {
                         val items = arrayOfNulls<TPosDetailPenerimaan>(size)
@@ -36,28 +36,23 @@ class PenerimaanViewModel: ViewModel() {
                         for ((i, model) in listPos.withIndex()){
                             item = TPosDetailPenerimaan()
 
-                            item.noMatSap = model.noMatSap
                             item.noDoSmar = model.noDoSmar
-                            item.qty = model.qty
+                            item.qty = ""
                             item.kdPabrikan = model.kdPabrikan
                             item.doStatus = model.doStatus
-                            item.poSapNo = model.poSapNo
-                            item.poMpNo = model.poMpNo
-                            item.noDoMims = model.noDoMims
                             item.noPackaging = model.noPackaging
-                            item.plantCodeNo = model.plantCodeNo
-                            item.plantName = model.plantName
+                            item.serialNumber = model.noSerial
+                            item.noMaterial = model.noMatSap
+                            item.namaKategoriMaterial = model.namaKategoriMaterial
                             item.storLoc = model.storLoc
-                            item.leadTime = model.leadTime
-                            item.createdDate = model.createdDate
-                            item.uom = model.uom
-                            item.barcode = model.noPackaging
-                            if (model.noPemeriksaan.isNullOrEmpty()){
-                                item.noPemeriksaan = ""
-                            }else{
-                                item.noPemeriksaan = model.noPemeriksaan
+                            if (model.status.isNullOrEmpty()){
+                                item.status = ""
+                                item.isChecked = 0
+                            } else{
+                                item.status = model.status
+                                item.isChecked = 1
                             }
-                            item.isChecked = 0
+                            item.isDone = 0
                             items[i] = item
                         }
                         daoSession.tPosDetailPenerimaanDao.insertInTx(items.toList())
@@ -73,13 +68,13 @@ class PenerimaanViewModel: ViewModel() {
         }
     }
 
-    fun getPenerimaan(daoSession: DaoSession,listMonitoring: List<TPosPenerimaan>){
+    fun getPenerimaan(daoSession: DaoSession,penerimaans: List<TPosPenerimaan>){
         CoroutineScope(Dispatchers.Main).launch {
             try {
                 _isLoading.value = true
 
-                if (listMonitoring.isNotEmpty()){
-                    _penerimaanResponse.postValue(listMonitoring)
+                if (penerimaans.isNotEmpty()){
+                    _penerimaanResponse.postValue(penerimaans)
                 }else{
                     val listPos = daoSession.tPosDao.queryBuilder().list()
                     val size = listPos.size
@@ -96,7 +91,6 @@ class PenerimaanViewModel: ViewModel() {
                             item.plantName = model?.plantName
                             item.poMpNo = model?.poMpNo
                             item.poSapNo = model?.poSapNo
-                            item.storLoc = model?.storLoc
                             item.tlskNo = model?.tlskNo
                             item.total = model?.total
                             item.kdPabrikan = model?.kdPabrikan
@@ -104,14 +98,36 @@ class PenerimaanViewModel: ViewModel() {
                             item.namaKategoriMaterial = model?.namaKategoriMaterial
                             item.noDoMims = model?.noDoMims
                             item.total = model?.total
-                            item.expeditions = model.expeditions
                             item.courierPersonName = model.courierPersonName
-                            item.photoSuratBarang = ""
-                            item.photoBarang = ""
-                            item.tanggalDiterima = ""
-                            item.petugasPenerima = ""
-                            item.namaKurir = ""
-                            item.namaEkspedisi = ""
+                            item.doLineItem = model.doLineItem
+
+                            if (model.expeditions.isNullOrEmpty()){
+                                item.expeditions = ""
+                            }else{
+                                item.expeditions = model.expeditions
+                            }
+
+                            if (model.tglDiterima.isNullOrEmpty()) item.tanggalDiterima = "" else item.tanggalDiterima = model.tglDiterima
+                            if (model.petugasPenerima.isNullOrEmpty()) item.petugasPenerima = "" else item.petugasPenerima = model.petugasPenerima
+                            if (model.kurirPengantar.isNullOrEmpty()) item.kurirPengantar = "" else item.kurirPengantar = model.kurirPengantar
+
+                            item.statusPemeriksaan = ""// nanti di buat di tarikan login
+
+                            item.kodeStatusDoMims = model.kodeStatusDoMims
+                            item.doStatus = model.doStatus
+                            item.expeditions = model.expeditions
+                            item.kdPabrikan = model.kdPabrikan
+                            item.materialGroup = model.materialGroup
+                            item.namaKategoriMaterial = model.namaKategoriMaterial
+                            item.ratingPenerimaan = ""
+                            item.descPenerimaan = ""
+                            item.ratingQuality = ""
+                            item.descQuality = ""
+                            item.ratingWaktu = ""
+                            item.descWaktu = ""
+                            item.nilaiRatingPenerimaan = ""
+                            item.nilaiRatingQuality = ""
+                            item.nilaiRatingWaktu = ""
                             item.isDone = 0
                             items[i] = item
                         }

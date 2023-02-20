@@ -87,30 +87,6 @@ public class MainGenerator {
 
         //endregion
 
-        //region Pos Detail Penerimaan
-        Entity tPosDetailPenerimaan = schema.addEntity("TPosDetailPenerimaan");
-        tPosDetailPenerimaan.addIdProperty();
-        tPosDetailPenerimaan.addStringProperty("NoMatSap");
-        tPosDetailPenerimaan.addStringProperty("NoDoSmar");
-        tPosDetailPenerimaan.addStringProperty("Qty");
-        tPosDetailPenerimaan.addStringProperty("KdPabrikan");
-        tPosDetailPenerimaan.addStringProperty("DoStatus");
-        tPosDetailPenerimaan.addStringProperty("PoSapNo");
-        tPosDetailPenerimaan.addStringProperty("PoMpNo");
-        tPosDetailPenerimaan.addStringProperty("NoDoMims");
-        tPosDetailPenerimaan.addStringProperty("NoPackaging");
-        tPosDetailPenerimaan.addStringProperty("PlantCodeNo");
-        tPosDetailPenerimaan.addStringProperty("PlantName");
-        tPosDetailPenerimaan.addStringProperty("StorLoc");
-        tPosDetailPenerimaan.addStringProperty("LeadTime");
-        tPosDetailPenerimaan.addStringProperty("CreatedDate");
-        tPosDetailPenerimaan.addStringProperty("Uom");
-        tPosDetailPenerimaan.addStringProperty("NoPemeriksaan").notNull();
-        tPosDetailPenerimaan.addStringProperty("Barcode").notNull();
-        tPosDetailPenerimaan.addIntProperty("isChecked");
-
-        //endregion
-
         //region Material Detail
         Entity tMaterialDetail = schema.addEntity("TMaterialDetail");
         tMaterialDetail.addIdProperty();
@@ -193,13 +169,16 @@ public class MainGenerator {
         tPos.addStringProperty("KdPabrikan");
         tPos.addStringProperty("MaterialGroup");
         tPos.addStringProperty("NamaKategoriMaterial");
+        tPos.addStringProperty("PetugasPenerima");
+        tPos.addStringProperty("TglDiterima");
+        tPos.addStringProperty("KurirPengantar");
+        tPos.addStringProperty("DoLineItem");
 
         // endregion
 
         // region posPenerimaan
         Entity tPosPenerimaan = schema.addEntity("TPosPenerimaan");
         tPosPenerimaan.addIdProperty();
-        tPosPenerimaan.addStringProperty("StorLoc");
         tPosPenerimaan.addStringProperty("Total");
         tPosPenerimaan.addStringProperty("TlskNo");
         tPosPenerimaan.addStringProperty("PoSapNo");
@@ -217,15 +196,42 @@ public class MainGenerator {
         tPosPenerimaan.addStringProperty("KdPabrikan");
         tPosPenerimaan.addStringProperty("MaterialGroup");
         tPosPenerimaan.addStringProperty("NamaKategoriMaterial");
-        tPosPenerimaan.addStringProperty("PhotoSuratBarang");
-        tPosPenerimaan.addStringProperty("PhotoBarang");
+        tPosPenerimaan.addStringProperty("RatingPenerimaan");
+        tPosPenerimaan.addStringProperty("DescPenerimaan");
+        tPosPenerimaan.addStringProperty("RatingQuality");
+        tPosPenerimaan.addStringProperty("DescQuality");
+        tPosPenerimaan.addStringProperty("RatingWaktu");
+        tPosPenerimaan.addStringProperty("DescWaktu");
         tPosPenerimaan.addStringProperty("TanggalDiterima");
         tPosPenerimaan.addStringProperty("PetugasPenerima");
-        tPosPenerimaan.addStringProperty("NamaKurir");
-        tPosPenerimaan.addStringProperty("NamaEkspedisi");
+        tPosPenerimaan.addStringProperty("KodeStatusDoMims");
+        tPosPenerimaan.addStringProperty("StatusPemeriksaan");
+        tPosPenerimaan.addStringProperty("KurirPengantar");
+        tPosPenerimaan.addStringProperty("NilaiRatingPenerimaan");
+        tPosPenerimaan.addStringProperty("NilaiRatingWaktu");
+        tPosPenerimaan.addStringProperty("NilaiRatingQuality");
+        tPosPenerimaan.addStringProperty("DoLineItem");
         tPosPenerimaan.addIntProperty("isDone");
 
         // endregion
+
+        //region Pos Detail Penerimaan
+        Entity tPosDetailPenerimaan = schema.addEntity("TPosDetailPenerimaan");
+        tPosDetailPenerimaan.addIdProperty();
+        tPosDetailPenerimaan.addStringProperty("NoDoSmar");
+        tPosDetailPenerimaan.addStringProperty("Qty");
+        tPosDetailPenerimaan.addStringProperty("KdPabrikan");
+        tPosDetailPenerimaan.addStringProperty("DoStatus");
+        tPosDetailPenerimaan.addStringProperty("NoPackaging");
+        tPosDetailPenerimaan.addStringProperty("SerialNumber");
+        tPosDetailPenerimaan.addStringProperty("NoMaterial");
+        tPosDetailPenerimaan.addStringProperty("NamaKategoriMaterial");
+        tPosDetailPenerimaan.addStringProperty("StorLoc");
+        tPosDetailPenerimaan.addStringProperty("Status");
+        tPosDetailPenerimaan.addIntProperty("IsChecked");
+        tPosDetailPenerimaan.addIntProperty("IsDone");
+
+        //endregion
 
         // region possns
         Entity tPosSns = schema.addEntity("TPosSns");
@@ -248,9 +254,10 @@ public class MainGenerator {
         tPosSns.addStringProperty("MasaGaransi");
         tPosSns.addStringProperty("DoStatus");
         tPosSns.addStringProperty("NoPackaging");
+        tPosSns.addStringProperty("DoLineItem");
         tPosSns.addStringProperty("Status");
 
-        // region posPenerimaan
+        // region pemeriksaan
         Entity tPemeriksaan = schema.addEntity("TPemeriksaan");
         tPemeriksaan.addIdProperty();
         tPemeriksaan.addStringProperty("NoPemeriksaan");
@@ -293,7 +300,7 @@ public class MainGenerator {
         tPemeriksaan.addIntProperty("isDone");//untuk centangan
 
 
-        // region penerimaan detail
+        // region pemeriksaan detail
         Entity tPemeriksaanDetail = schema.addEntity("TPemeriksaanDetail");
         tPemeriksaanDetail.addIdProperty();
         tPemeriksaanDetail.addStringProperty("NoPemeriksaan");

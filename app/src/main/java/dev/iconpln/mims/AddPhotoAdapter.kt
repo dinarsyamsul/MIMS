@@ -6,10 +6,15 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.ImageView
 import androidx.recyclerview.widget.RecyclerView
+import dev.iconpln.mims.data.local.database.DaoSession
 import dev.iconpln.mims.data.local.database.TPhoto
 import dev.iconpln.mims.databinding.ItemPhotoBinding
 
-class AddPhotoAdapter(val lisModels: MutableList<TPhoto>, var listener: OnAdapterListener)
+class AddPhotoAdapter(
+    val lisModels: MutableList<TPhoto>,
+    var listener: OnAdapterListener,
+    var hideAddPhoto: Boolean
+)
     : RecyclerView.Adapter<AddPhotoAdapter.ViewHolder>() {
 
     fun setPhotoList(photo: List<TPhoto>){
@@ -33,17 +38,22 @@ class AddPhotoAdapter(val lisModels: MutableList<TPhoto>, var listener: OnAdapte
     override fun getItemCount(): Int = lisModels.size
 
     inner class ViewHolder(val binding: ItemPhotoBinding): RecyclerView.ViewHolder(binding.root){
-        fun bind(mat : TPhoto){
+        fun bind(po : TPhoto){
             with(binding){
-                ivPhoto.setImageBitmap(BitmapFactory.decodeFile(mat.path))
+                ivPhoto.setImageBitmap(BitmapFactory.decodeFile(po.path))
                 ivPhoto.scaleType = ImageView.ScaleType.CENTER_CROP
-                btnTambahPhoto.setOnClickListener { listener.onClick(mat) }
+                btnTambahPhoto.setOnClickListener { listener.onClick(po) }
 
-                if (lisModels.size == mat.photoNumber){
-                    btnTambahPhoto.visibility = View.VISIBLE
+                if (hideAddPhoto){
+                    if (lisModels.size == po.photoNumber){
+                        btnTambahPhoto.visibility = View.VISIBLE
+                    }else{
+                        btnTambahPhoto.visibility = View.GONE
+                    }
                 }else{
                     btnTambahPhoto.visibility = View.GONE
                 }
+
             }
         }
     }

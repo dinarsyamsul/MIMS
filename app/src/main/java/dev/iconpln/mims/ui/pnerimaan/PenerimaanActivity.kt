@@ -11,74 +11,88 @@ import androidx.activity.viewModels
 import androidx.appcompat.app.AppCompatActivity
 import androidx.recyclerview.widget.LinearLayoutManager
 import dev.iconpln.mims.MyApplication
-import dev.iconpln.mims.data.local.database.DaoSession
-import dev.iconpln.mims.data.local.database.TPosDetailPenerimaanDao
-import dev.iconpln.mims.data.local.database.TPosPenerimaan
+import dev.iconpln.mims.data.local.database.*
 import dev.iconpln.mims.databinding.ActivityPenerimaanBinding
 import dev.iconpln.mims.ui.pnerimaan.detail_penerimaan.DetailPenerimaanActivity
-
+import dev.iconpln.mims.ui.pnerimaan.input_petugas.InputPetugasPenerimaanActivity
+import dev.iconpln.mims.ui.rating.RatingActivity
 
 class PenerimaanActivity : AppCompatActivity() {
     private lateinit var binding: ActivityPenerimaanBinding
     private val viewModel: PenerimaanViewModel by viewModels()
     private lateinit var daoSession: DaoSession
     private lateinit var adapter: PenerimaanAdapter
-    private var noDo: String = ""
-    private var statusPenerimaan: String = ""
-    private lateinit var listPenerimaan:  List<TPosPenerimaan>
+    private var filter : String = ""
+    private var srcNoDo: String = ""
+    private lateinit var penerimaans:  List<TPosPenerimaan>
+    private lateinit var penerimaanDet: List<TPosDetailPenerimaan>
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         binding = ActivityPenerimaanBinding.inflate(layoutInflater)
         setContentView(binding.root)
         daoSession = (application as MyApplication).daoSession!!
-        listPenerimaan = daoSession.tPosPenerimaanDao.queryBuilder().list()
+
+        penerimaans = daoSession.tPosPenerimaanDao.queryBuilder()
+            .where(TPosPenerimaanDao.Properties.KodeStatusDoMims.eq("102")).list()
+
+        penerimaanDet = daoSession.tPosDetailPenerimaanDao.queryBuilder()
+            .where(TPosDetailPenerimaanDao.Properties.IsDone.eq(0))
+            .where(TPosDetailPenerimaanDao.Properties.IsChecked.eq(0)).list()
+
+        viewModel.getPenerimaan(daoSession,penerimaans)
+        viewModel.insertDetailPenerimaan(daoSession,penerimaanDet)
 
         adapter = PenerimaanAdapter(arrayListOf(), object : PenerimaanAdapter.OnAdapterListener{
             override fun onClick(po: TPosPenerimaan) {
-                val listDetailPenerimaan = daoSession.tPosDetailPenerimaanDao.queryBuilder()
-                    .where(TPosDetailPenerimaanDao.Properties.NoDoSmar.eq(po.noDoSmar)).list()
+                startActivity(Intent(this@PenerimaanActivity, InputPetugasPenerimaanActivity::class.java)
+                    .putExtra("noDo", po.noDoSmar))
+            }
 
-                if (po.isDone == 1){
-                    Toast.makeText(this@PenerimaanActivity, "Anda sudah melakukan penerimaan ini", Toast.LENGTH_SHORT).show()
+        }, object: PenerimaanAdapter.OnAdapterListenerDoc{
+            override fun onClick(po: TPosPenerimaan) {
+                if (po.tanggalDiterima.isNullOrEmpty()){
+                    Toast.makeText(this@PenerimaanActivity, "Kamu belum melakukan input data penerimaan", Toast.LENGTH_SHORT).show()
                 }else{
-                    viewModel.insertDetailPenerimaan(daoSession,listDetailPenerimaan)
+                    val penerimaans = daoSession.tPosDetailPenerimaanDao.queryBuilder()
+                        .where(TPosDetailPenerimaanDao.Properties.NoDoSmar.eq(po.noDoSmar))
+                        .where(TPosDetailPenerimaanDao.Properties.IsDone.eq(0)).list()
 
-                    startActivity(Intent(this@PenerimaanActivity, DetailPenerimaanActivity::class.java)
-                        .putExtra("do", po.noDoSmar))
+                    if (penerimaans.isNullOrEmpty()){
+                        Toast.makeText(this@PenerimaanActivity, "Kamu sudah melakukan pemeriksaan dokumen di DO ini", Toast.LENGTH_SHORT).show()
+                    }else{
+                        startActivity(Intent(this@PenerimaanActivity, DetailPenerimaanActivity::class.java)
+                            .putExtra("noDo", po.noDoSmar))
+                    }
                 }
             }
 
-        })
+        }, object : PenerimaanAdapter.OnAdapterListenerRate {
+            override fun onClick(po: TPosPenerimaan) {
+                if (po.isDone == 1){
+                    Toast.makeText(this@PenerimaanActivity, "Kamu sudah melakukan rating di DO ini", Toast.LENGTH_SHORT).show()
+                }else{
+                    startActivity(Intent(this@PenerimaanActivity, RatingActivity::class.java)
+                        .putExtra("noDo", po.noDoSmar))
+                }
+            }
 
-        adapter.setPoList(listPenerimaan)
+        },daoSession)
+
+        viewModel.penerimaanResponse.observe(this){
+            adapter.setData(it)
+        }
+
+        viewModel.isLoading.observe(this){
+            when(it){
+                true -> binding.progressBar.visibility = View.VISIBLE
+                false -> binding.progressBar.visibility = View.GONE
+            }
+        }
 
         with(binding){
-            btnBack.setOnClickListener {
-                onBackPressed()
-            }
-
-            rvPenerimaan.adapter = adapter
-            rvPenerimaan.setHasFixedSize(true)
-            rvPenerimaan.layoutManager = LinearLayoutManager(this@PenerimaanActivity, LinearLayoutManager.VERTICAL, false)
-
-            val statusArray = arrayOf(
-                "TERBARU",
-                "TERLAMA"
-            )
-            val adapterStatus = ArrayAdapter(this@PenerimaanActivity, android.R.layout.simple_dropdown_item_1line, statusArray)
-            dropdownStatusPenerimaan.setAdapter(adapterStatus)
-            dropdownStatusPenerimaan.setOnItemClickListener { parent, view, position, id ->
-                statusPenerimaan = statusArray[position]
-                if (noDo.isNotEmpty()){
-                    val filter = listPenerimaan.filter { it.noDoSmar.lowercase().contains(noDo.lowercase())
-                            && it.doStatus.lowercase().contains(statusPenerimaan.lowercase())}
-                    adapter.setPoList(filter)
-                }else{
-                    val filter = listPenerimaan.filter { it.doStatus.lowercase().contains(statusArray[position].lowercase()) }
-                    adapter.setPoList(filter)
-                }
-            }
+            btnBack.setOnClickListener { onBackPressed() }
+            setRecyclerView(false)
 
             srcNomorPoDo.addTextChangedListener(object : TextWatcher{
                 override fun beforeTextChanged(
@@ -91,18 +105,39 @@ class PenerimaanActivity : AppCompatActivity() {
                 override fun onTextChanged(s: CharSequence?, start: Int, before: Int, count: Int) {}
 
                 override fun afterTextChanged(s: Editable?) {
-                    noDo = s.toString()
-                    if (statusPenerimaan.isNotEmpty()){
-                        val filter = listPenerimaan.filter { it.noDoSmar.lowercase().contains(s.toString().lowercase())
-                                && it.doStatus.lowercase().contains(statusPenerimaan.lowercase())}
-                        adapter.setPoList(filter)
-                    }else{
-                        val filter = listPenerimaan.filter { it.noDoSmar.lowercase().contains(s.toString().lowercase()) }
-                        adapter.setPoList(filter)
+                    srcNoDo = s.toString()
+                    val filter = penerimaans.filter {
+                        it.noDoSmar.lowercase().contains(s.toString().lowercase())
                     }
+                    adapter.setData(filter)
                 }
 
             })
+
+            val statusArray = arrayOf(
+                "TERBARU","TERLAMA"
+            )
+            val adapterStatus = ArrayAdapter(this@PenerimaanActivity, android.R.layout.simple_dropdown_item_1line, statusArray)
+            dropdownUrutkan.setAdapter(adapterStatus)
+            dropdownUrutkan.setOnItemClickListener { parent, view, position, id ->
+                filter = statusArray[position]
+                if (filter == "TERBARU"){
+                    setRecyclerView(true)
+                }else{
+                    setRecyclerView(false)
+                }
+            }
         }
+    }
+
+    private fun setRecyclerView(reverse: Boolean) {
+        binding.rvPenerimaan.adapter = adapter
+        binding.rvPenerimaan.setHasFixedSize(true)
+        val lm = LinearLayoutManager(this@PenerimaanActivity)
+        lm.stackFromEnd = reverse
+        lm.orientation = LinearLayoutManager.VERTICAL
+        lm.reverseLayout = reverse
+        binding.rvPenerimaan.layoutManager = lm
+
     }
 }

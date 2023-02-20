@@ -1,16 +1,22 @@
 package dev.iconpln.mims.ui.pnerimaan.detail_penerimaan
 
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
 import dev.iconpln.mims.data.local.database.DaoSession
+import dev.iconpln.mims.data.local.database.TPemeriksaanDetail
+import dev.iconpln.mims.data.local.database.TPemeriksaanDetailDao
 import dev.iconpln.mims.data.local.database.TPosDetailPenerimaan
 import dev.iconpln.mims.databinding.ItemPackagingBinding
+import dev.iconpln.mims.databinding.ItemPackagingPemeriksaanBinding
+import dev.iconpln.mims.databinding.ItemSnMaterialBinding
 
-class DetailPenerimaanAdapter(val lisModels: MutableList<TPosDetailPenerimaan>, var listener: OnAdapterListener, var daoSession: DaoSession)
+class DetailPenerimaanAdapter(val lisModels: MutableList<TPosDetailPenerimaan>,
+                              var listener: OnAdapterListener, var daoSession: DaoSession)
     : RecyclerView.Adapter<DetailPenerimaanAdapter.ViewHolder>() {
 
-    fun setPoList(po: List<TPosDetailPenerimaan>){
+    fun setData(po: List<TPosDetailPenerimaan>){
         lisModels.clear()
         lisModels.addAll(po)
         notifyDataSetChanged()
@@ -20,7 +26,7 @@ class DetailPenerimaanAdapter(val lisModels: MutableList<TPosDetailPenerimaan>, 
         parent: ViewGroup,
         viewType: Int
     ): ViewHolder {
-        val binding = ItemPackagingBinding.inflate(LayoutInflater.from(parent.context), parent, false)
+        val binding = ItemSnMaterialBinding.inflate(LayoutInflater.from(parent.context), parent, false)
         return ViewHolder(binding)
     }
 
@@ -30,26 +36,53 @@ class DetailPenerimaanAdapter(val lisModels: MutableList<TPosDetailPenerimaan>, 
 
     override fun getItemCount(): Int = lisModels.size
 
-    inner class ViewHolder(val binding: ItemPackagingBinding): RecyclerView.ViewHolder(binding.root){
-        fun bind(po : TPosDetailPenerimaan){
-            with(binding){
-                txtNoPackaging.text = po.noPackaging
-//                checkReceived.setOnCheckedChangeListener { buttonView, isChecked ->
-//                    if (isChecked) {
-//                        po.isChecked = 1
-//                        daoSession.update(po)
-//                    }else{
-//                        po.isChecked = 0
-//                        daoSession.update(po)
-//                    }
-//                }
-//                if(po.isChecked == 1){
-//                    checkReceived.isChecked = true
-//                    checkReceived.isEnabled = false
-//                }
-            }
+    inner class ViewHolder(val binding: ItemSnMaterialBinding): RecyclerView.ViewHolder(binding.root){
+        fun bind(tpd : TPosDetailPenerimaan){
 
-            itemView.setOnClickListener { listener.onClick(po) }
+            with(binding){
+                txtSnMaterial.text = "${tpd.serialNumber}"
+                txtKategori.text = tpd.namaKategoriMaterial
+                txtVendor.text = "-"
+
+//                cbSesuai.isChecked = po.isDone == 1
+
+                if (tpd.isChecked == 1 && tpd.status == "SESUAI"){
+                    cbSesuai.isChecked = true
+                }else if (tpd.isChecked == 1 && tpd.status == "TIDAK SESUAI"){
+                    cbTidakSesuai.isChecked = true
+                }else {
+                    cbSesuai.isChecked = false
+                    cbTidakSesuai.isChecked = false
+                }
+
+                cbTidakSesuai.setOnCheckedChangeListener { buttonView, isChecked ->
+                    cbSesuai.isEnabled = !isChecked
+                    if (isChecked){
+                        tpd.status = "TIDAK SESUAI"
+                        tpd.isChecked = 1
+                        daoSession.tPosDetailPenerimaanDao.update(tpd)
+                    }else{
+                        tpd.status = ""
+                        tpd.isChecked = 0
+                        daoSession.tPosDetailPenerimaanDao.update(tpd)
+                    }
+                }
+
+                cbSesuai.setOnCheckedChangeListener { buttonView, isChecked ->
+                    cbTidakSesuai.isEnabled = !isChecked
+                    if (isChecked){
+                        tpd.status = "SESUAI"
+                        tpd.isChecked = 1
+                        daoSession.tPosDetailPenerimaanDao.update(tpd)
+                    }else{
+                        tpd.status = ""
+                        tpd.isChecked = 0
+                        daoSession.tPosDetailPenerimaanDao.update(tpd)
+                    }
+
+                }
+            }
+            itemView.setOnClickListener { listener.onClick(tpd) }
         }
     }
 

@@ -27,8 +27,12 @@ object ApiConfig {
         return retrofit.create(ApiService::class.java)
     }
 
+    fun sendPenerimaanPerson(): String {
+        return "$BASE_URL/reports/sendReportPenerimaanPerson"
+    }
+
     fun sendPenerimaan(): String {
-        return "$BASE_URL/reports/sendReportPenerimaan"
+        return "$BASE_URL/reports/v2/sendReportPenerimaan"
     }
 
     fun insertLokasi(): String {
@@ -40,10 +44,10 @@ object ApiConfig {
     }
 
     fun sendComplaint(): String {
-        return "$BASE_URL/reports/sendReportComplaint"
+        return "$BASE_URL/reports/v2/sendReportComplaint"
     }
 
     fun sendRating():String{
-        return "$BASE_URL/reports/sendReportRating"
+        return "$BASE_URL/reports/v2/sendReportRating"
     }
 }

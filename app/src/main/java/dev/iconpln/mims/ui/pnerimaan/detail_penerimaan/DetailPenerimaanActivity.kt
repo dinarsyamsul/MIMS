@@ -1,26 +1,23 @@
 package dev.iconpln.mims.ui.pnerimaan.detail_penerimaan
 
-import android.Manifest
-import android.annotation.SuppressLint
-import android.app.DatePickerDialog
+
+import android.app.AlertDialog
+import android.app.Dialog
 import android.content.Intent
-import android.content.pm.PackageManager
-import android.graphics.Bitmap
-import android.graphics.BitmapFactory
 import android.os.Bundle
-import android.provider.MediaStore
+import android.text.Editable
+import android.text.TextWatcher
 import android.util.Log
+import android.view.ViewGroup
+import android.widget.TextView
 import android.widget.Toast
+import androidx.activity.viewModels
 import androidx.appcompat.app.AppCompatActivity
-import androidx.cardview.widget.CardView
-import androidx.core.app.ActivityCompat
-import androidx.core.content.ContextCompat
+import androidx.appcompat.widget.AppCompatButton
 import androidx.recyclerview.widget.LinearLayoutManager
-import com.google.android.material.bottomsheet.BottomSheetDialog
 import com.journeyapps.barcodescanner.ScanContract
 import com.journeyapps.barcodescanner.ScanIntentResult
 import com.journeyapps.barcodescanner.ScanOptions
-import dev.iconpln.mims.CameraXActivity
 import dev.iconpln.mims.MyApplication
 import dev.iconpln.mims.R
 import dev.iconpln.mims.data.local.database.*
@@ -32,432 +29,320 @@ import dev.iconpln.mims.data.scan.CustomScanActivity
 import dev.iconpln.mims.databinding.ActivityDetailPenerimaanBinding
 import dev.iconpln.mims.tasks.Loadable
 import dev.iconpln.mims.tasks.TambahReportTask
+import dev.iconpln.mims.ui.pemeriksaan.complaint.ComplaintActivity
 import dev.iconpln.mims.ui.pnerimaan.PenerimaanActivity
-import dev.iconpln.mims.ui.transmission_history.TransmissionActivity
-import dev.iconpln.mims.utils.SessionManager
+import dev.iconpln.mims.ui.pnerimaan.PenerimaanViewModel
+import dev.iconpln.mims.utils.Config
+import dev.iconpln.mims.utils.DateTimeUtils
 import dev.iconpln.mims.utils.SharedPrefsUtils
-import dev.iconpln.mims.utils.StorageUtils
 import org.joda.time.DateTime
-import java.io.File
-import java.io.FileOutputStream
-import java.text.SimpleDateFormat
-import java.util.*
+import org.joda.time.LocalDateTime
+import java.util.ArrayList
 
 
 class DetailPenerimaanActivity : AppCompatActivity(),Loadable {
     private lateinit var daoSession: DaoSession
-    private lateinit var session: SessionManager
+    private var progressDialog: AlertDialog? = null
     private lateinit var binding: ActivityDetailPenerimaanBinding
+    private val viewModel: PenerimaanViewModel by viewModels()
     private lateinit var adapter: DetailPenerimaanAdapter
-    private val cameraRequestFotoBarang = 101
-    private val cameraRequestFotoBarangGallery = 102
-    private val cameraRequestFotoSuratBarang = 103
-    private val cameraRequestFotoSuratBarangGallery = 104
-    private var filePathFotoBarang: String = ""
-    private var filePathFotoSuratBarang: String = ""
-    private lateinit var cal: Calendar
+    private lateinit var listDetailPen: MutableList<TPosDetailPenerimaan>
+    private lateinit var penerimaan: TPosPenerimaan
     private var noDo: String = ""
-    private lateinit var data: TPosPenerimaan
-    private lateinit var packagingList: List<TPosDetailPenerimaan>
-    private lateinit var dataDetailPenerimaan: TPosDetailPenerimaan
 
-    @SuppressLint("SuspiciousIndentation")
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         binding = ActivityDetailPenerimaanBinding.inflate(layoutInflater)
         setContentView(binding.root)
         daoSession = (application as MyApplication).daoSession!!
-        cal = Calendar.getInstance()
-        session = SessionManager(this)
+        noDo = intent.getStringExtra("noDo")!!
 
-        noDo = intent.getStringExtra("do").toString()
-
-        data = daoSession.tPosPenerimaanDao.queryBuilder().where(TPosPenerimaanDao.Properties.NoDoSmar.eq(noDo)).limit(1).unique()
-        dataDetailPenerimaan = daoSession.tPosDetailPenerimaanDao.queryBuilder().where(TPosDetailPenerimaanDao.Properties.NoDoSmar.eq(noDo)).limit(1).unique()
-
-        packagingList = daoSession.tPosDetailPenerimaanDao.queryBuilder()
+        listDetailPen = daoSession.tPosDetailPenerimaanDao.queryBuilder()
             .where(TPosDetailPenerimaanDao.Properties.NoDoSmar.eq(noDo))
-            .where(TPosDetailPenerimaanDao.Properties.NoPemeriksaan.eq("")).list()
-        Log.d("checkSizePackagingList", packagingList.size.toString())
+            .where(TPosDetailPenerimaanDao.Properties.IsDone.eq(0))
+            .where(TPosDetailPenerimaanDao.Properties.IsChecked.eq(0)).list()
 
-        if (packagingList.isEmpty()){
-            Toast.makeText(this@DetailPenerimaanActivity, "data packaging tidak ditemukan", Toast.LENGTH_SHORT).show()
-            binding.btnSimpan.isEnabled = false
-        }
+        penerimaan = daoSession.tPosPenerimaanDao.queryBuilder()
+            .where(TPosPenerimaanDao.Properties.NoDoSmar.eq(noDo)).limit(1).unique()
 
         adapter = DetailPenerimaanAdapter(arrayListOf(), object : DetailPenerimaanAdapter.OnAdapterListener{
-            override fun onClick(po: TPosDetailPenerimaan) {}
+            override fun onClick(po: TPosDetailPenerimaan) {}},daoSession)
 
-        }, daoSession)
+        adapter.setData(listDetailPen)
 
         with(binding){
-            recyclerView2.adapter = adapter
-            recyclerView2.setHasFixedSize(true)
-            recyclerView2.layoutManager = LinearLayoutManager(this@DetailPenerimaanActivity, LinearLayoutManager.VERTICAL, false)
+            rvListSn.adapter = adapter
+            rvListSn.layoutManager = LinearLayoutManager(this@DetailPenerimaanActivity, LinearLayoutManager.VERTICAL, false)
+            rvListSn.setHasFixedSize(true)
+
+            txtKurirPengiriman.text = penerimaan.expeditions
+            txtTglKirim.text = "Tgl ${penerimaan.createdDate}"
+            txtPetugasPenerima.text = penerimaan.petugasPenerima
+            txtDeliveryOrder.text = penerimaan.noDoSmar
+            txtNamaKurir.text = penerimaan.kurirPengantar
+
+            btnScanPackaging.setOnClickListener {
+                openScanner(1)
+            }
+
+            btnScanSn.setOnClickListener {
+                openScanner(2)
+            }
+
+            srcNoSn.addTextChangedListener(object : TextWatcher {
+                override fun beforeTextChanged(s: CharSequence?, start: Int, count: Int, after: Int) {}
+
+                override fun onTextChanged(s: CharSequence?, start: Int, before: Int, count: Int) {}
+
+                override fun afterTextChanged(s: Editable?) {
+                    val listSnsFilter = listDetailPen.filter {
+                        it.serialNumber.toLowerCase().contains(s.toString().toLowerCase())
+                    }
+                    adapter.setData(listSnsFilter)
+                }
+
+            })
+
+            cbSesuai.setOnCheckedChangeListener { buttonView, isChecked ->
+                cbTidakSesuai.isEnabled = !isChecked
+                if (isChecked){
+                    for (i in listDetailPen){
+                        i.status = "SESUAI"
+                        i.isChecked = 1
+                        daoSession.update(i)
+                    }
+                    adapter.setData(listDetailPen)
+                }else{
+                    for (i in listDetailPen){
+                        i.status = ""
+                        i.isChecked = 0
+                        daoSession.update(i)
+                    }
+                    adapter.setData(listDetailPen)
+                }
+            }
+
+            cbTidakSesuai.setOnCheckedChangeListener { buttonView, isChecked ->
+                cbSesuai.isEnabled = !isChecked
+                if (isChecked){
+                    for (i in listDetailPen){
+                        i.status = "TIDAK SESUAI"
+                        i.isChecked = 1
+                        daoSession.update(i)
+                    }
+                    adapter.setData(listDetailPen)
+                }else{
+                    for (i in listDetailPen){
+                        i.status = ""
+                        i.isChecked = 0
+                        daoSession.update(i)
+                    }
+                    adapter.setData(listDetailPen)
+                }
+            }
+
+            btnKomplain.setOnClickListener {
+                validComplaint()
+            }
+
+            btnTerima.setOnClickListener {
+                validTerima()
+            }
 
             btnBack.setOnClickListener { onBackPressed() }
-
-            val dateSetListener = DatePickerDialog.OnDateSetListener { view, year, monthOfYear, dayOfMonth ->
-                cal.set(Calendar.YEAR, year)
-                cal.set(Calendar.MONTH, monthOfYear)
-                cal.set(Calendar.DAY_OF_MONTH, dayOfMonth)
-
-                val myFormat = "dd-MM-yyyy" // mention the format you need
-                val sdf = SimpleDateFormat(myFormat, Locale.US)
-                edtTanggalDiterima.setText(sdf.format(cal.time))
-
-            }
-
-            edtTanggalDiterima.setOnClickListener{
-                DatePickerDialog(this@DetailPenerimaanActivity, dateSetListener,
-                    cal.get(Calendar.YEAR),
-                    cal.get(Calendar.MONTH),
-                    cal.get(Calendar.DAY_OF_MONTH)).show()
-            }
-
-            btnFotoSuratBarang.setOnClickListener {
-                if (ContextCompat.checkSelfPermission(applicationContext, Manifest.permission.CAMERA) == PackageManager.PERMISSION_DENIED)
-                    ActivityCompat.requestPermissions(this@DetailPenerimaanActivity, arrayOf(Manifest.permission.CAMERA), cameraRequestFotoSuratBarang)
-
-                val dialog = BottomSheetDialog(this@DetailPenerimaanActivity, R.style.AppBottomSheetDialogTheme)
-                val view = layoutInflater.inflate(R.layout.bottom_sheet_dialog_photo, null)
-                var btnCamera = view.findViewById<CardView>(R.id.cv_kamera)
-                var btnGallery = view.findViewById<CardView>(R.id.cv_gallery)
-
-                btnCamera.setOnClickListener {
-//                    val cameraIntent = Intent(MediaStore.ACTION_IMAGE_CAPTURE)
-//                    startActivityForResult(cameraIntent, cameraRequestFotoSuratBarang)
-                    val intent = Intent(this@DetailPenerimaanActivity, CameraXActivity::class.java)
-                        .putExtra("fotoName", "fotoSuratBarang")
-                    startActivityForResult(intent,cameraRequestFotoSuratBarang)
-                    dialog.dismiss()
-                }
-
-                btnGallery.setOnClickListener {
-                    val photoPickerIntent = Intent(Intent.ACTION_PICK)
-                    photoPickerIntent.type = "image/*"
-                    startActivityForResult(photoPickerIntent, cameraRequestFotoSuratBarangGallery)
-                    dialog.dismiss()
-                }
-
-                dialog.setCancelable(true)
-                dialog.setContentView(view)
-                dialog.show()
-            }
-
-            btnFotoBarang.setOnClickListener {
-                if (ContextCompat.checkSelfPermission(applicationContext, Manifest.permission.CAMERA) == PackageManager.PERMISSION_DENIED)
-                    ActivityCompat.requestPermissions(this@DetailPenerimaanActivity, arrayOf(Manifest.permission.CAMERA), cameraRequestFotoSuratBarang)
-
-                val dialog = BottomSheetDialog(this@DetailPenerimaanActivity, R.style.AppBottomSheetDialogTheme)
-                val view = layoutInflater.inflate(R.layout.bottom_sheet_dialog_photo, null)
-                var btnCamera = view.findViewById<CardView>(R.id.cv_kamera)
-                var btnGallery = view.findViewById<CardView>(R.id.cv_gallery)
-
-                btnCamera.setOnClickListener {
-//                    val cameraIntent = Intent(MediaStore.ACTION_IMAGE_CAPTURE)
-//                    startActivityForResult(cameraIntent, cameraRequestFotoBarang)
-
-                    val intent = Intent(this@DetailPenerimaanActivity, CameraXActivity::class.java)
-                        .putExtra("fotoName", "fotoBarang")
-                    startActivityForResult(intent,cameraRequestFotoBarang)
-                    dialog.dismiss()
-                }
-
-                btnGallery.setOnClickListener {
-                    val photoPickerIntent = Intent(Intent.ACTION_PICK)
-                    photoPickerIntent.type = "image/*"
-                    startActivityForResult(photoPickerIntent, cameraRequestFotoBarangGallery)
-                    dialog.dismiss()
-                }
-
-                dialog.setCancelable(true)
-                dialog.setContentView(view)
-                dialog.show()
-            }
-
-            barcode2.setOnClickListener {
-                openScanner()
-            }
-
-            btnSimpan.setOnClickListener {
-                validatete()
-            }
-            txtPrimaryOrder.text = dataDetailPenerimaan.noDoMims
-            txtNoDo.text = dataDetailPenerimaan.noDoSmar
-            txtPlant.text = dataDetailPenerimaan.plantName
-            txtTlsk.text = data.tlskNo
-            txtUnit.text = dataDetailPenerimaan.uom
-            txtKurirPengiriman.text = data.namaKurir
-            txtPetugasPengiriman.text = data.courierPersonName
-            txtStoreloc.text = dataDetailPenerimaan.storLoc
-            txtTglKirim.text = dataDetailPenerimaan.createdDate
-            txtVendor.text = dataDetailPenerimaan.plantName
         }
-
-        setPackagingList()
-        setCardData()
     }
 
-    private fun validatete() {
-        if (filePathFotoSuratBarang.isNullOrEmpty()){
-            Toast.makeText(this, "Ambil foto barang terlebih dahulu", Toast.LENGTH_SHORT).show()
-            return
+    private fun validTerima() {
+        for (i in listDetailPen){
+            Log.d("checkList", i.status)
+            if (i.status == "TIDAK SESUAI" || i.status.isNullOrEmpty() ){
+                Toast.makeText(this@DetailPenerimaanActivity, "Tidak boleh terima dengan status tidak sesuai atau kosong", Toast.LENGTH_SHORT).show()
+                return
+            }
         }
 
-        if (filePathFotoBarang.isNullOrEmpty()){
-            Toast.makeText(this, "Ambil foto surat barang terlebih dahulu", Toast.LENGTH_SHORT).show()
-            return
+        val dialog = Dialog(this@DetailPenerimaanActivity)
+        dialog.setContentView(R.layout.popup_validation);
+        dialog.window!!.setLayout(ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.WRAP_CONTENT);
+        dialog.setCancelable(false);
+        dialog.window!!.attributes.windowAnimations = R.style.DialogUpDown;
+        val btnYa = dialog.findViewById(R.id.btn_ya) as AppCompatButton
+        val btnTidak = dialog.findViewById(R.id.btn_tidak) as AppCompatButton
+
+        btnTidak.setOnClickListener {
+            submitForm(0)
+            dialog.dismiss();
         }
 
-        if (binding.edtEkspedisi.text.toString().isNullOrEmpty()){
-            Toast.makeText(this, "Harap lengkapi data", Toast.LENGTH_SHORT).show()
-            return
+        btnYa.setOnClickListener {
+            submitForm(1)
+            dialog.dismiss()
         }
 
-        if (binding.edtPetugasPenerima.text.toString().isNullOrEmpty()){
-            Toast.makeText(this, "Harap lengkapi data", Toast.LENGTH_SHORT).show()
-            return
-        }
-
-        if (binding.edtTanggalDiterima.text.toString().isNullOrEmpty()){
-            Toast.makeText(this, "Harap lengkapi data", Toast.LENGTH_SHORT).show()
-            return
-        }
-
-        if (binding.edtNamaKurir.text.toString().isNullOrEmpty()){
-            Toast.makeText(this, "Harap lengkapi data", Toast.LENGTH_SHORT).show()
-            return
-        }
-
-        submitForm()
+        dialog.show();
     }
 
-    private fun submitForm() {
-        val reports = java.util.ArrayList<GenericReport>()
-        val list = daoSession.tPosDetailPenerimaanDao.queryBuilder()
-            .where(TPosDetailPenerimaanDao.Properties.NoDoSmar.eq(noDo))
-            .where(TPosDetailPenerimaanDao.Properties.NoPemeriksaan.eq(""))
-            .where(TPosDetailPenerimaanDao.Properties.IsChecked.eq(1)).list()
-        var packagings = ""
-        for (i in list){
-            packagings += "${i.noPackaging},"
+    private fun submitForm(isPeriksa: Int) {
+        var sns = ""
+        var checkedDetPen = listDetailPen.filter { it.isChecked == 1 }
+        for (i in checkedDetPen){
+            sns += "${i.noPackaging},${i.serialNumber},${i.noMaterial};"
             Log.i("noPackaging", i.noPackaging)
 
         }
-        if (packagings != "") {
-            packagings = packagings.substring(0, packagings.length - 1)
+        if (sns != "") {
+            sns = sns.substring(0, sns.length - 1)
         }
 
-        with(binding){
-            val noPackagings = packagingList.filter { it.isChecked == 1 }.size
-            data.petugasPenerima = edtPetugasPenerima.text.toString()
-            data.namaEkspedisi = edtEkspedisi.text.toString()
-            data.namaKurir = edtNamaKurir.text.toString()
-            data.photoSuratBarang = filePathFotoSuratBarang
-            data.photoBarang = filePathFotoBarang
-            data.tanggalDiterima = edtTanggalDiterima.text.toString()
-            Log.d("noPackagings", noPackagings.toString())
-            if (noPackagings == packagingList.size){
-                data.isDone = 1
-            }else{
-                data.isDone = 0
-            }
-            daoSession.update(data)
+        val reports = ArrayList<GenericReport>()
+        val currentDate = LocalDateTime.now().toString(Config.DATE)
+        val currentDateTime = LocalDateTime.now().toString(Config.DATETIME)
+        val currentUtc = DateTimeUtils.currentUtc
+        Log.i("datime","${currentDateTime}")
 
-            val noPemeriksaan = "P.${data.noDoSmar}.${ DateTime.now().toString("yyMMddHHmmssSS")}"
+        //region Add report visit to queue
+        var jwt = SharedPrefsUtils.getStringPreference(this@DetailPenerimaanActivity,"jwt","")
+        var username = SharedPrefsUtils.getStringPreference(this@DetailPenerimaanActivity, "username","14.Hexing_Electrical")
+        val reportId = "temp_penerimaan" + username + "_" + noDo + "_" + DateTime.now().toString(
+            Config.DATETIME)
+        val reportName = "Update Data Dokumen Penerimaan"
+        val reportDescription = "$reportName: "+ " (" + reportId + ")"
+        val params = ArrayList<ReportParameter>()
+        params.add(ReportParameter("1", reportId, "no_do_smar", noDo!!, ReportParameter.TEXT))
+        params.add(ReportParameter("2", reportId, "quantity", checkedDetPen.size.toString(), ReportParameter.TEXT))
+        params.add(ReportParameter("3", reportId, "do_line_item", penerimaan.doLineItem, ReportParameter.TEXT))
+        params.add(ReportParameter("4", reportId, "is_periksa", isPeriksa.toString(), ReportParameter.TEXT))
+        params.add(ReportParameter("5", reportId, "sns", sns, ReportParameter.TEXT))
+        params.add(ReportParameter("6", reportId, "username", username!!, ReportParameter.TEXT))
+        params.add(ReportParameter("7", reportId, "email", username, ReportParameter.TEXT))
 
-            if (packagingList.isNotEmpty()){
-               for (i in packagingList){
-                   if (i.isChecked == 1){
-                       i.noPemeriksaan = noPemeriksaan
-                       daoSession.tPosDetailPenerimaanDao.update(i)
-                   }
-               }
-            }
-
-
-            var item = TPemeriksaan()
-            item.noPemeriksaan = noPemeriksaan
-            item.createdDate = data.createdDate
-            item.leadTime = data.leadTime
-            item.storloc = data.storLoc
-            item.noDoSmar = data.noDoSmar
-            item.planCodeNo = data.planCodeNo
-            item.plantName = data.plantName
-            item.poMpNo = data.poMpNo
-            item.poSapNo = data.poSapNo
-            item.storLoc = data.storLoc
-            item.tlskNo = data.tlskNo
-            item.total = data.total
-            item.kdPabrikan = data.kdPabrikan
-            item.materialGroup = data.materialGroup
-            item.namaKategoriMaterial = data.namaKategoriMaterial
-            item.noDoMims = data.noDoMims
-            item.tanggalDiterima = data.tanggalDiterima
-            item.namaKurir = data.namaKurir
-            item.namaEkspedisi = data.namaEkspedisi
-            item.petugasPenerima = data.petugasPenerima
-
-            //baru
-            item.namaKetua = ""
-            item.namaManager = ""
-            item.namaSekretaris = ""
-            item.anggota = ""
-            item.ratingPenerimaan = ""
-            item.descPenerimaan = ""
-            item.ratingQuality = ""
-            item.descQuality = ""
-            item.ratingWaktu = ""
-            item.descWaktu = ""
-            item.ratingPath = ""
-            item.packangings = packagings
-            item.state = 1
-            item.isDone = 0
-            daoSession.insert(item)
-
-            var jwt = SharedPrefsUtils.getStringPreference(this@DetailPenerimaanActivity,"jwt","")
-            var username = SharedPrefsUtils.getStringPreference(this@DetailPenerimaanActivity, "username","")
-            var email = SharedPrefsUtils.getStringPreference(this@DetailPenerimaanActivity, "email","")
-            val currentDate = DateTime.now().toString("yyyy-MM-dd")
-            val reportId = "Penerimaan" + DateTime.now().toString("yMdHmsSSS")
-            val reportName = "Penerimaan"
-            val reportDescription = "Penerimaan-${item.noDoSmar}-${item.packangings}-${DateTime.now().toString("yyyy-MM-dd")}"
-            val params = ArrayList<ReportParameter>()
-            params.add(ReportParameter("1", reportId, "plant_code_no", item.planCodeNo, ReportParameter.TEXT ))
-            params.add(ReportParameter("2", reportId, "no_do_smar", item.noDoSmar, ReportParameter.TEXT ))
-            params.add(ReportParameter("3", reportId, "no_mat_sap", dataDetailPenerimaan.noMatSap, ReportParameter.TEXT ))
-            params.add(ReportParameter("4", reportId, "penerima", item.petugasPenerima, ReportParameter.TEXT ))
-            params.add(ReportParameter("5", reportId, "tanggal", item.tanggalDiterima, ReportParameter.TEXT ))
-            params.add(ReportParameter("6", reportId, "kurir", item.namaKurir, ReportParameter.TEXT ))
-            params.add(ReportParameter("7", reportId, "ekspedisi", item.namaEkspedisi, ReportParameter.TEXT ))
-            params.add(ReportParameter("8", reportId, "quantity", dataDetailPenerimaan.qty, ReportParameter.TEXT ))
-            params.add(ReportParameter("9", reportId, "username", username!!, ReportParameter.TEXT ))
-            params.add(ReportParameter("10", reportId, "email",email!! , ReportParameter.TEXT ))
-            params.add(ReportParameter("11", reportId, "no_packagings", packagings, ReportParameter.TEXT ))
-            params.add(ReportParameter("12", reportId, "photo_file", filePathFotoBarang, ReportParameter.FILE ))
-            params.add(ReportParameter("13", reportId, "photo_file2", filePathFotoSuratBarang, ReportParameter.FILE ))
-            val reportPenerimaan = GenericReport(reportId, jwt!!, reportName, reportDescription, ApiConfig.sendPenerimaan(), currentDate, 0, 11119209101, params)
-            reports.add(reportPenerimaan)
-
-        }
+        val report = GenericReport(reportId, jwt!!, reportName, reportDescription, ApiConfig.sendPenerimaan(), currentDate, Config.NO_CODE, currentUtc, params)
+        reports.add(report)
+        //endregion
 
         val task = TambahReportTask(this, reports)
         task.execute()
 
-        val iService = Intent(this, ReportUploader::class.java)
+        val iService = Intent(applicationContext, ReportUploader::class.java)
         startService(iService)
+
+        updateData(checkedDetPen)
     }
 
-    private fun setCardData() {}
-
-    private fun setPackagingList() {
-        adapter.setPoList(packagingList)
-    }
-
-    override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
-        super.onActivityResult(requestCode, resultCode, data)
-
-        if (resultCode == RESULT_OK && requestCode == cameraRequestFotoSuratBarangGallery){
-            val imageUri = data?.data
-            val imageStream = contentResolver.openInputStream(imageUri!!)
-            val bitmap: Bitmap = BitmapFactory.decodeStream(imageStream)
-
-            val file_path = StorageUtils.getDirectory(StorageUtils.DIRECTORY_ROOT) +
-                    "/Images"
-            val dir = File(file_path)
-            if (!dir.exists()) dir.mkdirs()
-            val file = File(dir, "mims" + "picturesFotoSuratBarang${UUID.randomUUID()}" + ".png")
-            val fOut = FileOutputStream(file)
-
-            bitmap.compress(Bitmap.CompressFormat.PNG, 85, fOut)
-            fOut.flush()
-            fOut.close()
-
-            binding.idFileName.setImageBitmap(bitmap)
-            filePathFotoSuratBarang = file.toString()
-
-        }else{
-            Log.d("cancel", "cacelPhoto")
+    private fun updateData(checkedDetPen: List<TPosDetailPenerimaan>) {
+        for (i in checkedDetPen){
+            i.isDone = 1
+            daoSession.tPosDetailPenerimaanDao.update(i)
         }
 
-        if (resultCode == RESULT_OK && requestCode == cameraRequestFotoBarangGallery){
-            val imageUri = data?.data
-            val imageStream = contentResolver.openInputStream(imageUri!!)
-            val bitmap: Bitmap = BitmapFactory.decodeStream(imageStream)
+        val dialog = Dialog(this@DetailPenerimaanActivity)
+        dialog.setContentView(R.layout.popup_complaint);
+        dialog.window!!.setLayout(ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.WRAP_CONTENT);
+        dialog.setCancelable(false);
+        dialog.window!!.attributes.windowAnimations = R.style.DialogUpDown;
+        val btnOk = dialog.findViewById(R.id.btn_ok) as AppCompatButton
+        val txtMessage = dialog.findViewById(R.id.txt_message) as TextView
 
-            val file_path = StorageUtils.getDirectory(StorageUtils.DIRECTORY_ROOT) +
-                    "/Images"
-            val dir = File(file_path)
-            if (!dir.exists()) dir.mkdirs()
-            val file = File(dir, "mims" + "picturesFotoBarang${UUID.randomUUID()}" + ".png")
-            val fOut = FileOutputStream(file)
+        txtMessage.text = "Material berhasil diterima tanpa pemeriksaan"
 
-            bitmap.compress(Bitmap.CompressFormat.PNG, 85, fOut)
-            fOut.flush()
-            fOut.close()
-
-            binding.idFileNameBarang.setImageBitmap(bitmap)
-            filePathFotoBarang = file.toString()
-        }else{
-            Log.d("cancel", "cacelPhoto")
-        }
-
-        if (resultCode == RESULT_OK && requestCode == cameraRequestFotoSuratBarang){
-            val mPhotoCompetitorPath = data?.getStringExtra("Path")
-
-            binding.idFileName.setImageBitmap(BitmapFactory.decodeFile(mPhotoCompetitorPath))
-            filePathFotoSuratBarang = mPhotoCompetitorPath.toString()
-
-        }else{
-            Log.d("cancel", "cacelPhoto")
-        }
-
-        if (resultCode == RESULT_OK && requestCode == cameraRequestFotoBarang){
-            val mPhotoCompetitorPath = data?.getStringExtra("Path")
-
-            binding.idFileNameBarang.setImageBitmap(BitmapFactory.decodeFile(mPhotoCompetitorPath))
-            filePathFotoBarang = mPhotoCompetitorPath.toString()
-        }else{
-            Log.d("cancel", "cacelPhoto")
-        }
-    }
-
-    override fun setLoading(show: Boolean, title: String, message: String) {}
-
-    override fun setFinish(result: Boolean, message: String) {
-        if (result){
-            startActivity(Intent(this, PenerimaanActivity::class.java))
+        btnOk.setOnClickListener {
+            dialog.dismiss();
+            onBackPressed()
             finish()
-            Toast.makeText(this, message, Toast.LENGTH_LONG).show()
         }
+        dialog.show();
     }
 
-    private fun openScanner() {
+    private fun validComplaint() {
+        for (i in listDetailPen){
+            Log.d("checkList", i.status)
+            if (i.status == "SESUAI"){
+                Toast.makeText(this@DetailPenerimaanActivity, "Tidak boleh melakukan komplain dengan status sesuai atau kosong", Toast.LENGTH_SHORT).show()
+                return
+            }
+        }
+
+        startActivity(Intent(this@DetailPenerimaanActivity, ComplaintActivity::class.java)
+            .putExtra("noDo", noDo))
+    }
+
+    private fun openScanner(typeScanning: Int) {
         val scan = ScanOptions()
         scan.setDesiredBarcodeFormats(ScanOptions.ALL_CODE_TYPES)
         scan.setCameraId(0)
         scan.setBeepEnabled(true)
         scan.setBarcodeImageEnabled(true)
         scan.captureActivity = CustomScanActivity::class.java
-        barcodeLauncher.launch(scan)
+        when(typeScanning){
+            1 -> barcodeLauncherPackaging.launch(scan)
+            2 -> barcodeLauncherSn.launch(scan)
+        }
     }
 
-    private val barcodeLauncher = registerForActivityResult(
+    private val barcodeLauncherPackaging = registerForActivityResult(
         ScanContract()
     ) { result: ScanIntentResult ->
         try {
-            if (!result.contents.isNullOrEmpty()) {
-
-                val data = daoSession.tPosDetailPenerimaanDao.queryBuilder().where(TPosDetailPenerimaanDao.Properties.Barcode.eq(result.contents)).limit(1).unique()
-                data.isChecked = 1
-                daoSession.update(data)
-
-                adapter.setPoList(packagingList)
-                Toast.makeText(this@DetailPenerimaanActivity, "Scanning success : ${result.contents}",Toast.LENGTH_SHORT).show()
+            if(!result.contents.isNullOrEmpty()){
+                Log.i("hit barcode","${result.contents}")
+                val listPackagings = daoSession.tPosDetailPenerimaanDao.queryBuilder().where(TPosDetailPenerimaanDao.Properties.NoPackaging.eq(result.contents)).list()
+                Log.d("listPackaging", listPackagings.size.toString())
+                for (i in listPackagings){
+                    i.status = "SESUAI"
+                    i.isChecked = 1
+                    daoSession.tPosDetailPenerimaanDao.update(i)
+                }
+                adapter.setData(listDetailPen)
             }
         }catch (e: Exception){
-            Log.e("checkException", e.toString())
+            Log.e("exception", e.toString())
         }
+    }
+
+    private val barcodeLauncherSn = registerForActivityResult(
+        ScanContract()
+    ) { result: ScanIntentResult ->
+        try {
+            if(!result.contents.isNullOrEmpty()){
+                Log.i("hit barcode","${result.contents}")
+                val listSns = daoSession.tPosDetailPenerimaanDao.queryBuilder()
+                    .where(TPosDetailPenerimaanDao.Properties.SerialNumber.eq(result.contents)).limit(1).unique()
+                Log.i("hit sns", listSns.toString())
+
+                listSns.status = "SESUAI"
+                listSns.isChecked = 1
+                daoSession.tPosDetailPenerimaanDao.update(listSns)
+
+                adapter.setData(listDetailPen)
+            }
+        }catch (e: Exception){
+            Log.e("exception", e.toString())
+        }
+    }
+
+    override fun setLoading(show: Boolean, title: String, message: String) {
+        try {
+            if (progressDialog != null){
+                if (show) {
+                    progressDialog!!.apply { show() }
+                } else {
+                    progressDialog!!.dismiss()
+                }
+            }
+
+        } catch (e: Exception) {
+            progressDialog!!.dismiss()
+            e.printStackTrace()
+        }
+    }
+
+    override fun setFinish(result: Boolean, message: String) {
+        if (result) {
+            Log.i("finish","Yes")
+        }
+        startActivity(Intent(this@DetailPenerimaanActivity, PenerimaanActivity::class.java ))
+        finish()
+        Toast.makeText(this, message, Toast.LENGTH_LONG).show()
     }
 }
