@@ -63,6 +63,21 @@
             android:label="@string/title_activity_penerimaan_ulpactivity"
             android:theme="@style/Theme.MIMS.NoActionBar" />
         <activity
+            android:name=".DetailPemakaianUlpAp2tActivity"
+            android:exported="false" />
+        <activity
+            android:name=".DetailPemakaianUlpMaximoActivity"
+            android:exported="false" />
+        <activity
+            android:name=".DetailPemakaianUlpYantekActivity"
+            android:exported="false" />
+        <activity
+            android:name=".DetailPemakaianUlpMandiri"
+            android:exported="false" />
+        <activity
+            android:name=".PemakaianActivity"
+            android:exported="false" />
+        <activity
             android:name=".ui.pemeriksaan.complaint.ComplaintActivity"
             android:exported="false">
             <meta-data
