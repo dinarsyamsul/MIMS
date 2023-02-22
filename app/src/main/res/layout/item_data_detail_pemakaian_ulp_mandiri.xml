@@ -284,7 +284,7 @@
             android:fontFamily="@font/montserrat_reguler"
             android:text="xxxxx"
             android:textSize="10sp"
-            app:layout_constraintBottom_toBottomOf="p"
+            app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="@+id/txt_no_do"
             app:layout_constraintStart_toEndOf="@+id/imageView7"
             app:layout_constraintTop_toBottomOf="@+id/lbl_jumlah_pemakaian" />

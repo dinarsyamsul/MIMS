@@ -431,6 +431,10 @@
 
     </string-array>
 
+    <string-array name="data_inputserial">
+        <item>12312312</item>
+    </string-array>
+
     <string-array name="data_excel">
         <item>333333333</item>
         <item>222222222</item>
