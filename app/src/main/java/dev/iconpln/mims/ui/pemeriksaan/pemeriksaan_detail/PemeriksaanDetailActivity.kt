@@ -23,7 +23,9 @@ import dev.iconpln.mims.data.local.database.*
 import dev.iconpln.mims.data.scan.CustomScanActivity
 import dev.iconpln.mims.databinding.ActivityPemeriksaanDetailBinding
 import dev.iconpln.mims.tasks.Loadable
+import dev.iconpln.mims.ui.pemeriksaan.PemeriksaanActivity
 import dev.iconpln.mims.ui.pemeriksaan.complaint.ComplaintActivity
+import org.w3c.dom.Text
 
 class PemeriksaanDetailActivity : AppCompatActivity(), Loadable {
     private lateinit var binding: ActivityPemeriksaanDetailBinding
@@ -50,7 +52,7 @@ class PemeriksaanDetailActivity : AppCompatActivity(), Loadable {
             .where(TPemeriksaanDetailDao.Properties.NoPemeriksaan.eq(noPem))
             .list()
         pemeriksaan = daoSession.tPemeriksaanDao.queryBuilder()
-            .where(TPemeriksaanDao.Properties.NoDoSmar.eq(noDo)).limit(1).unique()
+            .where(TPemeriksaanDao.Properties.NoPemeriksaan.eq(noPem)).limit(1).unique()
 
         adapter = DetailPemeriksaanAdapter(arrayListOf(), object : DetailPemeriksaanAdapter.OnAdapterListener{
             override fun onClick(po: TPemeriksaanDetail) {
@@ -71,6 +73,9 @@ class PemeriksaanDetailActivity : AppCompatActivity(), Loadable {
             txtPetugasPenerima.text = pemeriksaan.petugasPenerima
             txtDeliveryOrder.text = pemeriksaan.noDoSmar
             txtNamaKurir.text = pemeriksaan.namaKurir
+            txtDiujikanUji.text = "eUji Komponen"
+            txtTotalPackaging.text = pemeriksaan.total
+            txtPending.text = "-"
 
             btnScanPackaging.setOnClickListener {
                 openScanner(1)
@@ -94,11 +99,11 @@ class PemeriksaanDetailActivity : AppCompatActivity(), Loadable {
 
             })
 
-            cbSesuai.setOnCheckedChangeListener { buttonView, isChecked ->
-                cbTidakSesuai.isEnabled = !isChecked
+            cbNormal.setOnCheckedChangeListener { buttonView, isChecked ->
+                cbCacat.isEnabled = !isChecked
                 if (isChecked){
                     for (i in listPemDetail){
-                        i.statusSn = "SESUAI"
+                        i.statusSn = "NORMAL"
                         i.isChecked = 1
                         daoSession.update(i)
                     }
@@ -113,11 +118,11 @@ class PemeriksaanDetailActivity : AppCompatActivity(), Loadable {
                 }
             }
 
-            cbTidakSesuai.setOnCheckedChangeListener { buttonView, isChecked ->
-                cbSesuai.isEnabled = !isChecked
+            cbCacat.setOnCheckedChangeListener { buttonView, isChecked ->
+                cbNormal.isEnabled = !isChecked
                 if (isChecked){
                     for (i in listPemDetail){
-                        i.statusSn = "TIDAK SESUAI"
+                        i.statusSn = "CACAT"
                         i.isChecked = 1
                         daoSession.update(i)
                     }
@@ -147,8 +152,8 @@ class PemeriksaanDetailActivity : AppCompatActivity(), Loadable {
     private fun validTerima() {
         for (i in listPemDetail){
             Log.d("checkList", i.statusSn)
-            if (i.statusSn == "TIDAK SESUAI" ){
-                Toast.makeText(this@PemeriksaanDetailActivity, "Tidak boleh terima dengan status tidak sesuao atau kosong", Toast.LENGTH_SHORT).show()
+            if (i.statusSn.isNullOrEmpty() ){
+                Toast.makeText(this@PemeriksaanDetailActivity, "Tidak boleh terima dengan status kosong", Toast.LENGTH_SHORT).show()
                 return
             }
         }
@@ -160,6 +165,9 @@ class PemeriksaanDetailActivity : AppCompatActivity(), Loadable {
         dialog.window!!.attributes.windowAnimations = R.style.DialogUpDown;
         val btnYa = dialog.findViewById(R.id.btn_ya) as AppCompatButton
         val btnTidak = dialog.findViewById(R.id.btn_tidak) as AppCompatButton
+        val message = dialog.findViewById(R.id.txt_message) as TextView
+
+        message.text = "Apakah anda yakin untuk menyelesaikan pemeriksaan"
 
         btnTidak.setOnClickListener {
             dialog.dismiss();
@@ -184,8 +192,12 @@ class PemeriksaanDetailActivity : AppCompatActivity(), Loadable {
             packagings = packagings.substring(0, packagings.length - 1)
         }
 
-        pemeriksaan.state = 2
-        pemeriksaan.packangings = packagings
+        for (i in listPemDetail.filter { it.isChecked == 1 }){
+            i.isDone = 1
+            daoSession.tPemeriksaanDetailDao.update(i)
+        }
+
+        pemeriksaan.isDone = 1
         daoSession.tPemeriksaanDao.update(pemeriksaan)
 
         val dialog = Dialog(this@PemeriksaanDetailActivity)
@@ -196,11 +208,12 @@ class PemeriksaanDetailActivity : AppCompatActivity(), Loadable {
         val btnOk = dialog.findViewById(R.id.btn_ok) as AppCompatButton
         val txtMessage = dialog.findViewById(R.id.txt_message) as TextView
 
-        txtMessage.text = "Material berhasil diajukan ke tim pemeriksa"
+        txtMessage.text = "Data sudah berhasil diterima"
 
         btnOk.setOnClickListener {
             dialog.dismiss();
-            onBackPressed()
+            startActivity(Intent(this@PemeriksaanDetailActivity, PemeriksaanActivity::class.java)
+                .setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP))
             finish()
         }
         dialog.show();
@@ -209,7 +222,7 @@ class PemeriksaanDetailActivity : AppCompatActivity(), Loadable {
     private fun validComplaint() {
         for (i in listPemDetail){
             Log.d("checkList", i.statusSn)
-            if (i.statusSn == "SESUAI"){
+            if (i.statusSn.isNullOrEmpty()){
                 Toast.makeText(this@PemeriksaanDetailActivity, "Tidak boleh melakukan komplain dengan status sesuai atau kosong", Toast.LENGTH_SHORT).show()
                 return
             }
@@ -241,7 +254,7 @@ class PemeriksaanDetailActivity : AppCompatActivity(), Loadable {
                 val listPackagings = daoSession.tPemeriksaanDetailDao.queryBuilder().where(TPemeriksaanDetailDao.Properties.NoPackaging.eq(result.contents)).list()
                 Log.d("listPackaging", listPackagings.size.toString())
                 for (i in listPackagings){
-                    i.statusSn = "SESUAI"
+                    i.statusSn = "NORMAL"
                     i.isChecked = 1
                     daoSession.tPemeriksaanDetailDao.update(i)
                 }
@@ -262,7 +275,7 @@ class PemeriksaanDetailActivity : AppCompatActivity(), Loadable {
                     .where(TPemeriksaanDetailDao.Properties.Sn.eq(result.contents)).limit(1).unique()
                 Log.i("hit sns", listSns.toString())
 
-                listSns.statusSn = "SESUAI"
+                listSns.statusSn = "NORMAL"
                 listSns.isChecked = 1
                 daoSession.tPemeriksaanDetailDao.update(listSns)
 

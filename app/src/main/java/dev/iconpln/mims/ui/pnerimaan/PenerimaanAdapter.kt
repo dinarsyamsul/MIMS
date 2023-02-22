@@ -6,11 +6,8 @@ import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
 import dev.iconpln.mims.R
 import dev.iconpln.mims.data.local.database.DaoSession
-import dev.iconpln.mims.data.local.database.TPemeriksaan
-import dev.iconpln.mims.data.local.database.TPos
 import dev.iconpln.mims.data.local.database.TPosDetailPenerimaanDao
 import dev.iconpln.mims.data.local.database.TPosPenerimaan
-import dev.iconpln.mims.databinding.ItemDataPemeriksaanBinding
 import dev.iconpln.mims.databinding.ItemDataPenerimaanBinding
 
 class PenerimaanAdapter(val lisModels: MutableList<TPosPenerimaan>,
@@ -30,7 +27,7 @@ class PenerimaanAdapter(val lisModels: MutableList<TPosPenerimaan>,
         parent: ViewGroup,
         viewType: Int
     ): ViewHolder {
-        val binding = ItemDataPemeriksaanBinding.inflate(LayoutInflater.from(parent.context), parent, false)
+        val binding = ItemDataPenerimaanBinding.inflate(LayoutInflater.from(parent.context), parent, false)
         return ViewHolder(binding)
     }
 
@@ -40,7 +37,7 @@ class PenerimaanAdapter(val lisModels: MutableList<TPosPenerimaan>,
 
     override fun getItemCount(): Int = lisModels.size
 
-    inner class ViewHolder(val binding: ItemDataPemeriksaanBinding): RecyclerView.ViewHolder(binding.root){
+    inner class ViewHolder(val binding: ItemDataPenerimaanBinding): RecyclerView.ViewHolder(binding.root){
         fun bind(pe : TPosPenerimaan){
             with(binding){
                 val listDetailPen = daoSession.tPosDetailPenerimaanDao.queryBuilder()

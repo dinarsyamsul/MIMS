@@ -20,7 +20,6 @@ public class TPemeriksaan {
     private String PoMpNo;
     private String NoDoSmar;
     private Integer LeadTime;
-    private String Storloc;
     private String CreatedDate;
     private String PlanCodeNo;
     private String PlantName;
@@ -35,19 +34,6 @@ public class TPemeriksaan {
     private String PetugasPenerima;
     private String NamaKurir;
     private String NamaEkspedisi;
-    private String NamaKetua;
-    private String NamaManager;
-    private String NamaSekretaris;
-    private String Anggota;
-    private String RatingPenerimaan;
-    private String DescPenerimaan;
-    private String RatingQuality;
-    private String DescQuality;
-    private String RatingWaktu;
-    private String DescWaktu;
-    private String RatingPath;
-    private String Packangings;
-    private Integer State;
     private Integer isDone;
 
     @Generated
@@ -59,7 +45,7 @@ public class TPemeriksaan {
     }
 
     @Generated
-    public TPemeriksaan(Long id, String NoPemeriksaan, String StorLoc, String Total, String TlskNo, String PoSapNo, String PoMpNo, String NoDoSmar, Integer LeadTime, String Storloc, String CreatedDate, String PlanCodeNo, String PlantName, String NoDoMims, String DoStatus, String Expeditions, String CourierPersonName, String KdPabrikan, String MaterialGroup, String NamaKategoriMaterial, String TanggalDiterima, String PetugasPenerima, String NamaKurir, String NamaEkspedisi, String NamaKetua, String NamaManager, String NamaSekretaris, String Anggota, String RatingPenerimaan, String DescPenerimaan, String RatingQuality, String DescQuality, String RatingWaktu, String DescWaktu, String RatingPath, String Packangings, Integer State, Integer isDone) {
+    public TPemeriksaan(Long id, String NoPemeriksaan, String StorLoc, String Total, String TlskNo, String PoSapNo, String PoMpNo, String NoDoSmar, Integer LeadTime, String CreatedDate, String PlanCodeNo, String PlantName, String NoDoMims, String DoStatus, String Expeditions, String CourierPersonName, String KdPabrikan, String MaterialGroup, String NamaKategoriMaterial, String TanggalDiterima, String PetugasPenerima, String NamaKurir, String NamaEkspedisi, Integer isDone) {
         this.id = id;
         this.NoPemeriksaan = NoPemeriksaan;
         this.StorLoc = StorLoc;
@@ -69,7 +55,6 @@ public class TPemeriksaan {
         this.PoMpNo = PoMpNo;
         this.NoDoSmar = NoDoSmar;
         this.LeadTime = LeadTime;
-        this.Storloc = Storloc;
         this.CreatedDate = CreatedDate;
         this.PlanCodeNo = PlanCodeNo;
         this.PlantName = PlantName;
@@ -84,19 +69,6 @@ public class TPemeriksaan {
         this.PetugasPenerima = PetugasPenerima;
         this.NamaKurir = NamaKurir;
         this.NamaEkspedisi = NamaEkspedisi;
-        this.NamaKetua = NamaKetua;
-        this.NamaManager = NamaManager;
-        this.NamaSekretaris = NamaSekretaris;
-        this.Anggota = Anggota;
-        this.RatingPenerimaan = RatingPenerimaan;
-        this.DescPenerimaan = DescPenerimaan;
-        this.RatingQuality = RatingQuality;
-        this.DescQuality = DescQuality;
-        this.RatingWaktu = RatingWaktu;
-        this.DescWaktu = DescWaktu;
-        this.RatingPath = RatingPath;
-        this.Packangings = Packangings;
-        this.State = State;
         this.isDone = isDone;
     }
 
@@ -170,14 +142,6 @@ public class TPemeriksaan {
 
     public void setLeadTime(Integer LeadTime) {
         this.LeadTime = LeadTime;
-    }
-
-    public String getStorloc() {
-        return Storloc;
-    }
-
-    public void setStorloc(String Storloc) {
-        this.Storloc = Storloc;
     }
 
     public String getCreatedDate() {
@@ -290,110 +254,6 @@ public class TPemeriksaan {
 
     public void setNamaEkspedisi(String NamaEkspedisi) {
         this.NamaEkspedisi = NamaEkspedisi;
-    }
-
-    public String getNamaKetua() {
-        return NamaKetua;
-    }
-
-    public void setNamaKetua(String NamaKetua) {
-        this.NamaKetua = NamaKetua;
-    }
-
-    public String getNamaManager() {
-        return NamaManager;
-    }
-
-    public void setNamaManager(String NamaManager) {
-        this.NamaManager = NamaManager;
-    }
-
-    public String getNamaSekretaris() {
-        return NamaSekretaris;
-    }
-
-    public void setNamaSekretaris(String NamaSekretaris) {
-        this.NamaSekretaris = NamaSekretaris;
-    }
-
-    public String getAnggota() {
-        return Anggota;
-    }
-
-    public void setAnggota(String Anggota) {
-        this.Anggota = Anggota;
-    }
-
-    public String getRatingPenerimaan() {
-        return RatingPenerimaan;
-    }
-
-    public void setRatingPenerimaan(String RatingPenerimaan) {
-        this.RatingPenerimaan = RatingPenerimaan;
-    }
-
-    public String getDescPenerimaan() {
-        return DescPenerimaan;
-    }
-
-    public void setDescPenerimaan(String DescPenerimaan) {
-        this.DescPenerimaan = DescPenerimaan;
-    }
-
-    public String getRatingQuality() {
-        return RatingQuality;
-    }
-
-    public void setRatingQuality(String RatingQuality) {
-        this.RatingQuality = RatingQuality;
-    }
-
-    public String getDescQuality() {
-        return DescQuality;
-    }
-
-    public void setDescQuality(String DescQuality) {
-        this.DescQuality = DescQuality;
-    }
-
-    public String getRatingWaktu() {
-        return RatingWaktu;
-    }
-
-    public void setRatingWaktu(String RatingWaktu) {
-        this.RatingWaktu = RatingWaktu;
-    }
-
-    public String getDescWaktu() {
-        return DescWaktu;
-    }
-
-    public void setDescWaktu(String DescWaktu) {
-        this.DescWaktu = DescWaktu;
-    }
-
-    public String getRatingPath() {
-        return RatingPath;
-    }
-
-    public void setRatingPath(String RatingPath) {
-        this.RatingPath = RatingPath;
-    }
-
-    public String getPackangings() {
-        return Packangings;
-    }
-
-    public void setPackangings(String Packangings) {
-        this.Packangings = Packangings;
-    }
-
-    public Integer getState() {
-        return State;
-    }
-
-    public void setState(Integer State) {
-        this.State = State;
     }
 
     public Integer getIsDone() {

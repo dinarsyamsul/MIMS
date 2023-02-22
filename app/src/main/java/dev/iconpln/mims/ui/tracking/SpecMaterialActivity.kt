@@ -62,7 +62,7 @@ class SpecMaterialActivity : AppCompatActivity() {
         binding.rvHistory.apply {
             adapter = rvHistoryAdapter
             setHasFixedSize(true)
-            layoutManager = GridLayoutManager(this@SpecMaterialActivity,3)
+            layoutManager = LinearLayoutManager(this@SpecMaterialActivity, LinearLayoutManager.VERTICAL, false)
         }
         viewModel.trackingResponse.observe(this) {
             binding.apply {

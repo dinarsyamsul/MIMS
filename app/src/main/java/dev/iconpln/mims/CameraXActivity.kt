@@ -121,7 +121,10 @@ class CameraXActivity : AppCompatActivity() {
                         // Compress image
                         try {
                             val compressedImage =
-                                Compressor(this@CameraXActivity).setQuality(90)
+                                Compressor(this@CameraXActivity)
+                                    .setQuality(60)
+                                    .setMaxHeight(480)
+                                    .setMaxWidth(640)
                                     .setDestinationDirectoryPath("${dir.absolutePath}/Compressed")
                                     .compressToFile(file)
 

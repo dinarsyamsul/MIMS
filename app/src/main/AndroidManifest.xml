@@ -43,6 +43,27 @@
         android:usesCleartextTraffic="true"
         tools:targetApi="31">
         <activity
+            android:name=".ui.monitoring_permintaan.input_sn_monitoring.InputSnMonitoringPermintaanActivity"
+            android:exported="false">
+            <meta-data
+                android:name="android.app.lib_name"
+                android:value="" />
+        </activity>
+        <activity
+            android:name=".ui.monitoring_permintaan.monitoring_permintaan_detail.MonitoringPermintaanDetailActivity"
+            android:exported="false">
+            <meta-data
+                android:name="android.app.lib_name"
+                android:value="" />
+        </activity>
+        <activity
+            android:name=".ui.monitoring_permintaan.MonitoringPermintaanActivity"
+            android:exported="false">
+            <meta-data
+                android:name="android.app.lib_name"
+                android:value="" />
+        </activity>
+        <activity
             android:name=".ui.pemeriksaan.complaint.ComplaintActivity"
             android:exported="false">
             <meta-data

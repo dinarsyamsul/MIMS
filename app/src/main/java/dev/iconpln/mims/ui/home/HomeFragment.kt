@@ -27,6 +27,7 @@ import dev.iconpln.mims.ui.pemeriksaan.PemeriksaanActivity
 import dev.iconpln.mims.ui.pengiriman.PengirimanActivity
 import dev.iconpln.mims.ui.pnerimaan.PenerimaanActivity
 import dev.iconpln.mims.ui.arttribute_material.DataAtributMaterialActivity
+import dev.iconpln.mims.ui.monitoring_permintaan.MonitoringPermintaanActivity
 import dev.iconpln.mims.ui.pengujian.PengujianActivity
 import dev.iconpln.mims.ui.tracking.TrackingHistoryActivity
 import dev.iconpln.mims.utils.Helper
@@ -69,6 +70,10 @@ class HomeFragment : Fragment() {
         binding.txtdash1.text = "John Doe"
 
         var listPrivilege = daoSession.tPrivilegeDao.queryBuilder().list()
+
+        binding.btnMonitoringPermintaan.setOnClickListener {
+            startActivity(Intent(requireActivity(), MonitoringPermintaanActivity::class.java))
+        }
 
         binding.btnSync.setOnClickListener {
             val dialog = Dialog(requireActivity())

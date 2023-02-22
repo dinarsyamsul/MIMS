@@ -45,13 +45,9 @@ class PenerimaanViewModel: ViewModel() {
                             item.noMaterial = model.noMatSap
                             item.namaKategoriMaterial = model.namaKategoriMaterial
                             item.storLoc = model.storLoc
-                            if (model.status.isNullOrEmpty()){
-                                item.status = ""
-                                item.isChecked = 0
-                            } else{
-                                item.status = model.status
-                                item.isChecked = 1
-                            }
+                            if (model.status.isNullOrEmpty()) item.status = "" else item.status = model.status
+                            item.doLineItem = model?.doLineItem
+                            item.isChecked = 0
                             item.isDone = 0
                             items[i] = item
                         }

@@ -27,7 +27,6 @@ class PemeriksaanActivity : AppCompatActivity() {
     private var noDo: String = ""
     private var statusPemeriksaan: String = ""
     private lateinit var listPemeriksaan:  List<TPemeriksaan>
-    private lateinit var dataPemeriksaanDetail: TPemeriksaanDetail
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -35,10 +34,7 @@ class PemeriksaanActivity : AppCompatActivity() {
         setContentView(binding.root)
         daoSession = (application as MyApplication).daoSession!!
 
-        listPemeriksaan = daoSession.tPemeriksaanDao.queryBuilder().list()
-
-
-        viewModel.setPemeriksaan(daoSession,listPemeriksaan)
+        viewModel.getPemeriksaan(daoSession)
 
         adapter = PemeriksaanAdapter(arrayListOf(), object : PemeriksaanAdapter.OnAdapterListener{
             override fun onClick(po: TPemeriksaan) {
@@ -55,38 +51,17 @@ class PemeriksaanActivity : AppCompatActivity() {
                 if (po.isDone == 1){
                     Toast.makeText(this@PemeriksaanActivity, "Kamu sudah menyelesaikan DO ini", Toast.LENGTH_SHORT).show()
                 }else{
-                    if (po.state != 2){
-                        Toast.makeText(this@PemeriksaanActivity, "Kamu belum bisa melakukan laporan dokumen", Toast.LENGTH_SHORT).show()
-                    }else{
-                        startActivity(Intent(this@PemeriksaanActivity, PemeriksaanDetailActivity::class.java)
-                            .putExtra("noPemeriksaan", po.noPemeriksaan)
-                            .putExtra("noDo", po.noDoSmar))
-                    }
+                    startActivity(Intent(this@PemeriksaanActivity, PemeriksaanDetailActivity::class.java)
+                        .putExtra("noPemeriksaan", po.noPemeriksaan)
+                        .putExtra("noDo", po.noDoSmar))
                 }
-            }
-
-        }, object : PemeriksaanAdapter.OnAdapterListenerRate {
-            override fun onClick(po: TPemeriksaan) {
-                if (po.isDone == 1){
-                    Toast.makeText(this@PemeriksaanActivity, "Kamu sudah menyelesaikan DO ini", Toast.LENGTH_SHORT).show()
-                }else{
-                    if (po.state != 2){
-                        Toast.makeText(this@PemeriksaanActivity, "Kamu belum bisa melakukan laporan dokumen", Toast.LENGTH_SHORT).show()
-                    }else{
-                        startActivity(Intent(this@PemeriksaanActivity, RatingActivity::class.java)
-                            .putExtra("noPemeriksaan", po.noPemeriksaan)
-                            .putExtra("noDo", po.noDoSmar))
-                    }
-                }
-//                startActivity(Intent(this@PemeriksaanActivity, RatingActivity::class.java)
-//                        .putExtra("noPemeriksaan", po.noPemeriksaan)
-//                        .putExtra("noDo", po.noDoSmar))
             }
 
         })
 
         viewModel.pemeriksaanResponse.observe(this){
             adapter.setPeList(it)
+            listPemeriksaan = it
         }
 
         viewModel.isLoading.observe(this){

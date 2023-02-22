@@ -38,6 +38,9 @@ public class DaoMaster extends AbstractDaoMaster {
         TPemeriksaanDetailDao.createTable(db, ifNotExists);
         TPhotoDao.createTable(db, ifNotExists);
         TRatingDao.createTable(db, ifNotExists);
+        TMonitoringPermintaanDao.createTable(db, ifNotExists);
+        TMonitoringPermintaanDetailDao.createTable(db, ifNotExists);
+        TMonitoringSnMaterialDao.createTable(db, ifNotExists);
     }
 
     /** Drops underlying database table using DAOs. */
@@ -59,6 +62,9 @@ public class DaoMaster extends AbstractDaoMaster {
         TPemeriksaanDetailDao.dropTable(db, ifExists);
         TPhotoDao.dropTable(db, ifExists);
         TRatingDao.dropTable(db, ifExists);
+        TMonitoringPermintaanDao.dropTable(db, ifExists);
+        TMonitoringPermintaanDetailDao.dropTable(db, ifExists);
+        TMonitoringSnMaterialDao.dropTable(db, ifExists);
     }
 
     /**
@@ -94,6 +100,9 @@ public class DaoMaster extends AbstractDaoMaster {
         registerDaoClass(TPemeriksaanDetailDao.class);
         registerDaoClass(TPhotoDao.class);
         registerDaoClass(TRatingDao.class);
+        registerDaoClass(TMonitoringPermintaanDao.class);
+        registerDaoClass(TMonitoringPermintaanDetailDao.class);
+        registerDaoClass(TMonitoringSnMaterialDao.class);
     }
 
     public DaoSession newSession() {

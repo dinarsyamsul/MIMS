@@ -35,7 +35,7 @@
         android:layout_height="wrap_content"
         android:layout_marginEnd="80dp"
         android:fontFamily="@font/montserrat_reguler"
-        android:text="Data Penerimaan"
+        android:text="Data Pemeriksaan"
         android:textAlignment="center"
         android:textColor="@color/white"
         android:textSize="16dp"
@@ -133,12 +133,13 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/view7"
-        tools:listitem="@layout/item_data_pemeriksaan" />
+        tools:listitem="@layout/item_data_peemeriksaan" />
 
     <ProgressBar
         android:id="@+id/progress_bar"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:visibility="gone"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="@+id/rv_pemeriksaan" />

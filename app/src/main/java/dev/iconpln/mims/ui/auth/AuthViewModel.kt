@@ -200,6 +200,8 @@ class AuthViewModel: ViewModel() {
         daoSession.tPosDetailPenerimaanDao.deleteAll()
         daoSession.tPosPenerimaanDao.deleteAll()
         daoSession.tRatingDao.deleteAll()
+        daoSession.tMonitoringPermintaanDao.deleteAll()
+        daoSession.tMonitoringPermintaanDetailDao.deleteAll()
 
         if (result != null){
             if (result.materialDetails != null){
@@ -285,6 +287,8 @@ class AuthViewModel: ViewModel() {
                         item.kurirPengantar = model?.KurirPengirim
                         item.petugasPenerima = model?.PetugasPenerima
                         item.doLineItem = model?.DoLineItem
+                        item.doStatus = model?.doStatus
+                        item.expeditions = model?.ekspedition
                         items[i] = item
                     }
                     daoSession.tPosDao.insertInTx(items.toList())
@@ -468,6 +472,59 @@ class AuthViewModel: ViewModel() {
                         items[i] = item
                     }
                     daoSession.tRatingDao.insertInTx(items.toList())
+                }
+            }
+
+            if (result.monitoringPermintaan != null){
+                val size = result.monitoringPermintaan.size
+                if (size > 0) {
+                    val items = arrayOfNulls<TMonitoringPermintaan>(size)
+                    var item: TMonitoringPermintaan
+                    for ((i, model) in result.monitoringPermintaan.withIndex()){
+                        item = TMonitoringPermintaan()
+                        item.createdDate = model?.createdDate
+                        item.plant = model?.plant
+                        item.plantName = model?.plantName
+                        item.createdBy = model?.createdBy
+                        item.jumlahKardus = model?.jumlahKardus.toString()
+                        item.kodePengeluaran = model?.kodePengeluaran.toString()
+                        item.noPermintaan = model?.noPermintaan
+                        item.noRepackaging = model?.noRepackaging
+                        item.storLocAsal = model?.storLocAsal
+                        item.storLocAsalName = model?.storLocAsalName
+                        item.storLocTujuan = model?.storLocTujuan
+                        item.storLocTujuanName = model?.storLocTujuanName
+                        item.tanggalPengeluaran = model?.tanggalPengeluaran.toString()
+                        item.tanggalPermintaan = model?.tanggalPermintaan
+                        item.updatedBy = model?.updatedBy
+                        item.updatedDate = model?.updatedDate
+
+                        items[i] = item
+                    }
+                    daoSession.tMonitoringPermintaanDao.insertInTx(items.toList())
+                }
+            }
+
+            if (result.monitoringPermintaanDetails != null){
+                val size = result.monitoringPermintaanDetails.size
+                if (size > 0) {
+                    val items = arrayOfNulls<TMonitoringPermintaanDetail>(size)
+                    var item: TMonitoringPermintaanDetail
+                    for ((i, model) in result.monitoringPermintaanDetails.withIndex()){
+                        item = TMonitoringPermintaanDetail()
+                        item.unit = model?.unit
+                        item.nomorMaterial = model?.nomorMaterial
+                        item.kategori = model?.kategori
+                        item.materialDesc = model?.materialDesc
+                        item.noPermintaan = model?.noPermintaan
+                        item.noRepackaging = model?.noRepackaging
+                        item.qtyPengeluaran = model?.qtyPengeluaran.toString()
+                        item.qtyPermintaan = model?.qtyPermintaan.toString()
+                        item.qtyScan = model?.qtyScan.toString()
+
+                        items[i] = item
+                    }
+                    daoSession.tMonitoringPermintaanDetailDao.insertInTx(items.toList())
                 }
             }
         }

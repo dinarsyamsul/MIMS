@@ -22,7 +22,7 @@ class HistorySpecAdapter(val lisModels: MutableList<HistorisItem>, var listener:
         parent: ViewGroup,
         viewType: Int
     ): HistorySpecAdapter.ViewHolder {
-        val binding = ItemTrackingHistoryBinding.inflate(LayoutInflater.from(parent.context), parent, false)
+        val binding = ItemTrackingMaterialBinding.inflate(LayoutInflater.from(parent.context), parent, false)
         return ViewHolder(binding)
     }
 
@@ -32,26 +32,11 @@ class HistorySpecAdapter(val lisModels: MutableList<HistorisItem>, var listener:
 
     override fun getItemCount(): Int = lisModels.size
 
-    inner class ViewHolder(val binding: ItemTrackingHistoryBinding): RecyclerView.ViewHolder(binding.root){
+    inner class ViewHolder(val binding: ItemTrackingMaterialBinding): RecyclerView.ViewHolder(binding.root){
         fun bind(data : HistorisItem){
             with(binding){
-                txtSpec.text=data.statusName
-                when (data.statusName) {
-                    "UPLOAD DATA AWAL PABRIKAN" -> {
-                        btnStatus.setImageResource(R.drawable.icon_atribut);
-                    }
-                    "PENGAJUAN UST" -> {
-                        btnStatus.setImageResource(R.drawable.icon_pengujian);
-
-                    }
-                    "HASIL UST TIDAK LOLOS" -> {
-                        btnStatus.setImageResource(R.drawable.icon_pengujian);
-
-                    }
-                    else -> {
-                        btnStatus.setImageResource(R.drawable.icon_penerimaan);
-                    }
-                }
+                lblSpec.text = data.statusName
+                if(data.keterangan.isNullOrEmpty()) txtSpec.text = "-" else txtSpec.text = data.keterangan
             }
             itemView.setOnClickListener { listener.onClick(data) }
         }

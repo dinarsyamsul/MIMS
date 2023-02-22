@@ -16,7 +16,7 @@
             android:layout_width="@dimen/_20sdp"
             android:layout_height="@dimen/_20sdp"
             android:layout_marginTop="8dp"
-            android:src="@drawable/ic_number"
+            android:src="@drawable/unit_list_monitoring1"
             android:layout_marginStart="@dimen/_4sdp"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent" />
