@@ -43,46 +43,46 @@
         android:usesCleartextTraffic="true"
         tools:targetApi="31">
         <activity
-            android:name=".SplashActivity"
+            android:name=".ui.pnerimaan.InputSNMaterialPenerimaanPemeriksaanULPActivity"
             android:exported="false">
             <meta-data
                 android:name="android.app.lib_name"
                 android:value="" />
         </activity>
         <activity
-            android:name=".InputSNMaterialPenerimaanULPActivity"
+            android:name=".ui.pnerimaan.InputSNMaterialPenerimaanULPActivity"
             android:exported="false" />
         <activity
-            android:name=".PenerimaanSetelahPetugasPenerimaanULPActivity"
+            android:name=".ui.pnerimaan.PenerimaanSetelahPetugasPenerimaanULPActivity"
             android:exported="false" />
         <activity
-            android:name=".PetugasPenerimaanULP"
+            android:name=".ui.pnerimaan.PetugasPenerimaanULPActivity"
             android:exported="false" />
         <activity
-            android:name=".PenerimaanPemeriksaanULPActivity"
+            android:name=".InputSnMaterialActivity"
             android:exported="false" />
         <activity
-            android:name=".PetugasPemeriksaPenerimaanULP"
+            android:name=".ui.pnerimaan.PetugasPemeriksaPenerimaanULPActivity"
             android:exported="false" />
         <activity
-            android:name=".PenerimaanULPActivity"
+            android:name=".ui.pnerimaan.PenerimaanPemeriksaanULPActivity"
             android:exported="false"
             android:label="@string/title_activity_penerimaan_ulpactivity"
             android:theme="@style/Theme.MIMS.NoActionBar" />
         <activity
-            android:name=".DetailPemakaianUlpAp2tActivity"
+            android:name=".ui.pemakaian.DetailPemakaianUlpAp2tActivity"
             android:exported="false" />
         <activity
-            android:name=".DetailPemakaianUlpMaximoActivity"
+            android:name=".ui.pemakaian.DetailPemakaianUlpMaximoActivity"
             android:exported="false" />
         <activity
-            android:name=".DetailPemakaianUlpYantekActivity"
+            android:name=".ui.pemakaian.DetailPemakaianUlpYantekActivity"
             android:exported="false" />
         <activity
-            android:name=".DetailPemakaianUlpMandiri"
+            android:name=".ui.pemakaian.DetailPemakaianUlpMandiriActivity"
             android:exported="false" />
         <activity
-            android:name=".PemakaianActivity"
+            android:name=".ui.pemakaian.PemakaianActivity"
             android:exported="false" />
         <activity
             android:name=".ui.pemeriksaan.complaint.ComplaintActivity"
@@ -330,7 +330,7 @@
                 android:value="" />
         </activity>
         <activity
-            android:name=".InputSnMaterialActivity"
+            android:name=".SplashActivity"
             android:exported="true">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />

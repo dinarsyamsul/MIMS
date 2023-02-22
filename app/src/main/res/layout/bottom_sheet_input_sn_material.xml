@@ -34,6 +34,7 @@
             card_view:cardCornerRadius="2dp">
 
             <androidx.constraintlayout.widget.ConstraintLayout
+                android:id="@+id/barcode"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
                 android:orientation="horizontal">
@@ -83,6 +84,7 @@
             card_view:cardCornerRadius="2dp">
 
             <androidx.constraintlayout.widget.ConstraintLayout
+                android:id="@+id/qrcode"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
                 android:orientation="horizontal">
