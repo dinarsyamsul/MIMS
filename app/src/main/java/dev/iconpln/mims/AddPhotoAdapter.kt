@@ -13,8 +13,10 @@ import dev.iconpln.mims.databinding.ItemPhotoBinding
 class AddPhotoAdapter(
     val lisModels: MutableList<TPhoto>,
     var listener: OnAdapterListener,
-    var hideAddPhoto: Boolean
-)
+    var hideAddPhoto: Boolean,
+    var listenerDelete: OnAdapterListenerDelete
+
+    )
     : RecyclerView.Adapter<AddPhotoAdapter.ViewHolder>() {
 
     fun setPhotoList(photo: List<TPhoto>){
@@ -43,6 +45,7 @@ class AddPhotoAdapter(
                 ivPhoto.setImageBitmap(BitmapFactory.decodeFile(po.path))
                 ivPhoto.scaleType = ImageView.ScaleType.CENTER_CROP
                 btnTambahPhoto.setOnClickListener { listener.onClick(po) }
+                btnDelete.setOnClickListener { listenerDelete.onClick(po) }
 
                 if (hideAddPhoto){
                     if (lisModels.size == po.photoNumber){
@@ -59,6 +62,10 @@ class AddPhotoAdapter(
     }
 
     interface OnAdapterListener{
+        fun onClick(po: TPhoto)
+    }
+
+    interface OnAdapterListenerDelete{
         fun onClick(po: TPhoto)
     }
 }

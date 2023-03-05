@@ -229,6 +229,7 @@ public class MainGenerator {
         tPosDetailPenerimaan.addStringProperty("StorLoc");
         tPosDetailPenerimaan.addStringProperty("Status");
         tPosDetailPenerimaan.addIntProperty("IsChecked");
+        tPosDetailPenerimaan.addStringProperty("DoLineItem");
         tPosDetailPenerimaan.addIntProperty("IsDone");
 
         //endregion
@@ -268,7 +269,6 @@ public class MainGenerator {
         tPemeriksaan.addStringProperty("PoMpNo");
         tPemeriksaan.addStringProperty("NoDoSmar");
         tPemeriksaan.addIntProperty("LeadTime");
-        tPemeriksaan.addStringProperty("Storloc");
         tPemeriksaan.addStringProperty("CreatedDate");
         tPemeriksaan.addStringProperty("PlanCodeNo");
         tPemeriksaan.addStringProperty("PlantName");
@@ -283,20 +283,6 @@ public class MainGenerator {
         tPemeriksaan.addStringProperty("PetugasPenerima");
         tPemeriksaan.addStringProperty("NamaKurir");
         tPemeriksaan.addStringProperty("NamaEkspedisi");
-        //baru
-        tPemeriksaan.addStringProperty("NamaKetua");
-        tPemeriksaan.addStringProperty("NamaManager");
-        tPemeriksaan.addStringProperty("NamaSekretaris");
-        tPemeriksaan.addStringProperty("Anggota");
-        tPemeriksaan.addStringProperty("RatingPenerimaan");
-        tPemeriksaan.addStringProperty("DescPenerimaan");
-        tPemeriksaan.addStringProperty("RatingQuality");
-        tPemeriksaan.addStringProperty("DescQuality");
-        tPemeriksaan.addStringProperty("RatingWaktu");
-        tPemeriksaan.addStringProperty("DescWaktu");
-        tPemeriksaan.addStringProperty("RatingPath");
-        tPemeriksaan.addStringProperty("Packangings");
-        tPemeriksaan.addIntProperty("State");//1 pemeriksaan 2 rating
         tPemeriksaan.addIntProperty("isDone");//untuk centangan
 
 
@@ -332,6 +318,44 @@ public class MainGenerator {
         tRating.addIntProperty("Nilai");
         tRating.addStringProperty("Type");
         tRating.addIntProperty("IsActive");
+
+        Entity tMonitoringPermintaan = schema.addEntity("TMonitoringPermintaan");
+        tMonitoringPermintaan.addIdProperty();
+        tMonitoringPermintaan.addStringProperty("NoPermintaan");
+        tMonitoringPermintaan.addStringProperty("StorLocTujuanName");
+        tMonitoringPermintaan.addStringProperty("KodePengeluaran");
+        tMonitoringPermintaan.addStringProperty("StorLocTujuan");
+        tMonitoringPermintaan.addStringProperty("CreatedBy");
+        tMonitoringPermintaan.addStringProperty("NoRepackaging");
+        tMonitoringPermintaan.addStringProperty("Plant");
+        tMonitoringPermintaan.addStringProperty("UpdatedBy");
+        tMonitoringPermintaan.addStringProperty("CreatedDate");
+        tMonitoringPermintaan.addStringProperty("UpdatedDate");
+        tMonitoringPermintaan.addStringProperty("JumlahKardus");
+        tMonitoringPermintaan.addStringProperty("StorLocAsalName");
+        tMonitoringPermintaan.addStringProperty("TanggalPermintaan");
+        tMonitoringPermintaan.addStringProperty("TanggalPengeluaran");
+        tMonitoringPermintaan.addStringProperty("PlantName");
+        tMonitoringPermintaan.addStringProperty("StorLocAsal");
+
+        Entity tMonitoringPermintaanDetail = schema.addEntity("TMonitoringPermintaanDetail");
+        tMonitoringPermintaanDetail.addIdProperty();
+        tMonitoringPermintaanDetail.addStringProperty("NoPermintaan");
+        tMonitoringPermintaanDetail.addStringProperty("NoRepackaging");
+        tMonitoringPermintaanDetail.addStringProperty("NomorMaterial");
+        tMonitoringPermintaanDetail.addStringProperty("Unit");
+        tMonitoringPermintaanDetail.addStringProperty("QtyPermintaan");
+        tMonitoringPermintaanDetail.addStringProperty("MaterialDesc");
+        tMonitoringPermintaanDetail.addStringProperty("QtyScan");
+        tMonitoringPermintaanDetail.addStringProperty("Kategori");
+        tMonitoringPermintaanDetail.addStringProperty("QtyPengeluaran");
+
+        Entity tMonitoringSnMaterial = schema.addEntity("TMonitoringSnMaterial");
+        tMonitoringSnMaterial.addIdProperty();
+        tMonitoringSnMaterial.addStringProperty("NoPermintaan");
+        tMonitoringSnMaterial.addStringProperty("SnMaterial");
+        tMonitoringSnMaterial.addStringProperty("IsScanned");
+
 
         new DaoGenerator().generateAll(schema, "../MIMS-Master/app/src/main/java");
 

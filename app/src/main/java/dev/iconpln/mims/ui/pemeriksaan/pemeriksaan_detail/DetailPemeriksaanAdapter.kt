@@ -11,6 +11,7 @@ import dev.iconpln.mims.data.local.database.TPosDetailPenerimaan
 import dev.iconpln.mims.databinding.ItemPackagingBinding
 import dev.iconpln.mims.databinding.ItemPackagingPemeriksaanBinding
 import dev.iconpln.mims.databinding.ItemSnMaterialBinding
+import dev.iconpln.mims.databinding.ItemSnPemeriksaanBinding
 
 class DetailPemeriksaanAdapter(val lisModels: MutableList<TPemeriksaanDetail>,
                                var listener: OnAdapterListener,var daoSession: DaoSession)
@@ -26,7 +27,7 @@ class DetailPemeriksaanAdapter(val lisModels: MutableList<TPemeriksaanDetail>,
         parent: ViewGroup,
         viewType: Int
     ): ViewHolder {
-        val binding = ItemSnMaterialBinding.inflate(LayoutInflater.from(parent.context), parent, false)
+        val binding = ItemSnPemeriksaanBinding.inflate(LayoutInflater.from(parent.context), parent, false)
         return ViewHolder(binding)
     }
 
@@ -36,19 +37,20 @@ class DetailPemeriksaanAdapter(val lisModels: MutableList<TPemeriksaanDetail>,
 
     override fun getItemCount(): Int = lisModels.size
 
-    inner class ViewHolder(val binding: ItemSnMaterialBinding): RecyclerView.ViewHolder(binding.root){
+    inner class ViewHolder(val binding: ItemSnPemeriksaanBinding): RecyclerView.ViewHolder(binding.root){
         fun bind(po : TPemeriksaanDetail){
 
             with(binding){
                 txtSnMaterial.text = "${po.sn}"
                 txtKategori.text = po.kategori
                 txtVendor.text = "-"
+                txtNoPackaging.text = po.noPackaging
 
 //                cbSesuai.isChecked = po.isDone == 1
 
-                if (po.isChecked == 1 && po.statusSn == "SESUAI"){
+                if (po.isChecked == 1 && po.statusSn == "NORMAL"){
                     cbSesuai.isChecked = true
-                }else if (po.isChecked == 1 && po.statusSn == "TIDAK SESUAI"){
+                }else if (po.isChecked == 1 && po.statusSn == "CACAT"){
                     cbTidakSesuai.isChecked = true
                 }else {
                     cbSesuai.isChecked = false
@@ -57,16 +59,30 @@ class DetailPemeriksaanAdapter(val lisModels: MutableList<TPemeriksaanDetail>,
 
                 cbTidakSesuai.setOnCheckedChangeListener { buttonView, isChecked ->
                     cbSesuai.isEnabled = !isChecked
-                    po.statusSn = "TIDAK SESUAI"
-                    po.isChecked = 1
-                    daoSession.tPemeriksaanDetailDao.update(po)
+                    if (isChecked){
+                        po.statusSn = "CACAT"
+                        po.isChecked = 1
+                        daoSession.tPemeriksaanDetailDao.update(po)
+                    }else{
+                        po.statusSn = ""
+                        po.isChecked = 0
+                        daoSession.tPemeriksaanDetailDao.update(po)
+                    }
                 }
 
                 cbSesuai.setOnCheckedChangeListener { buttonView, isChecked ->
                     cbTidakSesuai.isEnabled = !isChecked
-                    po.statusSn = "SESUAI"
-                    po.isChecked = 1
-                    daoSession.tPemeriksaanDetailDao.update(po)
+
+                    if (isChecked){
+                        po.statusSn = "NORMAL"
+                        po.isChecked = 1
+                        daoSession.tPemeriksaanDetailDao.update(po)
+                    }else{
+                        po.statusSn = ""
+                        po.isChecked = 0
+                        daoSession.tPemeriksaanDetailDao.update(po)
+                    }
+
                 }
             }
             itemView.setOnClickListener { listener.onClick(po) }

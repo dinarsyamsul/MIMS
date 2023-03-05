@@ -1,0 +1,90 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    tools:context=".utils.PopupDialog">
+
+        <ImageView
+            android:id="@+id/img_scan_popup"
+            android:layout_width="50dp"
+            android:layout_height="50dp"
+            android:layout_marginTop="24dp"
+            android:background="@drawable/popup_tracking2"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"/>
+
+        <TextView
+            android:id="@+id/txt_snMaterial_popup"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="SN Material"
+            android:textColor="@color/black"
+            android:textStyle="bold"
+            android:layout_marginTop="8dp"
+            android:fontFamily="@font/montserrat_reguler"
+            app:layout_constraintTop_toBottomOf="@id/img_scan_popup"
+            app:layout_constraintStart_toStartOf="@id/img_scan_popup"
+            app:layout_constraintEnd_toEndOf="@id/img_scan_popup"/>
+
+        <TextView
+            android:id="@+id/txt_input_popup"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Silahkan lakukan input material manual"
+            android:textSize="12sp"
+            app:layout_constraintStart_toStartOf="@id/txt_snMaterial_popup"
+            app:layout_constraintEnd_toEndOf="@id/txt_snMaterial_popup"
+            app:layout_constraintTop_toBottomOf="@id/txt_snMaterial_popup"/>
+
+        <TextView
+            android:id="@+id/txt_input_popup2"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="pada kolom dibawah ini"
+            android:textSize="12sp"
+            app:layout_constraintStart_toStartOf="@id/txt_input_popup"
+            app:layout_constraintEnd_toEndOf="@id/txt_input_popup"
+            app:layout_constraintTop_toBottomOf="@id/txt_input_popup"/>
+
+        <EditText
+            android:id="@+id/inpt_snMaterial"
+            android:layout_width="0dp"
+            android:layout_height="50dp"
+            android:layout_marginStart="28dp"
+            android:layout_marginTop="20dp"
+            android:layout_marginEnd="28dp"
+            android:background="@drawable/srchview"
+            android:fontFamily="@font/montserrat_reguler"
+            android:hint="SN Material"
+            android:paddingLeft="20dp"
+            android:paddingRight="20dp"
+            android:textSize="12sp"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/txt_input_popup2" />
+
+        <androidx.appcompat.widget.AppCompatButton
+            android:id="@+id/btn_Ok"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="Ok"
+            android:textSize="12sp"
+            android:fontFamily="@font/montserrat_reguler"
+            android:textColor="@color/white"
+            android:layout_marginTop="24dp"
+            android:layout_marginBottom="16dp"
+            android:layout_marginStart="28dp"
+            android:layout_marginEnd="28dp"
+            android:background="@drawable/gradient_btn"
+            app:layout_constraintTop_toBottomOf="@id/inpt_snMaterial"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintBottom_toBottomOf="parent"/>
+
+
+
+
+</androidx.constraintlayout.widget.ConstraintLayout>

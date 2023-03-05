@@ -4,16 +4,37 @@
     android:layout_width="match_parent"
     android:layout_height="wrap_content">
 
-    <ImageView
-        android:id="@+id/iv_photo"
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:id="@+id/constraint"
         android:layout_width="150dp"
-        android:layout_height="120dp"
-        android:layout_marginTop="8dp"
-        android:layout_marginBottom="8dp"
-        android:src="@drawable/ic_image"
+        android:layout_height="150dp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
+        app:layout_constraintTop_toTopOf="parent">
+
+        <ImageView
+            android:id="@+id/iv_photo"
+            android:layout_width="150dp"
+            android:layout_height="120dp"
+            android:layout_marginTop="8dp"
+            android:layout_marginBottom="8dp"
+            android:src="@drawable/ic_image"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <ImageButton
+            android:id="@+id/btn_delete"
+            android:layout_width="30dp"
+            android:layout_height="30dp"
+            android:layout_marginTop="5dp"
+            android:layout_marginEnd="10dp"
+            android:background="@drawable/btn_delete_photo"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toTopOf="@+id/iv_photo" />
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
 
     <ImageButton
         android:id="@+id/btn_tambah_photo"
@@ -23,8 +44,8 @@
         android:background="@drawable/btn_tambah_photo"
         android:paddingLeft="20dp"
         android:paddingRight="20dp"
-        app:layout_constraintBottom_toBottomOf="@+id/iv_photo"
-        app:layout_constraintStart_toEndOf="@+id/iv_photo"
-        app:layout_constraintTop_toTopOf="@+id/iv_photo" />
+        app:layout_constraintBottom_toBottomOf="@+id/constraint"
+        app:layout_constraintStart_toEndOf="@+id/constraint"
+        app:layout_constraintTop_toTopOf="@+id/constraint" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

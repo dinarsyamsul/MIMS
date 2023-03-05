@@ -50,7 +50,13 @@ data class LoginResponse(
 	val user: User? = null,
 
 	@field:SerializedName("status")
-	val status: String? = null
+	val status: String? = null,
+
+	@field:SerializedName("monitoring_permintaan")
+	val monitoringPermintaan: List<MonitoringPermintaanItem?>? = null,
+
+	@field:SerializedName("monitoring_permintaan_details")
+	val monitoringPermintaanDetails: List<MonitoringPermintaanDetailsItem?>? = null
 )
 
 data class RatingsItem(
@@ -449,4 +455,91 @@ data class LokasisItem(
 
 	@field:SerializedName("updated_date")
 	val updatedDate: String? = ""
+)
+
+data class MonitoringPermintaanItem(
+
+	@field:SerializedName("stor_loc_tujuan_name")
+	val storLocTujuanName: String? = null,
+
+	@field:SerializedName("kode_pengeluaran")
+	val kodePengeluaran: Int? = null,
+
+	@field:SerializedName("stor_loc_tujuan")
+	val storLocTujuan: String? = null,
+
+	@field:SerializedName("created_by")
+	val createdBy: String? = null,
+
+	@field:SerializedName("no_repackaging")
+	val noRepackaging: String? = null,
+
+	@field:SerializedName("plant")
+	val plant: String? = null,
+
+	@field:SerializedName("updated_by")
+	val updatedBy: String? = null,
+
+	@field:SerializedName("id")
+	val id: String? = null,
+
+	@field:SerializedName("created_date")
+	val createdDate: String? = null,
+
+	@field:SerializedName("updated_date")
+	val updatedDate: String? = null,
+
+	@field:SerializedName("no_permintaan")
+	val noPermintaan: String? = null,
+
+	@field:SerializedName("jumlah_kardus")
+	val jumlahKardus: Any? = null,
+
+	@field:SerializedName("stor_loc_asal_name")
+	val storLocAsalName: String? = null,
+
+	@field:SerializedName("tanggal_permintaan")
+	val tanggalPermintaan: String? = null,
+
+	@field:SerializedName("tanggal_pengeluaran")
+	val tanggalPengeluaran: Any? = null,
+
+	@field:SerializedName("plant_name")
+	val plantName: String? = null,
+
+	@field:SerializedName("stor_loc_asal")
+	val storLocAsal: String? = null
+)
+
+data class MonitoringPermintaanDetailsItem(
+
+	@field:SerializedName("no_repackaging")
+	val noRepackaging: String? = null,
+
+	@field:SerializedName("nomor_material")
+	val nomorMaterial: String? = null,
+
+	@field:SerializedName("unit")
+	val unit: String? = null,
+
+	@field:SerializedName("qty_permintaan")
+	val qtyPermintaan: Int? = null,
+
+	@field:SerializedName("material_desc")
+	val materialDesc: String? = null,
+
+	@field:SerializedName("qty_scan")
+	val qtyScan: Int? = null,
+
+	@field:SerializedName("kategori")
+	val kategori: String? = null,
+
+	@field:SerializedName("id")
+	val id: String? = null,
+
+	@field:SerializedName("no_permintaan")
+	val noPermintaan: String? = null,
+
+	@field:SerializedName("qty_pengeluaran")
+	val qtyPengeluaran: Any? = null
 )

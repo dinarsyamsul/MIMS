@@ -23,6 +23,7 @@ public class TPosDetailPenerimaan {
     private String StorLoc;
     private String Status;
     private Integer IsChecked;
+    private String DoLineItem;
     private Integer IsDone;
 
     @Generated
@@ -34,7 +35,7 @@ public class TPosDetailPenerimaan {
     }
 
     @Generated
-    public TPosDetailPenerimaan(Long id, String NoDoSmar, String Qty, String KdPabrikan, String DoStatus, String NoPackaging, String SerialNumber, String NoMaterial, String NamaKategoriMaterial, String StorLoc, String Status, Integer IsChecked, Integer IsDone) {
+    public TPosDetailPenerimaan(Long id, String NoDoSmar, String Qty, String KdPabrikan, String DoStatus, String NoPackaging, String SerialNumber, String NoMaterial, String NamaKategoriMaterial, String StorLoc, String Status, Integer IsChecked, String DoLineItem, Integer IsDone) {
         this.id = id;
         this.NoDoSmar = NoDoSmar;
         this.Qty = Qty;
@@ -47,6 +48,7 @@ public class TPosDetailPenerimaan {
         this.StorLoc = StorLoc;
         this.Status = Status;
         this.IsChecked = IsChecked;
+        this.DoLineItem = DoLineItem;
         this.IsDone = IsDone;
     }
 
@@ -144,6 +146,14 @@ public class TPosDetailPenerimaan {
 
     public void setIsChecked(Integer IsChecked) {
         this.IsChecked = IsChecked;
+    }
+
+    public String getDoLineItem() {
+        return DoLineItem;
+    }
+
+    public void setDoLineItem(String DoLineItem) {
+        this.DoLineItem = DoLineItem;
     }
 
     public Integer getIsDone() {

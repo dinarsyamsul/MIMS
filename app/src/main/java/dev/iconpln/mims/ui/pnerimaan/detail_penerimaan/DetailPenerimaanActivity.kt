@@ -59,8 +59,7 @@ class DetailPenerimaanActivity : AppCompatActivity(),Loadable {
 
         listDetailPen = daoSession.tPosDetailPenerimaanDao.queryBuilder()
             .where(TPosDetailPenerimaanDao.Properties.NoDoSmar.eq(noDo))
-            .where(TPosDetailPenerimaanDao.Properties.IsDone.eq(0))
-            .where(TPosDetailPenerimaanDao.Properties.IsChecked.eq(0)).list()
+            .where(TPosDetailPenerimaanDao.Properties.IsDone.eq(0)).list()
 
         penerimaan = daoSession.tPosPenerimaanDao.queryBuilder()
             .where(TPosPenerimaanDao.Properties.NoDoSmar.eq(noDo)).limit(1).unique()
@@ -185,7 +184,10 @@ class DetailPenerimaanActivity : AppCompatActivity(),Loadable {
 
     private fun submitForm(isPeriksa: Int) {
         var sns = ""
-        var checkedDetPen = listDetailPen.filter { it.isChecked == 1 }
+        var checkedDetPen = daoSession.tPosDetailPenerimaanDao.queryBuilder()
+            .where(TPosDetailPenerimaanDao.Properties.NoDoSmar.eq(noDo))
+            .where(TPosDetailPenerimaanDao.Properties.IsChecked.eq(1)).list()
+
         for (i in checkedDetPen){
             sns += "${i.noPackaging},${i.serialNumber},${i.noMaterial};"
             Log.i("noPackaging", i.noPackaging)
@@ -228,6 +230,57 @@ class DetailPenerimaanActivity : AppCompatActivity(),Loadable {
         startService(iService)
 
         updateData(checkedDetPen)
+
+        var noPrk = "PRK${noDo}${currentDateTime}"
+        if (isPeriksa == 1){
+            var item = TPemeriksaan()
+            item.isDone = 0
+            item.createdDate = penerimaan.createdDate
+            item.namaKurir = penerimaan.kurirPengantar
+            item.kdPabrikan = penerimaan.kdPabrikan
+            item.materialGroup = penerimaan.materialGroup
+            item.namaEkspedisi = penerimaan.expeditions
+            item.petugasPenerima = penerimaan.petugasPenerima
+            item.tanggalDiterima = penerimaan.tanggalDiterima
+            item.namaKategoriMaterial = penerimaan.namaKategoriMaterial
+            item.courierPersonName = penerimaan.courierPersonName
+            item.expeditions = penerimaan.expeditions
+            item.doStatus = penerimaan.doStatus
+            item.noDoMims = penerimaan.noDoMims
+            item.plantName = penerimaan.plantName
+            item.planCodeNo = penerimaan.planCodeNo
+            item.leadTime = penerimaan.leadTime
+            item.noDoSmar = penerimaan.noDoSmar
+            item.poMpNo = penerimaan.poMpNo
+            item.poSapNo = penerimaan.poSapNo
+            item.tlskNo = penerimaan.tlskNo
+            item.total = penerimaan.total
+            item.storLoc = penerimaan.storloc
+            item.noPemeriksaan = noPrk
+
+            daoSession.tPemeriksaanDao.insert(item)
+
+            val size = checkedDetPen.size
+            if (size > 0) {
+                val items = arrayOfNulls<TPemeriksaanDetail>(size)
+                var item: TPemeriksaanDetail
+                for ((i, model) in checkedDetPen.withIndex()){
+                    item = TPemeriksaanDetail()
+                    item.isDone = 0
+                    item.isChecked = 0
+                    item.statusSn = ""
+                    item.sn = model.serialNumber
+                    item.noDoSmar = model.noDoSmar
+                    item.kategori = model.namaKategoriMaterial
+                    item.noMaterail = model.noMaterial
+                    item.noPackaging = model.noPackaging
+                    item.noPemeriksaan = noPrk
+
+                    items[i] = item
+                }
+                daoSession.tPemeriksaanDetailDao.insertInTx(items.toList())
+            }
+        }
     }
 
     private fun updateData(checkedDetPen: List<TPosDetailPenerimaan>) {
@@ -341,7 +394,8 @@ class DetailPenerimaanActivity : AppCompatActivity(),Loadable {
         if (result) {
             Log.i("finish","Yes")
         }
-        startActivity(Intent(this@DetailPenerimaanActivity, PenerimaanActivity::class.java ))
+        startActivity(Intent(this@DetailPenerimaanActivity, PenerimaanActivity::class.java )
+            .setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP))
         finish()
         Toast.makeText(this, message, Toast.LENGTH_LONG).show()
     }

@@ -34,7 +34,8 @@ public class TPosDetailPenerimaanDao extends AbstractDao<TPosDetailPenerimaan, L
         public final static Property StorLoc = new Property(9, String.class, "StorLoc", false, "STOR_LOC");
         public final static Property Status = new Property(10, String.class, "Status", false, "STATUS");
         public final static Property IsChecked = new Property(11, Integer.class, "IsChecked", false, "IS_CHECKED");
-        public final static Property IsDone = new Property(12, Integer.class, "IsDone", false, "IS_DONE");
+        public final static Property DoLineItem = new Property(12, String.class, "DoLineItem", false, "DO_LINE_ITEM");
+        public final static Property IsDone = new Property(13, Integer.class, "IsDone", false, "IS_DONE");
     }
 
 
@@ -62,7 +63,8 @@ public class TPosDetailPenerimaanDao extends AbstractDao<TPosDetailPenerimaan, L
                 "\"STOR_LOC\" TEXT," + // 9: StorLoc
                 "\"STATUS\" TEXT," + // 10: Status
                 "\"IS_CHECKED\" INTEGER," + // 11: IsChecked
-                "\"IS_DONE\" INTEGER);"); // 12: IsDone
+                "\"DO_LINE_ITEM\" TEXT," + // 12: DoLineItem
+                "\"IS_DONE\" INTEGER);"); // 13: IsDone
     }
 
     /** Drops the underlying database table. */
@@ -135,9 +137,14 @@ public class TPosDetailPenerimaanDao extends AbstractDao<TPosDetailPenerimaan, L
             stmt.bindLong(12, IsChecked);
         }
  
+        String DoLineItem = entity.getDoLineItem();
+        if (DoLineItem != null) {
+            stmt.bindString(13, DoLineItem);
+        }
+ 
         Integer IsDone = entity.getIsDone();
         if (IsDone != null) {
-            stmt.bindLong(13, IsDone);
+            stmt.bindLong(14, IsDone);
         }
     }
 
@@ -205,9 +212,14 @@ public class TPosDetailPenerimaanDao extends AbstractDao<TPosDetailPenerimaan, L
             stmt.bindLong(12, IsChecked);
         }
  
+        String DoLineItem = entity.getDoLineItem();
+        if (DoLineItem != null) {
+            stmt.bindString(13, DoLineItem);
+        }
+ 
         Integer IsDone = entity.getIsDone();
         if (IsDone != null) {
-            stmt.bindLong(13, IsDone);
+            stmt.bindLong(14, IsDone);
         }
     }
 
@@ -231,7 +243,8 @@ public class TPosDetailPenerimaanDao extends AbstractDao<TPosDetailPenerimaan, L
             cursor.isNull(offset + 9) ? null : cursor.getString(offset + 9), // StorLoc
             cursor.isNull(offset + 10) ? null : cursor.getString(offset + 10), // Status
             cursor.isNull(offset + 11) ? null : cursor.getInt(offset + 11), // IsChecked
-            cursor.isNull(offset + 12) ? null : cursor.getInt(offset + 12) // IsDone
+            cursor.isNull(offset + 12) ? null : cursor.getString(offset + 12), // DoLineItem
+            cursor.isNull(offset + 13) ? null : cursor.getInt(offset + 13) // IsDone
         );
         return entity;
     }
@@ -250,7 +263,8 @@ public class TPosDetailPenerimaanDao extends AbstractDao<TPosDetailPenerimaan, L
         entity.setStorLoc(cursor.isNull(offset + 9) ? null : cursor.getString(offset + 9));
         entity.setStatus(cursor.isNull(offset + 10) ? null : cursor.getString(offset + 10));
         entity.setIsChecked(cursor.isNull(offset + 11) ? null : cursor.getInt(offset + 11));
-        entity.setIsDone(cursor.isNull(offset + 12) ? null : cursor.getInt(offset + 12));
+        entity.setDoLineItem(cursor.isNull(offset + 12) ? null : cursor.getString(offset + 12));
+        entity.setIsDone(cursor.isNull(offset + 13) ? null : cursor.getInt(offset + 13));
      }
     
     @Override

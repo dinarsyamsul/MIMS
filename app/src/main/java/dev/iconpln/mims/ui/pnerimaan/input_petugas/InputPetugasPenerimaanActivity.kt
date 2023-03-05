@@ -92,7 +92,29 @@ class InputPetugasPenerimaanActivity : AppCompatActivity(), Loadable {
                 }
             }
 
-        }, dataPen.tanggalDiterima.isNullOrEmpty())
+        }, dataPen.tanggalDiterima.isNullOrEmpty(),
+            object : AddPhotoAdapter.OnAdapterListenerDelete{
+                override fun onClick(po: TPhoto) {
+                    val delete = daoSession.tPhotoDao.queryBuilder()
+                        .where(TPhotoDao.Properties.Id.eq(po.id)).limit(1).unique()
+                    daoSession.tPhotoDao.delete(delete)
+
+                    val newList = daoSession.tPhotoDao.queryBuilder()
+                        .where(TPhotoDao.Properties.NoDo.eq(noDo))
+                        .where(TPhotoDao.Properties.Type.eq("input penerima"))
+                        .list()
+
+                    adapter.setPhotoList(newList)
+                    photoNumber--
+
+                    if (newList.isEmpty()){
+                        binding.btnUploadPhoto.visibility = View.VISIBLE
+                    }else {
+                        binding.btnUploadPhoto.visibility = View.GONE
+                    }
+                }
+
+            })
 
         adapter.setPhotoList(listPhoto)
 
@@ -231,8 +253,6 @@ class InputPetugasPenerimaanActivity : AppCompatActivity(), Loadable {
         dataPen.isDone = 0
 
         daoSession.update(dataPen)
-
-        viewModel.setDataDetailPemeriksaan(daoSession,noPenerimaan,noDo)
 
         val dialog = Dialog(this@InputPetugasPenerimaanActivity)
         dialog.setContentView(R.layout.popup_penerimaan);
