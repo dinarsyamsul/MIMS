@@ -21,7 +21,7 @@ class PemeriksaanViewModel: ViewModel() {
     val pemeriksaanDetailResponse: LiveData<List<TPemeriksaanDetail>> = _pemeriksaanDetailResponse
 
     fun getPemeriksaan(daoSession: DaoSession){
-        val listPemeriksaan = daoSession.tPemeriksaanDao.queryBuilder().list()
+        val listPemeriksaan = daoSession.tPemeriksaanDao.loadAll()
 
         _pemeriksaanResponse.postValue(listPemeriksaan)
     }

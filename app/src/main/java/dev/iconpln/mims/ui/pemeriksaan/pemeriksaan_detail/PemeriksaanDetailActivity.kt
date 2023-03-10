@@ -20,12 +20,23 @@ import com.journeyapps.barcodescanner.ScanOptions
 import dev.iconpln.mims.MyApplication
 import dev.iconpln.mims.R
 import dev.iconpln.mims.data.local.database.*
+import dev.iconpln.mims.data.local.database_local.GenericReport
+import dev.iconpln.mims.data.local.database_local.ReportParameter
+import dev.iconpln.mims.data.local.database_local.ReportUploader
+import dev.iconpln.mims.data.remote.service.ApiConfig
 import dev.iconpln.mims.data.scan.CustomScanActivity
 import dev.iconpln.mims.databinding.ActivityPemeriksaanDetailBinding
 import dev.iconpln.mims.tasks.Loadable
+import dev.iconpln.mims.tasks.TambahReportTask
 import dev.iconpln.mims.ui.pemeriksaan.PemeriksaanActivity
 import dev.iconpln.mims.ui.pemeriksaan.complaint.ComplaintActivity
-import org.w3c.dom.Text
+import dev.iconpln.mims.ui.pemeriksaan.complaint_pemeriksaan.ComplaintPemeriksaanActivity
+import dev.iconpln.mims.utils.Config
+import dev.iconpln.mims.utils.DateTimeUtils
+import dev.iconpln.mims.utils.SharedPrefsUtils
+import org.joda.time.DateTime
+import org.joda.time.LocalDateTime
+import java.util.ArrayList
 
 class PemeriksaanDetailActivity : AppCompatActivity(), Loadable {
     private lateinit var binding: ActivityPemeriksaanDetailBinding
@@ -50,6 +61,8 @@ class PemeriksaanDetailActivity : AppCompatActivity(), Loadable {
         Log.d("checkSns", listSns.size.toString())
         listPemDetail = daoSession.tPemeriksaanDetailDao.queryBuilder()
             .where(TPemeriksaanDetailDao.Properties.NoPemeriksaan.eq(noPem))
+            .where(TPemeriksaanDetailDao.Properties.IsPeriksa.eq(1))
+            .where(TPemeriksaanDetailDao.Properties.IsComplaint.eq(0))
             .list()
         pemeriksaan = daoSession.tPemeriksaanDao.queryBuilder()
             .where(TPemeriksaanDao.Properties.NoPemeriksaan.eq(noPem)).limit(1).unique()
@@ -73,7 +86,7 @@ class PemeriksaanDetailActivity : AppCompatActivity(), Loadable {
             txtPetugasPenerima.text = pemeriksaan.petugasPenerima
             txtDeliveryOrder.text = pemeriksaan.noDoSmar
             txtNamaKurir.text = pemeriksaan.namaKurir
-            txtDiujikanUji.text = "eUji Komponen"
+            txtDiujikanUji.text = "Uji Komponen"
             txtTotalPackaging.text = pemeriksaan.total
             txtPending.text = "-"
 
@@ -103,14 +116,14 @@ class PemeriksaanDetailActivity : AppCompatActivity(), Loadable {
                 cbCacat.isEnabled = !isChecked
                 if (isChecked){
                     for (i in listPemDetail){
-                        i.statusSn = "NORMAL"
+                        i.statusPemeriksaan = "NORMAL"
                         i.isChecked = 1
                         daoSession.update(i)
                     }
                     adapter.setPedList(listPemDetail)
                 }else{
                     for (i in listPemDetail){
-                        i.statusSn = ""
+                        i.statusPemeriksaan = ""
                         i.isChecked = 0
                         daoSession.update(i)
                     }
@@ -122,14 +135,14 @@ class PemeriksaanDetailActivity : AppCompatActivity(), Loadable {
                 cbNormal.isEnabled = !isChecked
                 if (isChecked){
                     for (i in listPemDetail){
-                        i.statusSn = "CACAT"
+                        i.statusPemeriksaan = "CACAT"
                         i.isChecked = 1
                         daoSession.update(i)
                     }
                     adapter.setPedList(listPemDetail)
                 }else{
                     for (i in listPemDetail){
-                        i.statusSn = ""
+                        i.statusPemeriksaan = ""
                         i.isChecked = 0
                         daoSession.update(i)
                     }
@@ -151,9 +164,9 @@ class PemeriksaanDetailActivity : AppCompatActivity(), Loadable {
 
     private fun validTerima() {
         for (i in listPemDetail){
-            Log.d("checkList", i.statusSn)
-            if (i.statusSn.isNullOrEmpty() ){
-                Toast.makeText(this@PemeriksaanDetailActivity, "Tidak boleh terima dengan status kosong", Toast.LENGTH_SHORT).show()
+            Log.d("checkList", i.statusPemeriksaan)
+            if (i.statusPemeriksaan.isNullOrEmpty() || i.statusPemeriksaan == "CACAT" ){
+                Toast.makeText(this@PemeriksaanDetailActivity, "Tidak boleh terima dengan status kosong atau cacat", Toast.LENGTH_SHORT).show()
                 return
             }
         }
@@ -182,12 +195,35 @@ class PemeriksaanDetailActivity : AppCompatActivity(), Loadable {
     }
 
     private fun updateData() {
+        var checkSnDiterima = daoSession.tPemeriksaanDetailDao.queryBuilder()
+            .where(TPemeriksaanDetailDao.Properties.NoPemeriksaan.eq(noPem))
+            .where(TPemeriksaanDetailDao.Properties.IsPeriksa.eq(1))
+            .where(TPemeriksaanDetailDao.Properties.IsComplaint.eq(0))
+            .where(TPemeriksaanDetailDao.Properties.IsChecked.eq(1))
+            .where(TPemeriksaanDetailDao.Properties.StatusPemeriksaan.notEq("DITERIMA"))
+            .list()
+
+        var checkSnKomplain = daoSession.tPemeriksaanDetailDao.queryBuilder()
+            .where(TPemeriksaanDetailDao.Properties.NoPemeriksaan.eq(noPem))
+            .where(TPemeriksaanDetailDao.Properties.IsComplaint.eq(1))
+            .where(TPemeriksaanDetailDao.Properties.IsChecked.eq(1))
+            .list()
+
+
+        var listPemDetailChecked = daoSession.tPemeriksaanDetailDao.queryBuilder()
+            .where(TPemeriksaanDetailDao.Properties.NoPemeriksaan.eq(noPem))
+            .where(TPemeriksaanDetailDao.Properties.IsPeriksa.eq(1))
+            .where(TPemeriksaanDetailDao.Properties.IsComplaint.eq(0))
+            .where(TPemeriksaanDetailDao.Properties.IsChecked.eq(1))
+            .list()
+
         var packagings = ""
-        for (i in listPemDetail){
-            packagings += "${i.noPackaging},"
+        for (i in listPemDetailChecked){
+            packagings += "${i.noPackaging},${i.sn},${i.noMaterail},${i.statusPemeriksaan},${pemeriksaan.doLineItem};"
             Log.i("noPackaging", i.noPackaging)
 
         }
+
         if (packagings != "") {
             packagings = packagings.substring(0, packagings.length - 1)
         }
@@ -197,14 +233,17 @@ class PemeriksaanDetailActivity : AppCompatActivity(), Loadable {
             daoSession.tPemeriksaanDetailDao.update(i)
         }
 
-        pemeriksaan.isDone = 1
-        daoSession.tPemeriksaanDao.update(pemeriksaan)
+        if (checkSnDiterima.size == 0){
+            pemeriksaan.statusPemeriksaan = "SELESAI"
+            pemeriksaan.isDone = 1
+            daoSession.tPemeriksaanDao.update(pemeriksaan)
+        }
 
         val dialog = Dialog(this@PemeriksaanDetailActivity)
-        dialog.setContentView(R.layout.popup_complaint);
+        dialog.setContentView(R.layout.popup_complaint)
         dialog.window!!.setLayout(ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.WRAP_CONTENT);
-        dialog.setCancelable(false);
-        dialog.window!!.attributes.windowAnimations = R.style.DialogUpDown;
+        dialog.setCancelable(false)
+        dialog.window!!.attributes.windowAnimations = R.style.DialogUpDown
         val btnOk = dialog.findViewById(R.id.btn_ok) as AppCompatButton
         val txtMessage = dialog.findViewById(R.id.txt_message) as TextView
 
@@ -212,6 +251,18 @@ class PemeriksaanDetailActivity : AppCompatActivity(), Loadable {
 
         btnOk.setOnClickListener {
             dialog.dismiss();
+            pemeriksaan.isDone = 1
+            daoSession.tPemeriksaanDao.update(pemeriksaan)
+
+            if (checkSnKomplain.isNullOrEmpty()){
+                val updatePenerimaan = daoSession.tPosPenerimaanDao.queryBuilder()
+                    .where(TPosPenerimaanDao.Properties.NoDoSmar.eq(noDo)).list().get(0)
+                updatePenerimaan.isRating = 1
+                updatePenerimaan.statusPemeriksaan = "SUDAH DIPERIKSA"
+                daoSession.tPosPenerimaanDao.update(updatePenerimaan)
+            }
+
+            submitForm(packagings)
             startActivity(Intent(this@PemeriksaanDetailActivity, PemeriksaanActivity::class.java)
                 .setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP))
             finish()
@@ -219,17 +270,48 @@ class PemeriksaanDetailActivity : AppCompatActivity(), Loadable {
         dialog.show();
     }
 
+    private fun submitForm(packagings: String) {
+        val reports = ArrayList<GenericReport>()
+        val currentDate = LocalDateTime.now().toString(Config.DATE)
+        val currentDateTime = LocalDateTime.now().toString(Config.DATETIME)
+        val currentUtc = DateTimeUtils.currentUtc
+        Log.i("datime","${currentDateTime}")
+
+        //region Add report visit to queue
+        var jwt = SharedPrefsUtils.getStringPreference(this@PemeriksaanDetailActivity,"jwt","")
+        var username = SharedPrefsUtils.getStringPreference(this@PemeriksaanDetailActivity, "username","14.Hexing_Electrical")
+        val reportId = "temp_pemeriksaan" + username + "_" + noDo + "_" + DateTime.now().toString(
+            Config.DATETIME)
+        val reportName = "Update Data Dokumen Penerimaan"
+        val reportDescription = "$reportName: "+ " (" + reportId + ")"
+        val params = ArrayList<ReportParameter>()
+        params.add(ReportParameter("1", reportId, "no_do_smar", noDo!!, ReportParameter.TEXT))
+        params.add(ReportParameter("2", reportId, "sns", packagings, ReportParameter.TEXT))
+        params.add(ReportParameter("3", reportId, "status", "DITERIMA", ReportParameter.TEXT))
+
+        val report = GenericReport(reportId, jwt!!, reportName, reportDescription, ApiConfig.sendPemeriksaan(), currentDate, Config.NO_CODE, currentUtc, params)
+        reports.add(report)
+        //endregion
+
+        val task = TambahReportTask(this, reports)
+        task.execute()
+
+        val iService = Intent(applicationContext, ReportUploader::class.java)
+        startService(iService)
+    }
+
     private fun validComplaint() {
         for (i in listPemDetail){
-            Log.d("checkList", i.statusSn)
-            if (i.statusSn.isNullOrEmpty()){
+            Log.d("checkList", i.statusPemeriksaan)
+            if (i.statusPemeriksaan.isNullOrEmpty()){
                 Toast.makeText(this@PemeriksaanDetailActivity, "Tidak boleh melakukan komplain dengan status sesuai atau kosong", Toast.LENGTH_SHORT).show()
                 return
             }
         }
 
-        startActivity(Intent(this@PemeriksaanDetailActivity, ComplaintActivity::class.java)
-            .putExtra("noDo", noDo))
+        startActivity(Intent(this@PemeriksaanDetailActivity, ComplaintPemeriksaanActivity::class.java)
+            .putExtra("noDo", noDo)
+            .putExtra("noPemeriksaan", noPem))
     }
 
     private fun openScanner(typeScanning: Int) {
@@ -254,7 +336,7 @@ class PemeriksaanDetailActivity : AppCompatActivity(), Loadable {
                 val listPackagings = daoSession.tPemeriksaanDetailDao.queryBuilder().where(TPemeriksaanDetailDao.Properties.NoPackaging.eq(result.contents)).list()
                 Log.d("listPackaging", listPackagings.size.toString())
                 for (i in listPackagings){
-                    i.statusSn = "NORMAL"
+                    i.statusPemeriksaan = "NORMAL"
                     i.isChecked = 1
                     daoSession.tPemeriksaanDetailDao.update(i)
                 }
@@ -275,7 +357,7 @@ class PemeriksaanDetailActivity : AppCompatActivity(), Loadable {
                     .where(TPemeriksaanDetailDao.Properties.Sn.eq(result.contents)).limit(1).unique()
                 Log.i("hit sns", listSns.toString())
 
-                listSns.statusSn = "NORMAL"
+                listSns.statusPemeriksaan = "NORMAL"
                 listSns.isChecked = 1
                 daoSession.tPemeriksaanDetailDao.update(listSns)
 
@@ -303,6 +385,8 @@ class PemeriksaanDetailActivity : AppCompatActivity(), Loadable {
     }
 
     override fun setFinish(result: Boolean, message: String) {
-        Toast.makeText(this, message, Toast.LENGTH_LONG).show()
-    }
+        if (result) {
+            Log.i("finish","Yes")
+        }
+        Toast.makeText(this, message, Toast.LENGTH_LONG).show()    }
 }

@@ -45,8 +45,8 @@ class PenerimaanAdapter(val lisModels: MutableList<TPosPenerimaan>,
                     .where(TPosDetailPenerimaanDao.Properties.IsDone.eq(0)).list()
 
                 txtDeliveryOrder.text = pe.noDoSmar
-                txtStatusPenerimaan.text = if (pe.doStatus.isNullOrEmpty()) "-" else pe.doStatus
-                txtStatusPemeriksaan.text = "Belum Diperiksa"
+                txtStatusPenerimaan.text = if(pe.ratingPenerimaan.isNullOrEmpty()) "BELUM DITERIMA" else "DITERIMA"
+                txtStatusPemeriksaan.text = if (pe.statusPemeriksaan.isNullOrEmpty()) "BELUM DIPERIKSA" else pe.statusPemeriksaan
                 txtVendorAsal.text = pe.planCodeNo
                 txtTglKirim.text = "Tgl ${pe.createdDate}"
                 txtUnitTujuan.text = pe.plantName
@@ -55,10 +55,13 @@ class PenerimaanAdapter(val lisModels: MutableList<TPosPenerimaan>,
                 ivDoc.setOnClickListener { listenerDoc.onClick(pe) }
                 ivDelivery.setOnClickListener { listenerRate.onClick(pe) }
 
+
                 if (!pe.tanggalDiterima.isNullOrEmpty()){
                     if (listDetailPen.isNullOrEmpty()){
                         ivDoc.setImageResource(R.drawable.ic_input_doc_done)
-                        ivDelivery.setImageResource(R.drawable.ic_input_delivery_to_rating_active)
+                        if (pe.isRating == 1){
+                            ivDelivery.setImageResource(R.drawable.ic_input_delivery_to_rating_active)
+                        }
 
                     }else{
                         ivDoc.setImageResource(R.drawable.ic_input_doc_active)

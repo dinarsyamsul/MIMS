@@ -31,7 +31,8 @@ public class TPosSns {
     private String DoStatus;
     private String NoPackaging;
     private String DoLineItem;
-    private String Status;
+    private String StatusPenerimaan;
+    private String StatusPemeriksaan;
 
     @Generated
     public TPosSns() {
@@ -42,7 +43,7 @@ public class TPosSns {
     }
 
     @Generated
-    public TPosSns(Long id, String noMatSap, String Mmc, String MaterialGroup, String TglProduksi, String KdPabrikan, String NoSertMeterologi, String Spln, String NoProduksi, String StorLoc, String NamaKategoriMaterial, String NoSerial, String NoDoSmar, String Spesifikasi, String Plant, String MaterialId, String MasaGaransi, String DoStatus, String NoPackaging, String DoLineItem, String Status) {
+    public TPosSns(Long id, String noMatSap, String Mmc, String MaterialGroup, String TglProduksi, String KdPabrikan, String NoSertMeterologi, String Spln, String NoProduksi, String StorLoc, String NamaKategoriMaterial, String NoSerial, String NoDoSmar, String Spesifikasi, String Plant, String MaterialId, String MasaGaransi, String DoStatus, String NoPackaging, String DoLineItem, String StatusPenerimaan, String StatusPemeriksaan) {
         this.id = id;
         this.noMatSap = noMatSap;
         this.Mmc = Mmc;
@@ -63,7 +64,8 @@ public class TPosSns {
         this.DoStatus = DoStatus;
         this.NoPackaging = NoPackaging;
         this.DoLineItem = DoLineItem;
-        this.Status = Status;
+        this.StatusPenerimaan = StatusPenerimaan;
+        this.StatusPemeriksaan = StatusPemeriksaan;
     }
 
     public Long getId() {
@@ -226,12 +228,20 @@ public class TPosSns {
         this.DoLineItem = DoLineItem;
     }
 
-    public String getStatus() {
-        return Status;
+    public String getStatusPenerimaan() {
+        return StatusPenerimaan;
     }
 
-    public void setStatus(String Status) {
-        this.Status = Status;
+    public void setStatusPenerimaan(String StatusPenerimaan) {
+        this.StatusPenerimaan = StatusPenerimaan;
+    }
+
+    public String getStatusPemeriksaan() {
+        return StatusPemeriksaan;
+    }
+
+    public void setStatusPemeriksaan(String StatusPemeriksaan) {
+        this.StatusPemeriksaan = StatusPemeriksaan;
     }
 
 }

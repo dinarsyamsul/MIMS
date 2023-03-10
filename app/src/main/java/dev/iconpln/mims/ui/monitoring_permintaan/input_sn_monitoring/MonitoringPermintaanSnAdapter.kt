@@ -38,7 +38,7 @@ class MonitoringPermintaanSnAdapter(val lisModels: MutableList<TMonitoringSnMate
     inner class ViewHolder(val binding: ItemSnMonitoringBinding): RecyclerView.ViewHolder(binding.root){
         fun bind(tms : TMonitoringSnMaterial){
             with(binding){
-                txtSnMaterial.text = tms.snMaterial
+                txtSnMaterial.text = tms.serialNumber
                 btnDelete.setOnClickListener { listener.onClick(tms) }
             }
         }

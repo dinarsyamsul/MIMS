@@ -186,7 +186,7 @@
             app:layout_constraintTop_toTopOf="@+id/img_satuan" />
 
         <TextView
-            android:id="@+id/txt_status"
+            android:id="@+id/txt_satuan"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_marginStart="5dp"
@@ -246,7 +246,7 @@
             app:layout_constraintEnd_toEndOf="@+id/img_satuan"
             app:layout_constraintStart_toEndOf="@+id/lbl_plant"
             app:layout_constraintStart_toStartOf="@+id/img_satuan"
-            app:layout_constraintTop_toBottomOf="@+id/txt_status" />
+            app:layout_constraintTop_toBottomOf="@+id/txt_satuan" />
 
         <TextView
             android:id="@+id/lbl_lead_time"
@@ -258,7 +258,7 @@
             android:textColor="#3F3D56"
             android:textSize="10sp"
             app:layout_constraintBottom_toBottomOf="@+id/img_lead_time"
-            app:layout_constraintEnd_toEndOf="@+id/txt_status"
+            app:layout_constraintEnd_toEndOf="@+id/txt_satuan"
             app:layout_constraintStart_toEndOf="@+id/img_lead_time"
             app:layout_constraintTop_toTopOf="@+id/img_lead_time" />
 
@@ -287,12 +287,12 @@
             app:layout_constraintTop_toBottomOf="@+id/txt_storeloc" />
 
         <TextView
-            android:id="@+id/lbl_unit"
+            android:id="@+id/lbl_no_packaging"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_marginStart="5dp"
             android:fontFamily="@font/montserrat_reguler"
-            android:text="Unit"
+            android:text="Nomor Packaging"
             android:textColor="#3F3D56"
             android:textSize="10sp"
             app:layout_constraintBottom_toBottomOf="@+id/img_unit"
@@ -301,7 +301,7 @@
             app:layout_constraintTop_toTopOf="@+id/img_unit" />
 
         <TextView
-            android:id="@+id/txt_unit"
+            android:id="@+id/txt_no_packaging"
             android:layout_width="0dp"
             android:layout_height="0dp"
             android:layout_marginStart="5dp"
@@ -312,9 +312,9 @@
             android:textColor="#96979B"
             android:textSize="8sp"
             app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintEnd_toEndOf="@+id/lbl_unit"
+            app:layout_constraintEnd_toEndOf="@+id/lbl_no_packaging"
             app:layout_constraintStart_toEndOf="@+id/img_unit"
-            app:layout_constraintTop_toBottomOf="@+id/lbl_unit" />
+            app:layout_constraintTop_toBottomOf="@+id/lbl_no_packaging" />
 
         <ImageView
             android:id="@+id/img_delivery_date"
@@ -351,7 +351,7 @@
             android:text="xxx"
             android:textColor="#96979B"
             android:textSize="8sp"
-            app:layout_constraintBottom_toBottomOf="@+id/txt_unit"
+            app:layout_constraintBottom_toBottomOf="@+id/txt_no_packaging"
             app:layout_constraintEnd_toEndOf="@+id/lbl_delivery_date"
             app:layout_constraintStart_toEndOf="@+id/img_delivery_date"
             app:layout_constraintTop_toBottomOf="@+id/lbl_delivery_date" />

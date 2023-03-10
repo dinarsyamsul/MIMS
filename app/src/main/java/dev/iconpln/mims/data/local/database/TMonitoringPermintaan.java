@@ -13,6 +13,7 @@ public class TMonitoringPermintaan {
     @Id
     private Long id;
     private String NoPermintaan;
+    private String NoTransaksi;
     private String StorLocTujuanName;
     private String KodePengeluaran;
     private String StorLocTujuan;
@@ -22,7 +23,7 @@ public class TMonitoringPermintaan {
     private String UpdatedBy;
     private String CreatedDate;
     private String UpdatedDate;
-    private String JumlahKardus;
+    private Integer JumlahKardus;
     private String StorLocAsalName;
     private String TanggalPermintaan;
     private String TanggalPengeluaran;
@@ -38,9 +39,10 @@ public class TMonitoringPermintaan {
     }
 
     @Generated
-    public TMonitoringPermintaan(Long id, String NoPermintaan, String StorLocTujuanName, String KodePengeluaran, String StorLocTujuan, String CreatedBy, String NoRepackaging, String Plant, String UpdatedBy, String CreatedDate, String UpdatedDate, String JumlahKardus, String StorLocAsalName, String TanggalPermintaan, String TanggalPengeluaran, String PlantName, String StorLocAsal) {
+    public TMonitoringPermintaan(Long id, String NoPermintaan, String NoTransaksi, String StorLocTujuanName, String KodePengeluaran, String StorLocTujuan, String CreatedBy, String NoRepackaging, String Plant, String UpdatedBy, String CreatedDate, String UpdatedDate, Integer JumlahKardus, String StorLocAsalName, String TanggalPermintaan, String TanggalPengeluaran, String PlantName, String StorLocAsal) {
         this.id = id;
         this.NoPermintaan = NoPermintaan;
+        this.NoTransaksi = NoTransaksi;
         this.StorLocTujuanName = StorLocTujuanName;
         this.KodePengeluaran = KodePengeluaran;
         this.StorLocTujuan = StorLocTujuan;
@@ -72,6 +74,14 @@ public class TMonitoringPermintaan {
 
     public void setNoPermintaan(String NoPermintaan) {
         this.NoPermintaan = NoPermintaan;
+    }
+
+    public String getNoTransaksi() {
+        return NoTransaksi;
+    }
+
+    public void setNoTransaksi(String NoTransaksi) {
+        this.NoTransaksi = NoTransaksi;
     }
 
     public String getStorLocTujuanName() {
@@ -146,11 +156,11 @@ public class TMonitoringPermintaan {
         this.UpdatedDate = UpdatedDate;
     }
 
-    public String getJumlahKardus() {
+    public Integer getJumlahKardus() {
         return JumlahKardus;
     }
 
-    public void setJumlahKardus(String JumlahKardus) {
+    public void setJumlahKardus(Integer JumlahKardus) {
         this.JumlahKardus = JumlahKardus;
     }
 

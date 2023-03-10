@@ -9,6 +9,7 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import dev.iconpln.mims.MyApplication
 import dev.iconpln.mims.data.local.database.DaoSession
 import dev.iconpln.mims.data.local.database.TMaterialDetail
+import dev.iconpln.mims.data.local.database.TMaterialDetailDao
 import dev.iconpln.mims.databinding.ActivityDetailDataAtributeMaterialBinding
 import dev.iconpln.mims.ui.arttribute_material.MaterialViewModel
 
@@ -18,11 +19,13 @@ class DetailDataAtributeMaterialActivity : AppCompatActivity() {
     private lateinit var daoSession: DaoSession
     private lateinit var adapter: DetailDataAttributeAdapter
     private var sn: String = ""
+    private var noMaterial = ""
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         binding = ActivityDetailDataAtributeMaterialBinding.inflate(layoutInflater)
         setContentView(binding.root)
+        noMaterial = intent.getStringExtra("noMaterial")!!
 
         daoSession = (application as MyApplication).daoSession!!
         adapter = DetailDataAttributeAdapter(arrayListOf(), object : DetailDataAttributeAdapter.OnAdapterListener{
@@ -66,7 +69,8 @@ class DetailDataAtributeMaterialActivity : AppCompatActivity() {
     }
 
     private fun fetchLocal() {
-        val list = daoSession.tMaterialDetailDao.queryBuilder().list()
+        val list = daoSession.tMaterialDetailDao.queryBuilder()
+            .where(TMaterialDetailDao.Properties.NomorMaterial.eq(noMaterial)).list()
         adapter.setMaterialList(list)
     }
 }

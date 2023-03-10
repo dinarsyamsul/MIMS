@@ -18,6 +18,7 @@ class DetailPengirimanActivity : AppCompatActivity() {
     private lateinit var daoSession: DaoSession
     private lateinit var rvAdapter: ListDetailPengirimanAdapter
     private var noSn=""
+    private var noPengiriman=""
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         binding = ActivityDetailPengirimanBinding.inflate(layoutInflater)
@@ -27,7 +28,7 @@ class DetailPengirimanActivity : AppCompatActivity() {
 
         val extras = intent.extras
 
-        val noPengiriman = extras?.getString(EXTRA_NO_PENGIRIMAN)
+        noPengiriman = extras?.getString(EXTRA_NO_PENGIRIMAN)!!
 
         val getByNoPengiriman = daoSession.tPosDao.queryBuilder().where(TPosDao.Properties.NoDoSmar.eq(noPengiriman)).list()
         binding.apply {
@@ -70,7 +71,9 @@ class DetailPengirimanActivity : AppCompatActivity() {
     }
 
     private fun fetchDataLocal() {
-        var listDetailPengiriman = daoSession.tPosSnsDao.queryBuilder().where(TPosSnsDao.Properties.NoSerial.like("%" + noSn + "%")).list()
+        var listDetailPengiriman = daoSession.tPosSnsDao.queryBuilder()
+            .where(TPosSnsDao.Properties.NoSerial.like("%" + noSn + "%"))
+            .where(TPosSnsDao.Properties.NoDoSmar.eq(noPengiriman)).list()
         rvAdapter.setDetailPengirimanList(listDetailPengiriman)
     }
 

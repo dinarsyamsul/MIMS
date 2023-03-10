@@ -45,8 +45,10 @@ class PenerimaanViewModel: ViewModel() {
                             item.noMaterial = model.noMatSap
                             item.namaKategoriMaterial = model.namaKategoriMaterial
                             item.storLoc = model.storLoc
-                            if (model.status.isNullOrEmpty()) item.status = "" else item.status = model.status
+                            if (model.statusPenerimaan.isNullOrEmpty()) item.statusPenerimaan = "" else item.statusPenerimaan = model.statusPenerimaan
+                            if (model.statusPemeriksaan.isNullOrEmpty()) item.statusPemeriksaan = "" else item.statusPemeriksaan = model.statusPemeriksaan
                             item.doLineItem = model?.doLineItem
+                            item.isComplaint = 0
                             item.isChecked = 0
                             item.isDone = 0
                             items[i] = item
@@ -115,16 +117,20 @@ class PenerimaanViewModel: ViewModel() {
                             item.kdPabrikan = model.kdPabrikan
                             item.materialGroup = model.materialGroup
                             item.namaKategoriMaterial = model.namaKategoriMaterial
-                            item.ratingPenerimaan = ""
+                            item.ratingPenerimaan = model.ratingResponse
                             item.descPenerimaan = ""
-                            item.ratingQuality = ""
+                            item.ratingQuality = model.ratingQuality
                             item.descQuality = ""
-                            item.ratingWaktu = ""
+                            item.ratingWaktu = model.ratingDelivery
                             item.descWaktu = ""
                             item.nilaiRatingPenerimaan = ""
                             item.nilaiRatingQuality = ""
                             item.nilaiRatingWaktu = ""
-                            item.isDone = 0
+                            if (model.ratingResponse.isNotEmpty() &&
+                                model.ratingDelivery.isNotEmpty() &&
+                                model.ratingQuality.isNotEmpty()) item.isDone = 1 else item.isDone = 0
+
+                            item.isRating = 0
                             items[i] = item
                         }
                         daoSession.tPosPenerimaanDao.insertInTx(items.toList())

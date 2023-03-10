@@ -44,14 +44,9 @@ class PengujianDetailAdapter(val lisModels: MutableList<TPengujianDetails>, var 
             }else if (pengujian.statusUji == "TIDAK LOLOS"){
                 binding.status.setBackgroundColor(Color.parseColor("#3EB80F0A"))
                 binding.status.setTextColor(Color.parseColor("#B80F0A"))
-            }else if (pengujian.statusUji == "BELUM UJI"){
-                binding.status.setBackgroundColor(Color.parseColor("#41F8951D"))
-                binding.status.setTextColor(Color.parseColor("#045A71"))
-            }else if (pengujian.statusUji == "SEDANG UJI"){
-                binding.status.setBackgroundColor(Color.parseColor("#52F8951D"))
-                binding.status.setTextColor(Color.parseColor("#F8951D"))
-            }else {
-                binding.status.setBackgroundColor(Color.parseColor("#E8E8E8"))
+            }else  {
+                binding.status.setBackgroundColor(Color.parseColor("#90DFDFDF"))
+                binding.status.setTextColor(Color.parseColor("#000000"))
             }
 
             itemView.setOnClickListener { listener.onClick(pengujian) }

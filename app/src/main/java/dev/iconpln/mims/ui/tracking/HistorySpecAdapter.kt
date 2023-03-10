@@ -8,6 +8,7 @@ import dev.iconpln.mims.R
 import dev.iconpln.mims.data.remote.response.HistorisItem
 import dev.iconpln.mims.databinding.ItemTrackingHistoryBinding
 import dev.iconpln.mims.databinding.ItemTrackingMaterialBinding
+import dev.iconpln.mims.databinding.ItemTrackingMaterialHistoryBinding
 
 class HistorySpecAdapter(val lisModels: MutableList<HistorisItem>, var listener: OnAdapterListener)
     : RecyclerView.Adapter<HistorySpecAdapter.ViewHolder>() {
@@ -22,7 +23,7 @@ class HistorySpecAdapter(val lisModels: MutableList<HistorisItem>, var listener:
         parent: ViewGroup,
         viewType: Int
     ): HistorySpecAdapter.ViewHolder {
-        val binding = ItemTrackingMaterialBinding.inflate(LayoutInflater.from(parent.context), parent, false)
+        val binding = ItemTrackingMaterialHistoryBinding.inflate(LayoutInflater.from(parent.context), parent, false)
         return ViewHolder(binding)
     }
 
@@ -32,11 +33,10 @@ class HistorySpecAdapter(val lisModels: MutableList<HistorisItem>, var listener:
 
     override fun getItemCount(): Int = lisModels.size
 
-    inner class ViewHolder(val binding: ItemTrackingMaterialBinding): RecyclerView.ViewHolder(binding.root){
+    inner class ViewHolder(val binding: ItemTrackingMaterialHistoryBinding): RecyclerView.ViewHolder(binding.root){
         fun bind(data : HistorisItem){
             with(binding){
-                lblSpec.text = data.statusName
-                if(data.keterangan.isNullOrEmpty()) txtSpec.text = "-" else txtSpec.text = data.keterangan
+                if(data.statusName.isNullOrEmpty()) txtSpec.text = "-" else txtSpec.text = data.statusName
             }
             itemView.setOnClickListener { listener.onClick(data) }
         }

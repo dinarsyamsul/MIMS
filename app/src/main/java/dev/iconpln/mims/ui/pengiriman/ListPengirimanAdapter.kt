@@ -37,7 +37,7 @@ class ListPengirimanAdapter(val context: Context, val lisModels: MutableList<TPo
         fun bind(data : TPos){
             with(binding){
                 txtNoPengiriman.text = data.noDoSmar
-                txtNoPo.text = data.poSapNo
+                txtNoPo.text = if(data.poSapNo.isNullOrEmpty()) "-" else data.poSapNo
                 txtNoDo.text = data.noDoMims
                 txtUnit.text = data.plantName
                 txtQuantity.text = data.total

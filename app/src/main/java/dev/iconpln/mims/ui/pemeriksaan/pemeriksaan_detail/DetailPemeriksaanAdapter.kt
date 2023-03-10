@@ -48,10 +48,12 @@ class DetailPemeriksaanAdapter(val lisModels: MutableList<TPemeriksaanDetail>,
 
 //                cbSesuai.isChecked = po.isDone == 1
 
-                if (po.isChecked == 1 && po.statusSn == "NORMAL"){
+                if (po.isChecked == 1 && po.statusPemeriksaan == "NORMAL"){
                     cbSesuai.isChecked = true
-                }else if (po.isChecked == 1 && po.statusSn == "CACAT"){
+                    cbTidakSesuai.isChecked = false
+                }else if (po.isChecked == 1 && po.statusPemeriksaan == "CACAT"){
                     cbTidakSesuai.isChecked = true
+                    cbSesuai.isChecked = false
                 }else {
                     cbSesuai.isChecked = false
                     cbTidakSesuai.isChecked = false
@@ -60,11 +62,11 @@ class DetailPemeriksaanAdapter(val lisModels: MutableList<TPemeriksaanDetail>,
                 cbTidakSesuai.setOnCheckedChangeListener { buttonView, isChecked ->
                     cbSesuai.isEnabled = !isChecked
                     if (isChecked){
-                        po.statusSn = "CACAT"
+                        po.statusPemeriksaan = "CACAT"
                         po.isChecked = 1
                         daoSession.tPemeriksaanDetailDao.update(po)
                     }else{
-                        po.statusSn = ""
+                        po.statusPemeriksaan = ""
                         po.isChecked = 0
                         daoSession.tPemeriksaanDetailDao.update(po)
                     }
@@ -74,11 +76,11 @@ class DetailPemeriksaanAdapter(val lisModels: MutableList<TPemeriksaanDetail>,
                     cbTidakSesuai.isEnabled = !isChecked
 
                     if (isChecked){
-                        po.statusSn = "NORMAL"
+                        po.statusPemeriksaan = "NORMAL"
                         po.isChecked = 1
                         daoSession.tPemeriksaanDetailDao.update(po)
                     }else{
-                        po.statusSn = ""
+                        po.statusPemeriksaan = ""
                         po.isChecked = 0
                         daoSession.tPemeriksaanDetailDao.update(po)
                     }

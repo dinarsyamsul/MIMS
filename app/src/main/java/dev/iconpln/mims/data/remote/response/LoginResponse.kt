@@ -4,6 +4,12 @@ import com.google.gson.annotations.SerializedName
 
 data class LoginResponse(
 
+	@field:SerializedName("pemeriksaanDetail")
+	val pemeriksaanDetail: List<PemeriksaanDetailItem?>? = null,
+
+	@field:SerializedName("pemeriksan")
+	val pemeriksan: List<PemeriksanItem?>? = null,
+
 	@field:SerializedName("pos_sns")
 	val posSns: List<PosSnsItem?>? = null,
 
@@ -56,7 +62,31 @@ data class LoginResponse(
 	val monitoringPermintaan: List<MonitoringPermintaanItem?>? = null,
 
 	@field:SerializedName("monitoring_permintaan_details")
-	val monitoringPermintaanDetails: List<MonitoringPermintaanDetailsItem?>? = null
+	val monitoringPermintaanDetails: List<MonitoringPermintaanDetailsItem?>? = null,
+
+	@field:SerializedName("sn_permaterial")
+	val snPermaterial: List<SnPermaterialItem?>? = null,
+
+	@field:SerializedName("sn_permintaan")
+	val snPermintaan: List<SnPermintaanItem?>? = null,
+
+	@field:SerializedName("penerimaanUlp")
+	val penerimaanUlp: List<PenerimaanUlpItem?>? = null,
+
+	@field:SerializedName("penerimaanDetailUlp")
+	val penerimaanDetailUlp: List<PenerimaanDetailUlpItem?>? = null,
+
+	@field:SerializedName("pemakaian")
+	val pemakaian: List<PemakaianItem?>? = null,
+
+	@field:SerializedName("pemakaianDetail")
+	val pemakaianDetail: List<PemakaianDetailItem?>? = null,
+
+	@field:SerializedName("snPemakaianUlp")
+	val snPemakaianUlp: List<SnPemakaianUlpItem?>? = null,
+
+	@field:SerializedName("snPenerimaanUlp")
+	val snPenerimaanUlp: List<SnPenerimaanUlpItem?>? = null
 )
 
 data class RatingsItem(
@@ -200,8 +230,11 @@ data class PosSnsItem(
 	@field:SerializedName("do_line_item")
 	val doLineItem: String? = "",
 
-	@field:SerializedName("status")
-	val status: String? = ""
+	@field:SerializedName("status_penerimaan")
+	val statusPenerimaan: String? = "",
+
+	@field:SerializedName("status_pemeriksaan")
+	val statusPemeriksaan: String? = ""
 )
 
 data class MaterialsItem(
@@ -312,7 +345,16 @@ data class PosItem(
 	val KurirPengirim: String? = "",
 
 	@field:SerializedName("plant_name")
-	val plantName: String? = ""
+	val plantName: String? = "",
+
+	@field:SerializedName("rating_delivery")
+	val ratingDelivery: String? = "",
+
+	@field:SerializedName("rating_response")
+	val ratingResponse: String? = "",
+
+	@field:SerializedName("rating_quality")
+	val ratingQuality: String? = ""
 )
 
 data class PengujiansItem(
@@ -417,6 +459,12 @@ data class User(
 	@field:SerializedName("kd_user")
 	val kdUser: String? = "",
 
+	@field:SerializedName("plant")
+	val plant: String? = "",
+
+	@field:SerializedName("stor_loc")
+	val storloc: String? = "",
+
 	@field:SerializedName("mail")
 	val mail: String? = "",
 
@@ -493,7 +541,7 @@ data class MonitoringPermintaanItem(
 	val noPermintaan: String? = null,
 
 	@field:SerializedName("jumlah_kardus")
-	val jumlahKardus: Any? = null,
+	val jumlahKardus: Int? = null,
 
 	@field:SerializedName("stor_loc_asal_name")
 	val storLocAsalName: String? = null,
@@ -508,7 +556,10 @@ data class MonitoringPermintaanItem(
 	val plantName: String? = null,
 
 	@field:SerializedName("stor_loc_asal")
-	val storLocAsal: String? = null
+	val storLocAsal: String? = null,
+
+	@field:SerializedName("no_transaksi")
+	val noTransaksi: String? = null,
 )
 
 data class MonitoringPermintaanDetailsItem(
@@ -541,5 +592,497 @@ data class MonitoringPermintaanDetailsItem(
 	val noPermintaan: String? = null,
 
 	@field:SerializedName("qty_pengeluaran")
-	val qtyPengeluaran: Any? = null
+	val qtyPengeluaran: Any? = null,
+
+	@field:SerializedName("no_transaksi")
+	val noTransaksi: String? = null,
+)
+
+data class SnPermaterialItem(
+
+	@field:SerializedName("no_mat_sap")
+	val noMatSap: String? = null,
+
+	@field:SerializedName("mmc")
+	val mmc: String? = null,
+
+	@field:SerializedName("material_group")
+	val materialGroup: String? = null,
+
+	@field:SerializedName("tgl_produksi")
+	val tglProduksi: String? = null,
+
+	@field:SerializedName("kd_pabrikan")
+	val kdPabrikan: String? = null,
+
+	@field:SerializedName("nomor_sert_materologi")
+	val nomorSertMaterologi: String? = null,
+
+	@field:SerializedName("spln")
+	val spln: String? = null,
+
+	@field:SerializedName("no_produksi")
+	val noProduksi: String? = null,
+
+	@field:SerializedName("storloc")
+	val storloc: String? = null,
+
+	@field:SerializedName("nama_kategori_material")
+	val namaKategoriMaterial: String? = null,
+
+	@field:SerializedName("no_packaging")
+	val noPackaging: String? = null,
+
+	@field:SerializedName("no_serial")
+	val noSerial: String? = null,
+
+	@field:SerializedName("no_do_smar")
+	val noDoSmar: String? = null,
+
+	@field:SerializedName("do_line_item")
+	val doLineItem: String? = null,
+
+	@field:SerializedName("spesifikasi")
+	val spesifikasi: String? = null,
+
+	@field:SerializedName("plant")
+	val plant: String? = null,
+
+	@field:SerializedName("material_id")
+	val materialId: String? = null,
+
+	@field:SerializedName("masa_garansi")
+	val masaGaransi: String? = null,
+
+	@field:SerializedName("do_status")
+	val doStatus: String? = null,
+
+	@field:SerializedName("status")
+	val status: String? = null
+)
+
+data class PemeriksanItem(
+
+	@field:SerializedName("tgl_serah_terima")
+	val tglSerahTerima: String? = null,
+
+	@field:SerializedName("petugas_penerima")
+	val petugasPenerima: String? = null,
+
+	@field:SerializedName("kurir_pengirim")
+	val kurirPengirim: String? = null,
+
+	@field:SerializedName("rating_response")
+	val ratingResponse: Any? = null,
+
+	@field:SerializedName("nama_kategori_material")
+	val namaKategoriMaterial: String? = null,
+
+	@field:SerializedName("no_serial")
+	val noSerial: String? = null,
+
+	@field:SerializedName("plant_code_no")
+	val plantCodeNo: String? = null,
+
+	@field:SerializedName("rating_delivery")
+	val ratingDelivery: Any? = null,
+
+	@field:SerializedName("ketua_pemeriksa")
+	val ketuaPemeriksa: String? = null,
+
+	@field:SerializedName("stor_loc")
+	val storLoc: String? = null,
+
+	@field:SerializedName("total")
+	val total: String? = null,
+
+	@field:SerializedName("no_do_smar")
+	val noDoSmar: String? = null,
+
+	@field:SerializedName("lead_time")
+	val leadTime: Int? = null,
+
+	@field:SerializedName("kode_status_do_mims")
+	val kodeStatusDoMims: String? = null,
+
+	@field:SerializedName("no_mat_sap")
+	val noMatSap: String? = null,
+
+	@field:SerializedName("material_group")
+	val materialGroup: String? = null,
+
+	@field:SerializedName("kd_pabrikan")
+	val kdPabrikan: String? = null,
+
+	@field:SerializedName("no_do_mims")
+	val noDoMims: String? = null,
+
+	@field:SerializedName("no_packaging")
+	val noPackaging: String? = null,
+
+	@field:SerializedName("rating_quality")
+	val ratingQuality: Any? = null,
+
+	@field:SerializedName("status_pemeriksaan")
+	val statusPemeriksaan: String? = null,
+
+	@field:SerializedName("no_pemeriksaan")
+	val noPemeriksaan: String? = null,
+
+	@field:SerializedName("tlsk_no")
+	val tlskNo: String? = null,
+
+	@field:SerializedName("po_sap_no")
+	val poSapNo: String? = null,
+
+	@field:SerializedName("po_mp_no")
+	val poMpNo: String? = null,
+
+	@field:SerializedName("do_line_item")
+	val doLineItem: String? = null,
+
+	@field:SerializedName("created_date")
+	val createdDate: String? = null,
+
+	@field:SerializedName("courier_person_name")
+	val courierPersonName: String? = null,
+
+	@field:SerializedName("do_status")
+	val doStatus: String? = null,
+
+	@field:SerializedName("ekspedition")
+	val ekspedition: String? = null,
+
+	@field:SerializedName("plant_name")
+	val plantName: String? = null,
+
+	@field:SerializedName("status")
+	val status: String? = null
+)
+
+data class PemeriksaanDetailItem(
+
+	@field:SerializedName("no_mat_sap")
+	val noMatSap: String? = null,
+
+	@field:SerializedName("no_pemeriksaan")
+	val noPemeriksaan: String? = null,
+
+	@field:SerializedName("no_do_smar")
+	val noDoSmar: String? = null,
+
+	@field:SerializedName("created_date")
+	val createdDate: String? = null,
+
+	@field:SerializedName("nama_kategori_material")
+	val namaKategoriMaterial: String? = null,
+
+	@field:SerializedName("no_packaging")
+	val noPackaging: String? = null,
+
+	@field:SerializedName("no_serial")
+	val noSerial: String? = null,
+
+	@field:SerializedName("status")
+	val status: String? = null
+)
+
+data class SnPermintaanItem(
+
+	@field:SerializedName("no_repackaging")
+	val noRepackaging: String? = null,
+
+	@field:SerializedName("nomor_material")
+	val nomorMaterial: String? = null,
+
+	@field:SerializedName("serial_number")
+	val serialNumber: String? = null,
+
+	@field:SerializedName("id")
+	val id: String? = null,
+
+	@field:SerializedName("status")
+	val status: String? = null
+)
+
+data class PenerimaanDetailUlpItem(
+
+	@field:SerializedName("no_transaksi")
+	val noTransaksi: String? = null,
+
+	@field:SerializedName("no_repackaging")
+	val noRepackaging: String? = null,
+
+	@field:SerializedName("nomor_material")
+	val nomorMaterial: String? = null,
+
+	@field:SerializedName("qty_permintaan")
+	val qtyPermintaan: Int? = null,
+
+	@field:SerializedName("qty_pengiriman")
+	val qtyPengiriman: Int? = null,
+
+	@field:SerializedName("material_desc")
+	val materialDesc: String? = null,
+
+	@field:SerializedName("qty_penerimaan")
+	val qtyPenerimaan: Int? = null,
+
+	@field:SerializedName("id")
+	val id: String? = null,
+
+	@field:SerializedName("qty_pemeriksaan")
+	val qtyPemeriksaan: Int? = null,
+
+	@field:SerializedName("qty_sesuai")
+	val qtySesuai: Int? = null
+)
+
+data class PenerimaanUlpItem(
+
+	@field:SerializedName("status_penerimaan")
+	val statusPenerimaan: String? = null,
+
+	@field:SerializedName("stor_loc_tujuan_name")
+	val storLocTujuanName: String? = null,
+
+	@field:SerializedName("pejabat_penerima")
+	val pejabatPenerima: String? = null,
+
+	@field:SerializedName("jabatan_pemeriksa_2")
+	val jabatanPemeriksa2: String? = null,
+
+	@field:SerializedName("qty_sesuai")
+	val qtySesuai: Int? = null,
+
+	@field:SerializedName("no_penerimaan")
+	val noPenerimaan: String? = null,
+
+	@field:SerializedName("tanggal_penerimaan")
+	val tanggalPenerimaan: String? = null,
+
+	@field:SerializedName("jabatan_pemeriksa_1")
+	val jabatanPemeriksa1: String? = null,
+
+	@field:SerializedName("no_transaksi")
+	val noTransaksi: String? = null,
+
+	@field:SerializedName("qty_pengiriman")
+	val qtyPengiriman: Int? = null,
+
+	@field:SerializedName("material_desc")
+	val materialDesc: String? = null,
+
+	@field:SerializedName("qty_penerimaan")
+	val qtyPenerimaan: Int? = null,
+
+	@field:SerializedName("tanggal_dokumen")
+	val tanggalDokumen: String? = null,
+
+	@field:SerializedName("qty_pemeriksaan")
+	val qtyPemeriksaan: Int? = null,
+
+	@field:SerializedName("tanggal_pengiriman")
+	val tanggalPengiriman: String? = null,
+
+	@field:SerializedName("jumlah_kardus")
+	val jumlahKardus: Int? = null,
+
+	@field:SerializedName("stor_loc_asal")
+	val storLocAsal: String? = null,
+
+	@field:SerializedName("nomor_material")
+	val nomorMaterial: String? = null,
+
+	@field:SerializedName("qty_permintaan")
+	val qtyPermintaan: Int? = null,
+
+	@field:SerializedName("stor_loc_tujuan")
+	val storLocTujuan: String? = null,
+
+	@field:SerializedName("no_nota")
+	val noNota: String? = null,
+
+	@field:SerializedName("kurir")
+	val kurir: String? = null,
+
+	@field:SerializedName("status_kirim_ago")
+	val statusKirimAgo: Any? = null,
+
+	@field:SerializedName("nama_pemeriksa_2")
+	val namaPemeriksa2: String? = null,
+
+	@field:SerializedName("nama_pemeriksa_1")
+	val namaPemeriksa1: String? = null,
+
+	@field:SerializedName("no_repackaging")
+	val noRepackaging: String? = null,
+
+	@field:SerializedName("no_pemeriksaan")
+	val noPemeriksaan: String? = null,
+
+	@field:SerializedName("status_pemeriksaan")
+	val statusPemeriksaan: String? = null,
+
+	@field:SerializedName("tanggal_pemeriksaan")
+	val tanggalPemeriksaan: String? = null,
+
+	@field:SerializedName("plant")
+	val plant: String? = null,
+
+	@field:SerializedName("no_pk")
+	val noPk: String? = null,
+
+	@field:SerializedName("no_pengiriman")
+	val noPengiriman: String? = null,
+
+	@field:SerializedName("no_permintaan")
+	val noPermintaan: String? = null,
+
+	@field:SerializedName("kepala_gudang")
+	val kepalaGudang: String? = null,
+
+	@field:SerializedName("stor_loc_asal_name")
+	val storLocAsalName: String? = null,
+
+	@field:SerializedName("kode_integrasi")
+	val kodeIntegrasi: String? = null
+)
+
+data class PemakaianDetailItem(
+
+	@field:SerializedName("no_transaksi")
+	val noTransaksi: String? = "",
+
+	@field:SerializedName("nomor_material")
+	val nomorMaterial: String? = "",
+
+	@field:SerializedName("unit")
+	val unit: String? = "",
+
+	@field:SerializedName("keterangan")
+	val keterangan: String? = "",
+
+	@field:SerializedName("nama_material")
+	val namaMaterial: String? = "",
+
+	@field:SerializedName("qty_reservasi")
+	val qtyReservasi: Int? = 0,
+
+	@field:SerializedName("qty_pemakaian")
+	val qtyPemakaian: Int? = 0,
+
+	@field:SerializedName("no_meter")
+	val noMeter: String? = "",
+
+	@field:SerializedName("valuation_type")
+	val valuationType: String? = "",
+
+	@field:SerializedName("qty_pengeluaran")
+	val qtyPengeluaran: Int? = 0
+)
+
+data class PemakaianItem(
+
+	@field:SerializedName("no_reservasi")
+	val noReservasi: String? = "",
+
+	@field:SerializedName("tanggal_reservasi")
+	val tanggalReservasi: String? = "",
+
+	@field:SerializedName("status_pemakaian")
+	val statusPemakaian: String? = "",
+
+	@field:SerializedName("sumber")
+	val sumber: String? = "",
+
+	@field:SerializedName("no_pemesanan")
+	val noPemesanan: String? = "",
+
+	@field:SerializedName("status_kirim_ago")
+	val statusKirimAgo: Any? = "",
+
+	@field:SerializedName("daya")
+	val daya: String? = "",
+
+	@field:SerializedName("id_pelanggan")
+	val idPelanggan: String? = "",
+
+	@field:SerializedName("tanggal_pemakaian")
+	val tanggalPemakaian: String? = "",
+
+	@field:SerializedName("jenis_pekerjaan")
+	val jenisPekerjaan: String? = "",
+
+	@field:SerializedName("no_transaksi")
+	val noTransaksi: String? = "",
+
+	@field:SerializedName("no_agenda")
+	val noAgenda: String? = "",
+
+	@field:SerializedName("stor_loc")
+	val storLoc: String? = "",
+
+	@field:SerializedName("nama_pelanggan")
+	val namaPelanggan: String? = "",
+
+	@field:SerializedName("tarif")
+	val tarif: String? = "",
+
+	@field:SerializedName("tanggal_bayar")
+	val tanggalBayar: Any? = "",
+
+	@field:SerializedName("plant")
+	val plant: String? = "",
+
+	@field:SerializedName("status_sap")
+	val statusSap: Any? = "",
+
+	@field:SerializedName("tanggal_dokumen")
+	val tanggalDokumen: String? = "",
+
+	@field:SerializedName("alamat_pelanggan")
+	val alamatPelanggan: String? = "",
+
+	@field:SerializedName("no_pemakaian")
+	val noPemakaian: String? = "",
+
+	@field:SerializedName("kode_integrasi")
+	val kodeIntegrasi: String? = "",
+
+	@field:SerializedName("tanggal_pengeluaran")
+	val tanggalPengeluaran: String? = ""
+)
+
+data class SnPemakaianUlpItem(
+
+	@field:SerializedName("no_transaksi")
+	val noTransaksi: String? = null,
+
+	@field:SerializedName("nomor_material")
+	val nomorMaterial: String? = null,
+
+	@field:SerializedName("serial_number")
+	val serialNumber: String? = null,
+
+	@field:SerializedName("id")
+	val id: String? = null
+)
+
+data class SnPenerimaanUlpItem(
+
+	@field:SerializedName("no_repackaging")
+	val noRepackaging: String? = null,
+
+	@field:SerializedName("nomor_material")
+	val nomorMaterial: String? = null,
+
+	@field:SerializedName("serial_number")
+	val serialNumber: String? = null,
+
+	@field:SerializedName("id")
+	val id: String? = null,
+
+	@field:SerializedName("status")
+	val status: Any? = null
 )

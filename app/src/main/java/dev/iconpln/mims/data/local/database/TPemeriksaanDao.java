@@ -36,16 +36,23 @@ public class TPemeriksaanDao extends AbstractDao<TPemeriksaan, Long> {
         public final static Property PlantName = new Property(11, String.class, "PlantName", false, "PLANT_NAME");
         public final static Property NoDoMims = new Property(12, String.class, "NoDoMims", false, "NO_DO_MIMS");
         public final static Property DoStatus = new Property(13, String.class, "DoStatus", false, "DO_STATUS");
-        public final static Property Expeditions = new Property(14, String.class, "Expeditions", false, "EXPEDITIONS");
-        public final static Property CourierPersonName = new Property(15, String.class, "CourierPersonName", false, "COURIER_PERSON_NAME");
-        public final static Property KdPabrikan = new Property(16, String.class, "KdPabrikan", false, "KD_PABRIKAN");
-        public final static Property MaterialGroup = new Property(17, String.class, "MaterialGroup", false, "MATERIAL_GROUP");
-        public final static Property NamaKategoriMaterial = new Property(18, String.class, "NamaKategoriMaterial", false, "NAMA_KATEGORI_MATERIAL");
-        public final static Property TanggalDiterima = new Property(19, String.class, "TanggalDiterima", false, "TANGGAL_DITERIMA");
-        public final static Property PetugasPenerima = new Property(20, String.class, "PetugasPenerima", false, "PETUGAS_PENERIMA");
-        public final static Property NamaKurir = new Property(21, String.class, "NamaKurir", false, "NAMA_KURIR");
-        public final static Property NamaEkspedisi = new Property(22, String.class, "NamaEkspedisi", false, "NAMA_EKSPEDISI");
-        public final static Property IsDone = new Property(23, Integer.class, "isDone", false, "IS_DONE");
+        public final static Property StatusPemeriksaan = new Property(14, String.class, "StatusPemeriksaan", false, "STATUS_PEMERIKSAAN");
+        public final static Property Expeditions = new Property(15, String.class, "Expeditions", false, "EXPEDITIONS");
+        public final static Property CourierPersonName = new Property(16, String.class, "CourierPersonName", false, "COURIER_PERSON_NAME");
+        public final static Property KdPabrikan = new Property(17, String.class, "KdPabrikan", false, "KD_PABRIKAN");
+        public final static Property MaterialGroup = new Property(18, String.class, "MaterialGroup", false, "MATERIAL_GROUP");
+        public final static Property NamaKategoriMaterial = new Property(19, String.class, "NamaKategoriMaterial", false, "NAMA_KATEGORI_MATERIAL");
+        public final static Property TanggalDiterima = new Property(20, String.class, "TanggalDiterima", false, "TANGGAL_DITERIMA");
+        public final static Property PetugasPenerima = new Property(21, String.class, "PetugasPenerima", false, "PETUGAS_PENERIMA");
+        public final static Property NamaKurir = new Property(22, String.class, "NamaKurir", false, "NAMA_KURIR");
+        public final static Property NamaEkspedisi = new Property(23, String.class, "NamaEkspedisi", false, "NAMA_EKSPEDISI");
+        public final static Property DoLineItem = new Property(24, String.class, "DoLineItem", false, "DO_LINE_ITEM");
+        public final static Property NamaManager = new Property(25, String.class, "NamaManager", false, "NAMA_MANAGER");
+        public final static Property NamaKetua = new Property(26, String.class, "NamaKetua", false, "NAMA_KETUA");
+        public final static Property NamaSekretaris = new Property(27, String.class, "NamaSekretaris", false, "NAMA_SEKRETARIS");
+        public final static Property NamaAnggota = new Property(28, String.class, "NamaAnggota", false, "NAMA_ANGGOTA");
+        public final static Property NamaAnggotaBaru = new Property(29, String.class, "NamaAnggotaBaru", false, "NAMA_ANGGOTA_BARU");
+        public final static Property IsDone = new Property(30, Integer.class, "isDone", false, "IS_DONE");
     }
 
 
@@ -75,16 +82,23 @@ public class TPemeriksaanDao extends AbstractDao<TPemeriksaan, Long> {
                 "\"PLANT_NAME\" TEXT," + // 11: PlantName
                 "\"NO_DO_MIMS\" TEXT," + // 12: NoDoMims
                 "\"DO_STATUS\" TEXT," + // 13: DoStatus
-                "\"EXPEDITIONS\" TEXT," + // 14: Expeditions
-                "\"COURIER_PERSON_NAME\" TEXT," + // 15: CourierPersonName
-                "\"KD_PABRIKAN\" TEXT," + // 16: KdPabrikan
-                "\"MATERIAL_GROUP\" TEXT," + // 17: MaterialGroup
-                "\"NAMA_KATEGORI_MATERIAL\" TEXT," + // 18: NamaKategoriMaterial
-                "\"TANGGAL_DITERIMA\" TEXT," + // 19: TanggalDiterima
-                "\"PETUGAS_PENERIMA\" TEXT," + // 20: PetugasPenerima
-                "\"NAMA_KURIR\" TEXT," + // 21: NamaKurir
-                "\"NAMA_EKSPEDISI\" TEXT," + // 22: NamaEkspedisi
-                "\"IS_DONE\" INTEGER);"); // 23: isDone
+                "\"STATUS_PEMERIKSAAN\" TEXT," + // 14: StatusPemeriksaan
+                "\"EXPEDITIONS\" TEXT," + // 15: Expeditions
+                "\"COURIER_PERSON_NAME\" TEXT," + // 16: CourierPersonName
+                "\"KD_PABRIKAN\" TEXT," + // 17: KdPabrikan
+                "\"MATERIAL_GROUP\" TEXT," + // 18: MaterialGroup
+                "\"NAMA_KATEGORI_MATERIAL\" TEXT," + // 19: NamaKategoriMaterial
+                "\"TANGGAL_DITERIMA\" TEXT," + // 20: TanggalDiterima
+                "\"PETUGAS_PENERIMA\" TEXT," + // 21: PetugasPenerima
+                "\"NAMA_KURIR\" TEXT," + // 22: NamaKurir
+                "\"NAMA_EKSPEDISI\" TEXT," + // 23: NamaEkspedisi
+                "\"DO_LINE_ITEM\" TEXT," + // 24: DoLineItem
+                "\"NAMA_MANAGER\" TEXT," + // 25: NamaManager
+                "\"NAMA_KETUA\" TEXT," + // 26: NamaKetua
+                "\"NAMA_SEKRETARIS\" TEXT," + // 27: NamaSekretaris
+                "\"NAMA_ANGGOTA\" TEXT," + // 28: NamaAnggota
+                "\"NAMA_ANGGOTA_BARU\" TEXT," + // 29: NamaAnggotaBaru
+                "\"IS_DONE\" INTEGER);"); // 30: isDone
     }
 
     /** Drops the underlying database table. */
@@ -167,54 +181,89 @@ public class TPemeriksaanDao extends AbstractDao<TPemeriksaan, Long> {
             stmt.bindString(14, DoStatus);
         }
  
+        String StatusPemeriksaan = entity.getStatusPemeriksaan();
+        if (StatusPemeriksaan != null) {
+            stmt.bindString(15, StatusPemeriksaan);
+        }
+ 
         String Expeditions = entity.getExpeditions();
         if (Expeditions != null) {
-            stmt.bindString(15, Expeditions);
+            stmt.bindString(16, Expeditions);
         }
  
         String CourierPersonName = entity.getCourierPersonName();
         if (CourierPersonName != null) {
-            stmt.bindString(16, CourierPersonName);
+            stmt.bindString(17, CourierPersonName);
         }
  
         String KdPabrikan = entity.getKdPabrikan();
         if (KdPabrikan != null) {
-            stmt.bindString(17, KdPabrikan);
+            stmt.bindString(18, KdPabrikan);
         }
  
         String MaterialGroup = entity.getMaterialGroup();
         if (MaterialGroup != null) {
-            stmt.bindString(18, MaterialGroup);
+            stmt.bindString(19, MaterialGroup);
         }
  
         String NamaKategoriMaterial = entity.getNamaKategoriMaterial();
         if (NamaKategoriMaterial != null) {
-            stmt.bindString(19, NamaKategoriMaterial);
+            stmt.bindString(20, NamaKategoriMaterial);
         }
  
         String TanggalDiterima = entity.getTanggalDiterima();
         if (TanggalDiterima != null) {
-            stmt.bindString(20, TanggalDiterima);
+            stmt.bindString(21, TanggalDiterima);
         }
  
         String PetugasPenerima = entity.getPetugasPenerima();
         if (PetugasPenerima != null) {
-            stmt.bindString(21, PetugasPenerima);
+            stmt.bindString(22, PetugasPenerima);
         }
  
         String NamaKurir = entity.getNamaKurir();
         if (NamaKurir != null) {
-            stmt.bindString(22, NamaKurir);
+            stmt.bindString(23, NamaKurir);
         }
  
         String NamaEkspedisi = entity.getNamaEkspedisi();
         if (NamaEkspedisi != null) {
-            stmt.bindString(23, NamaEkspedisi);
+            stmt.bindString(24, NamaEkspedisi);
+        }
+ 
+        String DoLineItem = entity.getDoLineItem();
+        if (DoLineItem != null) {
+            stmt.bindString(25, DoLineItem);
+        }
+ 
+        String NamaManager = entity.getNamaManager();
+        if (NamaManager != null) {
+            stmt.bindString(26, NamaManager);
+        }
+ 
+        String NamaKetua = entity.getNamaKetua();
+        if (NamaKetua != null) {
+            stmt.bindString(27, NamaKetua);
+        }
+ 
+        String NamaSekretaris = entity.getNamaSekretaris();
+        if (NamaSekretaris != null) {
+            stmt.bindString(28, NamaSekretaris);
+        }
+ 
+        String NamaAnggota = entity.getNamaAnggota();
+        if (NamaAnggota != null) {
+            stmt.bindString(29, NamaAnggota);
+        }
+ 
+        String NamaAnggotaBaru = entity.getNamaAnggotaBaru();
+        if (NamaAnggotaBaru != null) {
+            stmt.bindString(30, NamaAnggotaBaru);
         }
  
         Integer isDone = entity.getIsDone();
         if (isDone != null) {
-            stmt.bindLong(24, isDone);
+            stmt.bindLong(31, isDone);
         }
     }
 
@@ -292,54 +341,89 @@ public class TPemeriksaanDao extends AbstractDao<TPemeriksaan, Long> {
             stmt.bindString(14, DoStatus);
         }
  
+        String StatusPemeriksaan = entity.getStatusPemeriksaan();
+        if (StatusPemeriksaan != null) {
+            stmt.bindString(15, StatusPemeriksaan);
+        }
+ 
         String Expeditions = entity.getExpeditions();
         if (Expeditions != null) {
-            stmt.bindString(15, Expeditions);
+            stmt.bindString(16, Expeditions);
         }
  
         String CourierPersonName = entity.getCourierPersonName();
         if (CourierPersonName != null) {
-            stmt.bindString(16, CourierPersonName);
+            stmt.bindString(17, CourierPersonName);
         }
  
         String KdPabrikan = entity.getKdPabrikan();
         if (KdPabrikan != null) {
-            stmt.bindString(17, KdPabrikan);
+            stmt.bindString(18, KdPabrikan);
         }
  
         String MaterialGroup = entity.getMaterialGroup();
         if (MaterialGroup != null) {
-            stmt.bindString(18, MaterialGroup);
+            stmt.bindString(19, MaterialGroup);
         }
  
         String NamaKategoriMaterial = entity.getNamaKategoriMaterial();
         if (NamaKategoriMaterial != null) {
-            stmt.bindString(19, NamaKategoriMaterial);
+            stmt.bindString(20, NamaKategoriMaterial);
         }
  
         String TanggalDiterima = entity.getTanggalDiterima();
         if (TanggalDiterima != null) {
-            stmt.bindString(20, TanggalDiterima);
+            stmt.bindString(21, TanggalDiterima);
         }
  
         String PetugasPenerima = entity.getPetugasPenerima();
         if (PetugasPenerima != null) {
-            stmt.bindString(21, PetugasPenerima);
+            stmt.bindString(22, PetugasPenerima);
         }
  
         String NamaKurir = entity.getNamaKurir();
         if (NamaKurir != null) {
-            stmt.bindString(22, NamaKurir);
+            stmt.bindString(23, NamaKurir);
         }
  
         String NamaEkspedisi = entity.getNamaEkspedisi();
         if (NamaEkspedisi != null) {
-            stmt.bindString(23, NamaEkspedisi);
+            stmt.bindString(24, NamaEkspedisi);
+        }
+ 
+        String DoLineItem = entity.getDoLineItem();
+        if (DoLineItem != null) {
+            stmt.bindString(25, DoLineItem);
+        }
+ 
+        String NamaManager = entity.getNamaManager();
+        if (NamaManager != null) {
+            stmt.bindString(26, NamaManager);
+        }
+ 
+        String NamaKetua = entity.getNamaKetua();
+        if (NamaKetua != null) {
+            stmt.bindString(27, NamaKetua);
+        }
+ 
+        String NamaSekretaris = entity.getNamaSekretaris();
+        if (NamaSekretaris != null) {
+            stmt.bindString(28, NamaSekretaris);
+        }
+ 
+        String NamaAnggota = entity.getNamaAnggota();
+        if (NamaAnggota != null) {
+            stmt.bindString(29, NamaAnggota);
+        }
+ 
+        String NamaAnggotaBaru = entity.getNamaAnggotaBaru();
+        if (NamaAnggotaBaru != null) {
+            stmt.bindString(30, NamaAnggotaBaru);
         }
  
         Integer isDone = entity.getIsDone();
         if (isDone != null) {
-            stmt.bindLong(24, isDone);
+            stmt.bindLong(31, isDone);
         }
     }
 
@@ -365,16 +449,23 @@ public class TPemeriksaanDao extends AbstractDao<TPemeriksaan, Long> {
             cursor.isNull(offset + 11) ? null : cursor.getString(offset + 11), // PlantName
             cursor.isNull(offset + 12) ? null : cursor.getString(offset + 12), // NoDoMims
             cursor.isNull(offset + 13) ? null : cursor.getString(offset + 13), // DoStatus
-            cursor.isNull(offset + 14) ? null : cursor.getString(offset + 14), // Expeditions
-            cursor.isNull(offset + 15) ? null : cursor.getString(offset + 15), // CourierPersonName
-            cursor.isNull(offset + 16) ? null : cursor.getString(offset + 16), // KdPabrikan
-            cursor.isNull(offset + 17) ? null : cursor.getString(offset + 17), // MaterialGroup
-            cursor.isNull(offset + 18) ? null : cursor.getString(offset + 18), // NamaKategoriMaterial
-            cursor.isNull(offset + 19) ? null : cursor.getString(offset + 19), // TanggalDiterima
-            cursor.isNull(offset + 20) ? null : cursor.getString(offset + 20), // PetugasPenerima
-            cursor.isNull(offset + 21) ? null : cursor.getString(offset + 21), // NamaKurir
-            cursor.isNull(offset + 22) ? null : cursor.getString(offset + 22), // NamaEkspedisi
-            cursor.isNull(offset + 23) ? null : cursor.getInt(offset + 23) // isDone
+            cursor.isNull(offset + 14) ? null : cursor.getString(offset + 14), // StatusPemeriksaan
+            cursor.isNull(offset + 15) ? null : cursor.getString(offset + 15), // Expeditions
+            cursor.isNull(offset + 16) ? null : cursor.getString(offset + 16), // CourierPersonName
+            cursor.isNull(offset + 17) ? null : cursor.getString(offset + 17), // KdPabrikan
+            cursor.isNull(offset + 18) ? null : cursor.getString(offset + 18), // MaterialGroup
+            cursor.isNull(offset + 19) ? null : cursor.getString(offset + 19), // NamaKategoriMaterial
+            cursor.isNull(offset + 20) ? null : cursor.getString(offset + 20), // TanggalDiterima
+            cursor.isNull(offset + 21) ? null : cursor.getString(offset + 21), // PetugasPenerima
+            cursor.isNull(offset + 22) ? null : cursor.getString(offset + 22), // NamaKurir
+            cursor.isNull(offset + 23) ? null : cursor.getString(offset + 23), // NamaEkspedisi
+            cursor.isNull(offset + 24) ? null : cursor.getString(offset + 24), // DoLineItem
+            cursor.isNull(offset + 25) ? null : cursor.getString(offset + 25), // NamaManager
+            cursor.isNull(offset + 26) ? null : cursor.getString(offset + 26), // NamaKetua
+            cursor.isNull(offset + 27) ? null : cursor.getString(offset + 27), // NamaSekretaris
+            cursor.isNull(offset + 28) ? null : cursor.getString(offset + 28), // NamaAnggota
+            cursor.isNull(offset + 29) ? null : cursor.getString(offset + 29), // NamaAnggotaBaru
+            cursor.isNull(offset + 30) ? null : cursor.getInt(offset + 30) // isDone
         );
         return entity;
     }
@@ -395,16 +486,23 @@ public class TPemeriksaanDao extends AbstractDao<TPemeriksaan, Long> {
         entity.setPlantName(cursor.isNull(offset + 11) ? null : cursor.getString(offset + 11));
         entity.setNoDoMims(cursor.isNull(offset + 12) ? null : cursor.getString(offset + 12));
         entity.setDoStatus(cursor.isNull(offset + 13) ? null : cursor.getString(offset + 13));
-        entity.setExpeditions(cursor.isNull(offset + 14) ? null : cursor.getString(offset + 14));
-        entity.setCourierPersonName(cursor.isNull(offset + 15) ? null : cursor.getString(offset + 15));
-        entity.setKdPabrikan(cursor.isNull(offset + 16) ? null : cursor.getString(offset + 16));
-        entity.setMaterialGroup(cursor.isNull(offset + 17) ? null : cursor.getString(offset + 17));
-        entity.setNamaKategoriMaterial(cursor.isNull(offset + 18) ? null : cursor.getString(offset + 18));
-        entity.setTanggalDiterima(cursor.isNull(offset + 19) ? null : cursor.getString(offset + 19));
-        entity.setPetugasPenerima(cursor.isNull(offset + 20) ? null : cursor.getString(offset + 20));
-        entity.setNamaKurir(cursor.isNull(offset + 21) ? null : cursor.getString(offset + 21));
-        entity.setNamaEkspedisi(cursor.isNull(offset + 22) ? null : cursor.getString(offset + 22));
-        entity.setIsDone(cursor.isNull(offset + 23) ? null : cursor.getInt(offset + 23));
+        entity.setStatusPemeriksaan(cursor.isNull(offset + 14) ? null : cursor.getString(offset + 14));
+        entity.setExpeditions(cursor.isNull(offset + 15) ? null : cursor.getString(offset + 15));
+        entity.setCourierPersonName(cursor.isNull(offset + 16) ? null : cursor.getString(offset + 16));
+        entity.setKdPabrikan(cursor.isNull(offset + 17) ? null : cursor.getString(offset + 17));
+        entity.setMaterialGroup(cursor.isNull(offset + 18) ? null : cursor.getString(offset + 18));
+        entity.setNamaKategoriMaterial(cursor.isNull(offset + 19) ? null : cursor.getString(offset + 19));
+        entity.setTanggalDiterima(cursor.isNull(offset + 20) ? null : cursor.getString(offset + 20));
+        entity.setPetugasPenerima(cursor.isNull(offset + 21) ? null : cursor.getString(offset + 21));
+        entity.setNamaKurir(cursor.isNull(offset + 22) ? null : cursor.getString(offset + 22));
+        entity.setNamaEkspedisi(cursor.isNull(offset + 23) ? null : cursor.getString(offset + 23));
+        entity.setDoLineItem(cursor.isNull(offset + 24) ? null : cursor.getString(offset + 24));
+        entity.setNamaManager(cursor.isNull(offset + 25) ? null : cursor.getString(offset + 25));
+        entity.setNamaKetua(cursor.isNull(offset + 26) ? null : cursor.getString(offset + 26));
+        entity.setNamaSekretaris(cursor.isNull(offset + 27) ? null : cursor.getString(offset + 27));
+        entity.setNamaAnggota(cursor.isNull(offset + 28) ? null : cursor.getString(offset + 28));
+        entity.setNamaAnggotaBaru(cursor.isNull(offset + 29) ? null : cursor.getString(offset + 29));
+        entity.setIsDone(cursor.isNull(offset + 30) ? null : cursor.getInt(offset + 30));
      }
     
     @Override

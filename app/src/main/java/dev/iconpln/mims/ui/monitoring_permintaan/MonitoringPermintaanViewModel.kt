@@ -13,18 +13,20 @@ class MonitoringPermintaanViewModel: ViewModel() {
     private val _isLoading = MutableLiveData<Boolean>()
     val isLoading: LiveData<Boolean> = _isLoading
 
-    private val _monitoringPermintaanResponse = MutableLiveData<List<TMonitoringPermintaan>>()
-    val monitoringPermintaanResponse: LiveData<List<TMonitoringPermintaan>> = _monitoringPermintaanResponse
+    private val _monitoringPermintaanResponse = MutableLiveData<List<TTransMonitoringPermintaan>>()
+    val monitoringPermintaanResponse: LiveData<List<TTransMonitoringPermintaan>> = _monitoringPermintaanResponse
 
-    private val _monitoringPermintaanDetailResponse = MutableLiveData<List<TMonitoringPermintaanDetail>>()
-    val monitoringPermintaanDetailResponse: LiveData<List<TMonitoringPermintaanDetail>> = _monitoringPermintaanDetailResponse
+    private val _monitoringPermintaanDetailResponse = MutableLiveData<List<TTransMonitoringPermintaanDetail>>()
+    val monitoringPermintaanDetailResponse: LiveData<List<TTransMonitoringPermintaanDetail>> = _monitoringPermintaanDetailResponse
 
     fun getMonitoringPermintaan(daoSession: DaoSession){
         CoroutineScope(Dispatchers.Main).launch {
             try {
                 _isLoading.value = true
 
-                val lisMonitoring = daoSession.tMonitoringPermintaanDao.loadAll()
+                val lisMonitoring = daoSession.tTransMonitoringPermintaanDao.queryBuilder()
+                    .where(TTransMonitoringPermintaanDao.Properties.KodePengeluaran.eq(1))
+                    .list()
 
                 _monitoringPermintaanResponse.postValue(lisMonitoring)
 
@@ -38,13 +40,14 @@ class MonitoringPermintaanViewModel: ViewModel() {
         }
     }
 
-    fun getMonitoringPermintaanDetail(daoSession: DaoSession, noPermintaan: String){
+    fun getMonitoringPermintaanDetail(daoSession: DaoSession, noTransaksi: String){
         CoroutineScope(Dispatchers.Main).launch {
             try {
                 _isLoading.value = true
 
-                val listMonitoringDetail = daoSession.tMonitoringPermintaanDetailDao.queryBuilder()
-                    .where(TMonitoringPermintaanDetailDao.Properties.NoPermintaan.eq(noPermintaan)).list()
+                val listMonitoringDetail = daoSession.tTransMonitoringPermintaanDetailDao.queryBuilder()
+                    .where(TTransMonitoringPermintaanDetailDao.Properties.NoTransaksi.eq(noTransaksi))
+                    .where(TTransMonitoringPermintaanDetailDao.Properties.IsDone.eq(0)).list()
 
                 _monitoringPermintaanDetailResponse.postValue(listMonitoringDetail)
 
@@ -59,8 +62,8 @@ class MonitoringPermintaanViewModel: ViewModel() {
     }
 
     fun searchDetail(daoSession: DaoSession, namaMaterial: String){
-        var listDetail = daoSession.tMonitoringPermintaanDetailDao.queryBuilder()
-            .where(TMonitoringPermintaanDetailDao.Properties.NomorMaterial.like("%" + namaMaterial + "%")).list()
+        var listDetail = daoSession.tTransMonitoringPermintaanDetailDao.queryBuilder()
+            .where(TTransMonitoringPermintaanDetailDao.Properties.NomorMaterial.like("%" + namaMaterial + "%")).list()
         _monitoringPermintaanDetailResponse.postValue(listDetail)
     }
 
@@ -71,11 +74,11 @@ class MonitoringPermintaanViewModel: ViewModel() {
         srcGudangAsalText: String,
         srcTglPermintaanText: String
     ){
-        var listDataMonitoring = daoSession.tMonitoringPermintaanDao.queryBuilder().where(
-            TMonitoringPermintaanDao.Properties.NoPermintaan.like("%" + srcNoPermintaanText + "%"),
-            TMonitoringPermintaanDao.Properties.KodePengeluaran.like("%" + srcStatusPengeluaranText + "%"),
-            TMonitoringPermintaanDao.Properties.StorLocAsalName.like("%" + srcGudangAsalText + "%"),
-            TMonitoringPermintaanDao.Properties.TanggalPermintaan.like("%" + srcTglPermintaanText + "%")).list()
+        var listDataMonitoring = daoSession.tTransMonitoringPermintaanDao.queryBuilder().where(
+            TTransMonitoringPermintaanDao.Properties.NoPermintaan.like("%" + srcNoPermintaanText + "%"),
+            TTransMonitoringPermintaanDao.Properties.KodePengeluaran.like("%" + srcStatusPengeluaranText + "%"),
+            TTransMonitoringPermintaanDao.Properties.StorLocAsalName.like("%" + srcGudangAsalText + "%"),
+            TTransMonitoringPermintaanDao.Properties.TanggalPermintaan.like("%" + srcTglPermintaanText + "%")).list()
 
         _monitoringPermintaanResponse.postValue(listDataMonitoring)
     }

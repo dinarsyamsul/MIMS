@@ -65,7 +65,7 @@ data class HistorisItem(
 data class DetailTrackingHistoryResponse(
 
 	@field:SerializedName("datas")
-	val datas: List<DatasItemTracking>,
+	val datas: DatasItemTracking,
 
 	@field:SerializedName("message")
 	val message: String,

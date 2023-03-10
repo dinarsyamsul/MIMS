@@ -12,11 +12,10 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import dev.iconpln.mims.MyApplication
 import dev.iconpln.mims.data.local.database.DaoSession
 import dev.iconpln.mims.data.local.database.TPengujian
+import dev.iconpln.mims.data.local.database.TPengujianDao
 import dev.iconpln.mims.databinding.ActivityPengujianBinding
-import dev.iconpln.mims.ui.role.pabrikan.pengujian.PengujianAdapter
 import dev.iconpln.mims.ui.role.pabrikan.pengujian.PengujianViewModel
 import dev.iconpln.mims.ui.role.pabrikan.pengujian.pengujian_detail.PengujianDetailActivity
-import java.util.*
 import kotlin.collections.ArrayList
 
 class PengujianActivity : AppCompatActivity() {
@@ -26,7 +25,6 @@ class PengujianActivity : AppCompatActivity() {
     private lateinit var daoSession: DaoSession
     private lateinit var listPengujian: List<TPengujian>
     private val listKategori: ArrayList<String> = ArrayList()
-
     private var kategori = ""
     private var noPengujian = ""
 
@@ -43,7 +41,8 @@ class PengujianActivity : AppCompatActivity() {
 
         adapter = PengujianAdapter(arrayListOf(), object : PengujianAdapter.OnAdapterListener {
             override fun onClick(pengujian: TPengujian) {
-                startActivity(Intent(this@PengujianActivity, PengujianDetailActivity::class.java))
+                startActivity(Intent(this@PengujianActivity, PengujianDetailActivity::class.java)
+                    .putExtra("noPengujian", pengujian.noPengujian))
             }
 
         })
@@ -87,37 +86,10 @@ class PengujianActivity : AppCompatActivity() {
     }
 
     private fun doSearch() {
-        if (kategori.isNullOrEmpty()){
-            if (noPengujian.isNullOrEmpty()){
-                val filter = listPengujian.filter { it.statusUji.lowercase().contains(kategori.lowercase()) }
-                adapter.setPengujianList(filter)
-            }else{
-                val filter = listPengujian.filter {
-                    it.noPengujian.lowercase().contains(noPengujian.lowercase()) &&
-                    it.statusUji.lowercase().contains(kategori.lowercase())
-                }
-                adapter.setPengujianList(filter)
-            }
-        }else {
-            val filter = listPengujian.filter {
-                it.noPengujian.lowercase().contains(noPengujian.lowercase()) &&
-                        it.statusUji.lowercase().contains(kategori.lowercase())
-            }
-            adapter.setPengujianList(filter)
-        }
-
-        if (noPengujian.isNullOrEmpty()){
-            if (kategori.isNullOrEmpty()){
-                val filter = listPengujian.filter { it.noPengujian.lowercase().contains(noPengujian.lowercase()) }
-                adapter.setPengujianList(filter)
-            }else{
-                val filter = listPengujian.filter {
-                    it.noPengujian.lowercase().contains(noPengujian.lowercase()) &&
-                            it.statusUji.lowercase().contains(kategori.lowercase())
-                }
-                adapter.setPengujianList(filter)
-            }
-        }
+        val listSearch = daoSession.tPengujianDao.queryBuilder()
+            .where(TPengujianDao.Properties.StatusUji.eq(kategori))
+            .where(TPengujianDao.Properties.NoPengujian.like("%"+noPengujian+"%")).list()
+        adapter.setPengujianList(listSearch)
     }
 
 }

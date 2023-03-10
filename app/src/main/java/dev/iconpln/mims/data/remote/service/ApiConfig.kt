@@ -18,6 +18,8 @@ object ApiConfig {
         val client: OkHttpClient = OkHttpClient.Builder()
             .addInterceptor(loggingInterceptor)
             .addInterceptor(AuthInterceptor(context))
+            .connectTimeout(200, TimeUnit.SECONDS)
+            .readTimeout(200, TimeUnit.SECONDS)
             .build()
         val retrofit = Retrofit.Builder()
             .baseUrl(BASE_URL)
@@ -32,22 +34,50 @@ object ApiConfig {
     }
 
     fun sendPenerimaan(): String {
-        return "$BASE_URL/reports/v2/sendReportPenerimaan"
+        return "$BASE_URL/reports/v3/sendReportPenerimaan"
     }
 
     fun insertLokasi(): String {
         return "$BASE_URL/reports/insertLokasi"
     }
 
+    fun sendPemeriksaanPerson(): String {
+        return "$BASE_URL/reports/sendReportPemeriksaanPerson"
+    }
+
     fun sendPemeriksaan(): String {
-        return "$BASE_URL/reports/sendReportPemeriksaan"
+        return "$BASE_URL/reports/v3/sendReportPemeriksaan"
     }
 
     fun sendComplaint(): String {
-        return "$BASE_URL/reports/v2/sendReportComplaint"
+        return "$BASE_URL/reports/v3/sendReportComplaint"
+    }
+
+    fun sendComplaintPemeriksaan(): String {
+        return "$BASE_URL/reports/v3/sendReportComplaintPemeriksaan"
     }
 
     fun sendRating():String{
-        return "$BASE_URL/reports/v2/sendReportRating"
+        return "$BASE_URL/reports/v3/sendReportRating"
+    }
+
+    fun sendMonkitoringPermintaan():String{
+        return "$BASE_URL/reports/sendReportMonitoringPermintaan"
+    }
+
+    fun sendReportPenerimaanUlpDetail():String{
+        return "$BASE_URL/reports/penerimaan/updateSelesaiDetail"
+    }
+
+    fun sendReportPenerimaanUlpSelesai():String{
+        return "$BASE_URL/reports/penerimaan/updateSelesai"
+    }
+
+    fun sendReportPemakaianUlpDetail():String{
+        return "$BASE_URL/reports/pemakaian/updateSelesaiDetail"
+    }
+
+    fun sendReportPemakaianUlpSelesai():String{
+        return "$BASE_URL/reports/pemakaian/updateSelesai"
     }
 }

@@ -45,8 +45,13 @@ class PenerimaanActivity : AppCompatActivity() {
 
         adapter = PenerimaanAdapter(arrayListOf(), object : PenerimaanAdapter.OnAdapterListener{
             override fun onClick(po: TPosPenerimaan) {
-                startActivity(Intent(this@PenerimaanActivity, InputPetugasPenerimaanActivity::class.java)
-                    .putExtra("noDo", po.noDoSmar))
+                if(po.petugasPenerima.isNullOrEmpty()){
+                    startActivity(Intent(this@PenerimaanActivity, InputPetugasPenerimaanActivity::class.java)
+                        .putExtra("noDo", po.noDoSmar))
+                }else{
+                    Toast.makeText(this@PenerimaanActivity, "Kamu sudah melakukan input data penerimaan", Toast.LENGTH_SHORT).show()
+                }
+
             }
 
         }, object: PenerimaanAdapter.OnAdapterListenerDoc{
@@ -72,8 +77,12 @@ class PenerimaanActivity : AppCompatActivity() {
                 if (po.isDone == 1){
                     Toast.makeText(this@PenerimaanActivity, "Kamu sudah melakukan rating di DO ini", Toast.LENGTH_SHORT).show()
                 }else{
-                    startActivity(Intent(this@PenerimaanActivity, RatingActivity::class.java)
-                        .putExtra("noDo", po.noDoSmar))
+                    if (po.isRating == 1){
+                        startActivity(Intent(this@PenerimaanActivity, RatingActivity::class.java)
+                            .putExtra("noDo", po.noDoSmar))
+                    }else{
+                        Toast.makeText(this@PenerimaanActivity, "Kamu belum bisa melakukan rating", Toast.LENGTH_SHORT).show()
+                    }
                 }
             }
 
@@ -122,9 +131,9 @@ class PenerimaanActivity : AppCompatActivity() {
             dropdownUrutkan.setOnItemClickListener { parent, view, position, id ->
                 filter = statusArray[position]
                 if (filter == "TERBARU"){
-                    setRecyclerView(true)
-                }else{
                     setRecyclerView(false)
+                }else{
+                    setRecyclerView(true)
                 }
             }
         }

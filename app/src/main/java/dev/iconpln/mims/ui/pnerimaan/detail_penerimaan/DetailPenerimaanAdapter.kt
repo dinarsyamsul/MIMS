@@ -46,10 +46,12 @@ class DetailPenerimaanAdapter(val lisModels: MutableList<TPosDetailPenerimaan>,
 
 //                cbSesuai.isChecked = po.isDone == 1
 
-                if (tpd.isChecked == 1 && tpd.status == "SESUAI"){
+                if (tpd.isChecked == 1 && tpd.statusPenerimaan == "SESUAI"){
                     cbSesuai.isChecked = true
-                }else if (tpd.isChecked == 1 && tpd.status == "TIDAK SESUAI"){
+                    cbTidakSesuai.isChecked = false
+                }else if (tpd.isChecked == 1 && tpd.statusPenerimaan == "TIDAK SESUAI"){
                     cbTidakSesuai.isChecked = true
+                    cbSesuai.isChecked = false
                 }else {
                     cbSesuai.isChecked = false
                     cbTidakSesuai.isChecked = false
@@ -58,11 +60,11 @@ class DetailPenerimaanAdapter(val lisModels: MutableList<TPosDetailPenerimaan>,
                 cbTidakSesuai.setOnCheckedChangeListener { buttonView, isChecked ->
                     cbSesuai.isEnabled = !isChecked
                     if (isChecked){
-                        tpd.status = "TIDAK SESUAI"
+                        tpd.statusPenerimaan = "TIDAK SESUAI"
                         tpd.isChecked = 1
                         daoSession.tPosDetailPenerimaanDao.update(tpd)
                     }else{
-                        tpd.status = ""
+                        tpd.statusPenerimaan = ""
                         tpd.isChecked = 0
                         daoSession.tPosDetailPenerimaanDao.update(tpd)
                     }
@@ -71,11 +73,11 @@ class DetailPenerimaanAdapter(val lisModels: MutableList<TPosDetailPenerimaan>,
                 cbSesuai.setOnCheckedChangeListener { buttonView, isChecked ->
                     cbTidakSesuai.isEnabled = !isChecked
                     if (isChecked){
-                        tpd.status = "SESUAI"
+                        tpd.statusPenerimaan = "SESUAI"
                         tpd.isChecked = 1
                         daoSession.tPosDetailPenerimaanDao.update(tpd)
                     }else{
-                        tpd.status = ""
+                        tpd.statusPenerimaan = ""
                         tpd.isChecked = 0
                         daoSession.tPosDetailPenerimaanDao.update(tpd)
                     }

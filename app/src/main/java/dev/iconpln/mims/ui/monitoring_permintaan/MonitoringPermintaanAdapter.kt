@@ -5,13 +5,14 @@ import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
 import dev.iconpln.mims.data.local.database.TMonitoringPermintaan
 import dev.iconpln.mims.data.local.database.TPos
+import dev.iconpln.mims.data.local.database.TTransMonitoringPermintaan
 import dev.iconpln.mims.databinding.ItemDataMonitoringPermintaanBinding
 import dev.iconpln.mims.databinding.ItemDataMonitoringPurchaseBinding
 
-class MonitoringPermintaanAdapter(val lisModels: MutableList<TMonitoringPermintaan>, var listener: OnAdapterListener)
+class MonitoringPermintaanAdapter(val lisModels: MutableList<TTransMonitoringPermintaan>, var listener: OnAdapterListener)
     : RecyclerView.Adapter<MonitoringPermintaanAdapter.ViewHolder>() {
 
-    fun setMpList(po: List<TMonitoringPermintaan>){
+    fun setMpList(po: List<TTransMonitoringPermintaan>){
         lisModels.clear()
         lisModels.addAll(po)
         notifyDataSetChanged()
@@ -32,7 +33,7 @@ class MonitoringPermintaanAdapter(val lisModels: MutableList<TMonitoringPerminta
     override fun getItemCount(): Int = lisModels.size
 
     inner class ViewHolder(val binding: ItemDataMonitoringPermintaanBinding): RecyclerView.ViewHolder(binding.root){
-        fun bind(mp : TMonitoringPermintaan){
+        fun bind(mp : TTransMonitoringPermintaan){
             with(binding){
                 btnDetail.setOnClickListener { listener.onClick(mp) }
                 txtGudangAsal.text = mp.storLocAsalName
@@ -51,6 +52,6 @@ class MonitoringPermintaanAdapter(val lisModels: MutableList<TMonitoringPerminta
     }
 
     interface OnAdapterListener{
-        fun onClick(mp: TMonitoringPermintaan)
+        fun onClick(mp: TTransMonitoringPermintaan)
     }
 }

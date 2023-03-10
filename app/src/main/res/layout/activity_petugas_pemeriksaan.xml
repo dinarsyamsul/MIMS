@@ -1,0 +1,484 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".ui.ulp.penerimaan.input_pemeriksaan.PetugasPemeriksaanActivity">
+
+        <ImageView
+            android:id="@+id/header"
+            android:layout_width="match_parent"
+            android:layout_height="84dp"
+            android:background="@drawable/dashboard"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <ImageButton
+            android:id="@+id/btn_back"
+            android:layout_width="50dp"
+            android:layout_height="50dp"
+            android:layout_marginStart="29dp"
+            android:background="#00FFFFFF"
+            android:src="@drawable/ic_baseline_arrow_back_ios_24"
+            app:layout_constraintBottom_toBottomOf="@+id/textView3"
+            app:layout_constraintEnd_toStartOf="@id/textView3"
+            app:layout_constraintHorizontal_chainStyle="spread_inside"
+            app:layout_constraintStart_toStartOf="@+id/header"
+            app:layout_constraintTop_toTopOf="@+id/textView3" />
+
+        <TextView
+            android:id="@+id/textView3"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginEnd="80dp"
+            android:fontFamily="@font/montserrat_reguler"
+            android:text="Petugas Pemeriksaan"
+            android:textAlignment="center"
+            android:textColor="@color/white"
+            android:textSize="16dp"
+            android:textStyle="bold"
+            app:layout_constraintBottom_toBottomOf="@+id/header"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toEndOf="@+id/btn_back"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <androidx.cardview.widget.CardView
+            android:id="@+id/cv_daftarListpetugaspenerimaan"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="24dp"
+            android:layout_marginTop="20dp"
+            android:layout_marginEnd="24dp"
+            android:paddingBottom="10dp"
+            app:cardCornerRadius="5dp"
+            app:cardElevation="10dp"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/header"
+            tools:ignore="MissingConstraints">
+
+            <androidx.constraintlayout.widget.ConstraintLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:background="#F7F8FA">
+
+                <View
+                    android:id="@+id/vw_line"
+                    android:layout_width="5dp"
+                    android:layout_height="0dp"
+                    android:background="#26ACE2"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toTopOf="parent" />
+
+                <TextView
+                    android:id="@+id/lbl_no_pengiriman"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="16dp"
+                    android:layout_marginTop="16dp"
+                    android:fontFamily="@font/montserrat_reguler"
+                    android:text="No. Pengiriman"
+                    android:textColor="#3F3D56"
+                    android:textSize="10sp"
+                    app:layout_constraintStart_toStartOf="@+id/vw_line"
+                    app:layout_constraintTop_toTopOf="parent" />
+
+                <View
+                    android:id="@+id/vw_circle"
+                    android:layout_width="2dp"
+                    android:layout_height="2dp"
+                    android:layout_marginStart="8dp"
+                    android:layout_marginTop="24dp"
+                    android:background="@drawable/dashboard"
+                    app:layout_constraintStart_toEndOf="@+id/lbl_no_pengiriman"
+                    app:layout_constraintTop_toTopOf="parent" />
+
+                <TextView
+                    android:id="@+id/txt_no_pengiriman"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="16dp"
+                    android:fontFamily="@font/montserrat_reguler"
+                    android:text="123123123123"
+                    android:textColor="#3F3D56"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@+id/lbl_no_pengiriman" />
+
+                <ImageView
+                    android:id="@+id/imageView"
+                    android:layout_width="14dp"
+                    android:layout_height="14dp"
+                    android:layout_marginTop="8dp"
+                    android:src="@drawable/ic_number"
+                    app:layout_constraintStart_toStartOf="@+id/txt_no_pengiriman"
+                    app:layout_constraintTop_toBottomOf="@+id/txt_no_pengiriman" />
+
+                <TextView
+                    android:id="@+id/lbl_no_permintaan"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="5dp"
+                    android:fontFamily="@font/montserrat_reguler"
+                    android:text="No Permintaan"
+                    android:textColor="#3F3D56"
+                    android:textSize="10sp"
+                    app:layout_constraintBottom_toBottomOf="@+id/imageView"
+                    app:layout_constraintEnd_toStartOf="@+id/imageView1"
+                    app:layout_constraintStart_toEndOf="@+id/imageView"
+                    app:layout_constraintTop_toTopOf="@+id/imageView" />
+
+                <TextView
+                    android:id="@+id/txt_no_permintaan"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:fontFamily="@font/montserrat_reguler"
+                    android:text="xxxxxxxxx"
+                    android:textSize="10sp"
+                    app:layout_constraintEnd_toEndOf="@+id/lbl_no_permintaan"
+                    app:layout_constraintStart_toStartOf="@+id/lbl_no_permintaan"
+                    app:layout_constraintTop_toBottomOf="@+id/lbl_no_permintaan" />
+
+                <ImageView
+                    android:id="@+id/imageView1"
+                    android:layout_width="14dp"
+                    android:layout_height="14dp"
+                    android:layout_marginStart="5dp"
+                    android:src="@drawable/unit_list_monitoring1"
+                    app:layout_constraintEnd_toStartOf="@+id/lbl_gudang_asal"
+                    app:layout_constraintStart_toEndOf="@+id/lbl_no_permintaan"
+                    app:layout_constraintTop_toTopOf="@+id/lbl_no_permintaan" />
+
+                <TextView
+                    android:id="@+id/lbl_gudang_asal"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="5dp"
+                    android:layout_marginEnd="16dp"
+                    android:fontFamily="@font/montserrat_reguler"
+                    android:text="Gudang Asal"
+                    android:textColor="#3F3D56"
+                    android:textSize="10sp"
+                    app:layout_constraintBottom_toBottomOf="@+id/imageView1"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toEndOf="@+id/imageView1"
+                    app:layout_constraintTop_toTopOf="@+id/imageView1" />
+
+                <TextView
+                    android:id="@+id/txt_gudang_asal"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="5dp"
+                    android:fontFamily="@font/montserrat_reguler"
+                    android:text="Belum diterima"
+                    android:textSize="10sp"
+                    app:layout_constraintEnd_toEndOf="@+id/lbl_gudang_asal"
+                    app:layout_constraintStart_toEndOf="@+id/imageView1"
+                    app:layout_constraintTop_toBottomOf="@+id/lbl_no_permintaan" />
+
+                <ImageView
+                    android:id="@+id/imageView6"
+                    android:layout_width="14dp"
+                    android:layout_height="14dp"
+                    android:layout_marginStart="5dp"
+                    android:layout_marginTop="8dp"
+                    android:src="@drawable/unit_list_monitoring1"
+                    app:layout_constraintEnd_toStartOf="@+id/lbl_gudang_asal"
+                    app:layout_constraintStart_toEndOf="@+id/lbl_no_permintaan"
+                    app:layout_constraintTop_toBottomOf="@+id/txt_gudang_asal" />
+
+                <TextView
+                    android:id="@+id/lbl_gudang_tujuan"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="5dp"
+                    android:layout_marginEnd="16dp"
+                    android:fontFamily="@font/montserrat_reguler"
+                    android:text="Gudang Tujuan"
+                    android:textColor="#3F3D56"
+                    android:textSize="10sp"
+                    app:layout_constraintBottom_toBottomOf="@+id/imageView6"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toEndOf="@+id/imageView1"
+                    app:layout_constraintTop_toTopOf="@+id/imageView6" />
+
+                <TextView
+                    android:id="@+id/txt_gudang_tujuan"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="5dp"
+                    android:fontFamily="@font/montserrat_reguler"
+                    android:text="Belum diterima"
+                    android:textSize="10sp"
+                    app:layout_constraintEnd_toEndOf="@+id/lbl_gudang_asal"
+                    app:layout_constraintStart_toEndOf="@+id/imageView1"
+                    app:layout_constraintTop_toBottomOf="@+id/lbl_gudang_tujuan" />
+
+                <ImageView
+                    android:id="@+id/imageView2"
+                    android:layout_width="14dp"
+                    android:layout_height="14dp"
+                    android:layout_marginTop="8dp"
+                    android:src="@drawable/ic_number"
+                    app:layout_constraintStart_toStartOf="@+id/imageView"
+                    app:layout_constraintTop_toBottomOf="@+id/txt_no_permintaan" />
+
+                <TextView
+                    android:id="@+id/lbl_no_repackaging"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="5dp"
+                    android:fontFamily="@font/montserrat_reguler"
+                    android:text="No. Repackaging"
+                    android:textColor="#3F3D56"
+                    android:textSize="10sp"
+                    app:layout_constraintBottom_toBottomOf="@+id/imageView2"
+                    app:layout_constraintEnd_toEndOf="@+id/txt_no_permintaan"
+                    app:layout_constraintStart_toEndOf="@+id/imageView2"
+                    app:layout_constraintTop_toTopOf="@+id/imageView2" />
+
+                <TextView
+                    android:id="@+id/txt_no_repackaging"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="5dp"
+                    android:layout_marginBottom="16dp"
+                    android:fontFamily="@font/montserrat_reguler"
+                    android:text="xxxxxxxxxxx"
+                    android:textSize="10sp"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintEnd_toEndOf="@+id/lbl_no_repackaging"
+                    app:layout_constraintHorizontal_bias="0.0"
+                    app:layout_constraintStart_toEndOf="@+id/imageView2"
+                    app:layout_constraintTop_toBottomOf="@+id/lbl_no_repackaging"
+                    app:layout_constraintVertical_bias="0.212" />
+            </androidx.constraintlayout.widget.ConstraintLayout>
+        </androidx.cardview.widget.CardView>
+
+        <ScrollView
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/cv_daftarListpetugaspenerimaan">
+
+            <androidx.constraintlayout.widget.ConstraintLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent">
+
+                <TextView
+                    android:id="@+id/lbl_kepala_gudang"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="24dp"
+                    android:layout_marginTop="20dp"
+                    android:fontFamily="@font/montserrat_reguler"
+                    android:text="Kepala Gudang"
+                    android:textColor="#3F3D56"
+                    android:textSize="12sp"
+                    android:textStyle="bold"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toTopOf="parent"
+                    tools:ignore="MissingConstraints" />
+
+                <EditText
+                    android:id="@+id/edt_kepala_gudang"
+                    android:layout_width="0dp"
+                    android:layout_height="50dp"
+                    android:layout_marginTop="10dp"
+                    android:layout_marginEnd="24dp"
+                    android:background="@drawable/srchview"
+                    android:fontFamily="@font/montserrat_reguler"
+                    android:hint="kepala gudang"
+                    android:paddingLeft="20dp"
+                    android:paddingRight="20dp"
+                    android:textSize="12sp"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="@+id/lbl_kepala_gudang"
+                    app:layout_constraintTop_toBottomOf="@+id/lbl_kepala_gudang">
+
+                </EditText>
+
+                <TextView
+                    android:id="@+id/lbl_no_pk"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="24dp"
+                    android:layout_marginTop="20dp"
+                    android:fontFamily="@font/montserrat_reguler"
+                    android:text="No. PK"
+                    android:textColor="#3F3D56"
+                    android:textSize="12sp"
+                    android:textStyle="bold"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@+id/edt_kepala_gudang" />
+
+                <EditText
+                    android:id="@+id/edt_no_pk"
+                    android:layout_width="0dp"
+                    android:layout_height="50dp"
+                    android:layout_marginTop="10dp"
+                    android:layout_marginEnd="25dp"
+                    android:background="@drawable/srchview"
+                    android:hint="No. PK"
+                    android:fontFamily="@font/montserrat_reguler"
+                    android:paddingLeft="20dp"
+                    android:paddingRight="20dp"
+                    android:textColor="@drawable/et_selector"
+                    android:textSize="12sp"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="@+id/lbl_no_pk"
+                    app:layout_constraintTop_toBottomOf="@+id/lbl_no_pk" />
+
+                <TextView
+                    android:id="@+id/lbl_pejabat_pemeriksa"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="24dp"
+                    android:layout_marginTop="20dp"
+                    android:fontFamily="@font/montserrat_reguler"
+                    android:text="Nama Pejabat Pemeriksa"
+                    android:textColor="#3F3D56"
+                    android:textSize="12sp"
+                    android:textStyle="bold"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@+id/edt_no_pk" />
+
+                <EditText
+                    android:id="@+id/edt_pejabat_pemeriksa"
+                    android:layout_width="0dp"
+                    android:layout_height="50dp"
+                    android:layout_marginTop="10dp"
+                    android:layout_marginEnd="25dp"
+                    android:background="@drawable/srchview"
+                    android:hint="Pejabat Pemeriksa"
+                    android:fontFamily="@font/montserrat_reguler"
+                    android:paddingLeft="20dp"
+                    android:paddingRight="20dp"
+                    android:textColor="@drawable/et_selector"
+                    android:textSize="12sp"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="@+id/lbl_pejabat_pemeriksa"
+                    app:layout_constraintTop_toBottomOf="@+id/lbl_pejabat_pemeriksa">
+                </EditText>
+
+                <TextView
+                    android:id="@+id/lbl_jabatan_petugas"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="24dp"
+                    android:layout_marginTop="20dp"
+                    android:fontFamily="@font/montserrat_reguler"
+                    android:text="Jabatan"
+                    android:textColor="#3F3D56"
+                    android:textSize="12sp"
+                    android:textStyle="bold"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@+id/edt_pejabat_pemeriksa" />
+
+                <EditText
+                    android:id="@+id/et_jabatan"
+                    android:layout_width="0dp"
+                    android:layout_height="50dp"
+                    android:layout_marginTop="10dp"
+                    android:layout_marginEnd="25dp"
+                    android:background="@drawable/srchview"
+                    android:hint="Jabatan Pejabat Pemeriksa"
+                    android:fontFamily="@font/montserrat_reguler"
+                    android:paddingLeft="20dp"
+                    android:paddingRight="20dp"
+                    android:textColor="@drawable/et_selector"
+                    android:textSize="12sp"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="@+id/lbl_jabatan_petugas"
+                    app:layout_constraintTop_toBottomOf="@+id/lbl_jabatan_petugas">
+                </EditText>
+
+                <TextView
+                    android:id="@+id/lbl_nama_petugas_pemeriksa"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="24dp"
+                    android:layout_marginTop="20dp"
+                    android:fontFamily="@font/montserrat_reguler"
+                    android:text="Nama Petugas Pemeriksa"
+                    android:textColor="#3F3D56"
+                    android:textSize="12sp"
+                    android:textStyle="bold"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@+id/et_jabatan" />
+
+                <EditText
+                    android:id="@+id/edt_petugas_pemeriksa"
+                    android:layout_width="0dp"
+                    android:layout_height="50dp"
+                    android:layout_marginTop="10dp"
+                    android:layout_marginEnd="25dp"
+                    android:background="@drawable/srchview"
+                    android:hint="Petugas Pemeriksa"
+                    android:fontFamily="@font/montserrat_reguler"
+                    android:paddingLeft="20dp"
+                    android:paddingRight="20dp"
+                    android:textColor="@drawable/et_selector"
+                    android:textSize="12sp"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="@+id/lbl_nama_petugas_pemeriksa"
+                    app:layout_constraintTop_toBottomOf="@+id/lbl_nama_petugas_pemeriksa"/>
+
+                <TextView
+                    android:id="@+id/lbl_jabatan_petugas_pemeriksa"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="24dp"
+                    android:layout_marginTop="20dp"
+                    android:fontFamily="@font/montserrat_reguler"
+                    android:text="Jabatan"
+                    android:textColor="#3F3D56"
+                    android:textSize="12sp"
+                    android:textStyle="bold"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@+id/edt_petugas_pemeriksa" />
+
+                <EditText
+                    android:id="@+id/edt_jabatan_petugas_pemeriksa"
+                    android:layout_width="0dp"
+                    android:layout_height="50dp"
+                    android:layout_marginTop="10dp"
+                    android:layout_marginEnd="25dp"
+                    android:background="@drawable/srchview"
+                    android:fontFamily="@font/montserrat_reguler"
+                    android:hint="Jabatan Petugas Pemeriksa"
+                    android:paddingLeft="20dp"
+                    android:paddingRight="20dp"
+                    android:textColor="@drawable/et_selector"
+                    android:textSize="12sp"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintHorizontal_bias="1.0"
+                    app:layout_constraintStart_toStartOf="@+id/lbl_jabatan_petugas_pemeriksa"
+                    app:layout_constraintTop_toBottomOf="@+id/lbl_jabatan_petugas_pemeriksa" />
+
+                <androidx.appcompat.widget.AppCompatButton
+                    android:id="@+id/btn_lanjutpenerimaanulp"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="20dp"
+                    android:layout_marginBottom="20dp"
+                    android:background="@drawable/br_btn"
+                    android:elevation="8dp"
+                    android:fontFamily="@font/montserrat_reguler"
+                    android:text="Lanjut"
+                    android:textAllCaps="false"
+                    android:textColor="#FFFFFF"
+                    android:textStyle="bold"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintEnd_toEndOf="@+id/edt_jabatan_petugas_pemeriksa"
+                    app:layout_constraintHorizontal_bias="0.0"
+                    app:layout_constraintStart_toStartOf="@+id/edt_jabatan_petugas_pemeriksa"
+                    app:layout_constraintTop_toBottomOf="@+id/edt_jabatan_petugas_pemeriksa" />
+
+            </androidx.constraintlayout.widget.ConstraintLayout>
+        </ScrollView>
+</androidx.constraintlayout.widget.ConstraintLayout>

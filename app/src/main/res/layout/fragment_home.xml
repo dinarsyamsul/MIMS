@@ -108,21 +108,32 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content">
 
+                    <androidx.constraintlayout.helper.widget.Flow
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_marginBottom="100dp"
+                        app:constraint_referenced_ids="btn_monitoring,btn_pengujian,btn_data_attr,btn_monitoring_permintaan,btn_pemakaian,btn_penerimaan,btn_penerimaan_ulp,btn_pengiriman,btn_tracking"
+                        app:flow_horizontalStyle="spread"
+                        app:flow_maxElementsWrap="2"
+                        app:flow_verticalGap="@dimen/_15sdp"
+                        app:flow_wrapMode="aligned"
+                        android:layout_marginStart="@dimen/_10sdp"
+                        android:layout_marginEnd="@dimen/_10sdp"
+                        app:layout_constraintBottom_toBottomOf="parent"
+                        app:layout_constraintEnd_toEndOf="parent"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintTop_toTopOf="parent" />
+
                     <androidx.cardview.widget.CardView
                         android:id="@+id/btn_monitoring"
-                        android:layout_width="0dp"
-                        android:layout_height="170dp"
+                        android:layout_width="160dp"
+                        android:layout_height="150dp"
                         android:layout_rowWeight="1"
                         android:layout_columnWeight="1"
-                        android:layout_marginStart="24dp"
-                        android:layout_marginTop="24dp"
-                        android:layout_marginEnd="24dp"
                         android:background="@drawable/chng_button"
                         app:cardCornerRadius="15dp"
                         app:cardElevation="4dp"
-                        app:layout_constraintEnd_toStartOf="@id/btn_pengujian"
-                        app:layout_constraintStart_toStartOf="parent"
-                        app:layout_constraintTop_toTopOf="parent">
+                        tools:layout_editor_absoluteY="24dp">
 
                         <androidx.constraintlayout.widget.ConstraintLayout
                             android:layout_width="match_parent"
@@ -164,10 +175,11 @@
                                 app:layout_constraintTop_toBottomOf="@+id/textView18" />
 
                             <TextView
+                                android:id="@+id/txt_jumlah_monitoring"
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
-                                android:padding="10dp"
                                 android:fontFamily="@font/montserrat_reguler"
+                                android:padding="10dp"
                                 android:text="10"
                                 android:textColor="#8AF8951D"
                                 android:textSize="50sp"
@@ -181,18 +193,15 @@
 
                     <androidx.cardview.widget.CardView
                         android:id="@+id/btn_pengujian"
-                        android:layout_width="0dp"
-                        android:layout_height="170dp"
+                        android:layout_width="160dp"
+                        android:layout_height="150dp"
                         android:layout_rowWeight="1"
                         android:layout_columnWeight="1"
-                        android:layout_marginTop="24dp"
-                        android:layout_marginEnd="24dp"
                         android:background="#F8F9FA"
                         app:cardCornerRadius="15dp"
                         app:cardElevation="4dp"
-                        app:layout_constraintEnd_toEndOf="parent"
-                        app:layout_constraintStart_toEndOf="@id/btn_monitoring"
-                        app:layout_constraintTop_toTopOf="parent">
+                        tools:layout_editor_absoluteX="257dp"
+                        tools:layout_editor_absoluteY="24dp">
 
                         <androidx.constraintlayout.widget.ConstraintLayout
                             android:layout_width="match_parent"
@@ -234,6 +243,7 @@
                                 app:layout_constraintTop_toBottomOf="@+id/textView20" />
 
                             <TextView
+                                android:id="@+id/txt_jumlah_pengujian"
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
                                 android:fontFamily="@font/montserrat_reguler"
@@ -251,19 +261,15 @@
 
                     <androidx.cardview.widget.CardView
                         android:id="@+id/btn_penerimaan"
-                        android:layout_width="0dp"
-                        android:layout_height="170dp"
+                        android:layout_width="160dp"
+                        android:layout_height="150dp"
                         android:layout_rowWeight="1"
                         android:layout_columnWeight="1"
-                        android:layout_marginStart="24dp"
-                        android:layout_marginTop="24dp"
-                        android:layout_marginEnd="24dp"
                         android:background="#F8F9FA"
                         app:cardCornerRadius="15dp"
                         app:cardElevation="4dp"
-                        app:layout_constraintEnd_toStartOf="@+id/btn_data_attr"
-                        app:layout_constraintStart_toStartOf="parent"
-                        app:layout_constraintTop_toBottomOf="@+id/btn_monitoring">
+                        tools:layout_editor_absoluteX="24dp"
+                        tools:layout_editor_absoluteY="218dp">
 
                         <androidx.constraintlayout.widget.ConstraintLayout
                             android:layout_width="match_parent"
@@ -305,6 +311,7 @@
                                 app:layout_constraintTop_toBottomOf="@+id/textView23" />
 
                             <TextView
+                                android:id="@+id/txt_Jumlah_penerimaan_up3"
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
                                 android:fontFamily="@font/montserrat_reguler"
@@ -322,17 +329,14 @@
 
                     <androidx.cardview.widget.CardView
                         android:id="@+id/btn_data_attr"
-                        android:layout_width="0dp"
-                        android:layout_height="170dp"
+                        android:layout_width="160dp"
+                        android:layout_height="150dp"
                         android:layout_rowWeight="1"
                         android:layout_columnWeight="1"
-                        android:layout_marginTop="24dp"
-                        android:layout_marginEnd="24dp"
                         app:cardCornerRadius="15dp"
                         app:cardElevation="4dp"
-                        app:layout_constraintEnd_toEndOf="parent"
-                        app:layout_constraintStart_toEndOf="@id/btn_penerimaan"
-                        app:layout_constraintTop_toBottomOf="@id/btn_pengujian">
+                        tools:layout_editor_absoluteX="267dp"
+                        tools:layout_editor_absoluteY="218dp">
 
                         <androidx.constraintlayout.widget.ConstraintLayout
                             android:layout_width="match_parent"
@@ -374,6 +378,7 @@
                                 app:layout_constraintTop_toBottomOf="@+id/textView26" />
 
                             <TextView
+                                android:id="@+id/txt_jumlah_attribut"
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
                                 android:fontFamily="@font/montserrat_reguler"
@@ -391,18 +396,15 @@
 
                     <androidx.cardview.widget.CardView
                         android:id="@+id/btn_tracking"
-                        android:layout_width="0dp"
-                        android:layout_height="170dp"
+                        android:layout_width="160dp"
+                        android:layout_height="150dp"
                         android:layout_rowWeight="1"
                         android:layout_columnWeight="1"
-                        android:layout_marginStart="24dp"
-                        android:layout_marginTop="24dp"
                         android:background="#F8F9FA"
                         app:cardCornerRadius="15dp"
                         app:cardElevation="4dp"
-                        app:layout_constraintEnd_toEndOf="@id/btn_penerimaan"
-                        app:layout_constraintStart_toStartOf="parent"
-                        app:layout_constraintTop_toBottomOf="@id/btn_penerimaan">
+                        tools:layout_editor_absoluteX="24dp"
+                        tools:layout_editor_absoluteY="412dp">
 
                         <androidx.constraintlayout.widget.ConstraintLayout
                             android:layout_width="match_parent"
@@ -444,6 +446,7 @@
                                 app:layout_constraintTop_toBottomOf="@+id/textView27" />
 
                             <TextView
+                                android:id="@+id/txt_jumlah_tracking"
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
                                 android:fontFamily="@font/montserrat_reguler"
@@ -463,27 +466,22 @@
 
                     <androidx.cardview.widget.CardView
                         android:id="@+id/btn_monitoring_permintaan"
-                        android:layout_width="0dp"
-                        android:layout_height="170dp"
+                        android:layout_width="160dp"
+                        android:layout_height="150dp"
                         android:layout_rowWeight="1"
                         android:layout_columnWeight="1"
-                        android:layout_marginStart="24dp"
-                        android:layout_marginBottom="120dp"
-                        android:layout_marginTop="24dp"
                         android:background="#F8F9FA"
                         app:cardCornerRadius="15dp"
                         app:cardElevation="4dp"
-                        app:layout_constraintBottom_toBottomOf="parent"
-                        app:layout_constraintEnd_toEndOf="@id/btn_penerimaan"
-                        app:layout_constraintStart_toStartOf="parent"
-                        app:layout_constraintTop_toBottomOf="@+id/btn_tracking">
+                        tools:layout_editor_absoluteX="26dp"
+                        tools:layout_editor_absoluteY="606dp">
 
                         <androidx.constraintlayout.widget.ConstraintLayout
                             android:layout_width="match_parent"
                             android:layout_height="match_parent">
 
                             <ImageView
-                                android:id="@+id/imageView27"
+                                android:id="@+id/imageView60"
                                 android:layout_width="40dp"
                                 android:layout_height="40dp"
                                 android:layout_marginStart="10dp"
@@ -493,7 +491,7 @@
                                 app:layout_constraintTop_toTopOf="parent" />
 
                             <TextView
-                                android:id="@+id/textView34"
+                                android:id="@+id/textView61"
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
                                 android:layout_marginStart="15dp"
@@ -501,11 +499,11 @@
                                 android:text="Monitoring\nPermintaan"
                                 android:textColor="#3F3D56"
                                 android:textSize="13sp"
-                                app:layout_constraintStart_toEndOf="@+id/imageView27"
-                                app:layout_constraintTop_toTopOf="@+id/imageView27" />
+                                app:layout_constraintStart_toEndOf="@+id/imageView60"
+                                app:layout_constraintTop_toTopOf="@+id/imageView60" />
 
                             <TextView
-                                android:id="@+id/textView29"
+                                android:id="@+id/textView62"
                                 android:layout_width="0dp"
                                 android:layout_height="wrap_content"
                                 android:layout_marginTop="10dp"
@@ -513,43 +511,38 @@
                                 android:text="Target data"
                                 android:textColor="#B5B5B5"
                                 android:textSize="10sp"
-                                app:layout_constraintBottom_toBottomOf="@+id/imageView27"
-                                app:layout_constraintEnd_toEndOf="@+id/textView34"
-                                app:layout_constraintStart_toStartOf="@+id/textView34"
-                                app:layout_constraintTop_toBottomOf="@+id/textView34" />
+                                app:layout_constraintBottom_toBottomOf="@+id/imageView60"
+                                app:layout_constraintEnd_toEndOf="@+id/textView61"
+                                app:layout_constraintStart_toStartOf="@+id/textView61"
+                                app:layout_constraintTop_toBottomOf="@+id/textView61" />
 
                             <TextView
+                                android:id="@+id/txt_jumlah_monitoring_permintaan"
                                 android:layout_width="wrap_content"
                                 android:layout_height="95dp"
                                 android:fontFamily="@font/montserrat_reguler"
                                 android:padding="10dp"
-                                android:text="32"
-                                android:textColor="#045A71"
+                                android:text="10"
+                                android:textColor="#F97C14"
                                 android:textSize="50sp"
                                 app:layout_constraintBottom_toBottomOf="parent"
                                 app:layout_constraintEnd_toEndOf="parent"
-                                app:layout_constraintStart_toStartOf="parent"
-                                app:layout_constraintTop_toBottomOf="@+id/textView29" />
+                                app:layout_constraintStart_toStartOf="parent" />
 
                         </androidx.constraintlayout.widget.ConstraintLayout>
-
-
                     </androidx.cardview.widget.CardView>
 
                     <androidx.cardview.widget.CardView
                         android:id="@+id/btn_pengiriman"
-                        android:layout_width="0dp"
-                        android:layout_height="170dp"
+                        android:layout_width="160dp"
+                        android:layout_height="150dp"
                         android:layout_rowWeight="1"
                         android:layout_columnWeight="1"
-                        android:layout_marginTop="24dp"
                         android:background="#F8F9FA"
                         app:cardCornerRadius="15dp"
                         app:cardElevation="4dp"
-                        app:layout_constraintBottom_toBottomOf="@+id/btn_tracking"
-                        app:layout_constraintEnd_toEndOf="@+id/btn_data_attr"
-                        app:layout_constraintStart_toStartOf="@+id/btn_data_attr"
-                        app:layout_constraintTop_toBottomOf="@id/btn_penerimaan">
+                        tools:layout_editor_absoluteX="246dp"
+                        tools:layout_editor_absoluteY="412dp">
 
                         <androidx.constraintlayout.widget.ConstraintLayout
                             android:layout_width="match_parent"
@@ -591,6 +584,7 @@
                                 app:layout_constraintTop_toBottomOf="@+id/textView30" />
 
                             <TextView
+                                android:id="@+id/txt_jumlah_pengiriman"
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
                                 android:fontFamily="@font/montserrat_reguler"
@@ -604,8 +598,143 @@
                                 app:layout_constraintTop_toBottomOf="@+id/textView31" />
 
                         </androidx.constraintlayout.widget.ConstraintLayout>
+                    </androidx.cardview.widget.CardView>
 
+                    <androidx.cardview.widget.CardView
+                        android:id="@+id/btn_pemakaian"
+                        android:layout_width="160dp"
+                        android:layout_height="150dp"
+                        android:layout_rowWeight="1"
+                        android:layout_columnWeight="1"
+                        android:background="#F8F9FA"
+                        app:cardCornerRadius="15dp"
+                        app:cardElevation="4dp"
+                        tools:layout_editor_absoluteX="250dp"
+                        tools:layout_editor_absoluteY="606dp">
 
+                        <androidx.constraintlayout.widget.ConstraintLayout
+                            android:layout_width="match_parent"
+                            android:layout_height="match_parent">
+
+                            <ImageView
+                                android:id="@+id/imageView35"
+                                android:layout_width="40dp"
+                                android:layout_height="40dp"
+                                android:layout_marginStart="10dp"
+                                android:layout_marginTop="19dp"
+                                android:src="@drawable/ic_pemakaian"
+                                app:layout_constraintStart_toStartOf="parent"
+                                app:layout_constraintTop_toTopOf="parent" />
+
+                            <TextView
+                                android:id="@+id/textView36"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:layout_marginStart="15dp"
+                                android:fontFamily="@font/montserrat_medium"
+                                android:text="Pemakaian"
+                                android:textColor="#3F3D56"
+                                android:textSize="13sp"
+                                app:layout_constraintStart_toEndOf="@+id/imageView35"
+                                app:layout_constraintTop_toTopOf="@+id/imageView35" />
+
+                            <TextView
+                                android:id="@+id/textView37"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:layout_marginStart="15dp"
+                                android:fontFamily="@font/montserrat_reguler"
+                                android:text="Target data"
+                                android:textColor="#B5B5B5"
+                                android:textSize="10sp"
+                                app:layout_constraintBottom_toBottomOf="@+id/imageView35"
+                                app:layout_constraintStart_toEndOf="@+id/imageView35"
+                                app:layout_constraintTop_toBottomOf="@+id/textView36" />
+
+                            <TextView
+                                android:id="@+id/txt_jumlah_pemakaian"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:fontFamily="@font/montserrat_reguler"
+                                android:padding="10dp"
+                                android:text="12"
+                                android:textColor="#F56565"
+                                android:textSize="50sp"
+                                app:layout_constraintBottom_toBottomOf="parent"
+                                app:layout_constraintEnd_toEndOf="parent"
+                                app:layout_constraintStart_toStartOf="parent"
+                                app:layout_constraintTop_toBottomOf="@+id/textView37" />
+
+                        </androidx.constraintlayout.widget.ConstraintLayout>
+                    </androidx.cardview.widget.CardView>
+
+                    <androidx.cardview.widget.CardView
+                        android:id="@+id/btn_penerimaan_ulp"
+                        android:layout_width="160dp"
+                        android:layout_height="150dp"
+                        android:layout_rowWeight="1"
+                        android:layout_columnWeight="1"
+                        android:background="#F8F9FA"
+                        app:cardCornerRadius="15dp"
+                        app:cardElevation="4dp"
+                        tools:layout_editor_absoluteX="24dp"
+                        tools:layout_editor_absoluteY="782dp">
+
+                        <androidx.constraintlayout.widget.ConstraintLayout
+                            android:layout_width="match_parent"
+                            android:layout_height="match_parent">
+
+                            <ImageView
+                                android:id="@+id/imageView27"
+                                android:layout_width="40dp"
+                                android:layout_height="40dp"
+                                android:layout_marginStart="10dp"
+                                android:layout_marginTop="19dp"
+                                android:src="@drawable/penerimaan"
+                                app:layout_constraintStart_toStartOf="parent"
+                                app:layout_constraintTop_toTopOf="parent" />
+
+                            <TextView
+                                android:id="@+id/textView34"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:layout_marginStart="15dp"
+                                android:fontFamily="@font/montserrat_medium"
+                                android:text="Penerimaan\nULP"
+                                android:textColor="#3F3D56"
+                                android:textSize="13sp"
+                                app:layout_constraintStart_toEndOf="@+id/imageView27"
+                                app:layout_constraintTop_toTopOf="@+id/imageView27" />
+
+                            <TextView
+                                android:id="@+id/textView29"
+                                android:layout_width="0dp"
+                                android:layout_height="wrap_content"
+                                android:layout_marginTop="10dp"
+                                android:fontFamily="@font/montserrat_reguler"
+                                android:text="Target data"
+                                android:textColor="#B5B5B5"
+                                android:textSize="10sp"
+                                app:layout_constraintBottom_toBottomOf="@+id/imageView27"
+                                app:layout_constraintEnd_toEndOf="@+id/textView34"
+                                app:layout_constraintStart_toStartOf="@+id/textView34"
+                                app:layout_constraintTop_toBottomOf="@+id/textView34" />
+
+                            <TextView
+                                android:id="@+id/txt_jumlah_penerimaan_ulp"
+                                android:layout_width="wrap_content"
+                                android:layout_height="95dp"
+                                android:fontFamily="@font/montserrat_reguler"
+                                android:padding="10dp"
+                                android:text="32"
+                                android:textColor="#0DCAF0"
+                                android:textSize="50sp"
+                                app:layout_constraintBottom_toBottomOf="parent"
+                                app:layout_constraintEnd_toEndOf="parent"
+                                app:layout_constraintStart_toStartOf="parent"
+                                app:layout_constraintTop_toBottomOf="@+id/textView29" />
+
+                        </androidx.constraintlayout.widget.ConstraintLayout>
                     </androidx.cardview.widget.CardView>
 
                 </androidx.constraintlayout.widget.ConstraintLayout>

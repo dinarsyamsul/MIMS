@@ -1,19 +1,21 @@
 package dev.iconpln.mims.ui.monitoring_permintaan.monitoring_permintaan_detail
 
 import android.view.LayoutInflater
+import android.view.View
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
 import dev.iconpln.mims.data.local.database.TMonitoringPermintaan
 import dev.iconpln.mims.data.local.database.TMonitoringPermintaanDetail
 import dev.iconpln.mims.data.local.database.TPos
+import dev.iconpln.mims.data.local.database.TTransMonitoringPermintaanDetail
 import dev.iconpln.mims.databinding.ItemDataMonitoringPermintaanBinding
 import dev.iconpln.mims.databinding.ItemDataMonitoringPermintaanDetailBinding
 import dev.iconpln.mims.databinding.ItemDataMonitoringPurchaseBinding
 
-class MonitoringPermintaanDetailAdapter(val lisModels: MutableList<TMonitoringPermintaanDetail>, var listener: OnAdapterListener)
+class MonitoringPermintaanDetailAdapter(val lisModels: MutableList<TTransMonitoringPermintaanDetail>, var listener: OnAdapterListener)
     : RecyclerView.Adapter<MonitoringPermintaanDetailAdapter.ViewHolder>() {
 
-    fun setMpList(po: List<TMonitoringPermintaanDetail>){
+    fun setMpList(po: List<TTransMonitoringPermintaanDetail>){
         lisModels.clear()
         lisModels.addAll(po)
         notifyDataSetChanged()
@@ -34,20 +36,27 @@ class MonitoringPermintaanDetailAdapter(val lisModels: MutableList<TMonitoringPe
     override fun getItemCount(): Int = lisModels.size
 
     inner class ViewHolder(val binding: ItemDataMonitoringPermintaanDetailBinding): RecyclerView.ViewHolder(binding.root){
-        fun bind(mpd : TMonitoringPermintaanDetail){
+        fun bind(mpd : TTransMonitoringPermintaanDetail){
             with(binding){
                 btnDetail.setOnClickListener { listener.onClick(mpd) }
-                txtKuantitas.text = mpd.qtyPermintaan
+                txtKuantitas.text = mpd.qtyPermintaan.toString()
                 txtKuantitasScan.text = mpd.qtyScan
                 txtSatuan.text = mpd.unit
                 txtNoMaterial.text = mpd.nomorMaterial
                 ltxtDescMaterial.text = mpd.materialDesc
+
+                if (mpd.qtyScan.toInt() != mpd.qtyPermintaan){
+                    txtKuantitasScanKurang.visibility = View.VISIBLE
+                }else{
+                    txtKuantitasScanKurang.visibility = View.GONE
+                }
+
 
             }
         }
     }
 
     interface OnAdapterListener{
-        fun onClick(mpd: TMonitoringPermintaanDetail)
+        fun onClick(mpd: TTransMonitoringPermintaanDetail)
     }
 }

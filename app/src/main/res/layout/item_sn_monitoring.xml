@@ -71,6 +71,7 @@
                 android:id="@+id/btn_delete"
                 android:layout_width="wrap_content"
                 android:layout_height="match_parent"
+                android:padding="5dp"
                 android:src="@drawable/btn_trashcan"
                 android:layout_marginEnd="10dp"
                 app:layout_constraintBottom_toBottomOf="@+id/txt_sn_material"

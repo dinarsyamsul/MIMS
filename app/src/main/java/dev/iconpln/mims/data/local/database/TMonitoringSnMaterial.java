@@ -12,9 +12,11 @@ public class TMonitoringSnMaterial {
 
     @Id
     private Long id;
-    private String NoPermintaan;
-    private String SnMaterial;
-    private String IsScanned;
+    private String NoRepackaging;
+    private String NomorMaterial;
+    private String SerialNumber;
+    private String Status;
+    private Integer IsScanned;
 
     @Generated
     public TMonitoringSnMaterial() {
@@ -25,10 +27,12 @@ public class TMonitoringSnMaterial {
     }
 
     @Generated
-    public TMonitoringSnMaterial(Long id, String NoPermintaan, String SnMaterial, String IsScanned) {
+    public TMonitoringSnMaterial(Long id, String NoRepackaging, String NomorMaterial, String SerialNumber, String Status, Integer IsScanned) {
         this.id = id;
-        this.NoPermintaan = NoPermintaan;
-        this.SnMaterial = SnMaterial;
+        this.NoRepackaging = NoRepackaging;
+        this.NomorMaterial = NomorMaterial;
+        this.SerialNumber = SerialNumber;
+        this.Status = Status;
         this.IsScanned = IsScanned;
     }
 
@@ -40,27 +44,43 @@ public class TMonitoringSnMaterial {
         this.id = id;
     }
 
-    public String getNoPermintaan() {
-        return NoPermintaan;
+    public String getNoRepackaging() {
+        return NoRepackaging;
     }
 
-    public void setNoPermintaan(String NoPermintaan) {
-        this.NoPermintaan = NoPermintaan;
+    public void setNoRepackaging(String NoRepackaging) {
+        this.NoRepackaging = NoRepackaging;
     }
 
-    public String getSnMaterial() {
-        return SnMaterial;
+    public String getNomorMaterial() {
+        return NomorMaterial;
     }
 
-    public void setSnMaterial(String SnMaterial) {
-        this.SnMaterial = SnMaterial;
+    public void setNomorMaterial(String NomorMaterial) {
+        this.NomorMaterial = NomorMaterial;
     }
 
-    public String getIsScanned() {
+    public String getSerialNumber() {
+        return SerialNumber;
+    }
+
+    public void setSerialNumber(String SerialNumber) {
+        this.SerialNumber = SerialNumber;
+    }
+
+    public String getStatus() {
+        return Status;
+    }
+
+    public void setStatus(String Status) {
+        this.Status = Status;
+    }
+
+    public Integer getIsScanned() {
         return IsScanned;
     }
 
-    public void setIsScanned(String IsScanned) {
+    public void setIsScanned(Integer IsScanned) {
         this.IsScanned = IsScanned;
     }
 

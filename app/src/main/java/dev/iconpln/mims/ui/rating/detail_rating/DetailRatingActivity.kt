@@ -590,6 +590,7 @@ class DetailRatingActivity : AppCompatActivity(),Loadable {
         penerimaan.ratingQuality = nilaiPenyedia.toString()
         penerimaan.ratingPenerimaan = nilaiPenerimaan.toString()
         penerimaan.ratingWaktu = nilaiWaktu.toString()
+        penerimaan.doStatus = "DITERIMA"
         penerimaan.isDone = 1
 
         daoSession.tPosPenerimaanDao.update(penerimaan)

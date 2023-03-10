@@ -57,4 +57,24 @@ interface ApiService {
         @Field("status") status: String
     ): Response<DetailTrackingHistoryResponse>
 
+    @FormUrlEncoded
+    @POST("/reports/pemakaian/addSn")
+    suspend fun addSn(
+        @Field("no_transaksi") noTransaksi: String,
+        @Field("no_material") noMaterial: String,
+        @Field("serial_number") serialNumber: String,
+        @Field("user_plant") userPlant: String,
+        @Field("user_loc") userLoc: String
+    ): Response<SnResponse>
+
+    @FormUrlEncoded
+    @POST("/reports/pemakaian/deleteSn")
+    suspend fun deleteSn(
+        @Field("no_transaksi") noTransaksi: String,
+        @Field("no_material") noMaterial: String,
+        @Field("serial_number") serialNumber: String,
+        @Field("user_plant") userPlant: String,
+        @Field("user_loc") userLoc: String
+    ): Response<SnResponse>
+
 }

@@ -32,15 +32,16 @@ class DetailDataAttributeAdapter(val lisModels: MutableList<TMaterialDetail>, va
     inner class ViewHolder(val binding: ItemDataDetailMaterialPabrikanBinding): RecyclerView.ViewHolder(binding.root){
         fun bind(mat : TMaterialDetail){
             with(binding){
-                txtSerialNumber.text = mat.serialNumber
-                txtNoMaterial.text = mat.nomorMaterial
-                txtGaransi.text = mat.masaGaransi
-                txtKategori.text = mat.namaKategoriMaterial
-                txtMetrologi.text = mat.nomorSertMaterologi
-                txtSpesifikasi.text = mat.spesifikasi
-                txtNoPackaging.text = mat.noPackaging
-                txtSpln.text = mat.spln
-                txtTglProduksi.text = mat.tglProduksi
+                txtSerialNumber.text = if(mat.serialNumber.isNullOrEmpty()) "-" else mat.serialNumber
+                txtNoMaterial.text = if(mat.nomorMaterial.isNullOrEmpty()) "-" else mat.nomorMaterial
+                txtGaransi.text = if(mat.masaGaransi.isNullOrEmpty()) "-" else mat.masaGaransi
+                txtKategori.text = if(mat.namaKategoriMaterial.isNullOrEmpty()) "-" else mat.namaKategoriMaterial
+                txtMetrologi.text = if(mat.nomorSertMaterologi.isNullOrEmpty()) "-" else mat.nomorSertMaterologi
+                txtSpesifikasi.text = if(mat.spesifikasi.isNullOrEmpty()) "-" else mat.spesifikasi
+                txtNoPackaging.text = if(mat.noPackaging.isNullOrEmpty()) "-" else mat.noPackaging
+                txtSpln.text = if(mat.spln.isNullOrEmpty()) "-" else mat.spln
+                txtTglProduksi.text = if(mat.tglProduksi.isNullOrEmpty()) "-" else mat.tglProduksi
+                txtNoBatch.text = if(mat.noProduksi.isNullOrEmpty()) "-" else mat.noProduksi
             }
 
             itemView.setOnClickListener { listener.onClick(mat) }

@@ -34,13 +34,26 @@ public class DaoMaster extends AbstractDaoMaster {
         TPosPenerimaanDao.createTable(db, ifNotExists);
         TPosDetailPenerimaanDao.createTable(db, ifNotExists);
         TPosSnsDao.createTable(db, ifNotExists);
+        TSnPermaterialDao.createTable(db, ifNotExists);
         TPemeriksaanDao.createTable(db, ifNotExists);
         TPemeriksaanDetailDao.createTable(db, ifNotExists);
         TPhotoDao.createTable(db, ifNotExists);
         TRatingDao.createTable(db, ifNotExists);
         TMonitoringPermintaanDao.createTable(db, ifNotExists);
         TMonitoringPermintaanDetailDao.createTable(db, ifNotExists);
+        TTransMonitoringPermintaanDao.createTable(db, ifNotExists);
+        TTransMonitoringPermintaanDetailDao.createTable(db, ifNotExists);
+        TSnMonitoringPermintaanDao.createTable(db, ifNotExists);
         TMonitoringSnMaterialDao.createTable(db, ifNotExists);
+        TPenerimaanUlpDao.createTable(db, ifNotExists);
+        TPenerimaanDetailUlpDao.createTable(db, ifNotExists);
+        TTransPenerimaanUlpDao.createTable(db, ifNotExists);
+        TTransPenerimaanDetailUlpDao.createTable(db, ifNotExists);
+        TListSnMaterialPenerimaanUlpDao.createTable(db, ifNotExists);
+        TPemakaianDao.createTable(db, ifNotExists);
+        TPemakaianDetailDao.createTable(db, ifNotExists);
+        TTransPemakaianDetailDao.createTable(db, ifNotExists);
+        TListSnMaterialPemakaianUlpDao.createTable(db, ifNotExists);
     }
 
     /** Drops underlying database table using DAOs. */
@@ -58,13 +71,26 @@ public class DaoMaster extends AbstractDaoMaster {
         TPosPenerimaanDao.dropTable(db, ifExists);
         TPosDetailPenerimaanDao.dropTable(db, ifExists);
         TPosSnsDao.dropTable(db, ifExists);
+        TSnPermaterialDao.dropTable(db, ifExists);
         TPemeriksaanDao.dropTable(db, ifExists);
         TPemeriksaanDetailDao.dropTable(db, ifExists);
         TPhotoDao.dropTable(db, ifExists);
         TRatingDao.dropTable(db, ifExists);
         TMonitoringPermintaanDao.dropTable(db, ifExists);
         TMonitoringPermintaanDetailDao.dropTable(db, ifExists);
+        TTransMonitoringPermintaanDao.dropTable(db, ifExists);
+        TTransMonitoringPermintaanDetailDao.dropTable(db, ifExists);
+        TSnMonitoringPermintaanDao.dropTable(db, ifExists);
         TMonitoringSnMaterialDao.dropTable(db, ifExists);
+        TPenerimaanUlpDao.dropTable(db, ifExists);
+        TPenerimaanDetailUlpDao.dropTable(db, ifExists);
+        TTransPenerimaanUlpDao.dropTable(db, ifExists);
+        TTransPenerimaanDetailUlpDao.dropTable(db, ifExists);
+        TListSnMaterialPenerimaanUlpDao.dropTable(db, ifExists);
+        TPemakaianDao.dropTable(db, ifExists);
+        TPemakaianDetailDao.dropTable(db, ifExists);
+        TTransPemakaianDetailDao.dropTable(db, ifExists);
+        TListSnMaterialPemakaianUlpDao.dropTable(db, ifExists);
     }
 
     /**
@@ -96,13 +122,26 @@ public class DaoMaster extends AbstractDaoMaster {
         registerDaoClass(TPosPenerimaanDao.class);
         registerDaoClass(TPosDetailPenerimaanDao.class);
         registerDaoClass(TPosSnsDao.class);
+        registerDaoClass(TSnPermaterialDao.class);
         registerDaoClass(TPemeriksaanDao.class);
         registerDaoClass(TPemeriksaanDetailDao.class);
         registerDaoClass(TPhotoDao.class);
         registerDaoClass(TRatingDao.class);
         registerDaoClass(TMonitoringPermintaanDao.class);
         registerDaoClass(TMonitoringPermintaanDetailDao.class);
+        registerDaoClass(TTransMonitoringPermintaanDao.class);
+        registerDaoClass(TTransMonitoringPermintaanDetailDao.class);
+        registerDaoClass(TSnMonitoringPermintaanDao.class);
         registerDaoClass(TMonitoringSnMaterialDao.class);
+        registerDaoClass(TPenerimaanUlpDao.class);
+        registerDaoClass(TPenerimaanDetailUlpDao.class);
+        registerDaoClass(TTransPenerimaanUlpDao.class);
+        registerDaoClass(TTransPenerimaanDetailUlpDao.class);
+        registerDaoClass(TListSnMaterialPenerimaanUlpDao.class);
+        registerDaoClass(TPemakaianDao.class);
+        registerDaoClass(TPemakaianDetailDao.class);
+        registerDaoClass(TTransPemakaianDetailDao.class);
+        registerDaoClass(TListSnMaterialPemakaianUlpDao.class);
     }
 
     public DaoSession newSession() {

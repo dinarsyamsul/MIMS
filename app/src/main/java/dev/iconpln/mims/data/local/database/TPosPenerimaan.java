@@ -44,6 +44,7 @@ public class TPosPenerimaan {
     private String NilaiRatingWaktu;
     private String NilaiRatingQuality;
     private String DoLineItem;
+    private Integer IsRating;
     private Integer isDone;
 
     @Generated
@@ -55,7 +56,7 @@ public class TPosPenerimaan {
     }
 
     @Generated
-    public TPosPenerimaan(Long id, String Total, String TlskNo, String PoSapNo, String PoMpNo, String NoDoSmar, Integer LeadTime, String Storloc, String CreatedDate, String PlanCodeNo, String PlantName, String NoDoMims, String DoStatus, String Expeditions, String CourierPersonName, String KdPabrikan, String MaterialGroup, String NamaKategoriMaterial, String RatingPenerimaan, String DescPenerimaan, String RatingQuality, String DescQuality, String RatingWaktu, String DescWaktu, String TanggalDiterima, String PetugasPenerima, String KodeStatusDoMims, String StatusPemeriksaan, String KurirPengantar, String NilaiRatingPenerimaan, String NilaiRatingWaktu, String NilaiRatingQuality, String DoLineItem, Integer isDone) {
+    public TPosPenerimaan(Long id, String Total, String TlskNo, String PoSapNo, String PoMpNo, String NoDoSmar, Integer LeadTime, String Storloc, String CreatedDate, String PlanCodeNo, String PlantName, String NoDoMims, String DoStatus, String Expeditions, String CourierPersonName, String KdPabrikan, String MaterialGroup, String NamaKategoriMaterial, String RatingPenerimaan, String DescPenerimaan, String RatingQuality, String DescQuality, String RatingWaktu, String DescWaktu, String TanggalDiterima, String PetugasPenerima, String KodeStatusDoMims, String StatusPemeriksaan, String KurirPengantar, String NilaiRatingPenerimaan, String NilaiRatingWaktu, String NilaiRatingQuality, String DoLineItem, Integer IsRating, Integer isDone) {
         this.id = id;
         this.Total = Total;
         this.TlskNo = TlskNo;
@@ -89,6 +90,7 @@ public class TPosPenerimaan {
         this.NilaiRatingWaktu = NilaiRatingWaktu;
         this.NilaiRatingQuality = NilaiRatingQuality;
         this.DoLineItem = DoLineItem;
+        this.IsRating = IsRating;
         this.isDone = isDone;
     }
 
@@ -354,6 +356,14 @@ public class TPosPenerimaan {
 
     public void setDoLineItem(String DoLineItem) {
         this.DoLineItem = DoLineItem;
+    }
+
+    public Integer getIsRating() {
+        return IsRating;
+    }
+
+    public void setIsRating(Integer IsRating) {
+        this.IsRating = IsRating;
     }
 
     public Integer getIsDone() {

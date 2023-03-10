@@ -91,7 +91,7 @@
             android:id="@+id/lbl_no_do"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
-            android:text="No. DO"
+            android:text="No. DO Mims"
             android:textSize="10sp"
             android:textColor="#3F3D56"
             android:fontFamily="@font/montserrat_reguler"

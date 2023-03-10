@@ -1,13 +1,10 @@
-package dev.iconpln.mims.ui.role.pabrikan.pengujian
+package dev.iconpln.mims.ui.pengujian
 
 import android.graphics.Color
 import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
-import dev.iconpln.mims.R
-import dev.iconpln.mims.data.local.database.TMaterial
 import dev.iconpln.mims.data.local.database.TPengujian
-import dev.iconpln.mims.databinding.ItemDataMaterialPabrikanBinding
 import dev.iconpln.mims.databinding.ItemPengujianBinding
 
 class PengujianAdapter(val lisModels: MutableList<TPengujian>, var listener: OnAdapterListener)

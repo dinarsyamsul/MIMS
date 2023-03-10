@@ -106,14 +106,14 @@ class DetailPenerimaanActivity : AppCompatActivity(),Loadable {
                 cbTidakSesuai.isEnabled = !isChecked
                 if (isChecked){
                     for (i in listDetailPen){
-                        i.status = "SESUAI"
+                        i.statusPenerimaan = "SESUAI"
                         i.isChecked = 1
                         daoSession.update(i)
                     }
                     adapter.setData(listDetailPen)
                 }else{
                     for (i in listDetailPen){
-                        i.status = ""
+                        i.statusPenerimaan = ""
                         i.isChecked = 0
                         daoSession.update(i)
                     }
@@ -125,14 +125,14 @@ class DetailPenerimaanActivity : AppCompatActivity(),Loadable {
                 cbSesuai.isEnabled = !isChecked
                 if (isChecked){
                     for (i in listDetailPen){
-                        i.status = "TIDAK SESUAI"
+                        i.statusPenerimaan = "TIDAK SESUAI"
                         i.isChecked = 1
                         daoSession.update(i)
                     }
                     adapter.setData(listDetailPen)
                 }else{
                     for (i in listDetailPen){
-                        i.status = ""
+                        i.statusPenerimaan = ""
                         i.isChecked = 0
                         daoSession.update(i)
                     }
@@ -154,8 +154,8 @@ class DetailPenerimaanActivity : AppCompatActivity(),Loadable {
 
     private fun validTerima() {
         for (i in listDetailPen){
-            Log.d("checkList", i.status)
-            if (i.status == "TIDAK SESUAI" || i.status.isNullOrEmpty() ){
+            Log.d("checkList", i.statusPenerimaan)
+            if (i.statusPenerimaan == "TIDAK SESUAI"){
                 Toast.makeText(this@DetailPenerimaanActivity, "Tidak boleh terima dengan status tidak sesuai atau kosong", Toast.LENGTH_SHORT).show()
                 return
             }
@@ -186,7 +186,8 @@ class DetailPenerimaanActivity : AppCompatActivity(),Loadable {
         var sns = ""
         var checkedDetPen = daoSession.tPosDetailPenerimaanDao.queryBuilder()
             .where(TPosDetailPenerimaanDao.Properties.NoDoSmar.eq(noDo))
-            .where(TPosDetailPenerimaanDao.Properties.IsChecked.eq(1)).list()
+            .where(TPosDetailPenerimaanDao.Properties.IsChecked.eq(1))
+            .where(TPosDetailPenerimaanDao.Properties.IsComplaint.eq(0)).list()
 
         for (i in checkedDetPen){
             sns += "${i.noPackaging},${i.serialNumber},${i.noMaterial};"
@@ -212,12 +213,13 @@ class DetailPenerimaanActivity : AppCompatActivity(),Loadable {
         val reportDescription = "$reportName: "+ " (" + reportId + ")"
         val params = ArrayList<ReportParameter>()
         params.add(ReportParameter("1", reportId, "no_do_smar", noDo!!, ReportParameter.TEXT))
-        params.add(ReportParameter("2", reportId, "quantity", checkedDetPen.size.toString(), ReportParameter.TEXT))
-        params.add(ReportParameter("3", reportId, "do_line_item", penerimaan.doLineItem, ReportParameter.TEXT))
-        params.add(ReportParameter("4", reportId, "is_periksa", isPeriksa.toString(), ReportParameter.TEXT))
-        params.add(ReportParameter("5", reportId, "sns", sns, ReportParameter.TEXT))
-        params.add(ReportParameter("6", reportId, "username", username!!, ReportParameter.TEXT))
-        params.add(ReportParameter("7", reportId, "email", username, ReportParameter.TEXT))
+        params.add(ReportParameter("2", reportId, "plant_code_no", penerimaan.planCodeNo, ReportParameter.TEXT))
+        params.add(ReportParameter("3", reportId, "plant_code_no", currentDate, ReportParameter.TEXT))
+        params.add(ReportParameter("4", reportId, "quantity", checkedDetPen.size.toString(), ReportParameter.TEXT))
+        params.add(ReportParameter("5", reportId, "is_periksa", isPeriksa.toString(), ReportParameter.TEXT))
+        params.add(ReportParameter("6", reportId, "sns", sns, ReportParameter.TEXT))
+        params.add(ReportParameter("7", reportId, "username", username!!, ReportParameter.TEXT))
+        params.add(ReportParameter("8", reportId, "email", username, ReportParameter.TEXT))
 
         val report = GenericReport(reportId, jwt!!, reportName, reportDescription, ApiConfig.sendPenerimaan(), currentDate, Config.NO_CODE, currentUtc, params)
         reports.add(report)
@@ -257,6 +259,13 @@ class DetailPenerimaanActivity : AppCompatActivity(),Loadable {
             item.total = penerimaan.total
             item.storLoc = penerimaan.storloc
             item.noPemeriksaan = noPrk
+            item.doLineItem = penerimaan.doLineItem
+
+            item.namaKetua = ""
+            item.namaManager = ""
+            item.namaSekretaris = ""
+            item.namaAnggota = ""
+            item.namaAnggotaBaru = ""
 
             daoSession.tPemeriksaanDao.insert(item)
 
@@ -268,13 +277,16 @@ class DetailPenerimaanActivity : AppCompatActivity(),Loadable {
                     item = TPemeriksaanDetail()
                     item.isDone = 0
                     item.isChecked = 0
-                    item.statusSn = ""
+                    item.statusPenerimaan = model.statusPenerimaan
+                    item.statusPemeriksaan = ""
                     item.sn = model.serialNumber
                     item.noDoSmar = model.noDoSmar
                     item.kategori = model.namaKategoriMaterial
                     item.noMaterail = model.noMaterial
                     item.noPackaging = model.noPackaging
                     item.noPemeriksaan = noPrk
+                    item.isComplaint = model.isComplaint
+                    item.isPeriksa = 1
 
                     items[i] = item
                 }
@@ -301,19 +313,31 @@ class DetailPenerimaanActivity : AppCompatActivity(),Loadable {
 
         btnOk.setOnClickListener {
             dialog.dismiss();
-            onBackPressed()
+            startActivity(Intent(this@DetailPenerimaanActivity, PenerimaanActivity::class.java )
+                .setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP))
             finish()
         }
         dialog.show();
     }
 
     private fun validComplaint() {
-        for (i in listDetailPen){
-            Log.d("checkList", i.status)
-            if (i.status == "SESUAI"){
-                Toast.makeText(this@DetailPenerimaanActivity, "Tidak boleh melakukan komplain dengan status sesuai atau kosong", Toast.LENGTH_SHORT).show()
-                return
+        var data = daoSession.tPosDetailPenerimaanDao.queryBuilder()
+            .where(TPosDetailPenerimaanDao.Properties.NoDoSmar.eq(noDo))
+            .where(TPosDetailPenerimaanDao.Properties.IsDone.eq(0))
+            .where(TPosDetailPenerimaanDao.Properties.IsChecked.eq(1)).list()
+
+        if (data.size > 0){
+            for (i in data){
+                Log.d("checkList", i.statusPenerimaan)
+                if (i.statusPenerimaan == "SESUAI"){
+                    Toast.makeText(this@DetailPenerimaanActivity, "Tidak boleh melakukan komplain dengan status sesuai atau kosong", Toast.LENGTH_SHORT).show()
+                    return
+                }
             }
+        }
+        else{
+            Toast.makeText(this@DetailPenerimaanActivity, "Harap pilih serial number yang tidak sesuai", Toast.LENGTH_SHORT).show()
+            return
         }
 
         startActivity(Intent(this@DetailPenerimaanActivity, ComplaintActivity::class.java)
@@ -342,7 +366,7 @@ class DetailPenerimaanActivity : AppCompatActivity(),Loadable {
                 val listPackagings = daoSession.tPosDetailPenerimaanDao.queryBuilder().where(TPosDetailPenerimaanDao.Properties.NoPackaging.eq(result.contents)).list()
                 Log.d("listPackaging", listPackagings.size.toString())
                 for (i in listPackagings){
-                    i.status = "SESUAI"
+                    i.statusPenerimaan = "SESUAI"
                     i.isChecked = 1
                     daoSession.tPosDetailPenerimaanDao.update(i)
                 }
@@ -363,7 +387,7 @@ class DetailPenerimaanActivity : AppCompatActivity(),Loadable {
                     .where(TPosDetailPenerimaanDao.Properties.SerialNumber.eq(result.contents)).limit(1).unique()
                 Log.i("hit sns", listSns.toString())
 
-                listSns.status = "SESUAI"
+                listSns.statusPenerimaan = "SESUAI"
                 listSns.isChecked = 1
                 daoSession.tPosDetailPenerimaanDao.update(listSns)
 
@@ -394,9 +418,6 @@ class DetailPenerimaanActivity : AppCompatActivity(),Loadable {
         if (result) {
             Log.i("finish","Yes")
         }
-        startActivity(Intent(this@DetailPenerimaanActivity, PenerimaanActivity::class.java )
-            .setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP))
-        finish()
         Toast.makeText(this, message, Toast.LENGTH_LONG).show()
     }
 }

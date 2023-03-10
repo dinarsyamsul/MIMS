@@ -34,14 +34,14 @@ class MonitoringDetailAdapter(val lisModels: MutableList<TPosDetail>, var listen
     inner class ViewHolder(val binding: ItemDataDetailPurchaseOrderBinding): RecyclerView.ViewHolder(binding.root){
         fun bind(po : TPosDetail){
             with(binding){
-                txtKuantitas.text = po.qty
-                txtUnit.text = po.uom
-                txtDeliveryDate.text = po.createdDate
-                txtLeadTime.text = po.leadTime
-                txtPlant.text = po.plantName
-                txtNoMaterial.text = po.noMatSap
-                txtStatus.text = po.doStatus
-                txtStoreloc.text = po.storLoc
+                txtKuantitas.text = if(po.qty.isNullOrEmpty()) "-" else po.qty
+                txtNoPackaging.text = if(po.noPackaging.isNullOrEmpty()) "-" else po.noPackaging
+                txtDeliveryDate.text = if(po.createdDate.isNullOrEmpty()) "-" else po.createdDate
+                txtLeadTime.text = if(po.leadTime.isNullOrEmpty()) "-" else po.leadTime
+                txtPlant.text = if(po.plantName.isNullOrEmpty()) "-" else po.plantName
+                txtNoMaterial.text = if(po.noMatSap.isNullOrEmpty()) "-" else po.noMatSap
+                txtSatuan.text = if(po.uom.isNullOrEmpty()) "-" else po.uom
+                txtStoreloc.text = if(po.storLoc.isNullOrEmpty()) "-" else po.storLoc
             }
 
             itemView.setOnClickListener { listener.onClick(po) }

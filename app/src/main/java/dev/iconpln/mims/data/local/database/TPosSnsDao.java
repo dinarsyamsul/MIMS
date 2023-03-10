@@ -42,7 +42,8 @@ public class TPosSnsDao extends AbstractDao<TPosSns, Long> {
         public final static Property DoStatus = new Property(17, String.class, "DoStatus", false, "DO_STATUS");
         public final static Property NoPackaging = new Property(18, String.class, "NoPackaging", false, "NO_PACKAGING");
         public final static Property DoLineItem = new Property(19, String.class, "DoLineItem", false, "DO_LINE_ITEM");
-        public final static Property Status = new Property(20, String.class, "Status", false, "STATUS");
+        public final static Property StatusPenerimaan = new Property(20, String.class, "StatusPenerimaan", false, "STATUS_PENERIMAAN");
+        public final static Property StatusPemeriksaan = new Property(21, String.class, "StatusPemeriksaan", false, "STATUS_PEMERIKSAAN");
     }
 
 
@@ -78,7 +79,8 @@ public class TPosSnsDao extends AbstractDao<TPosSns, Long> {
                 "\"DO_STATUS\" TEXT," + // 17: DoStatus
                 "\"NO_PACKAGING\" TEXT," + // 18: NoPackaging
                 "\"DO_LINE_ITEM\" TEXT," + // 19: DoLineItem
-                "\"STATUS\" TEXT);"); // 20: Status
+                "\"STATUS_PENERIMAAN\" TEXT," + // 20: StatusPenerimaan
+                "\"STATUS_PEMERIKSAAN\" TEXT);"); // 21: StatusPemeriksaan
     }
 
     /** Drops the underlying database table. */
@@ -191,9 +193,14 @@ public class TPosSnsDao extends AbstractDao<TPosSns, Long> {
             stmt.bindString(20, DoLineItem);
         }
  
-        String Status = entity.getStatus();
-        if (Status != null) {
-            stmt.bindString(21, Status);
+        String StatusPenerimaan = entity.getStatusPenerimaan();
+        if (StatusPenerimaan != null) {
+            stmt.bindString(21, StatusPenerimaan);
+        }
+ 
+        String StatusPemeriksaan = entity.getStatusPemeriksaan();
+        if (StatusPemeriksaan != null) {
+            stmt.bindString(22, StatusPemeriksaan);
         }
     }
 
@@ -301,9 +308,14 @@ public class TPosSnsDao extends AbstractDao<TPosSns, Long> {
             stmt.bindString(20, DoLineItem);
         }
  
-        String Status = entity.getStatus();
-        if (Status != null) {
-            stmt.bindString(21, Status);
+        String StatusPenerimaan = entity.getStatusPenerimaan();
+        if (StatusPenerimaan != null) {
+            stmt.bindString(21, StatusPenerimaan);
+        }
+ 
+        String StatusPemeriksaan = entity.getStatusPemeriksaan();
+        if (StatusPemeriksaan != null) {
+            stmt.bindString(22, StatusPemeriksaan);
         }
     }
 
@@ -335,7 +347,8 @@ public class TPosSnsDao extends AbstractDao<TPosSns, Long> {
             cursor.isNull(offset + 17) ? null : cursor.getString(offset + 17), // DoStatus
             cursor.isNull(offset + 18) ? null : cursor.getString(offset + 18), // NoPackaging
             cursor.isNull(offset + 19) ? null : cursor.getString(offset + 19), // DoLineItem
-            cursor.isNull(offset + 20) ? null : cursor.getString(offset + 20) // Status
+            cursor.isNull(offset + 20) ? null : cursor.getString(offset + 20), // StatusPenerimaan
+            cursor.isNull(offset + 21) ? null : cursor.getString(offset + 21) // StatusPemeriksaan
         );
         return entity;
     }
@@ -362,7 +375,8 @@ public class TPosSnsDao extends AbstractDao<TPosSns, Long> {
         entity.setDoStatus(cursor.isNull(offset + 17) ? null : cursor.getString(offset + 17));
         entity.setNoPackaging(cursor.isNull(offset + 18) ? null : cursor.getString(offset + 18));
         entity.setDoLineItem(cursor.isNull(offset + 19) ? null : cursor.getString(offset + 19));
-        entity.setStatus(cursor.isNull(offset + 20) ? null : cursor.getString(offset + 20));
+        entity.setStatusPenerimaan(cursor.isNull(offset + 20) ? null : cursor.getString(offset + 20));
+        entity.setStatusPemeriksaan(cursor.isNull(offset + 21) ? null : cursor.getString(offset + 21));
      }
     
     @Override

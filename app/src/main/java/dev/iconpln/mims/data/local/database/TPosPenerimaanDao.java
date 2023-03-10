@@ -55,7 +55,8 @@ public class TPosPenerimaanDao extends AbstractDao<TPosPenerimaan, Long> {
         public final static Property NilaiRatingWaktu = new Property(30, String.class, "NilaiRatingWaktu", false, "NILAI_RATING_WAKTU");
         public final static Property NilaiRatingQuality = new Property(31, String.class, "NilaiRatingQuality", false, "NILAI_RATING_QUALITY");
         public final static Property DoLineItem = new Property(32, String.class, "DoLineItem", false, "DO_LINE_ITEM");
-        public final static Property IsDone = new Property(33, Integer.class, "isDone", false, "IS_DONE");
+        public final static Property IsRating = new Property(33, Integer.class, "IsRating", false, "IS_RATING");
+        public final static Property IsDone = new Property(34, Integer.class, "isDone", false, "IS_DONE");
     }
 
 
@@ -104,7 +105,8 @@ public class TPosPenerimaanDao extends AbstractDao<TPosPenerimaan, Long> {
                 "\"NILAI_RATING_WAKTU\" TEXT," + // 30: NilaiRatingWaktu
                 "\"NILAI_RATING_QUALITY\" TEXT," + // 31: NilaiRatingQuality
                 "\"DO_LINE_ITEM\" TEXT," + // 32: DoLineItem
-                "\"IS_DONE\" INTEGER);"); // 33: isDone
+                "\"IS_RATING\" INTEGER," + // 33: IsRating
+                "\"IS_DONE\" INTEGER);"); // 34: isDone
     }
 
     /** Drops the underlying database table. */
@@ -282,9 +284,14 @@ public class TPosPenerimaanDao extends AbstractDao<TPosPenerimaan, Long> {
             stmt.bindString(33, DoLineItem);
         }
  
+        Integer IsRating = entity.getIsRating();
+        if (IsRating != null) {
+            stmt.bindLong(34, IsRating);
+        }
+ 
         Integer isDone = entity.getIsDone();
         if (isDone != null) {
-            stmt.bindLong(34, isDone);
+            stmt.bindLong(35, isDone);
         }
     }
 
@@ -457,9 +464,14 @@ public class TPosPenerimaanDao extends AbstractDao<TPosPenerimaan, Long> {
             stmt.bindString(33, DoLineItem);
         }
  
+        Integer IsRating = entity.getIsRating();
+        if (IsRating != null) {
+            stmt.bindLong(34, IsRating);
+        }
+ 
         Integer isDone = entity.getIsDone();
         if (isDone != null) {
-            stmt.bindLong(34, isDone);
+            stmt.bindLong(35, isDone);
         }
     }
 
@@ -504,7 +516,8 @@ public class TPosPenerimaanDao extends AbstractDao<TPosPenerimaan, Long> {
             cursor.isNull(offset + 30) ? null : cursor.getString(offset + 30), // NilaiRatingWaktu
             cursor.isNull(offset + 31) ? null : cursor.getString(offset + 31), // NilaiRatingQuality
             cursor.isNull(offset + 32) ? null : cursor.getString(offset + 32), // DoLineItem
-            cursor.isNull(offset + 33) ? null : cursor.getInt(offset + 33) // isDone
+            cursor.isNull(offset + 33) ? null : cursor.getInt(offset + 33), // IsRating
+            cursor.isNull(offset + 34) ? null : cursor.getInt(offset + 34) // isDone
         );
         return entity;
     }
@@ -544,7 +557,8 @@ public class TPosPenerimaanDao extends AbstractDao<TPosPenerimaan, Long> {
         entity.setNilaiRatingWaktu(cursor.isNull(offset + 30) ? null : cursor.getString(offset + 30));
         entity.setNilaiRatingQuality(cursor.isNull(offset + 31) ? null : cursor.getString(offset + 31));
         entity.setDoLineItem(cursor.isNull(offset + 32) ? null : cursor.getString(offset + 32));
-        entity.setIsDone(cursor.isNull(offset + 33) ? null : cursor.getInt(offset + 33));
+        entity.setIsRating(cursor.isNull(offset + 33) ? null : cursor.getInt(offset + 33));
+        entity.setIsDone(cursor.isNull(offset + 34) ? null : cursor.getInt(offset + 34));
      }
     
     @Override

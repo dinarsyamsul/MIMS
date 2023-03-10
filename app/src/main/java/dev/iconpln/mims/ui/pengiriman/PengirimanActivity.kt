@@ -68,7 +68,8 @@ class PengirimanActivity : AppCompatActivity() {
     }
 
     private fun fetchDataLocal() {
-        var listDataPengiriman = daoSession.tPosDao.queryBuilder().where(TPosDao.Properties.NoDoSmar.like("%" + noDo + "%"),
+        var listDataPengiriman = daoSession.tPosDao.queryBuilder()
+            .where(TPosDao.Properties.NoDoSmar.like("%" + noDo + "%"),
             TPosDao.Properties.PoSapNo.like("%" + noPo + "%")).list()
         rvAdapter.setPengirimanList(listDataPengiriman)
     }

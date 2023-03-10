@@ -96,7 +96,7 @@ class InputPetugasPenerimaanActivity : AppCompatActivity(), Loadable {
             object : AddPhotoAdapter.OnAdapterListenerDelete{
                 override fun onClick(po: TPhoto) {
                     val delete = daoSession.tPhotoDao.queryBuilder()
-                        .where(TPhotoDao.Properties.Id.eq(po.id)).limit(1).unique()
+                        .where(TPhotoDao.Properties.Id.eq(po.id)).list().get(0)
                     daoSession.tPhotoDao.delete(delete)
 
                     val newList = daoSession.tPhotoDao.queryBuilder()

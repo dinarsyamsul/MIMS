@@ -1,31 +1,51 @@
 package dev.iconpln.mims.ui.monitoring_permintaan.monitoring_permintaan_detail
 
+import android.app.AlertDialog
+import android.app.Dialog
 import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.text.Editable
 import android.text.TextWatcher
+import android.util.Log
+import android.view.ViewGroup
+import android.widget.ImageView
+import android.widget.TextView
+import android.widget.Toast
 import androidx.activity.viewModels
+import androidx.appcompat.widget.AppCompatButton
 import androidx.recyclerview.widget.LinearLayoutManager
 import dev.iconpln.mims.MyApplication
 import dev.iconpln.mims.R
-import dev.iconpln.mims.data.local.database.DaoSession
-import dev.iconpln.mims.data.local.database.TMonitoringPermintaan
-import dev.iconpln.mims.data.local.database.TMonitoringPermintaanDao
-import dev.iconpln.mims.data.local.database.TMonitoringPermintaanDetail
-import dev.iconpln.mims.databinding.ActivityMonitoringDetailBinding
+import dev.iconpln.mims.data.local.database.*
+import dev.iconpln.mims.data.local.database_local.GenericReport
+import dev.iconpln.mims.data.local.database_local.ReportParameter
+import dev.iconpln.mims.data.local.database_local.ReportUploader
+import dev.iconpln.mims.data.remote.service.ApiConfig
 import dev.iconpln.mims.databinding.ActivityMonitoringPermintaanDetailBinding
+import dev.iconpln.mims.tasks.Loadable
+import dev.iconpln.mims.tasks.TambahReportTask
+import dev.iconpln.mims.ui.monitoring_permintaan.MonitoringPermintaanActivity
 import dev.iconpln.mims.ui.monitoring_permintaan.MonitoringPermintaanViewModel
 import dev.iconpln.mims.ui.monitoring_permintaan.input_sn_monitoring.InputSnMonitoringPermintaanActivity
+import dev.iconpln.mims.utils.Config
+import dev.iconpln.mims.utils.DateTimeUtils
+import dev.iconpln.mims.utils.SharedPrefsUtils
+import org.joda.time.DateTime
+import org.joda.time.LocalDateTime
+import java.util.ArrayList
 
-class MonitoringPermintaanDetailActivity : AppCompatActivity() {
+class MonitoringPermintaanDetailActivity : AppCompatActivity(),Loadable {
     private lateinit var binding: ActivityMonitoringPermintaanDetailBinding
     private lateinit var daoSession: DaoSession
     private val viewModel: MonitoringPermintaanViewModel by viewModels()
     private lateinit var adapter: MonitoringPermintaanDetailAdapter
     private var noPermintaan: String = ""
+    private var noTransaksi: String = ""
     private var srcNoMaterialTxt: String = ""
-    private lateinit var monitoringPenerimaan: TMonitoringPermintaan
+    private lateinit var monitoringPenerimaan: TTransMonitoringPermintaan
+    private var progressDialog: AlertDialog? = null
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         binding = ActivityMonitoringPermintaanDetailBinding.inflate(layoutInflater)
@@ -33,16 +53,23 @@ class MonitoringPermintaanDetailActivity : AppCompatActivity() {
         daoSession = (application as MyApplication).daoSession!!
 
         noPermintaan = intent.getStringExtra("noPermintaan")!!
+        noTransaksi = intent.getStringExtra("noTransaksi")!!
 
-        monitoringPenerimaan = daoSession.tMonitoringPermintaanDao.queryBuilder()
-            .where(TMonitoringPermintaanDao.Properties.NoPermintaan.eq(noPermintaan)).limit(1).unique()
 
-        viewModel.getMonitoringPermintaanDetail(daoSession, noPermintaan)
+        monitoringPenerimaan = daoSession.tTransMonitoringPermintaanDao.queryBuilder()
+            .where(TTransMonitoringPermintaanDao.Properties.NoTransaksi.eq(noTransaksi)).list()[0]
+
+        viewModel.getMonitoringPermintaanDetail(daoSession, noTransaksi)
 
         adapter = MonitoringPermintaanDetailAdapter(arrayListOf(), object : MonitoringPermintaanDetailAdapter.OnAdapterListener{
-            override fun onClick(mpd: TMonitoringPermintaanDetail) {
+            override fun onClick(mpd: TTransMonitoringPermintaanDetail) {
                 startActivity(Intent(this@MonitoringPermintaanDetailActivity, InputSnMonitoringPermintaanActivity::class.java)
-                    .putExtra("noPermintaan", mpd.nomorMaterial))
+                    .putExtra("noPermintaan", mpd.noPermintaan)
+                    .putExtra("noMat", mpd.nomorMaterial)
+                    .putExtra("desc", mpd.materialDesc)
+                    .putExtra("kategori", mpd.kategori)
+                    .putExtra("noRepackaging", mpd.noRepackaging)
+                    .putExtra("noTransaksi", mpd.noTransaksi))
             }
 
         })
@@ -53,6 +80,7 @@ class MonitoringPermintaanDetailActivity : AppCompatActivity() {
 
         with(binding){
             btnBack.setOnClickListener { onBackPressed() }
+            btnSimpan.setOnClickListener { validate() }
             txtNoPermintaan.text = noPermintaan
             txtNoPackaging.text = monitoringPenerimaan.noRepackaging
             txtGudangTujuan.text = monitoringPenerimaan.storLocTujuanName
@@ -80,4 +108,115 @@ class MonitoringPermintaanDetailActivity : AppCompatActivity() {
         }
 
     }
+
+    private fun validate() {
+        val jumlahKardus = binding.edtTotalRepackaging.text.toString()
+        val listMonitoringDetail = daoSession.tTransMonitoringPermintaanDetailDao.queryBuilder()
+            .where(TTransMonitoringPermintaanDetailDao.Properties.NoTransaksi.eq(noTransaksi))
+            .where(TTransMonitoringPermintaanDetailDao.Properties.IsDone.eq(0)).list()
+
+        if (jumlahKardus.isNullOrEmpty()){
+            Toast.makeText(this@MonitoringPermintaanDetailActivity, "repackaging atau jumlah kardus tidak boleh kosong", Toast.LENGTH_SHORT).show()
+            return
+        }
+
+        for (i in listMonitoringDetail){
+            if (i.qtyPermintaan != i.qtyScan.toInt()){
+                Toast.makeText(this@MonitoringPermintaanDetailActivity, "Masih ada material yang kurang", Toast.LENGTH_SHORT).show()
+                return
+            }
+        }
+
+        val dialog = Dialog(this@MonitoringPermintaanDetailActivity)
+        dialog.setContentView(R.layout.popup_validation)
+        dialog.window!!.setLayout(ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.WRAP_CONTENT);
+        dialog.setCancelable(false)
+        dialog.window!!.attributes.windowAnimations = R.style.DialogUpDown
+        val icon = dialog.findViewById(R.id.imageView11) as ImageView
+        val btnOk = dialog.findViewById(R.id.btn_ya) as AppCompatButton
+        val btnTidak = dialog.findViewById(R.id.btn_tidak) as AppCompatButton
+        val message = dialog.findViewById(R.id.message) as TextView
+        val txtMessage = dialog.findViewById(R.id.txt_message) as TextView
+
+        icon.setImageResource(R.drawable.ic_doc_diterima)
+        message.text = "Kirim Material"
+        txtMessage.text = "Apakah anda yakin mengirim material??"
+
+
+        btnTidak.setOnClickListener {
+            dialog.dismiss()
+        }
+
+        btnOk.setOnClickListener {
+            dialog.dismiss();
+            submitForm(jumlahKardus)
+        }
+        dialog.show();
+    }
+
+    private fun submitForm(jumlahKardus: String) {
+        val listMonitoringDetail = daoSession.tTransMonitoringPermintaanDetailDao.queryBuilder()
+            .where(TTransMonitoringPermintaanDetailDao.Properties.NoTransaksi.eq(noTransaksi)).list()
+
+        for (i in listMonitoringDetail){
+            if (i.isScannedSn == 1){
+                if (i.qtyScan.toInt() != i.qtyPermintaan) i.isDone = 0 else i.isDone = 1
+                daoSession.tTransMonitoringPermintaanDetailDao.update(i)
+                Toast.makeText(this@MonitoringPermintaanDetailActivity, "Berhasil mengirim material ${i.nomorMaterial}", Toast.LENGTH_SHORT).show()
+            }
+        }
+
+        val reports = ArrayList<GenericReport>()
+        val currentDate = LocalDateTime.now().toString(Config.DATE)
+        val currentDateTime = LocalDateTime.now().toString(Config.DATETIME)
+        val currentUtc = DateTimeUtils.currentUtc
+        Log.i("datime","${currentDateTime}")
+
+        //region Add report visit to queue
+        var jwt = SharedPrefsUtils.getStringPreference(this@MonitoringPermintaanDetailActivity,"jwt","")
+        var username = SharedPrefsUtils.getStringPreference(this@MonitoringPermintaanDetailActivity, "username","14.Hexing_Electrical")
+        val reportId = "temp_permintaan" + username + "_" + noPermintaan + "_" + DateTime.now().toString(
+            Config.DATETIME)
+        val reportName = "Update Data Permintaan"
+        val reportDescription = "$reportName: "+ " (" + reportId + ")"
+        val params = ArrayList<ReportParameter>()
+
+        val listIsDone = daoSession.tTransMonitoringPermintaanDetailDao.queryBuilder()
+            .where(TTransMonitoringPermintaanDetailDao.Properties.NoTransaksi.eq(noTransaksi))
+            .where(TTransMonitoringPermintaanDetailDao.Properties.IsScannedSn.eq(1)).list()
+
+        for (i in listIsDone){
+            params.add(ReportParameter("1", reportId, "no_material", i.nomorMaterial!!, ReportParameter.TEXT))
+            params.add(ReportParameter("2", reportId, "no_permintaan", monitoringPenerimaan.noPermintaan, ReportParameter.TEXT))
+            params.add(ReportParameter("3", reportId, "qty_scan", i.qtyScan, ReportParameter.TEXT))
+            params.add(ReportParameter("4", reportId, "jumlah_kardus",jumlahKardus , ReportParameter.TEXT))
+            params.add(ReportParameter("5", reportId, "username", username!!, ReportParameter.TEXT))
+            params.add(ReportParameter("6", reportId, "plant", monitoringPenerimaan.plant, ReportParameter.TEXT))
+            params.add(ReportParameter("7", reportId, "stor_loc", monitoringPenerimaan.storLocAsal, ReportParameter.TEXT))
+            params.add(ReportParameter("8", reportId, "no_transaksi", i.noTransaksi, ReportParameter.TEXT))
+        }
+
+        val report = GenericReport(reportId, jwt!!, reportName, reportDescription, ApiConfig.sendMonkitoringPermintaan(), currentDate, Config.NO_CODE, currentUtc, params)
+        reports.add(report)
+        //endregion
+
+        val task = TambahReportTask(this, reports)
+        task.execute()
+
+        val iService = Intent(applicationContext, ReportUploader::class.java)
+        startService(iService)
+
+    }
+
+    override fun setLoading(show: Boolean, title: String, message: String) {
+    }
+
+    override fun setFinish(result: Boolean, message: String) {
+        Toast.makeText(this@MonitoringPermintaanDetailActivity, message,Toast.LENGTH_SHORT).show()
+        startActivity(Intent(this@MonitoringPermintaanDetailActivity, MonitoringPermintaanActivity::class.java)
+            .setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP))
+        finish()
+    }
+
+
 }

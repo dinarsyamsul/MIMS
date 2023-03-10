@@ -120,7 +120,8 @@ class RatingActivity : AppCompatActivity() {
 
         btnOk.setOnClickListener {
             dialog.dismiss();
-            startActivity(Intent(this@RatingActivity, PenerimaanActivity::class.java ))
+            startActivity(Intent(this@RatingActivity, PenerimaanActivity::class.java )
+                .setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP))
             finish()
         }
 

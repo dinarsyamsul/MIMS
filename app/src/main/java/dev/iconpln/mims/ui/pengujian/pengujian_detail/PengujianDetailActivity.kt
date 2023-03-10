@@ -18,11 +18,14 @@ class PengujianDetailActivity : AppCompatActivity() {
     private lateinit var adapter: PengujianDetailAdapter
     private var serNumb: String = ""
     private var filter: String = ""
+    private var noPengujian: String = ""
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         binding = ActivityPengujianDetailBinding.inflate(layoutInflater)
         setContentView(binding.root)
+
+        noPengujian = intent.getStringExtra("noPengujian")!!
 
         daoSession = (application as MyApplication).daoSession!!
 
@@ -31,7 +34,7 @@ class PengujianDetailActivity : AppCompatActivity() {
 
         })
 
-        fetchLocalData()
+        fetchLocalData(noPengujian)
 
         with(binding){
 
@@ -63,7 +66,7 @@ class PengujianDetailActivity : AppCompatActivity() {
             tabLayout.addOnTabSelectedListener(object : com.google.android.material.tabs.TabLayout.OnTabSelectedListener{
                 override fun onTabSelected(tab: com.google.android.material.tabs.TabLayout.Tab?) {
                     if (tab?.text == "ALL"){
-                        fetchLocalData()
+                        fetchLocalData(noPengujian)
                     }else if (tab?.text == "LOLOS"){
                         filter = tab?.text.toString()
                         doSearch()
@@ -82,18 +85,17 @@ class PengujianDetailActivity : AppCompatActivity() {
     }
 
     private fun doSearch() {
-        if (serNumb.isNotEmpty()){
-            val list = daoSession.tPengujianDetailsDao.queryBuilder().list()
-            val listFilter = list.filter { it.serialNumber.toLowerCase().contains(serNumb.toLowerCase()) }
-            adapter.setPengujianList(listFilter)
-        }else{
-            val list = daoSession.tPengujianDetailsDao.queryBuilder().where(TPengujianDetailsDao.Properties.StatusUji.eq(filter)).list()
+            val list = daoSession.tPengujianDetailsDao.queryBuilder()
+                .where(TPengujianDetailsDao.Properties.NoPengujian.like("%"+noPengujian+"%"))
+                .where(TPengujianDetailsDao.Properties.SerialNumber.like("%"+serNumb+"%"))
+                .where(TPengujianDetailsDao.Properties.StatusUji.like("%"+filter+"%")).list()
+
             adapter.setPengujianList(list)
-        }
     }
 
-    private fun fetchLocalData() {
-        val list = daoSession.tPengujianDetailsDao.queryBuilder().list()
+    private fun fetchLocalData(noPengujian: String) {
+        val list = daoSession.tPengujianDetailsDao.queryBuilder()
+            .where(TPengujianDetailsDao.Properties.NoPengujian.eq(noPengujian)).list()
         adapter.setPengujianList(list)
     }
 }
