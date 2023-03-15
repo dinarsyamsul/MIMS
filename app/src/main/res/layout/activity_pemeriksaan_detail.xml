@@ -431,7 +431,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="15dp"
-                android:text="SN. Material"
+                android:text="SN. Material / No. Packaging"
                 android:fontFamily="@font/montserrat_semibold"
                 android:textSize="12sp"
                 app:layout_constraintStart_toStartOf="@+id/textView12"
@@ -471,7 +471,7 @@
                 android:layout_height="wrap_content"
                 android:layout_marginTop="15dp"
                 android:fontFamily="@font/montserrat_semibold"
-                android:text="List Packaging"
+                android:text="Daftar List SN Material"
                 android:textSize="12sp"
                 app:layout_constraintStart_toStartOf="@+id/textView12"
                 app:layout_constraintTop_toBottomOf="@id/view8" />
@@ -496,7 +496,7 @@
                 android:paddingLeft="5dp"
                 android:fontFamily="@font/montserrat_reguler"
                 android:text="Normal"
-                android:textColor="#B80F0A"
+                android:textColor="#00C637"
                 android:textSize="10sp"
                 app:layout_constraintEnd_toEndOf="@+id/view8"
                 app:layout_constraintTop_toTopOf="@+id/lbl_cacat" />
@@ -528,6 +528,65 @@
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@+id/cb_cacat" />
 
+            <TextView
+                android:id="@+id/tv_total_data"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="25dp"
+                android:layout_marginTop="20dp"
+                android:fontFamily="@font/montserrat_reguler"
+                android:text="Total: 0 Data"
+                android:textColor="#96979B"
+                android:textSize="@dimen/_9ssp"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/rv_list_sn" />
+
+            <TextView
+                android:id="@+id/tv_total_normal"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="3dp"
+                android:fontFamily="@font/montserrat_reguler"
+                android:text="0 Normal"
+                android:textColor="#96979B"
+                android:textSize="@dimen/_9ssp"
+                app:layout_constraintBottom_toBottomOf="@+id/imageView20"
+                app:layout_constraintStart_toEndOf="@+id/imageView20"
+                app:layout_constraintTop_toTopOf="@+id/imageView20" />
+
+            <ImageView
+                android:id="@+id/imageView20"
+                android:layout_width="15dp"
+                android:layout_height="15dp"
+                android:layout_marginStart="25dp"
+                android:layout_marginTop="10dp"
+                android:background="#00C637"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/tv_total_data" />
+
+            <ImageView
+                android:id="@+id/imageView21"
+                android:layout_width="15dp"
+                android:layout_height="15dp"
+                android:layout_marginStart="25dp"
+                android:layout_marginTop="10dp"
+                android:background="#BC1009"
+                app:layout_constraintStart_toEndOf="@+id/tv_total_normal"
+                app:layout_constraintTop_toBottomOf="@+id/tv_total_data" />
+
+            <TextView
+                android:id="@+id/tv_total_cacat"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="3dp"
+                android:fontFamily="@font/montserrat_reguler"
+                android:text="0 Cacat"
+                android:textColor="#96979B"
+                android:textSize="@dimen/_9ssp"
+                app:layout_constraintBottom_toBottomOf="@+id/imageView21"
+                app:layout_constraintStart_toEndOf="@+id/imageView21"
+                app:layout_constraintTop_toTopOf="@+id/imageView21" />
+
             <androidx.appcompat.widget.AppCompatButton
                 android:id="@+id/btn_komplain"
                 android:layout_width="0dp"
@@ -545,7 +604,7 @@
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintEnd_toStartOf="@id/btn_terima"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/rv_list_sn" />
+                app:layout_constraintTop_toBottomOf="@+id/imageView20" />
 
             <androidx.appcompat.widget.AppCompatButton
                 android:id="@+id/btn_terima"

@@ -43,6 +43,12 @@ interface ApiService {
         @Body body: Map<String, String>
     ): Response<GenericResponse>
 
+    @Headers("Content-Type:application/json")
+    @POST("/users/doChangePassword")
+    suspend fun changePasswordProfile(
+        @Body body: Map<String, String>
+    ): Response<GenericResponse>
+
     @FormUrlEncoded
     @POST("/tracking/getTrackingHistory")
     suspend fun getTrackingHistory(

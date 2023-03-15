@@ -49,6 +49,7 @@ class PemakaianActivity : AppCompatActivity() {
         })
 
         with(binding){
+            btnBack.setOnClickListener { onBackPressed() }
             rvPemakaianUlp.adapter = adapter
             rvPemakaianUlp.layoutManager = LinearLayoutManager(this@PemakaianActivity, LinearLayoutManager.VERTICAL, false)
             rvPemakaianUlp.setHasFixedSize(true)

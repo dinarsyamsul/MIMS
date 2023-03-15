@@ -37,7 +37,8 @@ public class TPosDetailPenerimaanDao extends AbstractDao<TPosDetailPenerimaan, L
         public final static Property IsComplaint = new Property(12, Integer.class, "IsComplaint", false, "IS_COMPLAINT");
         public final static Property IsChecked = new Property(13, Integer.class, "IsChecked", false, "IS_CHECKED");
         public final static Property DoLineItem = new Property(14, String.class, "DoLineItem", false, "DO_LINE_ITEM");
-        public final static Property IsDone = new Property(15, Integer.class, "IsDone", false, "IS_DONE");
+        public final static Property PartialCode = new Property(15, String.class, "PartialCode", false, "PARTIAL_CODE");
+        public final static Property IsDone = new Property(16, Integer.class, "IsDone", false, "IS_DONE");
     }
 
 
@@ -68,7 +69,8 @@ public class TPosDetailPenerimaanDao extends AbstractDao<TPosDetailPenerimaan, L
                 "\"IS_COMPLAINT\" INTEGER," + // 12: IsComplaint
                 "\"IS_CHECKED\" INTEGER," + // 13: IsChecked
                 "\"DO_LINE_ITEM\" TEXT," + // 14: DoLineItem
-                "\"IS_DONE\" INTEGER);"); // 15: IsDone
+                "\"PARTIAL_CODE\" TEXT," + // 15: PartialCode
+                "\"IS_DONE\" INTEGER);"); // 16: IsDone
     }
 
     /** Drops the underlying database table. */
@@ -156,9 +158,14 @@ public class TPosDetailPenerimaanDao extends AbstractDao<TPosDetailPenerimaan, L
             stmt.bindString(15, DoLineItem);
         }
  
+        String PartialCode = entity.getPartialCode();
+        if (PartialCode != null) {
+            stmt.bindString(16, PartialCode);
+        }
+ 
         Integer IsDone = entity.getIsDone();
         if (IsDone != null) {
-            stmt.bindLong(16, IsDone);
+            stmt.bindLong(17, IsDone);
         }
     }
 
@@ -241,9 +248,14 @@ public class TPosDetailPenerimaanDao extends AbstractDao<TPosDetailPenerimaan, L
             stmt.bindString(15, DoLineItem);
         }
  
+        String PartialCode = entity.getPartialCode();
+        if (PartialCode != null) {
+            stmt.bindString(16, PartialCode);
+        }
+ 
         Integer IsDone = entity.getIsDone();
         if (IsDone != null) {
-            stmt.bindLong(16, IsDone);
+            stmt.bindLong(17, IsDone);
         }
     }
 
@@ -270,7 +282,8 @@ public class TPosDetailPenerimaanDao extends AbstractDao<TPosDetailPenerimaan, L
             cursor.isNull(offset + 12) ? null : cursor.getInt(offset + 12), // IsComplaint
             cursor.isNull(offset + 13) ? null : cursor.getInt(offset + 13), // IsChecked
             cursor.isNull(offset + 14) ? null : cursor.getString(offset + 14), // DoLineItem
-            cursor.isNull(offset + 15) ? null : cursor.getInt(offset + 15) // IsDone
+            cursor.isNull(offset + 15) ? null : cursor.getString(offset + 15), // PartialCode
+            cursor.isNull(offset + 16) ? null : cursor.getInt(offset + 16) // IsDone
         );
         return entity;
     }
@@ -292,7 +305,8 @@ public class TPosDetailPenerimaanDao extends AbstractDao<TPosDetailPenerimaan, L
         entity.setIsComplaint(cursor.isNull(offset + 12) ? null : cursor.getInt(offset + 12));
         entity.setIsChecked(cursor.isNull(offset + 13) ? null : cursor.getInt(offset + 13));
         entity.setDoLineItem(cursor.isNull(offset + 14) ? null : cursor.getString(offset + 14));
-        entity.setIsDone(cursor.isNull(offset + 15) ? null : cursor.getInt(offset + 15));
+        entity.setPartialCode(cursor.isNull(offset + 15) ? null : cursor.getString(offset + 15));
+        entity.setIsDone(cursor.isNull(offset + 16) ? null : cursor.getInt(offset + 16));
      }
     
     @Override

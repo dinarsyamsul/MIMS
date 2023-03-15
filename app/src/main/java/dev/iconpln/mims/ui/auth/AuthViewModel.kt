@@ -48,20 +48,26 @@ class AuthViewModel: ViewModel() {
                 if (response.isSuccessful) {
                     try {
                         _isLoading.value = false
-                        val loginResult = response.body()
-                        _loginResponse.postValue(loginResult!!)
-                        session.saveUsernamePassword(username,password)
-                        inserToDbLocal(daoSession, loginResult)
+                        if (response.body()?.status == "failure"){
+                            Toast.makeText(context, response.body()?.message, Toast.LENGTH_SHORT).show()
+                        }else{
+                            val loginResult = response.body()
+                            _loginResponse.postValue(loginResult!!)
+                            session.saveUsernamePassword(username,password)
+                            inserToDbLocal(daoSession, loginResult)
+                        }
 
                     }catch (e: Exception){
                         _isLoading.value = false
+                        Toast.makeText(context, response.body()?.message!!, Toast.LENGTH_SHORT).show()
                         e.printStackTrace()
                     }finally {
                         _isLoading.value = false
+                        Log.i("finally", response.body()?.message!!)
                     }
                 }else {
                     _isLoading.value = false
-                    Toast.makeText(context, response.message(), Toast.LENGTH_SHORT).show()
+                    Toast.makeText(context, if(response.body()?.message.isNullOrEmpty()) "Gagal menguhubungkan ke server, silahkan periksa koneksi dan VPN anda" else response.body()?.message.toString(), Toast.LENGTH_SHORT).show()
                 }
             }
         }
@@ -89,7 +95,7 @@ class AuthViewModel: ViewModel() {
         }
     }
 
-    fun checkOtp(context: Context, username: String,otp: String, androidId: String, deviceData: String) {
+    fun checkOtp(context: Context, username: String,otp: String, androidId: String, deviceData: String,daoSession: DaoSession) {
         _isLoading.value = true
         CoroutineScope(Dispatchers.IO).launch {
             val requestBody = mutableMapOf<String, String>()
@@ -103,14 +109,16 @@ class AuthViewModel: ViewModel() {
                 if (response.isSuccessful) {
                     try {
                         _isLoading.value = false
-                        val responses = response.body()
-                        _loginResponse.postValue(responses!!)
+                        val loginResult = response.body()
+                        _loginResponse.postValue(loginResult!!)
+                        inserToDbLocal(daoSession, loginResult)
                     }catch (e: Exception){
+                        Toast.makeText(context, e.toString(), Toast.LENGTH_SHORT).show()
                         e.printStackTrace()
                     }
                 }else {
                     _isLoading.value = false
-                    Toast.makeText(context, response.message(), Toast.LENGTH_SHORT).show()
+                    Toast.makeText(context, response.body()?.message, Toast.LENGTH_SHORT).show()
                 }
             }
         }
@@ -127,12 +135,14 @@ class AuthViewModel: ViewModel() {
                 if (response.isSuccessful) {
                     try {
                         _isLoading.value = false
+                        Toast.makeText(context, response.body()?.message, Toast.LENGTH_SHORT).show()
                     }catch (e: Exception){
+                        Toast.makeText(context, e.toString(), Toast.LENGTH_SHORT).show()
                         e.printStackTrace()
                     }
                 }else {
                     _isLoading.value = false
-                    Toast.makeText(context, response.message(), Toast.LENGTH_SHORT).show()
+                    Toast.makeText(context, response.body()?.message, Toast.LENGTH_SHORT).show()
                 }
             }
         }
@@ -153,11 +163,12 @@ class AuthViewModel: ViewModel() {
                         val responses = response.body()
                         _checkOtpForgotPassword.postValue(responses!!)
                     }catch (e: Exception){
+                        Toast.makeText(context, e.toString(), Toast.LENGTH_SHORT).show()
                         e.printStackTrace()
                     }
                 }else {
                     _isLoading.value = false
-                    Toast.makeText(context, response.message(), Toast.LENGTH_SHORT).show()
+                    Toast.makeText(context, response.body()?.message, Toast.LENGTH_SHORT).show()
                 }
             }
         }
@@ -178,6 +189,38 @@ class AuthViewModel: ViewModel() {
                         val responses = response.body()
                         _changePassword.postValue(responses!!)
                     }catch (e: Exception){
+                        e.printStackTrace()
+                    }
+                }else {
+                    _isLoading.value = false
+                    Toast.makeText(context, response.message(), Toast.LENGTH_SHORT).show()
+                }
+            }
+        }
+    }
+
+    fun changePasswordProfile(context: Context, username: String,password: String,oldPassword: String) {
+        _isLoading.value = true
+        CoroutineScope(Dispatchers.IO).launch {
+            val requestBody = mutableMapOf<String, String>()
+            requestBody["username"] = username
+            requestBody["new_password"] = password
+            requestBody["old_password"] = oldPassword
+
+            val response = ApiConfig.getApiService(context).changePasswordProfile(requestBody)
+            withContext(Dispatchers.Main){
+                if (response.isSuccessful) {
+                    try {
+                        _isLoading.value = false
+                        if (response.body()?.message == "success"){
+                            val responses = response.body()
+                            _changePassword.postValue(responses!!)
+                            Toast.makeText(context,response.body()?.message, Toast.LENGTH_SHORT).show()
+                        }else{
+                            Toast.makeText(context,response.body()?.message, Toast.LENGTH_SHORT).show()
+                        }
+                    }catch (e: Exception){
+                        _isLoading.value = false
                         e.printStackTrace()
                     }
                 }else {
@@ -212,6 +255,12 @@ class AuthViewModel: ViewModel() {
         daoSession.tSnPermaterialDao.deleteAll()
         daoSession.tListSnMaterialPenerimaanUlpDao.deleteAll()
         daoSession.tListSnMaterialPemakaianUlpDao.deleteAll()
+        daoSession.tPemakaianDao.deleteAll()
+        daoSession.tPemakaianDetailDao.deleteAll()
+        daoSession.tListSnMaterialPenerimaanUlpDao.deleteAll()
+        daoSession.tListSnMaterialPemakaianUlpDao.deleteAll()
+        daoSession.tPhotoDao.deleteAll()
+
 
         if (result != null){
 
@@ -810,24 +859,6 @@ class AuthViewModel: ViewModel() {
                         items[i] = item
                     }
                     daoSession.tPemakaianDetailDao.insertInTx(items.toList())
-                }
-            }
-
-            if (result.snPenerimaanUlp != null){
-                val size = result.snPenerimaanUlp.size
-                if (size > 0) {
-                    val items = arrayOfNulls<TListSnMaterialPenerimaanUlp>(size)
-                    var item: TListSnMaterialPenerimaanUlp
-                    for ((i, model) in result.snPenerimaanUlp.withIndex()){
-                        item = TListSnMaterialPenerimaanUlp()
-                        item.status = ""
-                        item.noRepackaging = model?.noRepackaging
-                        item.noMaterial = model?.nomorMaterial
-                        item.noSerialNumber = model?.serialNumber
-                        item.isScanned = 0
-                        items[i] = item
-                    }
-                    daoSession.tListSnMaterialPenerimaanUlpDao.insertInTx(items.toList())
                 }
             }
 

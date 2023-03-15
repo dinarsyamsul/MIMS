@@ -110,6 +110,7 @@ class PenerimaanViewModel: ViewModel() {
                             if (model.kurirPengantar.isNullOrEmpty()) item.kurirPengantar = "" else item.kurirPengantar = model.kurirPengantar
 
                             item.statusPemeriksaan = ""// nanti di buat di tarikan login
+                            item.statusPenerimaan = ""
 
                             item.kodeStatusDoMims = model.kodeStatusDoMims
                             item.doStatus = model.doStatus
@@ -131,6 +132,7 @@ class PenerimaanViewModel: ViewModel() {
                                 model.ratingQuality.isNotEmpty()) item.isDone = 1 else item.isDone = 0
 
                             item.isRating = 0
+                            item.ratingDone = 0
                             items[i] = item
                         }
                         daoSession.tPosPenerimaanDao.insertInTx(items.toList())

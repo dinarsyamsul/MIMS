@@ -257,7 +257,7 @@
                 android:layout_marginEnd="24dp"
                 android:background="@drawable/srchview"
                 android:fontFamily="@font/montserrat_reguler"
-                android:hint="kepala gudang"
+                android:hint="Kepala gudang"
                 android:paddingLeft="20dp"
                 android:paddingRight="20dp"
                 android:textSize="12sp"
@@ -333,13 +333,13 @@
             </EditText>
 
             <TextView
-                android:id="@+id/lbl_jabatan"
+                android:id="@+id/lbl_penerima"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginStart="24dp"
                 android:layout_marginTop="20dp"
                 android:fontFamily="@font/montserrat_reguler"
-                android:text="Jabatan Penerima"
+                android:text="Nama Penerima"
                 android:textColor="#3F3D56"
                 android:textSize="12sp"
                 android:textStyle="bold"
@@ -347,21 +347,21 @@
                 app:layout_constraintTop_toBottomOf="@+id/edt_tanggal_dokumen" />
 
             <EditText
-                android:id="@+id/et_jabatan"
+                android:id="@+id/edt_nama_penerima"
                 android:layout_width="0dp"
                 android:layout_height="50dp"
                 android:layout_marginTop="10dp"
                 android:layout_marginEnd="25dp"
                 android:background="@drawable/srchview"
-                android:hint="Jabatan"
+                android:hint="Nama penerima"
                 android:fontFamily="@font/montserrat_reguler"
                 android:paddingLeft="20dp"
                 android:paddingRight="20dp"
                 android:textColor="@drawable/et_selector"
                 android:textSize="12sp"
                 app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintStart_toStartOf="@+id/lbl_jabatan"
-                app:layout_constraintTop_toBottomOf="@+id/lbl_jabatan">
+                app:layout_constraintStart_toStartOf="@+id/lbl_penerima"
+                app:layout_constraintTop_toBottomOf="@+id/lbl_penerima">
             </EditText>
 
             <TextView
@@ -376,7 +376,7 @@
                 android:textSize="12sp"
                 android:textStyle="bold"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/et_jabatan" />
+                app:layout_constraintTop_toBottomOf="@+id/edt_nama_penerima" />
 
             <EditText
                 android:id="@+id/edt_kurir"

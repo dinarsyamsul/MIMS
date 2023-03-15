@@ -1,20 +1,14 @@
 package dev.iconpln.mims.ui.pemeriksaan.pemeriksaan_detail
 
-import android.util.Log
 import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
 import dev.iconpln.mims.data.local.database.DaoSession
 import dev.iconpln.mims.data.local.database.TPemeriksaanDetail
-import dev.iconpln.mims.data.local.database.TPemeriksaanDetailDao
-import dev.iconpln.mims.data.local.database.TPosDetailPenerimaan
-import dev.iconpln.mims.databinding.ItemPackagingBinding
-import dev.iconpln.mims.databinding.ItemPackagingPemeriksaanBinding
-import dev.iconpln.mims.databinding.ItemSnMaterialBinding
 import dev.iconpln.mims.databinding.ItemSnPemeriksaanBinding
 
 class DetailPemeriksaanAdapter(val lisModels: MutableList<TPemeriksaanDetail>,
-                               var listener: OnAdapterListener,var daoSession: DaoSession)
+                               var listenerNormal: OnAdapterListenerNormal,var listenerCacat: OnAdapterListenerCacat ,var daoSession: DaoSession)
     : RecyclerView.Adapter<DetailPemeriksaanAdapter.ViewHolder>() {
 
     fun setPedList(po: List<TPemeriksaanDetail>){
@@ -61,6 +55,8 @@ class DetailPemeriksaanAdapter(val lisModels: MutableList<TPemeriksaanDetail>,
 
                 cbTidakSesuai.setOnCheckedChangeListener { buttonView, isChecked ->
                     cbSesuai.isEnabled = !isChecked
+                    listenerCacat.onClick(isChecked)
+
                     if (isChecked){
                         po.statusPemeriksaan = "CACAT"
                         po.isChecked = 1
@@ -74,6 +70,7 @@ class DetailPemeriksaanAdapter(val lisModels: MutableList<TPemeriksaanDetail>,
 
                 cbSesuai.setOnCheckedChangeListener { buttonView, isChecked ->
                     cbTidakSesuai.isEnabled = !isChecked
+                    listenerNormal.onClick(isChecked)
 
                     if (isChecked){
                         po.statusPemeriksaan = "NORMAL"
@@ -87,11 +84,14 @@ class DetailPemeriksaanAdapter(val lisModels: MutableList<TPemeriksaanDetail>,
 
                 }
             }
-            itemView.setOnClickListener { listener.onClick(po) }
         }
     }
 
-    interface OnAdapterListener{
-        fun onClick(po: TPemeriksaanDetail)
+    interface OnAdapterListenerNormal{
+        fun onClick(po: Boolean)
+    }
+
+    interface  OnAdapterListenerCacat{
+        fun onClick(po: Boolean)
     }
 }

@@ -26,6 +26,7 @@ public class TPosDetailPenerimaan {
     private Integer IsComplaint;
     private Integer IsChecked;
     private String DoLineItem;
+    private String PartialCode;
     private Integer IsDone;
 
     @Generated
@@ -37,7 +38,7 @@ public class TPosDetailPenerimaan {
     }
 
     @Generated
-    public TPosDetailPenerimaan(Long id, String NoDoSmar, String Qty, String KdPabrikan, String DoStatus, String NoPackaging, String SerialNumber, String NoMaterial, String NamaKategoriMaterial, String StorLoc, String StatusPenerimaan, String StatusPemeriksaan, Integer IsComplaint, Integer IsChecked, String DoLineItem, Integer IsDone) {
+    public TPosDetailPenerimaan(Long id, String NoDoSmar, String Qty, String KdPabrikan, String DoStatus, String NoPackaging, String SerialNumber, String NoMaterial, String NamaKategoriMaterial, String StorLoc, String StatusPenerimaan, String StatusPemeriksaan, Integer IsComplaint, Integer IsChecked, String DoLineItem, String PartialCode, Integer IsDone) {
         this.id = id;
         this.NoDoSmar = NoDoSmar;
         this.Qty = Qty;
@@ -53,6 +54,7 @@ public class TPosDetailPenerimaan {
         this.IsComplaint = IsComplaint;
         this.IsChecked = IsChecked;
         this.DoLineItem = DoLineItem;
+        this.PartialCode = PartialCode;
         this.IsDone = IsDone;
     }
 
@@ -174,6 +176,14 @@ public class TPosDetailPenerimaan {
 
     public void setDoLineItem(String DoLineItem) {
         this.DoLineItem = DoLineItem;
+    }
+
+    public String getPartialCode() {
+        return PartialCode;
+    }
+
+    public void setPartialCode(String PartialCode) {
+        this.PartialCode = PartialCode;
     }
 
     public Integer getIsDone() {

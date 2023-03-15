@@ -36,9 +36,9 @@ class PenerimaanUlpActivity : AppCompatActivity() {
         setDatePicker()
         setSrcNoPengiriman()
 
-        penerimaanUlps = daoSession.tTransPenerimaanUlpDao.queryBuilder().list()
-//            .whereOr(TTransPenerimaanUlpDao.Properties.StatusPenerimaan.notEq("DITERIMA"),
-//                TTransPenerimaanUlpDao.Properties.StatusPemeriksaan.notEq("SUDAH DIPERIKSA")).list()
+        penerimaanUlps = daoSession.tTransPenerimaanUlpDao.queryBuilder()
+            .whereOr(TTransPenerimaanUlpDao.Properties.StatusPenerimaan.notEq("DITERIMA"),
+                TTransPenerimaanUlpDao.Properties.StatusPemeriksaan.notEq("SUDAH DIPERIKSA")).list()
 
 
         adapter = PenerimaanULPAdapter(arrayListOf(), object : PenerimaanULPAdapter.OnAdapterListener{
@@ -144,13 +144,13 @@ class PenerimaanUlpActivity : AppCompatActivity() {
 
     private fun insertData() {
         val transPenerimaanUlp = daoSession.tTransPenerimaanUlpDao.queryBuilder()
-//            .where(TTransPenerimaanUlpDao.Properties.StatusPemeriksaan.notEq("SUDAH DIPERIKSA"))
-//            .where(TTransPenerimaanUlpDao.Properties.StatusPenerimaan.notEq("DITERIMA"))
+            .where(TTransPenerimaanUlpDao.Properties.StatusPemeriksaan.notEq("SUDAH DIPERIKSA"))
+            .where(TTransPenerimaanUlpDao.Properties.StatusPenerimaan.notEq("DITERIMA"))
             .list()
 
         val penerimaanUlps = daoSession.tPenerimaanUlpDao.queryBuilder()
-//            .where(TPenerimaanUlpDao.Properties.StatusPemeriksaan.notEq("SUDAH DIPERIKSA"))
-//            .where(TPenerimaanUlpDao.Properties.StatusPenerimaan.notEq("DITERIMA"))
+            .where(TPenerimaanUlpDao.Properties.StatusPemeriksaan.notEq("SUDAH DIPERIKSA"))
+            .where(TPenerimaanUlpDao.Properties.StatusPenerimaan.notEq("DITERIMA"))
             .list()
 
         if (transPenerimaanUlp.isEmpty()){

@@ -40,12 +40,13 @@ class PenerimaanAdapter(val lisModels: MutableList<TPosPenerimaan>,
     inner class ViewHolder(val binding: ItemDataPenerimaanBinding): RecyclerView.ViewHolder(binding.root){
         fun bind(pe : TPosPenerimaan){
             with(binding){
+
                 val listDetailPen = daoSession.tPosDetailPenerimaanDao.queryBuilder()
                     .where(TPosDetailPenerimaanDao.Properties.NoDoSmar.eq(pe.noDoSmar))
-                    .where(TPosDetailPenerimaanDao.Properties.IsDone.eq(0)).list()
+                    .where(TPosDetailPenerimaanDao.Properties.IsChecked.eq(0)).list()
 
                 txtDeliveryOrder.text = pe.noDoSmar
-                txtStatusPenerimaan.text = if(pe.ratingPenerimaan.isNullOrEmpty()) "BELUM DITERIMA" else "DITERIMA"
+                txtStatusPenerimaan.text = if (pe.statusPenerimaan.isNullOrEmpty()) "BELUM DITERIMA" else pe.statusPenerimaan
                 txtStatusPemeriksaan.text = if (pe.statusPemeriksaan.isNullOrEmpty()) "BELUM DIPERIKSA" else pe.statusPemeriksaan
                 txtVendorAsal.text = pe.planCodeNo
                 txtTglKirim.text = "Tgl ${pe.createdDate}"
@@ -62,7 +63,6 @@ class PenerimaanAdapter(val lisModels: MutableList<TPosPenerimaan>,
                         if (pe.isRating == 1){
                             ivDelivery.setImageResource(R.drawable.ic_input_delivery_to_rating_active)
                         }
-
                     }else{
                         ivDoc.setImageResource(R.drawable.ic_input_doc_active)
                     }

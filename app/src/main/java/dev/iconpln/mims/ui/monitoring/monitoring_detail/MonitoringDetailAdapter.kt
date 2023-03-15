@@ -35,13 +35,14 @@ class MonitoringDetailAdapter(val lisModels: MutableList<TPosDetail>, var listen
         fun bind(po : TPosDetail){
             with(binding){
                 txtKuantitas.text = if(po.qty.isNullOrEmpty()) "-" else po.qty
-                txtNoPackaging.text = if(po.noPackaging.isNullOrEmpty()) "-" else po.noPackaging
+                txtUnit.text = if(po.uom.isNullOrEmpty()) "-" else po.uom
                 txtDeliveryDate.text = if(po.createdDate.isNullOrEmpty()) "-" else po.createdDate
                 txtLeadTime.text = if(po.leadTime.isNullOrEmpty()) "-" else po.leadTime
                 txtPlant.text = if(po.plantName.isNullOrEmpty()) "-" else po.plantName
                 txtNoMaterial.text = if(po.noMatSap.isNullOrEmpty()) "-" else po.noMatSap
                 txtSatuan.text = if(po.uom.isNullOrEmpty()) "-" else po.uom
                 txtStoreloc.text = if(po.storLoc.isNullOrEmpty()) "-" else po.storLoc
+                txtNoPackaging.text = if (po.noPackaging.isNullOrEmpty()) "-" else po.noPackaging
             }
 
             itemView.setOnClickListener { listener.onClick(po) }

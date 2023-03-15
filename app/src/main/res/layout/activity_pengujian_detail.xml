@@ -94,6 +94,11 @@
             android:layout_height="match_parent"
             android:text="TIDAK LOLOS" />
 
+        <com.google.android.material.tabs.TabItem
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:text="RUSAK" />
+
     </com.google.android.material.tabs.TabLayout>
 
     <androidx.recyclerview.widget.RecyclerView

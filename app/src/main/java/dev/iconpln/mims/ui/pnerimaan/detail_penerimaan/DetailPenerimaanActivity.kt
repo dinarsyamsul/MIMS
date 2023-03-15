@@ -9,6 +9,7 @@ import android.text.Editable
 import android.text.TextWatcher
 import android.util.Log
 import android.view.ViewGroup
+import android.widget.ImageView
 import android.widget.TextView
 import android.widget.Toast
 import androidx.activity.viewModels
@@ -38,6 +39,8 @@ import dev.iconpln.mims.utils.SharedPrefsUtils
 import org.joda.time.DateTime
 import org.joda.time.LocalDateTime
 import java.util.ArrayList
+import java.util.Random
+import java.util.UUID
 
 
 class DetailPenerimaanActivity : AppCompatActivity(),Loadable {
@@ -49,6 +52,7 @@ class DetailPenerimaanActivity : AppCompatActivity(),Loadable {
     private lateinit var listDetailPen: MutableList<TPosDetailPenerimaan>
     private lateinit var penerimaan: TPosPenerimaan
     private var noDo: String = ""
+    private var partialCode = ""
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -56,6 +60,7 @@ class DetailPenerimaanActivity : AppCompatActivity(),Loadable {
         setContentView(binding.root)
         daoSession = (application as MyApplication).daoSession!!
         noDo = intent.getStringExtra("noDo")!!
+        partialCode = "${noDo}${UUID.randomUUID()}"
 
         listDetailPen = daoSession.tPosDetailPenerimaanDao.queryBuilder()
             .where(TPosDetailPenerimaanDao.Properties.NoDoSmar.eq(noDo))
@@ -65,7 +70,7 @@ class DetailPenerimaanActivity : AppCompatActivity(),Loadable {
             .where(TPosPenerimaanDao.Properties.NoDoSmar.eq(noDo)).limit(1).unique()
 
         adapter = DetailPenerimaanAdapter(arrayListOf(), object : DetailPenerimaanAdapter.OnAdapterListener{
-            override fun onClick(po: TPosDetailPenerimaan) {}},daoSession)
+            override fun onClick(po: TPosDetailPenerimaan) {}},daoSession,partialCode)
 
         adapter.setData(listDetailPen)
 
@@ -108,15 +113,19 @@ class DetailPenerimaanActivity : AppCompatActivity(),Loadable {
                     for (i in listDetailPen){
                         i.statusPenerimaan = "SESUAI"
                         i.isChecked = 1
+                        i.partialCode = partialCode
                         daoSession.update(i)
                     }
+                    Log.d("partialCode", partialCode)
                     adapter.setData(listDetailPen)
                 }else{
                     for (i in listDetailPen){
                         i.statusPenerimaan = ""
                         i.isChecked = 0
+                        i.partialCode = ""
                         daoSession.update(i)
                     }
+                    Log.d("partialCode", partialCode)
                     adapter.setData(listDetailPen)
                 }
             }
@@ -153,12 +162,24 @@ class DetailPenerimaanActivity : AppCompatActivity(),Loadable {
     }
 
     private fun validTerima() {
-        for (i in listDetailPen){
-            Log.d("checkList", i.statusPenerimaan)
-            if (i.statusPenerimaan == "TIDAK SESUAI"){
-                Toast.makeText(this@DetailPenerimaanActivity, "Tidak boleh terima dengan status tidak sesuai atau kosong", Toast.LENGTH_SHORT).show()
-                return
+        var data = daoSession.tPosDetailPenerimaanDao.queryBuilder()
+            .where(TPosDetailPenerimaanDao.Properties.NoDoSmar.eq(noDo))
+            .where(TPosDetailPenerimaanDao.Properties.IsDone.eq(0))
+            .where(TPosDetailPenerimaanDao.Properties.IsChecked.eq(1)).list()
+
+        Log.d("size", data.size.toString())
+
+        if (data.size > 0){
+            for (i in data){
+                Log.d("checkList", i.statusPenerimaan)
+                if (i.statusPenerimaan == "TIDAK SESUAI"){
+                    Toast.makeText(this@DetailPenerimaanActivity, "Tidak boleh terima dengan status tidak sesuai", Toast.LENGTH_SHORT).show()
+                    return
+                }
             }
+        }else{
+            Toast.makeText(this@DetailPenerimaanActivity, "Tidak boleh terima dengan status kosong", Toast.LENGTH_SHORT).show()
+            return
         }
 
         val dialog = Dialog(this@DetailPenerimaanActivity)
@@ -231,10 +252,14 @@ class DetailPenerimaanActivity : AppCompatActivity(),Loadable {
         val iService = Intent(applicationContext, ReportUploader::class.java)
         startService(iService)
 
-        updateData(checkedDetPen)
+        for (i in checkedDetPen){
+            i.isDone = 1
+            daoSession.tPosDetailPenerimaanDao.update(i)
+        }
 
         var noPrk = "PRK${noDo}${currentDateTime}"
         if (isPeriksa == 1){
+
             var item = TPemeriksaan()
             item.isDone = 0
             item.createdDate = penerimaan.createdDate
@@ -269,11 +294,17 @@ class DetailPenerimaanActivity : AppCompatActivity(),Loadable {
 
             daoSession.tPemeriksaanDao.insert(item)
 
-            val size = checkedDetPen.size
+            val detailListlistToInsert = daoSession.tPosDetailPenerimaanDao.queryBuilder()
+                .where(TPosDetailPenerimaanDao.Properties.NoDoSmar.eq(noDo))
+                .where(TPosDetailPenerimaanDao.Properties.IsDone.eq(1))
+                .where(TPosDetailPenerimaanDao.Properties.PartialCode.eq(partialCode))
+                .where(TPosDetailPenerimaanDao.Properties.IsComplaint.eq(0)).list()
+
+            val size = detailListlistToInsert.size
             if (size > 0) {
                 val items = arrayOfNulls<TPemeriksaanDetail>(size)
                 var item: TPemeriksaanDetail
-                for ((i, model) in checkedDetPen.withIndex()){
+                for ((i, model) in detailListlistToInsert.withIndex()){
                     item = TPemeriksaanDetail()
                     item.isDone = 0
                     item.isChecked = 0
@@ -293,12 +324,47 @@ class DetailPenerimaanActivity : AppCompatActivity(),Loadable {
                 daoSession.tPemeriksaanDetailDao.insertInTx(items.toList())
             }
         }
+
+        updateData()
     }
 
-    private fun updateData(checkedDetPen: List<TPosDetailPenerimaan>) {
-        for (i in checkedDetPen){
-            i.isDone = 1
-            daoSession.tPosDetailPenerimaanDao.update(i)
+    private fun updateData() {
+        val checkedList = daoSession.tPosDetailPenerimaanDao.queryBuilder()
+            .where(TPosDetailPenerimaanDao.Properties.NoDoSmar.eq(noDo))
+            .where(TPosDetailPenerimaanDao.Properties.IsDone.eq(1)).list()
+
+        val checkSnKomplaint = daoSession.tPosDetailPenerimaanDao.queryBuilder()
+            .where(TPosDetailPenerimaanDao.Properties.NoDoSmar.eq(noDo))
+            .where(TPosDetailPenerimaanDao.Properties.IsDone.eq(1))
+            .where(TPosDetailPenerimaanDao.Properties.IsComplaint.eq(1)).list().size > 0
+
+        val checkListPemeriksaan = daoSession.tPemeriksaanDao.queryBuilder()
+            .where(TPemeriksaanDao.Properties.NoDoSmar.eq(noDo)).list().size > 0
+
+        if (checkedList.size == listDetailPen.size){
+
+            if (checkListPemeriksaan){
+                if (checkSnKomplaint){
+                    penerimaan.statusPenerimaan = "DITERIMA"
+                    penerimaan.isRating = 0
+                    daoSession.tPosPenerimaanDao.update(penerimaan)
+                }else{
+                    penerimaan.statusPenerimaan = "DITERIMA"
+                    penerimaan.isRating = 0
+                    daoSession.tPosPenerimaanDao.update(penerimaan)
+                }
+            }else{
+                if (checkSnKomplaint){
+                    penerimaan.statusPenerimaan = "DITERIMA"
+                    penerimaan.isRating = 0
+                    daoSession.tPosPenerimaanDao.update(penerimaan)
+                }else{
+                    penerimaan.statusPenerimaan = "DITERIMA"
+                    penerimaan.isRating = 1
+                    penerimaan.statusPemeriksaan = "SUDAH DIPERIKSA"
+                    daoSession.tPosPenerimaanDao.update(penerimaan)
+                }
+            }
         }
 
         val dialog = Dialog(this@DetailPenerimaanActivity)
@@ -396,6 +462,42 @@ class DetailPenerimaanActivity : AppCompatActivity(),Loadable {
         }catch (e: Exception){
             Log.e("exception", e.toString())
         }
+    }
+
+    override fun onBackPressed() {
+        val dialog = Dialog(this@DetailPenerimaanActivity)
+        dialog.setContentView(R.layout.popup_validation)
+        dialog.window!!.setLayout(ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.WRAP_CONTENT)
+        dialog.setCancelable(false)
+        dialog.window!!.attributes.windowAnimations = R.style.DialogUpDown
+
+        val btnYa = dialog.findViewById(R.id.btn_ya) as AppCompatButton
+        val btnTidak = dialog.findViewById(R.id.btn_tidak) as AppCompatButton
+        val message = dialog.findViewById(R.id.message) as TextView
+        val txtMessage = dialog.findViewById(R.id.txt_message) as TextView
+        val icon = dialog.findViewById(R.id.imageView11) as ImageView
+
+        message.text = "Yakin untuk keluar?"
+        txtMessage.text = "Jika ya maka data tidak akan tersimpan"
+        icon.setImageResource(R.drawable.ic_warning)
+
+        btnTidak.setOnClickListener {
+            dialog.dismiss();
+        }
+
+        btnYa.setOnClickListener {
+            super.onBackPressed()
+            for (i in listDetailPen){
+                i.statusPenerimaan = ""
+                i.isChecked = 0
+                i.partialCode = ""
+                daoSession.update(i)
+            }
+
+            dialog.dismiss()
+        }
+
+        dialog.show();
     }
 
     override fun setLoading(show: Boolean, title: String, message: String) {

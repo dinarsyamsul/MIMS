@@ -13,6 +13,7 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import dev.iconpln.mims.MyApplication
 import dev.iconpln.mims.data.local.database.DaoSession
 import dev.iconpln.mims.data.local.database.TPemeriksaan
+import dev.iconpln.mims.data.local.database.TPemeriksaanDao
 import dev.iconpln.mims.data.local.database.TPemeriksaanDetailDao
 import dev.iconpln.mims.databinding.ActivityPemeriksaanBinding
 import dev.iconpln.mims.ui.pemeriksaan.input_data_pemeriksa.InputDataPemeriksaActivity
@@ -75,6 +76,7 @@ class PemeriksaanActivity : AppCompatActivity() {
         viewModel.pemeriksaanResponse.observe(this){
             adapter.setPeList(it)
             listPemeriksaan = it
+            binding.tvTotalData.text = "Total: ${it.size} data"
         }
 
         viewModel.isLoading.observe(this){
@@ -102,10 +104,10 @@ class PemeriksaanActivity : AppCompatActivity() {
 
                 override fun afterTextChanged(s: Editable?) {
                     noDo = s.toString()
-                    val filter = listPemeriksaan.filter {
-                        it.noDoSmar.lowercase().contains(s.toString().lowercase())
-                    }
-                    adapter.setPeList(filter)
+                    val search = daoSession.tPemeriksaanDao.queryBuilder()
+                        .whereOr(TPemeriksaanDao.Properties.NoDoSmar.like("%"+noDo+"%")
+                        ,TPemeriksaanDao.Properties.PoSapNo.like("%"+noDo+"%")).list()
+                    adapter.setPeList(search)
                 }
 
             })
@@ -117,14 +119,20 @@ class PemeriksaanActivity : AppCompatActivity() {
             dropdownUrutkan.setAdapter(adapterStatus)
             dropdownUrutkan.setOnItemClickListener { parent, view, position, id ->
                 statusPemeriksaan = statusArray[position]
-                if (noDo.isNotEmpty()){
-                    val filter = listPemeriksaan.filter { it.noDoSmar.lowercase().contains(noDo.lowercase())
-                            && it.doStatus.lowercase().contains(statusPemeriksaan.lowercase())}
-                    adapter.setPeList(filter)
+                if (statusPemeriksaan == "TERBARU"){
+                    val search = daoSession.tPemeriksaanDao.queryBuilder()
+                        .whereOr(TPemeriksaanDao.Properties.NoDoSmar.like("%"+noDo+"%")
+                            ,TPemeriksaanDao.Properties.PoSapNo.like("%"+noDo+"%"))
+                        .orderDesc(TPemeriksaanDao.Properties.CreatedDate).list()
+                    adapter.setPeList(search)
                 }else{
-                    val filter = listPemeriksaan.filter { it.doStatus.lowercase().contains(statusArray[position].lowercase()) }
-                    adapter.setPeList(filter)
+                    val search = daoSession.tPemeriksaanDao.queryBuilder()
+                        .whereOr(TPemeriksaanDao.Properties.NoDoSmar.like("%"+noDo+"%")
+                            ,TPemeriksaanDao.Properties.PoSapNo.like("%"+noDo+"%"))
+                        .orderAsc(TPemeriksaanDao.Properties.CreatedDate).list()
+                    adapter.setPeList(search)
                 }
+
             }
         }
     }

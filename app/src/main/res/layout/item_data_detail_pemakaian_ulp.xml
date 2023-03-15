@@ -52,7 +52,6 @@
                 app:layout_constraintStart_toEndOf="@+id/lbl_no_material"
                 app:layout_constraintTop_toTopOf="parent" />
 
-
             <ImageView
                 android:id="@+id/iv_delivery"
                 android:layout_width="30dp"

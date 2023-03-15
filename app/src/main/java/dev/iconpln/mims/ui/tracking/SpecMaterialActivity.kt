@@ -112,11 +112,14 @@ class SpecMaterialActivity : AppCompatActivity() {
                     try {
                         if (response.body()?.status == "success"){
 
-                            val mapper = ObjectMapper()
-                            val prettyJsonString = mapper.writerWithDefaultPrettyPrinter()
-                                .writeValueAsString(response.body()?.datas.toString())
+                            val gson = GsonBuilder().setPrettyPrinting().create()
+                            var prettyJsonString = gson.toJson(response.body()?.datas)
+                            prettyJsonString = prettyJsonString.replace("}","")
+                            prettyJsonString = prettyJsonString.replace("{","")
+                            prettyJsonString = prettyJsonString.replace(",","")
+                            prettyJsonString = prettyJsonString.replace("\"","")
 
-                            content.text = formatString(response.body()?.datas.toString())//prettyJsonString
+                            content.text = prettyJsonString
                         }else{
                             content.text = "Data tidak Ditemukan"
                         }

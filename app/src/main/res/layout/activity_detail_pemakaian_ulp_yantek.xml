@@ -692,7 +692,7 @@
                 android:layout_marginStart="23dp"
                 android:layout_marginTop="20dp"
                 android:fontFamily="@font/montserrat_reguler"
-                android:text="Nomor Material"
+                android:text="No. Material"
                 android:textColor="#3F3D56"
                 android:textSize="14sp"
                 android:textStyle="bold"

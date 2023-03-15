@@ -55,7 +55,7 @@ class MonitoringViewModel: ViewModel() {
                     endDateAdjust = LocalDateTime.now().toString(Config.DATE)
                 }
                 val listMonitoring = daoSession.tPosDao.queryBuilder()
-                    .where(TPosDao.Properties.PoSapNo.like("%"+ noPo +"%"))
+                    .where(TPosDao.Properties.PoMpNo.like("%"+ noPo +"%"))
                     .where(TPosDao.Properties.NoDoSmar.like("%"+ noDo +"%"))
                     .where(TPosDao.Properties.CreatedDate.between(startDate,endDateAdjust))
                     .list()

@@ -34,7 +34,7 @@
         android:layout_height="wrap_content"
         android:layout_marginEnd="80dp"
         android:fontFamily="@font/montserrat_reguler"
-        android:text="Penerimaan"
+        android:text="Rating Penerimaan"
         android:textAlignment="center"
         android:textColor="@color/white"
         android:textSize="16dp"

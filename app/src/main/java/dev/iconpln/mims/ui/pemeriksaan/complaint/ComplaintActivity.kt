@@ -73,7 +73,9 @@ class ComplaintActivity : AppCompatActivity(), Loadable {
             .where(TPosDetailPenerimaanDao.Properties.IsDone.eq(0))
             .where(TPosDetailPenerimaanDao.Properties.IsChecked.eq(0)).list()
 
-        penerimaan = daoSession.tPosPenerimaanDao.queryBuilder().where(TPosPenerimaanDao.Properties.NoDoSmar.eq(noDo)).limit(1).unique()
+        penerimaan = daoSession.tPosPenerimaanDao.queryBuilder()
+            .where(TPosPenerimaanDao.Properties.NoDoSmar.eq(noDo))
+            .limit(1).unique()
         photoNumber = listPhoto.size + 1
 
         adapter = AddPhotoAdapter(arrayListOf(), object : AddPhotoAdapter.OnAdapterListener{

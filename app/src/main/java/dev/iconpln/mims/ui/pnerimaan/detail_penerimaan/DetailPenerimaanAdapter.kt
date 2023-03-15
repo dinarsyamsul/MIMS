@@ -13,7 +13,7 @@ import dev.iconpln.mims.databinding.ItemPackagingPemeriksaanBinding
 import dev.iconpln.mims.databinding.ItemSnMaterialBinding
 
 class DetailPenerimaanAdapter(val lisModels: MutableList<TPosDetailPenerimaan>,
-                              var listener: OnAdapterListener, var daoSession: DaoSession)
+                              var listener: OnAdapterListener, var daoSession: DaoSession,var partialCode: String)
     : RecyclerView.Adapter<DetailPenerimaanAdapter.ViewHolder>() {
 
     fun setData(po: List<TPosDetailPenerimaan>){
@@ -62,11 +62,15 @@ class DetailPenerimaanAdapter(val lisModels: MutableList<TPosDetailPenerimaan>,
                     if (isChecked){
                         tpd.statusPenerimaan = "TIDAK SESUAI"
                         tpd.isChecked = 1
+                        tpd.partialCode = partialCode
                         daoSession.tPosDetailPenerimaanDao.update(tpd)
+                        Log.d("partialCode", partialCode)
                     }else{
                         tpd.statusPenerimaan = ""
                         tpd.isChecked = 0
+                        tpd.partialCode = ""
                         daoSession.tPosDetailPenerimaanDao.update(tpd)
+                        Log.d("partialCode", partialCode)
                     }
                 }
 
@@ -75,11 +79,15 @@ class DetailPenerimaanAdapter(val lisModels: MutableList<TPosDetailPenerimaan>,
                     if (isChecked){
                         tpd.statusPenerimaan = "SESUAI"
                         tpd.isChecked = 1
+                        tpd.partialCode = partialCode
                         daoSession.tPosDetailPenerimaanDao.update(tpd)
+                        Log.d("partialCode", partialCode)
                     }else{
                         tpd.statusPenerimaan = ""
                         tpd.isChecked = 0
+                        tpd.partialCode = ""
                         daoSession.tPosDetailPenerimaanDao.update(tpd)
+                        Log.d("partialCode", partialCode)
                     }
 
                 }

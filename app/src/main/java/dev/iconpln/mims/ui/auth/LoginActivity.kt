@@ -58,6 +58,7 @@ class LoginActivity : AppCompatActivity() {
     private var mIpAddress: String = ""
     private var androidVersion: Int = 0
     private var dateTimeUtc: Long = 0L
+    private var isRememberMe = false
     private var APP_STORAGE_ACCESS_REQUEST_CODE=501
 
     private lateinit var dialog : Dialog
@@ -66,6 +67,10 @@ class LoginActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         binding = ActivityLoginBinding.inflate(layoutInflater)
         setContentView(binding.root)
+
+        isRememberMe = SharedPrefsUtils.getBooleanPreference(this@LoginActivity,"isRememberMe",false)
+
+        Log.d("checkRememberMe", isRememberMe.toString())
 
         dialog = Dialog(this@LoginActivity)
         dialog.setContentView(R.layout.popup_loading)
@@ -139,7 +144,19 @@ class LoginActivity : AppCompatActivity() {
             loginUser()
         }
 
-        binding.txtForgetPassword.setOnClickListener { startActivity(Intent(this@LoginActivity, ForgotPasswordActivity::class.java)) }
+        binding.txtForgetPassword.setOnClickListener {
+            startActivity(Intent(this@LoginActivity, ForgotPasswordActivity::class.java))
+        }
+
+        binding.cbRememberMe.setOnCheckedChangeListener{ buttonView, isChecked ->
+            SharedPrefsUtils.setBooleanPreference(this@LoginActivity,"isRememberMe",isChecked)
+        }
+
+        if (isRememberMe){
+            binding.edtEmail.setText(SharedPrefsUtils.getStringPreference(this@LoginActivity,"username",""))
+            binding.cbRememberMe.isChecked = true
+            Log.d("isCheckedRememberMe",isRememberMe.toString())
+        }
 
     }
 
@@ -204,14 +221,6 @@ class LoginActivity : AppCompatActivity() {
                 tvMsgError.visibility = View.VISIBLE
                 tvMsgError.text = "Password minimal terdiri dari 5 karakter"
                 return
-            }
-
-            CoroutineScope(Dispatchers.Main).launch {
-                if (cbRememberMe.isChecked){
-                    session.rememberMe(username)
-                }else{
-                    session.clearRememberMe()
-                }
             }
 
             daoSession = (application as MyApplication).daoSession!!

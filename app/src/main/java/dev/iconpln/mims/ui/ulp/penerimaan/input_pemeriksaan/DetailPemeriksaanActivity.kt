@@ -164,9 +164,9 @@ class DetailPemeriksaanActivity : AppCompatActivity(),Loadable {
         var plant = SharedPrefsUtils.getStringPreference(this@DetailPemeriksaanActivity,"plant","")
         var storloc = SharedPrefsUtils.getStringPreference(this@DetailPemeriksaanActivity,"storloc","")
         var username = SharedPrefsUtils.getStringPreference(this@DetailPemeriksaanActivity, "username","14.Hexing_Electrical")
-        val reportId = "temp_pemeriksaanUp3" + username + "_" + penerimaans.noPermintaan + "_" + DateTime.now().toString(
+        val reportId = "temp_pemeriksaanUlp" + username + "_" + penerimaans.noPermintaan + "_" + DateTime.now().toString(
             Config.DATETIME)
-        val reportName = "Update Data pemeriksaan up 3"
+        val reportName = "Update Data pemeriksaan ulp"
         val reportDescription = "$reportName: "+ " (" + reportId + ")"
         val params = ArrayList<ReportParameter>()
 
@@ -177,6 +177,42 @@ class DetailPemeriksaanActivity : AppCompatActivity(),Loadable {
 
         val report = GenericReport(reportId, jwt!!, reportName, reportDescription, ApiConfig.sendReportPenerimaanUlpSelesai(), currentDate, Config.NO_CODE, currentUtc, params)
         reports.add(report)
+        //endregion
+
+        val reportIdPetugasPemeriksaan = "temp_petugasPemeriksaanUlp" + username + "_" + penerimaans.noPermintaan + "_" + DateTime.now().toString(
+            Config.DATETIME)
+        val reportNamePetugasPemeriksaan = "Update Data petugas pemeriksaan ulp"
+        val reportDescriptionPetugasPemeriksaan  = "$reportNamePetugasPemeriksaan: "+ " (" + reportIdPetugasPemeriksaan + ")"
+        val paramsPetugasPemeriksaan  = ArrayList<ReportParameter>()
+
+        paramsPetugasPemeriksaan.add(ReportParameter("1", reportIdPetugasPemeriksaan, "tgl_pemeriksaan", penerimaans.tanggalPemeriksaan, ReportParameter.TEXT))
+        paramsPetugasPemeriksaan.add(ReportParameter("2", reportIdPetugasPemeriksaan, "kepala_gudang", penerimaans.kepalaGudangPemeriksa, ReportParameter.TEXT))
+        paramsPetugasPemeriksaan.add(ReportParameter("3", reportIdPetugasPemeriksaan, "no_pk", penerimaans.noPk!!, ReportParameter.TEXT))
+        paramsPetugasPemeriksaan.add(ReportParameter("4", reportIdPetugasPemeriksaan, "nama_pemeriksa_1",penerimaans.pejabatPemeriksa!! , ReportParameter.TEXT))
+        paramsPetugasPemeriksaan.add(ReportParameter("5", reportIdPetugasPemeriksaan, "jabatan_pemeriksa_1",penerimaans.jabatanPemeriksa!! , ReportParameter.TEXT))
+        paramsPetugasPemeriksaan.add(ReportParameter("6", reportIdPetugasPemeriksaan, "nama_pemeriksa_2",penerimaans.namaPetugasPemeriksa!! , ReportParameter.TEXT))
+        paramsPetugasPemeriksaan.add(ReportParameter("7", reportIdPetugasPemeriksaan, "jabatan_pemeriksa_2",penerimaans.jabatanPetugasPemeriksa!! , ReportParameter.TEXT))
+        paramsPetugasPemeriksaan.add(ReportParameter("8", reportIdPetugasPemeriksaan, "no_transaksi",detailPemeriksaans[0].noTransaksi!! , ReportParameter.TEXT))
+
+        val reportPetugas = GenericReport(reportIdPetugasPemeriksaan, jwt!!, reportNamePetugasPemeriksaan, reportDescriptionPetugasPemeriksaan, ApiConfig.sendReportPetugasPemeriksaanUlp(), currentDate, Config.NO_CODE, currentUtc, paramsPetugasPemeriksaan)
+        reports.add(reportPetugas)
+
+        //endregion
+        val reportIdPetugasPenerimaan = "temp_petugasPenerimaanUlp" + username + "_" + penerimaans.noPermintaan + "_" + DateTime.now().toString(
+            Config.DATETIME)
+        val reportNamePetugasPenerimaan = "Update Data petugas penerimaan ulp"
+        val reportDescriptionPetugasPenerimaan  = "$reportNamePetugasPenerimaan: "+ " (" + reportIdPetugasPenerimaan + ")"
+        val paramsPetugasPenerimaan  = ArrayList<ReportParameter>()
+
+        paramsPetugasPenerimaan.add(ReportParameter("1", reportIdPetugasPenerimaan, "nama_penerima", penerimaans.pejabatPenerima, ReportParameter.TEXT))
+        paramsPetugasPenerimaan.add(ReportParameter("2", reportIdPetugasPenerimaan, "kurir", penerimaans.kurir, ReportParameter.TEXT))
+        paramsPetugasPenerimaan.add(ReportParameter("3", reportIdPetugasPenerimaan, "no_nota", penerimaans.noNota!!, ReportParameter.TEXT))
+        paramsPetugasPenerimaan.add(ReportParameter("4", reportIdPetugasPenerimaan, "tgl_dokumen",penerimaans.tanggalDokumen!! , ReportParameter.TEXT))
+        paramsPetugasPenerimaan.add(ReportParameter("5", reportIdPetugasPenerimaan, "no_transaksi",detailPemeriksaans[0].noTransaksi!! , ReportParameter.TEXT))
+
+        val reportPetugasPenerimaan = GenericReport(reportIdPetugasPenerimaan, jwt!!, reportNamePetugasPenerimaan, reportDescriptionPetugasPenerimaan, ApiConfig.sendReportPetugasPenerimaanUlp(), currentDate, Config.NO_CODE, currentUtc, paramsPetugasPenerimaan)
+        reports.add(reportPetugasPenerimaan)
+
         //endregion
 
         val task = TambahReportTask(this, reports)

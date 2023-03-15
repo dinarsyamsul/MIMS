@@ -25,6 +25,8 @@ class SplashActivity : AppCompatActivity() {
             sessions.session_activity.asLiveData().observe(this){ session ->
                 when(session){
                     Config.IS_LOGIN -> {
+//                        startActivity(Intent(this, HomeActivity::class.java))
+//                        finish()
                         checkingLogin(session)
                     }else -> {
                         startActivity(Intent(this, LoginActivity::class.java))
@@ -37,6 +39,7 @@ class SplashActivity : AppCompatActivity() {
 
     private fun checkingLogin(session: String) {
         sessions.is_login_biometric.asLiveData().observe(this){
+            Log.d("checkSession", it.toString())
             when(it){
                 1 -> {
                     if(session == Config.IS_LOGIN){

@@ -209,6 +209,7 @@ public class MainGenerator {
         tPosPenerimaan.addStringProperty("PetugasPenerima");
         tPosPenerimaan.addStringProperty("KodeStatusDoMims");
         tPosPenerimaan.addStringProperty("StatusPemeriksaan");
+        tPosPenerimaan.addStringProperty("StatusPenerimaan");
         tPosPenerimaan.addStringProperty("KurirPengantar");
         tPosPenerimaan.addStringProperty("NilaiRatingPenerimaan");
         tPosPenerimaan.addStringProperty("NilaiRatingWaktu");
@@ -216,6 +217,7 @@ public class MainGenerator {
         tPosPenerimaan.addStringProperty("DoLineItem");
         tPosPenerimaan.addIntProperty("IsRating");
         tPosPenerimaan.addIntProperty("isDone");
+        tPosPenerimaan.addIntProperty("ratingDone");
 
         // endregion
 
@@ -236,6 +238,7 @@ public class MainGenerator {
         tPosDetailPenerimaan.addIntProperty("IsComplaint");
         tPosDetailPenerimaan.addIntProperty("IsChecked");
         tPosDetailPenerimaan.addStringProperty("DoLineItem");
+        tPosDetailPenerimaan.addStringProperty("PartialCode");
         tPosDetailPenerimaan.addIntProperty("IsDone");
 
         //endregion

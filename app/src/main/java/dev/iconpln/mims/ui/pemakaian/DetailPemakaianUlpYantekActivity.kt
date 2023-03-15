@@ -75,7 +75,6 @@ class DetailPemakaianUlpYantekActivity : AppCompatActivity(),Loadable {
             txtNoPackaging.text = "-"
             txtNoPemesanan.text = pemakaian.noPemesanan
             txtNoReservasi.text = pemakaian.noReservasi
-            txtNomorMaterial.text = "-"
             txtNonBon.text = "-"
             txtPejabatPengesahan.text = "-"
             txtPemeriksa.text = "-"

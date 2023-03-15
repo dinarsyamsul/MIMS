@@ -101,7 +101,7 @@ class MonitoringPermintaanDetailActivity : AppCompatActivity(),Loadable {
 
                 override fun afterTextChanged(s: Editable?) {
                     srcNoMaterialTxt = s.toString()
-                    viewModel.searchDetail(daoSession, srcNoMaterialTxt)
+                    viewModel.searchDetail(daoSession, srcNoMaterialTxt,noTransaksi)
                 }
 
             })

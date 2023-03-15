@@ -10,6 +10,7 @@ import android.os.Looper
 import android.util.Log
 import android.view.ViewGroup
 import android.widget.EditText
+import android.widget.ImageView
 import android.widget.TextView
 import android.widget.Toast
 import androidx.appcompat.widget.AppCompatButton
@@ -28,6 +29,7 @@ import dev.iconpln.mims.data.scan.CustomScanActivity
 import dev.iconpln.mims.databinding.ActivityInputSnPemakaianBinding
 import dev.iconpln.mims.tasks.Loadable
 import dev.iconpln.mims.tasks.TambahReportTask
+import dev.iconpln.mims.ui.rating.RatingActivity
 import dev.iconpln.mims.ui.ulp.penerimaan.input_pemeriksaan.DetailPemeriksaanActivity
 import dev.iconpln.mims.utils.Config
 import dev.iconpln.mims.utils.DateTimeUtils
@@ -73,7 +75,32 @@ class InputSnPemakaianActivity : AppCompatActivity(),Loadable {
 
         adapter = PemakaianUlpSnAdapter(arrayListOf(), object : PemakaianUlpSnAdapter.OnAdapterListener{
             override fun onClick(tms: TListSnMaterialPemakaianUlp) {
-                deleteSn(tms.noSerialNumber)
+                val dialog = Dialog(this@InputSnPemakaianActivity)
+                dialog.setContentView(R.layout.popup_validation);
+                dialog.window!!.setLayout(ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.WRAP_CONTENT);
+                dialog.setCancelable(false);
+                dialog.window!!.attributes.windowAnimations = R.style.DialogUpDown;
+                val btnYa = dialog.findViewById(R.id.btn_ya) as AppCompatButton
+                val btnTidak = dialog.findViewById(R.id.btn_tidak) as AppCompatButton
+                val message = dialog.findViewById(R.id.message) as TextView
+                val txtMessage = dialog.findViewById(R.id.txt_message) as TextView
+                val icon = dialog.findViewById(R.id.imageView11) as ImageView
+
+                message.text = "Yakin untuk untuk menghapus?"
+                txtMessage.text = "Jika ya, maka serial number akan di hapus"
+                icon.setImageResource(R.drawable.ic_warning)
+
+                btnYa.setOnClickListener {
+                    deleteSn(tms.noSerialNumber)
+                    dialog.dismiss();
+
+                }
+
+                btnTidak.setOnClickListener {
+                    dialog.dismiss()
+                }
+
+                dialog.show();
             }
 
         })
@@ -120,7 +147,7 @@ class InputSnPemakaianActivity : AppCompatActivity(),Loadable {
         params.add(ReportParameter("3", reportId, "user_loc", storloc!!, ReportParameter.TEXT))
         params.add(ReportParameter("4", reportId, "username",username!! , ReportParameter.TEXT))
 
-        val report = GenericReport(reportId, jwt!!, reportName, reportDescription, ApiConfig.sendReportPemakaianUlpSelesai(), currentDate, Config.NO_CODE, currentUtc, params)
+        val report = GenericReport(reportId, jwt!!, reportName, reportDescription, ApiConfig.sendReportPemakaianUlpDetail(), currentDate, Config.NO_CODE, currentUtc, params)
         reports.add(report)
         //endregion
 
@@ -153,19 +180,23 @@ class InputSnPemakaianActivity : AppCompatActivity(),Loadable {
                                 .where(TListSnMaterialPemakaianUlpDao.Properties.NoSerialNumber.eq(sn)).list().get(0)
 
                             daoSession.tListSnMaterialPemakaianUlpDao.delete(toDelete)
+
+                            val refreshList = daoSession.tListSnMaterialPemakaianUlpDao.queryBuilder()
+                                .where(TListSnMaterialPemakaianUlpDao.Properties.NoTransaksi.eq(noTransaksi)).list()
+                            adapter.setTmsList(refreshList)
                             showLoading(false)
                         }else{
                             dialog.dismiss()
-                            Toast.makeText(this@InputSnPemakaianActivity, "Data gagal disimpan", Toast.LENGTH_SHORT).show()
+                            Toast.makeText(this@InputSnPemakaianActivity, response.body()?.message, Toast.LENGTH_SHORT).show()
                         }
                     }catch (e: Exception){
                         dialog.dismiss()
-                        Toast.makeText(this@InputSnPemakaianActivity, "Data gagal disimpan", Toast.LENGTH_SHORT).show()
+                        Toast.makeText(this@InputSnPemakaianActivity,e.toString() , Toast.LENGTH_SHORT).show()
                         e.printStackTrace()
                     }
                 }else{
                     dialog.dismiss()
-                    Toast.makeText(this@InputSnPemakaianActivity, "Data gagal disimpan", Toast.LENGTH_SHORT).show()
+                    Toast.makeText(this@InputSnPemakaianActivity, "Data gagal dihapus", Toast.LENGTH_SHORT).show()
                 }
             }
         }
@@ -219,16 +250,16 @@ class InputSnPemakaianActivity : AppCompatActivity(),Loadable {
                             adapter.setTmsList(reloadList)
                         }else{
                             dialog.dismiss()
-                            Toast.makeText(this@InputSnPemakaianActivity, "Data gagal disimpan ", Toast.LENGTH_SHORT).show()
+                            Toast.makeText(this@InputSnPemakaianActivity, response.body()?.message, Toast.LENGTH_SHORT).show()
                         }
                     }catch (e: Exception){
                         dialog.dismiss()
-                        Toast.makeText(this@InputSnPemakaianActivity, "Data gagal disimpan", Toast.LENGTH_SHORT).show()
+                        Toast.makeText(this@InputSnPemakaianActivity, e.toString(), Toast.LENGTH_SHORT).show()
                         e.printStackTrace()
                     }
                 }else{
                     dialog.dismiss()
-                    Toast.makeText(this@InputSnPemakaianActivity, "Gagal terhubung ke server", Toast.LENGTH_SHORT).show()
+                    Toast.makeText(this@InputSnPemakaianActivity, "Gagal menambah serial number", Toast.LENGTH_SHORT).show()
                 }
             }
         }

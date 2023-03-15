@@ -45,16 +45,33 @@ class HomeFragment : Fragment() {
     private var _binding: FragmentHomeBinding? = null
     private val binding get() = _binding!!
     private lateinit var dialog : Dialog
+    private lateinit var daoSession: DaoSession
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
         // Inflate the layout for this fragment
         _binding = FragmentHomeBinding.inflate(inflater, container, false)
+        daoSession = (requireActivity().application as MyApplication).daoSession!!
         val view = binding.root
         return view
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
+
+        val nilaiPenerimaanUlp = daoSession.tPenerimaanUlpDao.queryBuilder()
+            .whereOr(TPenerimaanUlpDao.Properties.StatusPenerimaan.notEq("DITERIMA"),
+                TPenerimaanUlpDao.Properties.StatusPemeriksaan.notEq("SUDAH DIPERIKSA")).list().size.toString()
+
+        val nilaiMaterial = daoSession.tMaterialDao.loadAll().size.toString()
+        val nilaiMonitoring = daoSession.tPosDao.loadAll().size.toString()
+        val nilaiPemakaian = daoSession.tPemakaianDao.loadAll().size.toString()
+        val nilaiPermintaan = daoSession.tTransMonitoringPermintaanDao.queryBuilder()
+            .where(TTransMonitoringPermintaanDao.Properties.KodePengeluaran.eq(1))
+            .list().size.toString()
+        val nilaiPengiriman = daoSession.tPosDao.loadAll().size.toString()
+        val nilaiPengujian = daoSession.tPengujianDao.loadAll().size.toString()
+        val nilaiPenerimaanUp3 =  daoSession.tPosPenerimaanDao.queryBuilder()
+            .where(TPosPenerimaanDao.Properties.KodeStatusDoMims.eq("102")).list().size.toString()
 
         dialog = Dialog(requireActivity())
         dialog.setContentView(R.layout.popup_loading)
@@ -64,7 +81,6 @@ class HomeFragment : Fragment() {
         dialog.window!!.attributes.windowAnimations = R.style.DialogUpDown
 
         val session = SessionManager(requireContext())
-        val daoSession = (requireActivity().application as MyApplication).daoSession!!
 
         var mAndroidId = Helper.getAndroidId(requireActivity())
         var mAppVersion = Helper.getVersionApp(requireActivity())
@@ -125,15 +141,15 @@ class HomeFragment : Fragment() {
                 binding.btnMonitoringPermintaan.visibility = View.VISIBLE
             }
 
-            binding.txtJumlahAttribut.text = daoSession.tMaterialDao.loadAll().size.toString()
-            binding.txtJumlahMonitoring.text = daoSession.tPosDao.loadAll().size.toString()
-            binding.txtJumlahPemakaian.text = daoSession.tPemakaianDao.loadAll().size.toString()
-            binding.txtJumlahMonitoringPermintaan.text = daoSession.tMonitoringPermintaanDao.loadAll().size.toString()
-            binding.txtJumlahPenerimaanUlp.text = daoSession.tPenerimaanUlpDao.loadAll().size.toString()
-            binding.txtJumlahPengiriman.text = daoSession.tPosDao.loadAll().size.toString()
-            binding.txtJumlahPengujian.text = daoSession.tPengujianDao.loadAll().size.toString()
-            binding.txtJumlahTracking.text = daoSession.tPosSnsDao.loadAll().size.toString()
-
+            binding.txtJumlahAttribut.text = nilaiMaterial
+            binding.txtJumlahMonitoring.text = nilaiMonitoring
+            binding.txtJumlahPemakaian.text = nilaiPemakaian
+            binding.txtJumlahMonitoringPermintaan.text = nilaiPermintaan
+            binding.txtJumlahPenerimaanUlp.text = nilaiPenerimaanUlp
+            binding.txtJumlahPengiriman.text = nilaiPengiriman
+            binding.txtJumlahPengujian.text = nilaiPengujian
+            binding.txtJumlahTracking.text = "4" //gak tahu nilainya darimana
+            binding.txtJumlahPenerimaanUp3.text = nilaiPenerimaanUp3
 
         }
 
@@ -170,8 +186,6 @@ class HomeFragment : Fragment() {
                     daoSession,username, mPassword,"",
                     mAndroidId,mAppVersion,mDeviceData,mIpAddress,
                     androidVersion,dateTimeUtc,session)
-                Toast.makeText(requireActivity(),
-                    android.R.string.yes, Toast.LENGTH_SHORT).show()
                 dialog.dismiss()
             }
 
@@ -280,6 +294,12 @@ class HomeFragment : Fragment() {
         daoSession.tSnPermaterialDao.deleteAll()
         daoSession.tListSnMaterialPenerimaanUlpDao.deleteAll()
         daoSession.tListSnMaterialPemakaianUlpDao.deleteAll()
+        daoSession.tPemakaianDao.deleteAll()
+        daoSession.tPemakaianDetailDao.deleteAll()
+        daoSession.tListSnMaterialPenerimaanUlpDao.deleteAll()
+        daoSession.tListSnMaterialPemakaianUlpDao.deleteAll()
+        daoSession.tPhotoDao.deleteAll()
+
 
         if (result != null){
 
@@ -878,24 +898,6 @@ class HomeFragment : Fragment() {
                         items[i] = item
                     }
                     daoSession.tPemakaianDetailDao.insertInTx(items.toList())
-                }
-            }
-
-            if (result.snPenerimaanUlp != null){
-                val size = result.snPenerimaanUlp.size
-                if (size > 0) {
-                    val items = arrayOfNulls<TListSnMaterialPenerimaanUlp>(size)
-                    var item: TListSnMaterialPenerimaanUlp
-                    for ((i, model) in result.snPenerimaanUlp.withIndex()){
-                        item = TListSnMaterialPenerimaanUlp()
-                        item.status = ""
-                        item.noRepackaging = model?.noRepackaging
-                        item.noMaterial = model?.nomorMaterial
-                        item.noSerialNumber = model?.serialNumber
-                        item.isScanned = 0
-                        items[i] = item
-                    }
-                    daoSession.tListSnMaterialPenerimaanUlpDao.insertInTx(items.toList())
                 }
             }
 

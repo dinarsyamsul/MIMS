@@ -61,8 +61,9 @@ class MonitoringPermintaanViewModel: ViewModel() {
         }
     }
 
-    fun searchDetail(daoSession: DaoSession, namaMaterial: String){
+    fun searchDetail(daoSession: DaoSession, namaMaterial: String, noTransaksi: String){
         var listDetail = daoSession.tTransMonitoringPermintaanDetailDao.queryBuilder()
+            .where(TTransMonitoringPermintaanDetailDao.Properties.NoTransaksi.eq(noTransaksi))
             .where(TTransMonitoringPermintaanDetailDao.Properties.NomorMaterial.like("%" + namaMaterial + "%")).list()
         _monitoringPermintaanDetailResponse.postValue(listDetail)
     }

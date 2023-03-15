@@ -6,6 +6,7 @@ import android.text.Editable
 import android.text.TextWatcher
 import android.view.View
 import android.widget.ArrayAdapter
+import android.widget.LinearLayout
 import android.widget.Toast
 import androidx.activity.viewModels
 import androidx.appcompat.app.AppCompatActivity
@@ -25,7 +26,6 @@ class PenerimaanActivity : AppCompatActivity() {
     private var filter : String = ""
     private var srcNoDo: String = ""
     private lateinit var penerimaans:  List<TPosPenerimaan>
-    private lateinit var penerimaanDet: List<TPosDetailPenerimaan>
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -36,12 +36,7 @@ class PenerimaanActivity : AppCompatActivity() {
         penerimaans = daoSession.tPosPenerimaanDao.queryBuilder()
             .where(TPosPenerimaanDao.Properties.KodeStatusDoMims.eq("102")).list()
 
-        penerimaanDet = daoSession.tPosDetailPenerimaanDao.queryBuilder()
-            .where(TPosDetailPenerimaanDao.Properties.IsDone.eq(0))
-            .where(TPosDetailPenerimaanDao.Properties.IsChecked.eq(0)).list()
-
         viewModel.getPenerimaan(daoSession,penerimaans)
-        viewModel.insertDetailPenerimaan(daoSession,penerimaanDet)
 
         adapter = PenerimaanAdapter(arrayListOf(), object : PenerimaanAdapter.OnAdapterListener{
             override fun onClick(po: TPosPenerimaan) {
@@ -59,11 +54,11 @@ class PenerimaanActivity : AppCompatActivity() {
                 if (po.tanggalDiterima.isNullOrEmpty()){
                     Toast.makeText(this@PenerimaanActivity, "Kamu belum melakukan input data penerimaan", Toast.LENGTH_SHORT).show()
                 }else{
-                    val penerimaans = daoSession.tPosDetailPenerimaanDao.queryBuilder()
+                    val penerimaanDetails = daoSession.tPosDetailPenerimaanDao.queryBuilder()
                         .where(TPosDetailPenerimaanDao.Properties.NoDoSmar.eq(po.noDoSmar))
                         .where(TPosDetailPenerimaanDao.Properties.IsDone.eq(0)).list()
 
-                    if (penerimaans.isNullOrEmpty()){
+                    if (penerimaanDetails.isNullOrEmpty()){
                         Toast.makeText(this@PenerimaanActivity, "Kamu sudah melakukan pemeriksaan dokumen di DO ini", Toast.LENGTH_SHORT).show()
                     }else{
                         startActivity(Intent(this@PenerimaanActivity, DetailPenerimaanActivity::class.java)
@@ -92,16 +87,12 @@ class PenerimaanActivity : AppCompatActivity() {
             adapter.setData(it)
         }
 
-        viewModel.isLoading.observe(this){
-            when(it){
-                true -> binding.progressBar.visibility = View.VISIBLE
-                false -> binding.progressBar.visibility = View.GONE
-            }
-        }
-
         with(binding){
+            tvTotalData.text = "Total: ${penerimaans.size} data"
             btnBack.setOnClickListener { onBackPressed() }
-            setRecyclerView(false)
+            binding.rvPenerimaan.adapter = adapter
+            binding.rvPenerimaan.setHasFixedSize(true)
+            binding.rvPenerimaan.layoutManager = LinearLayoutManager(this@PenerimaanActivity, LinearLayoutManager.VERTICAL, false)
 
             srcNomorPoDo.addTextChangedListener(object : TextWatcher{
                 override fun beforeTextChanged(
@@ -115,10 +106,12 @@ class PenerimaanActivity : AppCompatActivity() {
 
                 override fun afterTextChanged(s: Editable?) {
                     srcNoDo = s.toString()
-                    val filter = penerimaans.filter {
-                        it.noDoSmar.lowercase().contains(s.toString().lowercase())
-                    }
-                    adapter.setData(filter)
+                    val search = daoSession.tPosPenerimaanDao.queryBuilder()
+                        .where(TPosPenerimaanDao.Properties.KodeStatusDoMims.eq("102"))
+                        .whereOr(TPosPenerimaanDao.Properties.NoDoSmar.like("%"+srcNoDo+"%"),
+                            TPosPenerimaanDao.Properties.PoSapNo.like("%"+srcNoDo+"%"))
+                        .list()
+                    adapter.setData(search)
                 }
 
             })
@@ -131,22 +124,22 @@ class PenerimaanActivity : AppCompatActivity() {
             dropdownUrutkan.setOnItemClickListener { parent, view, position, id ->
                 filter = statusArray[position]
                 if (filter == "TERBARU"){
-                    setRecyclerView(false)
+                    val search = daoSession.tPosPenerimaanDao.queryBuilder()
+                        .where(TPosPenerimaanDao.Properties.KodeStatusDoMims.eq("102"))
+                        .whereOr(TPosPenerimaanDao.Properties.NoDoSmar.like("%"+srcNoDo+"%"),TPosPenerimaanDao.Properties.PoSapNo.like("%"+srcNoDo+"%"))
+                        .orderDesc(TPosPenerimaanDao.Properties.CreatedDate)
+                        .list()
+                    adapter.setData(search)
                 }else{
-                    setRecyclerView(true)
+                    val search = daoSession.tPosPenerimaanDao.queryBuilder()
+                        .where(TPosPenerimaanDao.Properties.KodeStatusDoMims.eq("102"))
+                        .whereOr(TPosPenerimaanDao.Properties.NoDoSmar.like("%"+srcNoDo+"%"),TPosPenerimaanDao.Properties.PoSapNo.like("%"+srcNoDo+"%"))
+                        .orderAsc(TPosPenerimaanDao.Properties.CreatedDate)
+                        .list()
+                    adapter.setData(search)
                 }
+
             }
         }
-    }
-
-    private fun setRecyclerView(reverse: Boolean) {
-        binding.rvPenerimaan.adapter = adapter
-        binding.rvPenerimaan.setHasFixedSize(true)
-        val lm = LinearLayoutManager(this@PenerimaanActivity)
-        lm.stackFromEnd = reverse
-        lm.orientation = LinearLayoutManager.VERTICAL
-        lm.reverseLayout = reverse
-        binding.rvPenerimaan.layoutManager = lm
-
     }
 }

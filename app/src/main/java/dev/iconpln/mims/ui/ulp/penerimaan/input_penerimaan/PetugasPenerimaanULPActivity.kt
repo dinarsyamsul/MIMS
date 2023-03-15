@@ -54,7 +54,7 @@ class PetugasPenerimaanULPActivity : AppCompatActivity() {
             edtKurir.setText(penerimaans.kurir)
             edtNota.setText(penerimaans.noNota)
             edtNoPk.setText(penerimaans.noPk)
-            etJabatan.setText(penerimaans.pejabatPenerima)
+            edtNamaPenerima.setText(penerimaans.pejabatPenerima)
         }
     }
 
@@ -63,7 +63,7 @@ class PetugasPenerimaanULPActivity : AppCompatActivity() {
             val kepalaGudang = edtKepalaGudang.text.toString()
             val noPk = edtNoPk.text.toString()
             val tglDoc = edtTanggalDokumen.text.toString()
-            val pejabatPenerima = etJabatan.text.toString()
+            val pejabatPenerima = edtNamaPenerima.text.toString()
             val kurir = edtKurir.text.toString()
             val noNota = edtNota.text.toString()
 

@@ -73,6 +73,9 @@ class PengujianDetailActivity : AppCompatActivity() {
                     }else if (tab?.text == "TIDAK LOLOS"){
                         filter = tab?.text.toString()
                         doSearch()
+                    }else if (tab?.text == "RUSAK"){
+                        filter = tab?.text.toString()
+                        doSearch()
                     }
                 }
 

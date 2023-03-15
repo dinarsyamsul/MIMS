@@ -64,7 +64,8 @@ class DetailDataAtributeMaterialActivity : AppCompatActivity() {
     }
 
     private fun doSearch() {
-        val listFilter = daoSession.tMaterialDetailDao.queryBuilder().list().filter { it.noProduksi.contains(sn) }
+        val listFilter = daoSession.tMaterialDetailDao.queryBuilder()
+            .where(TMaterialDetailDao.Properties.SerialNumber.like("%"+sn+"%")).list()
         adapter.setMaterialList(listFilter)
     }
 

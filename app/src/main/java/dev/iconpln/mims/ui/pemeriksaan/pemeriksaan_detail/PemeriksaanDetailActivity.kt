@@ -10,6 +10,7 @@ import android.text.Editable
 import android.text.TextWatcher
 import android.util.Log
 import android.view.ViewGroup
+import android.widget.ImageView
 import android.widget.TextView
 import android.widget.Toast
 import androidx.appcompat.widget.AppCompatButton
@@ -29,7 +30,6 @@ import dev.iconpln.mims.databinding.ActivityPemeriksaanDetailBinding
 import dev.iconpln.mims.tasks.Loadable
 import dev.iconpln.mims.tasks.TambahReportTask
 import dev.iconpln.mims.ui.pemeriksaan.PemeriksaanActivity
-import dev.iconpln.mims.ui.pemeriksaan.complaint.ComplaintActivity
 import dev.iconpln.mims.ui.pemeriksaan.complaint_pemeriksaan.ComplaintPemeriksaanActivity
 import dev.iconpln.mims.utils.Config
 import dev.iconpln.mims.utils.DateTimeUtils
@@ -48,6 +48,8 @@ class PemeriksaanDetailActivity : AppCompatActivity(), Loadable {
     private var progressDialog: AlertDialog? = null
     private var noPem: String = ""
     private var noDo: String = ""
+    private var totalCacat = 0
+    private var totalNormal = 0
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -67,9 +69,30 @@ class PemeriksaanDetailActivity : AppCompatActivity(), Loadable {
         pemeriksaan = daoSession.tPemeriksaanDao.queryBuilder()
             .where(TPemeriksaanDao.Properties.NoPemeriksaan.eq(noPem)).limit(1).unique()
 
-        adapter = DetailPemeriksaanAdapter(arrayListOf(), object : DetailPemeriksaanAdapter.OnAdapterListener{
-            override fun onClick(po: TPemeriksaanDetail) {
+        adapter = DetailPemeriksaanAdapter(arrayListOf(), object : DetailPemeriksaanAdapter.OnAdapterListenerNormal{
+            override fun onClick(po: Boolean) {
+                if (po) {
+                    totalNormal++
+                    binding.tvTotalCacat.text = "${totalCacat} Cacat"
+                    binding.tvTotalNormal.text = "${totalNormal} Normal"
+                }else{
+                    totalNormal--
+                    binding.tvTotalCacat.text = "${totalCacat} Cacat"
+                    binding.tvTotalNormal.text = "${totalNormal} Normal"
+                }
+            }
 
+        },object : DetailPemeriksaanAdapter.OnAdapterListenerCacat{
+            override fun onClick(po: Boolean) {
+                if (po) {
+                    totalCacat++
+                    binding.tvTotalCacat.text = "${totalCacat} Cacat"
+                    binding.tvTotalNormal.text = "${totalNormal} Normal"
+                }else{
+                    totalCacat--
+                    binding.tvTotalCacat.text = "${totalCacat} Cacat"
+                    binding.tvTotalNormal.text = "${totalNormal} Normal"
+                }
             }
 
         },daoSession)
@@ -77,6 +100,8 @@ class PemeriksaanDetailActivity : AppCompatActivity(), Loadable {
         adapter.setPedList(listPemDetail)
 
         with(binding){
+            tvTotalData.text = "Total: ${listPemDetail.size} data"
+
             rvListSn.adapter = adapter
             rvListSn.layoutManager = LinearLayoutManager(this@PemeriksaanDetailActivity, LinearLayoutManager.VERTICAL, false)
             rvListSn.setHasFixedSize(true)
@@ -104,9 +129,13 @@ class PemeriksaanDetailActivity : AppCompatActivity(), Loadable {
                 override fun onTextChanged(s: CharSequence?, start: Int, before: Int, count: Int) {}
 
                 override fun afterTextChanged(s: Editable?) {
-                    val listSnsFilter = listPemDetail.filter {
-                        it.sn.toLowerCase().contains(s.toString().toLowerCase())
-                    }
+                    val listSnsFilter = daoSession.tPemeriksaanDetailDao.queryBuilder()
+                        .where(TPemeriksaanDetailDao.Properties.NoPemeriksaan.eq(noPem))
+                        .where(TPemeriksaanDetailDao.Properties.IsPeriksa.eq(1))
+                        .where(TPemeriksaanDetailDao.Properties.IsComplaint.eq(0))
+                        .whereOr(TPemeriksaanDetailDao.Properties.Sn.like("%"+s.toString()+"%"),
+                            TPemeriksaanDetailDao.Properties.NoPackaging.like("%"+s.toString()+"%"))
+                        .list()
                     adapter.setPedList(listSnsFilter)
                 }
 
@@ -120,6 +149,9 @@ class PemeriksaanDetailActivity : AppCompatActivity(), Loadable {
                         i.isChecked = 1
                         daoSession.update(i)
                     }
+
+                    tvTotalCacat.text = "${0} Cacat"
+                    tvTotalNormal.text = "${listPemDetail.size} Normal"
                     adapter.setPedList(listPemDetail)
                 }else{
                     for (i in listPemDetail){
@@ -127,6 +159,8 @@ class PemeriksaanDetailActivity : AppCompatActivity(), Loadable {
                         i.isChecked = 0
                         daoSession.update(i)
                     }
+                    tvTotalCacat.text = "${0} Cacat"
+                    tvTotalNormal.text = "${0} Normal"
                     adapter.setPedList(listPemDetail)
                 }
             }
@@ -139,6 +173,8 @@ class PemeriksaanDetailActivity : AppCompatActivity(), Loadable {
                         i.isChecked = 1
                         daoSession.update(i)
                     }
+                    tvTotalCacat.text = "${listPemDetail.size} Cacat"
+                    tvTotalNormal.text = "${0} Normal"
                     adapter.setPedList(listPemDetail)
                 }else{
                     for (i in listPemDetail){
@@ -146,6 +182,8 @@ class PemeriksaanDetailActivity : AppCompatActivity(), Loadable {
                         i.isChecked = 0
                         daoSession.update(i)
                     }
+                    tvTotalCacat.text = "${0} Cacat"
+                    tvTotalNormal.text = "${0} Normal"
                     adapter.setPedList(listPemDetail)
                 }
             }
@@ -163,10 +201,22 @@ class PemeriksaanDetailActivity : AppCompatActivity(), Loadable {
     }
 
     private fun validTerima() {
-        for (i in listPemDetail){
+        val data = daoSession.tPemeriksaanDetailDao.queryBuilder()
+            .where(TPemeriksaanDetailDao.Properties.NoPemeriksaan.eq(noPem))
+            .where(TPemeriksaanDetailDao.Properties.IsChecked.eq(1))
+            .where(TPemeriksaanDetailDao.Properties.IsPeriksa.eq(1))
+            .where(TPemeriksaanDetailDao.Properties.IsComplaint.eq(0))
+            .list()
+
+        if (data.size == 0){
+            Toast.makeText(this@PemeriksaanDetailActivity, "Tidak boleh terima dengan status kosong", Toast.LENGTH_SHORT).show()
+            return
+        }
+
+        for (i in data){
             Log.d("checkList", i.statusPemeriksaan)
-            if (i.statusPemeriksaan.isNullOrEmpty() || i.statusPemeriksaan == "CACAT" ){
-                Toast.makeText(this@PemeriksaanDetailActivity, "Tidak boleh terima dengan status kosong atau cacat", Toast.LENGTH_SHORT).show()
+            if (i.statusPemeriksaan == "CACAT"){
+                Toast.makeText(this@PemeriksaanDetailActivity, "Tidak boleh terima dengan status cacat", Toast.LENGTH_SHORT).show()
                 return
             }
         }
@@ -195,6 +245,13 @@ class PemeriksaanDetailActivity : AppCompatActivity(), Loadable {
     }
 
     private fun updateData() {
+        var checkIsDone = daoSession.tPemeriksaanDetailDao.queryBuilder()
+            .where(TPemeriksaanDetailDao.Properties.NoPemeriksaan.eq(noPem))
+            .where(TPemeriksaanDetailDao.Properties.IsPeriksa.eq(1))
+            .where(TPemeriksaanDetailDao.Properties.IsDone.eq(1))
+            .where(TPemeriksaanDetailDao.Properties.IsComplaint.eq(0))
+            .list()
+
         var checkSnDiterima = daoSession.tPemeriksaanDetailDao.queryBuilder()
             .where(TPemeriksaanDetailDao.Properties.NoPemeriksaan.eq(noPem))
             .where(TPemeriksaanDetailDao.Properties.IsPeriksa.eq(1))
@@ -208,7 +265,6 @@ class PemeriksaanDetailActivity : AppCompatActivity(), Loadable {
             .where(TPemeriksaanDetailDao.Properties.IsComplaint.eq(1))
             .where(TPemeriksaanDetailDao.Properties.IsChecked.eq(1))
             .list()
-
 
         var listPemDetailChecked = daoSession.tPemeriksaanDetailDao.queryBuilder()
             .where(TPemeriksaanDetailDao.Properties.NoPemeriksaan.eq(noPem))
@@ -262,6 +318,16 @@ class PemeriksaanDetailActivity : AppCompatActivity(), Loadable {
                 daoSession.tPosPenerimaanDao.update(updatePenerimaan)
             }
 
+            if (checkIsDone.size == listPemDetail.size){
+                val updatePenerimaan = daoSession.tPosPenerimaanDao.queryBuilder()
+                    .where(TPosPenerimaanDao.Properties.NoDoSmar.eq(noDo)).list().get(0)
+                updatePenerimaan.statusPemeriksaan = "SUDAH DIPERIKSA"
+                daoSession.tPosPenerimaanDao.update(updatePenerimaan)
+
+                pemeriksaan.statusPemeriksaan = "SELESAI"
+                daoSession.tPemeriksaanDao.update(pemeriksaan)
+            }
+
             submitForm(packagings)
             startActivity(Intent(this@PemeriksaanDetailActivity, PemeriksaanActivity::class.java)
                 .setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP))
@@ -301,10 +367,22 @@ class PemeriksaanDetailActivity : AppCompatActivity(), Loadable {
     }
 
     private fun validComplaint() {
-        for (i in listPemDetail){
+        val data = daoSession.tPemeriksaanDetailDao.queryBuilder()
+            .where(TPemeriksaanDetailDao.Properties.NoPemeriksaan.eq(noPem))
+            .where(TPemeriksaanDetailDao.Properties.IsChecked.eq(1))
+            .where(TPemeriksaanDetailDao.Properties.IsPeriksa.eq(1))
+            .where(TPemeriksaanDetailDao.Properties.IsComplaint.eq(0))
+            .list()
+
+        if(data.isNullOrEmpty()){
+            Toast.makeText(this@PemeriksaanDetailActivity, "Tidak boleh melakukan komplain dengan status kosong", Toast.LENGTH_SHORT).show()
+            return
+        }
+
+        for (i in data){
             Log.d("checkList", i.statusPemeriksaan)
-            if (i.statusPemeriksaan.isNullOrEmpty()){
-                Toast.makeText(this@PemeriksaanDetailActivity, "Tidak boleh melakukan komplain dengan status sesuai atau kosong", Toast.LENGTH_SHORT).show()
+            if (i.statusPemeriksaan == "SESUAI"){
+                Toast.makeText(this@PemeriksaanDetailActivity, "Tidak boleh melakukan komplain dengan status kosong", Toast.LENGTH_SHORT).show()
                 return
             }
         }
@@ -382,6 +460,41 @@ class PemeriksaanDetailActivity : AppCompatActivity(), Loadable {
             progressDialog!!.dismiss()
             e.printStackTrace()
         }
+    }
+
+    override fun onBackPressed() {
+        val dialog = Dialog(this@PemeriksaanDetailActivity)
+        dialog.setContentView(R.layout.popup_validation)
+        dialog.window!!.setLayout(ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.WRAP_CONTENT)
+        dialog.setCancelable(false)
+        dialog.window!!.attributes.windowAnimations = R.style.DialogUpDown
+
+        val btnYa = dialog.findViewById(R.id.btn_ya) as AppCompatButton
+        val btnTidak = dialog.findViewById(R.id.btn_tidak) as AppCompatButton
+        val message = dialog.findViewById(R.id.message) as TextView
+        val txtMessage = dialog.findViewById(R.id.txt_message) as TextView
+        val icon = dialog.findViewById(R.id.imageView11) as ImageView
+
+        message.text = "Yakin untuk keluar?"
+        txtMessage.text = "Jika ya maka data tidak akan tersimpan"
+        icon.setImageResource(R.drawable.ic_warning)
+
+        btnTidak.setOnClickListener {
+            dialog.dismiss();
+        }
+
+        btnYa.setOnClickListener {
+            super.onBackPressed()
+            for (i in listPemDetail){
+                i.statusPemeriksaan = ""
+                i.isChecked = 0
+                daoSession.update(i)
+            }
+
+            dialog.dismiss()
+        }
+
+        dialog.show();
     }
 
     override fun setFinish(result: Boolean, message: String) {
