@@ -46,8 +46,7 @@ class MonitoringPermintaanViewModel: ViewModel() {
                 _isLoading.value = true
 
                 val listMonitoringDetail = daoSession.tTransMonitoringPermintaanDetailDao.queryBuilder()
-                    .where(TTransMonitoringPermintaanDetailDao.Properties.NoTransaksi.eq(noTransaksi))
-                    .where(TTransMonitoringPermintaanDetailDao.Properties.IsDone.eq(0)).list()
+                    .where(TTransMonitoringPermintaanDetailDao.Properties.NoTransaksi.eq(noTransaksi)).list()
 
                 _monitoringPermintaanDetailResponse.postValue(listMonitoringDetail)
 

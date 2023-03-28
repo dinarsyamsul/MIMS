@@ -4,6 +4,7 @@ import android.app.Dialog
 import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import android.util.Log
 import android.view.View
 import android.view.ViewGroup
 import android.widget.Toast
@@ -19,6 +20,7 @@ class ChangePasswordActivity : AppCompatActivity() {
     private val viewModel: AuthViewModel by viewModels()
     private lateinit var username: String
     private lateinit var dialog : Dialog
+    private var usernameFp = ""
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -33,6 +35,7 @@ class ChangePasswordActivity : AppCompatActivity() {
         dialog.window!!.attributes.windowAnimations = R.style.DialogUpDown
 
         username = SharedPrefsUtils.getStringPreference(this,"username","")!!
+        usernameFp = intent.getStringExtra("username").toString()
 
         viewModel.isLoading.observe(this){
             if (it) dialog.show() else dialog.dismiss()
@@ -52,19 +55,29 @@ class ChangePasswordActivity : AppCompatActivity() {
         with(binding){
             btnKirim.setOnClickListener{
                 tvMsgError.visibility = View.GONE
-                val password = edtPasswordBaru.text.toString()
-                val konfPassword = edtPassKonfirmasi.text.toString()
+                val passwordBaru = edtPasswordBaru.text.toString()
+                val konfPasswordBaru = edtKonfirmasiPasswordBaru.text.toString()
+                val passwordSaatIni = edtPasswordSaatIni.text.toString()
+                Log.d("username", username)
 
                 when{
-                    password.isNullOrEmpty() -> {
+                    passwordSaatIni.isNullOrEmpty() -> {
+                        tvMsgError.visibility = View.VISIBLE
+                        tvMsgError.text = "Password saat ini tidak boleh kosong"
+                    }
+                    passwordBaru.isNullOrEmpty() -> {
                         tvMsgError.visibility = View.VISIBLE
                         tvMsgError.text = "Password baru tidak boleh kosong"
                     }
-                    konfPassword.isNullOrEmpty() -> {
+                    konfPasswordBaru.isNullOrEmpty() -> {
                         tvMsgError.visibility = View.VISIBLE
                         tvMsgError.text = "Silahkan masukkan konfirmasi password"
                     }
-                    else -> viewModel.changePasswordProfile(this@ChangePasswordActivity, username, password,konfPassword)
+                    passwordBaru != konfPasswordBaru -> {
+                        tvMsgError.visibility = View.VISIBLE
+                        tvMsgError.text = "Password baru tidak cocok dengan konfirmasi password"
+                    }
+                    else -> viewModel.changePasswordProfile(this@ChangePasswordActivity, username, passwordBaru,passwordSaatIni)
                 }
             }
         }

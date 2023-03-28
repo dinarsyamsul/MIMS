@@ -4,20 +4,24 @@ package dev.iconpln.mims.ui.tracking
 import android.app.Dialog
 import android.os.Bundle
 import android.util.Log
+import android.view.View
 import android.view.Window
 import android.view.WindowManager
 import android.widget.Button
+import android.widget.ProgressBar
 import android.widget.TextView
 import android.widget.Toast
 import androidx.activity.viewModels
 import androidx.appcompat.app.AppCompatActivity
 import androidx.recyclerview.widget.GridLayoutManager
 import androidx.recyclerview.widget.LinearLayoutManager
+import androidx.recyclerview.widget.RecyclerView
 import com.fasterxml.jackson.databind.ObjectMapper
 import com.google.gson.GsonBuilder
 import com.google.gson.JsonObject
 import com.google.gson.JsonParser
 import dev.iconpln.mims.R
+import dev.iconpln.mims.data.remote.DataModelHistory
 import dev.iconpln.mims.data.remote.response.DatasItem
 import dev.iconpln.mims.data.remote.response.HistorisItem
 import dev.iconpln.mims.data.remote.service.ApiConfig
@@ -29,8 +33,7 @@ import kotlinx.coroutines.withContext
 import org.json.JSONException
 
 import org.json.JSONObject
-
-
+import java.security.Key
 
 
 class SpecMaterialActivity : AppCompatActivity() {
@@ -102,34 +105,58 @@ class SpecMaterialActivity : AppCompatActivity() {
         val dialog = Dialog(this@SpecMaterialActivity)
         dialog.setContentView(R.layout.pop_up_tracking_history_detail)
         val btnOk = dialog.findViewById(R.id.btn_ok) as Button
-        val content = dialog.findViewById(R.id.txt_content) as TextView
+        val recyclerView = dialog.findViewById(R.id.rv_detail) as RecyclerView
+        val progressBar = dialog.findViewById(R.id.progressBarPopUp) as ProgressBar
+        val hintKosong = dialog.findViewById(R.id.tv_kosong) as TextView
 
+        progressBar.visibility = View.VISIBLE
         CoroutineScope(Dispatchers.IO).launch {
             val response = ApiConfig.getApiService(this@SpecMaterialActivity).getDetailTrackingHistory(
                 data.serialNumber,data.nomorTransaksi,data.status)
             withContext(Dispatchers.Main){
                 if (response.isSuccessful) {
                     try {
-                        if (response.body()?.status == "success"){
-
+//                        if (response.body()?.status == "success"){
+                            progressBar.visibility = View.GONE
+                            val adapterDetail = HistorySpecDetailAdapter(arrayListOf())
                             val gson = GsonBuilder().setPrettyPrinting().create()
-                            var prettyJsonString = gson.toJson(response.body()?.datas)
-                            prettyJsonString = prettyJsonString.replace("}","")
-                            prettyJsonString = prettyJsonString.replace("{","")
-                            prettyJsonString = prettyJsonString.replace(",","")
-                            prettyJsonString = prettyJsonString.replace("\"","")
+                            var prettyJsonString = gson.toJson(response.body())
+                            Log.d("checkData2", data.status+" "+data.nomorTransaksi+" "+data.serialNumber)
+                            Log.d("checkData", response.body().toString())
 
-                            content.text = prettyJsonString
-                        }else{
-                            content.text = "Data tidak Ditemukan"
-                        }
+                            var arrayData = ArrayList<DataModelHistory>()
+                            val jsonObj = JSONObject(prettyJsonString)
+                            for (key in jsonObj.keys()){
+                                val value = jsonObj.get(key)
+                                arrayData.add(DataModelHistory(key,value.toString()))
+                                Log.d("checkKeyValue", "${key} : ${value}")
+                            }
+                            Log.d("checkArray", arrayData.toString())
+
+                            if (arrayData[0].key == "status"){
+                                recyclerView.visibility = View.GONE
+                                hintKosong.visibility = View.VISIBLE
+                            }else{
+                                recyclerView.visibility = View.VISIBLE
+                                hintKosong.visibility = View.GONE
+                            }
+
+                            adapterDetail.setData(arrayData)
+
+                            recyclerView.adapter = adapterDetail
+                            recyclerView.setHasFixedSize(true)
+                            recyclerView.layoutManager = GridLayoutManager(this@SpecMaterialActivity,2)
+//                        }else{
+//                            content.text = "Data tidak Ditemukan"
+//                        }
 
                     }catch (e: Exception){
+                        progressBar.visibility = View.GONE
                         e.printStackTrace()
                     }
                 }else {
-                    content.text = "Data tidak Ditemukan"
-                    Toast.makeText(this@SpecMaterialActivity, response.message(), Toast.LENGTH_SHORT).show()
+                    progressBar.visibility = View.GONE
+
                 }
             }
         }

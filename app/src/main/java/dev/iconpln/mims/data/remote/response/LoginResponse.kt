@@ -354,7 +354,13 @@ data class PosItem(
 	val ratingResponse: String? = "",
 
 	@field:SerializedName("rating_quality")
-	val ratingQuality: String? = ""
+	val ratingQuality: String? = "",
+
+	@field:SerializedName("status_pemeriksaan")
+	val statusPemeriksaan: String? = "",
+
+	@field:SerializedName("status_penerimaan")
+	val statusPenerimaan: String? = ""
 )
 
 data class PengujiansItem(
@@ -378,7 +384,7 @@ data class PengujiansItem(
 	val qtyTdkLolos: String? = null,
 
 	@field:SerializedName("qty_rusak")
-	val qtyRusak: Any? = null,
+	val qtyRusak: Int? = null,
 
 	@field:SerializedName("unit")
 	val unit: String? = null,
@@ -387,7 +393,10 @@ data class PengujiansItem(
 	val statusUji: String? = null,
 
 	@field:SerializedName("kd_pabrikan")
-	val kdPabrikan: String? = null
+	val kdPabrikan: String? = null,
+
+	@field:SerializedName("tanggal_usul_uji")
+	val tanggalUsulUji: String? = null
 
 )
 
@@ -494,6 +503,8 @@ data class PrivilegeItem(
 )
 
 data class LokasisItem(
+	@field:SerializedName("id")
+	val id: String? = "",
 
 	@field:SerializedName("no_do_mims")
 	val noDoMims: String? = "",

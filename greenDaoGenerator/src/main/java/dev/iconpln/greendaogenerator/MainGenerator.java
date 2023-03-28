@@ -42,6 +42,7 @@ public class MainGenerator {
         tPengujian.addStringProperty("Unit");
         tPengujian.addStringProperty("StatusUji");
         tPengujian.addStringProperty("KdPabrikan");
+        tPengujian.addStringProperty("TanggalUsulUji");
 
         //endregion
 
@@ -59,6 +60,7 @@ public class MainGenerator {
         //region lokasi
         Entity tLokasi = schema.addEntity("TLokasi");
         tLokasi.addIdProperty();
+        tLokasi.addStringProperty("IdLokasi");
         tLokasi.addStringProperty("NoDoSns");
         tLokasi.addStringProperty("Ket");
         tLokasi.addStringProperty("UpdateDate");
@@ -176,6 +178,9 @@ public class MainGenerator {
         tPos.addStringProperty("RatingResponse");
         tPos.addStringProperty("RatingQuality");
         tPos.addStringProperty("RatingDelivery");
+        tPos.addStringProperty("StatusPemeriksaan");
+        tPos.addStringProperty("StatusPenerimaan");
+
 
         // endregion
 

@@ -36,7 +36,7 @@ class PemakaianAdapter(val lisModels: MutableList<TPemakaian>, var listener: OnA
             with(binding){
                 txtNoReservasi.text = if(pemakaian.noReservasi.isNullOrEmpty()) "-" else pemakaian.noReservasi
                 txtStatusReservasi.text = if(pemakaian.statusKirimAgo.isNullOrEmpty()) "-" else pemakaian.statusSap
-                txtTglReservasi.text = if(pemakaian.tanggalReservasi.isNullOrEmpty()) "-" else pemakaian.tanggalReservasi
+                txtTglReservasi.text = if(pemakaian.tanggalReservasi.isNullOrEmpty()) "-" else pemakaian.tanggalReservasi.take(10)
                 txtStatusKirimSap.text = if(pemakaian.statusSap.isNullOrEmpty()) "-" else pemakaian.statusSap
                 txtJenisPekerjaan.text = if(pemakaian.jenisPekerjaan.isNullOrEmpty()) "-" else pemakaian.jenisPekerjaan
                 txtSumberReservasi.text = if(pemakaian.sumber.isNullOrEmpty()) "-" else pemakaian.sumber

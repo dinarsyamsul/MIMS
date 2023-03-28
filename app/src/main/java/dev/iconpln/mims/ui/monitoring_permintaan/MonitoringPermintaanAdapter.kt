@@ -3,13 +3,16 @@ package dev.iconpln.mims.ui.monitoring_permintaan
 import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
+import dev.iconpln.mims.R
+import dev.iconpln.mims.data.local.database.DaoSession
 import dev.iconpln.mims.data.local.database.TMonitoringPermintaan
 import dev.iconpln.mims.data.local.database.TPos
 import dev.iconpln.mims.data.local.database.TTransMonitoringPermintaan
+import dev.iconpln.mims.data.local.database.TTransMonitoringPermintaanDetailDao
 import dev.iconpln.mims.databinding.ItemDataMonitoringPermintaanBinding
 import dev.iconpln.mims.databinding.ItemDataMonitoringPurchaseBinding
 
-class MonitoringPermintaanAdapter(val lisModels: MutableList<TTransMonitoringPermintaan>, var listener: OnAdapterListener)
+class MonitoringPermintaanAdapter(val lisModels: MutableList<TTransMonitoringPermintaan>, var listener: OnAdapterListener, var daoSession: DaoSession)
     : RecyclerView.Adapter<MonitoringPermintaanAdapter.ViewHolder>() {
 
     fun setMpList(po: List<TTransMonitoringPermintaan>){
@@ -35,16 +38,25 @@ class MonitoringPermintaanAdapter(val lisModels: MutableList<TTransMonitoringPer
     inner class ViewHolder(val binding: ItemDataMonitoringPermintaanBinding): RecyclerView.ViewHolder(binding.root){
         fun bind(mp : TTransMonitoringPermintaan){
             with(binding){
+                val checkDetail = daoSession.tTransMonitoringPermintaanDetailDao.queryBuilder()
+                    .where(TTransMonitoringPermintaanDetailDao.Properties.NoTransaksi.eq(mp.noTransaksi))
+                    .where(TTransMonitoringPermintaanDetailDao.Properties.IsDone.eq(0)).list()
+
                 btnDetail.setOnClickListener { listener.onClick(mp) }
                 txtGudangAsal.text = mp.storLocAsalName
                 txtGudangTujuan.text = mp.storLocTujuanName
                 txtNoPermintaan.text = mp.noPermintaan
-                txtTglPermintaan.text = mp.tanggalPermintaan
+                val adjustTglPermintaan = mp.tanggalPermintaan.take(10)
+                txtTglPermintaan.text = adjustTglPermintaan
                 when(mp.kodePengeluaran){
                     "1" -> txtStatusPengeluaran.text = "Permintaan"
                     "2" -> txtStatusPengeluaran.text = "Pengeluaran"
                     "0" -> txtStatusPengeluaran.text = "All"
                     else -> txtStatusPengeluaran.text = "-"
+                }
+
+                if (checkDetail.isNullOrEmpty()){
+                    btnDetail.setImageResource(R.drawable.ic_src_doc_selesai)
                 }
 
             }

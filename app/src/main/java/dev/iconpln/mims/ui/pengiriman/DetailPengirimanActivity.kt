@@ -40,7 +40,7 @@ class DetailPengirimanActivity : AppCompatActivity() {
                 txtStorelocpengiriman.text = data.storLoc
                 txtIsiDo.text = data.noDoSmar
                 txtIsiTglpengiriman.text = data.createdDate
-                txtIsiPetugasPengiriman.text = data.courierPersonName
+                txtIsiPetugasPengiriman.text = data.kurirPengantar
                 txtIsiEkspedisi.text = data.expeditions
             }
         }

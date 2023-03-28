@@ -65,13 +65,13 @@ class HomeFragment : Fragment() {
         val nilaiMaterial = daoSession.tMaterialDao.loadAll().size.toString()
         val nilaiMonitoring = daoSession.tPosDao.loadAll().size.toString()
         val nilaiPemakaian = daoSession.tPemakaianDao.loadAll().size.toString()
-        val nilaiPermintaan = daoSession.tTransMonitoringPermintaanDao.queryBuilder()
-            .where(TTransMonitoringPermintaanDao.Properties.KodePengeluaran.eq(1))
+        val nilaiPermintaan = daoSession.tMonitoringPermintaanDao.queryBuilder()
+            .where(TMonitoringPermintaanDao.Properties.KodePengeluaran.eq(1))
             .list().size.toString()
         val nilaiPengiriman = daoSession.tPosDao.loadAll().size.toString()
         val nilaiPengujian = daoSession.tPengujianDao.loadAll().size.toString()
-        val nilaiPenerimaanUp3 =  daoSession.tPosPenerimaanDao.queryBuilder()
-            .where(TPosPenerimaanDao.Properties.KodeStatusDoMims.eq("102")).list().size.toString()
+        val nilaiPenerimaanUp3 =  daoSession.tPosDao.queryBuilder()
+            .where(TPosDao.Properties.KodeStatusDoMims.eq("102")).list().size.toString()
 
         dialog = Dialog(requireActivity())
         dialog.setContentView(R.layout.popup_loading)
@@ -503,7 +503,10 @@ class HomeFragment : Fragment() {
                         item.qtyMaterial = model?.qtyMaterial
                         item.qtyLolos = model?.qtyLolos
                         item.statusUji = model?.statusUji
+                        item.qtyRusak = model?.qtyRusak.toString()
+                        item.qtyTdkLolos = model?.qtyTdkLolos.toString()
                         item.tanggalUji = model?.tglUji.toString()
+                        item.tanggalUsulUji = model?.tanggalUsulUji
                         item.unit = model?.unit
                         items[i] = item
                     }
@@ -665,6 +668,7 @@ class HomeFragment : Fragment() {
                     var item: TLokasi
                     for ((i, model) in result.lokasis.withIndex()){
                         item = TLokasi()
+                        item.idLokasi = model?.id
                         item.noDoSns = model?.noDoMims
                         item.ket = model?.ket
                         item.updateDate = model?.updatedDate

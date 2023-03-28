@@ -75,7 +75,7 @@
             android:layout_weight="1"
             android:background="@drawable/txt_input_layout"
             android:inputType="none"
-            android:text="Pilih Status Uji" />
+            android:text="ALL" />
 
     </com.google.android.material.textfield.TextInputLayout>
 

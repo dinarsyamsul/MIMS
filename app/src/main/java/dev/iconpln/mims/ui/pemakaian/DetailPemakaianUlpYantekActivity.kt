@@ -64,25 +64,8 @@ class DetailPemakaianUlpYantekActivity : AppCompatActivity(),Loadable {
         adapter.setpemakaianList(detailPemakaians)
 
         with(binding){
-            txtDetailPekerjaan.text = "-"
-            txtCostCenter.text = pemakaian.tarif
-            txtNoPemakaian.text = "-"
-            txtInternalOrder.text = "-"
-            txtKepalaGudang.text = "-"
-            txtJenisPekerjaan.text = pemakaian.jenisPekerjaan
-            txtNamaKegiatan.text = "-"
-            txtNamaPelanggan.text = pemakaian.namaPelanggan
-            txtNoPackaging.text = "-"
-            txtNoPemesanan.text = pemakaian.noPemesanan
-            txtNoReservasi.text = pemakaian.noReservasi
-            txtNonBon.text = "-"
-            txtPejabatPengesahan.text = "-"
-            txtPemeriksa.text = "-"
-            txtPenerima.text = "-"
-            txtTglDokumen.text = pemakaian.tanggalDokumen
-            txtTglPemakaian.text = pemakaian.tanggalPemakaian
+            txtNoPemakaian.text = pemakaian.noReservasi
             txtTotalData.text = "Total ${detailPemakaians.size} data"
-            txtWbs.text = "-"
 
             rvPemakaianUlp.adapter = adapter
             rvPemakaianUlp.setHasFixedSize(true)

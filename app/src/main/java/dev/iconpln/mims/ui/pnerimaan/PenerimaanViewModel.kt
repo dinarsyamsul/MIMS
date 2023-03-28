@@ -109,8 +109,8 @@ class PenerimaanViewModel: ViewModel() {
                             if (model.petugasPenerima.isNullOrEmpty()) item.petugasPenerima = "" else item.petugasPenerima = model.petugasPenerima
                             if (model.kurirPengantar.isNullOrEmpty()) item.kurirPengantar = "" else item.kurirPengantar = model.kurirPengantar
 
-                            item.statusPemeriksaan = ""// nanti di buat di tarikan login
-                            item.statusPenerimaan = ""
+                            item.statusPemeriksaan = if (model?.statusPemeriksaan.isNullOrEmpty()) "" else model?.statusPemeriksaan
+                            item.statusPenerimaan = if (model?.statusPenerimaan.isNullOrEmpty()) "" else model?.statusPenerimaan
 
                             item.kodeStatusDoMims = model.kodeStatusDoMims
                             item.doStatus = model.doStatus

@@ -22,6 +22,7 @@ public class TPengujian {
     private String Unit;
     private String StatusUji;
     private String KdPabrikan;
+    private String TanggalUsulUji;
 
     @Generated
     public TPengujian() {
@@ -32,7 +33,7 @@ public class TPengujian {
     }
 
     @Generated
-    public TPengujian(Long id, String TanggalUji, String NoPengujian, String NamaKategori, String QtyMaterial, String QtyLolos, String QtyTdkLolos, String QtyRusak, String Unit, String StatusUji, String KdPabrikan) {
+    public TPengujian(Long id, String TanggalUji, String NoPengujian, String NamaKategori, String QtyMaterial, String QtyLolos, String QtyTdkLolos, String QtyRusak, String Unit, String StatusUji, String KdPabrikan, String TanggalUsulUji) {
         this.id = id;
         this.TanggalUji = TanggalUji;
         this.NoPengujian = NoPengujian;
@@ -44,6 +45,7 @@ public class TPengujian {
         this.Unit = Unit;
         this.StatusUji = StatusUji;
         this.KdPabrikan = KdPabrikan;
+        this.TanggalUsulUji = TanggalUsulUji;
     }
 
     public Long getId() {
@@ -132,6 +134,14 @@ public class TPengujian {
 
     public void setKdPabrikan(String KdPabrikan) {
         this.KdPabrikan = KdPabrikan;
+    }
+
+    public String getTanggalUsulUji() {
+        return TanggalUsulUji;
+    }
+
+    public void setTanggalUsulUji(String TanggalUsulUji) {
+        this.TanggalUsulUji = TanggalUsulUji;
     }
 
 }

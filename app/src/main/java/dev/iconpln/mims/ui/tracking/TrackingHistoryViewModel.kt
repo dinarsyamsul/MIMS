@@ -50,24 +50,24 @@ class TrackingHistoryViewModel : ViewModel() {
         }
     }
 
-    fun getDetailTrackingHistory(sn: String, noTransaksi: String, status: String, ctx: Context) {
-        _isLoading.value = true
-        val apiService = ApiConfig.getApiService(ctx)
-        CoroutineScope(Dispatchers.IO).launch {
-            val response = apiService.getDetailTrackingHistory(sn, noTransaksi, status)
-
-            withContext(Dispatchers.Main) {
-                try {
-                    if (response.isSuccessful) {
-                        val loginResult = response.body()
-                        _detailTrackingHistoryResponse.postValue(loginResult!!)
-                    } else {
-                        _isLoading.value = false
-                    }
-                }catch (e: Exception){
-                    Log.d("checkLogin", e.toString())
-                }
-            }
-        }
-    }
+//    fun getDetailTrackingHistory(sn: String, noTransaksi: String, status: String, ctx: Context) {
+//        _isLoading.value = true
+//        val apiService = ApiConfig.getApiService(ctx)
+//        CoroutineScope(Dispatchers.IO).launch {
+//            val response = apiService.getDetailTrackingHistory(sn, noTransaksi, status)
+//
+//            withContext(Dispatchers.Main) {
+//                try {
+//                    if (response.isSuccessful) {
+//                        val loginResult = response.body()
+//                        _detailTrackingHistoryResponse.postValue(loginResult!!)
+//                    } else {
+//                        _isLoading.value = false
+//                    }
+//                }catch (e: Exception){
+//                    Log.d("checkLogin", e.toString())
+//                }
+//            }
+//        }
+//    }
 }

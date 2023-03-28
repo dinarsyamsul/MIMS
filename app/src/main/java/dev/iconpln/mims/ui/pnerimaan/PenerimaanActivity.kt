@@ -32,6 +32,7 @@ class PenerimaanActivity : AppCompatActivity() {
         binding = ActivityPenerimaanBinding.inflate(layoutInflater)
         setContentView(binding.root)
         daoSession = (application as MyApplication).daoSession!!
+        insertDetailPenerimaan()
 
         penerimaans = daoSession.tPosPenerimaanDao.queryBuilder()
             .where(TPosPenerimaanDao.Properties.KodeStatusDoMims.eq("102")).list()
@@ -83,9 +84,10 @@ class PenerimaanActivity : AppCompatActivity() {
 
         },daoSession)
 
-        viewModel.penerimaanResponse.observe(this){
-            adapter.setData(it)
-        }
+//        viewModel.penerimaanResponse.observe(this){
+//            adapter.setData(penerimaans)
+//        }
+        adapter.setData(penerimaans)
 
         with(binding){
             tvTotalData.text = "Total: ${penerimaans.size} data"
@@ -106,12 +108,7 @@ class PenerimaanActivity : AppCompatActivity() {
 
                 override fun afterTextChanged(s: Editable?) {
                     srcNoDo = s.toString()
-                    val search = daoSession.tPosPenerimaanDao.queryBuilder()
-                        .where(TPosPenerimaanDao.Properties.KodeStatusDoMims.eq("102"))
-                        .whereOr(TPosPenerimaanDao.Properties.NoDoSmar.like("%"+srcNoDo+"%"),
-                            TPosPenerimaanDao.Properties.PoSapNo.like("%"+srcNoDo+"%"))
-                        .list()
-                    adapter.setData(search)
+                    doSearch()
                 }
 
             })
@@ -123,23 +120,69 @@ class PenerimaanActivity : AppCompatActivity() {
             dropdownUrutkan.setAdapter(adapterStatus)
             dropdownUrutkan.setOnItemClickListener { parent, view, position, id ->
                 filter = statusArray[position]
-                if (filter == "TERBARU"){
-                    val search = daoSession.tPosPenerimaanDao.queryBuilder()
-                        .where(TPosPenerimaanDao.Properties.KodeStatusDoMims.eq("102"))
-                        .whereOr(TPosPenerimaanDao.Properties.NoDoSmar.like("%"+srcNoDo+"%"),TPosPenerimaanDao.Properties.PoSapNo.like("%"+srcNoDo+"%"))
-                        .orderDesc(TPosPenerimaanDao.Properties.CreatedDate)
-                        .list()
-                    adapter.setData(search)
-                }else{
-                    val search = daoSession.tPosPenerimaanDao.queryBuilder()
-                        .where(TPosPenerimaanDao.Properties.KodeStatusDoMims.eq("102"))
-                        .whereOr(TPosPenerimaanDao.Properties.NoDoSmar.like("%"+srcNoDo+"%"),TPosPenerimaanDao.Properties.PoSapNo.like("%"+srcNoDo+"%"))
-                        .orderAsc(TPosPenerimaanDao.Properties.CreatedDate)
-                        .list()
-                    adapter.setData(search)
-                }
+                doSearch()
 
             }
+        }
+    }
+
+    private fun insertDetailPenerimaan() {
+        val penerimaanDetails = daoSession.tPosDetailPenerimaanDao.queryBuilder()
+            .where(TPosDetailPenerimaanDao.Properties.IsDone.eq(0)).list()
+
+        if (penerimaanDetails.isNullOrEmpty()){
+            val listPos = daoSession.tPosSnsDao.queryBuilder().list()
+            val size = listPos.size
+            if (size > 0) {
+                val items = arrayOfNulls<TPosDetailPenerimaan>(size)
+                var item: TPosDetailPenerimaan
+                for ((i, model) in listPos.withIndex()){
+                    item = TPosDetailPenerimaan()
+
+                    item.noDoSmar = model.noDoSmar
+                    item.qty = ""
+                    item.kdPabrikan = model.kdPabrikan
+                    item.doStatus = model.doStatus
+                    item.noPackaging = model.noPackaging
+                    item.serialNumber = model.noSerial
+                    item.noMaterial = model.noMatSap
+                    item.namaKategoriMaterial = model.namaKategoriMaterial
+                    item.storLoc = model.storLoc
+                    if (model.statusPenerimaan.isNullOrEmpty()) item.statusPenerimaan = "" else item.statusPenerimaan = model.statusPenerimaan
+                    if (model.statusPemeriksaan.isNullOrEmpty()) item.statusPemeriksaan = "" else item.statusPemeriksaan = model.statusPemeriksaan
+                    item.doLineItem = model?.doLineItem
+                    item.isComplaint = 0
+                    item.isChecked = 0
+                    item.isDone = 0
+                    item.partialCode = ""
+                    items[i] = item
+                }
+                daoSession.tPosDetailPenerimaanDao.insertInTx(items.toList())
+            }
+        }
+    }
+
+    private fun doSearch() {
+        if (filter == "TERBARU"){
+            val search = daoSession.tPosPenerimaanDao.queryBuilder()
+                .where(TPosPenerimaanDao.Properties.KodeStatusDoMims.eq("102"))
+                .whereOr(TPosPenerimaanDao.Properties.NoDoSmar.like("%"+srcNoDo+"%"),TPosPenerimaanDao.Properties.PoSapNo.like("%"+srcNoDo+"%"))
+                .orderDesc(TPosPenerimaanDao.Properties.CreatedDate)
+                .list()
+            adapter.setData(search)
+        }else{
+            val search = daoSession.tPosPenerimaanDao.queryBuilder()
+                .where(TPosPenerimaanDao.Properties.KodeStatusDoMims.eq("102"))
+                .whereOr(TPosPenerimaanDao.Properties.NoDoSmar.like("%"+srcNoDo+"%"),
+                    TPosPenerimaanDao.Properties.PoSapNo.like("%"+srcNoDo+"%"))
+                .orderAsc(TPosPenerimaanDao.Properties.CreatedDate)
+                .list()
+            binding.rvPenerimaan.adapter = null
+            binding.rvPenerimaan.layoutManager = null
+            binding.rvPenerimaan.adapter = adapter
+            binding.rvPenerimaan.setHasFixedSize(true)
+            binding.rvPenerimaan.layoutManager = LinearLayoutManager(this@PenerimaanActivity, LinearLayoutManager.VERTICAL, false)
+            adapter.setData(search)
         }
     }
 }

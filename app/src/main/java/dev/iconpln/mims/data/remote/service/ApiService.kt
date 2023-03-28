@@ -1,5 +1,6 @@
 package dev.iconpln.mims.data.remote.service
 
+import com.google.gson.JsonObject
 import dev.iconpln.mims.data.remote.response.*
 import retrofit2.Call
 import retrofit2.Response
@@ -61,7 +62,7 @@ interface ApiService {
         @Field("sn") sn: String,
         @Field("no_transaksi") noTransaksi: String,
         @Field("status") status: String
-    ): Response<DetailTrackingHistoryResponse>
+    ): Response<JsonObject>
 
     @FormUrlEncoded
     @POST("/reports/pemakaian/addSn")
@@ -82,5 +83,42 @@ interface ApiService {
         @Field("user_plant") userPlant: String,
         @Field("user_loc") userLoc: String
     ): Response<SnResponse>
+
+    @FormUrlEncoded
+    @POST("/reports/permintaan/addSn")
+    suspend fun permintaanAddSn(
+        @Field("no_repackaging") noRepackaging: String,
+        @Field("no_material") noMaterial: String,
+        @Field("serial_number") serialNumber: String,
+        @Field("user_plant") userPlant: String,
+        @Field("user_loc") userLoc: String
+    ): Response<SnResponse>
+
+    @FormUrlEncoded
+    @POST("/reports/permintaan/deleteSn")
+    suspend fun permintaanDeleteSn(
+        @Field("no_repackaging") noRepackaging: String,
+        @Field("no_material") noMaterial: String,
+        @Field("serial_number") serialNumber: String
+    ): Response<SnResponse>
+
+    @FormUrlEncoded
+    @POST("/reports/insertLokasi")
+    suspend fun sendLokasi(
+        @Field("do_mims") doMims: String,
+        @Field("lokasi") lokasi: String
+    ): Response<GenericResponse>
+
+    @FormUrlEncoded
+    @POST("/reports/deleteLokasi")
+    suspend fun deleteLokasi(
+        @Field("id_location") idLocation: String
+    ): Response<GenericResponse>
+
+    @FormUrlEncoded
+    @POST("/reports/getLokasiByDoMims")
+    suspend fun getLokasi(
+        @Field("do_mims") doMims: String
+    ): Response<LokasiResponse>
 
 }

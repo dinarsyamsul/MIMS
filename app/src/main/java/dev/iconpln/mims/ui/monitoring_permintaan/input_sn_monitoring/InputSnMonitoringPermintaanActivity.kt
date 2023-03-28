@@ -4,6 +4,8 @@ import android.app.Dialog
 import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import android.text.Editable
+import android.text.TextWatcher
 import android.util.Log
 import android.view.ViewGroup
 import android.widget.EditText
@@ -18,9 +20,15 @@ import com.journeyapps.barcodescanner.ScanOptions
 import dev.iconpln.mims.MyApplication
 import dev.iconpln.mims.R
 import dev.iconpln.mims.data.local.database.*
+import dev.iconpln.mims.data.remote.service.ApiConfig
 import dev.iconpln.mims.data.scan.CustomScanActivity
 import dev.iconpln.mims.databinding.ActivityInputSnMonitoringPermintaanBinding
 import dev.iconpln.mims.ui.monitoring_permintaan.monitoring_permintaan_detail.MonitoringPermintaanDetailActivity
+import dev.iconpln.mims.utils.SharedPrefsUtils
+import kotlinx.coroutines.CoroutineScope
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.launch
+import kotlinx.coroutines.withContext
 
 class InputSnMonitoringPermintaanActivity : AppCompatActivity() {
     private lateinit var binding: ActivityInputSnMonitoringPermintaanBinding
@@ -29,12 +37,14 @@ class InputSnMonitoringPermintaanActivity : AppCompatActivity() {
     private lateinit var listSnPermaterial: List<TSnMonitoringPermintaan>
     private lateinit var monitoringPenerimaan: TTransMonitoringPermintaan
     private lateinit var adapter: MonitoringPermintaanSnAdapter
-    private var noPermintaan: String? = ""
-    private var noTransaksi: String? = ""
-    private var noRepackaging: String? = ""
-    private var noMaterial: String? = ""
-    private var descMaterial: String? = ""
-    private var kategori: String? = ""
+    private var noPermintaan = ""
+    private var noTransaksi = ""
+    private var noRepackaging = ""
+    private var noMaterial = ""
+    private var descMaterial = ""
+    private var kategori = ""
+    private var storloc = ""
+    private var plant = ""
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -42,15 +52,19 @@ class InputSnMonitoringPermintaanActivity : AppCompatActivity() {
         setContentView(binding.root)
 
         daoSession = (application as MyApplication).daoSession!!
-        noPermintaan = intent.getStringExtra("noPermintaan")
-        noTransaksi = intent.getStringExtra("noTransaksi")
-        noRepackaging = intent.getStringExtra("noRepackaging")
-        noMaterial = intent.getStringExtra("noMat")
-        descMaterial = intent.getStringExtra("desc")
-        kategori = intent.getStringExtra("kategori")
+        noPermintaan = intent.getStringExtra("noPermintaan").toString()
+        noTransaksi = intent.getStringExtra("noTransaksi").toString()
+        noRepackaging = intent.getStringExtra("noRepackaging").toString()
+        noMaterial = intent.getStringExtra("noMat").toString()
+        descMaterial = intent.getStringExtra("desc").toString()
+        kategori = intent.getStringExtra("kategori").toString()
+
+        plant = SharedPrefsUtils.getStringPreference(this@InputSnMonitoringPermintaanActivity,"plant","").toString()
+        storloc = SharedPrefsUtils.getStringPreference(this@InputSnMonitoringPermintaanActivity,"storloc","").toString()
 
         listSnm = daoSession.tMonitoringSnMaterialDao.queryBuilder()
             .where(TMonitoringSnMaterialDao.Properties.NoRepackaging.eq(noRepackaging))
+            .where(TMonitoringSnMaterialDao.Properties.NomorMaterial.eq(noMaterial))
             .list()
 
         listSnPermaterial = daoSession.tSnMonitoringPermintaanDao.queryBuilder()
@@ -61,7 +75,32 @@ class InputSnMonitoringPermintaanActivity : AppCompatActivity() {
 
         adapter = MonitoringPermintaanSnAdapter(arrayListOf(), object : MonitoringPermintaanSnAdapter.OnAdapterListener{
             override fun onClick(tms: TMonitoringSnMaterial) {
-                showPopuDelete(tms)
+                val dialog = Dialog(this@InputSnMonitoringPermintaanActivity)
+                dialog.setContentView(R.layout.popup_validation);
+                dialog.window!!.setLayout(ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.WRAP_CONTENT);
+                dialog.setCancelable(false);
+                dialog.window!!.attributes.windowAnimations = R.style.DialogUpDown;
+                val btnYa = dialog.findViewById(R.id.btn_ya) as AppCompatButton
+                val btnTidak = dialog.findViewById(R.id.btn_tidak) as AppCompatButton
+                val message = dialog.findViewById(R.id.message) as TextView
+                val txtMessage = dialog.findViewById(R.id.txt_message) as TextView
+                val icon = dialog.findViewById(R.id.imageView11) as ImageView
+
+                message.text = "Yakin untuk untuk menghapus?"
+                txtMessage.text = "Jika ya, maka serial number akan di hapus"
+                icon.setImageResource(R.drawable.ic_warning)
+
+                btnYa.setOnClickListener {
+                    showPopuDelete(tms)
+                    dialog.dismiss();
+
+                }
+
+                btnTidak.setOnClickListener {
+                    dialog.dismiss()
+                }
+
+                dialog.show();
             }
 
         })
@@ -74,6 +113,28 @@ class InputSnMonitoringPermintaanActivity : AppCompatActivity() {
             txtNoMaterial.text = noMaterial
             txtUnitAsal.text = monitoringPenerimaan.storLocAsalName
             txtQtyPermaterial.text = listSnPermaterial.size.toString()
+
+            srcNoSn.addTextChangedListener(object : TextWatcher{
+                override fun beforeTextChanged(
+                    s: CharSequence?,
+                    start: Int,
+                    count: Int,
+                    after: Int
+                ) {}
+
+                override fun onTextChanged(s: CharSequence?, start: Int, before: Int, count: Int) {}
+
+                override fun afterTextChanged(s: Editable?) {
+                    val searchListSnm = daoSession.tMonitoringSnMaterialDao.queryBuilder()
+                        .where(TMonitoringSnMaterialDao.Properties.NoRepackaging.eq(noRepackaging))
+                        .where(TMonitoringSnMaterialDao.Properties.NomorMaterial.eq(noMaterial))
+                        .where(TMonitoringSnMaterialDao.Properties.SerialNumber.like("%"+s.toString()+"%"))
+                        .list()
+
+                    adapter.setTmsList(searchListSnm)
+                }
+
+            })
 
             btnBack.setOnClickListener { onBackPressed() }
 
@@ -91,50 +152,58 @@ class InputSnMonitoringPermintaanActivity : AppCompatActivity() {
 
     private fun showPopuDelete(tms: TMonitoringSnMaterial) {
         val dialog = Dialog(this@InputSnMonitoringPermintaanActivity)
-        dialog.setContentView(R.layout.popup_validation)
+        dialog.setContentView(R.layout.popup_loading)
+        dialog.window!!.setBackgroundDrawableResource(android.R.color.transparent)
         dialog.window!!.setLayout(ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.WRAP_CONTENT);
         dialog.setCancelable(false)
         dialog.window!!.attributes.windowAnimations = R.style.DialogUpDown
-        val icon = dialog.findViewById(R.id.imageView11) as ImageView
-        val btnOk = dialog.findViewById(R.id.btn_ya) as AppCompatButton
-        val btnTidak = dialog.findViewById(R.id.btn_tidak) as AppCompatButton
-        val message = dialog.findViewById(R.id.message) as TextView
-        val txtMessage = dialog.findViewById(R.id.txt_message) as TextView
+        dialog.show()
 
-        icon.setImageResource(R.drawable.ic_popup_delete)
-        message.text = "Hapus Data"
-        txtMessage.text = "Apakah anda yakin menghapus data ini?"
+        CoroutineScope(Dispatchers.IO).launch {
+            val response = ApiConfig.getApiService(this@InputSnMonitoringPermintaanActivity)
+                .permintaanDeleteSn(noRepackaging,noMaterial,tms.serialNumber)
+            withContext(Dispatchers.Main){
+                if (response.isSuccessful){
+                    dialog.dismiss()
+                    try {
+                        if (response.body()?.status == "success"){
+                            showPopUpSuccess("Hapus")
+                            daoSession.tMonitoringSnMaterialDao.delete(tms)
 
+                            val reloadList = daoSession.tMonitoringSnMaterialDao.queryBuilder()
+                                .where(TMonitoringSnMaterialDao.Properties.NoRepackaging.eq(noRepackaging))
+                                .list()
 
-        btnTidak.setOnClickListener {
-            dialog.dismiss()
+                            adapter.setTmsList(reloadList)
+
+                            val permintaanDetail = daoSession.tTransMonitoringPermintaanDetailDao.queryBuilder()
+                                .where(TTransMonitoringPermintaanDetailDao.Properties.NoTransaksi.eq(noTransaksi))
+                                .where(TTransMonitoringPermintaanDetailDao.Properties.NomorMaterial.eq(noMaterial))
+                                .list()[0]
+
+                            permintaanDetail.qtyScan = reloadList.size.toString()
+                            daoSession.tTransMonitoringPermintaanDetailDao.update(permintaanDetail)
+                        }else{
+                            dialog.dismiss()
+                            Toast.makeText(this@InputSnMonitoringPermintaanActivity, response.body()?.message, Toast.LENGTH_SHORT).show()
+                        }
+                    }catch (e: Exception){
+                        dialog.dismiss()
+                        Toast.makeText(this@InputSnMonitoringPermintaanActivity,e.toString() , Toast.LENGTH_SHORT).show()
+                        e.printStackTrace()
+                    }
+                }else{
+                    dialog.dismiss()
+                    Toast.makeText(this@InputSnMonitoringPermintaanActivity, "Data gagal dihapus", Toast.LENGTH_SHORT).show()
+                }
+            }
         }
-
-        btnOk.setOnClickListener {
-            dialog.dismiss();
-
-            daoSession.tMonitoringSnMaterialDao.delete(tms)
-
-            val reloadList = daoSession.tMonitoringSnMaterialDao.queryBuilder()
-                .where(TMonitoringSnMaterialDao.Properties.NoRepackaging.eq(noRepackaging))
-                .list()
-
-            adapter.setTmsList(reloadList)
-
-            val permintaanDetail = daoSession.tTransMonitoringPermintaanDetailDao.queryBuilder()
-                .where(TTransMonitoringPermintaanDetailDao.Properties.NoTransaksi.eq(noTransaksi))
-                .where(TTransMonitoringPermintaanDetailDao.Properties.NomorMaterial.eq(noMaterial))
-                .list()[0]
-
-            permintaanDetail.qtyScan = reloadList.size.toString()
-            daoSession.tTransMonitoringPermintaanDetailDao.update(permintaanDetail)
-        }
-        dialog.show();
     }
 
     private fun validate() {
         val listSn = daoSession.tMonitoringSnMaterialDao.queryBuilder()
             .where(TMonitoringSnMaterialDao.Properties.NoRepackaging.eq(noRepackaging))
+            .where(TMonitoringSnMaterialDao.Properties.NomorMaterial.eq(noMaterial))
             .list()
 
         if (listSn.size == 0){
@@ -174,6 +243,7 @@ class InputSnMonitoringPermintaanActivity : AppCompatActivity() {
         }
 
         permintaanDetail.qtyScan = listSnm.size.toString()
+        permintaanDetail.isDone = 1
         daoSession.tTransMonitoringPermintaanDetailDao.update(permintaanDetail)
 
         Toast.makeText(this@InputSnMonitoringPermintaanActivity, "Data Serial Material berhasil disimpan", Toast.LENGTH_SHORT).show()
@@ -193,29 +263,7 @@ class InputSnMonitoringPermintaanActivity : AppCompatActivity() {
         val etMessage = dialog.findViewById(R.id.inpt_snMaterial) as EditText
 
         btnOk.setOnClickListener {
-            val listSn = TMonitoringSnMaterial()
-            var isSnExist = false
-            for (i in listSnPermaterial){
-                if (i.serialNumber == etMessage.text.toString()){
-                    isSnExist = true
-                    listSn.noRepackaging = noRepackaging
-                    listSn.isScanned = 1
-                    listSn.serialNumber = etMessage.text.toString()
-                    listSn.nomorMaterial = noMaterial
-                    listSn.status = "SESUAI"
-                    daoSession.tMonitoringSnMaterialDao.insert(listSn)
-                }
-            }
-
-            if (!isSnExist){
-                Toast.makeText(this@InputSnMonitoringPermintaanActivity, "SN Tidak ditemukan", Toast.LENGTH_SHORT).show()
-            }
-
-            val reloadList = daoSession.tMonitoringSnMaterialDao.queryBuilder()
-                .where(TMonitoringSnMaterialDao.Properties.NoRepackaging.eq(noRepackaging))
-                .list()
-
-            adapter.setTmsList(reloadList)
+            sendSn(etMessage.text.toString())
             dialog.dismiss();
         }
         dialog.show();
@@ -237,32 +285,79 @@ class InputSnMonitoringPermintaanActivity : AppCompatActivity() {
         try {
             if(!result.contents.isNullOrEmpty()){
                 Log.i("hit barcode","${result.contents}")
-                val listSn = TMonitoringSnMaterial()
-                var isSnExist = false
-                for (i in listSnPermaterial){
-                    if (i.serialNumber == result.contents){
-                        isSnExist = true
-                        listSn.noRepackaging = noRepackaging
-                        listSn.isScanned = 1
-                        listSn.serialNumber = result.contents
-                        listSn.nomorMaterial = noMaterial
-                        listSn.status = "SESUAI"
-                        daoSession.tMonitoringSnMaterialDao.insert(listSn)
-                    }
-                }
-
-                if (!isSnExist){
-                    Toast.makeText(this@InputSnMonitoringPermintaanActivity, "SN Tidak ditemukan", Toast.LENGTH_SHORT).show()
-                }
-
-                val reloadList = daoSession.tMonitoringSnMaterialDao.queryBuilder()
-                    .where(TMonitoringSnMaterialDao.Properties.NoRepackaging.eq(noRepackaging))
-                    .list()
-                adapter.setTmsList(reloadList)
+                sendSn(result.contents)
             }
         }catch (e: Exception){
             Log.e("exception", e.toString())
         }
+    }
+
+    private fun sendSn(sn: String) {
+        val dialog = Dialog(this@InputSnMonitoringPermintaanActivity)
+        dialog.setContentView(R.layout.popup_loading)
+        dialog.window!!.setBackgroundDrawableResource(android.R.color.transparent)
+        dialog.window!!.setLayout(ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.WRAP_CONTENT);
+        dialog.setCancelable(false)
+        dialog.window!!.attributes.windowAnimations = R.style.DialogUpDown
+        dialog.show()
+
+        CoroutineScope(Dispatchers.IO).launch {
+            val response = ApiConfig.getApiService(this@InputSnMonitoringPermintaanActivity)
+                .permintaanAddSn(noRepackaging,noMaterial,sn,plant, storloc)
+            withContext(Dispatchers.Main){
+                if (response.isSuccessful){
+                    try {
+                        if (response.body()?.status == "success"){
+                            dialog.dismiss()
+                            showPopUpSuccess("Simpan")
+                            val listSn = TMonitoringSnMaterial()
+                            listSn.noRepackaging = noRepackaging
+                            listSn.isScanned = 1
+                            listSn.serialNumber = sn
+                            listSn.nomorMaterial = noMaterial
+                            listSn.status = "SESUAI"
+                            daoSession.tMonitoringSnMaterialDao.insert(listSn)
+
+                            val reloadList = daoSession.tMonitoringSnMaterialDao.queryBuilder()
+                                .where(TMonitoringSnMaterialDao.Properties.NoRepackaging.eq(noRepackaging))
+                                .where(TMonitoringSnMaterialDao.Properties.NomorMaterial.eq(noMaterial)).list()
+
+                            adapter.setTmsList(reloadList)
+                        }else{
+                            dialog.dismiss()
+                            Toast.makeText(this@InputSnMonitoringPermintaanActivity, response.body()?.message, Toast.LENGTH_SHORT).show()
+                        }
+                    }catch (e: Exception){
+                        dialog.dismiss()
+                        Toast.makeText(this@InputSnMonitoringPermintaanActivity, e.toString(), Toast.LENGTH_SHORT).show()
+                        e.printStackTrace()
+                    }
+                }else{
+                    dialog.dismiss()
+                    Toast.makeText(this@InputSnMonitoringPermintaanActivity, "Gagal menambah serial number", Toast.LENGTH_SHORT).show()
+                }
+            }
+        }
+    }
+
+    private fun showPopUpSuccess(messages: String) {
+        val dialog = Dialog(this@InputSnMonitoringPermintaanActivity)
+        dialog.setContentView(R.layout.popup_penerimaan)
+        dialog.window!!.setBackgroundDrawableResource(android.R.color.transparent)
+        dialog.window!!.setLayout(ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.WRAP_CONTENT);
+        dialog.setCancelable(false)
+        dialog.window!!.attributes.windowAnimations = R.style.DialogUpDown
+        val btnOk = dialog.findViewById(R.id.btn_ok) as AppCompatButton
+        val message = dialog.findViewById(R.id.textView16) as TextView
+        val txtMessage = dialog.findViewById(R.id.textView22) as TextView
+
+        message.text = "Berhasil"
+        txtMessage.text = "Data material berhasil di $messages"
+
+        btnOk.setOnClickListener {
+            dialog.dismiss()
+        }
+        dialog.show()
     }
 
     override fun onBackPressed() {
@@ -279,7 +374,7 @@ class InputSnMonitoringPermintaanActivity : AppCompatActivity() {
 
         icon.setImageResource(R.drawable.ic_popup_delete)
         message.text = "Keluar"
-        txtMessage.text = "Jika keluar maka data tidak disimpan"
+        txtMessage.text = "Yakin untuk keluar?"
 
 
         btnTidak.setOnClickListener {
@@ -290,16 +385,17 @@ class InputSnMonitoringPermintaanActivity : AppCompatActivity() {
             dialog.dismiss();
             val listSnm = daoSession.tMonitoringSnMaterialDao.queryBuilder()
                 .where(TMonitoringSnMaterialDao.Properties.NoRepackaging.eq(noRepackaging))
+                .where(TMonitoringSnMaterialDao.Properties.NomorMaterial.eq(noMaterial))
                 .list()
-
-            daoSession.tMonitoringSnMaterialDao.deleteInTx(listSnm)
+//
+//            daoSession.tMonitoringSnMaterialDao.deleteInTx(listSnm)
 
             val permintaanDetail = daoSession.tTransMonitoringPermintaanDetailDao.queryBuilder()
                 .where(TTransMonitoringPermintaanDetailDao.Properties.NoTransaksi.eq(noTransaksi))
                 .where(TTransMonitoringPermintaanDetailDao.Properties.NomorMaterial.eq(noMaterial))
                 .list()[0]
 
-            permintaanDetail.qtyScan = "0"
+            permintaanDetail.qtyScan = listSnm.size.toString()
             daoSession.tTransMonitoringPermintaanDetailDao.update(permintaanDetail)
 
             startActivity(Intent(this@InputSnMonitoringPermintaanActivity, MonitoringPermintaanDetailActivity::class.java)

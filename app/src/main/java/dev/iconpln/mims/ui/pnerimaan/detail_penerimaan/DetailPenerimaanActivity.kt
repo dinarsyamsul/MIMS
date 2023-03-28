@@ -205,16 +205,19 @@ class DetailPenerimaanActivity : AppCompatActivity(),Loadable {
 
     private fun submitForm(isPeriksa: Int) {
         var sns = ""
+        var statusSn = if (isPeriksa == 0) "DITERIMA" else "BELUM DIPERIKSA"
         var checkedDetPen = daoSession.tPosDetailPenerimaanDao.queryBuilder()
             .where(TPosDetailPenerimaanDao.Properties.NoDoSmar.eq(noDo))
             .where(TPosDetailPenerimaanDao.Properties.IsChecked.eq(1))
+            .where(TPosDetailPenerimaanDao.Properties.IsDone.eq(0))
             .where(TPosDetailPenerimaanDao.Properties.IsComplaint.eq(0)).list()
 
         for (i in checkedDetPen){
-            sns += "${i.noPackaging},${i.serialNumber},${i.noMaterial};"
+            sns += "${i.noPackaging},${i.serialNumber},${i.noMaterial},$statusSn,${i.doLineItem};"
             Log.i("noPackaging", i.noPackaging)
 
         }
+
         if (sns != "") {
             sns = sns.substring(0, sns.length - 1)
         }
@@ -235,7 +238,7 @@ class DetailPenerimaanActivity : AppCompatActivity(),Loadable {
         val params = ArrayList<ReportParameter>()
         params.add(ReportParameter("1", reportId, "no_do_smar", noDo!!, ReportParameter.TEXT))
         params.add(ReportParameter("2", reportId, "plant_code_no", penerimaan.planCodeNo, ReportParameter.TEXT))
-        params.add(ReportParameter("3", reportId, "plant_code_no", currentDate, ReportParameter.TEXT))
+        params.add(ReportParameter("3", reportId, "receieve_date", currentDate, ReportParameter.TEXT))
         params.add(ReportParameter("4", reportId, "quantity", checkedDetPen.size.toString(), ReportParameter.TEXT))
         params.add(ReportParameter("5", reportId, "is_periksa", isPeriksa.toString(), ReportParameter.TEXT))
         params.add(ReportParameter("6", reportId, "sns", sns, ReportParameter.TEXT))

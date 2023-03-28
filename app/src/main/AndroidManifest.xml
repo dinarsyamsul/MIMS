@@ -325,7 +325,8 @@
         </activity>
         <activity
             android:name=".ui.pengiriman.UpdateLokasiActivity"
-            android:exported="false">
+            android:exported="false"
+            android:windowSoftInputMode="stateHidden">
             <meta-data
                 android:name="android.app.lib_name"
                 android:value="" />

@@ -20,6 +20,7 @@ import dev.iconpln.mims.ui.auth.LoginBiometricActivity
 import dev.iconpln.mims.ui.auth.change_password.ChangePasswordActivity
 import dev.iconpln.mims.ui.transmission_history.TransmissionActivity
 import dev.iconpln.mims.utils.SessionManager
+import dev.iconpln.mims.utils.SharedPrefsUtils
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
@@ -56,7 +57,8 @@ class ProfileFragment : Fragment() {
         }
 
         binding.cvUbahPassword.setOnClickListener {
-            startActivity(Intent(requireActivity(), ChangePasswordActivity::class.java))
+            startActivity(Intent(requireActivity(), ChangePasswordActivity::class.java)
+                .putExtra("username", SharedPrefsUtils.getStringPreference(requireActivity(),"username","").toString()))
         }
 
         binding.btnSwitch.setOnCheckedChangeListener { buttonView, isChecked ->

@@ -58,6 +58,7 @@ class MonitoringViewModel: ViewModel() {
                     .where(TPosDao.Properties.PoMpNo.like("%"+ noPo +"%"))
                     .where(TPosDao.Properties.NoDoSmar.like("%"+ noDo +"%"))
                     .where(TPosDao.Properties.CreatedDate.between(startDate,endDateAdjust))
+                    .orderAsc(TPosDao.Properties.CreatedDate)
                     .list()
                 _monitoringPOResponse.postValue(listMonitoring)
 

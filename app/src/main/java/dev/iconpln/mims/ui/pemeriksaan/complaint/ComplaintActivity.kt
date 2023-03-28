@@ -178,9 +178,10 @@ class ComplaintActivity : AppCompatActivity(), Loadable {
         var sns = ""
         var checkedDetPen = daoSession.tPosDetailPenerimaanDao.queryBuilder()
             .where(TPosDetailPenerimaanDao.Properties.NoDoSmar.eq(noDo))
+            .where(TPosDetailPenerimaanDao.Properties.IsDone.eq(0))
             .where(TPosDetailPenerimaanDao.Properties.IsChecked.eq(1)).list()
         for (i in checkedDetPen){
-            sns += "${i.noPackaging},${i.serialNumber},${i.noMaterial};"
+            sns += "${i.noPackaging},${i.serialNumber},SEDANG KOMPLAIN,${i.doLineItem},${i.noMaterial};"
             Log.i("noPackaging", i.noPackaging)
 
         }
@@ -210,11 +211,11 @@ class ComplaintActivity : AppCompatActivity(), Loadable {
         val params = ArrayList<ReportParameter>()
         params.add(ReportParameter("1", reportId, "no_do_smar", noDo!!, ReportParameter.TEXT))
         params.add(ReportParameter("2", reportId, "alasan", binding.editText.text.toString(), ReportParameter.TEXT))
-        params.add(ReportParameter("3", reportId, "quantity", listDetailPen.size.toString(), ReportParameter.TEXT))
+        params.add(ReportParameter("3", reportId, "quantity", checkedDetPen.size.toString(), ReportParameter.TEXT))
         params.add(ReportParameter("4", reportId, "username", username!!, ReportParameter.TEXT))
         params.add(ReportParameter("5", reportId, "email", username, ReportParameter.TEXT))
         params.add(ReportParameter("6", reportId, "sns", sns, ReportParameter.TEXT))
-        params.add(ReportParameter("7", reportId, "status", "PENDING", ReportParameter.TEXT))
+        params.add(ReportParameter("7", reportId, "status", "ACTIVE", ReportParameter.TEXT))
         params.add(ReportParameter("8", reportId, "plant_code_no", penerimaan.planCodeNo, ReportParameter.TEXT))
         params.add(ReportParameter("9", reportId, "no_do_line", penerimaan.doLineItem, ReportParameter.TEXT))
 
@@ -353,10 +354,16 @@ class ComplaintActivity : AppCompatActivity(), Loadable {
         }
     }
 
+    override fun onBackPressed() {
+        daoSession.tPhotoDao.deleteInTx(listPhoto)
+        super.onBackPressed()
+    }
+
     override fun setFinish(result: Boolean, message: String) {
         if (result) {
             Log.i("finish","Yes")
         }
+        daoSession.tPhotoDao.deleteInTx(listPhoto)
         startActivity(Intent(this@ComplaintActivity, PenerimaanActivity::class.java )
             .setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP))
         finish()

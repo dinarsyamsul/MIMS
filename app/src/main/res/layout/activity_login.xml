@@ -64,7 +64,7 @@
             android:layout_height="wrap_content"
             android:layout_marginTop="17dp"
             android:fontFamily="@font/montserrat_reguler"
-            android:text="Alamat Email"
+            android:text="Username"
             android:textColor="@color/dark_grey"
             app:layout_constraintStart_toStartOf="@id/lbl_login"
             app:layout_constraintTop_toBottomOf="@id/lbl_login" />
@@ -93,7 +93,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="50dp"
                 android:paddingTop="10dp"
-                android:hint="email@gmail.com"
+                android:hint="username"
                 android:textColorHint="#96979B"
                 android:background="@drawable/textfield"
                 android:fontFamily="@font/montserrat_reguler"

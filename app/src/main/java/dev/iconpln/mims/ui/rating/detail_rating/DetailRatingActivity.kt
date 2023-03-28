@@ -771,6 +771,7 @@ class DetailRatingActivity : AppCompatActivity(),Loadable {
         startActivity(Intent(this@DetailRatingActivity, RatingActivity::class.java )
             .putExtra("noDo", noDo))
         finish()
+        daoSession.tPhotoDao.deleteInTx(listPhoto)
         Toast.makeText(this, message, Toast.LENGTH_LONG).show()
     }
 

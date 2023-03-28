@@ -25,7 +25,7 @@ class PengujianActivity : AppCompatActivity() {
     private lateinit var daoSession: DaoSession
     private lateinit var listPengujian: List<TPengujian>
     private val listKategori: ArrayList<String> = ArrayList()
-    private var kategori = ""
+    private var kategori = "ALL"
     private var noPengujian = ""
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -35,6 +35,7 @@ class PengujianActivity : AppCompatActivity() {
         daoSession = (application as MyApplication).daoSession!!
 
         listPengujian = daoSession.tPengujianDao.queryBuilder().list()
+        listKategori.add("ALL")
         for (i in listPengujian){
             listKategori.add(i.statusUji)
         }
@@ -86,10 +87,16 @@ class PengujianActivity : AppCompatActivity() {
     }
 
     private fun doSearch() {
-        val listSearch = daoSession.tPengujianDao.queryBuilder()
-            .where(TPengujianDao.Properties.StatusUji.eq(kategori))
-            .where(TPengujianDao.Properties.NoPengujian.like("%"+noPengujian+"%")).list()
-        adapter.setPengujianList(listSearch)
+        if (kategori == "ALL"){
+            val listSearch = daoSession.tPengujianDao.queryBuilder()
+                .where(TPengujianDao.Properties.NoPengujian.like("%"+noPengujian+"%")).list()
+            adapter.setPengujianList(listSearch)
+        }else{
+            val listSearch = daoSession.tPengujianDao.queryBuilder()
+                .where(TPengujianDao.Properties.StatusUji.eq(kategori))
+                .where(TPengujianDao.Properties.NoPengujian.like("%"+noPengujian+"%")).list()
+            adapter.setPengujianList(listSearch)
+        }
     }
 
 }

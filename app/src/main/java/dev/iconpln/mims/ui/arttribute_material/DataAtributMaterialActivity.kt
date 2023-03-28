@@ -6,6 +6,7 @@ import android.content.Intent
 import android.os.Bundle
 import android.text.Editable
 import android.text.TextWatcher
+import android.util.Log
 import android.widget.ArrayAdapter
 import android.widget.Toast
 import androidx.activity.viewModels
@@ -84,7 +85,6 @@ class DataAtributMaterialActivity : AppCompatActivity() {
             c.add(Calendar.DATE, -1) // number of days to add
 
             startDate = startDateAdjust
-            Toast.makeText(this@DataAtributMaterialActivity, startDate, Toast.LENGTH_SHORT).show()
             doSearch()
 
         }
@@ -110,10 +110,23 @@ class DataAtributMaterialActivity : AppCompatActivity() {
         }
 
         binding.cvTanggalSelesai.setOnClickListener {
-            DatePickerDialog(this@DataAtributMaterialActivity, dateSetListenerEnd,
-                cal.get(Calendar.YEAR),
-                cal.get(Calendar.MONTH),
-                cal.get(Calendar.DAY_OF_MONTH)).show()
+            if (startDate.isNullOrEmpty()){
+                Toast.makeText(this, "Silahkan pilih tanggal awal", Toast.LENGTH_SHORT).show()
+            }else{
+                val datePickerDialog = DatePickerDialog(this@DataAtributMaterialActivity, dateSetListenerEnd,
+                    cal.get(Calendar.YEAR),
+                    cal.get(Calendar.MONTH),
+                    cal.get(Calendar.DAY_OF_MONTH))
+
+                val dateFormat = SimpleDateFormat(Config.DATE, Locale.getDefault())
+                val date = dateFormat.parse(startDate)
+                val timeInMillis = date?.time ?: 0
+                Log.d("checkMillis", timeInMillis.toString())
+
+                datePickerDialog.datePicker.minDate =  timeInMillis
+                datePickerDialog.show()
+            }
+
         }
     }
 
@@ -163,11 +176,14 @@ class DataAtributMaterialActivity : AppCompatActivity() {
             endDateAdjust = LocalDateTime.now().toString(Config.DATE)
         }
 
+        Log.d("checkDate", startDateAdjust+" "+endDateAdjust)
+
         val listMaterial = daoSession.tMaterialDao.queryBuilder()
             .where(TMaterialDao.Properties.NamaKategoriMaterial.like("%"+ kategori + "%"))
             .where(TMaterialDao.Properties.Tahun.like("%"+ tahun + "%"))
             .whereOr(TMaterialDao.Properties.NoProduksi.like("%"+ snBatch + "%"), TMaterialDao.Properties.NomorMaterial.like("%"+ snBatch + "%"))
             .where(TMaterialDao.Properties.TglProduksi.between(startDateAdjust,endDateAdjust))
+            .orderAsc(TMaterialDao.Properties.TglProduksi)
             .list()
         adapter.setMaterialList(listMaterial)
     }

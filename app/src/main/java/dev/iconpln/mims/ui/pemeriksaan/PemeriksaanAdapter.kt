@@ -40,7 +40,7 @@ class PemeriksaanAdapter(
         fun bind(pe : TPemeriksaan){
             with(binding){
                 txtDeliveryOrder.text = pe.noDoSmar
-                txtVendorAsal.text = pe.planCodeNo
+                txtNoPoSap.text = if (pe.poSapNo.isNullOrEmpty()) "-" else pe.poSapNo
                 txtTglKirim.text = "Tgl ${pe.createdDate}"
                 txtUnitTujuan.text = pe.plantName
                 txtNoPemeriksaan.text = if (pe.noPemeriksaan.isNullOrEmpty()) "-" else pe.noPemeriksaan

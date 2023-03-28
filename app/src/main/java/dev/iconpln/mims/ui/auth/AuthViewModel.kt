@@ -1,6 +1,7 @@
 package dev.iconpln.mims.ui.auth
 
 import android.content.Context
+import android.content.Intent
 import android.util.Log
 import android.widget.Toast
 import androidx.lifecycle.LiveData
@@ -132,17 +133,18 @@ class AuthViewModel: ViewModel() {
 
             val response = ApiConfig.getApiService(context).getOtpForgotPassword(requestBody)
             withContext(Dispatchers.Main){
-                if (response.isSuccessful) {
-                    try {
+                try {
+                    if (response.isSuccessful) {
                         _isLoading.value = false
                         Toast.makeText(context, response.body()?.message, Toast.LENGTH_SHORT).show()
-                    }catch (e: Exception){
-                        Toast.makeText(context, e.toString(), Toast.LENGTH_SHORT).show()
-                        e.printStackTrace()
+                    }else {
+                        _isLoading.value = false
+                        Toast.makeText(context, response.message(), Toast.LENGTH_SHORT).show()
                     }
-                }else {
-                    _isLoading.value = false
-                    Toast.makeText(context, response.body()?.message, Toast.LENGTH_SHORT).show()
+                }catch (e:Exception){
+                    e.printStackTrace()
+                }finally {
+                    Log.d("sendOtpForgot", "failed")
                 }
             }
         }
@@ -212,10 +214,9 @@ class AuthViewModel: ViewModel() {
                 if (response.isSuccessful) {
                     try {
                         _isLoading.value = false
-                        if (response.body()?.message == "success"){
+                        if (response.body()?.status == "success"){
                             val responses = response.body()
                             _changePassword.postValue(responses!!)
-                            Toast.makeText(context,response.body()?.message, Toast.LENGTH_SHORT).show()
                         }else{
                             Toast.makeText(context,response.body()?.message, Toast.LENGTH_SHORT).show()
                         }
@@ -445,6 +446,8 @@ class AuthViewModel: ViewModel() {
                         if (model?.ratingDelivery.isNullOrEmpty()) item.ratingDelivery = "" else item.ratingDelivery = model?.ratingDelivery
                         if (model?.ratingQuality.isNullOrEmpty()) item.ratingQuality = "" else item.ratingQuality = model?.ratingQuality
                         if (model?.ratingResponse.isNullOrEmpty()) item.ratingResponse = "" else item.ratingResponse = model?.ratingResponse
+                        item.statusPemeriksaan = if(model?.statusPemeriksaan.isNullOrEmpty()) "" else model?.statusPemeriksaan
+                        item.statusPenerimaan = if(model?.statusPenerimaan.isNullOrEmpty()) "" else model?.statusPenerimaan
                         items[i] = item
                     }
                     daoSession.tPosDao.insertInTx(items.toList())
@@ -464,7 +467,10 @@ class AuthViewModel: ViewModel() {
                         item.qtyMaterial = model?.qtyMaterial
                         item.qtyLolos = model?.qtyLolos
                         item.statusUji = model?.statusUji
+                        item.qtyRusak = model?.qtyRusak.toString()
+                        item.qtyTdkLolos = model?.qtyTdkLolos.toString()
                         item.tanggalUji = model?.tglUji.toString()
+                        item.tanggalUsulUji = model?.tanggalUsulUji
                         item.unit = model?.unit
                         items[i] = item
                     }
@@ -626,6 +632,7 @@ class AuthViewModel: ViewModel() {
                     var item: TLokasi
                     for ((i, model) in result.lokasis.withIndex()){
                         item = TLokasi()
+                        item.idLokasi = model?.id
                         item.noDoSns = model?.noDoMims
                         item.ket = model?.ket
                         item.updateDate = model?.updatedDate

@@ -57,19 +57,23 @@ class MonitoringPermintaanDetailActivity : AppCompatActivity(),Loadable {
 
 
         monitoringPenerimaan = daoSession.tTransMonitoringPermintaanDao.queryBuilder()
-            .where(TTransMonitoringPermintaanDao.Properties.NoTransaksi.eq(noTransaksi)).list()[0]
+            .where(TTransMonitoringPermintaanDao.Properties.NoPermintaan.eq(noPermintaan)).list()[0]
 
         viewModel.getMonitoringPermintaanDetail(daoSession, noTransaksi)
 
         adapter = MonitoringPermintaanDetailAdapter(arrayListOf(), object : MonitoringPermintaanDetailAdapter.OnAdapterListener{
             override fun onClick(mpd: TTransMonitoringPermintaanDetail) {
-                startActivity(Intent(this@MonitoringPermintaanDetailActivity, InputSnMonitoringPermintaanActivity::class.java)
-                    .putExtra("noPermintaan", mpd.noPermintaan)
-                    .putExtra("noMat", mpd.nomorMaterial)
-                    .putExtra("desc", mpd.materialDesc)
-                    .putExtra("kategori", mpd.kategori)
-                    .putExtra("noRepackaging", mpd.noRepackaging)
-                    .putExtra("noTransaksi", mpd.noTransaksi))
+                if (mpd.isDone == 1){
+                    Toast.makeText(this@MonitoringPermintaanDetailActivity, "Anda sudah menyelesaikan material ini", Toast.LENGTH_SHORT).show()
+                }else{
+                    startActivity(Intent(this@MonitoringPermintaanDetailActivity, InputSnMonitoringPermintaanActivity::class.java)
+                        .putExtra("noPermintaan", mpd.noPermintaan)
+                        .putExtra("noMat", mpd.nomorMaterial)
+                        .putExtra("desc", mpd.materialDesc)
+                        .putExtra("kategori", mpd.kategori)
+                        .putExtra("noRepackaging", mpd.noRepackaging)
+                        .putExtra("noTransaksi", mpd.noTransaksi))
+                }
             }
 
         })

@@ -35,10 +35,12 @@ class PengujianAdapter(val lisModels: MutableList<TPengujian>, var listener: OnA
             with(binding){
                 txtNoPengujian.text = pengujian.noPengujian
                 txtKategori.text = pengujian.namaKategori
-                txtSatuan.text = pengujian.unit
+                txtUnit.text = pengujian.unit
                 txtSiapTotal.text = "${pengujian.qtyLolos}/${pengujian.qtyMaterial}"
                 txtTanggalUji.text = pengujian.tanggalUji
                 txtStatus.text = pengujian.statusUji.trim()
+                txtTidakLolosTotal.text = "${pengujian.qtyTdkLolos}/${pengujian.qtyRusak}"
+                txtTglUsulUji.text = pengujian.tanggalUsulUji
             }
 
             if (pengujian.statusUji == "LOLOS") {

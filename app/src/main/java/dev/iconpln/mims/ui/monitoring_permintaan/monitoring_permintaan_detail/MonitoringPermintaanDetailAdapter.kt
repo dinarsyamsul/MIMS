@@ -4,6 +4,7 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
+import dev.iconpln.mims.R
 import dev.iconpln.mims.data.local.database.TMonitoringPermintaan
 import dev.iconpln.mims.data.local.database.TMonitoringPermintaanDetail
 import dev.iconpln.mims.data.local.database.TPos
@@ -51,6 +52,9 @@ class MonitoringPermintaanDetailAdapter(val lisModels: MutableList<TTransMonitor
                     txtKuantitasScanKurang.visibility = View.GONE
                 }
 
+                if (mpd.isDone == 1){
+                    btnDetail.setImageResource(R.drawable.ic_src_doc_selesai)
+                }
 
             }
         }

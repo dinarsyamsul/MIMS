@@ -48,7 +48,7 @@ class PenerimaanAdapter(val lisModels: MutableList<TPosPenerimaan>,
                 txtDeliveryOrder.text = pe.noDoSmar
                 txtStatusPenerimaan.text = if (pe.statusPenerimaan.isNullOrEmpty()) "BELUM DITERIMA" else pe.statusPenerimaan
                 txtStatusPemeriksaan.text = if (pe.statusPemeriksaan.isNullOrEmpty()) "BELUM DIPERIKSA" else pe.statusPemeriksaan
-                txtVendorAsal.text = pe.planCodeNo
+                txtNoPo.text = if(pe.poSapNo.isNullOrEmpty()) "-" else pe.poSapNo
                 txtTglKirim.text = "Tgl ${pe.createdDate}"
                 txtUnitTujuan.text = pe.plantName
 

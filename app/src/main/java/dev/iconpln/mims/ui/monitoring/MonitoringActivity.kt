@@ -7,6 +7,7 @@ import android.text.Editable
 import android.text.TextWatcher
 import android.util.Log
 import android.view.View
+import android.widget.Toast
 import androidx.activity.viewModels
 import androidx.appcompat.app.AppCompatActivity
 import androidx.recyclerview.widget.LinearLayoutManager
@@ -15,6 +16,7 @@ import dev.iconpln.mims.data.local.database.DaoSession
 import dev.iconpln.mims.data.local.database.TPos
 import dev.iconpln.mims.databinding.ActivityMonitoringBinding
 import dev.iconpln.mims.ui.monitoring.monitoring_detail.MonitoringDetailActivity
+import dev.iconpln.mims.utils.Config
 import java.text.SimpleDateFormat
 import java.util.*
 
@@ -145,14 +147,28 @@ class MonitoringActivity : AppCompatActivity() {
             DatePickerDialog(this@MonitoringActivity, dateSetListenerStart,
                 cal.get(Calendar.YEAR),
                 cal.get(Calendar.MONTH),
-                cal.get(Calendar.DAY_OF_MONTH)).show()
+                cal.get(Calendar.DAY_OF_MONTH))
+                .show()
         }
 
         binding.cvTanggalSelesai.setOnClickListener {
-            DatePickerDialog(this@MonitoringActivity, dateSetListenerEnd,
-                cal.get(Calendar.YEAR),
-                cal.get(Calendar.MONTH),
-                cal.get(Calendar.DAY_OF_MONTH)).show()
+            if (startDate.isNullOrEmpty()){
+                Toast.makeText(this, "Silahkan pilih tanggal awal", Toast.LENGTH_SHORT).show()
+            }else{
+                val datePickerDialog = DatePickerDialog(this@MonitoringActivity, dateSetListenerEnd,
+                    cal.get(Calendar.YEAR),
+                    cal.get(Calendar.MONTH),
+                    cal.get(Calendar.DAY_OF_MONTH))
+
+                val dateFormat = SimpleDateFormat(Config.DATE, Locale.getDefault())
+                val date = dateFormat.parse(startDate)
+                val timeInMillis = date?.time ?: 0
+                Log.d("checkMillis", timeInMillis.toString())
+
+                datePickerDialog.datePicker.minDate = timeInMillis
+
+                datePickerDialog.show()
+            }
         }
     }
 }

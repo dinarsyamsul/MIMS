@@ -73,6 +73,15 @@ class RatingActivity : AppCompatActivity() {
                 btnRating.setImageResource(R.drawable.ic_rating_done)
             }
 
+
+            btnRating.setOnClickListener {
+                if (penerimaan.ratingDone == 1){
+                    Toast.makeText(this@RatingActivity, "Kamu sudah melakukan rating",Toast.LENGTH_SHORT).show()
+                }else{
+                    startActivity(Intent(this@RatingActivity, DetailRatingActivity::class.java)
+                        .putExtra("noDo", noDo))
+                }
+            }
             srcNoPackaging.addTextChangedListener(object : TextWatcher{
                 override fun beforeTextChanged(s: CharSequence?, start: Int, count: Int, after: Int) {}
 
@@ -93,11 +102,6 @@ class RatingActivity : AppCompatActivity() {
 
             btnTerima.setOnClickListener {
                 validate()
-            }
-
-            btnRating.setOnClickListener {
-                startActivity(Intent(this@RatingActivity, DetailRatingActivity::class.java)
-                    .putExtra("noDo", noDo))
             }
         }
 
@@ -122,6 +126,7 @@ class RatingActivity : AppCompatActivity() {
         txtMessage.text = "Data berhasil di kirim"
 
         penerimaan.isDone = 1
+        penerimaan.statusPenerimaan = "DITERIMA"
         daoSession.tPosPenerimaanDao.update(penerimaan)
 
         btnOk.setOnClickListener {

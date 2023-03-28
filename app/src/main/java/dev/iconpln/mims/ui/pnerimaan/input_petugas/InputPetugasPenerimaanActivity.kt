@@ -264,48 +264,10 @@ class InputPetugasPenerimaanActivity : AppCompatActivity(), Loadable {
 
         btnOk.setOnClickListener {
             dialog.dismiss();
-            insertDetailPenerimaan()
             submitForm(tglDiterima,petugasPenerima,namaKurir)
         }
 
         dialog.show();
-    }
-
-    private fun insertDetailPenerimaan() {
-        val penerimaanDetails = daoSession.tPosDetailPenerimaanDao.queryBuilder()
-            .where(TPosDetailPenerimaanDao.Properties.NoDoSmar.eq(noDo))
-            .where(TPosDetailPenerimaanDao.Properties.IsDone.eq(0)).list()
-
-        if (penerimaanDetails.isNullOrEmpty()){
-            val listPos = daoSession.tPosSnsDao.queryBuilder().list()
-            val size = listPos.size
-            if (size > 0) {
-                val items = arrayOfNulls<TPosDetailPenerimaan>(size)
-                var item: TPosDetailPenerimaan
-                for ((i, model) in listPos.withIndex()){
-                    item = TPosDetailPenerimaan()
-
-                    item.noDoSmar = model.noDoSmar
-                    item.qty = ""
-                    item.kdPabrikan = model.kdPabrikan
-                    item.doStatus = model.doStatus
-                    item.noPackaging = model.noPackaging
-                    item.serialNumber = model.noSerial
-                    item.noMaterial = model.noMatSap
-                    item.namaKategoriMaterial = model.namaKategoriMaterial
-                    item.storLoc = model.storLoc
-                    if (model.statusPenerimaan.isNullOrEmpty()) item.statusPenerimaan = "" else item.statusPenerimaan = model.statusPenerimaan
-                    if (model.statusPemeriksaan.isNullOrEmpty()) item.statusPemeriksaan = "" else item.statusPemeriksaan = model.statusPemeriksaan
-                    item.doLineItem = model?.doLineItem
-                    item.isComplaint = 0
-                    item.isChecked = 0
-                    item.isDone = 0
-                    item.partialCode = ""
-                    items[i] = item
-                }
-                daoSession.tPosDetailPenerimaanDao.insertInTx(items.toList())
-            }
-        }
     }
 
     private fun submitForm(tglDiterima: String, petugasPenerima: String, namaKurir: String) {
@@ -361,7 +323,7 @@ class InputPetugasPenerimaanActivity : AppCompatActivity(), Loadable {
                     "/Images"
             val dir = File(file_path)
             if (!dir.exists()) dir.mkdirs()
-            val file = File(dir, "mims" + "picturesFotoKomplain${UUID.randomUUID()}" + ".png")
+            val file = File(dir, "mims" + "picturesFotoPetugasPenerimaan${UUID.randomUUID()}" + ".png")
             val fOut = FileOutputStream(file)
 
             bitmap.compress(Bitmap.CompressFormat.PNG, 85, fOut)

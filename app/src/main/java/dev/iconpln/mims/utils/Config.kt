@@ -4,7 +4,7 @@ object Config {
     const val SCHEMA_NAME = "Mims"
 
     const val DIRECTORY_ROOT_NAME = "mims"
-    const val DATABASE_NAME = "mims-4023010103-db"
+    const val DATABASE_NAME = "mims-4023010106-db"
 
     // Storage
     const val REQUEST_CODE_WRITE_EXTERNAL_STORAGE = 10

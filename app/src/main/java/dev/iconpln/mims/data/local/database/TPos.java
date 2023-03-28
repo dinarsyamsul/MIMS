@@ -38,6 +38,8 @@ public class TPos {
     private String RatingResponse;
     private String RatingQuality;
     private String RatingDelivery;
+    private String StatusPemeriksaan;
+    private String StatusPenerimaan;
 
     @Generated
     public TPos() {
@@ -48,7 +50,7 @@ public class TPos {
     }
 
     @Generated
-    public TPos(Long id, String StorLoc, String Total, String TlskNo, String PoSapNo, String PoMpNo, String NoDoSmar, Integer LeadTime, String Storloc, String CreatedDate, String PlanCodeNo, String PlantName, String NoDoMims, String DoStatus, String Expeditions, String KodeStatusDoMims, String CourierPersonName, String KdPabrikan, String MaterialGroup, String NamaKategoriMaterial, String PetugasPenerima, String TglDiterima, String KurirPengantar, String DoLineItem, String RatingResponse, String RatingQuality, String RatingDelivery) {
+    public TPos(Long id, String StorLoc, String Total, String TlskNo, String PoSapNo, String PoMpNo, String NoDoSmar, Integer LeadTime, String Storloc, String CreatedDate, String PlanCodeNo, String PlantName, String NoDoMims, String DoStatus, String Expeditions, String KodeStatusDoMims, String CourierPersonName, String KdPabrikan, String MaterialGroup, String NamaKategoriMaterial, String PetugasPenerima, String TglDiterima, String KurirPengantar, String DoLineItem, String RatingResponse, String RatingQuality, String RatingDelivery, String StatusPemeriksaan, String StatusPenerimaan) {
         this.id = id;
         this.StorLoc = StorLoc;
         this.Total = Total;
@@ -76,6 +78,8 @@ public class TPos {
         this.RatingResponse = RatingResponse;
         this.RatingQuality = RatingQuality;
         this.RatingDelivery = RatingDelivery;
+        this.StatusPemeriksaan = StatusPemeriksaan;
+        this.StatusPenerimaan = StatusPenerimaan;
     }
 
     public Long getId() {
@@ -292,6 +296,22 @@ public class TPos {
 
     public void setRatingDelivery(String RatingDelivery) {
         this.RatingDelivery = RatingDelivery;
+    }
+
+    public String getStatusPemeriksaan() {
+        return StatusPemeriksaan;
+    }
+
+    public void setStatusPemeriksaan(String StatusPemeriksaan) {
+        this.StatusPemeriksaan = StatusPemeriksaan;
+    }
+
+    public String getStatusPenerimaan() {
+        return StatusPenerimaan;
+    }
+
+    public void setStatusPenerimaan(String StatusPenerimaan) {
+        this.StatusPenerimaan = StatusPenerimaan;
     }
 
 }

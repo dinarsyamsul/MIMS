@@ -179,9 +179,10 @@ class ComplaintPemeriksaanActivity : AppCompatActivity(),Loadable {
         var sns = ""
         var checkedDetPen = daoSession.tPemeriksaanDetailDao.queryBuilder()
             .where(TPemeriksaanDetailDao.Properties.NoDoSmar.eq(noDo))
+            .where(TPemeriksaanDetailDao.Properties.IsDone.eq(0))
             .where(TPemeriksaanDetailDao.Properties.IsChecked.eq(1)).list()
         for (i in checkedDetPen){
-            sns += "${i.noPackaging},${i.sn},${i.noMaterail};"
+            sns += "${i.noPackaging},${i.sn},SEDANG KOMPLAIN,${pemeriksaan.doLineItem},${i.noMaterail};"
             Log.i("noPackaging", i.noPackaging)
 
         }
@@ -216,11 +217,11 @@ class ComplaintPemeriksaanActivity : AppCompatActivity(),Loadable {
         val params = ArrayList<ReportParameter>()
         params.add(ReportParameter("1", reportId, "no_do_smar", noDo!!, ReportParameter.TEXT))
         params.add(ReportParameter("2", reportId, "alasan", binding.editText.text.toString(), ReportParameter.TEXT))
-        params.add(ReportParameter("3", reportId, "quantity", listDetailPem.size.toString(), ReportParameter.TEXT))
+        params.add(ReportParameter("3", reportId, "quantity", checkedDetPen.size.toString(), ReportParameter.TEXT))
         params.add(ReportParameter("4", reportId, "username", username!!, ReportParameter.TEXT))
         params.add(ReportParameter("5", reportId, "email", username, ReportParameter.TEXT))
         params.add(ReportParameter("6", reportId, "sns", sns, ReportParameter.TEXT))
-        params.add(ReportParameter("7", reportId, "status", "PENDING", ReportParameter.TEXT))
+        params.add(ReportParameter("7", reportId, "status", "ACTIVE", ReportParameter.TEXT))
         params.add(ReportParameter("8", reportId, "plant_code_no", pemeriksaan.planCodeNo, ReportParameter.TEXT))
         params.add(ReportParameter("9", reportId, "no_do_line", pemeriksaan.doLineItem, ReportParameter.TEXT))
 
@@ -295,7 +296,7 @@ class ComplaintPemeriksaanActivity : AppCompatActivity(),Loadable {
             fOut.close()
 
             var photo = TPhoto()
-            photo.noDo = noDo
+            photo.noDo = noPem
             photo.type = "complaint_pemeriksaan"
             photo.path = file.toString()
             photo.photoNumber = photoNumber++
@@ -321,7 +322,7 @@ class ComplaintPemeriksaanActivity : AppCompatActivity(),Loadable {
             val mPhotoPath = data?.getStringExtra("Path")
 
             var photo = TPhoto()
-            photo.noDo = noDo
+            photo.noDo = noPem
             photo.type = "complaint_pemeriksaan"
             photo.path = mPhotoPath
             photo.photoNumber = photoNumber++
@@ -367,6 +368,12 @@ class ComplaintPemeriksaanActivity : AppCompatActivity(),Loadable {
             Intent(this@ComplaintPemeriksaanActivity, PemeriksaanActivity::class.java )
             .setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP))
         finish()
+        daoSession.tPhotoDao.deleteInTx(listPhoto)
         Toast.makeText(this, message, Toast.LENGTH_LONG).show()
+    }
+
+    override fun onBackPressed() {
+        daoSession.tPhotoDao.deleteInTx(listPhoto)
+        super.onBackPressed()
     }
 }

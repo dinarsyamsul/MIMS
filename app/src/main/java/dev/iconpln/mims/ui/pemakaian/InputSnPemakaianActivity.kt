@@ -111,8 +111,8 @@ class InputSnPemakaianActivity : AppCompatActivity(),Loadable {
             btnScanSnMaterial.setOnClickListener { openScanner() }
             btnInputSnManual.setOnClickListener { showPopUp() }
 
-            txtIdPelanggan.text = pemakaian.idPelanggan
-            txtNoAgenda.text = pemakaian.noAgenda
+            txtIdPelanggan.text = if(pemakaian.idPelanggan.isNullOrEmpty()) "-" else pemakaian.idPelanggan
+            txtNoAgenda.text = if(pemakaian.noAgenda.isNullOrEmpty()) "-" else pemakaian.noAgenda
 
             btnBack.setOnClickListener { onBackPressed() }
             btnSimpan.setOnClickListener {

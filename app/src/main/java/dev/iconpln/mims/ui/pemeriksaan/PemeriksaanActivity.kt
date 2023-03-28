@@ -107,6 +107,12 @@ class PemeriksaanActivity : AppCompatActivity() {
                     val search = daoSession.tPemeriksaanDao.queryBuilder()
                         .whereOr(TPemeriksaanDao.Properties.NoDoSmar.like("%"+noDo+"%")
                         ,TPemeriksaanDao.Properties.PoSapNo.like("%"+noDo+"%")).list()
+                    rvPemeriksaan.adapter = null
+                    rvPemeriksaan.layoutManager = null
+
+                    rvPemeriksaan.adapter = adapter
+                    rvPemeriksaan.setHasFixedSize(true)
+                    rvPemeriksaan.layoutManager = LinearLayoutManager(this@PemeriksaanActivity,LinearLayoutManager.VERTICAL, false)
                     adapter.setPeList(search)
                 }
 
@@ -124,14 +130,24 @@ class PemeriksaanActivity : AppCompatActivity() {
                         .whereOr(TPemeriksaanDao.Properties.NoDoSmar.like("%"+noDo+"%")
                             ,TPemeriksaanDao.Properties.PoSapNo.like("%"+noDo+"%"))
                         .orderDesc(TPemeriksaanDao.Properties.CreatedDate).list()
-                    adapter.setPeList(search)
-                }else{
+                    rvPemeriksaan.adapter = null
+                    rvPemeriksaan.layoutManager = null
+
+                    rvPemeriksaan.adapter = adapter
+                    rvPemeriksaan.setHasFixedSize(true)
+                    rvPemeriksaan.layoutManager = LinearLayoutManager(this@PemeriksaanActivity,LinearLayoutManager.VERTICAL, false)
+                    adapter.setPeList(search)                }else{
                     val search = daoSession.tPemeriksaanDao.queryBuilder()
                         .whereOr(TPemeriksaanDao.Properties.NoDoSmar.like("%"+noDo+"%")
                             ,TPemeriksaanDao.Properties.PoSapNo.like("%"+noDo+"%"))
                         .orderAsc(TPemeriksaanDao.Properties.CreatedDate).list()
-                    adapter.setPeList(search)
-                }
+                    rvPemeriksaan.adapter = null
+                    rvPemeriksaan.layoutManager = null
+
+                    rvPemeriksaan.adapter = adapter
+                    rvPemeriksaan.setHasFixedSize(true)
+                    rvPemeriksaan.layoutManager = LinearLayoutManager(this@PemeriksaanActivity,LinearLayoutManager.VERTICAL, false)
+                    adapter.setPeList(search)                }
 
             }
         }

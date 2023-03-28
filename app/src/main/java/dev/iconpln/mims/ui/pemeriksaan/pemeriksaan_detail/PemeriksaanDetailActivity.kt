@@ -381,8 +381,8 @@ class PemeriksaanDetailActivity : AppCompatActivity(), Loadable {
 
         for (i in data){
             Log.d("checkList", i.statusPemeriksaan)
-            if (i.statusPemeriksaan == "SESUAI"){
-                Toast.makeText(this@PemeriksaanDetailActivity, "Tidak boleh melakukan komplain dengan status kosong", Toast.LENGTH_SHORT).show()
+            if (i.statusPemeriksaan == "NORMAL"){
+                Toast.makeText(this@PemeriksaanDetailActivity, "Tidak boleh melakukan komplain dengan status normal", Toast.LENGTH_SHORT).show()
                 return
             }
         }

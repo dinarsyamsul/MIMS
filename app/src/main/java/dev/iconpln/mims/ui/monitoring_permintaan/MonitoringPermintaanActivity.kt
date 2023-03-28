@@ -36,17 +36,17 @@ class MonitoringPermintaanActivity : AppCompatActivity() {
         daoSession = (application as MyApplication).daoSession!!
         cal = Calendar.getInstance()
         setDataPermintaan()
+        setDetailPermintaan()
 
         viewModel.getMonitoringPermintaan(daoSession)
 
         adapter = MonitoringPermintaanAdapter(arrayListOf(), object : MonitoringPermintaanAdapter.OnAdapterListener{
             override fun onClick(mp: TTransMonitoringPermintaan) {
-                setDetailPermintaan(mp.noTransaksi)
                 val checkDetail = daoSession.tTransMonitoringPermintaanDetailDao.queryBuilder()
                     .where(TTransMonitoringPermintaanDetailDao.Properties.NoTransaksi.eq(mp.noTransaksi))
-                    .where(TTransMonitoringPermintaanDetailDao.Properties.IsDone.eq(0)).list().size > 0
+                    .where(TTransMonitoringPermintaanDetailDao.Properties.IsDone.eq(0)).list()
 
-                if (!checkDetail){
+                if (checkDetail.isNullOrEmpty()){
                     Toast.makeText(this@MonitoringPermintaanActivity, "Data material sudah di kirim semua", Toast.LENGTH_SHORT).show()
                 }else{
                     startActivity(Intent(this@MonitoringPermintaanActivity, MonitoringPermintaanDetailActivity::class.java)
@@ -56,7 +56,7 @@ class MonitoringPermintaanActivity : AppCompatActivity() {
 
             }
 
-        })
+        },daoSession)
 
         with(binding){
             btnBack.setOnClickListener { onBackPressed() }
@@ -135,12 +135,10 @@ class MonitoringPermintaanActivity : AppCompatActivity() {
         }
     }
 
-    private fun setDetailPermintaan(noTransaksi: String) {
-        val isDataExist = daoSession.tTransMonitoringPermintaanDetailDao.queryBuilder()
-            .where(TTransMonitoringPermintaanDetailDao.Properties.NoTransaksi.eq(noTransaksi)).list().size > 0
+    private fun setDetailPermintaan() {
+        val isDataExist = daoSession.tTransMonitoringPermintaanDetailDao.queryBuilder().list().size > 0
 
-        val listDetailPermintaan = daoSession.tMonitoringPermintaanDetailDao.queryBuilder()
-            .where(TMonitoringPermintaanDetailDao.Properties.NoTransaksi.eq(noTransaksi)).list()
+        val listDetailPermintaan = daoSession.tMonitoringPermintaanDetailDao.queryBuilder().list()
 
         if (!isDataExist){
             val size = listDetailPermintaan.size
@@ -170,7 +168,7 @@ class MonitoringPermintaanActivity : AppCompatActivity() {
     }
 
     private fun setGudangAsal() {
-        val list = daoSession.tMonitoringPermintaanDao.queryBuilder().list()
+        val list = daoSession.tTransMonitoringPermintaanDao.queryBuilder().list()
         val listKategori: ArrayList<String> = ArrayList()
         for (i in list){
             listKategori.add(i.storLocAsalName)
