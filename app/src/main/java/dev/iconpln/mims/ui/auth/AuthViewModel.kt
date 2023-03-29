@@ -176,30 +176,6 @@ class AuthViewModel: ViewModel() {
         }
     }
 
-    fun changePassword(context: Context, username: String,password: String) {
-        _isLoading.value = true
-        CoroutineScope(Dispatchers.IO).launch {
-            val requestBody = mutableMapOf<String, String>()
-            requestBody["username"] = username
-            requestBody["new_password"] = password
-
-            val response = ApiConfig.getApiService(context).changePassword(requestBody)
-            withContext(Dispatchers.Main){
-                if (response.isSuccessful) {
-                    try {
-                        _isLoading.value = false
-                        val responses = response.body()
-                        _changePassword.postValue(responses!!)
-                    }catch (e: Exception){
-                        e.printStackTrace()
-                    }
-                }else {
-                    _isLoading.value = false
-                    Toast.makeText(context, response.message(), Toast.LENGTH_SHORT).show()
-                }
-            }
-        }
-    }
 
     fun changePasswordProfile(context: Context, username: String,password: String,oldPassword: String) {
         _isLoading.value = true
@@ -231,6 +207,37 @@ class AuthViewModel: ViewModel() {
             }
         }
     }
+
+    fun forgotPassword(context: Context, username: String,password: String) {
+        _isLoading.value = true
+        CoroutineScope(Dispatchers.IO).launch {
+            val requestBody = mutableMapOf<String, String>()
+            requestBody["username"] = username
+            requestBody["new_password"] = password
+
+            val response = ApiConfig.getApiService(context).forgotPasswordPassword(requestBody)
+            withContext(Dispatchers.Main){
+                if (response.isSuccessful) {
+                    try {
+                        _isLoading.value = false
+                        if (response.body()?.status == "success"){
+                            val responses = response.body()
+                            _changePassword.postValue(responses!!)
+                        }else{
+                            Toast.makeText(context,response.body()?.message, Toast.LENGTH_SHORT).show()
+                        }
+                    }catch (e: Exception){
+                        _isLoading.value = false
+                        e.printStackTrace()
+                    }
+                }else {
+                    _isLoading.value = false
+                    Toast.makeText(context, response.message(), Toast.LENGTH_SHORT).show()
+                }
+            }
+        }
+    }
+
 
     private fun inserToDbLocal(daoSession: DaoSession, result: LoginResponse) {
         daoSession.tLokasiDao.deleteAll()

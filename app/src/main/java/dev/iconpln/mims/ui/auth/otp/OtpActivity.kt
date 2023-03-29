@@ -8,6 +8,7 @@ import android.os.Bundle
 import android.os.CountDownTimer
 import android.text.Editable
 import android.text.TextWatcher
+import android.util.Log
 import android.view.View
 import android.view.ViewGroup
 import android.view.inputmethod.InputMethodManager
@@ -40,6 +41,7 @@ class OtpActivity : AppCompatActivity() {
     private var deviceData: String = ""
     private var otpFrom: String = ""
     private var otpInput: String = ""
+    private var isForgetPassword:Boolean=false
 
     private lateinit var dialog : Dialog
 
@@ -62,6 +64,9 @@ class OtpActivity : AppCompatActivity() {
 
         username = intent.getStringExtra("username").toString()
         otpFrom = intent.getStringExtra("otpFrom").toString()
+        isForgetPassword=otpFrom.equals("forgotPassword")
+        Log.i("varIsForgetPassOTP","${isForgetPassword}")
+
         androidId = Helper.getAndroidId(this)
         deviceData = Helper.deviceData
 
@@ -100,7 +105,8 @@ class OtpActivity : AppCompatActivity() {
             when (it.message) {
                 "OTP tervalidasi" -> {
                     startActivity(Intent(this, ChangePasswordActivity::class.java)
-                        .putExtra("username", username))
+                        .putExtra("username", username)
+                        .putExtra("isForgetPassword", isForgetPassword.compareTo(false)))
                 }
                 "OTP Not Found" -> {
                     Toast.makeText(this,it.message, Toast.LENGTH_SHORT).show()
@@ -116,6 +122,7 @@ class OtpActivity : AppCompatActivity() {
                         edtotp4.text.toString() +
                         edtotp5.text.toString() +
                         edtotp6.text.toString()
+                
                 when(otpFrom){
                     "login" -> viewModel.checkOtp(this@OtpActivity,username,otpInput,androidId,deviceData,daoSession)
                     "forgotPassword" -> viewModel.checkOtpForgotPassword(this@OtpActivity,username,otpInput)

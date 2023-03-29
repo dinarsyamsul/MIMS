@@ -21,6 +21,7 @@ class ChangePasswordActivity : AppCompatActivity() {
     private lateinit var username: String
     private lateinit var dialog : Dialog
     private var usernameFp = ""
+    private var isForgetPassword=false
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -36,6 +37,8 @@ class ChangePasswordActivity : AppCompatActivity() {
 
         username = SharedPrefsUtils.getStringPreference(this,"username","")!!
         usernameFp = intent.getStringExtra("username").toString()
+        isForgetPassword= intent.getIntExtra("isForgetPassword",0)==1
+        Log.i("varIsForgetPass","${isForgetPassword}")
 
         viewModel.isLoading.observe(this){
             if (it) dialog.show() else dialog.dismiss()
@@ -58,27 +61,58 @@ class ChangePasswordActivity : AppCompatActivity() {
                 val passwordBaru = edtPasswordBaru.text.toString()
                 val konfPasswordBaru = edtKonfirmasiPasswordBaru.text.toString()
                 val passwordSaatIni = edtPasswordSaatIni.text.toString()
-                Log.d("username", username)
 
-                when{
-                    passwordSaatIni.isNullOrEmpty() -> {
-                        tvMsgError.visibility = View.VISIBLE
-                        tvMsgError.text = "Password saat ini tidak boleh kosong"
+                if(isForgetPassword){
+                    when{
+                        passwordBaru.isNullOrEmpty() -> {
+                            tvMsgError.visibility = View.VISIBLE
+                            tvMsgError.text = "Password baru tidak boleh kosong"
+                        }
+                        konfPasswordBaru.isNullOrEmpty() -> {
+                            tvMsgError.visibility = View.VISIBLE
+                            tvMsgError.text = "Silahkan masukkan konfirmasi password"
+                        }
+                        passwordBaru != konfPasswordBaru -> {
+                            tvMsgError.visibility = View.VISIBLE
+                            tvMsgError.text = "Password baru tidak cocok dengan konfirmasi password"
+                        }
+                        else -> viewModel.forgotPassword(this@ChangePasswordActivity, username, passwordBaru)
                     }
-                    passwordBaru.isNullOrEmpty() -> {
-                        tvMsgError.visibility = View.VISIBLE
-                        tvMsgError.text = "Password baru tidak boleh kosong"
-                    }
-                    konfPasswordBaru.isNullOrEmpty() -> {
-                        tvMsgError.visibility = View.VISIBLE
-                        tvMsgError.text = "Silahkan masukkan konfirmasi password"
-                    }
-                    passwordBaru != konfPasswordBaru -> {
-                        tvMsgError.visibility = View.VISIBLE
-                        tvMsgError.text = "Password baru tidak cocok dengan konfirmasi password"
-                    }
-                    else -> viewModel.changePasswordProfile(this@ChangePasswordActivity, username, passwordBaru,passwordSaatIni)
                 }
+                else{
+                    when{
+                        passwordSaatIni.isNullOrEmpty() -> {
+                            tvMsgError.visibility = View.VISIBLE
+                            tvMsgError.text = "Password saat ini tidak boleh kosong"
+                        }
+                        passwordBaru.isNullOrEmpty() -> {
+                            tvMsgError.visibility = View.VISIBLE
+                            tvMsgError.text = "Password baru tidak boleh kosong"
+                        }
+                        konfPasswordBaru.isNullOrEmpty() -> {
+                            tvMsgError.visibility = View.VISIBLE
+                            tvMsgError.text = "Silahkan masukkan konfirmasi password"
+                        }
+                        passwordBaru != konfPasswordBaru -> {
+                            tvMsgError.visibility = View.VISIBLE
+                            tvMsgError.text = "Password baru tidak cocok dengan konfirmasi password"
+                        }
+                        else -> viewModel.changePasswordProfile(this@ChangePasswordActivity, username, passwordBaru,passwordSaatIni)
+                    }
+                }
+
+
+            }
+        }
+        initForgetPassword()
+    }
+
+    private fun initForgetPassword(){
+        if(isForgetPassword){
+            with(binding){
+                textView2.visibility=View.GONE
+                textInputLayout.visibility=View.GONE
+                lblPasswordSaatIni.visibility=View.GONE
             }
         }
     }

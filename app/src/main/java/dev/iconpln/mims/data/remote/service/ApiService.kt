@@ -40,7 +40,7 @@ interface ApiService {
 
     @Headers("Content-Type:application/json")
     @POST("/users/doForgotPassword")
-    suspend fun changePassword(
+    suspend fun forgotPasswordPassword(
         @Body body: Map<String, String>
     ): Response<GenericResponse>
 
