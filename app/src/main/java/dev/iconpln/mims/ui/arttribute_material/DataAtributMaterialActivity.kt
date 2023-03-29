@@ -85,6 +85,7 @@ class DataAtributMaterialActivity : AppCompatActivity() {
             c.add(Calendar.DATE, -1) // number of days to add
 
             startDate = startDateAdjust
+            clearEndCalender()
             doSearch()
 
         }
@@ -171,18 +172,14 @@ class DataAtributMaterialActivity : AppCompatActivity() {
     }
 
     private fun doSearch() {
-        var endDateAdjust = endDate
-        if (endDate.isNullOrEmpty()){
-            endDateAdjust = LocalDateTime.now().toString(Config.DATE)
-        }
 
-        Log.d("checkDate", startDateAdjust+" "+endDateAdjust)
+        Log.d("checkDate", startDate+" "+endDate)
 
         val listMaterial = daoSession.tMaterialDao.queryBuilder()
             .where(TMaterialDao.Properties.NamaKategoriMaterial.like("%"+ kategori + "%"))
             .where(TMaterialDao.Properties.Tahun.like("%"+ tahun + "%"))
             .whereOr(TMaterialDao.Properties.NoProduksi.like("%"+ snBatch + "%"), TMaterialDao.Properties.NomorMaterial.like("%"+ snBatch + "%"))
-            .where(TMaterialDao.Properties.TglProduksi.between(startDateAdjust,endDateAdjust))
+            .where(TMaterialDao.Properties.TglProduksi.between(startDate,endDate))
             .orderAsc(TMaterialDao.Properties.TglProduksi)
             .list()
         adapter.setMaterialList(listMaterial)
@@ -191,5 +188,10 @@ class DataAtributMaterialActivity : AppCompatActivity() {
     private fun fetchLocal() {
         val listMaterial = daoSession.tMaterialDao.queryBuilder().list()
         adapter.setMaterialList(listMaterial)
+    }
+
+    private fun clearEndCalender(){
+        binding.txtTglSelesai.setText("yyyy/mm/dd")
+        endDate=""
     }
 }

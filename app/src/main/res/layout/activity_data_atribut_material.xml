@@ -177,7 +177,7 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:fontFamily="@font/montserrat_reguler"
-                        android:text="dd/mm/yyyy"
+                        android:text="yyyy/mm/dd"
                         android:textColor="#028097"/>
 
                     <ImageView
@@ -211,7 +211,7 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:fontFamily="@font/montserrat_reguler"
-                        android:text="dd/mm/yyyy"
+                        android:text="yyyy/mm/dd"
                         android:textColor="#028097" />
 
                     <ImageView
