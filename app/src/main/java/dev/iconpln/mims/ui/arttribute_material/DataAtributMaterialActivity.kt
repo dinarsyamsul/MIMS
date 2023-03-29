@@ -98,7 +98,13 @@ class DataAtributMaterialActivity : AppCompatActivity() {
             val myFormat = "yyyy-MM-dd" // mention the format you need
             val sdf = SimpleDateFormat(myFormat, Locale.US)
             binding.txtTglSelesai.text = sdf.format(cal.time)
-            endDate = sdf.format(cal.time)
+
+            var endDateAdjust = sdf.format(cal.time) // End date
+            var c = Calendar.getInstance()
+            c.time = sdf.parse(startDateAdjust)
+            c.add(Calendar.DATE, +1) // number of days to add
+
+            endDate = endDateAdjust
             doSearch()
 
         }
