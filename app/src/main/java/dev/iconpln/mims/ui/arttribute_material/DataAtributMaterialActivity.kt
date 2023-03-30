@@ -79,12 +79,7 @@ class DataAtributMaterialActivity : AppCompatActivity() {
             val sdf = SimpleDateFormat(myFormat, Locale.US)
             binding.txtTglMulai.text = sdf.format(cal.time)
 
-            var startDateAdjust = sdf.format(cal.time) // Start date
-            var c = Calendar.getInstance()
-            c.time = sdf.parse(startDateAdjust)
-            c.add(Calendar.DATE, -1) // number of days to add
-
-            startDate = startDateAdjust
+            startDate = sdf.format(cal.time)
             clearEndCalender()
             doSearch()
 
@@ -99,12 +94,7 @@ class DataAtributMaterialActivity : AppCompatActivity() {
             val sdf = SimpleDateFormat(myFormat, Locale.US)
             binding.txtTglSelesai.text = sdf.format(cal.time)
 
-            var endDateAdjust = sdf.format(cal.time) // End date
-            var c = Calendar.getInstance()
-            c.time = sdf.parse(startDateAdjust)
-            c.add(Calendar.DATE, +1) // number of days to add
-
-            endDate = endDateAdjust
+            endDate = sdf.format(cal.time)
             doSearch()
 
         }
@@ -179,15 +169,46 @@ class DataAtributMaterialActivity : AppCompatActivity() {
 
     private fun doSearch() {
 
-        Log.d("checkDate", startDate+" "+endDate)
-
-        val listMaterial = daoSession.tMaterialDao.queryBuilder()
+        Log.d("varFilterDate", startDate+" "+endDate)
+        Log.d("varFilterYear", "${tahun}")
+        Log.d("varFilterKategory", "${kategori}")
+        Log.d("varFilterFreetext", "${snBatch}")
+        var listMaterial = daoSession.tMaterialDao.queryBuilder()
             .where(TMaterialDao.Properties.NamaKategoriMaterial.like("%"+ kategori + "%"))
             .where(TMaterialDao.Properties.Tahun.like("%"+ tahun + "%"))
             .whereOr(TMaterialDao.Properties.NoProduksi.like("%"+ snBatch + "%"), TMaterialDao.Properties.NomorMaterial.like("%"+ snBatch + "%"))
-            .where(TMaterialDao.Properties.TglProduksi.between(startDate,endDate))
             .orderAsc(TMaterialDao.Properties.TglProduksi)
             .list()
+        if(!startDate.equals("") && !endDate.equals("")){
+            listMaterial = daoSession.tMaterialDao.queryBuilder()
+                .where(TMaterialDao.Properties.NamaKategoriMaterial.like("%"+ kategori + "%"))
+                .where(TMaterialDao.Properties.Tahun.like("%"+ tahun + "%"))
+                .whereOr(TMaterialDao.Properties.NoProduksi.like("%"+ snBatch + "%"), TMaterialDao.Properties.NomorMaterial.like("%"+ snBatch + "%"))
+                .where(TMaterialDao.Properties.TglProduksi.ge(startDate))
+                .where(TMaterialDao.Properties.TglProduksi.le(endDate))
+                .orderAsc(TMaterialDao.Properties.TglProduksi)
+                .list()
+        }
+        else if(!startDate.equals("") && endDate.equals("")){
+            listMaterial = daoSession.tMaterialDao.queryBuilder()
+                .where(TMaterialDao.Properties.NamaKategoriMaterial.like("%"+ kategori + "%"))
+                .where(TMaterialDao.Properties.Tahun.like("%"+ tahun + "%"))
+                .whereOr(TMaterialDao.Properties.NoProduksi.like("%"+ snBatch + "%"), TMaterialDao.Properties.NomorMaterial.like("%"+ snBatch + "%"))
+                .where(TMaterialDao.Properties.TglProduksi.ge(startDate))
+                .orderAsc(TMaterialDao.Properties.TglProduksi)
+                .list()
+        }
+        else if(startDate.equals("") && !endDate.equals("")){
+            listMaterial = daoSession.tMaterialDao.queryBuilder()
+                .where(TMaterialDao.Properties.NamaKategoriMaterial.like("%"+ kategori + "%"))
+                .where(TMaterialDao.Properties.Tahun.like("%"+ tahun + "%"))
+                .whereOr(TMaterialDao.Properties.NoProduksi.like("%"+ snBatch + "%"), TMaterialDao.Properties.NomorMaterial.like("%"+ snBatch + "%"))
+                .where(TMaterialDao.Properties.TglProduksi.le(endDate))
+                .orderAsc(TMaterialDao.Properties.TglProduksi)
+                .list()
+        }
+
+
         adapter.setMaterialList(listMaterial)
     }
 
