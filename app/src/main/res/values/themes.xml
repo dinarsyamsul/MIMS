@@ -19,4 +19,8 @@
     </style>
     <style name="Theme.MIMS.AppBarOverlay" parent="ThemeOverlay.AppCompat.Dark.ActionBar" />
     <style name="Theme.MIMS.PopupOverlay" parent="ThemeOverlay.AppCompat.Light" />
+
+    <style name="CustomAlertDialog" parent="Theme.AppCompat.Light.Dialog.Alert">
+        <item name="android:windowBackground">@drawable/rounded_corner_dialog_alert_regis</item>
+    </style>
 </resources>
