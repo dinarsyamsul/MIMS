@@ -1,0 +1,158 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".ui.pnerimaan.approval.DetailSNdanGenerateActivity">
+
+    <TextView
+        android:id="@+id/txt_material"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="16dp"
+        android:layout_marginTop="16dp"
+        android:text="No. Material"
+        android:textColor="#3F3D56"
+        android:textSize="14sp"
+        android:textStyle="bold"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <EditText
+        android:id="@+id/src_no_material"
+        android:layout_width="0dp"
+        android:layout_height="50dp"
+        android:layout_marginTop="10dp"
+        android:layout_marginStart="16dp"
+        android:layout_marginEnd="10dp"
+        android:background="@drawable/srchview"
+        android:drawableEnd="@drawable/ic_search"
+        android:fontFamily="@font/montserrat_reguler"
+        android:hint="Search here"
+        android:paddingLeft="20dp"
+        android:paddingRight="20dp"
+        android:textSize="12sp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/txt_material" />
+
+    <TextView
+        android:id="@+id/txt_kategori"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="20dp"
+        android:layout_marginStart="16dp"
+        android:fontFamily="@font/montserrat_reguler"
+        android:text="Kategori"
+        android:textColor="#3F3D56"
+        android:textSize="16sp"
+        android:textStyle="bold"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/src_no_material" />
+
+    <com.google.android.material.textfield.TextInputLayout
+        android:id="@+id/tinp_pilihKategori"
+        style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox.ExposedDropdownMenu"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="10dp"
+        android:layout_marginEnd="25dp"
+        app:hintAnimationEnabled="true"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="@+id/txt_kategori"
+        app:layout_constraintTop_toBottomOf="@+id/txt_kategori">
+
+        <AutoCompleteTextView
+            android:id="@+id/dropdown_kategori"
+            style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox.ExposedDropdownMenu"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:background="@drawable/txt_input_layout"
+            android:fontFamily="@font/montserrat_semibold"
+            android:inputType="none"
+            android:text="Pilih Kategori" />
+
+    </com.google.android.material.textfield.TextInputLayout>
+
+    <TextView
+        android:id="@+id/txt_daftar_sn_material"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="10dp"
+        android:layout_marginTop="25dp"
+        android:text="Daftar SN Material"
+        android:textColor="#3F3D56"
+        android:textSize="16sp"
+        app:layout_constraintStart_toStartOf="@id/tinp_pilihKategori"
+        app:layout_constraintTop_toBottomOf="@id/tinp_pilihKategori" />
+
+    <androidx.appcompat.widget.AppCompatButton
+        android:id="@+id/btn_kirim"
+        android:layout_width="wrap_content"
+        android:layout_height="36dp"
+        android:background="@drawable/br_btn"
+        android:layout_marginEnd="16dp"
+        android:paddingStart="16dp"
+        android:paddingEnd="16dp"
+        android:elevation="8dp"
+        android:fontFamily="@font/montserrat_reguler"
+        android:text="Pilih Item"
+        android:textAllCaps="false"
+        android:textColor="#FFFFFF"
+        android:textStyle="bold"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toTopOf="@id/txt_daftar_sn_material"
+        app:layout_constraintBottom_toBottomOf="@id/txt_daftar_sn_material"/>
+
+    <androidx.recyclerview.widget.RecyclerView
+        android:id="@+id/rv_detail_sn_generate"
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_marginTop="10dp"
+        app:layout_constraintBottom_toTopOf="@id/btn_komplain"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/txt_daftar_sn_material"
+        tools:listitem="@layout/item_data_detail_generate_sn_dan_aktivasi"/>
+
+    <androidx.appcompat.widget.AppCompatButton
+        android:id="@+id/btn_komplain"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="16dp"
+        android:layout_marginEnd="12dp"
+        android:paddingStart="16dp"
+        android:paddingEnd="16dp"
+        android:layout_marginBottom="16dp"
+        android:background="@drawable/bg_btn_cancel"
+        android:fontFamily="@font/montserrat_reguler"
+        android:text="Komplain"
+        android:textAllCaps="false"
+        android:textColor="@color/white"
+        android:textSize="14sp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toStartOf="@id/btn_terima"
+        app:layout_constraintTop_toBottomOf="@id/rv_detail_sn_generate"
+        android:visibility="gone"/>
+
+    <androidx.appcompat.widget.AppCompatButton
+        android:id="@+id/btn_terima"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginEnd="16dp"
+        android:background="@drawable/bg_btn_approve"
+        android:fontFamily="@font/montserrat_reguler"
+        android:text="Terima"
+        android:paddingStart="16dp"
+        android:paddingEnd="16dp"
+        android:textAllCaps="false"
+        android:textColor="@color/white"
+        android:textSize="14sp"
+        app:layout_constraintBottom_toBottomOf="@+id/btn_komplain"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toTopOf="@+id/btn_komplain"
+        android:visibility="gone"/>
+
+</androidx.constraintlayout.widget.ConstraintLayout>
