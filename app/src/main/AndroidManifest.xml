@@ -106,6 +106,12 @@
                 android:value="" />
         </activity>
         <activity
+            android:name=".ui.pnerimaan.approval.DetailSNdanGenerateActivity"
+            android:exported="false" />
+        <activity
+            android:name=".ui.pnerimaan.approval.ApprovalActivity"
+            android:exported="false" />
+        <activity
             android:name=".ui.monitoring_permintaan.input_sn_monitoring.InputSnMonitoringPermintaanActivity"
             android:windowSoftInputMode="stateHidden">
             <meta-data
