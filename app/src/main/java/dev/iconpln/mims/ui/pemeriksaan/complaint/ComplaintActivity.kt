@@ -73,7 +73,9 @@ class ComplaintActivity : AppCompatActivity(), Loadable {
             .where(TPosDetailPenerimaanDao.Properties.IsDone.eq(0))
             .where(TPosDetailPenerimaanDao.Properties.IsChecked.eq(0)).list()
 
-        penerimaan = daoSession.tPosPenerimaanDao.queryBuilder().where(TPosPenerimaanDao.Properties.NoDoSmar.eq(noDo)).limit(1).unique()
+        penerimaan = daoSession.tPosPenerimaanDao.queryBuilder()
+            .where(TPosPenerimaanDao.Properties.NoDoSmar.eq(noDo))
+            .limit(1).unique()
         photoNumber = listPhoto.size + 1
 
         adapter = AddPhotoAdapter(arrayListOf(), object : AddPhotoAdapter.OnAdapterListener{
@@ -94,7 +96,7 @@ class ComplaintActivity : AppCompatActivity(), Loadable {
 
                 val newList = daoSession.tPhotoDao.queryBuilder()
                     .where(TPhotoDao.Properties.NoDo.eq(noDo))
-                    .where(TPhotoDao.Properties.Type.eq("input penerima"))
+                    .where(TPhotoDao.Properties.Type.eq("complaint"))
                     .list()
 
                 adapter.setPhotoList(newList)
@@ -174,9 +176,12 @@ class ComplaintActivity : AppCompatActivity(), Loadable {
 
     private fun insertData() {
         var sns = ""
-        var checkedDetPen = listDetailPen.filter { it.isChecked == 1 }
+        var checkedDetPen = daoSession.tPosDetailPenerimaanDao.queryBuilder()
+            .where(TPosDetailPenerimaanDao.Properties.NoDoSmar.eq(noDo))
+            .where(TPosDetailPenerimaanDao.Properties.IsDone.eq(0))
+            .where(TPosDetailPenerimaanDao.Properties.IsChecked.eq(1)).list()
         for (i in checkedDetPen){
-            sns += "${i.noPackaging},${i.serialNumber},${i.noMaterial};"
+            sns += "${i.noPackaging},${i.serialNumber},SEDANG KOMPLAIN,${i.doLineItem},${i.noMaterial};"
             Log.i("noPackaging", i.noPackaging)
 
         }
@@ -185,6 +190,7 @@ class ComplaintActivity : AppCompatActivity(), Loadable {
         }
 
         for (i in checkedDetPen){
+            i.isComplaint = 1
             i.isDone = 1
             daoSession.tPosDetailPenerimaanDao.update(i)
         }
@@ -205,14 +211,16 @@ class ComplaintActivity : AppCompatActivity(), Loadable {
         val params = ArrayList<ReportParameter>()
         params.add(ReportParameter("1", reportId, "no_do_smar", noDo!!, ReportParameter.TEXT))
         params.add(ReportParameter("2", reportId, "alasan", binding.editText.text.toString(), ReportParameter.TEXT))
-        params.add(ReportParameter("3", reportId, "quantity", listDetailPen.size.toString(), ReportParameter.TEXT))
+        params.add(ReportParameter("3", reportId, "quantity", checkedDetPen.size.toString(), ReportParameter.TEXT))
         params.add(ReportParameter("4", reportId, "username", username!!, ReportParameter.TEXT))
         params.add(ReportParameter("5", reportId, "email", username, ReportParameter.TEXT))
         params.add(ReportParameter("6", reportId, "sns", sns, ReportParameter.TEXT))
-        params.add(ReportParameter("7", reportId, "status", "PENDING", ReportParameter.TEXT))
+        params.add(ReportParameter("7", reportId, "status", "ACTIVE", ReportParameter.TEXT))
+        params.add(ReportParameter("8", reportId, "plant_code_no", penerimaan.planCodeNo, ReportParameter.TEXT))
+        params.add(ReportParameter("9", reportId, "no_do_line", penerimaan.doLineItem, ReportParameter.TEXT))
 
         var i = 1
-        var reportParameter = 8
+        var reportParameter = 10
         for (j in listPhoto){
             params.add(ReportParameter(reportParameter.toString(), reportId, "photos$i", j.path, ReportParameter.FILE))
             i++
@@ -346,11 +354,18 @@ class ComplaintActivity : AppCompatActivity(), Loadable {
         }
     }
 
+    override fun onBackPressed() {
+        daoSession.tPhotoDao.deleteInTx(listPhoto)
+        super.onBackPressed()
+    }
+
     override fun setFinish(result: Boolean, message: String) {
         if (result) {
             Log.i("finish","Yes")
         }
-        startActivity(Intent(this@ComplaintActivity, PenerimaanActivity::class.java ))
+        daoSession.tPhotoDao.deleteInTx(listPhoto)
+        startActivity(Intent(this@ComplaintActivity, PenerimaanActivity::class.java )
+            .setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP))
         finish()
         Toast.makeText(this, message, Toast.LENGTH_LONG).show()
     }

@@ -18,8 +18,11 @@ public class TPemeriksaanDetail {
     private String NoMaterail;
     private String NoPackaging;
     private String Kategori;
-    private String StatusSn;
+    private String StatusPenerimaan;
+    private String StatusPemeriksaan;
+    private Integer isPeriksa;
     private Integer IsChecked;
+    private Integer IsComplaint;
     private Integer IsDone;
 
     @Generated
@@ -31,7 +34,7 @@ public class TPemeriksaanDetail {
     }
 
     @Generated
-    public TPemeriksaanDetail(Long id, String NoPemeriksaan, String Sn, String NoDoSmar, String NoMaterail, String NoPackaging, String Kategori, String StatusSn, Integer IsChecked, Integer IsDone) {
+    public TPemeriksaanDetail(Long id, String NoPemeriksaan, String Sn, String NoDoSmar, String NoMaterail, String NoPackaging, String Kategori, String StatusPenerimaan, String StatusPemeriksaan, Integer isPeriksa, Integer IsChecked, Integer IsComplaint, Integer IsDone) {
         this.id = id;
         this.NoPemeriksaan = NoPemeriksaan;
         this.Sn = Sn;
@@ -39,8 +42,11 @@ public class TPemeriksaanDetail {
         this.NoMaterail = NoMaterail;
         this.NoPackaging = NoPackaging;
         this.Kategori = Kategori;
-        this.StatusSn = StatusSn;
+        this.StatusPenerimaan = StatusPenerimaan;
+        this.StatusPemeriksaan = StatusPemeriksaan;
+        this.isPeriksa = isPeriksa;
         this.IsChecked = IsChecked;
+        this.IsComplaint = IsComplaint;
         this.IsDone = IsDone;
     }
 
@@ -100,12 +106,28 @@ public class TPemeriksaanDetail {
         this.Kategori = Kategori;
     }
 
-    public String getStatusSn() {
-        return StatusSn;
+    public String getStatusPenerimaan() {
+        return StatusPenerimaan;
     }
 
-    public void setStatusSn(String StatusSn) {
-        this.StatusSn = StatusSn;
+    public void setStatusPenerimaan(String StatusPenerimaan) {
+        this.StatusPenerimaan = StatusPenerimaan;
+    }
+
+    public String getStatusPemeriksaan() {
+        return StatusPemeriksaan;
+    }
+
+    public void setStatusPemeriksaan(String StatusPemeriksaan) {
+        this.StatusPemeriksaan = StatusPemeriksaan;
+    }
+
+    public Integer getIsPeriksa() {
+        return isPeriksa;
+    }
+
+    public void setIsPeriksa(Integer isPeriksa) {
+        this.isPeriksa = isPeriksa;
     }
 
     public Integer getIsChecked() {
@@ -114,6 +136,14 @@ public class TPemeriksaanDetail {
 
     public void setIsChecked(Integer IsChecked) {
         this.IsChecked = IsChecked;
+    }
+
+    public Integer getIsComplaint() {
+        return IsComplaint;
+    }
+
+    public void setIsComplaint(Integer IsComplaint) {
+        this.IsComplaint = IsComplaint;
     }
 
     public Integer getIsDone() {

@@ -33,6 +33,7 @@ public class TPengujianDao extends AbstractDao<TPengujian, Long> {
         public final static Property Unit = new Property(8, String.class, "Unit", false, "UNIT");
         public final static Property StatusUji = new Property(9, String.class, "StatusUji", false, "STATUS_UJI");
         public final static Property KdPabrikan = new Property(10, String.class, "KdPabrikan", false, "KD_PABRIKAN");
+        public final static Property TanggalUsulUji = new Property(11, String.class, "TanggalUsulUji", false, "TANGGAL_USUL_UJI");
     }
 
 
@@ -58,7 +59,8 @@ public class TPengujianDao extends AbstractDao<TPengujian, Long> {
                 "\"QTY_RUSAK\" TEXT," + // 7: QtyRusak
                 "\"UNIT\" TEXT," + // 8: Unit
                 "\"STATUS_UJI\" TEXT," + // 9: StatusUji
-                "\"KD_PABRIKAN\" TEXT);"); // 10: KdPabrikan
+                "\"KD_PABRIKAN\" TEXT," + // 10: KdPabrikan
+                "\"TANGGAL_USUL_UJI\" TEXT);"); // 11: TanggalUsulUji
     }
 
     /** Drops the underlying database table. */
@@ -125,6 +127,11 @@ public class TPengujianDao extends AbstractDao<TPengujian, Long> {
         if (KdPabrikan != null) {
             stmt.bindString(11, KdPabrikan);
         }
+ 
+        String TanggalUsulUji = entity.getTanggalUsulUji();
+        if (TanggalUsulUji != null) {
+            stmt.bindString(12, TanggalUsulUji);
+        }
     }
 
     @Override
@@ -185,6 +192,11 @@ public class TPengujianDao extends AbstractDao<TPengujian, Long> {
         if (KdPabrikan != null) {
             stmt.bindString(11, KdPabrikan);
         }
+ 
+        String TanggalUsulUji = entity.getTanggalUsulUji();
+        if (TanggalUsulUji != null) {
+            stmt.bindString(12, TanggalUsulUji);
+        }
     }
 
     @Override
@@ -205,7 +217,8 @@ public class TPengujianDao extends AbstractDao<TPengujian, Long> {
             cursor.isNull(offset + 7) ? null : cursor.getString(offset + 7), // QtyRusak
             cursor.isNull(offset + 8) ? null : cursor.getString(offset + 8), // Unit
             cursor.isNull(offset + 9) ? null : cursor.getString(offset + 9), // StatusUji
-            cursor.isNull(offset + 10) ? null : cursor.getString(offset + 10) // KdPabrikan
+            cursor.isNull(offset + 10) ? null : cursor.getString(offset + 10), // KdPabrikan
+            cursor.isNull(offset + 11) ? null : cursor.getString(offset + 11) // TanggalUsulUji
         );
         return entity;
     }
@@ -223,6 +236,7 @@ public class TPengujianDao extends AbstractDao<TPengujian, Long> {
         entity.setUnit(cursor.isNull(offset + 8) ? null : cursor.getString(offset + 8));
         entity.setStatusUji(cursor.isNull(offset + 9) ? null : cursor.getString(offset + 9));
         entity.setKdPabrikan(cursor.isNull(offset + 10) ? null : cursor.getString(offset + 10));
+        entity.setTanggalUsulUji(cursor.isNull(offset + 11) ? null : cursor.getString(offset + 11));
      }
     
     @Override

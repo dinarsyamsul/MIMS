@@ -65,7 +65,7 @@ data class HistorisItem(
 data class DetailTrackingHistoryResponse(
 
 	@field:SerializedName("datas")
-	val datas: List<DatasItemTracking>,
+	val datas: DatasItemTracking,
 
 	@field:SerializedName("message")
 	val message: String,
@@ -76,54 +76,39 @@ data class DetailTrackingHistoryResponse(
 
 data class DatasItemTracking(
 
-	@field:SerializedName("no_khs")
-	val noKhs: String,
+	@field:SerializedName("MASA GARANSI")
+	val mASAGARANSI: String? = null,
 
-	@field:SerializedName("usulan_koreksi")
-	val usulanKoreksi: Int,
+	@field:SerializedName("STORAGE LOCATION")
+	val sTORAGELOCATION: Any? = null,
 
-	@field:SerializedName("kd_pabrikan")
-	val kdPabrikan: String,
+	@field:SerializedName("UNIT")
+	val uNIT: Any? = null,
 
-	@field:SerializedName("serial_number")
-	val serialNumber: String,
+	@field:SerializedName("SPESIFIKASI MATERIAL")
+	val sPESIFIKASIMATERIAL: String? = null,
 
-	@field:SerializedName("status_uji")
-	val statusUji: String,
+	@field:SerializedName("KATEGORI MATERIAL")
+	val kATEGORIMATERIAL: String? = null,
 
-	@field:SerializedName("no_pengujian")
-	val noPengujian: String,
+	@field:SerializedName("TANGGAL PRODUKSI")
+	val tANGGALPRODUKSI: String? = null,
 
-	@field:SerializedName("flag_petugas")
-	val flagPetugas: Int,
+	@field:SerializedName("NOMOR MATERIAL")
+	val nOMORMATERIAL: String? = null,
 
-	@field:SerializedName("created_by")
-	val createdBy: String,
+	@field:SerializedName("TIPE UPLOAD")
+	val tIPEUPLOAD: String? = null,
 
-	@field:SerializedName("alasan_reject")
-	val alasanReject: String,
+	@field:SerializedName("TANGGAL UPLOAD")
+	val tANGGALUPLOAD: String? = null,
 
-	@field:SerializedName("keterangan_material")
-	val keteranganMaterial: String,
+	@field:SerializedName("SERIAL NUMBER")
+	val sERIALNUMBER: String? = null,
 
-	@field:SerializedName("pengujian_ke")
-	val pengujianKe: Int,
+	@field:SerializedName("NOMOR PRODUKSI")
+	val nOMORPRODUKSI: String? = null,
 
-	@field:SerializedName("link_pengajuan_ust")
-	val linkPengajuanUst: String,
-
-	@field:SerializedName("id")
-	val id: String,
-
-	@field:SerializedName("create_date")
-	val createDate: String,
-
-	@field:SerializedName("tanggal_pengajuan")
-	val tanggalPengajuan: String,
-
-	@field:SerializedName("tanggal_uji")
-	val tanggalUji: String,
-
-	@field:SerializedName("tanggal_ust")
-	val tanggalUst: Any
+	@field:SerializedName("NOMOR METROLOGI")
+	val nOMORMETROLOGI: String? = null
 )

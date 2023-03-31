@@ -6,7 +6,9 @@ import android.content.Intent
 import android.os.Bundle
 import android.text.Editable
 import android.text.TextWatcher
+import android.util.Log
 import android.widget.ArrayAdapter
+import android.widget.Toast
 import androidx.activity.viewModels
 import androidx.appcompat.app.AppCompatActivity
 import androidx.recyclerview.widget.LinearLayoutManager
@@ -16,6 +18,8 @@ import dev.iconpln.mims.data.local.database.TMaterial
 import dev.iconpln.mims.data.local.database.TMaterialDao
 import dev.iconpln.mims.databinding.ActivityDataAtributMaterialBinding
 import dev.iconpln.mims.ui.arttribute_material.detail_attribute.DetailDataAtributeMaterialActivity
+import dev.iconpln.mims.utils.Config
+import org.joda.time.LocalDateTime
 import java.text.SimpleDateFormat
 import java.util.*
 import kotlin.collections.ArrayList
@@ -28,8 +32,9 @@ class DataAtributMaterialActivity : AppCompatActivity() {
     private var kategori: String = ""
     private var tahun: String = ""
     private var snBatch: String = ""
-    private var startDate: String = ""
-    private var endDate: String = ""
+    private var startDate = ""
+    private var startDateAdjust = ""
+    private var endDate = ""
     private lateinit var cal: Calendar
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -42,7 +47,8 @@ class DataAtributMaterialActivity : AppCompatActivity() {
 
         adapter = DataAttributeAdapter(arrayListOf(), object : DataAttributeAdapter.OnAdapterListener{
             override fun onClick(po: TMaterial) {
-                startActivity(Intent(this@DataAtributMaterialActivity, DetailDataAtributeMaterialActivity::class.java))
+                startActivity(Intent(this@DataAtributMaterialActivity, DetailDataAtributeMaterialActivity::class.java)
+                    .putExtra("noMaterial", po.nomorMaterial))
             }
 
         })
@@ -69,10 +75,17 @@ class DataAtributMaterialActivity : AppCompatActivity() {
             cal.set(Calendar.MONTH, monthOfYear)
             cal.set(Calendar.DAY_OF_MONTH, dayOfMonth)
 
-            val myFormat = "dd-MM-yyyy" // mention the format you need
+            val myFormat = "yyyy-MM-dd" // mention the format you need
             val sdf = SimpleDateFormat(myFormat, Locale.US)
             binding.txtTglMulai.text = sdf.format(cal.time)
-            startDate = sdf.format(cal.time)
+
+            var startDateAdjust = sdf.format(cal.time) // Start date
+            var c = Calendar.getInstance()
+            c.time = sdf.parse(startDateAdjust)
+            c.add(Calendar.DATE, -1) // number of days to add
+
+            startDate = startDateAdjust
+            clearEndCalender()
             doSearch()
 
         }
@@ -82,10 +95,16 @@ class DataAtributMaterialActivity : AppCompatActivity() {
             cal.set(Calendar.MONTH, monthOfYear)
             cal.set(Calendar.DAY_OF_MONTH, dayOfMonth)
 
-            val myFormat = "dd-MM-yyyy" // mention the format you need
+            val myFormat = "yyyy-MM-dd" // mention the format you need
             val sdf = SimpleDateFormat(myFormat, Locale.US)
             binding.txtTglSelesai.text = sdf.format(cal.time)
-            endDate = sdf.format(cal.time)
+
+            var endDateAdjust = sdf.format(cal.time) // End date
+            var c = Calendar.getInstance()
+            c.time = sdf.parse(startDateAdjust)
+            c.add(Calendar.DATE, +1) // number of days to add
+
+            endDate = endDateAdjust
             doSearch()
 
         }
@@ -98,10 +117,23 @@ class DataAtributMaterialActivity : AppCompatActivity() {
         }
 
         binding.cvTanggalSelesai.setOnClickListener {
-            DatePickerDialog(this@DataAtributMaterialActivity, dateSetListenerEnd,
-                cal.get(Calendar.YEAR),
-                cal.get(Calendar.MONTH),
-                cal.get(Calendar.DAY_OF_MONTH)).show()
+            if (startDate.isNullOrEmpty()){
+                Toast.makeText(this, "Silahkan pilih tanggal awal", Toast.LENGTH_SHORT).show()
+            }else{
+                val datePickerDialog = DatePickerDialog(this@DataAtributMaterialActivity, dateSetListenerEnd,
+                    cal.get(Calendar.YEAR),
+                    cal.get(Calendar.MONTH),
+                    cal.get(Calendar.DAY_OF_MONTH))
+
+                val dateFormat = SimpleDateFormat(Config.DATE, Locale.getDefault())
+                val date = dateFormat.parse(startDate)
+                val timeInMillis = date?.time ?: 0
+                Log.d("checkMillis", timeInMillis.toString())
+
+                datePickerDialog.datePicker.minDate =  timeInMillis
+                datePickerDialog.show()
+            }
+
         }
     }
 
@@ -120,13 +152,9 @@ class DataAtributMaterialActivity : AppCompatActivity() {
     }
 
     private fun setCategoryTahun() {
-        val list = daoSession.tMaterialDao.queryBuilder().orderAsc(TMaterialDao.Properties.Tahun).list()
-        val listTahun: ArrayList<String> = ArrayList()
-        for (i in list){
-            listTahun.add(i.tahun)
-        }
+        val listTahun = arrayOf("2020", "2021", "2022", "2023")
 
-        val adapterTahun = ArrayAdapter(this, R.layout.simple_dropdown_item_1line, listTahun.distinct())
+        val adapterTahun = ArrayAdapter(this, R.layout.simple_dropdown_item_1line, listTahun)
         binding.dropdownTahun.setAdapter(adapterTahun)
         binding.dropdownTahun.setOnItemClickListener { parent, view, position, id ->
             tahun = binding.dropdownTahun.text.toString()
@@ -150,64 +178,26 @@ class DataAtributMaterialActivity : AppCompatActivity() {
     }
 
     private fun doSearch() {
-        val listMaterial = daoSession.tMaterialDao.queryBuilder().list()
-        if (tahun.isNotEmpty()){
-            val list = listMaterial.filter { it.tahun == tahun }
-            adapter.setMaterialList(list)
-        }
-        else if (kategori.isNotEmpty()){
-            val list = listMaterial.filter { it.namaKategoriMaterial == kategori }
-            adapter.setMaterialList(list)
-        }
-        else if (snBatch.isNotEmpty()){
-            val list = listMaterial.filter { it.noProduksi == snBatch }
-            adapter.setMaterialList(list)
-        }
-        else if (tahun.isNotEmpty()
-            && kategori.isNotEmpty()
-            && snBatch.isNotEmpty()){
-            val list = listMaterial.filter {
-                it.namaKategoriMaterial == kategori &&
-                it.tahun == tahun &&
-                it.noProduksi == snBatch
 
-            }
-            adapter.setMaterialList(list)
-        }
-        else if (tahun.isNullOrEmpty()
-            && kategori.isNotEmpty()
-            && snBatch.isNotEmpty()){
-            val list = listMaterial.filter {
-                it.namaKategoriMaterial == kategori &&
-                it.noProduksi == snBatch
-            }
-            adapter.setMaterialList(list)
-        }
-        else if (tahun.isNotEmpty()
-            && kategori.isNullOrEmpty()
-            && snBatch.isNotEmpty()){
-            val list = listMaterial.filter {
-                it.tahun == tahun &&
-                it.noProduksi == snBatch
-            }
-            adapter.setMaterialList(list)
-        }
-        else if (tahun.isNotEmpty()
-            && kategori.isNotEmpty()
-            && snBatch.isNullOrEmpty()){
-            val list = listMaterial.filter {
-                it.tahun == tahun &&
-                it.namaKategoriMaterial == kategori
-            }
-            adapter.setMaterialList(list)
-        }
-        else{
-            adapter.setMaterialList(listMaterial)
-        }
+        Log.d("checkDate", startDate+" "+endDate)
+
+        val listMaterial = daoSession.tMaterialDao.queryBuilder()
+            .where(TMaterialDao.Properties.NamaKategoriMaterial.like("%"+ kategori + "%"))
+            .where(TMaterialDao.Properties.Tahun.like("%"+ tahun + "%"))
+            .whereOr(TMaterialDao.Properties.NoProduksi.like("%"+ snBatch + "%"), TMaterialDao.Properties.NomorMaterial.like("%"+ snBatch + "%"))
+            .where(TMaterialDao.Properties.TglProduksi.between(startDate,endDate))
+            .orderAsc(TMaterialDao.Properties.TglProduksi)
+            .list()
+        adapter.setMaterialList(listMaterial)
     }
 
     private fun fetchLocal() {
         val listMaterial = daoSession.tMaterialDao.queryBuilder().list()
         adapter.setMaterialList(listMaterial)
+    }
+
+    private fun clearEndCalender(){
+        binding.txtTglSelesai.setText("yyyy/mm/dd")
+        endDate=""
     }
 }

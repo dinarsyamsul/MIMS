@@ -13,11 +13,11 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import dev.iconpln.mims.MyApplication
 import dev.iconpln.mims.data.local.database.DaoSession
 import dev.iconpln.mims.data.local.database.TPemeriksaan
-import dev.iconpln.mims.data.local.database.TPemeriksaanDetail
+import dev.iconpln.mims.data.local.database.TPemeriksaanDao
+import dev.iconpln.mims.data.local.database.TPemeriksaanDetailDao
 import dev.iconpln.mims.databinding.ActivityPemeriksaanBinding
+import dev.iconpln.mims.ui.pemeriksaan.input_data_pemeriksa.InputDataPemeriksaActivity
 import dev.iconpln.mims.ui.pemeriksaan.pemeriksaan_detail.PemeriksaanDetailActivity
-import dev.iconpln.mims.ui.pnerimaan.input_petugas.InputPetugasPenerimaanActivity
-import dev.iconpln.mims.ui.rating.RatingActivity
 
 class PemeriksaanActivity : AppCompatActivity() {
     private lateinit var binding: ActivityPemeriksaanBinding
@@ -38,30 +38,45 @@ class PemeriksaanActivity : AppCompatActivity() {
 
         adapter = PemeriksaanAdapter(arrayListOf(), object : PemeriksaanAdapter.OnAdapterListener{
             override fun onClick(po: TPemeriksaan) {
-                if (po.isDone == 1){
+                if (po.namaKetua.isNotEmpty()){
                     Toast.makeText(this@PemeriksaanActivity, "Kamu sudah menyelesaikan DO ini", Toast.LENGTH_SHORT).show()
                 }else{
-                    startActivity(Intent(this@PemeriksaanActivity, InputPetugasPenerimaanActivity::class.java)
-                        .putExtra("noDo", po.noDoSmar))
+                    startActivity(Intent(this@PemeriksaanActivity, InputDataPemeriksaActivity::class.java)
+                        .putExtra("noPemeriksaan", po.noPemeriksaan))
                 }
             }
 
         }, object: PemeriksaanAdapter.OnAdapterListenerDoc{
             override fun onClick(po: TPemeriksaan) {
-                if (po.isDone == 1){
-                    Toast.makeText(this@PemeriksaanActivity, "Kamu sudah menyelesaikan DO ini", Toast.LENGTH_SHORT).show()
+                if (po.namaKetua.isNotEmpty()){
+                    if (po.isDone == 1){
+                        Toast.makeText(this@PemeriksaanActivity, "Kamu sudah menyelesaikan DO ini", Toast.LENGTH_SHORT).show()
+                    }else{
+                        var listPemDetail = daoSession.tPemeriksaanDetailDao.queryBuilder()
+                            .where(TPemeriksaanDetailDao.Properties.NoPemeriksaan.eq(po.noPemeriksaan))
+                            .where(TPemeriksaanDetailDao.Properties.IsPeriksa.eq(1))
+                            .where(TPemeriksaanDetailDao.Properties.IsComplaint.eq(0))
+                            .where(TPemeriksaanDetailDao.Properties.NoPemeriksaan.notEq(""))
+                            .list()
+                        if (listPemDetail.size == 0){
+                            Toast.makeText(this@PemeriksaanActivity, "DO ini sudah selesai diperiksa", Toast.LENGTH_SHORT).show()
+                        }else{
+                            startActivity(Intent(this@PemeriksaanActivity, PemeriksaanDetailActivity::class.java)
+                                .putExtra("noPemeriksaan", po.noPemeriksaan)
+                                .putExtra("noDo", po.noDoSmar))
+                        }
+                    }
                 }else{
-                    startActivity(Intent(this@PemeriksaanActivity, PemeriksaanDetailActivity::class.java)
-                        .putExtra("noPemeriksaan", po.noPemeriksaan)
-                        .putExtra("noDo", po.noDoSmar))
+                    Toast.makeText(this@PemeriksaanActivity, "Kamu belum input petugas pemeriksa", Toast.LENGTH_SHORT).show()
                 }
             }
 
-        })
+        },daoSession)
 
         viewModel.pemeriksaanResponse.observe(this){
             adapter.setPeList(it)
             listPemeriksaan = it
+            binding.tvTotalData.text = "Total: ${it.size} data"
         }
 
         viewModel.isLoading.observe(this){
@@ -89,10 +104,16 @@ class PemeriksaanActivity : AppCompatActivity() {
 
                 override fun afterTextChanged(s: Editable?) {
                     noDo = s.toString()
-                    val filter = listPemeriksaan.filter {
-                        it.noDoSmar.lowercase().contains(s.toString().lowercase())
-                    }
-                    adapter.setPeList(filter)
+                    val search = daoSession.tPemeriksaanDao.queryBuilder()
+                        .whereOr(TPemeriksaanDao.Properties.NoDoSmar.like("%"+noDo+"%")
+                        ,TPemeriksaanDao.Properties.PoSapNo.like("%"+noDo+"%")).list()
+                    rvPemeriksaan.adapter = null
+                    rvPemeriksaan.layoutManager = null
+
+                    rvPemeriksaan.adapter = adapter
+                    rvPemeriksaan.setHasFixedSize(true)
+                    rvPemeriksaan.layoutManager = LinearLayoutManager(this@PemeriksaanActivity,LinearLayoutManager.VERTICAL, false)
+                    adapter.setPeList(search)
                 }
 
             })
@@ -104,14 +125,30 @@ class PemeriksaanActivity : AppCompatActivity() {
             dropdownUrutkan.setAdapter(adapterStatus)
             dropdownUrutkan.setOnItemClickListener { parent, view, position, id ->
                 statusPemeriksaan = statusArray[position]
-                if (noDo.isNotEmpty()){
-                    val filter = listPemeriksaan.filter { it.noDoSmar.lowercase().contains(noDo.lowercase())
-                            && it.doStatus.lowercase().contains(statusPemeriksaan.lowercase())}
-                    adapter.setPeList(filter)
-                }else{
-                    val filter = listPemeriksaan.filter { it.doStatus.lowercase().contains(statusArray[position].lowercase()) }
-                    adapter.setPeList(filter)
-                }
+                if (statusPemeriksaan == "TERBARU"){
+                    val search = daoSession.tPemeriksaanDao.queryBuilder()
+                        .whereOr(TPemeriksaanDao.Properties.NoDoSmar.like("%"+noDo+"%")
+                            ,TPemeriksaanDao.Properties.PoSapNo.like("%"+noDo+"%"))
+                        .orderDesc(TPemeriksaanDao.Properties.CreatedDate).list()
+                    rvPemeriksaan.adapter = null
+                    rvPemeriksaan.layoutManager = null
+
+                    rvPemeriksaan.adapter = adapter
+                    rvPemeriksaan.setHasFixedSize(true)
+                    rvPemeriksaan.layoutManager = LinearLayoutManager(this@PemeriksaanActivity,LinearLayoutManager.VERTICAL, false)
+                    adapter.setPeList(search)                }else{
+                    val search = daoSession.tPemeriksaanDao.queryBuilder()
+                        .whereOr(TPemeriksaanDao.Properties.NoDoSmar.like("%"+noDo+"%")
+                            ,TPemeriksaanDao.Properties.PoSapNo.like("%"+noDo+"%"))
+                        .orderAsc(TPemeriksaanDao.Properties.CreatedDate).list()
+                    rvPemeriksaan.adapter = null
+                    rvPemeriksaan.layoutManager = null
+
+                    rvPemeriksaan.adapter = adapter
+                    rvPemeriksaan.setHasFixedSize(true)
+                    rvPemeriksaan.layoutManager = LinearLayoutManager(this@PemeriksaanActivity,LinearLayoutManager.VERTICAL, false)
+                    adapter.setPeList(search)                }
+
             }
         }
     }

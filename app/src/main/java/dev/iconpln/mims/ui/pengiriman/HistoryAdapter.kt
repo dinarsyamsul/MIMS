@@ -5,12 +5,13 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
 import dev.iconpln.mims.data.local.database.TLokasi
+import dev.iconpln.mims.data.remote.response.DatasItemLokasi
 import dev.iconpln.mims.databinding.ItemHistoryBinding
 
-class HistoryAdapter(val lisModels: MutableList<TLokasi>, var listener: OnAdapterListener)
+class HistoryAdapter(val lisModels: MutableList<DatasItemLokasi>, var listener: OnAdapterListener)
     : RecyclerView.Adapter<HistoryAdapter.ViewHolder>() {
 
-    fun setData(po: List<TLokasi>){
+    fun setData(po: List<DatasItemLokasi>){
         lisModels.clear()
         lisModels.addAll(po)
         notifyDataSetChanged()
@@ -31,20 +32,20 @@ class HistoryAdapter(val lisModels: MutableList<TLokasi>, var listener: OnAdapte
     override fun getItemCount(): Int = lisModels.size
 
     inner class ViewHolder(val binding: ItemHistoryBinding): RecyclerView.ViewHolder(binding.root){
-        fun bind(data : TLokasi,position: Int){
+        fun bind(data : DatasItemLokasi,position: Int){
             with(binding){
                 txtLokasi.text=data.ket
-                txtDate.text=data.updateDate
+                txtDate.text=data.updatedDate
 
                 if(position==0){
                     viewStatusTop.visibility= View.GONE
                 }
             }
-            itemView.setOnClickListener { listener.onClick(data) }
+            binding.btnDelete.setOnClickListener { listener.onClick(data) }
         }
     }
 
     interface OnAdapterListener{
-        fun onClick(data: TLokasi)
+        fun onClick(data: DatasItemLokasi)
     }
 }

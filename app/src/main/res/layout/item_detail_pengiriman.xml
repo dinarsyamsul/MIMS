@@ -81,8 +81,8 @@
 
             <ImageView
                 android:id="@+id/imageView"
-                android:layout_width="14dp"
-                android:layout_height="14dp"
+                android:layout_width="8dp"
+                android:layout_height="7dp"
                 android:layout_marginTop="8dp"
                 android:src="@drawable/ic_number"
                 app:layout_constraintStart_toStartOf="@+id/txt_serialNumber"
@@ -197,7 +197,7 @@
                 android:src="@drawable/unit_list_monitoring1"
                 app:layout_constraintEnd_toStartOf="@+id/lbl_no_garansi"
                 app:layout_constraintStart_toEndOf="@+id/lbl_no_material"
-                app:layout_constraintTop_toBottomOf="@id/txt_isi_spln" />
+                app:layout_constraintTop_toBottomOf="@+id/txt_isi_kategori" />
 
             <TextView
                 android:id="@+id/lbl_nospesifikasi"
@@ -219,9 +219,11 @@
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_marginStart="5dp"
+                android:layout_marginBottom="16dp"
                 android:fontFamily="@font/montserrat_reguler"
                 android:text="-"
                 android:textSize="10sp"
+                app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintEnd_toEndOf="@+id/lbl_nospesifikasi"
                 app:layout_constraintStart_toEndOf="@+id/imageView6"
                 app:layout_constraintTop_toBottomOf="@+id/lbl_nospesifikasi" />
@@ -235,7 +237,7 @@
                 android:src="@drawable/unit_list_monitoring1"
                 app:layout_constraintEnd_toStartOf="@+id/lbl_no_garansi"
                 app:layout_constraintStart_toEndOf="@+id/lbl_no_material"
-                app:layout_constraintTop_toBottomOf="@id/txt_isi_spesifikasi" />
+                app:layout_constraintTop_toBottomOf="@+id/txt_isi_spln" />
 
             <TextView
                 android:id="@+id/lbl_nokategori"
@@ -257,11 +259,9 @@
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_marginStart="5dp"
-                android:layout_marginBottom="8dp"
                 android:fontFamily="@font/montserrat_reguler"
                 android:text="-"
                 android:textSize="10sp"
-                app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintEnd_toEndOf="@+id/lbl_nokategori"
                 app:layout_constraintStart_toEndOf="@+id/imageView7"
                 app:layout_constraintTop_toBottomOf="@+id/lbl_nokategori" />
@@ -343,7 +343,7 @@
                 android:layout_marginTop="8dp"
                 android:src="@drawable/ic_number"
                 app:layout_constraintStart_toStartOf="@+id/imageView"
-                app:layout_constraintTop_toBottomOf="@id/txt_isi_spesifikasi" />
+                app:layout_constraintTop_toBottomOf="@+id/txt_isi_batch" />
 
             <TextView
                 android:id="@+id/lbl_nopackagingpengiriman"
@@ -364,11 +364,9 @@
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_marginStart="5dp"
-                android:layout_marginBottom="8dp"
                 android:fontFamily="@font/montserrat_reguler"
                 android:text="-"
                 android:textSize="10sp"
-                app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintEnd_toEndOf="@+id/lbl_nopackagingpengiriman"
                 app:layout_constraintStart_toEndOf="@+id/imageView4"
                 app:layout_constraintTop_toBottomOf="@+id/lbl_nopackagingpengiriman" />

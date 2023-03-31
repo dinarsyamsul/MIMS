@@ -42,6 +42,7 @@ public class MainGenerator {
         tPengujian.addStringProperty("Unit");
         tPengujian.addStringProperty("StatusUji");
         tPengujian.addStringProperty("KdPabrikan");
+        tPengujian.addStringProperty("TanggalUsulUji");
 
         //endregion
 
@@ -59,6 +60,7 @@ public class MainGenerator {
         //region lokasi
         Entity tLokasi = schema.addEntity("TLokasi");
         tLokasi.addIdProperty();
+        tLokasi.addStringProperty("IdLokasi");
         tLokasi.addStringProperty("NoDoSns");
         tLokasi.addStringProperty("Ket");
         tLokasi.addStringProperty("UpdateDate");
@@ -173,6 +175,12 @@ public class MainGenerator {
         tPos.addStringProperty("TglDiterima");
         tPos.addStringProperty("KurirPengantar");
         tPos.addStringProperty("DoLineItem");
+        tPos.addStringProperty("RatingResponse");
+        tPos.addStringProperty("RatingQuality");
+        tPos.addStringProperty("RatingDelivery");
+        tPos.addStringProperty("StatusPemeriksaan");
+        tPos.addStringProperty("StatusPenerimaan");
+
 
         // endregion
 
@@ -206,12 +214,15 @@ public class MainGenerator {
         tPosPenerimaan.addStringProperty("PetugasPenerima");
         tPosPenerimaan.addStringProperty("KodeStatusDoMims");
         tPosPenerimaan.addStringProperty("StatusPemeriksaan");
+        tPosPenerimaan.addStringProperty("StatusPenerimaan");
         tPosPenerimaan.addStringProperty("KurirPengantar");
         tPosPenerimaan.addStringProperty("NilaiRatingPenerimaan");
         tPosPenerimaan.addStringProperty("NilaiRatingWaktu");
         tPosPenerimaan.addStringProperty("NilaiRatingQuality");
         tPosPenerimaan.addStringProperty("DoLineItem");
+        tPosPenerimaan.addIntProperty("IsRating");
         tPosPenerimaan.addIntProperty("isDone");
+        tPosPenerimaan.addIntProperty("ratingDone");
 
         // endregion
 
@@ -227,9 +238,12 @@ public class MainGenerator {
         tPosDetailPenerimaan.addStringProperty("NoMaterial");
         tPosDetailPenerimaan.addStringProperty("NamaKategoriMaterial");
         tPosDetailPenerimaan.addStringProperty("StorLoc");
-        tPosDetailPenerimaan.addStringProperty("Status");
+        tPosDetailPenerimaan.addStringProperty("StatusPenerimaan");
+        tPosDetailPenerimaan.addStringProperty("StatusPemeriksaan");
+        tPosDetailPenerimaan.addIntProperty("IsComplaint");
         tPosDetailPenerimaan.addIntProperty("IsChecked");
         tPosDetailPenerimaan.addStringProperty("DoLineItem");
+        tPosDetailPenerimaan.addStringProperty("PartialCode");
         tPosDetailPenerimaan.addIntProperty("IsDone");
 
         //endregion
@@ -256,7 +270,32 @@ public class MainGenerator {
         tPosSns.addStringProperty("DoStatus");
         tPosSns.addStringProperty("NoPackaging");
         tPosSns.addStringProperty("DoLineItem");
-        tPosSns.addStringProperty("Status");
+        tPosSns.addStringProperty("StatusPenerimaan");
+        tPosSns.addStringProperty("StatusPemeriksaan");
+
+        // region SnPermaterial
+        Entity tSnPermaterial = schema.addEntity("TSnPermaterial");
+        tSnPermaterial.addIdProperty();
+        tSnPermaterial.addStringProperty("noMatSap");
+        tSnPermaterial.addStringProperty("Mmc");
+        tSnPermaterial.addStringProperty("MaterialGroup");
+        tSnPermaterial.addStringProperty("TglProduksi");
+        tSnPermaterial.addStringProperty("KdPabrikan");
+        tSnPermaterial.addStringProperty("NoSertMeterologi");
+        tSnPermaterial.addStringProperty("Spln");
+        tSnPermaterial.addStringProperty("NoProduksi");
+        tSnPermaterial.addStringProperty("StorLoc");
+        tSnPermaterial.addStringProperty("NamaKategoriMaterial");
+        tSnPermaterial.addStringProperty("NoSerial");
+        tSnPermaterial.addStringProperty("NoDoSmar");
+        tSnPermaterial.addStringProperty("Spesifikasi");
+        tSnPermaterial.addStringProperty("Plant");
+        tSnPermaterial.addStringProperty("MaterialId");
+        tSnPermaterial.addStringProperty("MasaGaransi");
+        tSnPermaterial.addStringProperty("DoStatus");
+        tSnPermaterial.addStringProperty("NoPackaging");
+        tSnPermaterial.addStringProperty("DoLineItem");
+        tSnPermaterial.addStringProperty("Status");
 
         // region pemeriksaan
         Entity tPemeriksaan = schema.addEntity("TPemeriksaan");
@@ -274,6 +313,7 @@ public class MainGenerator {
         tPemeriksaan.addStringProperty("PlantName");
         tPemeriksaan.addStringProperty("NoDoMims");
         tPemeriksaan.addStringProperty("DoStatus");
+        tPemeriksaan.addStringProperty("StatusPemeriksaan");
         tPemeriksaan.addStringProperty("Expeditions");
         tPemeriksaan.addStringProperty("CourierPersonName");
         tPemeriksaan.addStringProperty("KdPabrikan");
@@ -283,6 +323,14 @@ public class MainGenerator {
         tPemeriksaan.addStringProperty("PetugasPenerima");
         tPemeriksaan.addStringProperty("NamaKurir");
         tPemeriksaan.addStringProperty("NamaEkspedisi");
+        tPemeriksaan.addStringProperty("DoLineItem");
+
+        tPemeriksaan.addStringProperty("NamaManager");
+        tPemeriksaan.addStringProperty("NamaKetua");
+        tPemeriksaan.addStringProperty("NamaSekretaris");
+        tPemeriksaan.addStringProperty("NamaAnggota");
+        tPemeriksaan.addStringProperty("NamaAnggotaBaru");
+
         tPemeriksaan.addIntProperty("isDone");//untuk centangan
 
 
@@ -295,8 +343,11 @@ public class MainGenerator {
         tPemeriksaanDetail.addStringProperty("NoMaterail");
         tPemeriksaanDetail.addStringProperty("NoPackaging");
         tPemeriksaanDetail.addStringProperty("Kategori");
-        tPemeriksaanDetail.addStringProperty("StatusSn");
+        tPemeriksaanDetail.addStringProperty("StatusPenerimaan");
+        tPemeriksaanDetail.addStringProperty("StatusPemeriksaan");
+        tPemeriksaanDetail.addIntProperty("isPeriksa");
         tPemeriksaanDetail.addIntProperty("IsChecked");
+        tPemeriksaanDetail.addIntProperty("IsComplaint");
         tPemeriksaanDetail.addIntProperty("IsDone");
 
         // endregion
@@ -322,6 +373,7 @@ public class MainGenerator {
         Entity tMonitoringPermintaan = schema.addEntity("TMonitoringPermintaan");
         tMonitoringPermintaan.addIdProperty();
         tMonitoringPermintaan.addStringProperty("NoPermintaan");
+        tMonitoringPermintaan.addStringProperty("NoTransaksi");
         tMonitoringPermintaan.addStringProperty("StorLocTujuanName");
         tMonitoringPermintaan.addStringProperty("KodePengeluaran");
         tMonitoringPermintaan.addStringProperty("StorLocTujuan");
@@ -331,7 +383,7 @@ public class MainGenerator {
         tMonitoringPermintaan.addStringProperty("UpdatedBy");
         tMonitoringPermintaan.addStringProperty("CreatedDate");
         tMonitoringPermintaan.addStringProperty("UpdatedDate");
-        tMonitoringPermintaan.addStringProperty("JumlahKardus");
+        tMonitoringPermintaan.addIntProperty("JumlahKardus");
         tMonitoringPermintaan.addStringProperty("StorLocAsalName");
         tMonitoringPermintaan.addStringProperty("TanggalPermintaan");
         tMonitoringPermintaan.addStringProperty("TanggalPengeluaran");
@@ -341,21 +393,221 @@ public class MainGenerator {
         Entity tMonitoringPermintaanDetail = schema.addEntity("TMonitoringPermintaanDetail");
         tMonitoringPermintaanDetail.addIdProperty();
         tMonitoringPermintaanDetail.addStringProperty("NoPermintaan");
+        tMonitoringPermintaanDetail.addStringProperty("NoTransaksi");
         tMonitoringPermintaanDetail.addStringProperty("NoRepackaging");
         tMonitoringPermintaanDetail.addStringProperty("NomorMaterial");
         tMonitoringPermintaanDetail.addStringProperty("Unit");
-        tMonitoringPermintaanDetail.addStringProperty("QtyPermintaan");
+        tMonitoringPermintaanDetail.addIntProperty("QtyPermintaan");
         tMonitoringPermintaanDetail.addStringProperty("MaterialDesc");
         tMonitoringPermintaanDetail.addStringProperty("QtyScan");
         tMonitoringPermintaanDetail.addStringProperty("Kategori");
         tMonitoringPermintaanDetail.addStringProperty("QtyPengeluaran");
 
+        Entity tTransMonitoringPermintaan = schema.addEntity("TTransMonitoringPermintaan");
+        tTransMonitoringPermintaan.addIdProperty();
+        tTransMonitoringPermintaan.addStringProperty("NoPermintaan");
+        tTransMonitoringPermintaan.addStringProperty("NoTransaksi");
+        tTransMonitoringPermintaan.addStringProperty("StorLocTujuanName");
+        tTransMonitoringPermintaan.addStringProperty("KodePengeluaran");
+        tTransMonitoringPermintaan.addStringProperty("StorLocTujuan");
+        tTransMonitoringPermintaan.addStringProperty("CreatedBy");
+        tTransMonitoringPermintaan.addStringProperty("NoRepackaging");
+        tTransMonitoringPermintaan.addStringProperty("Plant");
+        tTransMonitoringPermintaan.addStringProperty("UpdatedBy");
+        tTransMonitoringPermintaan.addStringProperty("CreatedDate");
+        tTransMonitoringPermintaan.addStringProperty("UpdatedDate");
+        tTransMonitoringPermintaan.addIntProperty("JumlahKardus");
+        tTransMonitoringPermintaan.addStringProperty("StorLocAsalName");
+        tTransMonitoringPermintaan.addStringProperty("TanggalPermintaan");
+        tTransMonitoringPermintaan.addStringProperty("TanggalPengeluaran");
+        tTransMonitoringPermintaan.addStringProperty("PlantName");
+        tTransMonitoringPermintaan.addStringProperty("StorLocAsal");
+        tTransMonitoringPermintaan.addIntProperty("IsDone");
+
+        Entity tTransMonitoringPermintaanDetail = schema.addEntity("TTransMonitoringPermintaanDetail");
+        tTransMonitoringPermintaanDetail.addIdProperty();
+        tTransMonitoringPermintaanDetail.addStringProperty("NoPermintaan");
+        tTransMonitoringPermintaanDetail.addStringProperty("NoTransaksi");
+        tTransMonitoringPermintaanDetail.addStringProperty("NoRepackaging");
+        tTransMonitoringPermintaanDetail.addStringProperty("NomorMaterial");
+        tTransMonitoringPermintaanDetail.addStringProperty("Unit");
+        tTransMonitoringPermintaanDetail.addIntProperty("QtyPermintaan");
+        tTransMonitoringPermintaanDetail.addStringProperty("MaterialDesc");
+        tTransMonitoringPermintaanDetail.addStringProperty("QtyScan");
+        tTransMonitoringPermintaanDetail.addStringProperty("Kategori");
+        tTransMonitoringPermintaanDetail.addStringProperty("QtyPengeluaran");
+        tTransMonitoringPermintaanDetail.addIntProperty("IsScannedSn");
+        tTransMonitoringPermintaanDetail.addIntProperty("IsDone");
+
+        Entity tSnMonitoringPermintaan = schema.addEntity("TSnMonitoringPermintaan");
+        tSnMonitoringPermintaan.addIdProperty();
+        tSnMonitoringPermintaan.addStringProperty("NoRepackaging");
+        tSnMonitoringPermintaan.addStringProperty("NomorMaterial");
+        tSnMonitoringPermintaan.addStringProperty("SerialNumber");
+        tSnMonitoringPermintaan.addStringProperty("Status");
+
         Entity tMonitoringSnMaterial = schema.addEntity("TMonitoringSnMaterial");
         tMonitoringSnMaterial.addIdProperty();
-        tMonitoringSnMaterial.addStringProperty("NoPermintaan");
-        tMonitoringSnMaterial.addStringProperty("SnMaterial");
-        tMonitoringSnMaterial.addStringProperty("IsScanned");
+        tMonitoringSnMaterial.addStringProperty("NoRepackaging");
+        tMonitoringSnMaterial.addStringProperty("NomorMaterial");
+        tMonitoringSnMaterial.addStringProperty("SerialNumber");
+        tMonitoringSnMaterial.addStringProperty("Status");
+        tMonitoringSnMaterial.addIntProperty("IsScanned");
 
+        Entity tPenerimaanUlp = schema.addEntity("TPenerimaanUlp");
+        tPenerimaanUlp.addIdProperty();
+        tPenerimaanUlp.addStringProperty("NoPengiriman");
+        tPenerimaanUlp.addStringProperty("NoPermintaan");
+        tPenerimaanUlp.addStringProperty("StatusPemeriksaan");
+        tPenerimaanUlp.addStringProperty("DeliveryDate");
+        tPenerimaanUlp.addStringProperty("StatusPenerimaan");
+        tPenerimaanUlp.addIntProperty("JumlahKardus");
+        tPenerimaanUlp.addStringProperty("GudangAsal");
+        tPenerimaanUlp.addStringProperty("NoRepackaging");
+        tPenerimaanUlp.addStringProperty("GudangTujuan");
+        tPenerimaanUlp.addStringProperty("TanggalPemeriksaan");
+        tPenerimaanUlp.addStringProperty("TanggalPenerimaan");
+        tPenerimaanUlp.addStringProperty("KepalaGudangPemeriksa");
+        tPenerimaanUlp.addStringProperty("PejabatPemeriksa");
+        tPenerimaanUlp.addStringProperty("JabatanPemeriksa");
+        tPenerimaanUlp.addStringProperty("NamaPetugasPemeriksa");
+        tPenerimaanUlp.addStringProperty("JabatanPetugasPemeriksa");
+        tPenerimaanUlp.addStringProperty("KepalaGudangPenerima");
+        tPenerimaanUlp.addStringProperty("NoPk");
+        tPenerimaanUlp.addStringProperty("TanggalDokumen");
+        tPenerimaanUlp.addStringProperty("PejabatPenerima");
+        tPenerimaanUlp.addStringProperty("Kurir");
+        tPenerimaanUlp.addStringProperty("NoNota");
+        tPenerimaanUlp.addStringProperty("NoMaterial");
+        tPenerimaanUlp.addStringProperty("Spesifikasi");
+        tPenerimaanUlp.addIntProperty("KuantitasPeriksa");
+        tPenerimaanUlp.addIntProperty("Kuantitas");
+
+        Entity tPenerimaanDetailUlp = schema.addEntity("TPenerimaanDetailUlp");
+        tPenerimaanDetailUlp.addIdProperty();
+        tPenerimaanDetailUlp.addStringProperty("NoTransaksi");
+        tPenerimaanDetailUlp.addStringProperty("NoRepackaging");
+        tPenerimaanDetailUlp.addStringProperty("NoMaterial");
+        tPenerimaanDetailUlp.addStringProperty("MaterialDesc");
+        tPenerimaanDetailUlp.addIntProperty("QtyPermintaan");
+        tPenerimaanDetailUlp.addIntProperty("QtyPengiriman");
+        tPenerimaanDetailUlp.addIntProperty("QtyPemeriksaan");
+        tPenerimaanDetailUlp.addIntProperty("QtyPenerimaan");
+        tPenerimaanDetailUlp.addIntProperty("QtySesuai");
+
+        Entity tTransPenerimaanUlp = schema.addEntity("TTransPenerimaanUlp");
+        tTransPenerimaanUlp.addIdProperty();
+        tTransPenerimaanUlp.addStringProperty("NoPengiriman");
+        tTransPenerimaanUlp.addStringProperty("NoPermintaan");
+        tTransPenerimaanUlp.addStringProperty("StatusPemeriksaan");
+        tTransPenerimaanUlp.addStringProperty("TempStatusPemeriksaan");
+        tTransPenerimaanUlp.addStringProperty("DeliveryDate");
+        tTransPenerimaanUlp.addStringProperty("StatusPenerimaan");
+        tTransPenerimaanUlp.addStringProperty("TempStatusPenerimaan");
+        tTransPenerimaanUlp.addIntProperty("JumlahKardus");
+        tTransPenerimaanUlp.addStringProperty("GudangAsal");
+        tTransPenerimaanUlp.addStringProperty("NoRepackaging");
+        tTransPenerimaanUlp.addStringProperty("GudangTujuan");
+        tTransPenerimaanUlp.addStringProperty("TanggalPemeriksaan");
+        tTransPenerimaanUlp.addStringProperty("TanggalPenerimaan");
+        tTransPenerimaanUlp.addStringProperty("KepalaGudangPemeriksa");
+        tTransPenerimaanUlp.addStringProperty("PejabatPemeriksa");
+        tTransPenerimaanUlp.addStringProperty("JabatanPemeriksa");
+        tTransPenerimaanUlp.addStringProperty("NamaPetugasPemeriksa");
+        tTransPenerimaanUlp.addStringProperty("JabatanPetugasPemeriksa");
+        tTransPenerimaanUlp.addStringProperty("KepalaGudangPenerima");
+        tTransPenerimaanUlp.addStringProperty("NoPk");
+        tTransPenerimaanUlp.addStringProperty("TanggalDokumen");
+        tTransPenerimaanUlp.addStringProperty("PejabatPenerima");
+        tTransPenerimaanUlp.addStringProperty("Kurir");
+        tTransPenerimaanUlp.addStringProperty("NoNota");
+        tTransPenerimaanUlp.addStringProperty("NoMaterial");
+        tTransPenerimaanUlp.addStringProperty("Spesifikasi");
+        tTransPenerimaanUlp.addIntProperty("KuantitasPeriksa");
+        tTransPenerimaanUlp.addIntProperty("Kuantitas");
+        tTransPenerimaanUlp.addIntProperty("IsDonePemeriksaan");
+        tTransPenerimaanUlp.addIntProperty("IsDone");
+
+        Entity tTransPenerimaanDetailUlp = schema.addEntity("TTransPenerimaanDetailUlp");
+        tTransPenerimaanDetailUlp.addIdProperty();
+        tTransPenerimaanDetailUlp.addStringProperty("NoTransaksi");
+        tTransPenerimaanDetailUlp.addStringProperty("NoRepackaging");
+        tTransPenerimaanDetailUlp.addStringProperty("NoMaterial");
+        tTransPenerimaanDetailUlp.addStringProperty("MaterialDesc");
+        tTransPenerimaanDetailUlp.addIntProperty("QtyPermintaan");
+        tTransPenerimaanDetailUlp.addIntProperty("QtyPengiriman");
+        tTransPenerimaanDetailUlp.addIntProperty("QtyPemeriksaan");
+        tTransPenerimaanDetailUlp.addIntProperty("QtyPenerimaan");
+        tTransPenerimaanDetailUlp.addIntProperty("QtySesuai");
+        tTransPenerimaanDetailUlp.addIntProperty("IsDone");
+
+        Entity tListSnMaterialPenerimaanUlp = schema.addEntity("TListSnMaterialPenerimaanUlp");
+        tListSnMaterialPenerimaanUlp.addIdProperty();
+        tListSnMaterialPenerimaanUlp.addStringProperty("NoRepackaging");
+        tListSnMaterialPenerimaanUlp.addStringProperty("NoMaterial");
+        tListSnMaterialPenerimaanUlp.addStringProperty("NoSerialNumber");
+        tListSnMaterialPenerimaanUlp.addStringProperty("Status");
+        tListSnMaterialPenerimaanUlp.addIntProperty("IsScanned");
+
+        Entity tPemakaian = schema.addEntity("TPemakaian");
+        tPemakaian.addIdProperty();
+        tPemakaian.addStringProperty("NoTransaksi");
+        tPemakaian.addStringProperty("NoReservasi");
+        tPemakaian.addStringProperty("NoPemesanan");
+        tPemakaian.addStringProperty("KodeIntegrasi");
+        tPemakaian.addStringProperty("Plant");
+        tPemakaian.addStringProperty("StorLoc");
+        tPemakaian.addStringProperty("StatusPemakaian");
+        tPemakaian.addStringProperty("TanggalReservasi");
+        tPemakaian.addStringProperty("TanggalPemakaian");
+        tPemakaian.addStringProperty("TanggalPengeluaran");
+        tPemakaian.addStringProperty("TanggalDokumen");
+        tPemakaian.addStringProperty("JenisPekerjaan");
+        tPemakaian.addStringProperty("Sumber");
+        tPemakaian.addStringProperty("StatusKirimAgo");
+        tPemakaian.addStringProperty("StatusSap");
+        tPemakaian.addStringProperty("NoAgenda");
+        tPemakaian.addStringProperty("IdPelanggan");
+        tPemakaian.addStringProperty("NamaPelanggan");
+        tPemakaian.addStringProperty("AlamatPelanggan");
+        tPemakaian.addStringProperty("Tarif");
+        tPemakaian.addStringProperty("Daya");
+        tPemakaian.addStringProperty("TanggalBayar");
+
+        Entity tPemakaianDetail = schema.addEntity("TPemakaianDetail");
+        tPemakaianDetail.addIdProperty();
+        tPemakaianDetail.addStringProperty("NoTransaksi");
+        tPemakaianDetail.addStringProperty("NomorMaterial");
+        tPemakaianDetail.addStringProperty("NamaMaterial");
+        tPemakaianDetail.addStringProperty("QtyReservasi");
+        tPemakaianDetail.addStringProperty("QtyPemakaian");
+        tPemakaianDetail.addStringProperty("QtyPengeluaran");
+        tPemakaianDetail.addStringProperty("Unit");
+        tPemakaianDetail.addStringProperty("NoMeter");
+        tPemakaianDetail.addStringProperty("ValuationType");
+        tPemakaianDetail.addStringProperty("Keterangan");
+
+        Entity tTransPemakaianDetail = schema.addEntity("TTransPemakaianDetail");
+        tTransPemakaianDetail.addIdProperty();
+        tTransPemakaianDetail.addStringProperty("NoTransaksi");
+        tTransPemakaianDetail.addStringProperty("NomorMaterial");
+        tTransPemakaianDetail.addStringProperty("NamaMaterial");
+        tTransPemakaianDetail.addStringProperty("QtyReservasi");
+        tTransPemakaianDetail.addStringProperty("QtyPemakaian");
+        tTransPemakaianDetail.addStringProperty("QtyPengeluaran");
+        tTransPemakaianDetail.addStringProperty("Unit");
+        tTransPemakaianDetail.addStringProperty("NoMeter");
+        tTransPemakaianDetail.addStringProperty("ValuationType");
+        tTransPemakaianDetail.addStringProperty("Keterangan");
+        tTransPemakaianDetail.addStringProperty("SnScanned");
+        tTransPemakaianDetail.addIntProperty("IsDone");
+
+        Entity tListSnMaterialPemakaianUlp = schema.addEntity("TListSnMaterialPemakaianUlp");
+        tListSnMaterialPemakaianUlp.addIdProperty();
+        tListSnMaterialPemakaianUlp.addStringProperty("NoTransaksi");
+        tListSnMaterialPemakaianUlp.addStringProperty("NoMaterial");
+        tListSnMaterialPemakaianUlp.addStringProperty("NoSerialNumber");
+        tListSnMaterialPemakaianUlp.addIntProperty("IsScanned");
 
         new DaoGenerator().generateAll(schema, "../MIMS-Master/app/src/main/java");
 

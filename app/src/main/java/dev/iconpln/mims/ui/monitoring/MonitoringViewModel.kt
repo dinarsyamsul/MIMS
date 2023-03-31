@@ -1,14 +1,21 @@
 package dev.iconpln.mims.ui.monitoring
 
+import android.os.Build
+import androidx.annotation.RequiresApi
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import dev.iconpln.mims.data.local.database.DaoSession
 import dev.iconpln.mims.data.local.database.TPos
+import dev.iconpln.mims.data.local.database.TPosDao
 import dev.iconpln.mims.data.local.database.TPosDetail
+import dev.iconpln.mims.utils.Config
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
+import org.joda.time.LocalDateTime
+import java.time.LocalDate
+import java.util.Date
 
 class MonitoringViewModel: ViewModel() {
 
@@ -38,122 +45,22 @@ class MonitoringViewModel: ViewModel() {
         }
     }
 
-    fun getPoByDo(listMonitoring: List<TPosDetail>,noDo: String){
+    fun getPoFilter(daoSession: DaoSession, noPo: String, noDo: String, startDate: String, endDate: String){
         CoroutineScope(Dispatchers.Main).launch {
             try {
                 _isLoading.value = true
+                var endDateAdjust = endDate
 
-                _detailMonitoringPOResponse.postValue(listMonitoring)
-
-                _isLoading.value = false
-            }catch (e: Exception){
-                e.printStackTrace()
-            }finally {
-                _isLoading.value = false
-            }
-
-        }
-    }
-
-    fun getFileterPoDetail(listMonitoring: List<TPosDetail>,noMat: String, noPackage: String){
-        CoroutineScope(Dispatchers.Main).launch {
-            try {
-                _isLoading.value = true
-
-                if (noMat.isNullOrEmpty() && noPackage.isNullOrEmpty()){
-                    _detailMonitoringPOResponse.postValue(listMonitoring)
+                if (endDate.isNullOrEmpty()){
+                    endDateAdjust = LocalDateTime.now().toString(Config.DATE)
                 }
-                else if (noMat.isNullOrEmpty() && noPackage.isNotEmpty()){
-                    val listFilter = listMonitoring.filter {
-                        it.noPackaging.lowercase().contains(noPackage.lowercase())
-                    }
-                    _detailMonitoringPOResponse.postValue(listFilter)
-                }
-                else if (noMat.isNotEmpty() && noPackage.isNullOrEmpty()){
-                    val listFilter = listMonitoring.filter {
-                        it.noMatSap.lowercase().contains(noMat.lowercase())
-                    }
-                    _detailMonitoringPOResponse.postValue(listFilter)
-                }
-                else if (noMat.isNotEmpty() && noPackage.isNotEmpty()){
-                    val listFilter = listMonitoring.filter {
-                        it.noPackaging.lowercase().contains(noPackage.lowercase()) &&
-                        it.noMatSap.lowercase().contains(noMat.lowercase())
-                    }
-                    _detailMonitoringPOResponse.postValue(listFilter)
-                }
-
-                _isLoading.value = false
-            }catch (e: Exception){
-                e.printStackTrace()
-            }finally {
-                _isLoading.value = false
-            }
-
-        }
-    }
-
-    fun getPoFilter(listMonitoring: List<TPos>, noPo: String, noDo: String, startDate: String, endDate: String){
-        CoroutineScope(Dispatchers.Main).launch {
-            try {
-                _isLoading.value = true
-
-                if (noPo.isNotEmpty() && noDo.isNullOrEmpty() && startDate.isNullOrEmpty() && endDate.isNullOrEmpty()){
-                    var listFilter = listMonitoring.filter {
-                        it.poMpNo.lowercase().contains(noPo.lowercase())
-                    }
-                    _monitoringPOResponse.postValue(listFilter)
-
-                }
-                else if (noPo.isNotEmpty() && noDo.isNullOrEmpty() && startDate.isNotEmpty() && endDate.isNotEmpty()){
-                    var listFilter = listMonitoring.filter {
-                        it.poMpNo.lowercase().contains(noPo.lowercase())&&
-                        it.createdDate.lowercase().contains(startDate.lowercase()) &&
-                        it.createdDate.lowercase().contains(endDate.lowercase())
-                    }
-                    _monitoringPOResponse.postValue(listFilter)
-
-                }
-                else if (noPo.isNotEmpty() && noDo.isNotEmpty() && startDate.isNullOrEmpty() && endDate.isNullOrEmpty()){
-                    var listFilter = listMonitoring.filter {
-                        it.poMpNo.lowercase().contains(noPo.lowercase())&&
-                        it.noDoSmar.lowercase().contains(noDo.lowercase())
-
-                    }
-                    _monitoringPOResponse.postValue(listFilter)
-
-                }
-                else if (noPo.isNullOrEmpty() && noDo.isNotEmpty() && startDate.isNullOrEmpty() && endDate.isNullOrEmpty()){
-                    var listFilter = listMonitoring.filter {
-                        it.noDoSmar.lowercase().contains(noDo.lowercase())
-                    }
-                    _monitoringPOResponse.postValue(listFilter)
-                }
-                else if (noPo.isNullOrEmpty() && noDo.isNotEmpty() && startDate.isNotEmpty() && endDate.isNotEmpty()){
-                    var listFilter = listMonitoring.filter {
-                        it.noDoSmar.lowercase().contains(noDo.lowercase())&&
-                        it.createdDate.lowercase().contains(startDate.lowercase()) &&
-                        it.createdDate.lowercase().contains(endDate.lowercase())
-
-                    }
-                    _monitoringPOResponse.postValue(listFilter)
-                }
-                else if (noPo.isNullOrEmpty() && noDo.isNullOrEmpty() && startDate.isNotEmpty() && endDate.isNotEmpty()){
-                    var listFilter = listMonitoring.filter {
-                        it.createdDate.lowercase().contains(startDate.lowercase())
-                        && it.createdDate.lowercase().contains(endDate.lowercase())
-                    }
-                    _monitoringPOResponse.postValue(listFilter)
-                }
-                else if (noPo.isNotEmpty() && noDo.isNotEmpty() && startDate.isNotEmpty() && endDate.isNotEmpty()){
-                    var listFilter = listMonitoring.filter {
-                        it.createdDate.lowercase().contains(startDate.lowercase()) &&
-                        it.createdDate.lowercase().contains(endDate.lowercase()) &&
-                        it.noDoSmar.lowercase().contains(noDo.lowercase()) &&
-                        it.poMpNo.lowercase().contains(noPo.lowercase())
-                    }
-                    _monitoringPOResponse.postValue(listFilter)
-                }
+                val listMonitoring = daoSession.tPosDao.queryBuilder()
+                    .where(TPosDao.Properties.PoMpNo.like("%"+ noPo +"%"))
+                    .where(TPosDao.Properties.NoDoSmar.like("%"+ noDo +"%"))
+                    .where(TPosDao.Properties.CreatedDate.between(startDate,endDateAdjust))
+                    .orderAsc(TPosDao.Properties.CreatedDate)
+                    .list()
+                _monitoringPOResponse.postValue(listMonitoring)
 
                 _isLoading.value = false
             }catch (e: Exception){

@@ -85,7 +85,7 @@
                     android:layout_height="wrap_content"
                     android:layout_weight="1"
                     android:background="@drawable/txt_input_layout"
-                    android:fontFamily="@font/montserrat_semibold"
+                    android:fontFamily="@font/montserrat_reguler"
                     android:inputType="none"
                     android:text="Pilih Kategori" />
 
@@ -121,6 +121,7 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_weight="1"
+                    android:fontFamily="@font/montserrat_reguler"
                     android:background="@drawable/txt_input_layout"
                     android:inputType="none"
                     android:text="Pilih Tahun" />
@@ -176,7 +177,7 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:fontFamily="@font/montserrat_reguler"
-                        android:text="dd/mm/yyyy"
+                        android:text="yyyy/mm/dd"
                         android:textColor="#028097"/>
 
                     <ImageView
@@ -210,7 +211,7 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:fontFamily="@font/montserrat_reguler"
-                        android:text="dd/mm/yyyy"
+                        android:text="yyyy/mm/dd"
                         android:textColor="#028097" />
 
                     <ImageView
@@ -270,8 +271,10 @@
                 android:layout_marginBottom="8dp"
                 app:layout_constraintBottom_toTopOf="@+id/total_data"
                 app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintHorizontal_bias="0.0"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@+id/view3"
+                app:layout_constraintVertical_bias="1.0"
                 tools:listitem="@layout/item_data_material_pabrikan" />
 
             <TextView

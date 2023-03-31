@@ -43,16 +43,17 @@ class RatingActivity : AppCompatActivity() {
             .where(TPosDetailPenerimaanDao.Properties.IsChecked.eq(1)).list()
 
         penerimaan = daoSession.tPosPenerimaanDao.queryBuilder()
-            .where(TPosPenerimaanDao.Properties.NoDoSmar.eq(noDo)).limit(1).unique()
+            .where(TPosPenerimaanDao.Properties.NoDoSmar.eq(noDo)).list().get(0)
 
         adapter = RatingAdapter(arrayListOf(), object : RatingAdapter.OnAdapterListener{
             override fun onClick(po: TPosDetailPenerimaan) {}
 
         })
 
-        adapter.setPedList(listPenDetail)
+        adapter.setPedList(listPenDetail.distinctBy { it.noPackaging })
 
         with(binding){
+            btnBack.setOnClickListener { onBackPressed() }
             txtIsiEkspedisi.text = penerimaan.expeditions
             txtNoDo.text = penerimaan.noDoSmar
             txtPlant.text = penerimaan.plantName
@@ -68,6 +69,19 @@ class RatingActivity : AppCompatActivity() {
             txtUnitAsal.text = penerimaan.plantName
             txtVendor.text = "-"
 
+            if (penerimaan.ratingDone == 1){
+                btnRating.setImageResource(R.drawable.ic_rating_done)
+            }
+
+
+            btnRating.setOnClickListener {
+                if (penerimaan.ratingDone == 1){
+                    Toast.makeText(this@RatingActivity, "Kamu sudah melakukan rating",Toast.LENGTH_SHORT).show()
+                }else{
+                    startActivity(Intent(this@RatingActivity, DetailRatingActivity::class.java)
+                        .putExtra("noDo", noDo))
+                }
+            }
             srcNoPackaging.addTextChangedListener(object : TextWatcher{
                 override fun beforeTextChanged(s: CharSequence?, start: Int, count: Int, after: Int) {}
 
@@ -77,7 +91,7 @@ class RatingActivity : AppCompatActivity() {
                     val filter = listPenDetail.filter {
                         it.noPackaging.toLowerCase().contains(s.toString().toLowerCase())
                     }
-                    adapter.setPedList(filter)
+                    adapter.setPedList(filter.distinctBy { it.noPackaging })
                 }
 
             })
@@ -89,17 +103,12 @@ class RatingActivity : AppCompatActivity() {
             btnTerima.setOnClickListener {
                 validate()
             }
-
-            btnRating.setOnClickListener {
-                startActivity(Intent(this@RatingActivity, DetailRatingActivity::class.java)
-                    .putExtra("noDo", noDo))
-            }
         }
 
     }
 
     private fun validate() {
-        if (penerimaan.isDone != 1){
+        if (penerimaan.ratingDone != 1){
             Toast.makeText(this@RatingActivity, "Kamu belum melakukan rating", Toast.LENGTH_SHORT).show()
             return
         }
@@ -116,11 +125,14 @@ class RatingActivity : AppCompatActivity() {
         message.text = "Berhasil"
         txtMessage.text = "Data berhasil di kirim"
 
+        penerimaan.isDone = 1
+        penerimaan.statusPenerimaan = "DITERIMA"
         daoSession.tPosPenerimaanDao.update(penerimaan)
 
         btnOk.setOnClickListener {
             dialog.dismiss();
-            startActivity(Intent(this@RatingActivity, PenerimaanActivity::class.java ))
+            startActivity(Intent(this@RatingActivity, PenerimaanActivity::class.java )
+                .setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP))
             finish()
         }
 

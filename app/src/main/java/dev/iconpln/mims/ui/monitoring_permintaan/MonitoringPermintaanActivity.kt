@@ -7,11 +7,11 @@ import android.os.Bundle
 import android.text.Editable
 import android.text.TextWatcher
 import android.widget.ArrayAdapter
+import android.widget.Toast
 import androidx.activity.viewModels
 import androidx.recyclerview.widget.LinearLayoutManager
 import dev.iconpln.mims.MyApplication
-import dev.iconpln.mims.data.local.database.DaoSession
-import dev.iconpln.mims.data.local.database.TMonitoringPermintaan
+import dev.iconpln.mims.data.local.database.*
 import dev.iconpln.mims.databinding.ActivityMonitoringPermintaanBinding
 import dev.iconpln.mims.ui.monitoring_permintaan.monitoring_permintaan_detail.MonitoringPermintaanDetailActivity
 import java.text.SimpleDateFormat
@@ -35,16 +35,28 @@ class MonitoringPermintaanActivity : AppCompatActivity() {
         setContentView(binding.root)
         daoSession = (application as MyApplication).daoSession!!
         cal = Calendar.getInstance()
+        setDataPermintaan()
+        setDetailPermintaan()
 
         viewModel.getMonitoringPermintaan(daoSession)
 
         adapter = MonitoringPermintaanAdapter(arrayListOf(), object : MonitoringPermintaanAdapter.OnAdapterListener{
-            override fun onClick(mp: TMonitoringPermintaan) {
-                startActivity(Intent(this@MonitoringPermintaanActivity, MonitoringPermintaanDetailActivity::class.java)
-                    .putExtra("noPermintaan", mp.noPermintaan))
+            override fun onClick(mp: TTransMonitoringPermintaan) {
+                val checkDetail = daoSession.tTransMonitoringPermintaanDetailDao.queryBuilder()
+                    .where(TTransMonitoringPermintaanDetailDao.Properties.NoTransaksi.eq(mp.noTransaksi))
+                    .where(TTransMonitoringPermintaanDetailDao.Properties.IsDone.eq(0)).list()
+
+                if (checkDetail.isNullOrEmpty()){
+                    Toast.makeText(this@MonitoringPermintaanActivity, "Data material sudah di kirim semua", Toast.LENGTH_SHORT).show()
+                }else{
+                    startActivity(Intent(this@MonitoringPermintaanActivity, MonitoringPermintaanDetailActivity::class.java)
+                        .putExtra("noPermintaan", mp.noPermintaan)
+                        .putExtra("noTransaksi", mp.noTransaksi))
+                }
+
             }
 
-        })
+        },daoSession)
 
         with(binding){
             btnBack.setOnClickListener { onBackPressed() }
@@ -81,8 +93,82 @@ class MonitoringPermintaanActivity : AppCompatActivity() {
 
     }
 
+    private fun setDataPermintaan() {
+        val isDataExist = daoSession.tTransMonitoringPermintaanDao.queryBuilder()
+            .where(TTransMonitoringPermintaanDao.Properties.KodePengeluaran.eq(1)).list().size > 0
+
+        val listPermintaan = daoSession.tMonitoringPermintaanDao.queryBuilder()
+            .where(TMonitoringPermintaanDao.Properties.KodePengeluaran.eq(1)).list()
+
+        if (!isDataExist){
+            if (listPermintaan != null){
+                val size = listPermintaan.size
+                if (size > 0) {
+                    val items = arrayOfNulls<TTransMonitoringPermintaan>(size)
+                    var item: TTransMonitoringPermintaan
+                    for ((i, model) in listPermintaan.withIndex()){
+                        item = TTransMonitoringPermintaan()
+                        item.createdDate = model?.createdDate
+                        item.plant = model?.plant
+                        item.plantName = model?.plantName
+                        item.createdBy = model?.createdBy
+                        item.jumlahKardus = if (model?.jumlahKardus == null) 0 else model?.jumlahKardus as Int?
+                        item.kodePengeluaran = model?.kodePengeluaran.toString()
+                        item.noPermintaan = model?.noPermintaan
+                        item.noTransaksi = model?.noTransaksi
+                        item.noRepackaging = model?.noRepackaging
+                        item.storLocAsal = model?.storLocAsal
+                        item.storLocAsalName = model?.storLocAsalName
+                        item.storLocTujuan = model?.storLocTujuan
+                        item.storLocTujuanName = model?.storLocTujuanName
+                        item.tanggalPengeluaran = model?.tanggalPengeluaran.toString()
+                        item.tanggalPermintaan = model?.tanggalPermintaan
+                        item.updatedBy = model?.updatedBy
+                        item.updatedDate = model?.updatedDate
+                        item.isDone = 0
+
+                        items[i] = item
+                    }
+                    daoSession.tTransMonitoringPermintaanDao.insertInTx(items.toList())
+                }
+            }
+        }
+    }
+
+    private fun setDetailPermintaan() {
+        val isDataExist = daoSession.tTransMonitoringPermintaanDetailDao.queryBuilder().list().size > 0
+
+        val listDetailPermintaan = daoSession.tMonitoringPermintaanDetailDao.queryBuilder().list()
+
+        if (!isDataExist){
+            val size = listDetailPermintaan.size
+            if (size > 0) {
+                val items = arrayOfNulls<TTransMonitoringPermintaanDetail>(size)
+                var item: TTransMonitoringPermintaanDetail
+                for ((i, model) in listDetailPermintaan.withIndex()){
+                    item = TTransMonitoringPermintaanDetail()
+                    item.unit = model?.unit
+                    item.nomorMaterial = model?.nomorMaterial
+                    item.kategori = model?.kategori
+                    item.materialDesc = model?.materialDesc
+                    item.noPermintaan = model?.noPermintaan
+                    item.noTransaksi = model?.noTransaksi
+                    item.noRepackaging = model?.noRepackaging
+                    item.qtyPengeluaran = model?.qtyPengeluaran.toString()
+                    item.qtyPermintaan = model?.qtyPermintaan ?: 0
+                    item.qtyScan = model?.qtyScan.toString()
+                    item.isScannedSn = 0
+                    item.isDone = 0
+
+                    items[i] = item
+                }
+                daoSession.tTransMonitoringPermintaanDetailDao.insertInTx(items.toList())
+            }
+        }
+    }
+
     private fun setGudangAsal() {
-        val list = daoSession.tMonitoringPermintaanDao.queryBuilder().list()
+        val list = daoSession.tTransMonitoringPermintaanDao.queryBuilder().list()
         val listKategori: ArrayList<String> = ArrayList()
         for (i in list){
             listKategori.add(i.storLocAsalName)

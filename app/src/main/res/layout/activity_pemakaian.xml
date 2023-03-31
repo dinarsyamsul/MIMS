@@ -99,39 +99,25 @@
             app:layout_constraintStart_toStartOf="@id/src_nomorReservasi"
             app:layout_constraintTop_toBottomOf="@id/src_nomorReservasi" />
 
-        <com.google.android.material.card.MaterialCardView
-            android:id="@+id/cv_tgl_reservasi"
+        <EditText
+            android:id="@+id/edt_tanggal_diterima"
             android:layout_width="0dp"
             android:layout_height="50dp"
             android:layout_marginTop="10dp"
-            app:cardCornerRadius="10dp"
-            app:layout_constraintEnd_toEndOf="@+id/lbl_tgl_reservasi"
+            android:layout_marginEnd="25dp"
+            android:background="@drawable/srchview"
+            android:cursorVisible="false"
+            android:drawableEnd="@drawable/ic_baseline_date_range_24"
+            android:focusable="false"
+            android:fontFamily="@font/montserrat_reguler"
+            android:paddingLeft="20dp"
+            android:paddingRight="20dp"
+            android:textColor="@drawable/et_selector"
+            android:textSize="12sp"
+            android:hint="yyyy/mm/dd"
+            app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="@+id/lbl_tgl_reservasi"
-            app:layout_constraintTop_toBottomOf="@+id/lbl_tgl_reservasi"
-            app:strokeColor="#AB045A71"
-            app:strokeWidth="1dp">
-
-            <LinearLayout
-                android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:gravity="center">
-
-                <TextView
-                    android:id="@+id/txt_tgl_reservasi"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:fontFamily="@font/montserrat_reguler"
-                    android:text="dd/mm/yyyy"
-                    android:textColor="#028097" />
-
-                <ImageView
-                    android:layout_width="24dp"
-                    android:layout_height="24dp"
-                    android:layout_marginStart="15dp"
-                    android:src="@drawable/ic_calendar" />
-            </LinearLayout>
-
-        </com.google.android.material.card.MaterialCardView>
+            app:layout_constraintTop_toBottomOf="@+id/lbl_tgl_reservasi" />
 
         <View
             android:id="@+id/view3"
@@ -139,9 +125,9 @@
             android:layout_height="1dp"
             android:layout_marginTop="15dp"
             android:background="#B9B9B9"
-            app:layout_constraintEnd_toEndOf="@id/cv_tgl_reservasi"
-            app:layout_constraintStart_toStartOf="@id/cv_tgl_reservasi"
-            app:layout_constraintTop_toBottomOf="@id/cv_tgl_reservasi" />
+            app:layout_constraintEnd_toEndOf="@id/edt_tanggal_diterima"
+            app:layout_constraintStart_toStartOf="@id/edt_tanggal_diterima"
+            app:layout_constraintTop_toBottomOf="@id/edt_tanggal_diterima" />
 
         <androidx.recyclerview.widget.RecyclerView
             android:id="@+id/rv_pemakaian_ulp"

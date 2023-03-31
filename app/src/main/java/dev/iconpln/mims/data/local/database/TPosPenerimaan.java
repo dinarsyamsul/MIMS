@@ -39,12 +39,15 @@ public class TPosPenerimaan {
     private String PetugasPenerima;
     private String KodeStatusDoMims;
     private String StatusPemeriksaan;
+    private String StatusPenerimaan;
     private String KurirPengantar;
     private String NilaiRatingPenerimaan;
     private String NilaiRatingWaktu;
     private String NilaiRatingQuality;
     private String DoLineItem;
+    private Integer IsRating;
     private Integer isDone;
+    private Integer ratingDone;
 
     @Generated
     public TPosPenerimaan() {
@@ -55,7 +58,7 @@ public class TPosPenerimaan {
     }
 
     @Generated
-    public TPosPenerimaan(Long id, String Total, String TlskNo, String PoSapNo, String PoMpNo, String NoDoSmar, Integer LeadTime, String Storloc, String CreatedDate, String PlanCodeNo, String PlantName, String NoDoMims, String DoStatus, String Expeditions, String CourierPersonName, String KdPabrikan, String MaterialGroup, String NamaKategoriMaterial, String RatingPenerimaan, String DescPenerimaan, String RatingQuality, String DescQuality, String RatingWaktu, String DescWaktu, String TanggalDiterima, String PetugasPenerima, String KodeStatusDoMims, String StatusPemeriksaan, String KurirPengantar, String NilaiRatingPenerimaan, String NilaiRatingWaktu, String NilaiRatingQuality, String DoLineItem, Integer isDone) {
+    public TPosPenerimaan(Long id, String Total, String TlskNo, String PoSapNo, String PoMpNo, String NoDoSmar, Integer LeadTime, String Storloc, String CreatedDate, String PlanCodeNo, String PlantName, String NoDoMims, String DoStatus, String Expeditions, String CourierPersonName, String KdPabrikan, String MaterialGroup, String NamaKategoriMaterial, String RatingPenerimaan, String DescPenerimaan, String RatingQuality, String DescQuality, String RatingWaktu, String DescWaktu, String TanggalDiterima, String PetugasPenerima, String KodeStatusDoMims, String StatusPemeriksaan, String StatusPenerimaan, String KurirPengantar, String NilaiRatingPenerimaan, String NilaiRatingWaktu, String NilaiRatingQuality, String DoLineItem, Integer IsRating, Integer isDone, Integer ratingDone) {
         this.id = id;
         this.Total = Total;
         this.TlskNo = TlskNo;
@@ -84,12 +87,15 @@ public class TPosPenerimaan {
         this.PetugasPenerima = PetugasPenerima;
         this.KodeStatusDoMims = KodeStatusDoMims;
         this.StatusPemeriksaan = StatusPemeriksaan;
+        this.StatusPenerimaan = StatusPenerimaan;
         this.KurirPengantar = KurirPengantar;
         this.NilaiRatingPenerimaan = NilaiRatingPenerimaan;
         this.NilaiRatingWaktu = NilaiRatingWaktu;
         this.NilaiRatingQuality = NilaiRatingQuality;
         this.DoLineItem = DoLineItem;
+        this.IsRating = IsRating;
         this.isDone = isDone;
+        this.ratingDone = ratingDone;
     }
 
     public Long getId() {
@@ -316,6 +322,14 @@ public class TPosPenerimaan {
         this.StatusPemeriksaan = StatusPemeriksaan;
     }
 
+    public String getStatusPenerimaan() {
+        return StatusPenerimaan;
+    }
+
+    public void setStatusPenerimaan(String StatusPenerimaan) {
+        this.StatusPenerimaan = StatusPenerimaan;
+    }
+
     public String getKurirPengantar() {
         return KurirPengantar;
     }
@@ -356,12 +370,28 @@ public class TPosPenerimaan {
         this.DoLineItem = DoLineItem;
     }
 
+    public Integer getIsRating() {
+        return IsRating;
+    }
+
+    public void setIsRating(Integer IsRating) {
+        this.IsRating = IsRating;
+    }
+
     public Integer getIsDone() {
         return isDone;
     }
 
     public void setIsDone(Integer isDone) {
         this.isDone = isDone;
+    }
+
+    public Integer getRatingDone() {
+        return ratingDone;
+    }
+
+    public void setRatingDone(Integer ratingDone) {
+        this.ratingDone = ratingDone;
     }
 
 }

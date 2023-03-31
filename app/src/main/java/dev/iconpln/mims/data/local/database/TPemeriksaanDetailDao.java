@@ -29,9 +29,12 @@ public class TPemeriksaanDetailDao extends AbstractDao<TPemeriksaanDetail, Long>
         public final static Property NoMaterail = new Property(4, String.class, "NoMaterail", false, "NO_MATERAIL");
         public final static Property NoPackaging = new Property(5, String.class, "NoPackaging", false, "NO_PACKAGING");
         public final static Property Kategori = new Property(6, String.class, "Kategori", false, "KATEGORI");
-        public final static Property StatusSn = new Property(7, String.class, "StatusSn", false, "STATUS_SN");
-        public final static Property IsChecked = new Property(8, Integer.class, "IsChecked", false, "IS_CHECKED");
-        public final static Property IsDone = new Property(9, Integer.class, "IsDone", false, "IS_DONE");
+        public final static Property StatusPenerimaan = new Property(7, String.class, "StatusPenerimaan", false, "STATUS_PENERIMAAN");
+        public final static Property StatusPemeriksaan = new Property(8, String.class, "StatusPemeriksaan", false, "STATUS_PEMERIKSAAN");
+        public final static Property IsPeriksa = new Property(9, Integer.class, "isPeriksa", false, "IS_PERIKSA");
+        public final static Property IsChecked = new Property(10, Integer.class, "IsChecked", false, "IS_CHECKED");
+        public final static Property IsComplaint = new Property(11, Integer.class, "IsComplaint", false, "IS_COMPLAINT");
+        public final static Property IsDone = new Property(12, Integer.class, "IsDone", false, "IS_DONE");
     }
 
 
@@ -54,9 +57,12 @@ public class TPemeriksaanDetailDao extends AbstractDao<TPemeriksaanDetail, Long>
                 "\"NO_MATERAIL\" TEXT," + // 4: NoMaterail
                 "\"NO_PACKAGING\" TEXT," + // 5: NoPackaging
                 "\"KATEGORI\" TEXT," + // 6: Kategori
-                "\"STATUS_SN\" TEXT," + // 7: StatusSn
-                "\"IS_CHECKED\" INTEGER," + // 8: IsChecked
-                "\"IS_DONE\" INTEGER);"); // 9: IsDone
+                "\"STATUS_PENERIMAAN\" TEXT," + // 7: StatusPenerimaan
+                "\"STATUS_PEMERIKSAAN\" TEXT," + // 8: StatusPemeriksaan
+                "\"IS_PERIKSA\" INTEGER," + // 9: isPeriksa
+                "\"IS_CHECKED\" INTEGER," + // 10: IsChecked
+                "\"IS_COMPLAINT\" INTEGER," + // 11: IsComplaint
+                "\"IS_DONE\" INTEGER);"); // 12: IsDone
     }
 
     /** Drops the underlying database table. */
@@ -104,19 +110,34 @@ public class TPemeriksaanDetailDao extends AbstractDao<TPemeriksaanDetail, Long>
             stmt.bindString(7, Kategori);
         }
  
-        String StatusSn = entity.getStatusSn();
-        if (StatusSn != null) {
-            stmt.bindString(8, StatusSn);
+        String StatusPenerimaan = entity.getStatusPenerimaan();
+        if (StatusPenerimaan != null) {
+            stmt.bindString(8, StatusPenerimaan);
+        }
+ 
+        String StatusPemeriksaan = entity.getStatusPemeriksaan();
+        if (StatusPemeriksaan != null) {
+            stmt.bindString(9, StatusPemeriksaan);
+        }
+ 
+        Integer isPeriksa = entity.getIsPeriksa();
+        if (isPeriksa != null) {
+            stmt.bindLong(10, isPeriksa);
         }
  
         Integer IsChecked = entity.getIsChecked();
         if (IsChecked != null) {
-            stmt.bindLong(9, IsChecked);
+            stmt.bindLong(11, IsChecked);
+        }
+ 
+        Integer IsComplaint = entity.getIsComplaint();
+        if (IsComplaint != null) {
+            stmt.bindLong(12, IsComplaint);
         }
  
         Integer IsDone = entity.getIsDone();
         if (IsDone != null) {
-            stmt.bindLong(10, IsDone);
+            stmt.bindLong(13, IsDone);
         }
     }
 
@@ -159,19 +180,34 @@ public class TPemeriksaanDetailDao extends AbstractDao<TPemeriksaanDetail, Long>
             stmt.bindString(7, Kategori);
         }
  
-        String StatusSn = entity.getStatusSn();
-        if (StatusSn != null) {
-            stmt.bindString(8, StatusSn);
+        String StatusPenerimaan = entity.getStatusPenerimaan();
+        if (StatusPenerimaan != null) {
+            stmt.bindString(8, StatusPenerimaan);
+        }
+ 
+        String StatusPemeriksaan = entity.getStatusPemeriksaan();
+        if (StatusPemeriksaan != null) {
+            stmt.bindString(9, StatusPemeriksaan);
+        }
+ 
+        Integer isPeriksa = entity.getIsPeriksa();
+        if (isPeriksa != null) {
+            stmt.bindLong(10, isPeriksa);
         }
  
         Integer IsChecked = entity.getIsChecked();
         if (IsChecked != null) {
-            stmt.bindLong(9, IsChecked);
+            stmt.bindLong(11, IsChecked);
+        }
+ 
+        Integer IsComplaint = entity.getIsComplaint();
+        if (IsComplaint != null) {
+            stmt.bindLong(12, IsComplaint);
         }
  
         Integer IsDone = entity.getIsDone();
         if (IsDone != null) {
-            stmt.bindLong(10, IsDone);
+            stmt.bindLong(13, IsDone);
         }
     }
 
@@ -190,9 +226,12 @@ public class TPemeriksaanDetailDao extends AbstractDao<TPemeriksaanDetail, Long>
             cursor.isNull(offset + 4) ? null : cursor.getString(offset + 4), // NoMaterail
             cursor.isNull(offset + 5) ? null : cursor.getString(offset + 5), // NoPackaging
             cursor.isNull(offset + 6) ? null : cursor.getString(offset + 6), // Kategori
-            cursor.isNull(offset + 7) ? null : cursor.getString(offset + 7), // StatusSn
-            cursor.isNull(offset + 8) ? null : cursor.getInt(offset + 8), // IsChecked
-            cursor.isNull(offset + 9) ? null : cursor.getInt(offset + 9) // IsDone
+            cursor.isNull(offset + 7) ? null : cursor.getString(offset + 7), // StatusPenerimaan
+            cursor.isNull(offset + 8) ? null : cursor.getString(offset + 8), // StatusPemeriksaan
+            cursor.isNull(offset + 9) ? null : cursor.getInt(offset + 9), // isPeriksa
+            cursor.isNull(offset + 10) ? null : cursor.getInt(offset + 10), // IsChecked
+            cursor.isNull(offset + 11) ? null : cursor.getInt(offset + 11), // IsComplaint
+            cursor.isNull(offset + 12) ? null : cursor.getInt(offset + 12) // IsDone
         );
         return entity;
     }
@@ -206,9 +245,12 @@ public class TPemeriksaanDetailDao extends AbstractDao<TPemeriksaanDetail, Long>
         entity.setNoMaterail(cursor.isNull(offset + 4) ? null : cursor.getString(offset + 4));
         entity.setNoPackaging(cursor.isNull(offset + 5) ? null : cursor.getString(offset + 5));
         entity.setKategori(cursor.isNull(offset + 6) ? null : cursor.getString(offset + 6));
-        entity.setStatusSn(cursor.isNull(offset + 7) ? null : cursor.getString(offset + 7));
-        entity.setIsChecked(cursor.isNull(offset + 8) ? null : cursor.getInt(offset + 8));
-        entity.setIsDone(cursor.isNull(offset + 9) ? null : cursor.getInt(offset + 9));
+        entity.setStatusPenerimaan(cursor.isNull(offset + 7) ? null : cursor.getString(offset + 7));
+        entity.setStatusPemeriksaan(cursor.isNull(offset + 8) ? null : cursor.getString(offset + 8));
+        entity.setIsPeriksa(cursor.isNull(offset + 9) ? null : cursor.getInt(offset + 9));
+        entity.setIsChecked(cursor.isNull(offset + 10) ? null : cursor.getInt(offset + 10));
+        entity.setIsComplaint(cursor.isNull(offset + 11) ? null : cursor.getInt(offset + 11));
+        entity.setIsDone(cursor.isNull(offset + 12) ? null : cursor.getInt(offset + 12));
      }
     
     @Override

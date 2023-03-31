@@ -13,6 +13,7 @@ import android.os.Bundle
 import android.util.Log
 import android.view.View
 import android.view.ViewGroup
+import android.widget.ImageView
 import android.widget.TextView
 import android.widget.Toast
 import androidx.activity.viewModels
@@ -96,7 +97,7 @@ class InputPetugasPenerimaanActivity : AppCompatActivity(), Loadable {
             object : AddPhotoAdapter.OnAdapterListenerDelete{
                 override fun onClick(po: TPhoto) {
                     val delete = daoSession.tPhotoDao.queryBuilder()
-                        .where(TPhotoDao.Properties.Id.eq(po.id)).limit(1).unique()
+                        .where(TPhotoDao.Properties.Id.eq(po.id)).list().get(0)
                     daoSession.tPhotoDao.delete(delete)
 
                     val newList = daoSession.tPhotoDao.queryBuilder()
@@ -322,7 +323,7 @@ class InputPetugasPenerimaanActivity : AppCompatActivity(), Loadable {
                     "/Images"
             val dir = File(file_path)
             if (!dir.exists()) dir.mkdirs()
-            val file = File(dir, "mims" + "picturesFotoKomplain${UUID.randomUUID()}" + ".png")
+            val file = File(dir, "mims" + "picturesFotoPetugasPenerimaan${UUID.randomUUID()}" + ".png")
             val fOut = FileOutputStream(file)
 
             bitmap.compress(Bitmap.CompressFormat.PNG, 85, fOut)
@@ -389,9 +390,11 @@ class InputPetugasPenerimaanActivity : AppCompatActivity(), Loadable {
             val btnTidak = dialog.findViewById(R.id.btn_tidak) as AppCompatButton
             val message = dialog.findViewById(R.id.message) as TextView
             val txtMessage = dialog.findViewById(R.id.txt_message) as TextView
+            val icon = dialog.findViewById(R.id.imageView11) as ImageView
 
             message.text = "Yakin untuk keluar?"
             txtMessage.text = "Jika keluar setiap perubahan tidak akan tersimpan"
+            icon.setImageResource(R.drawable.ic_warning)
 
             btnYa.setOnClickListener {
                 dialog.dismiss();
@@ -400,7 +403,8 @@ class InputPetugasPenerimaanActivity : AppCompatActivity(), Loadable {
                     daoSession.tPhotoDao.deleteInTx(listPhoto)
                 }
 
-                startActivity(Intent(this@InputPetugasPenerimaanActivity, PenerimaanActivity::class.java ))
+                startActivity(Intent(this@InputPetugasPenerimaanActivity, PenerimaanActivity::class.java )
+                    .setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP))
                 finish()
             }
 

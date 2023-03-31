@@ -207,7 +207,7 @@
             app:layout_constraintStart_toEndOf="@+id/imageView4"
             app:layout_constraintTop_toTopOf="@+id/imageView4" />
 
-        <TextView
+            <TextView
             android:id="@+id/txt_tgl_reservasi"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
@@ -223,10 +223,9 @@
             android:id="@+id/imageView5"
             android:layout_width="14dp"
             android:layout_height="14dp"
-            android:layout_marginTop="10dp"
             android:src="@drawable/ic_number"
             app:layout_constraintStart_toStartOf="@+id/txt_no_do"
-            app:layout_constraintTop_toBottomOf="@+id/txt_no_do" />
+            app:layout_constraintTop_toTopOf="@+id/lbl_nama_material" />
 
         <TextView
             android:id="@+id/valuation_type"
@@ -284,7 +283,7 @@
             android:fontFamily="@font/montserrat_reguler"
             android:text="xxxxx"
             android:textSize="10sp"
-            app:layout_constraintBottom_toBottomOf="p"
+            app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="@+id/txt_no_do"
             app:layout_constraintStart_toEndOf="@+id/imageView7"
             app:layout_constraintTop_toBottomOf="@+id/lbl_jumlah_pemakaian" />

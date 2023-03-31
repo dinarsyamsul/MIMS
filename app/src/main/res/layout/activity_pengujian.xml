@@ -50,7 +50,7 @@
         android:fontFamily="@font/montserrat_reguler"
         android:text="Status Uji"
         android:textColor="#3F3D56"
-        android:textSize="16sp"
+        android:textSize="@dimen/_12ssp"
         android:textStyle="bold"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/header" />
@@ -75,7 +75,7 @@
             android:layout_weight="1"
             android:background="@drawable/txt_input_layout"
             android:inputType="none"
-            android:text="Pilih Status Uji" />
+            android:text="ALL" />
 
     </com.google.android.material.textfield.TextInputLayout>
 
@@ -84,9 +84,10 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginTop="10dp"
+        android:fontFamily="@font/montserrat_reguler"
         android:text="Nomor Pengujian"
         android:textColor="#3F3D56"
-        android:textSize="14sp"
+        android:textSize="@dimen/_12ssp"
         android:textStyle="bold"
         app:layout_constraintStart_toStartOf="@+id/txt_status_uji"
         app:layout_constraintTop_toBottomOf="@+id/tinp_status_uji" />

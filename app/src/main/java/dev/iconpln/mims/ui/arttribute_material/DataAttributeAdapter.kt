@@ -36,6 +36,7 @@ class DataAttributeAdapter(val lisModels: MutableList<TMaterial>, var listener: 
                 txtNoMaterial.text = mat.nomorMaterial
                 txtNoKategori.text = mat.namaKategoriMaterial
                 txtNoTahun.text = mat.tahun
+                txtTglProduksi.text = mat.tglProduksi
             }
 
             itemView.setOnClickListener { listener.onClick(mat) }

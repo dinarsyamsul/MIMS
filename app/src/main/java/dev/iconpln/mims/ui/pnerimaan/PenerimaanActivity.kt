@@ -6,6 +6,7 @@ import android.text.Editable
 import android.text.TextWatcher
 import android.view.View
 import android.widget.ArrayAdapter
+import android.widget.LinearLayout
 import android.widget.Toast
 import androidx.activity.viewModels
 import androidx.appcompat.app.AppCompatActivity
@@ -25,28 +26,28 @@ class PenerimaanActivity : AppCompatActivity() {
     private var filter : String = ""
     private var srcNoDo: String = ""
     private lateinit var penerimaans:  List<TPosPenerimaan>
-    private lateinit var penerimaanDet: List<TPosDetailPenerimaan>
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         binding = ActivityPenerimaanBinding.inflate(layoutInflater)
         setContentView(binding.root)
         daoSession = (application as MyApplication).daoSession!!
+        insertDetailPenerimaan()
 
         penerimaans = daoSession.tPosPenerimaanDao.queryBuilder()
             .where(TPosPenerimaanDao.Properties.KodeStatusDoMims.eq("102")).list()
 
-        penerimaanDet = daoSession.tPosDetailPenerimaanDao.queryBuilder()
-            .where(TPosDetailPenerimaanDao.Properties.IsDone.eq(0))
-            .where(TPosDetailPenerimaanDao.Properties.IsChecked.eq(0)).list()
-
         viewModel.getPenerimaan(daoSession,penerimaans)
-        viewModel.insertDetailPenerimaan(daoSession,penerimaanDet)
 
         adapter = PenerimaanAdapter(arrayListOf(), object : PenerimaanAdapter.OnAdapterListener{
             override fun onClick(po: TPosPenerimaan) {
-                startActivity(Intent(this@PenerimaanActivity, InputPetugasPenerimaanActivity::class.java)
-                    .putExtra("noDo", po.noDoSmar))
+                if(po.petugasPenerima.isNullOrEmpty()){
+                    startActivity(Intent(this@PenerimaanActivity, InputPetugasPenerimaanActivity::class.java)
+                        .putExtra("noDo", po.noDoSmar))
+                }else{
+                    Toast.makeText(this@PenerimaanActivity, "Kamu sudah melakukan input data penerimaan", Toast.LENGTH_SHORT).show()
+                }
+
             }
 
         }, object: PenerimaanAdapter.OnAdapterListenerDoc{
@@ -54,11 +55,11 @@ class PenerimaanActivity : AppCompatActivity() {
                 if (po.tanggalDiterima.isNullOrEmpty()){
                     Toast.makeText(this@PenerimaanActivity, "Kamu belum melakukan input data penerimaan", Toast.LENGTH_SHORT).show()
                 }else{
-                    val penerimaans = daoSession.tPosDetailPenerimaanDao.queryBuilder()
+                    val penerimaanDetails = daoSession.tPosDetailPenerimaanDao.queryBuilder()
                         .where(TPosDetailPenerimaanDao.Properties.NoDoSmar.eq(po.noDoSmar))
                         .where(TPosDetailPenerimaanDao.Properties.IsDone.eq(0)).list()
 
-                    if (penerimaans.isNullOrEmpty()){
+                    if (penerimaanDetails.isNullOrEmpty()){
                         Toast.makeText(this@PenerimaanActivity, "Kamu sudah melakukan pemeriksaan dokumen di DO ini", Toast.LENGTH_SHORT).show()
                     }else{
                         startActivity(Intent(this@PenerimaanActivity, DetailPenerimaanActivity::class.java)
@@ -72,27 +73,28 @@ class PenerimaanActivity : AppCompatActivity() {
                 if (po.isDone == 1){
                     Toast.makeText(this@PenerimaanActivity, "Kamu sudah melakukan rating di DO ini", Toast.LENGTH_SHORT).show()
                 }else{
-                    startActivity(Intent(this@PenerimaanActivity, RatingActivity::class.java)
-                        .putExtra("noDo", po.noDoSmar))
+                    if (po.isRating == 1){
+                        startActivity(Intent(this@PenerimaanActivity, RatingActivity::class.java)
+                            .putExtra("noDo", po.noDoSmar))
+                    }else{
+                        Toast.makeText(this@PenerimaanActivity, "Kamu belum bisa melakukan rating", Toast.LENGTH_SHORT).show()
+                    }
                 }
             }
 
         },daoSession)
 
-        viewModel.penerimaanResponse.observe(this){
-            adapter.setData(it)
-        }
-
-        viewModel.isLoading.observe(this){
-            when(it){
-                true -> binding.progressBar.visibility = View.VISIBLE
-                false -> binding.progressBar.visibility = View.GONE
-            }
-        }
+//        viewModel.penerimaanResponse.observe(this){
+//            adapter.setData(penerimaans)
+//        }
+        adapter.setData(penerimaans)
 
         with(binding){
+            tvTotalData.text = "Total: ${penerimaans.size} data"
             btnBack.setOnClickListener { onBackPressed() }
-            setRecyclerView(false)
+            binding.rvPenerimaan.adapter = adapter
+            binding.rvPenerimaan.setHasFixedSize(true)
+            binding.rvPenerimaan.layoutManager = LinearLayoutManager(this@PenerimaanActivity, LinearLayoutManager.VERTICAL, false)
 
             srcNomorPoDo.addTextChangedListener(object : TextWatcher{
                 override fun beforeTextChanged(
@@ -106,10 +108,7 @@ class PenerimaanActivity : AppCompatActivity() {
 
                 override fun afterTextChanged(s: Editable?) {
                     srcNoDo = s.toString()
-                    val filter = penerimaans.filter {
-                        it.noDoSmar.lowercase().contains(s.toString().lowercase())
-                    }
-                    adapter.setData(filter)
+                    doSearch()
                 }
 
             })
@@ -121,23 +120,69 @@ class PenerimaanActivity : AppCompatActivity() {
             dropdownUrutkan.setAdapter(adapterStatus)
             dropdownUrutkan.setOnItemClickListener { parent, view, position, id ->
                 filter = statusArray[position]
-                if (filter == "TERBARU"){
-                    setRecyclerView(true)
-                }else{
-                    setRecyclerView(false)
-                }
+                doSearch()
+
             }
         }
     }
 
-    private fun setRecyclerView(reverse: Boolean) {
-        binding.rvPenerimaan.adapter = adapter
-        binding.rvPenerimaan.setHasFixedSize(true)
-        val lm = LinearLayoutManager(this@PenerimaanActivity)
-        lm.stackFromEnd = reverse
-        lm.orientation = LinearLayoutManager.VERTICAL
-        lm.reverseLayout = reverse
-        binding.rvPenerimaan.layoutManager = lm
+    private fun insertDetailPenerimaan() {
+        val penerimaanDetails = daoSession.tPosDetailPenerimaanDao.queryBuilder()
+            .where(TPosDetailPenerimaanDao.Properties.IsDone.eq(0)).list()
 
+        if (penerimaanDetails.isNullOrEmpty()){
+            val listPos = daoSession.tPosSnsDao.queryBuilder().list()
+            val size = listPos.size
+            if (size > 0) {
+                val items = arrayOfNulls<TPosDetailPenerimaan>(size)
+                var item: TPosDetailPenerimaan
+                for ((i, model) in listPos.withIndex()){
+                    item = TPosDetailPenerimaan()
+
+                    item.noDoSmar = model.noDoSmar
+                    item.qty = ""
+                    item.kdPabrikan = model.kdPabrikan
+                    item.doStatus = model.doStatus
+                    item.noPackaging = model.noPackaging
+                    item.serialNumber = model.noSerial
+                    item.noMaterial = model.noMatSap
+                    item.namaKategoriMaterial = model.namaKategoriMaterial
+                    item.storLoc = model.storLoc
+                    if (model.statusPenerimaan.isNullOrEmpty()) item.statusPenerimaan = "" else item.statusPenerimaan = model.statusPenerimaan
+                    if (model.statusPemeriksaan.isNullOrEmpty()) item.statusPemeriksaan = "" else item.statusPemeriksaan = model.statusPemeriksaan
+                    item.doLineItem = model?.doLineItem
+                    item.isComplaint = 0
+                    item.isChecked = 0
+                    item.isDone = 0
+                    item.partialCode = ""
+                    items[i] = item
+                }
+                daoSession.tPosDetailPenerimaanDao.insertInTx(items.toList())
+            }
+        }
+    }
+
+    private fun doSearch() {
+        if (filter == "TERBARU"){
+            val search = daoSession.tPosPenerimaanDao.queryBuilder()
+                .where(TPosPenerimaanDao.Properties.KodeStatusDoMims.eq("102"))
+                .whereOr(TPosPenerimaanDao.Properties.NoDoSmar.like("%"+srcNoDo+"%"),TPosPenerimaanDao.Properties.PoSapNo.like("%"+srcNoDo+"%"))
+                .orderDesc(TPosPenerimaanDao.Properties.CreatedDate)
+                .list()
+            adapter.setData(search)
+        }else{
+            val search = daoSession.tPosPenerimaanDao.queryBuilder()
+                .where(TPosPenerimaanDao.Properties.KodeStatusDoMims.eq("102"))
+                .whereOr(TPosPenerimaanDao.Properties.NoDoSmar.like("%"+srcNoDo+"%"),
+                    TPosPenerimaanDao.Properties.PoSapNo.like("%"+srcNoDo+"%"))
+                .orderAsc(TPosPenerimaanDao.Properties.CreatedDate)
+                .list()
+            binding.rvPenerimaan.adapter = null
+            binding.rvPenerimaan.layoutManager = null
+            binding.rvPenerimaan.adapter = adapter
+            binding.rvPenerimaan.setHasFixedSize(true)
+            binding.rvPenerimaan.layoutManager = LinearLayoutManager(this@PenerimaanActivity, LinearLayoutManager.VERTICAL, false)
+            adapter.setData(search)
+        }
     }
 }

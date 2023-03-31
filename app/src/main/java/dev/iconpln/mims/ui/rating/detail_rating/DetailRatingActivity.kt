@@ -11,6 +11,7 @@ import android.os.Bundle
 import android.util.Log
 import android.view.View
 import android.view.ViewGroup
+import android.widget.ImageView
 import android.widget.TextView
 import android.widget.Toast
 import androidx.appcompat.widget.AppCompatButton
@@ -31,6 +32,7 @@ import dev.iconpln.mims.data.remote.service.ApiConfig
 import dev.iconpln.mims.databinding.ActivityDetailRatingBinding
 import dev.iconpln.mims.tasks.Loadable
 import dev.iconpln.mims.tasks.TambahReportTask
+import dev.iconpln.mims.ui.pnerimaan.PenerimaanActivity
 import dev.iconpln.mims.ui.rating.RatingActivity
 import dev.iconpln.mims.utils.Config
 import dev.iconpln.mims.utils.DateTimeUtils
@@ -590,7 +592,8 @@ class DetailRatingActivity : AppCompatActivity(),Loadable {
         penerimaan.ratingQuality = nilaiPenyedia.toString()
         penerimaan.ratingPenerimaan = nilaiPenerimaan.toString()
         penerimaan.ratingWaktu = nilaiWaktu.toString()
-        penerimaan.isDone = 1
+        penerimaan.doStatus = "DITERIMA"
+        penerimaan.ratingDone = 1
 
         daoSession.tPosPenerimaanDao.update(penerimaan)
 
@@ -768,6 +771,58 @@ class DetailRatingActivity : AppCompatActivity(),Loadable {
         startActivity(Intent(this@DetailRatingActivity, RatingActivity::class.java )
             .putExtra("noDo", noDo))
         finish()
+        daoSession.tPhotoDao.deleteInTx(listPhoto)
         Toast.makeText(this, message, Toast.LENGTH_LONG).show()
+    }
+
+    override fun onBackPressed() {
+        val dialog = Dialog(this@DetailRatingActivity)
+        dialog.setContentView(R.layout.popup_validation);
+        dialog.window!!.setLayout(ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.WRAP_CONTENT);
+        dialog.setCancelable(false);
+        dialog.window!!.attributes.windowAnimations = R.style.DialogUpDown;
+        val btnYa = dialog.findViewById(R.id.btn_ya) as AppCompatButton
+        val btnTidak = dialog.findViewById(R.id.btn_tidak) as AppCompatButton
+        val message = dialog.findViewById(R.id.message) as TextView
+        val txtMessage = dialog.findViewById(R.id.txt_message) as TextView
+        val icon = dialog.findViewById(R.id.imageView11) as ImageView
+
+        message.text = "Yakin untuk keluar?"
+        txtMessage.text = "Jika keluar setiap perubahan tidak akan tersimpan"
+        icon.setImageResource(R.drawable.ic_warning)
+
+        btnYa.setOnClickListener {
+            dialog.dismiss();
+
+            if (listPhoto.isNotEmpty()){
+                daoSession.tPhotoDao.deleteInTx(listPhoto)
+            }
+
+            for (i in ratingPenyedias){
+                i.isActive = 0
+                daoSession.tRatingDao.update(i)
+            }
+
+            for (i in ratingWaktus){
+                i.isActive = 0
+                daoSession.tRatingDao.update(i)
+            }
+
+            for (i in ratingPenerimaans){
+                i.isActive = 0
+                daoSession.tRatingDao.update(i)
+            }
+
+            startActivity(Intent(this@DetailRatingActivity, RatingActivity::class.java )
+                .putExtra("noDo", noDo)
+                .setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP))
+            finish()
+        }
+
+        btnTidak.setOnClickListener {
+            dialog.dismiss()
+        }
+
+        dialog.show();
     }
 }

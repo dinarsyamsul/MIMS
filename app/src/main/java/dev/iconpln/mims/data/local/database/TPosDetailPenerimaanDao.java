@@ -32,10 +32,13 @@ public class TPosDetailPenerimaanDao extends AbstractDao<TPosDetailPenerimaan, L
         public final static Property NoMaterial = new Property(7, String.class, "NoMaterial", false, "NO_MATERIAL");
         public final static Property NamaKategoriMaterial = new Property(8, String.class, "NamaKategoriMaterial", false, "NAMA_KATEGORI_MATERIAL");
         public final static Property StorLoc = new Property(9, String.class, "StorLoc", false, "STOR_LOC");
-        public final static Property Status = new Property(10, String.class, "Status", false, "STATUS");
-        public final static Property IsChecked = new Property(11, Integer.class, "IsChecked", false, "IS_CHECKED");
-        public final static Property DoLineItem = new Property(12, String.class, "DoLineItem", false, "DO_LINE_ITEM");
-        public final static Property IsDone = new Property(13, Integer.class, "IsDone", false, "IS_DONE");
+        public final static Property StatusPenerimaan = new Property(10, String.class, "StatusPenerimaan", false, "STATUS_PENERIMAAN");
+        public final static Property StatusPemeriksaan = new Property(11, String.class, "StatusPemeriksaan", false, "STATUS_PEMERIKSAAN");
+        public final static Property IsComplaint = new Property(12, Integer.class, "IsComplaint", false, "IS_COMPLAINT");
+        public final static Property IsChecked = new Property(13, Integer.class, "IsChecked", false, "IS_CHECKED");
+        public final static Property DoLineItem = new Property(14, String.class, "DoLineItem", false, "DO_LINE_ITEM");
+        public final static Property PartialCode = new Property(15, String.class, "PartialCode", false, "PARTIAL_CODE");
+        public final static Property IsDone = new Property(16, Integer.class, "IsDone", false, "IS_DONE");
     }
 
 
@@ -61,10 +64,13 @@ public class TPosDetailPenerimaanDao extends AbstractDao<TPosDetailPenerimaan, L
                 "\"NO_MATERIAL\" TEXT," + // 7: NoMaterial
                 "\"NAMA_KATEGORI_MATERIAL\" TEXT," + // 8: NamaKategoriMaterial
                 "\"STOR_LOC\" TEXT," + // 9: StorLoc
-                "\"STATUS\" TEXT," + // 10: Status
-                "\"IS_CHECKED\" INTEGER," + // 11: IsChecked
-                "\"DO_LINE_ITEM\" TEXT," + // 12: DoLineItem
-                "\"IS_DONE\" INTEGER);"); // 13: IsDone
+                "\"STATUS_PENERIMAAN\" TEXT," + // 10: StatusPenerimaan
+                "\"STATUS_PEMERIKSAAN\" TEXT," + // 11: StatusPemeriksaan
+                "\"IS_COMPLAINT\" INTEGER," + // 12: IsComplaint
+                "\"IS_CHECKED\" INTEGER," + // 13: IsChecked
+                "\"DO_LINE_ITEM\" TEXT," + // 14: DoLineItem
+                "\"PARTIAL_CODE\" TEXT," + // 15: PartialCode
+                "\"IS_DONE\" INTEGER);"); // 16: IsDone
     }
 
     /** Drops the underlying database table. */
@@ -127,24 +133,39 @@ public class TPosDetailPenerimaanDao extends AbstractDao<TPosDetailPenerimaan, L
             stmt.bindString(10, StorLoc);
         }
  
-        String Status = entity.getStatus();
-        if (Status != null) {
-            stmt.bindString(11, Status);
+        String StatusPenerimaan = entity.getStatusPenerimaan();
+        if (StatusPenerimaan != null) {
+            stmt.bindString(11, StatusPenerimaan);
+        }
+ 
+        String StatusPemeriksaan = entity.getStatusPemeriksaan();
+        if (StatusPemeriksaan != null) {
+            stmt.bindString(12, StatusPemeriksaan);
+        }
+ 
+        Integer IsComplaint = entity.getIsComplaint();
+        if (IsComplaint != null) {
+            stmt.bindLong(13, IsComplaint);
         }
  
         Integer IsChecked = entity.getIsChecked();
         if (IsChecked != null) {
-            stmt.bindLong(12, IsChecked);
+            stmt.bindLong(14, IsChecked);
         }
  
         String DoLineItem = entity.getDoLineItem();
         if (DoLineItem != null) {
-            stmt.bindString(13, DoLineItem);
+            stmt.bindString(15, DoLineItem);
+        }
+ 
+        String PartialCode = entity.getPartialCode();
+        if (PartialCode != null) {
+            stmt.bindString(16, PartialCode);
         }
  
         Integer IsDone = entity.getIsDone();
         if (IsDone != null) {
-            stmt.bindLong(14, IsDone);
+            stmt.bindLong(17, IsDone);
         }
     }
 
@@ -202,24 +223,39 @@ public class TPosDetailPenerimaanDao extends AbstractDao<TPosDetailPenerimaan, L
             stmt.bindString(10, StorLoc);
         }
  
-        String Status = entity.getStatus();
-        if (Status != null) {
-            stmt.bindString(11, Status);
+        String StatusPenerimaan = entity.getStatusPenerimaan();
+        if (StatusPenerimaan != null) {
+            stmt.bindString(11, StatusPenerimaan);
+        }
+ 
+        String StatusPemeriksaan = entity.getStatusPemeriksaan();
+        if (StatusPemeriksaan != null) {
+            stmt.bindString(12, StatusPemeriksaan);
+        }
+ 
+        Integer IsComplaint = entity.getIsComplaint();
+        if (IsComplaint != null) {
+            stmt.bindLong(13, IsComplaint);
         }
  
         Integer IsChecked = entity.getIsChecked();
         if (IsChecked != null) {
-            stmt.bindLong(12, IsChecked);
+            stmt.bindLong(14, IsChecked);
         }
  
         String DoLineItem = entity.getDoLineItem();
         if (DoLineItem != null) {
-            stmt.bindString(13, DoLineItem);
+            stmt.bindString(15, DoLineItem);
+        }
+ 
+        String PartialCode = entity.getPartialCode();
+        if (PartialCode != null) {
+            stmt.bindString(16, PartialCode);
         }
  
         Integer IsDone = entity.getIsDone();
         if (IsDone != null) {
-            stmt.bindLong(14, IsDone);
+            stmt.bindLong(17, IsDone);
         }
     }
 
@@ -241,10 +277,13 @@ public class TPosDetailPenerimaanDao extends AbstractDao<TPosDetailPenerimaan, L
             cursor.isNull(offset + 7) ? null : cursor.getString(offset + 7), // NoMaterial
             cursor.isNull(offset + 8) ? null : cursor.getString(offset + 8), // NamaKategoriMaterial
             cursor.isNull(offset + 9) ? null : cursor.getString(offset + 9), // StorLoc
-            cursor.isNull(offset + 10) ? null : cursor.getString(offset + 10), // Status
-            cursor.isNull(offset + 11) ? null : cursor.getInt(offset + 11), // IsChecked
-            cursor.isNull(offset + 12) ? null : cursor.getString(offset + 12), // DoLineItem
-            cursor.isNull(offset + 13) ? null : cursor.getInt(offset + 13) // IsDone
+            cursor.isNull(offset + 10) ? null : cursor.getString(offset + 10), // StatusPenerimaan
+            cursor.isNull(offset + 11) ? null : cursor.getString(offset + 11), // StatusPemeriksaan
+            cursor.isNull(offset + 12) ? null : cursor.getInt(offset + 12), // IsComplaint
+            cursor.isNull(offset + 13) ? null : cursor.getInt(offset + 13), // IsChecked
+            cursor.isNull(offset + 14) ? null : cursor.getString(offset + 14), // DoLineItem
+            cursor.isNull(offset + 15) ? null : cursor.getString(offset + 15), // PartialCode
+            cursor.isNull(offset + 16) ? null : cursor.getInt(offset + 16) // IsDone
         );
         return entity;
     }
@@ -261,10 +300,13 @@ public class TPosDetailPenerimaanDao extends AbstractDao<TPosDetailPenerimaan, L
         entity.setNoMaterial(cursor.isNull(offset + 7) ? null : cursor.getString(offset + 7));
         entity.setNamaKategoriMaterial(cursor.isNull(offset + 8) ? null : cursor.getString(offset + 8));
         entity.setStorLoc(cursor.isNull(offset + 9) ? null : cursor.getString(offset + 9));
-        entity.setStatus(cursor.isNull(offset + 10) ? null : cursor.getString(offset + 10));
-        entity.setIsChecked(cursor.isNull(offset + 11) ? null : cursor.getInt(offset + 11));
-        entity.setDoLineItem(cursor.isNull(offset + 12) ? null : cursor.getString(offset + 12));
-        entity.setIsDone(cursor.isNull(offset + 13) ? null : cursor.getInt(offset + 13));
+        entity.setStatusPenerimaan(cursor.isNull(offset + 10) ? null : cursor.getString(offset + 10));
+        entity.setStatusPemeriksaan(cursor.isNull(offset + 11) ? null : cursor.getString(offset + 11));
+        entity.setIsComplaint(cursor.isNull(offset + 12) ? null : cursor.getInt(offset + 12));
+        entity.setIsChecked(cursor.isNull(offset + 13) ? null : cursor.getInt(offset + 13));
+        entity.setDoLineItem(cursor.isNull(offset + 14) ? null : cursor.getString(offset + 14));
+        entity.setPartialCode(cursor.isNull(offset + 15) ? null : cursor.getString(offset + 15));
+        entity.setIsDone(cursor.isNull(offset + 16) ? null : cursor.getInt(offset + 16));
      }
     
     @Override

@@ -4,6 +4,7 @@ import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.view.View
+import androidx.activity.viewModels
 import dev.iconpln.mims.R
 import dev.iconpln.mims.databinding.ActivityForgotPasswordBinding
 import dev.iconpln.mims.ui.auth.AuthViewModel
@@ -13,7 +14,7 @@ import dev.iconpln.mims.utils.Helper
 
 class ForgotPasswordActivity : AppCompatActivity() {
     private lateinit var binding: ActivityForgotPasswordBinding
-    private lateinit var viewModel: AuthViewModel
+    private val viewModel: AuthViewModel by viewModels()
     private var username: String = ""
 
     override fun onCreate(savedInstanceState: Bundle?) {

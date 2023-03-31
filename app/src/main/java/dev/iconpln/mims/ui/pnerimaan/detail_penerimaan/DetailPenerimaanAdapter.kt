@@ -13,7 +13,7 @@ import dev.iconpln.mims.databinding.ItemPackagingPemeriksaanBinding
 import dev.iconpln.mims.databinding.ItemSnMaterialBinding
 
 class DetailPenerimaanAdapter(val lisModels: MutableList<TPosDetailPenerimaan>,
-                              var listener: OnAdapterListener, var daoSession: DaoSession)
+                              var listener: OnAdapterListener, var daoSession: DaoSession,var partialCode: String)
     : RecyclerView.Adapter<DetailPenerimaanAdapter.ViewHolder>() {
 
     fun setData(po: List<TPosDetailPenerimaan>){
@@ -46,10 +46,12 @@ class DetailPenerimaanAdapter(val lisModels: MutableList<TPosDetailPenerimaan>,
 
 //                cbSesuai.isChecked = po.isDone == 1
 
-                if (tpd.isChecked == 1 && tpd.status == "SESUAI"){
+                if (tpd.isChecked == 1 && tpd.statusPenerimaan == "SESUAI"){
                     cbSesuai.isChecked = true
-                }else if (tpd.isChecked == 1 && tpd.status == "TIDAK SESUAI"){
+                    cbTidakSesuai.isChecked = false
+                }else if (tpd.isChecked == 1 && tpd.statusPenerimaan == "TIDAK SESUAI"){
                     cbTidakSesuai.isChecked = true
+                    cbSesuai.isChecked = false
                 }else {
                     cbSesuai.isChecked = false
                     cbTidakSesuai.isChecked = false
@@ -58,26 +60,34 @@ class DetailPenerimaanAdapter(val lisModels: MutableList<TPosDetailPenerimaan>,
                 cbTidakSesuai.setOnCheckedChangeListener { buttonView, isChecked ->
                     cbSesuai.isEnabled = !isChecked
                     if (isChecked){
-                        tpd.status = "TIDAK SESUAI"
+                        tpd.statusPenerimaan = "TIDAK SESUAI"
                         tpd.isChecked = 1
+                        tpd.partialCode = partialCode
                         daoSession.tPosDetailPenerimaanDao.update(tpd)
+                        Log.d("partialCode", partialCode)
                     }else{
-                        tpd.status = ""
+                        tpd.statusPenerimaan = ""
                         tpd.isChecked = 0
+                        tpd.partialCode = ""
                         daoSession.tPosDetailPenerimaanDao.update(tpd)
+                        Log.d("partialCode", partialCode)
                     }
                 }
 
                 cbSesuai.setOnCheckedChangeListener { buttonView, isChecked ->
                     cbTidakSesuai.isEnabled = !isChecked
                     if (isChecked){
-                        tpd.status = "SESUAI"
+                        tpd.statusPenerimaan = "SESUAI"
                         tpd.isChecked = 1
+                        tpd.partialCode = partialCode
                         daoSession.tPosDetailPenerimaanDao.update(tpd)
+                        Log.d("partialCode", partialCode)
                     }else{
-                        tpd.status = ""
+                        tpd.statusPenerimaan = ""
                         tpd.isChecked = 0
+                        tpd.partialCode = ""
                         daoSession.tPosDetailPenerimaanDao.update(tpd)
+                        Log.d("partialCode", partialCode)
                     }
 
                 }

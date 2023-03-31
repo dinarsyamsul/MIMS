@@ -12,6 +12,7 @@ public class TLokasi {
 
     @Id
     private Long id;
+    private String IdLokasi;
     private String NoDoSns;
     private String Ket;
     private String UpdateDate;
@@ -25,8 +26,9 @@ public class TLokasi {
     }
 
     @Generated
-    public TLokasi(Long id, String NoDoSns, String Ket, String UpdateDate) {
+    public TLokasi(Long id, String IdLokasi, String NoDoSns, String Ket, String UpdateDate) {
         this.id = id;
+        this.IdLokasi = IdLokasi;
         this.NoDoSns = NoDoSns;
         this.Ket = Ket;
         this.UpdateDate = UpdateDate;
@@ -38,6 +40,14 @@ public class TLokasi {
 
     public void setId(Long id) {
         this.id = id;
+    }
+
+    public String getIdLokasi() {
+        return IdLokasi;
+    }
+
+    public void setIdLokasi(String IdLokasi) {
+        this.IdLokasi = IdLokasi;
     }
 
     public String getNoDoSns() {

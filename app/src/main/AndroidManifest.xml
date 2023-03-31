@@ -43,26 +43,118 @@
         android:usesCleartextTraffic="true"
         tools:targetApi="31">
         <activity
-            android:name=".ui.monitoring_permintaan.input_sn_monitoring.InputSnMonitoringPermintaanActivity"
+            android:name=".ui.pemakaian.InputSnPemakaianActivity"
             android:exported="false">
+            <meta-data
+                android:name="android.app.lib_name"
+                android:value="" />
+        </activity>
+        <activity
+            android:name=".ui.ulp.penerimaan.input_penerimaan.SnPenerimaanActivity"
+            android:exported="false">
+            <meta-data
+                android:name="android.app.lib_name"
+                android:value="" />
+        </activity>
+        <activity
+            android:name=".ui.ulp.penerimaan.input_pemeriksaan.InputSnPemeriksaanActivity"
+            android:exported="false">
+            <meta-data
+                android:name="android.app.lib_name"
+                android:value="" />
+        </activity>
+        <activity
+            android:name=".ui.ulp.penerimaan.input_pemeriksaan.DetailPemeriksaanActivity"
+            android:exported="false">
+            <meta-data
+                android:name="android.app.lib_name"
+                android:value="" />
+        </activity>
+        <activity
+            android:name=".ui.ulp.penerimaan.input_penerimaan.DetailPenerimaanUlpActivity"
+            android:exported="false">
+            <meta-data
+                android:name="android.app.lib_name"
+                android:value="" />
+        </activity>
+        <activity
+            android:name=".ui.ulp.penerimaan.input_pemeriksaan.PetugasPemeriksaanActivity"
+            android:exported="false">
+            <meta-data
+                android:name="android.app.lib_name"
+                android:value="" />
+        </activity>
+        <activity
+            android:name=".ui.ulp.penerimaan.PenerimaanUlpActivity"
+            android:exported="false">
+            <meta-data
+                android:name="android.app.lib_name"
+                android:value="" />
+        </activity>
+        <activity
+            android:name=".ui.pemeriksaan.complaint_pemeriksaan.ComplaintPemeriksaanActivity"
+            android:exported="false">
+            <meta-data
+                android:name="android.app.lib_name"
+                android:value="" />
+        </activity>
+        <activity
+            android:name=".ui.pemeriksaan.input_data_pemeriksa.InputDataPemeriksaActivity"
+            android:exported="false">
+            <meta-data
+                android:name="android.app.lib_name"
+                android:value="" />
+        </activity>
+        <activity
+            android:name=".ui.monitoring_permintaan.input_sn_monitoring.InputSnMonitoringPermintaanActivity"
+            android:windowSoftInputMode="stateHidden">
             <meta-data
                 android:name="android.app.lib_name"
                 android:value="" />
         </activity>
         <activity
             android:name=".ui.monitoring_permintaan.monitoring_permintaan_detail.MonitoringPermintaanDetailActivity"
-            android:exported="false">
+            android:exported="false"
+            android:windowSoftInputMode="stateHidden">
             <meta-data
                 android:name="android.app.lib_name"
                 android:value="" />
         </activity>
         <activity
             android:name=".ui.monitoring_permintaan.MonitoringPermintaanActivity"
-            android:exported="false">
+            android:exported="false"
+            android:windowSoftInputMode="stateHidden">
             <meta-data
                 android:name="android.app.lib_name"
                 android:value="" />
         </activity>
+        <activity
+            android:name=".ui.pnerimaan.PenerimaanSetelahPetugasPenerimaanULPActivity"
+            android:exported="false" />
+        <activity
+            android:name=".ui.ulp.penerimaan.input_penerimaan.PetugasPenerimaanULPActivity"
+            android:exported="false" />
+        <activity
+            android:name=".ui.pnerimaan.PenerimaanPemeriksaanULPActivity"
+            android:exported="false" />
+        <activity
+            android:name=".ui.pnerimaan.PetugasPemeriksaPenerimaanULPActivity"
+            android:exported="false" />
+        <activity
+            android:name=".ui.pemakaian.DetailPemakaianUlpAp2tActivity"
+            android:exported="false" />
+        <activity
+            android:name=".ui.pemakaian.DetailPemakaianUlpMaximoActivity"
+            android:exported="false" />
+        <activity
+            android:name=".ui.pemakaian.DetailPemakaianUlpYantekActivity"
+            android:exported="false" />
+        <activity
+            android:name=".ui.pemakaian.DetailPemakaianUlpMandiriActivity"
+            android:exported="false" />
+        <activity
+            android:name=".ui.pemakaian.PemakaianActivity"
+            android:exported="false" />
         <activity
             android:name=".ui.pemeriksaan.complaint.ComplaintActivity"
             android:exported="false">
@@ -233,7 +325,8 @@
         </activity>
         <activity
             android:name=".ui.pengiriman.UpdateLokasiActivity"
-            android:exported="false">
+            android:exported="false"
+            android:windowSoftInputMode="stateHidden">
             <meta-data
                 android:name="android.app.lib_name"
                 android:value="" />

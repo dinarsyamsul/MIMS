@@ -2,6 +2,7 @@ package dev.iconpln.mims.ui.auth
 
 import android.Manifest.permission.READ_EXTERNAL_STORAGE
 import android.Manifest.permission.WRITE_EXTERNAL_STORAGE
+import android.app.Dialog
 import android.content.Intent
 import android.content.pm.PackageManager
 import android.net.Uri
@@ -12,18 +13,27 @@ import android.os.Environment
 import android.provider.Settings
 import android.util.Log
 import android.view.View
+import android.view.ViewGroup
+import android.widget.ImageView
+import android.widget.TextView
 import android.widget.Toast
 import androidx.activity.viewModels
 import androidx.appcompat.app.AppCompatActivity
+import androidx.appcompat.widget.AppCompatButton
 import androidx.core.app.ActivityCompat
 import dev.iconpln.mims.HomeActivity
 import dev.iconpln.mims.MyApplication
+import dev.iconpln.mims.R
 import dev.iconpln.mims.data.local.database.DaoMaster
 import dev.iconpln.mims.data.local.database.DaoSession
+import dev.iconpln.mims.data.local.database.TMonitoringSnMaterialDao
+import dev.iconpln.mims.data.local.database.TTransMonitoringPermintaanDetailDao
 import dev.iconpln.mims.data.local.database_local.DatabaseReport
 import dev.iconpln.mims.data.local.database_local.ReportUploader
 import dev.iconpln.mims.databinding.ActivityLoginBinding
+import dev.iconpln.mims.ui.auth.forgot_password.ForgotPasswordActivity
 import dev.iconpln.mims.ui.auth.otp.OtpActivity
+import dev.iconpln.mims.ui.monitoring_permintaan.monitoring_permintaan_detail.MonitoringPermintaanDetailActivity
 import dev.iconpln.mims.utils.*
 import dev.iconpln.mims.utils.StorageUtils.isPermissionAllowed
 import kotlinx.coroutines.CoroutineScope
@@ -48,12 +58,27 @@ class LoginActivity : AppCompatActivity() {
     private var mIpAddress: String = ""
     private var androidVersion: Int = 0
     private var dateTimeUtc: Long = 0L
+    private var isRememberMe = false
     private var APP_STORAGE_ACCESS_REQUEST_CODE=501
+
+    private lateinit var dialog : Dialog
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         binding = ActivityLoginBinding.inflate(layoutInflater)
         setContentView(binding.root)
+
+        isRememberMe = SharedPrefsUtils.getBooleanPreference(this@LoginActivity,"isRememberMe",false)
+
+        Log.d("checkRememberMe", isRememberMe.toString())
+
+        dialog = Dialog(this@LoginActivity)
+        dialog.setContentView(R.layout.popup_loading)
+        dialog.window!!.setBackgroundDrawableResource(android.R.color.transparent)
+        dialog.window!!.setLayout(ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.WRAP_CONTENT);
+        dialog.setCancelable(false)
+        dialog.window!!.attributes.windowAnimations = R.style.DialogUpDown
+
         requestPermission()
 
         session = SessionManager(this)
@@ -80,6 +105,8 @@ class LoginActivity : AppCompatActivity() {
                         SharedPrefsUtils.setStringPreference(this@LoginActivity, "username", username)
                         SharedPrefsUtils.setStringPreference(this@LoginActivity, "email", it.user?.mail!!)
                         SharedPrefsUtils.setStringPreference(this@LoginActivity, "password", password)
+                        SharedPrefsUtils.setStringPreference(this@LoginActivity, "plant", it.user?.plant!!)
+                        SharedPrefsUtils.setStringPreference(this@LoginActivity, "storloc", it.user?.storloc!!)
 
                         withContext(Dispatchers.Main){
                             val intentToHome = Intent(this@LoginActivity, HomeActivity::class.java)
@@ -102,10 +129,12 @@ class LoginActivity : AppCompatActivity() {
         loginViewModel.isLoading.observe(this){
             when(it) {
                 true -> {
-                    binding.progressBar.visibility = View.VISIBLE
+                    dialog.show();
+                    //binding.progressBar.visibility = View.VISIBLE
                 }
-                else -> {
-                    binding.progressBar.visibility = View.GONE
+                false -> {
+                    dialog.dismiss()
+                    //binding.progressBar.visibility = View.GONE
                 }
             }
         }
@@ -113,6 +142,20 @@ class LoginActivity : AppCompatActivity() {
         binding.btnLogin.setOnClickListener {
             binding.tvMsgError.visibility = View.GONE
             loginUser()
+        }
+
+        binding.txtForgetPassword.setOnClickListener {
+            startActivity(Intent(this@LoginActivity, ForgotPasswordActivity::class.java))
+        }
+
+        binding.cbRememberMe.setOnCheckedChangeListener{ buttonView, isChecked ->
+            SharedPrefsUtils.setBooleanPreference(this@LoginActivity,"isRememberMe",isChecked)
+        }
+
+        if (isRememberMe){
+            binding.edtEmail.setText(SharedPrefsUtils.getStringPreference(this@LoginActivity,"username",""))
+            binding.cbRememberMe.isChecked = true
+            Log.d("isCheckedRememberMe",isRememberMe.toString())
         }
 
     }
@@ -178,14 +221,6 @@ class LoginActivity : AppCompatActivity() {
                 tvMsgError.visibility = View.VISIBLE
                 tvMsgError.text = "Password minimal terdiri dari 5 karakter"
                 return
-            }
-
-            CoroutineScope(Dispatchers.Main).launch {
-                if (cbRememberMe.isChecked){
-                    session.rememberMe(username)
-                }else{
-                    session.clearRememberMe()
-                }
             }
 
             daoSession = (application as MyApplication).daoSession!!

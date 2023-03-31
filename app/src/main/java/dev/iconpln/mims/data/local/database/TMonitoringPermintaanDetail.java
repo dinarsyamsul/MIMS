@@ -13,10 +13,11 @@ public class TMonitoringPermintaanDetail {
     @Id
     private Long id;
     private String NoPermintaan;
+    private String NoTransaksi;
     private String NoRepackaging;
     private String NomorMaterial;
     private String Unit;
-    private String QtyPermintaan;
+    private Integer QtyPermintaan;
     private String MaterialDesc;
     private String QtyScan;
     private String Kategori;
@@ -31,9 +32,10 @@ public class TMonitoringPermintaanDetail {
     }
 
     @Generated
-    public TMonitoringPermintaanDetail(Long id, String NoPermintaan, String NoRepackaging, String NomorMaterial, String Unit, String QtyPermintaan, String MaterialDesc, String QtyScan, String Kategori, String QtyPengeluaran) {
+    public TMonitoringPermintaanDetail(Long id, String NoPermintaan, String NoTransaksi, String NoRepackaging, String NomorMaterial, String Unit, Integer QtyPermintaan, String MaterialDesc, String QtyScan, String Kategori, String QtyPengeluaran) {
         this.id = id;
         this.NoPermintaan = NoPermintaan;
+        this.NoTransaksi = NoTransaksi;
         this.NoRepackaging = NoRepackaging;
         this.NomorMaterial = NomorMaterial;
         this.Unit = Unit;
@@ -60,6 +62,14 @@ public class TMonitoringPermintaanDetail {
         this.NoPermintaan = NoPermintaan;
     }
 
+    public String getNoTransaksi() {
+        return NoTransaksi;
+    }
+
+    public void setNoTransaksi(String NoTransaksi) {
+        this.NoTransaksi = NoTransaksi;
+    }
+
     public String getNoRepackaging() {
         return NoRepackaging;
     }
@@ -84,11 +94,11 @@ public class TMonitoringPermintaanDetail {
         this.Unit = Unit;
     }
 
-    public String getQtyPermintaan() {
+    public Integer getQtyPermintaan() {
         return QtyPermintaan;
     }
 
-    public void setQtyPermintaan(String QtyPermintaan) {
+    public void setQtyPermintaan(Integer QtyPermintaan) {
         this.QtyPermintaan = QtyPermintaan;
     }
 

@@ -21,9 +21,12 @@ public class TPosDetailPenerimaan {
     private String NoMaterial;
     private String NamaKategoriMaterial;
     private String StorLoc;
-    private String Status;
+    private String StatusPenerimaan;
+    private String StatusPemeriksaan;
+    private Integer IsComplaint;
     private Integer IsChecked;
     private String DoLineItem;
+    private String PartialCode;
     private Integer IsDone;
 
     @Generated
@@ -35,7 +38,7 @@ public class TPosDetailPenerimaan {
     }
 
     @Generated
-    public TPosDetailPenerimaan(Long id, String NoDoSmar, String Qty, String KdPabrikan, String DoStatus, String NoPackaging, String SerialNumber, String NoMaterial, String NamaKategoriMaterial, String StorLoc, String Status, Integer IsChecked, String DoLineItem, Integer IsDone) {
+    public TPosDetailPenerimaan(Long id, String NoDoSmar, String Qty, String KdPabrikan, String DoStatus, String NoPackaging, String SerialNumber, String NoMaterial, String NamaKategoriMaterial, String StorLoc, String StatusPenerimaan, String StatusPemeriksaan, Integer IsComplaint, Integer IsChecked, String DoLineItem, String PartialCode, Integer IsDone) {
         this.id = id;
         this.NoDoSmar = NoDoSmar;
         this.Qty = Qty;
@@ -46,9 +49,12 @@ public class TPosDetailPenerimaan {
         this.NoMaterial = NoMaterial;
         this.NamaKategoriMaterial = NamaKategoriMaterial;
         this.StorLoc = StorLoc;
-        this.Status = Status;
+        this.StatusPenerimaan = StatusPenerimaan;
+        this.StatusPemeriksaan = StatusPemeriksaan;
+        this.IsComplaint = IsComplaint;
         this.IsChecked = IsChecked;
         this.DoLineItem = DoLineItem;
+        this.PartialCode = PartialCode;
         this.IsDone = IsDone;
     }
 
@@ -132,12 +138,28 @@ public class TPosDetailPenerimaan {
         this.StorLoc = StorLoc;
     }
 
-    public String getStatus() {
-        return Status;
+    public String getStatusPenerimaan() {
+        return StatusPenerimaan;
     }
 
-    public void setStatus(String Status) {
-        this.Status = Status;
+    public void setStatusPenerimaan(String StatusPenerimaan) {
+        this.StatusPenerimaan = StatusPenerimaan;
+    }
+
+    public String getStatusPemeriksaan() {
+        return StatusPemeriksaan;
+    }
+
+    public void setStatusPemeriksaan(String StatusPemeriksaan) {
+        this.StatusPemeriksaan = StatusPemeriksaan;
+    }
+
+    public Integer getIsComplaint() {
+        return IsComplaint;
+    }
+
+    public void setIsComplaint(Integer IsComplaint) {
+        this.IsComplaint = IsComplaint;
     }
 
     public Integer getIsChecked() {
@@ -154,6 +176,14 @@ public class TPosDetailPenerimaan {
 
     public void setDoLineItem(String DoLineItem) {
         this.DoLineItem = DoLineItem;
+    }
+
+    public String getPartialCode() {
+        return PartialCode;
+    }
+
+    public void setPartialCode(String PartialCode) {
+        this.PartialCode = PartialCode;
     }
 
     public Integer getIsDone() {

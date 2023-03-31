@@ -37,7 +37,7 @@ class ListPengirimanAdapter(val context: Context, val lisModels: MutableList<TPo
         fun bind(data : TPos){
             with(binding){
                 txtNoPengiriman.text = data.noDoSmar
-                txtNoPo.text = data.poSapNo
+                txtNoPo.text = if(data.poSapNo.isNullOrEmpty()) "-" else data.poSapNo
                 txtNoDo.text = data.noDoMims
                 txtUnit.text = data.plantName
                 txtQuantity.text = data.total
@@ -49,6 +49,7 @@ class ListPengirimanAdapter(val context: Context, val lisModels: MutableList<TPo
                 btnLokasi.setOnClickListener {
                     val intent = Intent(context, UpdateLokasiActivity::class.java)
                     intent.putExtra(UpdateLokasiActivity.EXTRA_NO_DOMIMS, data.noDoMims)
+                    intent.putExtra("kodeStatus", data.kodeStatusDoMims)
                     context.startActivity(intent)
                 }
                 
@@ -96,7 +97,8 @@ class ListDetailPengirimanAdapter(val lisModels: MutableList<TPosSns>, var liste
                 txtNoMaterial.text = data.noMatSap
                 txtIsiMeteorologi.text = data.noSertMeterologi
                 txtIsiBatch.text = data.noProduksi
-//                txtIsiPackaging.text = data.
+                txtIsiPackaging.text = data.noPackaging
+                txtIsiSpesifikasi.text = data.spesifikasi
                 txtGaransi.text = data.masaGaransi
                 txtIsiSpln.text = data.spln
                 txtIsiKategori.text = data.namaKategoriMaterial

@@ -23,9 +23,11 @@ public class TMonitoringSnMaterialDao extends AbstractDao<TMonitoringSnMaterial,
      */
     public static class Properties {
         public final static Property Id = new Property(0, Long.class, "id", true, "_id");
-        public final static Property NoPermintaan = new Property(1, String.class, "NoPermintaan", false, "NO_PERMINTAAN");
-        public final static Property SnMaterial = new Property(2, String.class, "SnMaterial", false, "SN_MATERIAL");
-        public final static Property IsScanned = new Property(3, String.class, "IsScanned", false, "IS_SCANNED");
+        public final static Property NoRepackaging = new Property(1, String.class, "NoRepackaging", false, "NO_REPACKAGING");
+        public final static Property NomorMaterial = new Property(2, String.class, "NomorMaterial", false, "NOMOR_MATERIAL");
+        public final static Property SerialNumber = new Property(3, String.class, "SerialNumber", false, "SERIAL_NUMBER");
+        public final static Property Status = new Property(4, String.class, "Status", false, "STATUS");
+        public final static Property IsScanned = new Property(5, Integer.class, "IsScanned", false, "IS_SCANNED");
     }
 
 
@@ -42,9 +44,11 @@ public class TMonitoringSnMaterialDao extends AbstractDao<TMonitoringSnMaterial,
         String constraint = ifNotExists? "IF NOT EXISTS ": "";
         db.execSQL("CREATE TABLE " + constraint + "\"TMONITORING_SN_MATERIAL\" (" + //
                 "\"_id\" INTEGER PRIMARY KEY ," + // 0: id
-                "\"NO_PERMINTAAN\" TEXT," + // 1: NoPermintaan
-                "\"SN_MATERIAL\" TEXT," + // 2: SnMaterial
-                "\"IS_SCANNED\" TEXT);"); // 3: IsScanned
+                "\"NO_REPACKAGING\" TEXT," + // 1: NoRepackaging
+                "\"NOMOR_MATERIAL\" TEXT," + // 2: NomorMaterial
+                "\"SERIAL_NUMBER\" TEXT," + // 3: SerialNumber
+                "\"STATUS\" TEXT," + // 4: Status
+                "\"IS_SCANNED\" INTEGER);"); // 5: IsScanned
     }
 
     /** Drops the underlying database table. */
@@ -62,19 +66,29 @@ public class TMonitoringSnMaterialDao extends AbstractDao<TMonitoringSnMaterial,
             stmt.bindLong(1, id);
         }
  
-        String NoPermintaan = entity.getNoPermintaan();
-        if (NoPermintaan != null) {
-            stmt.bindString(2, NoPermintaan);
+        String NoRepackaging = entity.getNoRepackaging();
+        if (NoRepackaging != null) {
+            stmt.bindString(2, NoRepackaging);
         }
  
-        String SnMaterial = entity.getSnMaterial();
-        if (SnMaterial != null) {
-            stmt.bindString(3, SnMaterial);
+        String NomorMaterial = entity.getNomorMaterial();
+        if (NomorMaterial != null) {
+            stmt.bindString(3, NomorMaterial);
         }
  
-        String IsScanned = entity.getIsScanned();
+        String SerialNumber = entity.getSerialNumber();
+        if (SerialNumber != null) {
+            stmt.bindString(4, SerialNumber);
+        }
+ 
+        String Status = entity.getStatus();
+        if (Status != null) {
+            stmt.bindString(5, Status);
+        }
+ 
+        Integer IsScanned = entity.getIsScanned();
         if (IsScanned != null) {
-            stmt.bindString(4, IsScanned);
+            stmt.bindLong(6, IsScanned);
         }
     }
 
@@ -87,19 +101,29 @@ public class TMonitoringSnMaterialDao extends AbstractDao<TMonitoringSnMaterial,
             stmt.bindLong(1, id);
         }
  
-        String NoPermintaan = entity.getNoPermintaan();
-        if (NoPermintaan != null) {
-            stmt.bindString(2, NoPermintaan);
+        String NoRepackaging = entity.getNoRepackaging();
+        if (NoRepackaging != null) {
+            stmt.bindString(2, NoRepackaging);
         }
  
-        String SnMaterial = entity.getSnMaterial();
-        if (SnMaterial != null) {
-            stmt.bindString(3, SnMaterial);
+        String NomorMaterial = entity.getNomorMaterial();
+        if (NomorMaterial != null) {
+            stmt.bindString(3, NomorMaterial);
         }
  
-        String IsScanned = entity.getIsScanned();
+        String SerialNumber = entity.getSerialNumber();
+        if (SerialNumber != null) {
+            stmt.bindString(4, SerialNumber);
+        }
+ 
+        String Status = entity.getStatus();
+        if (Status != null) {
+            stmt.bindString(5, Status);
+        }
+ 
+        Integer IsScanned = entity.getIsScanned();
         if (IsScanned != null) {
-            stmt.bindString(4, IsScanned);
+            stmt.bindLong(6, IsScanned);
         }
     }
 
@@ -112,9 +136,11 @@ public class TMonitoringSnMaterialDao extends AbstractDao<TMonitoringSnMaterial,
     public TMonitoringSnMaterial readEntity(Cursor cursor, int offset) {
         TMonitoringSnMaterial entity = new TMonitoringSnMaterial( //
             cursor.isNull(offset + 0) ? null : cursor.getLong(offset + 0), // id
-            cursor.isNull(offset + 1) ? null : cursor.getString(offset + 1), // NoPermintaan
-            cursor.isNull(offset + 2) ? null : cursor.getString(offset + 2), // SnMaterial
-            cursor.isNull(offset + 3) ? null : cursor.getString(offset + 3) // IsScanned
+            cursor.isNull(offset + 1) ? null : cursor.getString(offset + 1), // NoRepackaging
+            cursor.isNull(offset + 2) ? null : cursor.getString(offset + 2), // NomorMaterial
+            cursor.isNull(offset + 3) ? null : cursor.getString(offset + 3), // SerialNumber
+            cursor.isNull(offset + 4) ? null : cursor.getString(offset + 4), // Status
+            cursor.isNull(offset + 5) ? null : cursor.getInt(offset + 5) // IsScanned
         );
         return entity;
     }
@@ -122,9 +148,11 @@ public class TMonitoringSnMaterialDao extends AbstractDao<TMonitoringSnMaterial,
     @Override
     public void readEntity(Cursor cursor, TMonitoringSnMaterial entity, int offset) {
         entity.setId(cursor.isNull(offset + 0) ? null : cursor.getLong(offset + 0));
-        entity.setNoPermintaan(cursor.isNull(offset + 1) ? null : cursor.getString(offset + 1));
-        entity.setSnMaterial(cursor.isNull(offset + 2) ? null : cursor.getString(offset + 2));
-        entity.setIsScanned(cursor.isNull(offset + 3) ? null : cursor.getString(offset + 3));
+        entity.setNoRepackaging(cursor.isNull(offset + 1) ? null : cursor.getString(offset + 1));
+        entity.setNomorMaterial(cursor.isNull(offset + 2) ? null : cursor.getString(offset + 2));
+        entity.setSerialNumber(cursor.isNull(offset + 3) ? null : cursor.getString(offset + 3));
+        entity.setStatus(cursor.isNull(offset + 4) ? null : cursor.getString(offset + 4));
+        entity.setIsScanned(cursor.isNull(offset + 5) ? null : cursor.getInt(offset + 5));
      }
     
     @Override

@@ -23,9 +23,10 @@ public class TLokasiDao extends AbstractDao<TLokasi, Long> {
      */
     public static class Properties {
         public final static Property Id = new Property(0, Long.class, "id", true, "_id");
-        public final static Property NoDoSns = new Property(1, String.class, "NoDoSns", false, "NO_DO_SNS");
-        public final static Property Ket = new Property(2, String.class, "Ket", false, "KET");
-        public final static Property UpdateDate = new Property(3, String.class, "UpdateDate", false, "UPDATE_DATE");
+        public final static Property IdLokasi = new Property(1, String.class, "IdLokasi", false, "ID_LOKASI");
+        public final static Property NoDoSns = new Property(2, String.class, "NoDoSns", false, "NO_DO_SNS");
+        public final static Property Ket = new Property(3, String.class, "Ket", false, "KET");
+        public final static Property UpdateDate = new Property(4, String.class, "UpdateDate", false, "UPDATE_DATE");
     }
 
 
@@ -42,9 +43,10 @@ public class TLokasiDao extends AbstractDao<TLokasi, Long> {
         String constraint = ifNotExists? "IF NOT EXISTS ": "";
         db.execSQL("CREATE TABLE " + constraint + "\"TLOKASI\" (" + //
                 "\"_id\" INTEGER PRIMARY KEY ," + // 0: id
-                "\"NO_DO_SNS\" TEXT," + // 1: NoDoSns
-                "\"KET\" TEXT," + // 2: Ket
-                "\"UPDATE_DATE\" TEXT);"); // 3: UpdateDate
+                "\"ID_LOKASI\" TEXT," + // 1: IdLokasi
+                "\"NO_DO_SNS\" TEXT," + // 2: NoDoSns
+                "\"KET\" TEXT," + // 3: Ket
+                "\"UPDATE_DATE\" TEXT);"); // 4: UpdateDate
     }
 
     /** Drops the underlying database table. */
@@ -62,19 +64,24 @@ public class TLokasiDao extends AbstractDao<TLokasi, Long> {
             stmt.bindLong(1, id);
         }
  
+        String IdLokasi = entity.getIdLokasi();
+        if (IdLokasi != null) {
+            stmt.bindString(2, IdLokasi);
+        }
+ 
         String NoDoSns = entity.getNoDoSns();
         if (NoDoSns != null) {
-            stmt.bindString(2, NoDoSns);
+            stmt.bindString(3, NoDoSns);
         }
  
         String Ket = entity.getKet();
         if (Ket != null) {
-            stmt.bindString(3, Ket);
+            stmt.bindString(4, Ket);
         }
  
         String UpdateDate = entity.getUpdateDate();
         if (UpdateDate != null) {
-            stmt.bindString(4, UpdateDate);
+            stmt.bindString(5, UpdateDate);
         }
     }
 
@@ -87,19 +94,24 @@ public class TLokasiDao extends AbstractDao<TLokasi, Long> {
             stmt.bindLong(1, id);
         }
  
+        String IdLokasi = entity.getIdLokasi();
+        if (IdLokasi != null) {
+            stmt.bindString(2, IdLokasi);
+        }
+ 
         String NoDoSns = entity.getNoDoSns();
         if (NoDoSns != null) {
-            stmt.bindString(2, NoDoSns);
+            stmt.bindString(3, NoDoSns);
         }
  
         String Ket = entity.getKet();
         if (Ket != null) {
-            stmt.bindString(3, Ket);
+            stmt.bindString(4, Ket);
         }
  
         String UpdateDate = entity.getUpdateDate();
         if (UpdateDate != null) {
-            stmt.bindString(4, UpdateDate);
+            stmt.bindString(5, UpdateDate);
         }
     }
 
@@ -112,9 +124,10 @@ public class TLokasiDao extends AbstractDao<TLokasi, Long> {
     public TLokasi readEntity(Cursor cursor, int offset) {
         TLokasi entity = new TLokasi( //
             cursor.isNull(offset + 0) ? null : cursor.getLong(offset + 0), // id
-            cursor.isNull(offset + 1) ? null : cursor.getString(offset + 1), // NoDoSns
-            cursor.isNull(offset + 2) ? null : cursor.getString(offset + 2), // Ket
-            cursor.isNull(offset + 3) ? null : cursor.getString(offset + 3) // UpdateDate
+            cursor.isNull(offset + 1) ? null : cursor.getString(offset + 1), // IdLokasi
+            cursor.isNull(offset + 2) ? null : cursor.getString(offset + 2), // NoDoSns
+            cursor.isNull(offset + 3) ? null : cursor.getString(offset + 3), // Ket
+            cursor.isNull(offset + 4) ? null : cursor.getString(offset + 4) // UpdateDate
         );
         return entity;
     }
@@ -122,9 +135,10 @@ public class TLokasiDao extends AbstractDao<TLokasi, Long> {
     @Override
     public void readEntity(Cursor cursor, TLokasi entity, int offset) {
         entity.setId(cursor.isNull(offset + 0) ? null : cursor.getLong(offset + 0));
-        entity.setNoDoSns(cursor.isNull(offset + 1) ? null : cursor.getString(offset + 1));
-        entity.setKet(cursor.isNull(offset + 2) ? null : cursor.getString(offset + 2));
-        entity.setUpdateDate(cursor.isNull(offset + 3) ? null : cursor.getString(offset + 3));
+        entity.setIdLokasi(cursor.isNull(offset + 1) ? null : cursor.getString(offset + 1));
+        entity.setNoDoSns(cursor.isNull(offset + 2) ? null : cursor.getString(offset + 2));
+        entity.setKet(cursor.isNull(offset + 3) ? null : cursor.getString(offset + 3));
+        entity.setUpdateDate(cursor.isNull(offset + 4) ? null : cursor.getString(offset + 4));
      }
     
     @Override

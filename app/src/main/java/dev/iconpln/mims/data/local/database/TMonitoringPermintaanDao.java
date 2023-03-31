@@ -24,21 +24,22 @@ public class TMonitoringPermintaanDao extends AbstractDao<TMonitoringPermintaan,
     public static class Properties {
         public final static Property Id = new Property(0, Long.class, "id", true, "_id");
         public final static Property NoPermintaan = new Property(1, String.class, "NoPermintaan", false, "NO_PERMINTAAN");
-        public final static Property StorLocTujuanName = new Property(2, String.class, "StorLocTujuanName", false, "STOR_LOC_TUJUAN_NAME");
-        public final static Property KodePengeluaran = new Property(3, String.class, "KodePengeluaran", false, "KODE_PENGELUARAN");
-        public final static Property StorLocTujuan = new Property(4, String.class, "StorLocTujuan", false, "STOR_LOC_TUJUAN");
-        public final static Property CreatedBy = new Property(5, String.class, "CreatedBy", false, "CREATED_BY");
-        public final static Property NoRepackaging = new Property(6, String.class, "NoRepackaging", false, "NO_REPACKAGING");
-        public final static Property Plant = new Property(7, String.class, "Plant", false, "PLANT");
-        public final static Property UpdatedBy = new Property(8, String.class, "UpdatedBy", false, "UPDATED_BY");
-        public final static Property CreatedDate = new Property(9, String.class, "CreatedDate", false, "CREATED_DATE");
-        public final static Property UpdatedDate = new Property(10, String.class, "UpdatedDate", false, "UPDATED_DATE");
-        public final static Property JumlahKardus = new Property(11, String.class, "JumlahKardus", false, "JUMLAH_KARDUS");
-        public final static Property StorLocAsalName = new Property(12, String.class, "StorLocAsalName", false, "STOR_LOC_ASAL_NAME");
-        public final static Property TanggalPermintaan = new Property(13, String.class, "TanggalPermintaan", false, "TANGGAL_PERMINTAAN");
-        public final static Property TanggalPengeluaran = new Property(14, String.class, "TanggalPengeluaran", false, "TANGGAL_PENGELUARAN");
-        public final static Property PlantName = new Property(15, String.class, "PlantName", false, "PLANT_NAME");
-        public final static Property StorLocAsal = new Property(16, String.class, "StorLocAsal", false, "STOR_LOC_ASAL");
+        public final static Property NoTransaksi = new Property(2, String.class, "NoTransaksi", false, "NO_TRANSAKSI");
+        public final static Property StorLocTujuanName = new Property(3, String.class, "StorLocTujuanName", false, "STOR_LOC_TUJUAN_NAME");
+        public final static Property KodePengeluaran = new Property(4, String.class, "KodePengeluaran", false, "KODE_PENGELUARAN");
+        public final static Property StorLocTujuan = new Property(5, String.class, "StorLocTujuan", false, "STOR_LOC_TUJUAN");
+        public final static Property CreatedBy = new Property(6, String.class, "CreatedBy", false, "CREATED_BY");
+        public final static Property NoRepackaging = new Property(7, String.class, "NoRepackaging", false, "NO_REPACKAGING");
+        public final static Property Plant = new Property(8, String.class, "Plant", false, "PLANT");
+        public final static Property UpdatedBy = new Property(9, String.class, "UpdatedBy", false, "UPDATED_BY");
+        public final static Property CreatedDate = new Property(10, String.class, "CreatedDate", false, "CREATED_DATE");
+        public final static Property UpdatedDate = new Property(11, String.class, "UpdatedDate", false, "UPDATED_DATE");
+        public final static Property JumlahKardus = new Property(12, Integer.class, "JumlahKardus", false, "JUMLAH_KARDUS");
+        public final static Property StorLocAsalName = new Property(13, String.class, "StorLocAsalName", false, "STOR_LOC_ASAL_NAME");
+        public final static Property TanggalPermintaan = new Property(14, String.class, "TanggalPermintaan", false, "TANGGAL_PERMINTAAN");
+        public final static Property TanggalPengeluaran = new Property(15, String.class, "TanggalPengeluaran", false, "TANGGAL_PENGELUARAN");
+        public final static Property PlantName = new Property(16, String.class, "PlantName", false, "PLANT_NAME");
+        public final static Property StorLocAsal = new Property(17, String.class, "StorLocAsal", false, "STOR_LOC_ASAL");
     }
 
 
@@ -56,21 +57,22 @@ public class TMonitoringPermintaanDao extends AbstractDao<TMonitoringPermintaan,
         db.execSQL("CREATE TABLE " + constraint + "\"TMONITORING_PERMINTAAN\" (" + //
                 "\"_id\" INTEGER PRIMARY KEY ," + // 0: id
                 "\"NO_PERMINTAAN\" TEXT," + // 1: NoPermintaan
-                "\"STOR_LOC_TUJUAN_NAME\" TEXT," + // 2: StorLocTujuanName
-                "\"KODE_PENGELUARAN\" TEXT," + // 3: KodePengeluaran
-                "\"STOR_LOC_TUJUAN\" TEXT," + // 4: StorLocTujuan
-                "\"CREATED_BY\" TEXT," + // 5: CreatedBy
-                "\"NO_REPACKAGING\" TEXT," + // 6: NoRepackaging
-                "\"PLANT\" TEXT," + // 7: Plant
-                "\"UPDATED_BY\" TEXT," + // 8: UpdatedBy
-                "\"CREATED_DATE\" TEXT," + // 9: CreatedDate
-                "\"UPDATED_DATE\" TEXT," + // 10: UpdatedDate
-                "\"JUMLAH_KARDUS\" TEXT," + // 11: JumlahKardus
-                "\"STOR_LOC_ASAL_NAME\" TEXT," + // 12: StorLocAsalName
-                "\"TANGGAL_PERMINTAAN\" TEXT," + // 13: TanggalPermintaan
-                "\"TANGGAL_PENGELUARAN\" TEXT," + // 14: TanggalPengeluaran
-                "\"PLANT_NAME\" TEXT," + // 15: PlantName
-                "\"STOR_LOC_ASAL\" TEXT);"); // 16: StorLocAsal
+                "\"NO_TRANSAKSI\" TEXT," + // 2: NoTransaksi
+                "\"STOR_LOC_TUJUAN_NAME\" TEXT," + // 3: StorLocTujuanName
+                "\"KODE_PENGELUARAN\" TEXT," + // 4: KodePengeluaran
+                "\"STOR_LOC_TUJUAN\" TEXT," + // 5: StorLocTujuan
+                "\"CREATED_BY\" TEXT," + // 6: CreatedBy
+                "\"NO_REPACKAGING\" TEXT," + // 7: NoRepackaging
+                "\"PLANT\" TEXT," + // 8: Plant
+                "\"UPDATED_BY\" TEXT," + // 9: UpdatedBy
+                "\"CREATED_DATE\" TEXT," + // 10: CreatedDate
+                "\"UPDATED_DATE\" TEXT," + // 11: UpdatedDate
+                "\"JUMLAH_KARDUS\" INTEGER," + // 12: JumlahKardus
+                "\"STOR_LOC_ASAL_NAME\" TEXT," + // 13: StorLocAsalName
+                "\"TANGGAL_PERMINTAAN\" TEXT," + // 14: TanggalPermintaan
+                "\"TANGGAL_PENGELUARAN\" TEXT," + // 15: TanggalPengeluaran
+                "\"PLANT_NAME\" TEXT," + // 16: PlantName
+                "\"STOR_LOC_ASAL\" TEXT);"); // 17: StorLocAsal
     }
 
     /** Drops the underlying database table. */
@@ -93,79 +95,84 @@ public class TMonitoringPermintaanDao extends AbstractDao<TMonitoringPermintaan,
             stmt.bindString(2, NoPermintaan);
         }
  
+        String NoTransaksi = entity.getNoTransaksi();
+        if (NoTransaksi != null) {
+            stmt.bindString(3, NoTransaksi);
+        }
+ 
         String StorLocTujuanName = entity.getStorLocTujuanName();
         if (StorLocTujuanName != null) {
-            stmt.bindString(3, StorLocTujuanName);
+            stmt.bindString(4, StorLocTujuanName);
         }
  
         String KodePengeluaran = entity.getKodePengeluaran();
         if (KodePengeluaran != null) {
-            stmt.bindString(4, KodePengeluaran);
+            stmt.bindString(5, KodePengeluaran);
         }
  
         String StorLocTujuan = entity.getStorLocTujuan();
         if (StorLocTujuan != null) {
-            stmt.bindString(5, StorLocTujuan);
+            stmt.bindString(6, StorLocTujuan);
         }
  
         String CreatedBy = entity.getCreatedBy();
         if (CreatedBy != null) {
-            stmt.bindString(6, CreatedBy);
+            stmt.bindString(7, CreatedBy);
         }
  
         String NoRepackaging = entity.getNoRepackaging();
         if (NoRepackaging != null) {
-            stmt.bindString(7, NoRepackaging);
+            stmt.bindString(8, NoRepackaging);
         }
  
         String Plant = entity.getPlant();
         if (Plant != null) {
-            stmt.bindString(8, Plant);
+            stmt.bindString(9, Plant);
         }
  
         String UpdatedBy = entity.getUpdatedBy();
         if (UpdatedBy != null) {
-            stmt.bindString(9, UpdatedBy);
+            stmt.bindString(10, UpdatedBy);
         }
  
         String CreatedDate = entity.getCreatedDate();
         if (CreatedDate != null) {
-            stmt.bindString(10, CreatedDate);
+            stmt.bindString(11, CreatedDate);
         }
  
         String UpdatedDate = entity.getUpdatedDate();
         if (UpdatedDate != null) {
-            stmt.bindString(11, UpdatedDate);
+            stmt.bindString(12, UpdatedDate);
         }
  
-        String JumlahKardus = entity.getJumlahKardus();
+        Integer JumlahKardus = entity.getJumlahKardus();
         if (JumlahKardus != null) {
-            stmt.bindString(12, JumlahKardus);
+            stmt.bindLong(13, JumlahKardus);
         }
  
         String StorLocAsalName = entity.getStorLocAsalName();
         if (StorLocAsalName != null) {
-            stmt.bindString(13, StorLocAsalName);
+            stmt.bindString(14, StorLocAsalName);
         }
  
         String TanggalPermintaan = entity.getTanggalPermintaan();
         if (TanggalPermintaan != null) {
-            stmt.bindString(14, TanggalPermintaan);
+            stmt.bindString(15, TanggalPermintaan);
         }
  
         String TanggalPengeluaran = entity.getTanggalPengeluaran();
         if (TanggalPengeluaran != null) {
-            stmt.bindString(15, TanggalPengeluaran);
+            stmt.bindString(16, TanggalPengeluaran);
         }
  
         String PlantName = entity.getPlantName();
         if (PlantName != null) {
-            stmt.bindString(16, PlantName);
+            stmt.bindString(17, PlantName);
         }
  
         String StorLocAsal = entity.getStorLocAsal();
         if (StorLocAsal != null) {
-            stmt.bindString(17, StorLocAsal);
+            stmt.bindString(18, StorLocAsal);
         }
     }
 
@@ -183,79 +190,84 @@ public class TMonitoringPermintaanDao extends AbstractDao<TMonitoringPermintaan,
             stmt.bindString(2, NoPermintaan);
         }
  
+        String NoTransaksi = entity.getNoTransaksi();
+        if (NoTransaksi != null) {
+            stmt.bindString(3, NoTransaksi);
+        }
+ 
         String StorLocTujuanName = entity.getStorLocTujuanName();
         if (StorLocTujuanName != null) {
-            stmt.bindString(3, StorLocTujuanName);
+            stmt.bindString(4, StorLocTujuanName);
         }
  
         String KodePengeluaran = entity.getKodePengeluaran();
         if (KodePengeluaran != null) {
-            stmt.bindString(4, KodePengeluaran);
+            stmt.bindString(5, KodePengeluaran);
         }
  
         String StorLocTujuan = entity.getStorLocTujuan();
         if (StorLocTujuan != null) {
-            stmt.bindString(5, StorLocTujuan);
+            stmt.bindString(6, StorLocTujuan);
         }
  
         String CreatedBy = entity.getCreatedBy();
         if (CreatedBy != null) {
-            stmt.bindString(6, CreatedBy);
+            stmt.bindString(7, CreatedBy);
         }
  
         String NoRepackaging = entity.getNoRepackaging();
         if (NoRepackaging != null) {
-            stmt.bindString(7, NoRepackaging);
+            stmt.bindString(8, NoRepackaging);
         }
  
         String Plant = entity.getPlant();
         if (Plant != null) {
-            stmt.bindString(8, Plant);
+            stmt.bindString(9, Plant);
         }
  
         String UpdatedBy = entity.getUpdatedBy();
         if (UpdatedBy != null) {
-            stmt.bindString(9, UpdatedBy);
+            stmt.bindString(10, UpdatedBy);
         }
  
         String CreatedDate = entity.getCreatedDate();
         if (CreatedDate != null) {
-            stmt.bindString(10, CreatedDate);
+            stmt.bindString(11, CreatedDate);
         }
  
         String UpdatedDate = entity.getUpdatedDate();
         if (UpdatedDate != null) {
-            stmt.bindString(11, UpdatedDate);
+            stmt.bindString(12, UpdatedDate);
         }
  
-        String JumlahKardus = entity.getJumlahKardus();
+        Integer JumlahKardus = entity.getJumlahKardus();
         if (JumlahKardus != null) {
-            stmt.bindString(12, JumlahKardus);
+            stmt.bindLong(13, JumlahKardus);
         }
  
         String StorLocAsalName = entity.getStorLocAsalName();
         if (StorLocAsalName != null) {
-            stmt.bindString(13, StorLocAsalName);
+            stmt.bindString(14, StorLocAsalName);
         }
  
         String TanggalPermintaan = entity.getTanggalPermintaan();
         if (TanggalPermintaan != null) {
-            stmt.bindString(14, TanggalPermintaan);
+            stmt.bindString(15, TanggalPermintaan);
         }
  
         String TanggalPengeluaran = entity.getTanggalPengeluaran();
         if (TanggalPengeluaran != null) {
-            stmt.bindString(15, TanggalPengeluaran);
+            stmt.bindString(16, TanggalPengeluaran);
         }
  
         String PlantName = entity.getPlantName();
         if (PlantName != null) {
-            stmt.bindString(16, PlantName);
+            stmt.bindString(17, PlantName);
         }
  
         String StorLocAsal = entity.getStorLocAsal();
         if (StorLocAsal != null) {
-            stmt.bindString(17, StorLocAsal);
+            stmt.bindString(18, StorLocAsal);
         }
     }
 
@@ -269,21 +281,22 @@ public class TMonitoringPermintaanDao extends AbstractDao<TMonitoringPermintaan,
         TMonitoringPermintaan entity = new TMonitoringPermintaan( //
             cursor.isNull(offset + 0) ? null : cursor.getLong(offset + 0), // id
             cursor.isNull(offset + 1) ? null : cursor.getString(offset + 1), // NoPermintaan
-            cursor.isNull(offset + 2) ? null : cursor.getString(offset + 2), // StorLocTujuanName
-            cursor.isNull(offset + 3) ? null : cursor.getString(offset + 3), // KodePengeluaran
-            cursor.isNull(offset + 4) ? null : cursor.getString(offset + 4), // StorLocTujuan
-            cursor.isNull(offset + 5) ? null : cursor.getString(offset + 5), // CreatedBy
-            cursor.isNull(offset + 6) ? null : cursor.getString(offset + 6), // NoRepackaging
-            cursor.isNull(offset + 7) ? null : cursor.getString(offset + 7), // Plant
-            cursor.isNull(offset + 8) ? null : cursor.getString(offset + 8), // UpdatedBy
-            cursor.isNull(offset + 9) ? null : cursor.getString(offset + 9), // CreatedDate
-            cursor.isNull(offset + 10) ? null : cursor.getString(offset + 10), // UpdatedDate
-            cursor.isNull(offset + 11) ? null : cursor.getString(offset + 11), // JumlahKardus
-            cursor.isNull(offset + 12) ? null : cursor.getString(offset + 12), // StorLocAsalName
-            cursor.isNull(offset + 13) ? null : cursor.getString(offset + 13), // TanggalPermintaan
-            cursor.isNull(offset + 14) ? null : cursor.getString(offset + 14), // TanggalPengeluaran
-            cursor.isNull(offset + 15) ? null : cursor.getString(offset + 15), // PlantName
-            cursor.isNull(offset + 16) ? null : cursor.getString(offset + 16) // StorLocAsal
+            cursor.isNull(offset + 2) ? null : cursor.getString(offset + 2), // NoTransaksi
+            cursor.isNull(offset + 3) ? null : cursor.getString(offset + 3), // StorLocTujuanName
+            cursor.isNull(offset + 4) ? null : cursor.getString(offset + 4), // KodePengeluaran
+            cursor.isNull(offset + 5) ? null : cursor.getString(offset + 5), // StorLocTujuan
+            cursor.isNull(offset + 6) ? null : cursor.getString(offset + 6), // CreatedBy
+            cursor.isNull(offset + 7) ? null : cursor.getString(offset + 7), // NoRepackaging
+            cursor.isNull(offset + 8) ? null : cursor.getString(offset + 8), // Plant
+            cursor.isNull(offset + 9) ? null : cursor.getString(offset + 9), // UpdatedBy
+            cursor.isNull(offset + 10) ? null : cursor.getString(offset + 10), // CreatedDate
+            cursor.isNull(offset + 11) ? null : cursor.getString(offset + 11), // UpdatedDate
+            cursor.isNull(offset + 12) ? null : cursor.getInt(offset + 12), // JumlahKardus
+            cursor.isNull(offset + 13) ? null : cursor.getString(offset + 13), // StorLocAsalName
+            cursor.isNull(offset + 14) ? null : cursor.getString(offset + 14), // TanggalPermintaan
+            cursor.isNull(offset + 15) ? null : cursor.getString(offset + 15), // TanggalPengeluaran
+            cursor.isNull(offset + 16) ? null : cursor.getString(offset + 16), // PlantName
+            cursor.isNull(offset + 17) ? null : cursor.getString(offset + 17) // StorLocAsal
         );
         return entity;
     }
@@ -292,21 +305,22 @@ public class TMonitoringPermintaanDao extends AbstractDao<TMonitoringPermintaan,
     public void readEntity(Cursor cursor, TMonitoringPermintaan entity, int offset) {
         entity.setId(cursor.isNull(offset + 0) ? null : cursor.getLong(offset + 0));
         entity.setNoPermintaan(cursor.isNull(offset + 1) ? null : cursor.getString(offset + 1));
-        entity.setStorLocTujuanName(cursor.isNull(offset + 2) ? null : cursor.getString(offset + 2));
-        entity.setKodePengeluaran(cursor.isNull(offset + 3) ? null : cursor.getString(offset + 3));
-        entity.setStorLocTujuan(cursor.isNull(offset + 4) ? null : cursor.getString(offset + 4));
-        entity.setCreatedBy(cursor.isNull(offset + 5) ? null : cursor.getString(offset + 5));
-        entity.setNoRepackaging(cursor.isNull(offset + 6) ? null : cursor.getString(offset + 6));
-        entity.setPlant(cursor.isNull(offset + 7) ? null : cursor.getString(offset + 7));
-        entity.setUpdatedBy(cursor.isNull(offset + 8) ? null : cursor.getString(offset + 8));
-        entity.setCreatedDate(cursor.isNull(offset + 9) ? null : cursor.getString(offset + 9));
-        entity.setUpdatedDate(cursor.isNull(offset + 10) ? null : cursor.getString(offset + 10));
-        entity.setJumlahKardus(cursor.isNull(offset + 11) ? null : cursor.getString(offset + 11));
-        entity.setStorLocAsalName(cursor.isNull(offset + 12) ? null : cursor.getString(offset + 12));
-        entity.setTanggalPermintaan(cursor.isNull(offset + 13) ? null : cursor.getString(offset + 13));
-        entity.setTanggalPengeluaran(cursor.isNull(offset + 14) ? null : cursor.getString(offset + 14));
-        entity.setPlantName(cursor.isNull(offset + 15) ? null : cursor.getString(offset + 15));
-        entity.setStorLocAsal(cursor.isNull(offset + 16) ? null : cursor.getString(offset + 16));
+        entity.setNoTransaksi(cursor.isNull(offset + 2) ? null : cursor.getString(offset + 2));
+        entity.setStorLocTujuanName(cursor.isNull(offset + 3) ? null : cursor.getString(offset + 3));
+        entity.setKodePengeluaran(cursor.isNull(offset + 4) ? null : cursor.getString(offset + 4));
+        entity.setStorLocTujuan(cursor.isNull(offset + 5) ? null : cursor.getString(offset + 5));
+        entity.setCreatedBy(cursor.isNull(offset + 6) ? null : cursor.getString(offset + 6));
+        entity.setNoRepackaging(cursor.isNull(offset + 7) ? null : cursor.getString(offset + 7));
+        entity.setPlant(cursor.isNull(offset + 8) ? null : cursor.getString(offset + 8));
+        entity.setUpdatedBy(cursor.isNull(offset + 9) ? null : cursor.getString(offset + 9));
+        entity.setCreatedDate(cursor.isNull(offset + 10) ? null : cursor.getString(offset + 10));
+        entity.setUpdatedDate(cursor.isNull(offset + 11) ? null : cursor.getString(offset + 11));
+        entity.setJumlahKardus(cursor.isNull(offset + 12) ? null : cursor.getInt(offset + 12));
+        entity.setStorLocAsalName(cursor.isNull(offset + 13) ? null : cursor.getString(offset + 13));
+        entity.setTanggalPermintaan(cursor.isNull(offset + 14) ? null : cursor.getString(offset + 14));
+        entity.setTanggalPengeluaran(cursor.isNull(offset + 15) ? null : cursor.getString(offset + 15));
+        entity.setPlantName(cursor.isNull(offset + 16) ? null : cursor.getString(offset + 16));
+        entity.setStorLocAsal(cursor.isNull(offset + 17) ? null : cursor.getString(offset + 17));
      }
     
     @Override

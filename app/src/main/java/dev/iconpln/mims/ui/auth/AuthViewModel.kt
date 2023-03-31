@@ -1,6 +1,8 @@
 package dev.iconpln.mims.ui.auth
 
 import android.content.Context
+import android.content.Intent
+import android.util.Log
 import android.widget.Toast
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
@@ -47,17 +49,26 @@ class AuthViewModel: ViewModel() {
                 if (response.isSuccessful) {
                     try {
                         _isLoading.value = false
-                        val loginResult = response.body()
-                        _loginResponse.postValue(loginResult!!)
-                        session.saveUsernamePassword(username,password)
-                        inserToDbLocal(daoSession, loginResult)
+                        if (response.body()?.status == "failure"){
+                            Toast.makeText(context, response.body()?.message, Toast.LENGTH_SHORT).show()
+                        }else{
+                            val loginResult = response.body()
+                            _loginResponse.postValue(loginResult!!)
+                            session.saveUsernamePassword(username,password)
+                            inserToDbLocal(daoSession, loginResult)
+                        }
 
                     }catch (e: Exception){
+                        _isLoading.value = false
+                        Toast.makeText(context, response.body()?.message!!, Toast.LENGTH_SHORT).show()
                         e.printStackTrace()
+                    }finally {
+                        _isLoading.value = false
+                        Log.i("finally", response.body()?.message!!)
                     }
                 }else {
                     _isLoading.value = false
-                    Toast.makeText(context, response.message(), Toast.LENGTH_SHORT).show()
+                    Toast.makeText(context, if(response.body()?.message.isNullOrEmpty()) "Gagal menguhubungkan ke server, silahkan periksa koneksi dan VPN anda" else response.body()?.message.toString(), Toast.LENGTH_SHORT).show()
                 }
             }
         }
@@ -85,7 +96,7 @@ class AuthViewModel: ViewModel() {
         }
     }
 
-    fun checkOtp(context: Context, username: String,otp: String, androidId: String, deviceData: String) {
+    fun checkOtp(context: Context, username: String,otp: String, androidId: String, deviceData: String,daoSession: DaoSession) {
         _isLoading.value = true
         CoroutineScope(Dispatchers.IO).launch {
             val requestBody = mutableMapOf<String, String>()
@@ -99,14 +110,16 @@ class AuthViewModel: ViewModel() {
                 if (response.isSuccessful) {
                     try {
                         _isLoading.value = false
-                        val responses = response.body()
-                        _loginResponse.postValue(responses!!)
+                        val loginResult = response.body()
+                        _loginResponse.postValue(loginResult!!)
+                        inserToDbLocal(daoSession, loginResult)
                     }catch (e: Exception){
+                        Toast.makeText(context, e.toString(), Toast.LENGTH_SHORT).show()
                         e.printStackTrace()
                     }
                 }else {
                     _isLoading.value = false
-                    Toast.makeText(context, response.message(), Toast.LENGTH_SHORT).show()
+                    Toast.makeText(context, response.body()?.message, Toast.LENGTH_SHORT).show()
                 }
             }
         }
@@ -120,15 +133,18 @@ class AuthViewModel: ViewModel() {
 
             val response = ApiConfig.getApiService(context).getOtpForgotPassword(requestBody)
             withContext(Dispatchers.Main){
-                if (response.isSuccessful) {
-                    try {
+                try {
+                    if (response.isSuccessful) {
                         _isLoading.value = false
-                    }catch (e: Exception){
-                        e.printStackTrace()
+                        Toast.makeText(context, response.body()?.message, Toast.LENGTH_SHORT).show()
+                    }else {
+                        _isLoading.value = false
+                        Toast.makeText(context, response.message(), Toast.LENGTH_SHORT).show()
                     }
-                }else {
-                    _isLoading.value = false
-                    Toast.makeText(context, response.message(), Toast.LENGTH_SHORT).show()
+                }catch (e:Exception){
+                    e.printStackTrace()
+                }finally {
+                    Log.d("sendOtpForgot", "failed")
                 }
             }
         }
@@ -149,6 +165,39 @@ class AuthViewModel: ViewModel() {
                         val responses = response.body()
                         _checkOtpForgotPassword.postValue(responses!!)
                     }catch (e: Exception){
+                        Toast.makeText(context, e.toString(), Toast.LENGTH_SHORT).show()
+                        e.printStackTrace()
+                    }
+                }else {
+                    _isLoading.value = false
+                    Toast.makeText(context, response.body()?.message, Toast.LENGTH_SHORT).show()
+                }
+            }
+        }
+    }
+
+
+    fun changePasswordProfile(context: Context, username: String,password: String,oldPassword: String) {
+        _isLoading.value = true
+        CoroutineScope(Dispatchers.IO).launch {
+            val requestBody = mutableMapOf<String, String>()
+            requestBody["username"] = username
+            requestBody["new_password"] = password
+            requestBody["old_password"] = oldPassword
+
+            val response = ApiConfig.getApiService(context).changePasswordProfile(requestBody)
+            withContext(Dispatchers.Main){
+                if (response.isSuccessful) {
+                    try {
+                        _isLoading.value = false
+                        if (response.body()?.status == "success"){
+                            val responses = response.body()
+                            _changePassword.postValue(responses!!)
+                        }else{
+                            Toast.makeText(context,response.body()?.message, Toast.LENGTH_SHORT).show()
+                        }
+                    }catch (e: Exception){
+                        _isLoading.value = false
                         e.printStackTrace()
                     }
                 }else {
@@ -159,21 +208,26 @@ class AuthViewModel: ViewModel() {
         }
     }
 
-    fun changePassword(context: Context, username: String,password: String) {
+    fun forgotPassword(context: Context, username: String,password: String) {
         _isLoading.value = true
         CoroutineScope(Dispatchers.IO).launch {
             val requestBody = mutableMapOf<String, String>()
             requestBody["username"] = username
             requestBody["new_password"] = password
 
-            val response = ApiConfig.getApiService(context).changePassword(requestBody)
+            val response = ApiConfig.getApiService(context).forgotPasswordPassword(requestBody)
             withContext(Dispatchers.Main){
                 if (response.isSuccessful) {
                     try {
                         _isLoading.value = false
-                        val responses = response.body()
-                        _changePassword.postValue(responses!!)
+                        if (response.body()?.status == "success"){
+                            val responses = response.body()
+                            _changePassword.postValue(responses!!)
+                        }else{
+                            Toast.makeText(context,response.body()?.message, Toast.LENGTH_SHORT).show()
+                        }
                     }catch (e: Exception){
+                        _isLoading.value = false
                         e.printStackTrace()
                     }
                 }else {
@@ -183,6 +237,7 @@ class AuthViewModel: ViewModel() {
             }
         }
     }
+
 
     private fun inserToDbLocal(daoSession: DaoSession, result: LoginResponse) {
         daoSession.tLokasiDao.deleteAll()
@@ -202,8 +257,114 @@ class AuthViewModel: ViewModel() {
         daoSession.tRatingDao.deleteAll()
         daoSession.tMonitoringPermintaanDao.deleteAll()
         daoSession.tMonitoringPermintaanDetailDao.deleteAll()
+        daoSession.tSnMonitoringPermintaanDao.deleteAll()
+        daoSession.tPenerimaanUlpDao.deleteAll()
+        daoSession.tPenerimaanDetailUlpDao.deleteAll()
+        daoSession.tSnPermaterialDao.deleteAll()
+        daoSession.tListSnMaterialPenerimaanUlpDao.deleteAll()
+        daoSession.tListSnMaterialPemakaianUlpDao.deleteAll()
+        daoSession.tPemakaianDao.deleteAll()
+        daoSession.tPemakaianDetailDao.deleteAll()
+        daoSession.tListSnMaterialPenerimaanUlpDao.deleteAll()
+        daoSession.tListSnMaterialPemakaianUlpDao.deleteAll()
+        daoSession.tPhotoDao.deleteAll()
+
 
         if (result != null){
+
+            if (result.pemeriksan != null){
+                val size = result.pemeriksan.size
+                if (size >0){
+                    val items = arrayOfNulls<TPemeriksaan>(size)
+                    var item: TPemeriksaan
+                    for ((i, model) in result.pemeriksan.withIndex()){
+                        item = TPemeriksaan()
+                        item.noPemeriksaan = if(model?.noPemeriksaan.isNullOrEmpty()) "" else model?.noPemeriksaan
+                        item.storLoc = model?.storLoc
+                        item.total = model?.total
+                        item.tlskNo = model?.tlskNo
+                        item.poSapNo = model?.poSapNo
+                        item.poMpNo = model?.poMpNo
+                        item.noDoSmar = model?.noDoSmar
+
+                        item.leadTime = model?.leadTime
+                        item.createdDate = model?.createdDate
+                        item.planCodeNo = model?.plantCodeNo
+                        item.plantName = model?.plantName
+                        item.noDoMims = model?.noDoMims
+                        item.doStatus = model?.doStatus
+                        item.statusPemeriksaan = if(model?.statusPemeriksaan.isNullOrEmpty()) "" else model?.statusPemeriksaan
+
+                        item.expeditions = "" //belum perlu ditarik
+
+                        item.courierPersonName = model?.courierPersonName
+                        item.kdPabrikan = model?.kdPabrikan
+                        item.materialGroup = model?.materialGroup
+                        item.namaKategoriMaterial = model?.namaKategoriMaterial
+
+                        item.tanggalDiterima = "" //belum perlu ditarik
+
+                        item.petugasPenerima = model?.petugasPenerima
+
+                        item.namaKurir = model?.courierPersonName
+                        item.namaEkspedisi = "" //belum perlu ditarik
+                        item.doLineItem = model?.doLineItem
+                        item.namaKetua = if (model?.ketuaPemeriksa.isNullOrEmpty()) "" else model?.ketuaPemeriksa
+                        item.namaManager = ""
+                        item.namaAnggota = ""
+                        item.namaSekretaris = ""
+                        item.namaAnggotaBaru = ""
+
+                        item.isDone = 0
+
+                        items[i] = item
+                    }
+                    daoSession.tPemeriksaanDao.insertInTx(items.toList())
+                }
+            }
+
+            if (result.pemeriksaanDetail != null){
+                val size = result.pemeriksaanDetail.size
+                if (size >0){
+                    val items = arrayOfNulls<TPemeriksaanDetail>(size)
+                    var item: TPemeriksaanDetail
+                    for ((i, model) in result.pemeriksaanDetail.withIndex()){
+                        item = TPemeriksaanDetail()
+                        item.noPemeriksaan = if(model?.noPemeriksaan.isNullOrEmpty()) "" else model?.noPemeriksaan
+                        item.sn = model?.noSerial
+                        item.noDoSmar = model?.noDoSmar
+                        item.noMaterail = model?.noMatSap
+                        item.noPackaging = model?.noPackaging
+                        item.kategori = model?.namaKategoriMaterial
+                        item.statusPenerimaan = "" //belum perlu ditarik
+                        item.statusPemeriksaan = model?.status
+
+                        if (model?.status == "BELUM DIPERIKSA"){
+                            item.isPeriksa = 1
+                            item.isComplaint = 0
+                            item.isChecked = 0
+                        }
+
+                        if (model?.status == "KOMPLAIN"){
+                            item.isPeriksa = 0
+                            item.isComplaint = 1
+                            item.isChecked = 1
+                        }
+
+                        if (model?.status.isNullOrEmpty()){
+                            item.isPeriksa = 0
+                            item.isComplaint = 0
+                            item.isChecked = 0
+                        }
+
+                        item.isDone = 0
+
+                        items[i] = item
+                    }
+                    daoSession.tPemeriksaanDetailDao.insertInTx(items.toList())
+                }
+            }
+
             if (result.materialDetails != null){
                 val size = result.materialDetails.size
                 if (size > 0) {
@@ -289,6 +450,11 @@ class AuthViewModel: ViewModel() {
                         item.doLineItem = model?.DoLineItem
                         item.doStatus = model?.doStatus
                         item.expeditions = model?.ekspedition
+                        if (model?.ratingDelivery.isNullOrEmpty()) item.ratingDelivery = "" else item.ratingDelivery = model?.ratingDelivery
+                        if (model?.ratingQuality.isNullOrEmpty()) item.ratingQuality = "" else item.ratingQuality = model?.ratingQuality
+                        if (model?.ratingResponse.isNullOrEmpty()) item.ratingResponse = "" else item.ratingResponse = model?.ratingResponse
+                        item.statusPemeriksaan = if(model?.statusPemeriksaan.isNullOrEmpty()) "" else model?.statusPemeriksaan
+                        item.statusPenerimaan = if(model?.statusPenerimaan.isNullOrEmpty()) "" else model?.statusPenerimaan
                         items[i] = item
                     }
                     daoSession.tPosDao.insertInTx(items.toList())
@@ -308,7 +474,10 @@ class AuthViewModel: ViewModel() {
                         item.qtyMaterial = model?.qtyMaterial
                         item.qtyLolos = model?.qtyLolos
                         item.statusUji = model?.statusUji
+                        item.qtyRusak = model?.qtyRusak.toString()
+                        item.qtyTdkLolos = model?.qtyTdkLolos.toString()
                         item.tanggalUji = model?.tglUji.toString()
+                        item.tanggalUsulUji = model?.tanggalUsulUji
                         item.unit = model?.unit
                         items[i] = item
                     }
@@ -386,7 +555,7 @@ class AuthViewModel: ViewModel() {
                     for ((i, model) in result.privilege.withIndex()){
                         item = TPrivilege()
                         item.isActive = model?.isActive.toString()
-                        item.methodId = model?.methodValue
+                        item.methodId = model?.methodId
                         item.methodValue = model?.methodValue
                         item.moduleId = model?.moduleId
                         item.roleId = model?.roleId.toString()
@@ -417,7 +586,8 @@ class AuthViewModel: ViewModel() {
                         item.plant = model?.plant
                         item.spesifikasi = model?.spesifikasi
                         item.spln = model?.spln
-                        if(model?.status.isNullOrEmpty()) item.status = "" else item.status = model?.status
+                        if(model?.statusPenerimaan.isNullOrEmpty()) item.statusPenerimaan = "" else item.statusPenerimaan = model?.statusPenerimaan
+                        if(model?.statusPemeriksaan.isNullOrEmpty()) item.statusPemeriksaan = "" else item.statusPemeriksaan = model?.statusPemeriksaan
                         item.storLoc = model?.storloc
                         item.tglProduksi = model?.tglProduksi
                         item.noPackaging = model?.noPackaging
@@ -429,6 +599,39 @@ class AuthViewModel: ViewModel() {
                 }
             }
 
+            if (result.snPermaterial != null) {
+                val size = result.snPermaterial.size
+                if (size > 0) {
+                    val items = arrayOfNulls<TSnPermaterial>(size)
+                    var item: TSnPermaterial
+                    for ((i, model) in result.snPermaterial.withIndex()){
+                        item = TSnPermaterial()
+                        item.doStatus = model?.doStatus
+                        item.kdPabrikan = model?.kdPabrikan
+                        item.masaGaransi = model?.masaGaransi
+                        item.mmc = model?.mmc
+                        item.materialId = model?.materialId
+                        item.namaKategoriMaterial = model?.namaKategoriMaterial
+                        item.noDoSmar = model?.noDoSmar
+                        item.noMatSap = model?.noMatSap
+                        item.noProduksi = model?.noProduksi
+                        item.noSerial = model?.noSerial
+                        item.noSertMeterologi = model?.nomorSertMaterologi
+                        item.plant = model?.plant
+                        item.spesifikasi = model?.spesifikasi
+                        item.spln = model?.spln
+                        if(model?.status.isNullOrEmpty()) item.status = "" else item.status = model?.status
+                        item.storLoc = model?.storloc
+                        item.tglProduksi = model?.tglProduksi
+                        item.noPackaging = model?.noPackaging
+                        item.doLineItem = model?.doLineItem
+
+                        items[i] = item
+                    }
+                    daoSession.tSnPermaterialDao.insertInTx(items.toList())
+                }
+            }
+
             if (result.lokasis != null) {
                 val size = result.lokasis.size
                 if (size > 0) {
@@ -436,6 +639,7 @@ class AuthViewModel: ViewModel() {
                     var item: TLokasi
                     for ((i, model) in result.lokasis.withIndex()){
                         item = TLokasi()
+                        item.idLokasi = model?.id
                         item.noDoSns = model?.noDoMims
                         item.ket = model?.ket
                         item.updateDate = model?.updatedDate
@@ -485,8 +689,9 @@ class AuthViewModel: ViewModel() {
                         item.createdDate = model?.createdDate
                         item.plant = model?.plant
                         item.plantName = model?.plantName
+                        item.noTransaksi = model?.noTransaksi
                         item.createdBy = model?.createdBy
-                        item.jumlahKardus = model?.jumlahKardus.toString()
+                        item.jumlahKardus = model?.jumlahKardus ?: 0
                         item.kodePengeluaran = model?.kodePengeluaran.toString()
                         item.noPermintaan = model?.noPermintaan
                         item.noRepackaging = model?.noRepackaging
@@ -517,14 +722,192 @@ class AuthViewModel: ViewModel() {
                         item.kategori = model?.kategori
                         item.materialDesc = model?.materialDesc
                         item.noPermintaan = model?.noPermintaan
+                        item.noTransaksi = model?.noTransaksi
                         item.noRepackaging = model?.noRepackaging
                         item.qtyPengeluaran = model?.qtyPengeluaran.toString()
-                        item.qtyPermintaan = model?.qtyPermintaan.toString()
+                        item.qtyPermintaan = model?.qtyPermintaan ?: 0
                         item.qtyScan = model?.qtyScan.toString()
 
                         items[i] = item
                     }
                     daoSession.tMonitoringPermintaanDetailDao.insertInTx(items.toList())
+                }
+            }
+
+            if (result.penerimaanUlp != null){
+                val size = result.penerimaanUlp.size
+                if (size > 0) {
+                    val items = arrayOfNulls<TPenerimaanUlp>(size)
+                    var item: TPenerimaanUlp
+                    for ((i, model) in result.penerimaanUlp.withIndex()){
+                        item = TPenerimaanUlp()
+                        item.noPengiriman = model?.noPengiriman
+                        item.noPermintaan = model?.noPermintaan
+                        item.statusPemeriksaan = model?.statusPemeriksaan
+                        item.deliveryDate = model?.tanggalPengiriman
+                        item.statusPenerimaan = model?.statusPenerimaan
+                        item.jumlahKardus = model?.jumlahKardus
+                        item.gudangAsal = model?.storLocAsalName
+                        item.noRepackaging = model?.noRepackaging
+                        item.gudangTujuan = model?.storLocTujuanName
+                        item.tanggalPemeriksaan = model?.tanggalPemeriksaan
+                        item.tanggalPenerimaan = model?.tanggalPenerimaan
+                        item.kepalaGudangPemeriksa = model?.kepalaGudang
+                        item.pejabatPemeriksa = model?.namaPemeriksa1
+                        item.jabatanPemeriksa = model?.jabatanPemeriksa1
+                        item.namaPetugasPemeriksa = model?.namaPemeriksa2
+                        item.jabatanPetugasPemeriksa = model?.jabatanPemeriksa2
+                        item.kepalaGudangPenerima = model?.kepalaGudang
+                        item.noPk = model?.noPk
+                        item.tanggalDokumen = model?.tanggalDokumen
+                        item.pejabatPenerima = model?.pejabatPenerima
+                        item.kurir = model?.kurir
+                        item.noNota = model?.noNota
+                        item.noMaterial = model?.nomorMaterial
+                        item.spesifikasi = model?.materialDesc
+                        item.kuantitasPeriksa = model?.qtyPemeriksaan
+                        item.kuantitas = model?.qtyPenerimaan
+                        items[i] = item
+                    }
+                    daoSession.tPenerimaanUlpDao.insertInTx(items.toList())
+                }
+            }
+
+            if (result.penerimaanDetailUlp != null){
+                val size = result.penerimaanDetailUlp.size
+                if (size > 0) {
+                    val items = arrayOfNulls<TPenerimaanDetailUlp>(size)
+                    var item: TPenerimaanDetailUlp
+                    for ((i, model) in result.penerimaanDetailUlp.withIndex()){
+                        item = TPenerimaanDetailUlp()
+                        item.noRepackaging = model?.noRepackaging
+                        item.noTransaksi = model?.noTransaksi
+                        item.qtyPenerimaan = model?.qtyPenerimaan
+                        item.materialDesc = model?.materialDesc
+                        item.noMaterial = model?.nomorMaterial
+                        item.qtyPemeriksaan = model?.qtyPemeriksaan
+                        item.qtyPengiriman = model?.qtyPengiriman
+                        item.qtyPermintaan = model?.qtyPermintaan
+                        item.qtySesuai = model?.qtySesuai
+                        items[i] = item
+                    }
+                    daoSession.tPenerimaanDetailUlpDao.insertInTx(items.toList())
+                }
+            }
+
+            if (result.snPermintaan != null){
+                val size = result.snPermintaan.size
+                if (size > 0) {
+                    val items = arrayOfNulls<TSnMonitoringPermintaan>(size)
+                    var item: TSnMonitoringPermintaan
+                    for ((i, model) in result.snPermintaan.withIndex()){
+                        item = TSnMonitoringPermintaan()
+
+                        item.noRepackaging = model?.noRepackaging
+                        item.nomorMaterial = model?.nomorMaterial
+                        item.serialNumber = model?.serialNumber
+                        item.status = if (model?.status.isNullOrEmpty()) "" else model?.status
+                        items[i] = item
+                    }
+                    daoSession.tSnMonitoringPermintaanDao.insertInTx(items.toList())
+                }
+            }
+
+            if (result.pemakaian != null){
+                val size = result.pemakaian.size
+                if (size > 0) {
+                    val items = arrayOfNulls<TPemakaian>(size)
+                    var item: TPemakaian
+                    for ((i, model) in result.pemakaian.withIndex()){
+                        item = TPemakaian()
+
+                        item.plant = model?.plant
+                        item.storLoc = model?.storLoc
+                        item.daya = model?.daya
+                        item.noTransaksi = model?.noTransaksi
+                        item.alamatPelanggan = model?.alamatPelanggan
+                        item.idPelanggan = model?.idPelanggan
+                        item.jenisPekerjaan = model?.jenisPekerjaan
+                        item.kodeIntegrasi = model?.kodeIntegrasi
+                        item.namaPelanggan = model?.namaPelanggan
+                        item.noAgenda = model?.noAgenda
+                        item.noPemesanan = model?.noPemesanan
+                        item.noReservasi = model?.noReservasi
+                        item.statusKirimAgo = model?.statusKirimAgo.toString()
+                        item.statusPemakaian = model?.statusPemakaian
+                        item.daya = model?.daya
+                        item.alamatPelanggan = model?.alamatPelanggan
+                        item.statusSap = model?.statusSap.toString()
+                        item.noTransaksi = model?.noTransaksi
+                        item.sumber = model?.sumber
+                        item.tanggalBayar = model?.tanggalBayar.toString()
+                        item.tanggalDokumen = model?.tanggalDokumen
+                        item.tanggalPemakaian = model?.tanggalPemakaian
+                        item.tanggalPengeluaran = model?.tanggalPengeluaran
+                        item.tanggalReservasi = model?.tanggalReservasi
+                        item.tarif = model?.tarif
+                        items[i] = item
+                    }
+                    daoSession.tPemakaianDao.insertInTx(items.toList())
+                }
+            }
+
+            if (result.pemakaianDetail != null){
+                val size = result.pemakaianDetail.size
+                if (size > 0) {
+                    val items = arrayOfNulls<TPemakaianDetail>(size)
+                    var item: TPemakaianDetail
+                    for ((i, model) in result.pemakaianDetail.withIndex()){
+                        item = TPemakaianDetail()
+
+                        item.nomorMaterial = model?.nomorMaterial
+                        item.noTransaksi = model?.noTransaksi
+                        item.unit = model?.unit
+                        item.keterangan = model?.keterangan
+                        item.namaMaterial = model?.namaMaterial
+                        item.noMeter = model?.noMeter
+                        item.qtyPemakaian = model?.qtyPemakaian.toString()
+                        item.qtyPengeluaran = model?.qtyPengeluaran.toString()
+                        item.qtyReservasi = model?.qtyReservasi.toString()
+                        item.valuationType = model?.valuationType
+                        items[i] = item
+                    }
+                    daoSession.tPemakaianDetailDao.insertInTx(items.toList())
+                }
+            }
+
+            if (result.snPenerimaanUlp != null){
+                val size = result.snPenerimaanUlp.size
+                if (size > 0) {
+                    val items = arrayOfNulls<TListSnMaterialPenerimaanUlp>(size)
+                    var item: TListSnMaterialPenerimaanUlp
+                    for ((i, model) in result.snPenerimaanUlp.withIndex()){
+                        item = TListSnMaterialPenerimaanUlp()
+                        item.status = ""
+                        item.noRepackaging = model?.noRepackaging
+                        item.noMaterial = model?.nomorMaterial
+                        item.noSerialNumber = model?.serialNumber
+                        item.isScanned = 0
+                        items[i] = item
+                    }
+                    daoSession.tListSnMaterialPenerimaanUlpDao.insertInTx(items.toList())
+                }
+            }
+
+            if (result.snPemakaianUlp != null){
+                val size = result.snPemakaianUlp.size
+                if (size > 0) {
+                    val items = arrayOfNulls<TListSnMaterialPemakaianUlp>(size)
+                    var item: TListSnMaterialPemakaianUlp
+                    for ((i, model) in result.snPemakaianUlp.withIndex()){
+                        item = TListSnMaterialPemakaianUlp()
+                        item.noTransaksi = model?.noTransaksi
+                        item.noMaterial = model?.nomorMaterial
+                        item.noSerialNumber = model?.serialNumber
+                        item.isScanned = 0
+                        items[i] = item
+                    }
+                    daoSession.tListSnMaterialPemakaianUlpDao.insertInTx(items.toList())
                 }
             }
         }

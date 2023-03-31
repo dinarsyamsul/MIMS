@@ -4,6 +4,7 @@ import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.text.Editable
 import android.text.TextWatcher
+import android.util.Log
 import androidx.activity.viewModels
 import androidx.recyclerview.widget.LinearLayoutManager
 import dev.iconpln.mims.MyApplication
@@ -30,20 +31,18 @@ class MonitoringDetailActivity : AppCompatActivity() {
         binding = ActivityMonitoringDetailBinding.inflate(layoutInflater)
         setContentView(binding.root)
         daoSession = (application as MyApplication).daoSession!!
-        listDetailMontioring = daoSession.tPosDetailDao.queryBuilder().list()
-
         noDo = intent.getStringExtra("no_do")
 
-        viewModel.getPoByDo(listDetailMontioring, noDo!!)
+        listDetailMontioring = daoSession.tPosDetailDao.queryBuilder()
+            .where(TPosDetailDao.Properties.NoDoSmar.eq(noDo)).list()
 
         adapter = MonitoringDetailAdapter(arrayListOf(), object : MonitoringDetailAdapter.OnAdapterListener{
             override fun onClick(po: TPosDetail) {}
 
         })
 
-        viewModel.detailMonitoringPOResponse.observe(this){
-            adapter.setPoList(it)
-        }
+        adapter.setPoList(listDetailMontioring)
+        Log.d("detail size",listDetailMontioring.size.toString())
 
         with(binding){
             recyclerView.adapter = adapter
@@ -62,7 +61,11 @@ class MonitoringDetailActivity : AppCompatActivity() {
 
                 override fun afterTextChanged(s: Editable?) {
                     noMat = s.toString()
-                    viewModel.getFileterPoDetail(listDetailMontioring,noMat!!,noPackaging!!)
+                    val filter = daoSession.tPosDetailDao.queryBuilder()
+                        .where(TPosDetailDao.Properties.NoDoSmar.eq(noDo))
+                        .where(TPosDetailDao.Properties.NoMatSap.like("%"+noMat+"%"))
+                        .where(TPosDetailDao.Properties.NoPackaging.like("%"+noPackaging+"%")).list()
+                    adapter.setPoList(filter)
                 }
 
             })
@@ -79,7 +82,11 @@ class MonitoringDetailActivity : AppCompatActivity() {
 
                 override fun afterTextChanged(s: Editable?) {
                     noPackaging = s.toString()
-                    viewModel.getFileterPoDetail(listDetailMontioring,noMat!!,noPackaging!!)
+                    val filter = daoSession.tPosDetailDao.queryBuilder()
+                        .where(TPosDetailDao.Properties.NoDoSmar.eq(noDo))
+                        .where(TPosDetailDao.Properties.NoMatSap.like("%"+noMat+"%"))
+                        .where(TPosDetailDao.Properties.NoPackaging.like("%"+noPackaging+"%")).list()
+                    adapter.setPoList(filter)
                 }
 
             })

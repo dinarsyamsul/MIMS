@@ -323,7 +323,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="15dp"
-                android:text="SN. Material"
+                android:text="SN. Material / No. Packaging"
                 android:fontFamily="@font/montserrat_semibold"
                 android:textSize="12sp"
                 app:layout_constraintStart_toStartOf="@+id/textView12"
@@ -359,12 +359,14 @@
 
             <TextView
                 android:id="@+id/lbl_list_packaging"
-                android:layout_width="wrap_content"
+                android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="15dp"
+                android:layout_marginEnd="5dp"
                 android:fontFamily="@font/montserrat_semibold"
-                android:text="List Packaging"
+                android:text="Daftar List SN Material"
                 android:textSize="12sp"
+                app:layout_constraintEnd_toStartOf="@+id/lbl_tidak_sesuai"
                 app:layout_constraintStart_toStartOf="@+id/textView12"
                 app:layout_constraintTop_toBottomOf="@id/view8" />
 
@@ -388,7 +390,7 @@
                 android:paddingLeft="5dp"
                 android:fontFamily="@font/montserrat_reguler"
                 android:text="Sesuai"
-                android:textColor="#B80F0A"
+                android:textColor="#00C637"
                 android:textSize="10sp"
                 app:layout_constraintEnd_toEndOf="@+id/view8"
                 app:layout_constraintTop_toTopOf="@+id/lbl_tidak_sesuai" />

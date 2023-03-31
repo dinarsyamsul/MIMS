@@ -1,13 +1,10 @@
-package dev.iconpln.mims.ui.role.pabrikan.pengujian
+package dev.iconpln.mims.ui.pengujian
 
 import android.graphics.Color
 import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
-import dev.iconpln.mims.R
-import dev.iconpln.mims.data.local.database.TMaterial
 import dev.iconpln.mims.data.local.database.TPengujian
-import dev.iconpln.mims.databinding.ItemDataMaterialPabrikanBinding
 import dev.iconpln.mims.databinding.ItemPengujianBinding
 
 class PengujianAdapter(val lisModels: MutableList<TPengujian>, var listener: OnAdapterListener)
@@ -38,10 +35,12 @@ class PengujianAdapter(val lisModels: MutableList<TPengujian>, var listener: OnA
             with(binding){
                 txtNoPengujian.text = pengujian.noPengujian
                 txtKategori.text = pengujian.namaKategori
-                txtSatuan.text = pengujian.unit
+                txtUnit.text = pengujian.unit
                 txtSiapTotal.text = "${pengujian.qtyLolos}/${pengujian.qtyMaterial}"
                 txtTanggalUji.text = pengujian.tanggalUji
                 txtStatus.text = pengujian.statusUji.trim()
+                txtTidakLolosTotal.text = "${pengujian.qtyTdkLolos}/${pengujian.qtyRusak}"
+                txtTglUsulUji.text = pengujian.tanggalUsulUji
             }
 
             if (pengujian.statusUji == "LOLOS") {
