@@ -5,15 +5,15 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="#FFFFFF"
-    tools:context=".AlertDialogRegistrasi">
+    tools:context=".ui.pnerimaan.registrasi.AlertDialogRegistrasi">
 
     <LinearLayout
         android:id="@+id/line1"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_centerHorizontal="true"
-        android:layout_marginStart="10dp"
-        android:layout_marginEnd="10dp"
+        android:layout_marginStart="16dp"
+        android:layout_marginEnd="16dp"
         android:orientation="horizontal">
 
         <TextView
@@ -36,26 +36,24 @@
         android:id="@id/line3"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_centerHorizontal="true"
-        android:layout_marginStart="10dp"
-        android:layout_marginTop="10dp"
-        android:layout_marginEnd="10dp"
         android:layout_below="@+id/line1"
+        android:layout_centerHorizontal="true"
+        android:layout_marginStart="16dp"
+        android:layout_marginTop="10dp"
+        android:layout_marginEnd="16dp"
         android:orientation="vertical">
 
         <TextView
             android:id="@+id/inputRegister"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="Input SN Material"/>
+            android:text="Input SN Material" />
 
         <com.google.android.material.textfield.TextInputLayout
-            android:layout_width="match_parent"
             style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginStart="30dp"
             android:layout_marginTop="20dp"
-            android:layout_marginEnd="30dp"
             android:elevation="2dp"
             android:hint="SN Material"
             android:textColor="@android:color/darker_gray"
@@ -65,15 +63,14 @@
             app:endIconTint="@android:color/darker_gray">
 
             <com.google.android.material.textfield.TextInputEditText
-                android:id="@+id/edt_username"
+                android:id="@+id/edt_sn"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:imeOptions="actionNext"
-                android:inputType="text"
-                android:paddingStart="16dp"
-                android:paddingEnd="16dp"
                 android:layout_marginBottom="10dp"
                 android:background="@drawable/txt_input_layout"
+                android:imeOptions="actionNext"
+                android:inputType="text"
+                android:paddingEnd="16dp"
                 android:textColor="@color/black"
                 android:textSize="16sp" />
 
@@ -83,21 +80,21 @@
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_centerHorizontal="true"
-        android:layout_marginTop="10dp"
-        android:layout_marginStart="10dp"
-        android:layout_marginEnd="10dp"
         android:layout_below="@+id/line3"
+        android:layout_centerHorizontal="true"
+        android:layout_marginStart="16dp"
+        android:layout_marginTop="10dp"
+        android:layout_marginEnd="16dp"
         android:orientation="vertical">
 
         <androidx.appcompat.widget.AppCompatButton
             android:id="@+id/btn_regis1"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="Daftarkan SN Material"
             android:layout_marginBottom="10dp"
-            android:textColor="#DDDDDD"
-            android:background="@drawable/gradient_btn_alert_regis"/>
+            android:background="@drawable/gradient_btn_alert_regis"
+            android:text="Daftarkan SN Material"
+            android:textColor="#DDDDDD" />
 
     </LinearLayout>
 

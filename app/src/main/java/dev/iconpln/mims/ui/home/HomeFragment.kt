@@ -29,6 +29,7 @@ import dev.iconpln.mims.ui.arttribute_material.DataAtributMaterialActivity
 import dev.iconpln.mims.ui.monitoring_permintaan.MonitoringPermintaanActivity
 import dev.iconpln.mims.ui.pemakaian.PemakaianActivity
 import dev.iconpln.mims.ui.pengujian.PengujianActivity
+import dev.iconpln.mims.ui.pnerimaan.registrasi.RegisterSnMaterialActivity
 import dev.iconpln.mims.ui.tracking.TrackingHistoryActivity
 import dev.iconpln.mims.ui.ulp.penerimaan.PenerimaanUlpActivity
 import dev.iconpln.mims.utils.Helper
@@ -212,6 +213,7 @@ class HomeFragment : Fragment() {
 
             btnPenerimaan.setOnClickListener {
                 startActivity(Intent(requireActivity(), PenerimaanActivity::class.java))
+//                startActivity(Intent(requireActivity(), RegisterSnMaterialActivity::class.java))
             }
 
             btnPemeriksaan.setOnClickListener {
