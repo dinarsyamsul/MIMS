@@ -29,6 +29,7 @@ import dev.iconpln.mims.ui.arttribute_material.DataAtributMaterialActivity
 import dev.iconpln.mims.ui.monitoring_permintaan.MonitoringPermintaanActivity
 import dev.iconpln.mims.ui.pemakaian.PemakaianActivity
 import dev.iconpln.mims.ui.pengujian.PengujianActivity
+import dev.iconpln.mims.ui.pnerimaan.approval.ApprovalActivity
 import dev.iconpln.mims.ui.pnerimaan.registrasi.RegisterSnMaterialActivity
 import dev.iconpln.mims.ui.tracking.TrackingHistoryActivity
 import dev.iconpln.mims.ui.ulp.penerimaan.PenerimaanUlpActivity
@@ -212,12 +213,13 @@ class HomeFragment : Fragment() {
             val btnPenerimaan = view.findViewById<CardView>(R.id.cv_penerimaan)
 
             btnPenerimaan.setOnClickListener {
-                startActivity(Intent(requireActivity(), PenerimaanActivity::class.java))
-//                startActivity(Intent(requireActivity(), RegisterSnMaterialActivity::class.java))
+//                startActivity(Intent(requireActivity(), PenerimaanActivity::class.java))
+                startActivity(Intent(requireActivity(), RegisterSnMaterialActivity::class.java))
             }
 
             btnPemeriksaan.setOnClickListener {
-                startActivity(Intent(requireActivity(), PemeriksaanActivity::class.java))
+//                startActivity(Intent(requireActivity(), PemeriksaanActivity::class.java))
+                startActivity(Intent(requireActivity(), ApprovalActivity::class.java))
             }
 
             dialog.setCancelable(true)

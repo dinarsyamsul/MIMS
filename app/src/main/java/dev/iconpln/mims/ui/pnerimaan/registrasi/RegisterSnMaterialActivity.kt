@@ -27,14 +27,9 @@ class RegisterSnMaterialActivity : AppCompatActivity() {
         binding = ActivityRegisterSnMaterialBinding.inflate(layoutInflater)
         setContentView(binding.root)
 
-        val btnKlik: AppCompatButton = findViewById(R.id.btn_regis)
-
-        btnKlik.setOnClickListener {
+        binding.btnRegis.setOnClickListener {
             showInputSnDialogBox()
         }
-
-        val token = SharedPrefsUtils.getStringPreference(this,"jwt","")
-        Log.d("RegisterSnActivity", "cek token: $token")
 
         val apiService = ApiConfig.getApiService(this)
         viewModel = ViewModelProvider(this, ViewModelFactory(apiService))[RegistrasiMaterialViewModel::class.java]

@@ -89,7 +89,7 @@
         app:layout_constraintTop_toBottomOf="@id/tinp_pilihKategori" />
 
     <androidx.appcompat.widget.AppCompatButton
-        android:id="@+id/btn_kirim"
+        android:id="@+id/btn_pilih"
         android:layout_width="wrap_content"
         android:layout_height="36dp"
         android:background="@drawable/br_btn"

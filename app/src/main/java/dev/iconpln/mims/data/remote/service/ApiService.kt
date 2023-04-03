@@ -134,4 +134,23 @@ interface ApiService {
     suspend fun insertMaterialRegistrasi(
         @Body requestBody: RequestBodyRegisSn
     ): Response<InsertMaterialRegistrasiResponse>
+
+    @Headers("Authorization: Bearer eyJhbGciOiJIUzUxMiJ9.eyJzdWIiOiJ7XCJ1c2VyX2lkXCI6MTk4LFwidXNlcl9uYW1lXCI6XCI1MjUwMC5NS0FcIixcInVzZXJfcGxhbnRcIjpcIjUyMjFcIixcInVzZXJfc2xvY1wiOlwiMjEzMFwiLFwidXNlcl9yb2xlXCI6XCI1XCIsXCJlbWFpbFwiOlwiTUlNc0dPd2VzMjAyM0BnbWFpbC5jb21cIn0iLCJleHAiOjE3MTIwMTkyMDQsImlhdCI6MTY4MDQ4MzIwNH0.t-_-sa3pKGKuUPBHscl0XBdGORDRE6RuahnWGBGvMi89yXXs5nfJ8Q5PlLGIHitncT0TmrLlDiBeYObmjFE8kA")
+    @GET("/aktivasimaterial/getMaterialAktivasi")
+    suspend fun getMaterialAktivasi(
+        @Query("status") status: String
+    ): Response<GetMaterialAktivasiResponse>
+
+    @Headers("Authorization: Bearer eyJhbGciOiJIUzUxMiJ9.eyJzdWIiOiJ7XCJ1c2VyX2lkXCI6MTk4LFwidXNlcl9uYW1lXCI6XCI1MjUwMC5NS0FcIixcInVzZXJfcGxhbnRcIjpcIjUyMjFcIixcInVzZXJfc2xvY1wiOlwiMjEzMFwiLFwidXNlcl9yb2xlXCI6XCI1XCIsXCJlbWFpbFwiOlwiTUlNc0dPd2VzMjAyM0BnbWFpbC5jb21cIn0iLCJleHAiOjE3MTIwMTkyMDQsImlhdCI6MTY4MDQ4MzIwNH0.t-_-sa3pKGKuUPBHscl0XBdGORDRE6RuahnWGBGvMi89yXXs5nfJ8Q5PlLGIHitncT0TmrLlDiBeYObmjFE8kA")
+    @POST("/aktivasimaterial/aktivasiSerialNumber")
+    suspend fun aktivasiMaterial(
+        @Body requestBody: RequestBodyAktivMaterial
+    ): Response<AktivasiSerialNumberResponse>
+
+    @Headers("Authorization: Bearer eyJhbGciOiJIUzUxMiJ9.eyJzdWIiOiJ7XCJ1c2VyX2lkXCI6MTk4LFwidXNlcl9uYW1lXCI6XCI1MjUwMC5NS0FcIixcInVzZXJfcGxhbnRcIjpcIjUyMjFcIixcInVzZXJfc2xvY1wiOlwiMjEzMFwiLFwidXNlcl9yb2xlXCI6XCI1XCIsXCJlbWFpbFwiOlwiTUlNc0dPd2VzMjAyM0BnbWFpbC5jb21cIn0iLCJleHAiOjE3MTIwMTkyMDQsImlhdCI6MTY4MDQ4MzIwNH0.t-_-sa3pKGKuUPBHscl0XBdGORDRE6RuahnWGBGvMi89yXXs5nfJ8Q5PlLGIHitncT0TmrLlDiBeYObmjFE8kA")
+    @GET("/aktivasimaterial/getMaterialRegistrasiDetailByDate")
+    suspend fun getMaterialRegistrasiDetailByDate(
+        @Query("tgl_registrasi") tgl_registrasi: String,
+        @Query("status") status: String
+    ): Response<GetMaterialRegistrasiDetailByDateResponse>
 }

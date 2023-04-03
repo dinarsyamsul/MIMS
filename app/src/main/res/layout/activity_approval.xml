@@ -19,12 +19,12 @@
         <com.google.android.material.tabs.TabItem
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:text="Processed" />
+            android:text="PROCESSED" />
 
         <com.google.android.material.tabs.TabItem
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:text="Approved" />
+            android:text="APPROVED" />
 
     </com.google.android.material.tabs.TabLayout>
 
@@ -73,7 +73,7 @@
         app:layout_constraintTop_toBottomOf="@id/src_no_material" />
 
     <androidx.recyclerview.widget.RecyclerView
-        android:id="@+id/rv_pengujian_detail"
+        android:id="@+id/rv_approval_material"
         android:layout_width="match_parent"
         android:layout_height="0dp"
         android:layout_marginTop="10dp"

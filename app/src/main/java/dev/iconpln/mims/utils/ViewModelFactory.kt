@@ -3,6 +3,7 @@ package dev.iconpln.mims.utils
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.ViewModelProvider
 import dev.iconpln.mims.data.remote.service.ApiService
+import dev.iconpln.mims.ui.pnerimaan.approval.ApprovalMaterialViewModel
 import dev.iconpln.mims.ui.pnerimaan.registrasi.RegistrasiMaterialViewModel
 
 class ViewModelFactory(
@@ -14,6 +15,9 @@ class ViewModelFactory(
         when {
             modelClass.isAssignableFrom(RegistrasiMaterialViewModel::class.java) -> {
                 return RegistrasiMaterialViewModel(apiService) as T
+            }
+            modelClass.isAssignableFrom(ApprovalMaterialViewModel::class.java) -> {
+                return ApprovalMaterialViewModel(apiService) as T
             }
         }
         throw IllegalArgumentException("Unknown ViewModel class: $modelClass")

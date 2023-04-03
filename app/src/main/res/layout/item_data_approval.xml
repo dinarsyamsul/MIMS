@@ -34,7 +34,7 @@
                 app:layout_constraintTop_toTopOf="parent" />
 
             <TextView
-                android:id="@+id/txt_tgl_registrasi"
+                android:id="@+id/lbl_tgl_registrasi"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_marginStart="16dp"
@@ -50,7 +50,7 @@
                 app:layout_constraintTop_toTopOf="parent" />
 
             <TextView
-                android:id="@+id/txt_serialNumber"
+                android:id="@+id/txt_tgl_registrasi"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginStart="16dp"
@@ -60,7 +60,7 @@
                 android:textColor="#3F3D56"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/txt_tgl_registrasi" />
+                app:layout_constraintTop_toBottomOf="@+id/lbl_tgl_registrasi" />
 
             <ImageView
                 android:id="@+id/btn_detail"
@@ -68,24 +68,9 @@
                 android:layout_height="wrap_content"
                 android:layout_marginEnd="15dp"
                 android:src="@drawable/ic_src_doc"
-                app:layout_constraintEnd_toStartOf="@id/status"
-                app:layout_constraintTop_toTopOf="@id/status"
-                app:layout_constraintBottom_toBottomOf="@id/status"/>
-
-            <androidx.appcompat.widget.AppCompatButton
-                android:id="@+id/status"
-                android:layout_width="wrap_content"
-                android:layout_height="30dp"
-                android:textAllCaps="false"
-                android:layout_marginEnd="10dp"
-                android:background="@drawable/btn_approve"
-                android:text="Approve"
-                android:textAlignment="center"
-                android:textColor="#009688"
-                android:textSize="10sp"
-                app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintTop_toTopOf="parent" />
+                app:layout_constraintTop_toTopOf="parent"
+                app:layout_constraintBottom_toBottomOf="parent"/>
 
         </androidx.constraintlayout.widget.ConstraintLayout>
     </androidx.cardview.widget.CardView>

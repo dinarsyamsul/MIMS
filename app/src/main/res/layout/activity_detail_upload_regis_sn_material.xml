@@ -4,7 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".ui.pnerimaan.registrasi.detailUploadRegisSnMaterial">
+    tools:context=".ui.pnerimaan.registrasi.DetailUploadRegisSnMaterial">
 
     <TextView
         android:id="@+id/lbl_data_upload_regis_sn"

@@ -36,7 +36,7 @@
                 app:layout_constraintTop_toTopOf="parent" />
 
             <TextView
-                android:id="@+id/lbl_delivery_order"
+                android:id="@+id/lbl_sn"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginStart="16dp"
@@ -48,9 +48,8 @@
                 app:layout_constraintStart_toStartOf="@+id/vw_line"
                 app:layout_constraintTop_toTopOf="parent" />
 
-
             <TextView
-                android:id="@+id/txt_delivery_order"
+                android:id="@+id/txt_sn"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginStart="16dp"
@@ -58,7 +57,7 @@
                 android:text="123123123123"
                 android:textColor="#3F3D56"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/lbl_delivery_order" />
+                app:layout_constraintTop_toBottomOf="@id/lbl_sn" />
 
             <ImageView
                 android:id="@+id/imageView"
@@ -66,8 +65,8 @@
                 android:layout_height="14dp"
                 android:layout_marginTop="8dp"
                 android:src="@drawable/ic_number"
-                app:layout_constraintStart_toStartOf="@+id/txt_delivery_order"
-                app:layout_constraintTop_toBottomOf="@+id/txt_delivery_order" />
+                app:layout_constraintStart_toStartOf="@id/txt_sn"
+                app:layout_constraintTop_toBottomOf="@id/txt_sn" />
 
             <TextView
                 android:id="@+id/lbl_no_material"
