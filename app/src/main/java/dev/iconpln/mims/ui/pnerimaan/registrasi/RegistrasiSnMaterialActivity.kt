@@ -1,11 +1,11 @@
 package dev.iconpln.mims.ui.pnerimaan.registrasi
 
 import android.app.AlertDialog
-import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
-import android.util.Log
+import android.view.View
 import android.widget.Button
 import android.widget.Toast
+import androidx.appcompat.app.AppCompatActivity
 import androidx.appcompat.widget.AppCompatButton
 import androidx.lifecycle.ViewModelProvider
 import androidx.recyclerview.widget.LinearLayoutManager
@@ -13,10 +13,9 @@ import com.google.android.material.textfield.TextInputEditText
 import dev.iconpln.mims.R
 import dev.iconpln.mims.data.remote.service.ApiConfig
 import dev.iconpln.mims.databinding.ActivityRegisterSnMaterialBinding
-import dev.iconpln.mims.utils.SharedPrefsUtils
 import dev.iconpln.mims.utils.ViewModelFactory
 
-class RegisterSnMaterialActivity : AppCompatActivity() {
+class RegistrasiSnMaterialActivity : AppCompatActivity() {
     private lateinit var binding: ActivityRegisterSnMaterialBinding
     private lateinit var viewModel: RegistrasiMaterialViewModel
     private lateinit var rvAdapter: ListRegisSnMaterialAdapter
@@ -32,32 +31,44 @@ class RegisterSnMaterialActivity : AppCompatActivity() {
         }
 
         val apiService = ApiConfig.getApiService(this)
-        viewModel = ViewModelProvider(this, ViewModelFactory(apiService))[RegistrasiMaterialViewModel::class.java]
+        viewModel = ViewModelProvider(
+            this,
+            ViewModelFactory(apiService)
+        )[RegistrasiMaterialViewModel::class.java]
 
         viewModel.getMonitoringMaterial(filter)
-        viewModel.monitAktivMaterial.observe(this){
-            rvAdapter.setListRegisSn(it.data)
-        }
-
-        viewModel.insertMaterialRegistrasi.observe(this){
-            if (it.message == "Success"){
-                showSuccessInputDialogBox()
-            }
-        }
-        
-        viewModel.errorMessage.observe(this){
-            if (it != null){
-                Toast.makeText(this, "Terdapat error : $it", Toast.LENGTH_SHORT).show()
-                Log.d("RegisterSnMaterial", "cehe e $it")
+        viewModel.monitAktivMaterial.observe(this) {
+            if (it != null) {
+                rvAdapter.setListRegisSn(it.data)
             }
         }
 
-        binding.tabLayout.addOnTabSelectedListener(object : com.google.android.material.tabs.TabLayout.OnTabSelectedListener{
+        viewModel.insertMaterialRegistrasi.observe(this) {
+            if (it != null) {
+                if (it.message == "Success") {
+                    showSuccessInputDialogBox()
+                }
+            }
+        }
+
+        viewModel.isLoading.observe(this){
+            binding.progressBar.visibility = if (it) View.VISIBLE else View.GONE
+        }
+
+        viewModel.errorMessage.observe(this) {
+            if (it != null) {
+                rvAdapter.setListRegisSn(arrayListOf())
+                Toast.makeText(this, "$it", Toast.LENGTH_LONG).show()
+            }
+        }
+
+        binding.tabLayout.addOnTabSelectedListener(object :
+            com.google.android.material.tabs.TabLayout.OnTabSelectedListener {
             override fun onTabSelected(tab: com.google.android.material.tabs.TabLayout.Tab?) {
-                if (tab?.text == "PROCESSED"){
+                if (tab?.text == "PROCESSED") {
                     filter = tab.text.toString()
                     viewModel.getMonitoringMaterial(filter)
-                }else if (tab?.text == "APPROVED"){
+                } else if (tab?.text == "APPROVED") {
                     filter = tab.text.toString()
                     viewModel.getMonitoringMaterial(filter)
                 }
@@ -105,7 +116,7 @@ class RegisterSnMaterialActivity : AppCompatActivity() {
     private fun setRecyclerView() {
         rvAdapter = ListRegisSnMaterialAdapter()
         binding.rvRegisSn.apply {
-            layoutManager = LinearLayoutManager(this@RegisterSnMaterialActivity)
+            layoutManager = LinearLayoutManager(this@RegistrasiSnMaterialActivity)
             setHasFixedSize(true)
             adapter = rvAdapter
         }

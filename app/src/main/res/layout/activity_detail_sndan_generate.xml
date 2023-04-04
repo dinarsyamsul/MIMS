@@ -6,6 +6,63 @@
     android:layout_height="match_parent"
     tools:context=".ui.pnerimaan.approval.DetailSNdanGenerateActivity">
 
+    <ImageView
+        android:id="@+id/header"
+        android:layout_width="match_parent"
+        android:layout_height="72dp"
+        android:background="@drawable/dashboard"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <ImageButton
+        android:id="@+id/btn_back"
+        android:layout_width="50dp"
+        android:layout_height="50dp"
+        android:layout_marginStart="32dp"
+        android:background="#00FFFFFF"
+        android:src="@drawable/ic_baseline_arrow_back_ios_24"
+        app:layout_constraintBottom_toBottomOf="@+id/textView5"
+        app:layout_constraintStart_toStartOf="@+id/header"
+        app:layout_constraintTop_toTopOf="@+id/textView5" />
+
+    <TextView
+        android:id="@+id/textView5"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginEnd="64dp"
+        android:fontFamily="@font/montserrat_reguler"
+        android:text="Approval SN Material"
+        android:textColor="@color/white"
+        android:textSize="16dp"
+        android:textStyle="bold"
+        app:layout_constraintBottom_toBottomOf="@+id/header"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toEndOf="@+id/btn_back"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <com.google.android.material.tabs.TabLayout
+        android:id="@+id/tab_layout"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/header"
+        app:tabIndicatorColor="#83045A71"
+        app:tabTextColor="#E2045A71">
+
+        <com.google.android.material.tabs.TabItem
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:text="PROCESSED" />
+
+        <com.google.android.material.tabs.TabItem
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:text="APPROVED" />
+
+    </com.google.android.material.tabs.TabLayout>
+
     <TextView
         android:id="@+id/txt_material"
         android:layout_width="wrap_content"
@@ -17,7 +74,7 @@
         android:textSize="14sp"
         android:textStyle="bold"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
+        app:layout_constraintTop_toBottomOf="@id/tab_layout" />
 
     <EditText
         android:id="@+id/src_no_material"
@@ -111,31 +168,42 @@
         android:layout_width="match_parent"
         android:layout_height="0dp"
         android:layout_marginTop="10dp"
-        app:layout_constraintBottom_toTopOf="@id/btn_komplain"
+        app:layout_constraintBottom_toTopOf="@id/btn_terima"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@id/txt_daftar_sn_material"
         tools:listitem="@layout/item_data_detail_generate_sn_dan_aktivasi"/>
 
-    <androidx.appcompat.widget.AppCompatButton
-        android:id="@+id/btn_komplain"
-        android:layout_width="0dp"
+    <ProgressBar
+        android:id="@+id/progress_bar"
+        style="@style/Widget.AppCompat.ProgressBar"
+        android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="16dp"
-        android:layout_marginEnd="12dp"
-        android:paddingStart="16dp"
-        android:paddingEnd="16dp"
-        android:layout_marginBottom="16dp"
-        android:background="@drawable/bg_btn_cancel"
-        android:fontFamily="@font/montserrat_reguler"
-        android:text="Komplain"
-        android:textAllCaps="false"
-        android:textColor="@color/white"
-        android:textSize="14sp"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toStartOf="@id/btn_terima"
-        app:layout_constraintTop_toBottomOf="@id/rv_detail_sn_generate"
-        android:visibility="gone"/>
+        app:layout_constraintBottom_toBottomOf="@id/rv_detail_sn_generate"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="@id/rv_detail_sn_generate"
+        tools:visibility="visible"/>
+
+<!--    <androidx.appcompat.widget.AppCompatButton-->
+<!--        android:id="@+id/btn_komplain"-->
+<!--        android:layout_width="0dp"-->
+<!--        android:layout_height="wrap_content"-->
+<!--        android:layout_marginTop="16dp"-->
+<!--        android:layout_marginEnd="12dp"-->
+<!--        android:paddingStart="16dp"-->
+<!--        android:paddingEnd="16dp"-->
+<!--        android:layout_marginBottom="16dp"-->
+<!--        android:background="@drawable/bg_btn_cancel"-->
+<!--        android:fontFamily="@font/montserrat_reguler"-->
+<!--        android:text="Tolak"-->
+<!--        android:textAllCaps="false"-->
+<!--        android:textColor="@color/white"-->
+<!--        android:textSize="14sp"-->
+<!--        app:layout_constraintBottom_toBottomOf="parent"-->
+<!--        app:layout_constraintEnd_toStartOf="@id/btn_terima"-->
+<!--        app:layout_constraintTop_toBottomOf="@id/rv_detail_sn_generate"-->
+<!--        android:visibility="gone"/>-->
 
     <androidx.appcompat.widget.AppCompatButton
         android:id="@+id/btn_terima"
@@ -144,15 +212,17 @@
         android:layout_marginEnd="16dp"
         android:background="@drawable/bg_btn_approve"
         android:fontFamily="@font/montserrat_reguler"
-        android:text="Terima"
+        android:text="Approve"
         android:paddingStart="16dp"
         android:paddingEnd="16dp"
+        android:layout_marginBottom="16dp"
+        android:layout_marginStart="8dp"
         android:textAllCaps="false"
         android:textColor="@color/white"
         android:textSize="14sp"
-        app:layout_constraintBottom_toBottomOf="@+id/btn_komplain"
+        app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintTop_toTopOf="@+id/btn_komplain"
+        app:layout_constraintTop_toBottomOf="@id/rv_detail_sn_generate"
         android:visibility="gone"/>
 
 </androidx.constraintlayout.widget.ConstraintLayout>

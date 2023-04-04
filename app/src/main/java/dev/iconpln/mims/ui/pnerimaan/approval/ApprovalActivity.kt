@@ -3,6 +3,7 @@ package dev.iconpln.mims.ui.pnerimaan.approval
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.util.Log
+import android.view.View
 import android.widget.Toast
 import androidx.lifecycle.ViewModelProvider
 import androidx.recyclerview.widget.LinearLayoutManager
@@ -17,7 +18,8 @@ class ApprovalActivity : AppCompatActivity() {
     private lateinit var binding: ActivityApprovalBinding
     private lateinit var viewModel: ApprovalMaterialViewModel
     private lateinit var rvAdapter: ListApprovalMaterialAdapter
-    private var filter = "BELUM SELESAI"
+    private var filter = "ALL"
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         binding = ActivityApprovalBinding.inflate(layoutInflater)
@@ -28,25 +30,20 @@ class ApprovalActivity : AppCompatActivity() {
 
         viewModel.getMaterialAktivasi(filter)
         viewModel.getMaterialAktivasiResponse.observe(this){
-            rvAdapter.setListMaterialAktivasi(it.data)
+            if (it != null) {
+                rvAdapter.setListMaterialAktivasi(it.data)
+            }
         }
 
-        binding.tabLayout.addOnTabSelectedListener(object : com.google.android.material.tabs.TabLayout.OnTabSelectedListener{
-            override fun onTabSelected(tab: com.google.android.material.tabs.TabLayout.Tab?) {
-                if (tab?.text == "PROCESSED"){
-                    filter = "BELUM SELESAI"
-                    viewModel.getMaterialAktivasi(filter)
-                }else if (tab?.text == "APPROVED"){
-                    filter = "SELESAI"
-                    viewModel.getMaterialAktivasi(filter)
-                }
+        viewModel.isLoading.observe(this){
+            binding.progressBar.visibility = if (it) View.VISIBLE else View.GONE
+        }
+
+        viewModel.errorMessage.observe(this){
+            if (it != null){
+                Toast.makeText(this, "$it", Toast.LENGTH_LONG).show()
             }
-
-            override fun onTabUnselected(tab: com.google.android.material.tabs.TabLayout.Tab?) {}
-
-            override fun onTabReselected(tab: com.google.android.material.tabs.TabLayout.Tab?) {}
-
-        })
+        }
 
         setRecyclerView()
     }

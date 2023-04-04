@@ -23,11 +23,11 @@ class RegistrasiMaterialViewModel (private val apiService: ApiService) : ViewMod
     private val _isLoading = MutableLiveData<Boolean>()
     val isLoading: LiveData<Boolean> = _isLoading
 
-    private val _monitAktivMaterial = MutableLiveData<MonitoringAktivasiMaterialResponse>()
-    val monitAktivMaterial: LiveData<MonitoringAktivasiMaterialResponse> = _monitAktivMaterial
+    private val _monitAktivMaterial = MutableLiveData<MonitoringAktivasiMaterialResponse?>()
+    val monitAktivMaterial: MutableLiveData<MonitoringAktivasiMaterialResponse?> = _monitAktivMaterial
 
-    private val _insertMaterialRegistrasi = MutableLiveData<InsertMaterialRegistrasiResponse>()
-    val insertMaterialRegistrasi: LiveData<InsertMaterialRegistrasiResponse> = _insertMaterialRegistrasi
+    private val _insertMaterialRegistrasi = MutableLiveData<InsertMaterialRegistrasiResponse?>()
+    val insertMaterialRegistrasi: MutableLiveData<InsertMaterialRegistrasiResponse?> = _insertMaterialRegistrasi
 
     fun getMonitoringMaterial(status: String) {
         _isLoading.value = true
@@ -60,7 +60,7 @@ class RegistrasiMaterialViewModel (private val apiService: ApiService) : ViewMod
                 } else {
                     _isLoading.postValue(false)
                     val error = response.errorBody()?.string()
-                    onError("Error : ${error?.let { getErrorMessage(it) }}")
+                    onError("Gagal, ${error?.let { getErrorMessageArray(it) }}")
                 }
             }
         }
@@ -74,5 +74,11 @@ class RegistrasiMaterialViewModel (private val apiService: ApiService) : ViewMod
     fun getErrorMessage(raw: String): String {
         val obj = JSONObject(raw)
         return obj.getString("message")
+    }
+
+    fun getErrorMessageArray(raw: String): String {
+        val obj = JSONObject(raw)
+        val dataArray = obj.getJSONArray("data")
+        return dataArray.getString(0)
     }
 }

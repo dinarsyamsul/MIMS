@@ -43,7 +43,7 @@
         android:usesCleartextTraffic="true"
         tools:targetApi="31">
         <activity
-            android:name=".ui.pnerimaan.registrasi.detailUploadRegisSnMaterial"
+            android:name=".ui.pnerimaan.registrasi.DetailUploadRegisSnMaterial"
             android:exported="false">
             <meta-data
                 android:name="android.app.lib_name"
@@ -57,7 +57,7 @@
                 android:value="" />
         </activity>
         <activity
-            android:name=".ui.pnerimaan.registrasi.RegisterSnMaterialActivity"
+            android:name=".ui.pnerimaan.registrasi.RegistrasiSnMaterialActivity"
             android:exported="false">
             <meta-data
                 android:name="android.app.lib_name"

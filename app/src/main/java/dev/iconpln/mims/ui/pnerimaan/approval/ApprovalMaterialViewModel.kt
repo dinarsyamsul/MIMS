@@ -21,14 +21,14 @@ class ApprovalMaterialViewModel (private val apiService: ApiService) : ViewModel
     private val _isLoading = MutableLiveData<Boolean>()
     val isLoading: LiveData<Boolean> = _isLoading
 
-    private val _getMaterialAktivResponse = MutableLiveData<GetMaterialAktivasiResponse>()
-    val getMaterialAktivasiResponse: LiveData<GetMaterialAktivasiResponse> = _getMaterialAktivResponse
+    private val _getMaterialAktivResponse = MutableLiveData<GetMaterialAktivasiResponse?>()
+    val getMaterialAktivasiResponse: MutableLiveData<GetMaterialAktivasiResponse?> = _getMaterialAktivResponse
 
-    private val _aktivMaterialResponse = MutableLiveData<AktivasiSerialNumberResponse>()
-    val aktivMaterialResponse: LiveData<AktivasiSerialNumberResponse> = _aktivMaterialResponse
+    private val _aktivMaterialResponse = MutableLiveData<AktivasiSerialNumberResponse?>()
+    val aktivMaterialResponse: MutableLiveData<AktivasiSerialNumberResponse?> = _aktivMaterialResponse
 
-    private val _detailMaterialRegistrasiResponse = MutableLiveData<GetMaterialRegistrasiDetailByDateResponse>()
-    val detailMaterialRegistrasiResponse: LiveData<GetMaterialRegistrasiDetailByDateResponse> = _detailMaterialRegistrasiResponse
+    private val _detailMaterialRegistrasiResponse = MutableLiveData<GetMaterialRegistrasiDetailByDateResponse?>()
+    val detailMaterialRegistrasiResponse: MutableLiveData<GetMaterialRegistrasiDetailByDateResponse?> = _detailMaterialRegistrasiResponse
 
     fun getMaterialAktivasi(status: String) {
         _isLoading.value = true
@@ -42,7 +42,7 @@ class ApprovalMaterialViewModel (private val apiService: ApiService) : ViewModel
                 } else {
                     _isLoading.postValue(false)
                     val error = response.errorBody()?.string()
-                    onError("Error : ${error?.let { getErrorMessage(it) }}")
+                    onError("${error?.let { getErrorMessage(it) }}")
                 }
             }
         }
@@ -61,7 +61,7 @@ class ApprovalMaterialViewModel (private val apiService: ApiService) : ViewModel
                 } else {
                     _isLoading.postValue(false)
                     val error = response.errorBody()?.string()
-                    onError("Error : ${error?.let { getErrorMessage(it) }}")
+                    onError("Gagal : ${error?.let { getErrorMessage(it) }}")
                 }
             }
         }
@@ -79,7 +79,7 @@ class ApprovalMaterialViewModel (private val apiService: ApiService) : ViewModel
                 } else {
                     _isLoading.postValue(false)
                     val error = response.errorBody()?.string()
-                    onError("Error : ${error?.let { getErrorMessage(it) }}")
+                    onError("${error?.let { getErrorMessage(it) }}")
                 }
             }
         }

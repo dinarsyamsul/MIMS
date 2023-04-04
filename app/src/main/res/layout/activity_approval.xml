@@ -6,60 +6,79 @@
     android:layout_height="match_parent"
     tools:context=".ui.pnerimaan.approval.ApprovalActivity">
 
-    <com.google.android.material.tabs.TabLayout
-        android:id="@+id/tab_layout"
-        android:layout_width="0dp"
-        android:layout_height="wrap_content"
+    <ImageView
+        android:id="@+id/header"
+        android:layout_width="match_parent"
+        android:layout_height="72dp"
+        android:background="@drawable/dashboard"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        app:tabIndicatorColor="#83045A71"
-        app:tabTextColor="#E2045A71">
+        app:layout_constraintTop_toTopOf="parent" />
 
-        <com.google.android.material.tabs.TabItem
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:text="PROCESSED" />
-
-        <com.google.android.material.tabs.TabItem
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:text="APPROVED" />
-
-    </com.google.android.material.tabs.TabLayout>
+    <ImageButton
+        android:id="@+id/btn_back"
+        android:layout_width="50dp"
+        android:layout_height="50dp"
+        android:layout_marginStart="32dp"
+        android:background="#00FFFFFF"
+        android:src="@drawable/ic_baseline_arrow_back_ios_24"
+        app:layout_constraintBottom_toBottomOf="@+id/textView5"
+        app:layout_constraintStart_toStartOf="@+id/header"
+        app:layout_constraintTop_toTopOf="@+id/textView5" />
 
     <TextView
-        android:id="@+id/txt_material"
+        android:id="@+id/textView5"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginStart="10dp"
-        android:layout_marginTop="25dp"
-        android:text="No. Material"
+        android:layout_marginEnd="64dp"
+        android:fontFamily="@font/montserrat_reguler"
+        android:text="Approval SN Material"
+        android:textColor="@color/white"
+        android:textSize="16dp"
+        android:textStyle="bold"
+        app:layout_constraintBottom_toBottomOf="@+id/header"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toEndOf="@+id/btn_back"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <TextView
+        android:id="@+id/txt_status"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="20dp"
+        android:layout_marginStart="16dp"
+        android:fontFamily="@font/montserrat_reguler"
+        android:text="Status"
         android:textColor="#3F3D56"
-        android:textSize="14sp"
+        android:textSize="16sp"
         android:textStyle="bold"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/tab_layout" />
+        app:layout_constraintTop_toBottomOf="@id/header" />
 
-    <EditText
-        android:id="@+id/src_no_material"
+    <com.google.android.material.textfield.TextInputLayout
+        android:id="@+id/tinp_pilihKategori"
+        style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox.ExposedDropdownMenu"
         android:layout_width="0dp"
-        android:layout_height="50dp"
+        android:layout_height="wrap_content"
         android:layout_marginTop="10dp"
-        android:layout_marginStart="10dp"
-        android:layout_marginEnd="10dp"
-        android:background="@drawable/srchview"
-        android:drawableEnd="@drawable/ic_search"
-        android:fontFamily="@font/montserrat_reguler"
-        android:hint="Search here"
-        android:paddingLeft="20dp"
-        android:paddingRight="20dp"
-        android:textSize="12sp"
-        android:maxLines="1"
-        android:singleLine="true"
+        android:layout_marginEnd="25dp"
+        app:hintAnimationEnabled="true"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/txt_material" />
+        app:layout_constraintStart_toStartOf="@id/txt_status"
+        app:layout_constraintTop_toBottomOf="@id/txt_status">
+
+        <AutoCompleteTextView
+            android:id="@+id/dropdown_kategori"
+            style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox.ExposedDropdownMenu"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:background="@drawable/txt_input_layout"
+            android:fontFamily="@font/montserrat_semibold"
+            android:inputType="none"
+            android:text="Pilih Status" />
+
+    </com.google.android.material.textfield.TextInputLayout>
 
     <TextView
         android:id="@+id/txt_daftar_sn_material"
@@ -71,8 +90,8 @@
         android:textColor="#3F3D56"
         android:textSize="14sp"
         android:textStyle="bold"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/src_no_material" />
+        app:layout_constraintStart_toStartOf="@id/tinp_pilihKategori"
+        app:layout_constraintTop_toBottomOf="@id/tinp_pilihKategori" />
 
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/rv_approval_material"
@@ -84,5 +103,17 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@id/txt_daftar_sn_material"
         tools:listitem="@layout/item_data_approval"/>
+
+    <ProgressBar
+        android:id="@+id/progress_bar"
+        style="@style/Widget.AppCompat.ProgressBar"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:visibility="gone"
+        app:layout_constraintBottom_toBottomOf="@id/rv_approval_material"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="@id/rv_approval_material"
+        tools:visibility="visible" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

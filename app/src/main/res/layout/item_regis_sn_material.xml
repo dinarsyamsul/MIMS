@@ -1,269 +1,263 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<androidx.cardview.widget.CardView xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/cv_daftarList"
+    android:layout_height="wrap_content"
     android:layout_width="match_parent"
-    android:layout_height="wrap_content">
+    app:cardCornerRadius="5dp"
+    app:cardElevation="10dp"
+    android:layout_marginTop="8dp"
+    android:layout_marginEnd="16dp"
+    android:layout_marginStart="16dp"
+    tools:ignore="MissingConstraints">
 
-    <androidx.cardview.widget.CardView
-        android:id="@+id/cv_daftarList"
-        android:layout_width="match_parent"
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:background="#F7F8FA"
         android:layout_height="wrap_content"
-        android:paddingBottom="10dp"
-        app:cardCornerRadius="5dp"
-        app:cardElevation="10dp"
-        tools:ignore="MissingConstraints">
+        android:layout_width="match_parent">
 
-        <androidx.constraintlayout.widget.ConstraintLayout
-            android:layout_width="match_parent"
+        <View
+            android:background="#F8951D"
+            android:id="@+id/vw_line"
+            android:layout_height="0dp"
+            android:layout_width="5dp"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <TextView
+            android:fontFamily="@font/montserrat_reguler"
+            android:id="@+id/lbl_snMaterial"
             android:layout_height="wrap_content"
-            android:background="#F7F8FA"
-            android:paddingBottom="16dp">
+            android:layout_marginStart="16dp"
+            android:layout_marginTop="16dp"
+            android:layout_width="wrap_content"
+            android:text="SN Material"
+            android:textColor="#3F3D56"
+            android:textSize="10sp"
+            app:layout_constraintStart_toStartOf="@+id/vw_line"
+            app:layout_constraintTop_toTopOf="parent" />
 
-            <View
-                android:id="@+id/vw_line"
-                android:layout_width="5dp"
-                android:layout_height="0dp"
-                android:background="#F8951D"
-                app:layout_constraintBottom_toBottomOf="parent"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toTopOf="parent" />
+        <View
+            android:background="@drawable/dashboard"
+            android:id="@+id/vw_circle"
+            android:layout_height="2dp"
+            android:layout_marginStart="8dp"
+            android:layout_marginTop="24dp"
+            android:layout_width="2dp"
+            app:layout_constraintStart_toEndOf="@+id/lbl_snMaterial"
+            app:layout_constraintTop_toTopOf="parent" />
 
-            <TextView
-                android:id="@+id/lbl_snMaterial"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginStart="16dp"
-                android:layout_marginTop="16dp"
-                android:fontFamily="@font/montserrat_reguler"
-                android:text="SN Material"
-                android:textSize="10sp"
-                android:textColor="#3F3D56"
-                app:layout_constraintStart_toStartOf="@+id/vw_line"
-                app:layout_constraintTop_toTopOf="parent" />
+        <!--            <TextView-->
+        <!--                android:id="@+id/txt_tgl_kirim"-->
+        <!--                android:layout_width="0dp"-->
+        <!--                android:layout_height="wrap_content"-->
+        <!--                android:layout_marginStart="5dp"-->
+        <!--                android:fontFamily="@font/montserrat_reguler"-->
+        <!--                android:text="Tgl PO 01-01-2023"-->
+        <!--                android:textSize="8dp"-->
+        <!--                app:layout_constraintBottom_toBottomOf="@+id/vw_circle"-->
+        <!--                app:layout_constraintStart_toEndOf="@+id/vw_circle"-->
+        <!--                app:layout_constraintTop_toTopOf="@+id/vw_circle"-->
+        <!--                app:layout_constraintVertical_bias="0.545" />-->
 
-            <View
-                android:id="@+id/vw_circle"
-                android:layout_width="2dp"
-                android:layout_height="2dp"
-                android:layout_marginStart="8dp"
-                android:layout_marginTop="24dp"
-                android:background="@drawable/dashboard"
-                app:layout_constraintStart_toEndOf="@+id/lbl_snMaterial"
-                app:layout_constraintTop_toTopOf="parent" />
+        <TextView
+            android:fontFamily="@font/montserrat_reguler"
+            android:id="@+id/txt_snMaterial"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="16dp"
+            android:layout_width="wrap_content"
+            android:text="PLN123123123123"
+            android:textColor="#3F3D56"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/lbl_snMaterial" />
 
-<!--            <TextView-->
-<!--                android:id="@+id/txt_tgl_kirim"-->
-<!--                android:layout_width="0dp"-->
-<!--                android:layout_height="wrap_content"-->
-<!--                android:layout_marginStart="5dp"-->
-<!--                android:fontFamily="@font/montserrat_reguler"-->
-<!--                android:text="Tgl PO 01-01-2023"-->
-<!--                android:textSize="8dp"-->
-<!--                app:layout_constraintBottom_toBottomOf="@+id/vw_circle"-->
-<!--                app:layout_constraintStart_toEndOf="@+id/vw_circle"-->
-<!--                app:layout_constraintTop_toTopOf="@+id/vw_circle"-->
-<!--                app:layout_constraintVertical_bias="0.545" />-->
+        <ImageView
+            android:id="@+id/imageView"
+            android:layout_height="14dp"
+            android:layout_marginTop="8dp"
+            android:layout_width="14dp"
+            android:src="@drawable/ic_number"
+            app:layout_constraintStart_toStartOf="@+id/txt_snMaterial"
+            app:layout_constraintTop_toBottomOf="@+id/txt_snMaterial" />
 
-            <TextView
-                android:id="@+id/txt_snMaterial"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginStart="16dp"
-                android:fontFamily="@font/montserrat_reguler"
-                android:text="PLN123123123123"
-                android:textColor="#3F3D56"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/lbl_snMaterial" />
+        <TextView
+            android:fontFamily="@font/montserrat_reguler"
+            android:id="@+id/lbl_tanggal_regis"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="5dp"
+            android:layout_width="0dp"
+            android:text="Tanggal Registrasi"
+            android:textColor="#3F3D56"
+            android:textSize="10sp"
+            app:layout_constraintBottom_toBottomOf="@+id/imageView"
+            app:layout_constraintEnd_toStartOf="@+id/imageView1"
+            app:layout_constraintStart_toEndOf="@+id/imageView"
+            app:layout_constraintTop_toTopOf="@+id/imageView" />
 
-            <ImageView
-                android:id="@+id/imageView"
-                android:layout_width="14dp"
-                android:layout_height="14dp"
-                android:layout_marginTop="8dp"
-                android:src="@drawable/ic_number"
-                app:layout_constraintStart_toStartOf="@+id/txt_snMaterial"
-                app:layout_constraintTop_toBottomOf="@+id/txt_snMaterial" />
+        <TextView
+            android:fontFamily="@font/montserrat_reguler"
+            android:id="@+id/txt_tanggal_regis"
+            android:layout_height="wrap_content"
+            android:layout_width="0dp"
+            android:text="dd/mm/yyyy"
+            android:textSize="10sp"
+            app:layout_constraintEnd_toEndOf="@+id/lbl_tanggal_regis"
+            app:layout_constraintStart_toStartOf="@+id/lbl_tanggal_regis"
+            app:layout_constraintTop_toBottomOf="@+id/lbl_tanggal_regis" />
 
-            <TextView
-                android:id="@+id/lbl_tanggal_regis"
-                android:layout_width="0dp"
-                android:layout_height="wrap_content"
-                android:layout_marginStart="5dp"
-                android:fontFamily="@font/montserrat_reguler"
-                android:text="Tanggal Registrasi"
-                android:textColor="#3F3D56"
-                android:textSize="10sp"
-                app:layout_constraintEnd_toStartOf="@+id/imageView1"
-                app:layout_constraintBottom_toBottomOf="@+id/imageView"
-                app:layout_constraintStart_toEndOf="@+id/imageView"
-                app:layout_constraintTop_toTopOf="@+id/imageView" />
+        <ImageView
+            android:id="@+id/imageView1"
+            android:layout_height="14dp"
+            android:layout_marginStart="5dp"
+            android:layout_width="14dp"
+            android:src="@drawable/unit_list_monitoring1"
+            app:layout_constraintEnd_toStartOf="@+id/lbl_vendor"
+            app:layout_constraintStart_toEndOf="@+id/lbl_tanggal_regis"
+            app:layout_constraintTop_toTopOf="@+id/lbl_tanggal_regis" />
 
-            <TextView
-                android:id="@+id/txt_tanggal_regis"
-                android:layout_width="0dp"
-                android:layout_height="wrap_content"
-                android:fontFamily="@font/montserrat_reguler"
-                android:text="dd/mm/yyyy"
-                android:textSize="10sp"
-                app:layout_constraintEnd_toEndOf="@+id/lbl_tanggal_regis"
-                app:layout_constraintStart_toStartOf="@+id/lbl_tanggal_regis"
-                app:layout_constraintTop_toBottomOf="@+id/lbl_tanggal_regis" />
+        <TextView
+            android:fontFamily="@font/montserrat_reguler"
+            android:id="@+id/lbl_vendor"
+            android:layout_height="wrap_content"
+            android:layout_marginEnd="16dp"
+            android:layout_marginStart="5dp"
+            android:layout_width="0dp"
+            android:text="Vendor"
+            android:textColor="#3F3D56"
+            android:textSize="10sp"
+            app:layout_constraintBottom_toBottomOf="@+id/imageView1"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toEndOf="@+id/imageView1"
+            app:layout_constraintTop_toTopOf="@+id/imageView1" />
 
-            <ImageView
-                android:id="@+id/imageView1"
-                android:layout_width="14dp"
-                android:layout_height="14dp"
-                android:layout_marginStart="5dp"
-                android:src="@drawable/unit_list_monitoring1"
-                app:layout_constraintEnd_toStartOf="@+id/lbl_vendor"
-                app:layout_constraintStart_toEndOf="@+id/lbl_tanggal_regis"
-                app:layout_constraintTop_toTopOf="@+id/lbl_tanggal_regis" />
-
-            <TextView
-                android:id="@+id/lbl_vendor"
-                android:layout_width="0dp"
-                android:layout_height="wrap_content"
-                android:layout_marginStart="5dp"
-                android:layout_marginEnd="16dp"
-                android:fontFamily="@font/montserrat_reguler"
-                android:text="Vendor"
-                android:textColor="#3F3D56"
-                android:textSize="10sp"
-                app:layout_constraintBottom_toBottomOf="@+id/imageView1"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintStart_toEndOf="@+id/imageView1"
-                app:layout_constraintTop_toTopOf="@+id/imageView1" />
-
-            <TextView
-                android:id="@+id/txt_vendor"
-                android:layout_width="0dp"
-                android:layout_height="wrap_content"
-                android:layout_marginStart="5dp"
-                android:fontFamily="@font/montserrat_reguler"
-                android:text="xxxxxxxxxxxxxxxxx"
-                android:textSize="10sp"
-                app:layout_constraintEnd_toEndOf="@+id/lbl_vendor"
-                app:layout_constraintStart_toEndOf="@+id/imageView1"
-                app:layout_constraintTop_toBottomOf="@+id/lbl_tanggal_regis" />
+        <TextView
+            android:fontFamily="@font/montserrat_reguler"
+            android:id="@+id/txt_vendor"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="5dp"
+            android:layout_width="0dp"
+            android:text="xxxxxxxxxxxxxxxxx"
+            android:textSize="10sp"
+            app:layout_constraintEnd_toEndOf="@+id/lbl_vendor"
+            app:layout_constraintStart_toEndOf="@+id/imageView1"
+            app:layout_constraintTop_toBottomOf="@+id/lbl_tanggal_regis" />
 
 
+        <ImageView
+            android:id="@+id/imageView5"
+            android:layout_height="14dp"
+            android:layout_marginStart="5dp"
+            android:layout_marginTop="8dp"
+            android:layout_width="14dp"
+            android:src="@drawable/unit_list_monitoring1"
+            app:layout_constraintEnd_toStartOf="@+id/lbl_vendor"
+            app:layout_constraintStart_toEndOf="@+id/lbl_tanggal_regis"
+            app:layout_constraintTop_toBottomOf="@+id/txt_vendor" />
 
-            <ImageView
-                android:id="@+id/imageView5"
-                android:layout_width="14dp"
-                android:layout_height="14dp"
-                android:layout_marginStart="5dp"
-                android:layout_marginTop="8dp"
-                android:src="@drawable/unit_list_monitoring1"
-                app:layout_constraintEnd_toStartOf="@+id/lbl_vendor"
-                app:layout_constraintStart_toEndOf="@+id/lbl_tanggal_regis"
-                app:layout_constraintTop_toBottomOf="@+id/txt_vendor" />
+        <TextView
+            android:fontFamily="@font/montserrat_reguler"
+            android:id="@+id/lbl_no_batch"
+            android:layout_height="wrap_content"
+            android:layout_marginEnd="16dp"
+            android:layout_marginStart="5dp"
+            android:layout_width="0dp"
+            android:text="No. Batch"
+            android:textColor="#3F3D56"
+            android:textSize="10sp"
+            app:layout_constraintBottom_toBottomOf="@+id/imageView5"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toEndOf="@+id/imageView5"
+            app:layout_constraintTop_toTopOf="@+id/imageView5" />
 
-            <TextView
-                android:id="@+id/lbl_no_batch"
-                android:layout_width="0dp"
-                android:layout_height="wrap_content"
-                android:layout_marginStart="5dp"
-                android:layout_marginEnd="16dp"
-                android:fontFamily="@font/montserrat_reguler"
-                android:text="No. Batch"
-                android:textColor="#3F3D56"
-                android:textSize="10sp"
-                app:layout_constraintBottom_toBottomOf="@+id/imageView5"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintStart_toEndOf="@+id/imageView5"
-                app:layout_constraintTop_toTopOf="@+id/imageView5" />
+        <TextView
+            android:fontFamily="@font/montserrat_reguler"
+            android:id="@+id/txt_no_batch"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="16dp"
+            android:layout_marginStart="5dp"
+            android:layout_width="0dp"
+            android:text="xxxxxxxx"
+            android:textSize="10sp"
+            app:layout_constraintEnd_toEndOf="@+id/lbl_no_batch"
+            app:layout_constraintStart_toEndOf="@+id/imageView5"
+            app:layout_constraintTop_toBottomOf="@+id/lbl_no_batch" />
 
-            <TextView
-                android:id="@+id/txt_no_batch"
-                android:layout_width="0dp"
-                android:layout_height="wrap_content"
-                android:layout_marginStart="5dp"
-                android:layout_marginBottom="16dp"
-                android:fontFamily="@font/montserrat_reguler"
-                android:text="xxxxxxxx"
-                android:textSize="10sp"
-                app:layout_constraintEnd_toEndOf="@+id/lbl_no_batch"
-                app:layout_constraintStart_toEndOf="@+id/imageView5"
-                app:layout_constraintTop_toBottomOf="@+id/lbl_no_batch" />
+        <ImageView
+            android:id="@+id/imageView2"
+            android:layout_height="14dp"
+            android:layout_marginTop="8dp"
+            android:layout_width="14dp"
+            android:src="@drawable/ic_number"
+            app:layout_constraintStart_toStartOf="@+id/imageView"
+            app:layout_constraintTop_toBottomOf="@+id/txt_tanggal_regis" />
 
-            <ImageView
-                android:id="@+id/imageView2"
-                android:layout_width="14dp"
-                android:layout_height="14dp"
-                android:layout_marginTop="8dp"
-                android:src="@drawable/ic_number"
-                app:layout_constraintStart_toStartOf="@+id/imageView"
-                app:layout_constraintTop_toBottomOf="@+id/txt_tanggal_regis" />
+        <TextView
+            android:fontFamily="@font/montserrat_reguler"
+            android:id="@+id/lbl_no_material"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="5dp"
+            android:layout_width="0dp"
+            android:text="No Material"
+            android:textColor="#3F3D56"
+            android:textSize="10sp"
+            app:layout_constraintBottom_toBottomOf="@+id/imageView2"
+            app:layout_constraintEnd_toEndOf="@+id/txt_tanggal_regis"
+            app:layout_constraintStart_toEndOf="@+id/imageView2"
+            app:layout_constraintTop_toTopOf="@+id/imageView2" />
 
-            <TextView
-                android:id="@+id/lbl_no_material"
-                android:layout_width="0dp"
-                android:layout_height="wrap_content"
-                android:layout_marginStart="5dp"
-                android:fontFamily="@font/montserrat_reguler"
-                android:text="No Material"
-                android:textColor="#3F3D56"
-                android:textSize="10sp"
-                app:layout_constraintBottom_toBottomOf="@+id/imageView2"
-                app:layout_constraintEnd_toEndOf="@+id/txt_tanggal_regis"
-                app:layout_constraintStart_toEndOf="@+id/imageView2"
-                app:layout_constraintTop_toTopOf="@+id/imageView2" />
-
-            <TextView
-                android:id="@+id/txt_no_material"
-                android:layout_width="0dp"
-                android:layout_height="wrap_content"
-                android:layout_marginStart="5dp"
-                android:layout_marginBottom="16dp"
-                android:fontFamily="@font/montserrat_reguler"
-                android:text="123123123123123"
-                android:textSize="10sp"
-                app:layout_constraintEnd_toEndOf="@+id/lbl_no_material"
-                app:layout_constraintStart_toEndOf="@+id/imageView2"
-                app:layout_constraintTop_toBottomOf="@+id/lbl_no_material" />
-
-
-            <ImageView
-                android:id="@+id/imageView4"
-                android:layout_width="14dp"
-                android:layout_height="14dp"
-                android:layout_marginTop="8dp"
-                android:src="@drawable/ic_number"
-                app:layout_constraintStart_toStartOf="@+id/imageView"
-                app:layout_constraintTop_toBottomOf="@+id/txt_no_material" />
-
-            <TextView
-                android:id="@+id/lbl_tahun"
-                android:layout_width="0dp"
-                android:layout_height="wrap_content"
-                android:layout_marginStart="5dp"
-                android:fontFamily="@font/montserrat_reguler"
-                android:text="Tahun"
-                android:textColor="#3F3D56"
-                android:textSize="10sp"
-                app:layout_constraintBottom_toBottomOf="@+id/imageView4"
-                app:layout_constraintEnd_toEndOf="@+id/txt_no_material"
-                app:layout_constraintStart_toEndOf="@+id/imageView4"
-                app:layout_constraintTop_toTopOf="@+id/imageView4" />
-
-            <TextView
-                android:id="@+id/txt_tahun"
-                android:layout_width="0dp"
-                android:layout_height="wrap_content"
-                android:layout_marginStart="5dp"
-                android:layout_marginBottom="16dp"
-                android:fontFamily="@font/montserrat_reguler"
-                android:text="2023"
-                android:textSize="10sp"
-                app:layout_constraintBottom_toBottomOf="parent"
-                app:layout_constraintEnd_toEndOf="@+id/lbl_tahun"
-                app:layout_constraintStart_toEndOf="@+id/imageView4"
-                app:layout_constraintTop_toBottomOf="@+id/lbl_tahun" />
+        <TextView
+            android:fontFamily="@font/montserrat_reguler"
+            android:id="@+id/txt_no_material"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="16dp"
+            android:layout_marginStart="5dp"
+            android:layout_width="0dp"
+            android:text="123123123123123"
+            android:textSize="10sp"
+            app:layout_constraintEnd_toEndOf="@+id/lbl_no_material"
+            app:layout_constraintStart_toEndOf="@+id/imageView2"
+            app:layout_constraintTop_toBottomOf="@+id/lbl_no_material" />
 
 
-        </androidx.constraintlayout.widget.ConstraintLayout>
-    </androidx.cardview.widget.CardView>
+        <ImageView
+            android:id="@+id/imageView4"
+            android:layout_height="14dp"
+            android:layout_marginTop="8dp"
+            android:layout_width="14dp"
+            android:src="@drawable/ic_number"
+            app:layout_constraintStart_toStartOf="@+id/imageView"
+            app:layout_constraintTop_toBottomOf="@+id/txt_no_material" />
 
-</androidx.constraintlayout.widget.ConstraintLayout>
+        <TextView
+            android:fontFamily="@font/montserrat_reguler"
+            android:id="@+id/lbl_tahun"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="5dp"
+            android:layout_width="0dp"
+            android:text="Tahun"
+            android:textColor="#3F3D56"
+            android:textSize="10sp"
+            app:layout_constraintBottom_toBottomOf="@+id/imageView4"
+            app:layout_constraintEnd_toEndOf="@+id/txt_no_material"
+            app:layout_constraintStart_toEndOf="@+id/imageView4"
+            app:layout_constraintTop_toTopOf="@+id/imageView4" />
+
+        <TextView
+            android:fontFamily="@font/montserrat_reguler"
+            android:id="@+id/txt_tahun"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="16dp"
+            android:layout_marginStart="5dp"
+            android:layout_width="0dp"
+            android:text="2023"
+            android:textSize="10sp"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="@+id/lbl_tahun"
+            app:layout_constraintStart_toEndOf="@+id/imageView4"
+            app:layout_constraintTop_toBottomOf="@+id/lbl_tahun" />
+
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+</androidx.cardview.widget.CardView>
