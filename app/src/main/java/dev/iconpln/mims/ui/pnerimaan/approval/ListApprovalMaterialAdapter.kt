@@ -38,6 +38,10 @@ class ListApprovalMaterialAdapter : RecyclerView.Adapter<ListApprovalMaterialAda
         fun bind(item: DataItemMaterialAktivasi) {
             with(binding) {
                 txtTglRegistrasi.text = item.tglRegistrasi
+                txtTotalProcessed.text = item.totalSnProcess.toString()
+                txtTotalApproved.text = item.totalSnApprove.toString()
+                txtTotalQty.text = item.totalSn.toString()
+                txtStatusApproved.text = item.status
 
                 btnDetail.setOnClickListener {
                     val intent = Intent(it.context, DetailSNdanGenerateActivity::class.java)

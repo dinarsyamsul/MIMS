@@ -9,6 +9,8 @@ import androidx.appcompat.app.AppCompatActivity
 import androidx.lifecycle.asLiveData
 import dev.iconpln.mims.ui.auth.LoginActivity
 import dev.iconpln.mims.ui.auth.LoginBiometricActivity
+import dev.iconpln.mims.ui.pnerimaan.approval.ApprovalActivity
+import dev.iconpln.mims.ui.pnerimaan.registrasi.RegisterSnMaterialActivity
 import dev.iconpln.mims.utils.Config
 import dev.iconpln.mims.utils.SessionManager
 
@@ -29,7 +31,7 @@ class SplashActivity : AppCompatActivity() {
 //                        finish()
                         checkingLogin(session)
                     }else -> {
-                        startActivity(Intent(this, LoginActivity::class.java))
+                        startActivity(Intent(this, ApprovalActivity::class.java))
                         finish()
                     }
                 }
