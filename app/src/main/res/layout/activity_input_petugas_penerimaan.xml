@@ -68,9 +68,9 @@
                 android:layout_marginStart="25dp"
                 android:layout_marginTop="20dp"
                 android:text="Tanggal Diterima"
+                android:fontFamily="@font/montserrat"
                 android:textColor="#3F3D56"
                 android:textSize="14sp"
-                android:textStyle="bold"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toTopOf="parent" />
 
@@ -89,6 +89,7 @@
                 android:paddingRight="20dp"
                 android:textColor="@drawable/et_selector"
                 android:textSize="12sp"
+                android:backgroundTint="@color/transparent_blue"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="@+id/lbl_tanggal_diterima"
                 app:layout_constraintTop_toBottomOf="@+id/lbl_tanggal_diterima" />
@@ -100,8 +101,7 @@
                 android:layout_marginTop="10dp"
                 android:text="Petugas Penerima"
                 android:textColor="#3F3D56"
-                android:textSize="14sp"
-                android:textStyle="bold"
+                android:textSize="12sp"
                 app:layout_constraintStart_toStartOf="@+id/edt_tanggal_diterima"
                 app:layout_constraintTop_toBottomOf="@+id/edt_tanggal_diterima" />
 
@@ -127,8 +127,7 @@
                 android:layout_marginTop="10dp"
                 android:text="Nama Kurir"
                 android:textColor="#3F3D56"
-                android:textSize="14sp"
-                android:textStyle="bold"
+                android:textSize="12sp"
                 app:layout_constraintStart_toStartOf="@+id/edt_tanggal_diterima"
                 app:layout_constraintTop_toBottomOf="@+id/edt_petugas_penerima" />
 
@@ -154,8 +153,7 @@
                 android:layout_marginTop="10dp"
                 android:text="Nama Ekspedisi"
                 android:textColor="#3F3D56"
-                android:textSize="14sp"
-                android:textStyle="bold"
+                android:textSize="12sp"
                 app:layout_constraintStart_toStartOf="@+id/edt_tanggal_diterima"
                 app:layout_constraintTop_toBottomOf="@+id/edt_nama_kurir" />
 
@@ -182,8 +180,7 @@
                 android:layout_marginTop="10dp"
                 android:text="Dokumentasi Foto"
                 android:textColor="#3F3D56"
-                android:textSize="14sp"
-                android:textStyle="bold"
+                android:textSize="12sp"
                 app:layout_constraintStart_toStartOf="@+id/edt_tanggal_diterima"
                 app:layout_constraintTop_toBottomOf="@+id/edt_ekspedisi" />
 
@@ -199,6 +196,19 @@
                 android:paddingRight="20dp"
                 app:layout_constraintStart_toStartOf="@+id/lbl_foto_surat_barang"
                 app:layout_constraintTop_toBottomOf="@+id/lbl_foto_surat_barang" />
+
+            <TextView
+                android:id="@+id/maksfoto"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="22dp"
+                android:fontFamily="@font/montserrat"
+                android:text="Maksimal 5 File Foto"
+                android:textColor="#96979B"
+                android:textSize="12sp"
+                app:layout_constraintBottom_toBottomOf="@+id/btn_upload_photo"
+                app:layout_constraintStart_toEndOf="@+id/btn_upload_photo"
+                app:layout_constraintTop_toTopOf="@+id/btn_upload_photo" />
 
             <androidx.recyclerview.widget.RecyclerView
                 android:id="@+id/rv_add_foto"
@@ -216,8 +226,8 @@
                 android:id="@+id/btn_simpan"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="20dp"
-                android:layout_marginBottom="20dp"
+                android:layout_marginTop="250dp"
+                android:layout_marginBottom="10dp"
                 android:background="@drawable/br_btn"
                 android:elevation="8dp"
                 android:fontFamily="@font/montserrat_reguler"

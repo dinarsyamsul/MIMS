@@ -110,7 +110,8 @@ class UpdateLokasiActivity : AppCompatActivity(), Loadable {
             validateForm()
         }
 
-        binding.btnBack.setOnClickListener { onBackPressed() }
+        //binding.btnBack.setOnClickListener { onBackPressed() }
+        binding.btnClose.setOnClickListener { finish() }
 
         fetchDataLocal()
     }

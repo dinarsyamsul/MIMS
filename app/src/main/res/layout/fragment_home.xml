@@ -3,7 +3,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    android:background="@color/white">
+    android:background="#FFFFFF">
 
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
@@ -56,7 +56,7 @@
                 android:layout_marginTop="32dp"
                 android:fontFamily="@font/montserrat_reguler"
                 android:text="Welcome"
-                android:textColor="@color/white"
+                android:textColor="#FFFFFF"
                 app:layout_constraintStart_toEndOf="@id/back"
                 app:layout_constraintTop_toTopOf="parent" />
 
@@ -68,7 +68,7 @@
                 android:layout_marginTop="24dp"
                 android:fontFamily="@font/montserrat_reguler"
                 android:text="Nama Dashboard"
-                android:textColor="@color/white"
+                android:textColor="#FFFFFF"
                 app:layout_constraintStart_toEndOf="@id/back"
                 app:layout_constraintTop_toTopOf="@id/txtdash" />
 
@@ -131,6 +131,7 @@
                         android:layout_rowWeight="1"
                         android:layout_columnWeight="1"
                         android:background="@drawable/chng_button"
+                        android:backgroundTint="#F7F8FA"
                         app:cardCornerRadius="15dp"
                         app:cardElevation="4dp"
                         tools:layout_editor_absoluteY="24dp">
@@ -197,7 +198,7 @@
                         android:layout_height="150dp"
                         android:layout_rowWeight="1"
                         android:layout_columnWeight="1"
-                        android:background="#F8F9FA"
+                        android:backgroundTint="#F7F8FA"
                         app:cardCornerRadius="15dp"
                         app:cardElevation="4dp"
                         tools:layout_editor_absoluteX="257dp"
@@ -265,7 +266,7 @@
                         android:layout_height="150dp"
                         android:layout_rowWeight="1"
                         android:layout_columnWeight="1"
-                        android:background="#F8F9FA"
+                        android:backgroundTint="#F7F8FA"
                         app:cardCornerRadius="15dp"
                         app:cardElevation="4dp"
                         tools:layout_editor_absoluteX="24dp"
@@ -335,6 +336,7 @@
                         android:layout_columnWeight="1"
                         app:cardCornerRadius="15dp"
                         app:cardElevation="4dp"
+                        android:backgroundTint="#F7F8FA"
                         tools:layout_editor_absoluteX="267dp"
                         tools:layout_editor_absoluteY="218dp">
 
@@ -400,7 +402,7 @@
                         android:layout_height="150dp"
                         android:layout_rowWeight="1"
                         android:layout_columnWeight="1"
-                        android:background="#F8F9FA"
+                        android:backgroundTint="#F7F8FA"
                         app:cardCornerRadius="15dp"
                         app:cardElevation="4dp"
                         tools:layout_editor_absoluteX="24dp"
@@ -470,7 +472,7 @@
                         android:layout_height="150dp"
                         android:layout_rowWeight="1"
                         android:layout_columnWeight="1"
-                        android:background="#F8F9FA"
+                        android:backgroundTint="#F7F8FA"
                         app:cardCornerRadius="15dp"
                         app:cardElevation="4dp"
                         tools:layout_editor_absoluteX="26dp"
@@ -538,7 +540,7 @@
                         android:layout_height="150dp"
                         android:layout_rowWeight="1"
                         android:layout_columnWeight="1"
-                        android:background="#F8F9FA"
+                        android:backgroundTint="#F7F8FA"
                         app:cardCornerRadius="15dp"
                         app:cardElevation="4dp"
                         tools:layout_editor_absoluteX="246dp"
@@ -606,7 +608,7 @@
                         android:layout_height="150dp"
                         android:layout_rowWeight="1"
                         android:layout_columnWeight="1"
-                        android:background="#F8F9FA"
+                        android:backgroundTint="#F7F8FA"
                         app:cardCornerRadius="15dp"
                         app:cardElevation="4dp"
                         tools:layout_editor_absoluteX="250dp"
@@ -674,7 +676,7 @@
                         android:layout_height="150dp"
                         android:layout_rowWeight="1"
                         android:layout_columnWeight="1"
-                        android:background="#F8F9FA"
+                        android:backgroundTint="#F7F8FA"
                         app:cardCornerRadius="15dp"
                         app:cardElevation="4dp"
                         tools:layout_editor_absoluteX="24dp"

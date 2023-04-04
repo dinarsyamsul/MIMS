@@ -15,7 +15,7 @@
         android:layout_marginTop="20dp"
         android:fontFamily="@font/montserrat_semibold"
         android:text="Detail Data Monitoring"
-        android:textColor="@color/black"
+        android:textColor="#3B3B3B"
         android:textSize="12sp"
         app:layout_constraintEnd_toStartOf="@+id/btn_close"
         app:layout_constraintStart_toStartOf="parent"
@@ -38,9 +38,9 @@
         android:layout_marginStart="23dp"
         android:layout_marginTop="20dp"
         android:text="No. Material"
+        android:fontFamily="@font/montserrat"
         android:textColor="#3F3D56"
-        android:textSize="@dimen/_12ssp"
-        android:textStyle="bold"
+        android:textSize="12sp"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@id/btn_close" />
 
@@ -67,11 +67,10 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginTop="10dp"
-        android:fontFamily="@font/montserrat_reguler"
+        android:fontFamily="@font/montserrat"
         android:text="No. Packaging"
         android:textColor="#3F3D56"
-        android:textSize="@dimen/_12ssp"
-        android:textStyle="bold"
+        android:textSize="12sp"
         app:layout_constraintStart_toStartOf="@+id/txt_nomorMaterial"
         app:layout_constraintTop_toBottomOf="@id/src_nomorMaterial" />
 

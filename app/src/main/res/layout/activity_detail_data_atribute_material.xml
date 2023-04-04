@@ -23,6 +23,10 @@
         android:layout_marginStart="10dp"
         android:layout_marginTop="20dp"
         android:text="Detail Data Attribute"
+        android:fontFamily="@font/montserrat"
+        android:textColor="#3B3B3B"
+        android:textSize="12sp"
+        android:textStyle="bold"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
@@ -34,8 +38,7 @@
         android:layout_marginTop="25dp"
         android:text="SN Material"
         android:textColor="#3F3D56"
-        android:textSize="14sp"
-        android:textStyle="bold"
+        android:textSize="12sp"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/lbl_detail_data_attribute" />
 

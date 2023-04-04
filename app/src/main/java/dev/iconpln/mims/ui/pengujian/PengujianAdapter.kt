@@ -50,7 +50,7 @@ class PengujianAdapter(val lisModels: MutableList<TPengujian>, var listener: OnA
                 binding.txtStatus.setBackgroundColor(Color.parseColor("#3EB80F0A"))
                 binding.txtStatus.setTextColor(Color.parseColor("#B80F0A"))
             }else if (pengujian.statusUji == "BELUM UJI"){
-                binding.txtStatus.setBackgroundColor(Color.parseColor("#41F8951D"))
+                binding.txtStatus.setBackgroundColor(Color.parseColor("#01A1B9"))
                 binding.txtStatus.setTextColor(Color.parseColor("#045A71"))
             }else if (pengujian.statusUji == "SEDANG UJI"){
                 binding.txtStatus.setBackgroundColor(Color.parseColor("#52F8951D"))

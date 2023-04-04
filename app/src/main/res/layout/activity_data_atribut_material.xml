@@ -58,11 +58,10 @@
                 android:layout_height="wrap_content"
                 android:layout_marginTop="20dp"
                 android:layout_marginStart="24dp"
-                android:fontFamily="@font/montserrat_reguler"
+                android:fontFamily="@font/montserrat_medium"
                 android:text="Kategori"
                 android:textColor="#3F3D56"
-                android:textSize="16sp"
-                android:textStyle="bold"
+                android:textSize="12sp"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toTopOf="parent" />
 
@@ -86,6 +85,8 @@
                     android:layout_weight="1"
                     android:background="@drawable/txt_input_layout"
                     android:fontFamily="@font/montserrat_reguler"
+                    android:textColor="#028097"
+                    android:textSize="12sp"
                     android:inputType="none"
                     android:text="Pilih Kategori" />
 
@@ -96,11 +97,10 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="10dp"
-                android:fontFamily="@font/montserrat_reguler"
+                android:fontFamily="@font/montserrat_medium"
                 android:text="Tahun"
                 android:textColor="#3F3D56"
-                android:textSize="16sp"
-                android:textStyle="bold"
+                android:textSize="12sp"
                 app:layout_constraintStart_toStartOf="@+id/tinp_pilihKategori"
                 app:layout_constraintTop_toBottomOf="@id/tinp_pilihKategori" />
 
@@ -123,6 +123,8 @@
                     android:layout_weight="1"
                     android:fontFamily="@font/montserrat_reguler"
                     android:background="@drawable/txt_input_layout"
+                    android:textColor="#028097"
+                    android:textSize="12sp"
                     android:inputType="none"
                     android:text="Pilih Tahun" />
 
@@ -135,6 +137,7 @@
                 android:layout_marginEnd="10dp"
                 android:layout_marginTop="10dp"
                 android:fontFamily="@font/montserrat_medium"
+                android:textColor="#3F3D56"
                 android:text="Tanggal Awal"
                 android:textSize="12sp"
                 app:layout_constraintEnd_toStartOf="@id/lbl_end_date"
@@ -149,6 +152,7 @@
                 android:layout_marginStart="10dp"
                 android:layout_marginTop="10dp"
                 android:fontFamily="@font/montserrat_medium"
+                android:textColor="#3F3D56"
                 android:text="Tanggal Akhir"
                 android:textSize="12sp"
                 app:layout_constraintEnd_toEndOf="@+id/tinp_pilihTahun"
@@ -178,6 +182,7 @@
                         android:layout_height="wrap_content"
                         android:fontFamily="@font/montserrat_reguler"
                         android:text="dd/mm/yyyy"
+                        android:textSize="12sp"
                         android:textColor="#028097"/>
 
                     <ImageView
@@ -212,6 +217,7 @@
                         android:layout_height="wrap_content"
                         android:fontFamily="@font/montserrat_reguler"
                         android:text="dd/mm/yyyy"
+                        android:textSize="12sp"
                         android:textColor="#028097" />
 
                     <ImageView
@@ -230,8 +236,7 @@
                 android:layout_marginTop="10dp"
                 android:text="No. Batch / SN Material"
                 android:textColor="#3F3D56"
-                android:textSize="14sp"
-                android:textStyle="bold"
+                android:textSize="12sp"
                 app:layout_constraintStart_toStartOf="@+id/cv_tanggal_mulai"
                 app:layout_constraintTop_toBottomOf="@+id/cv_tanggal_mulai" />
 
