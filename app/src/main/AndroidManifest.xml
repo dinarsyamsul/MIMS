@@ -50,8 +50,29 @@
                 android:value="" />
         </activity>
         <activity
+            android:name=".ui.pnerimaan.registrasi.DetailUploadRegisSnMaterial"
+            android:exported="false">
+            <meta-data
+                android:name="android.app.lib_name"
+                android:value="" />
+        </activity>
+        <activity
             android:name=".ui.pengujian.petugas.PetugasPengujianActivity"
             android:exported="false">
+            <meta-data
+                android:name="android.app.lib_name"
+                android:value="" />
+        </activity>
+
+        <activity
+            android:name=".ui.pnerimaan.registrasi.AlertDialogRegistrasi"
+            android:exported="false">
+            <meta-data
+                android:name="android.app.lib_name"
+                android:value="" />
+        </activity>
+        <activity
+            android:name=".ui.pnerimaan.registrasi.RegistrasiSnMaterialActivity">
             <meta-data
                 android:name="android.app.lib_name"
                 android:value="" />
@@ -119,6 +140,12 @@
                 android:name="android.app.lib_name"
                 android:value="" />
         </activity>
+        <activity
+            android:name=".ui.pnerimaan.approval.DetailApprovalMaterialActivity"
+            android:exported="false" />
+        <activity
+            android:name=".ui.pnerimaan.approval.ApprovalActivity"
+            android:exported="false" />
         <activity
             android:name=".ui.monitoring_permintaan.input_sn_monitoring.InputSnMonitoringPermintaanActivity"
             android:windowSoftInputMode="stateHidden">

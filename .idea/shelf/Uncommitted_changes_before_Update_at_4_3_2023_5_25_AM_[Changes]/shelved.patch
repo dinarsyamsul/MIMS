@@ -1,0 +1,40 @@
+Index: app/src/main/java/dev/iconpln/mims/RegisterSnMaterialActivity.kt
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.BaseRevisionTextPatchEP
+<+>package dev.iconpln.mims\r\n\r\nimport android.app.AlertDialog\r\nimport androidx.appcompat.app.AppCompatActivity\r\nimport android.os.Bundle\r\nimport android.widget.Button\r\nimport android.widget.Toast\r\nimport androidx.appcompat.widget.AppCompatButton\r\n\r\nclass RegisterSnMaterialActivity : AppCompatActivity() {\r\n    override fun onCreate(savedInstanceState: Bundle?) {\r\n        super.onCreate(savedInstanceState)\r\n        setContentView(R.layout.activity_register_sn_material)\r\n\r\n        val btnKlik: AppCompatButton = findViewById(R.id.btn_regis)\r\n\r\n        btnKlik.setOnClickListener {\r\n            showCustomDialogBox()\r\n        }\r\n    }\r\n\r\n    private fun showCustomDialogBox() {\r\n        val builder = AlertDialog.Builder(this, R.style.CustomAlertDialog).create()\r\n        val view = layoutInflater.inflate(R.layout.activity_alert_dialog_registrasi, null)\r\n        val btnClose = view.findViewById<Button>(R.id.btn_close)\r\n        val btnRegis = view.findViewById<AppCompatButton>(R.id.btn_regis1)\r\n        builder.setView(view)\r\n        btnClose.setOnClickListener {\r\n            builder.dismiss()\r\n        }\r\n        btnRegis.setOnClickListener {\r\n            Toast.makeText(this, \"Register Berhasil\", Toast.LENGTH_SHORT).show()\r\n        }\r\n        builder.setCanceledOnTouchOutside(false)\r\n        builder.show()\r\n    }\r\n}
+===================================================================
+diff --git a/app/src/main/java/dev/iconpln/mims/RegisterSnMaterialActivity.kt b/app/src/main/java/dev/iconpln/mims/RegisterSnMaterialActivity.kt
+--- a/app/src/main/java/dev/iconpln/mims/RegisterSnMaterialActivity.kt	
++++ b/app/src/main/java/dev/iconpln/mims/RegisterSnMaterialActivity.kt	
+@@ -1,5 +1,6 @@
+ package dev.iconpln.mims
+ 
++import android.annotation.SuppressLint
+ import android.app.AlertDialog
+ import androidx.appcompat.app.AppCompatActivity
+ import android.os.Bundle
+@@ -11,19 +12,20 @@
+     override fun onCreate(savedInstanceState: Bundle?) {
+         super.onCreate(savedInstanceState)
+         setContentView(R.layout.activity_register_sn_material)
+-
++        
+         val btnKlik: AppCompatButton = findViewById(R.id.btn_regis)
+-
+-        btnKlik.setOnClickListener {
++        
++        btnKlik.setOnClickListener { 
+             showCustomDialogBox()
+         }
+     }
+ 
++    @SuppressLint("MissingInflatedId")
+     private fun showCustomDialogBox() {
+         val builder = AlertDialog.Builder(this, R.style.CustomAlertDialog).create()
+         val view = layoutInflater.inflate(R.layout.activity_alert_dialog_registrasi, null)
+         val btnClose = view.findViewById<Button>(R.id.btn_close)
+-        val btnRegis = view.findViewById<AppCompatButton>(R.id.btn_regis1)
++        val btnRegis = view.findViewById<AppCompatButton>(R.id.btn_regis)
+         builder.setView(view)
+         btnClose.setOnClickListener {
+             builder.dismiss()

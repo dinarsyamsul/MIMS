@@ -22,13 +22,15 @@ import dev.iconpln.mims.data.remote.response.LoginResponse
 import dev.iconpln.mims.data.remote.service.ApiConfig
 import dev.iconpln.mims.databinding.FragmentHomeBinding
 import dev.iconpln.mims.ui.monitoring.MonitoringActivity
-import dev.iconpln.mims.ui.pemeriksaan.PemeriksaanActivity
 import dev.iconpln.mims.ui.pengiriman.PengirimanActivity
-import dev.iconpln.mims.ui.pnerimaan.PenerimaanActivity
 import dev.iconpln.mims.ui.arttribute_material.DataAtributMaterialActivity
 import dev.iconpln.mims.ui.monitoring_permintaan.MonitoringPermintaanActivity
 import dev.iconpln.mims.ui.pemakaian.PemakaianActivity
+import dev.iconpln.mims.ui.pemeriksaan.PemeriksaanActivity
 import dev.iconpln.mims.ui.pengujian.PengujianActivity
+import dev.iconpln.mims.ui.pnerimaan.PenerimaanActivity
+import dev.iconpln.mims.ui.pnerimaan.approval.ApprovalActivity
+import dev.iconpln.mims.ui.pnerimaan.registrasi.RegistrasiSnMaterialActivity
 import dev.iconpln.mims.ui.tracking.TrackingHistoryActivity
 import dev.iconpln.mims.ui.ulp.penerimaan.PenerimaanUlpActivity
 import dev.iconpln.mims.utils.Helper
@@ -226,6 +228,14 @@ class HomeFragment : Fragment() {
 
         binding.btnPengiriman.setOnClickListener {
             startActivity(Intent(requireActivity(), PengirimanActivity::class.java))
+        }
+
+        binding.btnRegister.setOnClickListener {
+            startActivity(Intent(requireActivity(), RegistrasiSnMaterialActivity::class.java))
+        }
+
+        binding.btnApproval.setOnClickListener {
+            startActivity(Intent(requireActivity(), ApprovalActivity::class.java))
         }
     }
 
