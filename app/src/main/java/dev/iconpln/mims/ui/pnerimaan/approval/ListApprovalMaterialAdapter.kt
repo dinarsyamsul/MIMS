@@ -1,15 +1,11 @@
 package dev.iconpln.mims.ui.pnerimaan.approval
 
 import android.content.Intent
-import android.util.Log
 import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
-import dev.iconpln.mims.data.remote.response.DataItemAktivasiSN
 import dev.iconpln.mims.data.remote.response.DataItemMaterialAktivasi
-import dev.iconpln.mims.data.remote.response.DataItemRegisSn
 import dev.iconpln.mims.databinding.ItemDataApprovalBinding
-import dev.iconpln.mims.databinding.ItemRegisSnMaterialBinding
 
 class ListApprovalMaterialAdapter : RecyclerView.Adapter<ListApprovalMaterialAdapter.ListViewHolder>() {
     private val listSnMaterial = ArrayList<DataItemMaterialAktivasi>()
@@ -44,8 +40,8 @@ class ListApprovalMaterialAdapter : RecyclerView.Adapter<ListApprovalMaterialAda
                 txtStatusApproved.text = item.status
 
                 btnDetail.setOnClickListener {
-                    val intent = Intent(it.context, DetailSNdanGenerateActivity::class.java)
-                    intent.putExtra(DetailSNdanGenerateActivity.EXTRA_TGL_REGISTRASI, item.tglRegistrasi)
+                    val intent = Intent(it.context, DetailApprovalMaterialActivity::class.java)
+                    intent.putExtra(DetailApprovalMaterialActivity.EXTRA_TGL_REGISTRASI, item.tglRegistrasi)
                     it.context.startActivity(intent)
                 }
             }

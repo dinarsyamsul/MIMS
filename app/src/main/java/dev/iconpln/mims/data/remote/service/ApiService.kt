@@ -126,7 +126,8 @@ interface ApiService {
     @Headers("Authorization: Bearer eyJhbGciOiJIUzUxMiJ9.eyJzdWIiOiJ7XCJ1c2VyX2lkXCI6MTk2LFwidXNlcl9uYW1lXCI6XCI1MjUwMC5BR0FcIixcInVzZXJfcGxhbnRcIjpcIjUyMjFcIixcInVzZXJfc2xvY1wiOlwiMjEzMFwiLFwidXNlcl9yb2xlXCI6XCIzXCIsXCJlbWFpbFwiOlwiYWppc2V0aWFqaTEwNkBnbWFpbC5jb21cIn0iLCJleHAiOjE3MTE4OTY5ODUsImlhdCI6MTY4MDM2MDk4NX0._-EZj7gvH36ooZ9THEOJz1eAPOQNJ-VhVmlmYUHTHnZmaFfJgQY9xqltAtVtrf3xlk-2YEzIscvgzPHLzsD6BQ")
     @GET("/aktivasimaterial/getMonitoringAktivasiMaterial")
     suspend fun getMonitoringAktivasiMaterial(
-        @Query("status") status: String
+        @Query("status") status: String,
+        @Query("filter") sn: String
     ): Response<MonitoringAktivasiMaterialResponse>
 
     @Headers("Authorization: Bearer eyJhbGciOiJIUzUxMiJ9.eyJzdWIiOiJ7XCJ1c2VyX2lkXCI6MTk2LFwidXNlcl9uYW1lXCI6XCI1MjUwMC5BR0FcIixcInVzZXJfcGxhbnRcIjpcIjUyMjFcIixcInVzZXJfc2xvY1wiOlwiMjEzMFwiLFwidXNlcl9yb2xlXCI6XCIzXCIsXCJlbWFpbFwiOlwiYWppc2V0aWFqaTEwNkBnbWFpbC5jb21cIn0iLCJleHAiOjE3MTE4OTY5ODUsImlhdCI6MTY4MDM2MDk4NX0._-EZj7gvH36ooZ9THEOJz1eAPOQNJ-VhVmlmYUHTHnZmaFfJgQY9xqltAtVtrf3xlk-2YEzIscvgzPHLzsD6BQ")
@@ -151,6 +152,12 @@ interface ApiService {
     @GET("/aktivasimaterial/getMaterialRegistrasiDetailByDate")
     suspend fun getMaterialRegistrasiDetailByDate(
         @Query("tgl_registrasi") tgl_registrasi: String,
-        @Query("status") status: String
+        @Query("status") status: String,
+        @Query("filter") sn: String,
+        @Query("nomor_material") no_material: String
     ): Response<GetMaterialRegistrasiDetailByDateResponse>
+
+    @Headers("Authorization: Bearer eyJhbGciOiJIUzUxMiJ9.eyJzdWIiOiJ7XCJ1c2VyX2lkXCI6MTk4LFwidXNlcl9uYW1lXCI6XCI1MjUwMC5NS0FcIixcInVzZXJfcGxhbnRcIjpcIjUyMjFcIixcInVzZXJfc2xvY1wiOlwiMjEzMFwiLFwidXNlcl9yb2xlXCI6XCI1XCIsXCJlbWFpbFwiOlwiTUlNc0dPd2VzMjAyM0BnbWFpbC5jb21cIn0iLCJleHAiOjE3MTIwMTkyMDQsImlhdCI6MTY4MDQ4MzIwNH0.t-_-sa3pKGKuUPBHscl0XBdGORDRE6RuahnWGBGvMi89yXXs5nfJ8Q5PlLGIHitncT0TmrLlDiBeYObmjFE8kA")
+    @GET("/aktivasimaterial/getNomorMaterialForAktivasi")
+    suspend fun getNomorMaterialForAktivasi(): Response<GetNomorMaterialForAktivasiResponse>
 }

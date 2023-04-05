@@ -127,7 +127,7 @@
                 android:value="" />
         </activity>
         <activity
-            android:name=".ui.pnerimaan.approval.DetailSNdanGenerateActivity"
+            android:name=".ui.pnerimaan.approval.DetailApprovalMaterialActivity"
             android:exported="false" />
         <activity
             android:name=".ui.pnerimaan.approval.ApprovalActivity"

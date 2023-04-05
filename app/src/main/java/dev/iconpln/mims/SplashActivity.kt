@@ -30,7 +30,7 @@ class SplashActivity : AppCompatActivity() {
 //                        finish()
                         checkingLogin(session)
                     }else -> {
-                        startActivity(Intent(this, ApprovalActivity::class.java))
+                        startActivity(Intent(this, LoginActivity::class.java))
                         finish()
                     }
                 }

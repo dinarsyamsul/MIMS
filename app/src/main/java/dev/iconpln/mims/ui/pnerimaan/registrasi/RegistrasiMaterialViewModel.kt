@@ -1,5 +1,6 @@
 package dev.iconpln.mims.ui.pnerimaan.registrasi
 
+import android.content.Context
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
@@ -24,15 +25,15 @@ class RegistrasiMaterialViewModel (private val apiService: ApiService) : ViewMod
     val isLoading: LiveData<Boolean> = _isLoading
 
     private val _monitAktivMaterial = MutableLiveData<MonitoringAktivasiMaterialResponse?>()
-    val monitAktivMaterial: MutableLiveData<MonitoringAktivasiMaterialResponse?> = _monitAktivMaterial
+    val monitAktivMaterial: LiveData<MonitoringAktivasiMaterialResponse?> = _monitAktivMaterial
 
     private val _insertMaterialRegistrasi = MutableLiveData<InsertMaterialRegistrasiResponse?>()
-    val insertMaterialRegistrasi: MutableLiveData<InsertMaterialRegistrasiResponse?> = _insertMaterialRegistrasi
+    val insertMaterialRegistrasi: LiveData<InsertMaterialRegistrasiResponse?> = _insertMaterialRegistrasi
 
-    fun getMonitoringMaterial(status: String) {
+    fun getMonitoringMaterial(status: String, sn: String = "") {
         _isLoading.value = true
         job = CoroutineScope(Dispatchers.IO + exceptionHandler).launch {
-            val response = apiService.getMonitoringAktivasiMaterial(status)
+            val response = apiService.getMonitoringAktivasiMaterial(status, sn)
             withContext(Dispatchers.Main) {
                 if (response.isSuccessful) {
                     _isLoading.postValue(false)

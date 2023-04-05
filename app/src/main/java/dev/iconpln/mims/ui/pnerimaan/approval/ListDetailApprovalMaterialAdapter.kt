@@ -1,17 +1,15 @@
 package dev.iconpln.mims.ui.pnerimaan.approval
 
-import android.content.Intent
 import android.util.SparseBooleanArray
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
-import dev.iconpln.mims.data.remote.response.DataItemMaterialAktivasi
 import dev.iconpln.mims.data.remote.response.DataItemMaterialRegistrasiByDate
 import dev.iconpln.mims.databinding.ItemDataDetailGenerateSnDanAktivasiBinding
 
-class DetailSNdanGenerateAdapter :
-    RecyclerView.Adapter<DetailSNdanGenerateAdapter.ListViewHolder>() {
+class ListDetailApprovalMaterialAdapter :
+    RecyclerView.Adapter<ListDetailApprovalMaterialAdapter.ListViewHolder>() {
 
     private val listSnMaterial = ArrayList<DataItemMaterialRegistrasiByDate>()
     var isSelectionMode = false
@@ -52,7 +50,7 @@ class DetailSNdanGenerateAdapter :
     override fun onCreateViewHolder(
         parent: ViewGroup,
         viewType: Int
-    ): DetailSNdanGenerateAdapter.ListViewHolder {
+    ): ListDetailApprovalMaterialAdapter.ListViewHolder {
         val binding = ItemDataDetailGenerateSnDanAktivasiBinding.inflate(LayoutInflater.from(parent.context), parent, false)
         val holder = ListViewHolder(binding)
 
@@ -73,7 +71,7 @@ class DetailSNdanGenerateAdapter :
         return holder
     }
 
-    override fun onBindViewHolder(holder: DetailSNdanGenerateAdapter.ListViewHolder, position: Int) {
+    override fun onBindViewHolder(holder: ListDetailApprovalMaterialAdapter.ListViewHolder, position: Int) {
         holder.bind(listSnMaterial[position])
         holder.binding.checkbox.visibility = if (isSelectionMode) View.VISIBLE else  View.GONE
         holder.binding.checkbox.isChecked = checkedItems[position]

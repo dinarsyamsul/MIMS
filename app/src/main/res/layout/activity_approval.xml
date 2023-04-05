@@ -68,7 +68,7 @@
         app:layout_constraintTop_toBottomOf="@id/txt_status">
 
         <AutoCompleteTextView
-            android:id="@+id/dropdown_kategori"
+            android:id="@+id/dropdown_status"
             style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox.ExposedDropdownMenu"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"

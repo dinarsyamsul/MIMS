@@ -88,15 +88,25 @@
         android:orientation="vertical">
 
         <androidx.appcompat.widget.AppCompatButton
-            android:id="@+id/btn_regis1"
+            android:id="@+id/btn_regis"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginBottom="10dp"
             android:background="@drawable/gradient_btn_alert_regis"
+            android:fontFamily="@font/montserrat_reguler"
             android:text="Daftarkan SN Material"
             android:textColor="#DDDDDD" />
 
+        <androidx.appcompat.widget.AppCompatButton
+            android:id="@+id/btn_scan"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="Scan"
+            android:textSize="12sp"
+            android:layout_marginBottom="10dp"
+            android:fontFamily="@font/montserrat_reguler"
+            android:textColor="@color/white"
+            android:background="@drawable/gradient_btn"/>
     </LinearLayout>
-
 
 </RelativeLayout>

@@ -7,6 +7,6 @@ import dev.iconpln.mims.R
 class AlertDialogRegistrasi : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        setContentView(R.layout.activity_alert_dialog_registrasi)
+        setContentView(R.layout.input_dialog_registrasi)
     }
 }

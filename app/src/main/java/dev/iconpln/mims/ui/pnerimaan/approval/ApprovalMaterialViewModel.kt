@@ -22,13 +22,16 @@ class ApprovalMaterialViewModel (private val apiService: ApiService) : ViewModel
     val isLoading: LiveData<Boolean> = _isLoading
 
     private val _getMaterialAktivResponse = MutableLiveData<GetMaterialAktivasiResponse?>()
-    val getMaterialAktivasiResponse: MutableLiveData<GetMaterialAktivasiResponse?> = _getMaterialAktivResponse
+    val getMaterialAktivasiResponse: LiveData<GetMaterialAktivasiResponse?> = _getMaterialAktivResponse
 
     private val _aktivMaterialResponse = MutableLiveData<AktivasiSerialNumberResponse?>()
-    val aktivMaterialResponse: MutableLiveData<AktivasiSerialNumberResponse?> = _aktivMaterialResponse
+    val aktivMaterialResponse: LiveData<AktivasiSerialNumberResponse?> = _aktivMaterialResponse
 
     private val _detailMaterialRegistrasiResponse = MutableLiveData<GetMaterialRegistrasiDetailByDateResponse?>()
-    val detailMaterialRegistrasiResponse: MutableLiveData<GetMaterialRegistrasiDetailByDateResponse?> = _detailMaterialRegistrasiResponse
+    val detailMaterialRegistrasiResponse: LiveData<GetMaterialRegistrasiDetailByDateResponse?> = _detailMaterialRegistrasiResponse
+
+    private val _nomorMaterialResponse = MutableLiveData<GetNomorMaterialForAktivasiResponse?>()
+    val nomorMaterialResponse: LiveData<GetNomorMaterialForAktivasiResponse?> = _nomorMaterialResponse
 
     fun getMaterialAktivasi(status: String) {
         _isLoading.value = true
@@ -67,15 +70,33 @@ class ApprovalMaterialViewModel (private val apiService: ApiService) : ViewModel
         }
     }
 
-    fun getMaterialRegistrasiDetailByDate(tgl_registrasi: String, status: String) {
+    fun getMaterialRegistrasiDetailByDate(tgl_registrasi: String, status: String, sn: String = "", no_material: String = "") {
         _isLoading.value = true
         job = CoroutineScope(Dispatchers.IO + exceptionHandler).launch {
-            val response = apiService.getMaterialRegistrasiDetailByDate(tgl_registrasi, status)
+            val response = apiService.getMaterialRegistrasiDetailByDate(tgl_registrasi, status, sn, no_material)
             withContext(Dispatchers.Main) {
                 if (response.isSuccessful) {
                     _isLoading.postValue(false)
                     val registrasiDetailByDateResponse = response.body()
                     _detailMaterialRegistrasiResponse.postValue(registrasiDetailByDateResponse)
+                } else {
+                    _isLoading.postValue(false)
+                    val error = response.errorBody()?.string()
+                    onError("${error?.let { getErrorMessage(it) }}")
+                }
+            }
+        }
+    }
+
+    fun getNomorMaterialForAktivasi() {
+        _isLoading.value = true
+        job = CoroutineScope(Dispatchers.IO + exceptionHandler).launch {
+            val response = apiService.getNomorMaterialForAktivasi()
+            withContext(Dispatchers.Main) {
+                if (response.isSuccessful) {
+                    _isLoading.postValue(false)
+                    val nomorMaterial = response.body()
+                    _nomorMaterialResponse.postValue(nomorMaterial)
                 } else {
                     _isLoading.postValue(false)
                     val error = response.errorBody()?.string()

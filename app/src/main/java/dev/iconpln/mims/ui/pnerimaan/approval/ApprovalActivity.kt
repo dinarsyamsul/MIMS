@@ -4,6 +4,7 @@ import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.util.Log
 import android.view.View
+import android.widget.ArrayAdapter
 import android.widget.Toast
 import androidx.lifecycle.ViewModelProvider
 import androidx.recyclerview.widget.LinearLayoutManager
@@ -43,6 +44,15 @@ class ApprovalActivity : AppCompatActivity() {
             if (it != null){
                 Toast.makeText(this, "$it", Toast.LENGTH_LONG).show()
             }
+        }
+
+        val statusItem = listOf("ALL", "BELUM SELESAI", "SELESAI")
+        val adapterDropdown = ArrayAdapter(this, android.R.layout.simple_dropdown_item_1line, statusItem)
+        binding.dropdownStatus.setAdapter(adapterDropdown)
+        binding.dropdownStatus.setOnItemClickListener { parent, _, position, _ ->
+            val selectedItem = parent.getItemAtPosition(position) as String
+            filter = selectedItem
+            viewModel.getMaterialAktivasi(filter)
         }
 
         setRecyclerView()

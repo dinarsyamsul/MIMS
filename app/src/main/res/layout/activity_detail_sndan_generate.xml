@@ -4,7 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".ui.pnerimaan.approval.DetailSNdanGenerateActivity">
+    tools:context=".ui.pnerimaan.approval.DetailApprovalMaterialActivity">
 
     <ImageView
         android:id="@+id/header"
@@ -64,12 +64,12 @@
     </com.google.android.material.tabs.TabLayout>
 
     <TextView
-        android:id="@+id/txt_material"
+        android:id="@+id/txt_sn_material"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginStart="16dp"
         android:layout_marginTop="16dp"
-        android:text="No. Material"
+        android:text="SN Material"
         android:textColor="#3F3D56"
         android:textSize="14sp"
         android:textStyle="bold"
@@ -77,7 +77,7 @@
         app:layout_constraintTop_toBottomOf="@id/tab_layout" />
 
     <EditText
-        android:id="@+id/src_no_material"
+        android:id="@+id/src_sn_material"
         android:layout_width="0dp"
         android:layout_height="50dp"
         android:layout_marginTop="10dp"
@@ -92,21 +92,21 @@
         android:textSize="12sp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/txt_material" />
+        app:layout_constraintTop_toBottomOf="@+id/txt_sn_material" />
 
     <TextView
-        android:id="@+id/txt_kategori"
+        android:id="@+id/txt_no_material"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginTop="20dp"
         android:layout_marginStart="16dp"
         android:fontFamily="@font/montserrat_reguler"
-        android:text="Kategori"
+        android:text="No Material"
         android:textColor="#3F3D56"
         android:textSize="16sp"
         android:textStyle="bold"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/src_no_material" />
+        app:layout_constraintTop_toBottomOf="@id/src_sn_material" />
 
     <com.google.android.material.textfield.TextInputLayout
         android:id="@+id/tinp_pilihKategori"
@@ -117,11 +117,11 @@
         android:layout_marginEnd="25dp"
         app:hintAnimationEnabled="true"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="@+id/txt_kategori"
-        app:layout_constraintTop_toBottomOf="@+id/txt_kategori">
+        app:layout_constraintStart_toStartOf="@id/txt_no_material"
+        app:layout_constraintTop_toBottomOf="@id/txt_no_material">
 
         <AutoCompleteTextView
-            android:id="@+id/dropdown_kategori"
+            android:id="@+id/dropdown_no_material"
             style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox.ExposedDropdownMenu"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
@@ -129,7 +129,7 @@
             android:background="@drawable/txt_input_layout"
             android:fontFamily="@font/montserrat_semibold"
             android:inputType="none"
-            android:text="Pilih Kategori" />
+            android:text="Pilih No Material" />
 
     </com.google.android.material.textfield.TextInputLayout>
 

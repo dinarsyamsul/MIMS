@@ -232,6 +232,14 @@ class HomeFragment : Fragment() {
         binding.btnPengiriman.setOnClickListener {
             startActivity(Intent(requireActivity(), PengirimanActivity::class.java))
         }
+
+        binding.btnRegister.setOnClickListener {
+            startActivity(Intent(requireActivity(), RegistrasiSnMaterialActivity::class.java))
+        }
+
+        binding.btnApproval.setOnClickListener {
+            startActivity(Intent(requireActivity(), ApprovalActivity::class.java))
+        }
     }
 
     private fun btnSync(context: Context, daoSession: DaoSession, username: String, password: String, device_token: String,
