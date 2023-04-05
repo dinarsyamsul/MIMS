@@ -48,7 +48,8 @@ class DataAtributMaterialActivity : AppCompatActivity() {
         adapter = DataAttributeAdapter(arrayListOf(), object : DataAttributeAdapter.OnAdapterListener{
             override fun onClick(po: TMaterial) {
                 startActivity(Intent(this@DataAtributMaterialActivity, DetailDataAtributeMaterialActivity::class.java)
-                    .putExtra("noMaterial", po.nomorMaterial))
+                    .putExtra("noMaterial", po.nomorMaterial)
+                    .putExtra("noBatch", po.noProduksi))
             }
 
         })

@@ -94,11 +94,9 @@ class MonitoringPermintaanActivity : AppCompatActivity() {
     }
 
     private fun setDataPermintaan() {
-        val isDataExist = daoSession.tTransMonitoringPermintaanDao.queryBuilder()
-            .where(TTransMonitoringPermintaanDao.Properties.KodePengeluaran.eq(1)).list().size > 0
+        val isDataExist = daoSession.tTransMonitoringPermintaanDao.queryBuilder().list().size > 0
 
-        val listPermintaan = daoSession.tMonitoringPermintaanDao.queryBuilder()
-            .where(TMonitoringPermintaanDao.Properties.KodePengeluaran.eq(1)).list()
+        val listPermintaan = daoSession.tMonitoringPermintaanDao.queryBuilder().list()
 
         if (!isDataExist){
             if (listPermintaan != null){

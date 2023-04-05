@@ -34,6 +34,13 @@ public class TPemakaian {
     private String Tarif;
     private String Daya;
     private String TanggalBayar;
+    private String NoPk;
+    private String NamaKegiatan;
+    private String Lokasi;
+    private String Pemeriksa;
+    private String Penerima;
+    private String KepalaGudang;
+    private Integer IsDonePemakai;
 
     @Generated
     public TPemakaian() {
@@ -44,7 +51,7 @@ public class TPemakaian {
     }
 
     @Generated
-    public TPemakaian(Long id, String NoTransaksi, String NoReservasi, String NoPemesanan, String KodeIntegrasi, String Plant, String StorLoc, String StatusPemakaian, String TanggalReservasi, String TanggalPemakaian, String TanggalPengeluaran, String TanggalDokumen, String JenisPekerjaan, String Sumber, String StatusKirimAgo, String StatusSap, String NoAgenda, String IdPelanggan, String NamaPelanggan, String AlamatPelanggan, String Tarif, String Daya, String TanggalBayar) {
+    public TPemakaian(Long id, String NoTransaksi, String NoReservasi, String NoPemesanan, String KodeIntegrasi, String Plant, String StorLoc, String StatusPemakaian, String TanggalReservasi, String TanggalPemakaian, String TanggalPengeluaran, String TanggalDokumen, String JenisPekerjaan, String Sumber, String StatusKirimAgo, String StatusSap, String NoAgenda, String IdPelanggan, String NamaPelanggan, String AlamatPelanggan, String Tarif, String Daya, String TanggalBayar, String NoPk, String NamaKegiatan, String Lokasi, String Pemeriksa, String Penerima, String KepalaGudang, Integer IsDonePemakai) {
         this.id = id;
         this.NoTransaksi = NoTransaksi;
         this.NoReservasi = NoReservasi;
@@ -68,6 +75,13 @@ public class TPemakaian {
         this.Tarif = Tarif;
         this.Daya = Daya;
         this.TanggalBayar = TanggalBayar;
+        this.NoPk = NoPk;
+        this.NamaKegiatan = NamaKegiatan;
+        this.Lokasi = Lokasi;
+        this.Pemeriksa = Pemeriksa;
+        this.Penerima = Penerima;
+        this.KepalaGudang = KepalaGudang;
+        this.IsDonePemakai = IsDonePemakai;
     }
 
     public Long getId() {
@@ -252,6 +266,62 @@ public class TPemakaian {
 
     public void setTanggalBayar(String TanggalBayar) {
         this.TanggalBayar = TanggalBayar;
+    }
+
+    public String getNoPk() {
+        return NoPk;
+    }
+
+    public void setNoPk(String NoPk) {
+        this.NoPk = NoPk;
+    }
+
+    public String getNamaKegiatan() {
+        return NamaKegiatan;
+    }
+
+    public void setNamaKegiatan(String NamaKegiatan) {
+        this.NamaKegiatan = NamaKegiatan;
+    }
+
+    public String getLokasi() {
+        return Lokasi;
+    }
+
+    public void setLokasi(String Lokasi) {
+        this.Lokasi = Lokasi;
+    }
+
+    public String getPemeriksa() {
+        return Pemeriksa;
+    }
+
+    public void setPemeriksa(String Pemeriksa) {
+        this.Pemeriksa = Pemeriksa;
+    }
+
+    public String getPenerima() {
+        return Penerima;
+    }
+
+    public void setPenerima(String Penerima) {
+        this.Penerima = Penerima;
+    }
+
+    public String getKepalaGudang() {
+        return KepalaGudang;
+    }
+
+    public void setKepalaGudang(String KepalaGudang) {
+        this.KepalaGudang = KepalaGudang;
+    }
+
+    public Integer getIsDonePemakai() {
+        return IsDonePemakai;
+    }
+
+    public void setIsDonePemakai(Integer IsDonePemakai) {
+        this.IsDonePemakai = IsDonePemakai;
     }
 
 }

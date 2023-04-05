@@ -48,7 +48,7 @@ class InputSnPemakaianActivity : AppCompatActivity(),Loadable {
     private var noTransaksi: String = ""
     private lateinit var adapter: PemakaianUlpSnAdapter
     private lateinit var pemakaian: TPemakaian
-    private lateinit var pemakaianDetail: TPemakaianDetail
+    private lateinit var pemakaianDetail: TTransPemakaianDetail
     private var plant: String = ""
     private var storloc: String = ""
     private lateinit var lisSn : List<TListSnMaterialPemakaianUlp>
@@ -70,8 +70,8 @@ class InputSnPemakaianActivity : AppCompatActivity(),Loadable {
         pemakaian = daoSession.tPemakaianDao.queryBuilder()
             .where(TPemakaianDao.Properties.NoTransaksi.eq(noTransaksi)).list().get(0)
 
-        pemakaianDetail = daoSession.tPemakaianDetailDao.queryBuilder()
-            .where(TPemakaianDetailDao.Properties.NoTransaksi.eq(noTransaksi)).list().get(0)
+        pemakaianDetail = daoSession.tTransPemakaianDetailDao.queryBuilder()
+            .where(TTransPemakaianDetailDao.Properties.NoTransaksi.eq(noTransaksi)).list().get(0)
 
         adapter = PemakaianUlpSnAdapter(arrayListOf(), object : PemakaianUlpSnAdapter.OnAdapterListener{
             override fun onClick(tms: TListSnMaterialPemakaianUlp) {
@@ -116,6 +116,8 @@ class InputSnPemakaianActivity : AppCompatActivity(),Loadable {
 
             btnBack.setOnClickListener { onBackPressed() }
             btnSimpan.setOnClickListener {
+                pemakaianDetail.isDone = 1
+                daoSession.tTransPemakaianDetailDao.update(pemakaianDetail)
                 submitForm()
             }
 

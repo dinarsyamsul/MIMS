@@ -271,6 +271,7 @@ class PemeriksaanDetailActivity : AppCompatActivity(), Loadable {
             .where(TPemeriksaanDetailDao.Properties.IsPeriksa.eq(1))
             .where(TPemeriksaanDetailDao.Properties.IsComplaint.eq(0))
             .where(TPemeriksaanDetailDao.Properties.IsChecked.eq(1))
+            .where(TPemeriksaanDetailDao.Properties.IsDone.eq(0))
             .list()
 
         var packagings = ""
@@ -314,14 +315,14 @@ class PemeriksaanDetailActivity : AppCompatActivity(), Loadable {
                 val updatePenerimaan = daoSession.tPosPenerimaanDao.queryBuilder()
                     .where(TPosPenerimaanDao.Properties.NoDoSmar.eq(noDo)).list().get(0)
                 updatePenerimaan.isRating = 1
-                updatePenerimaan.statusPemeriksaan = "SUDAH DIPERIKSA"
+                updatePenerimaan.statusPemeriksaan = "SELESAI"
                 daoSession.tPosPenerimaanDao.update(updatePenerimaan)
             }
 
             if (checkIsDone.size == listPemDetail.size){
                 val updatePenerimaan = daoSession.tPosPenerimaanDao.queryBuilder()
                     .where(TPosPenerimaanDao.Properties.NoDoSmar.eq(noDo)).list().get(0)
-                updatePenerimaan.statusPemeriksaan = "SUDAH DIPERIKSA"
+                updatePenerimaan.statusPemeriksaan = "SELESAI"
                 daoSession.tPosPenerimaanDao.update(updatePenerimaan)
 
                 pemeriksaan.statusPemeriksaan = "SELESAI"
@@ -337,6 +338,14 @@ class PemeriksaanDetailActivity : AppCompatActivity(), Loadable {
     }
 
     private fun submitForm(packagings: String) {
+        var quantity = daoSession.tPemeriksaanDetailDao.queryBuilder()
+            .where(TPemeriksaanDetailDao.Properties.NoPemeriksaan.eq(noPem))
+            .where(TPemeriksaanDetailDao.Properties.IsPeriksa.eq(1))
+            .where(TPemeriksaanDetailDao.Properties.IsComplaint.eq(0))
+            .where(TPemeriksaanDetailDao.Properties.IsChecked.eq(1))
+            .where(TPemeriksaanDetailDao.Properties.IsDone.eq(0))
+            .list().size
+
         val reports = ArrayList<GenericReport>()
         val currentDate = LocalDateTime.now().toString(Config.DATE)
         val currentDateTime = LocalDateTime.now().toString(Config.DATETIME)
@@ -348,12 +357,16 @@ class PemeriksaanDetailActivity : AppCompatActivity(), Loadable {
         var username = SharedPrefsUtils.getStringPreference(this@PemeriksaanDetailActivity, "username","14.Hexing_Electrical")
         val reportId = "temp_pemeriksaan" + username + "_" + noDo + "_" + DateTime.now().toString(
             Config.DATETIME)
-        val reportName = "Update Data Dokumen Penerimaan"
+        val reportName = "Update Data Dokumen Pemeriksaan"
         val reportDescription = "$reportName: "+ " (" + reportId + ")"
         val params = ArrayList<ReportParameter>()
         params.add(ReportParameter("1", reportId, "no_do_smar", noDo!!, ReportParameter.TEXT))
         params.add(ReportParameter("2", reportId, "sns", packagings, ReportParameter.TEXT))
         params.add(ReportParameter("3", reportId, "status", "DITERIMA", ReportParameter.TEXT))
+        params.add(ReportParameter("4", reportId, "qty", quantity.toString(), ReportParameter.TEXT))
+        params.add(ReportParameter("5", reportId, "tgl_terima", pemeriksaan.tanggalDiterima, ReportParameter.TEXT))
+        params.add(ReportParameter("6", reportId, "plant_code_no", pemeriksaan.planCodeNo, ReportParameter.TEXT))
+        params.add(ReportParameter("7", reportId, "username", username!!, ReportParameter.TEXT))
 
         val report = GenericReport(reportId, jwt!!, reportName, reportDescription, ApiConfig.sendPemeriksaan(), currentDate, Config.NO_CODE, currentUtc, params)
         reports.add(report)

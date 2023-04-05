@@ -23,6 +23,7 @@ public class TPos {
     private String CreatedDate;
     private String PlanCodeNo;
     private String PlantName;
+    private String PoDate;
     private String NoDoMims;
     private String DoStatus;
     private String Expeditions;
@@ -50,7 +51,7 @@ public class TPos {
     }
 
     @Generated
-    public TPos(Long id, String StorLoc, String Total, String TlskNo, String PoSapNo, String PoMpNo, String NoDoSmar, Integer LeadTime, String Storloc, String CreatedDate, String PlanCodeNo, String PlantName, String NoDoMims, String DoStatus, String Expeditions, String KodeStatusDoMims, String CourierPersonName, String KdPabrikan, String MaterialGroup, String NamaKategoriMaterial, String PetugasPenerima, String TglDiterima, String KurirPengantar, String DoLineItem, String RatingResponse, String RatingQuality, String RatingDelivery, String StatusPemeriksaan, String StatusPenerimaan) {
+    public TPos(Long id, String StorLoc, String Total, String TlskNo, String PoSapNo, String PoMpNo, String NoDoSmar, Integer LeadTime, String Storloc, String CreatedDate, String PlanCodeNo, String PlantName, String PoDate, String NoDoMims, String DoStatus, String Expeditions, String KodeStatusDoMims, String CourierPersonName, String KdPabrikan, String MaterialGroup, String NamaKategoriMaterial, String PetugasPenerima, String TglDiterima, String KurirPengantar, String DoLineItem, String RatingResponse, String RatingQuality, String RatingDelivery, String StatusPemeriksaan, String StatusPenerimaan) {
         this.id = id;
         this.StorLoc = StorLoc;
         this.Total = Total;
@@ -63,6 +64,7 @@ public class TPos {
         this.CreatedDate = CreatedDate;
         this.PlanCodeNo = PlanCodeNo;
         this.PlantName = PlantName;
+        this.PoDate = PoDate;
         this.NoDoMims = NoDoMims;
         this.DoStatus = DoStatus;
         this.Expeditions = Expeditions;
@@ -176,6 +178,14 @@ public class TPos {
 
     public void setPlantName(String PlantName) {
         this.PlantName = PlantName;
+    }
+
+    public String getPoDate() {
+        return PoDate;
+    }
+
+    public void setPoDate(String PoDate) {
+        this.PoDate = PoDate;
     }
 
     public String getNoDoMims() {

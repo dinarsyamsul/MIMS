@@ -18,6 +18,7 @@ public class TPosPenerimaan {
     private String PoMpNo;
     private String NoDoSmar;
     private Integer LeadTime;
+    private String PoDate;
     private String Storloc;
     private String CreatedDate;
     private String PlanCodeNo;
@@ -58,7 +59,7 @@ public class TPosPenerimaan {
     }
 
     @Generated
-    public TPosPenerimaan(Long id, String Total, String TlskNo, String PoSapNo, String PoMpNo, String NoDoSmar, Integer LeadTime, String Storloc, String CreatedDate, String PlanCodeNo, String PlantName, String NoDoMims, String DoStatus, String Expeditions, String CourierPersonName, String KdPabrikan, String MaterialGroup, String NamaKategoriMaterial, String RatingPenerimaan, String DescPenerimaan, String RatingQuality, String DescQuality, String RatingWaktu, String DescWaktu, String TanggalDiterima, String PetugasPenerima, String KodeStatusDoMims, String StatusPemeriksaan, String StatusPenerimaan, String KurirPengantar, String NilaiRatingPenerimaan, String NilaiRatingWaktu, String NilaiRatingQuality, String DoLineItem, Integer IsRating, Integer isDone, Integer ratingDone) {
+    public TPosPenerimaan(Long id, String Total, String TlskNo, String PoSapNo, String PoMpNo, String NoDoSmar, Integer LeadTime, String PoDate, String Storloc, String CreatedDate, String PlanCodeNo, String PlantName, String NoDoMims, String DoStatus, String Expeditions, String CourierPersonName, String KdPabrikan, String MaterialGroup, String NamaKategoriMaterial, String RatingPenerimaan, String DescPenerimaan, String RatingQuality, String DescQuality, String RatingWaktu, String DescWaktu, String TanggalDiterima, String PetugasPenerima, String KodeStatusDoMims, String StatusPemeriksaan, String StatusPenerimaan, String KurirPengantar, String NilaiRatingPenerimaan, String NilaiRatingWaktu, String NilaiRatingQuality, String DoLineItem, Integer IsRating, Integer isDone, Integer ratingDone) {
         this.id = id;
         this.Total = Total;
         this.TlskNo = TlskNo;
@@ -66,6 +67,7 @@ public class TPosPenerimaan {
         this.PoMpNo = PoMpNo;
         this.NoDoSmar = NoDoSmar;
         this.LeadTime = LeadTime;
+        this.PoDate = PoDate;
         this.Storloc = Storloc;
         this.CreatedDate = CreatedDate;
         this.PlanCodeNo = PlanCodeNo;
@@ -152,6 +154,14 @@ public class TPosPenerimaan {
 
     public void setLeadTime(Integer LeadTime) {
         this.LeadTime = LeadTime;
+    }
+
+    public String getPoDate() {
+        return PoDate;
+    }
+
+    public void setPoDate(String PoDate) {
+        this.PoDate = PoDate;
     }
 
     public String getStorloc() {

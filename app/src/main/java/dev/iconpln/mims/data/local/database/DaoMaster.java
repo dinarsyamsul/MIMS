@@ -39,6 +39,8 @@ public class DaoMaster extends AbstractDaoMaster {
         TPemeriksaanDetailDao.createTable(db, ifNotExists);
         TPhotoDao.createTable(db, ifNotExists);
         TRatingDao.createTable(db, ifNotExists);
+        TDataRatingDao.createTable(db, ifNotExists);
+        TTransDataRatingDao.createTable(db, ifNotExists);
         TMonitoringPermintaanDao.createTable(db, ifNotExists);
         TMonitoringPermintaanDetailDao.createTable(db, ifNotExists);
         TTransMonitoringPermintaanDao.createTable(db, ifNotExists);
@@ -54,6 +56,7 @@ public class DaoMaster extends AbstractDaoMaster {
         TPemakaianDetailDao.createTable(db, ifNotExists);
         TTransPemakaianDetailDao.createTable(db, ifNotExists);
         TListSnMaterialPemakaianUlpDao.createTable(db, ifNotExists);
+        TPetugasPengujianDao.createTable(db, ifNotExists);
     }
 
     /** Drops underlying database table using DAOs. */
@@ -76,6 +79,8 @@ public class DaoMaster extends AbstractDaoMaster {
         TPemeriksaanDetailDao.dropTable(db, ifExists);
         TPhotoDao.dropTable(db, ifExists);
         TRatingDao.dropTable(db, ifExists);
+        TDataRatingDao.dropTable(db, ifExists);
+        TTransDataRatingDao.dropTable(db, ifExists);
         TMonitoringPermintaanDao.dropTable(db, ifExists);
         TMonitoringPermintaanDetailDao.dropTable(db, ifExists);
         TTransMonitoringPermintaanDao.dropTable(db, ifExists);
@@ -91,6 +96,7 @@ public class DaoMaster extends AbstractDaoMaster {
         TPemakaianDetailDao.dropTable(db, ifExists);
         TTransPemakaianDetailDao.dropTable(db, ifExists);
         TListSnMaterialPemakaianUlpDao.dropTable(db, ifExists);
+        TPetugasPengujianDao.dropTable(db, ifExists);
     }
 
     /**
@@ -127,6 +133,8 @@ public class DaoMaster extends AbstractDaoMaster {
         registerDaoClass(TPemeriksaanDetailDao.class);
         registerDaoClass(TPhotoDao.class);
         registerDaoClass(TRatingDao.class);
+        registerDaoClass(TDataRatingDao.class);
+        registerDaoClass(TTransDataRatingDao.class);
         registerDaoClass(TMonitoringPermintaanDao.class);
         registerDaoClass(TMonitoringPermintaanDetailDao.class);
         registerDaoClass(TTransMonitoringPermintaanDao.class);
@@ -142,6 +150,7 @@ public class DaoMaster extends AbstractDaoMaster {
         registerDaoClass(TPemakaianDetailDao.class);
         registerDaoClass(TTransPemakaianDetailDao.class);
         registerDaoClass(TListSnMaterialPemakaianUlpDao.class);
+        registerDaoClass(TPetugasPengujianDao.class);
     }
 
     public DaoSession newSession() {

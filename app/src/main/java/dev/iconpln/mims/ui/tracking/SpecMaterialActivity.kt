@@ -33,6 +33,7 @@ import kotlinx.coroutines.withContext
 import org.json.JSONException
 
 import org.json.JSONObject
+import org.w3c.dom.Text
 import java.security.Key
 
 
@@ -108,6 +109,9 @@ class SpecMaterialActivity : AppCompatActivity() {
         val recyclerView = dialog.findViewById(R.id.rv_detail) as RecyclerView
         val progressBar = dialog.findViewById(R.id.progressBarPopUp) as ProgressBar
         val hintKosong = dialog.findViewById(R.id.tv_kosong) as TextView
+        val title = dialog.findViewById(R.id.txt_title) as TextView
+
+        title.text = data.statusName
 
         progressBar.visibility = View.VISIBLE
         CoroutineScope(Dispatchers.IO).launch {
@@ -136,9 +140,11 @@ class SpecMaterialActivity : AppCompatActivity() {
                             if (arrayData[0].key == "status"){
                                 recyclerView.visibility = View.GONE
                                 hintKosong.visibility = View.VISIBLE
+                                title.visibility = View.GONE
                             }else{
                                 recyclerView.visibility = View.VISIBLE
                                 hintKosong.visibility = View.GONE
+                                title.visibility = View.VISIBLE
                             }
 
                             adapterDetail.setData(arrayData)
@@ -156,7 +162,6 @@ class SpecMaterialActivity : AppCompatActivity() {
                     }
                 }else {
                     progressBar.visibility = View.GONE
-
                 }
             }
         }

@@ -65,9 +65,7 @@ class HomeFragment : Fragment() {
         val nilaiMaterial = daoSession.tMaterialDao.loadAll().size.toString()
         val nilaiMonitoring = daoSession.tPosDao.loadAll().size.toString()
         val nilaiPemakaian = daoSession.tPemakaianDao.loadAll().size.toString()
-        val nilaiPermintaan = daoSession.tMonitoringPermintaanDao.queryBuilder()
-            .where(TMonitoringPermintaanDao.Properties.KodePengeluaran.eq(1))
-            .list().size.toString()
+        val nilaiPermintaan = daoSession.tMonitoringPermintaanDao.queryBuilder().list().size.toString()
         val nilaiPengiriman = daoSession.tPosDao.loadAll().size.toString()
         val nilaiPengujian = daoSession.tPengujianDao.loadAll().size.toString()
         val nilaiPenerimaanUp3 =  daoSession.tPosDao.queryBuilder()
@@ -148,7 +146,6 @@ class HomeFragment : Fragment() {
             binding.txtJumlahPenerimaanUlp.text = nilaiPenerimaanUlp
             binding.txtJumlahPengiriman.text = nilaiPengiriman
             binding.txtJumlahPengujian.text = nilaiPengujian
-            binding.txtJumlahTracking.text = "4" //gak tahu nilainya darimana
             binding.txtJumlahPenerimaanUp3.text = nilaiPenerimaanUp3
 
         }
@@ -298,6 +295,8 @@ class HomeFragment : Fragment() {
         daoSession.tPemakaianDetailDao.deleteAll()
         daoSession.tListSnMaterialPenerimaanUlpDao.deleteAll()
         daoSession.tListSnMaterialPemakaianUlpDao.deleteAll()
+        daoSession.tDataRatingDao.deleteAll()
+        daoSession.tPetugasPengujianDao.deleteAll()
         daoSession.tPhotoDao.deleteAll()
 
 
@@ -481,9 +480,12 @@ class HomeFragment : Fragment() {
                         item.doLineItem = model?.DoLineItem
                         item.doStatus = model?.doStatus
                         item.expeditions = model?.ekspedition
+                        item.poDate = model?.poDate
                         if (model?.ratingDelivery.isNullOrEmpty()) item.ratingDelivery = "" else item.ratingDelivery = model?.ratingDelivery
                         if (model?.ratingQuality.isNullOrEmpty()) item.ratingQuality = "" else item.ratingQuality = model?.ratingQuality
                         if (model?.ratingResponse.isNullOrEmpty()) item.ratingResponse = "" else item.ratingResponse = model?.ratingResponse
+                        item.statusPemeriksaan = if(model?.statusPemeriksaan.isNullOrEmpty()) "" else model?.statusPemeriksaan
+                        item.statusPenerimaan = if(model?.statusPenerimaan.isNullOrEmpty()) "" else model?.statusPenerimaan
                         items[i] = item
                     }
                     daoSession.tPosDao.insertInTx(items.toList())
@@ -875,6 +877,14 @@ class HomeFragment : Fragment() {
                         item.tanggalPengeluaran = model?.tanggalPengeluaran
                         item.tanggalReservasi = model?.tanggalReservasi
                         item.tarif = model?.tarif
+
+                        item.noPk = ""
+                        item.namaKegiatan = ""
+                        item.lokasi = ""
+                        item.pemeriksa = ""
+                        item.penerima = ""
+                        item.kepalaGudang = ""
+                        item.isDonePemakai = 0
                         items[i] = item
                     }
                     daoSession.tPemakaianDao.insertInTx(items.toList())
@@ -937,6 +947,42 @@ class HomeFragment : Fragment() {
                         items[i] = item
                     }
                     daoSession.tListSnMaterialPemakaianUlpDao.insertInTx(items.toList())
+                }
+            }
+
+            if (result.dataRatings != null){
+                val size = result.dataRatings.size
+                if (size > 0) {
+                    val items = arrayOfNulls<TDataRating>(size)
+                    var item: TDataRating
+                    for ((i, model) in result.dataRatings.withIndex()){
+                        item = TDataRating()
+                        item.noDoSmar = model?.noDoSmar
+                        item.ratingQuality = model?.ratingQuality
+                        item.ratingDelivery = model?.ratingDelivery
+                        item.ketepatan = model?.ketepatan
+                        item.ratingResponse = model?.ratingResponse
+                        item.selesaiRating = model?.selesaiRating
+                        items[i] = item
+                    }
+                    daoSession.tDataRatingDao.insertInTx(items.toList())
+                }
+            }
+
+            if (result.petugasPengujian != null){
+                val size = result.petugasPengujian.size
+                if (size > 0) {
+                    val items = arrayOfNulls<TPetugasPengujian>(size)
+                    var item: TPetugasPengujian
+                    for ((i, model) in result.petugasPengujian.withIndex()){
+                        item = TPetugasPengujian()
+                        item.jabatan = model?.jabatan
+                        item.nip = model?.nip
+                        item.namaPetugas = model?.namaPetugas
+                        item.noPengujian = model?.noPengujian
+                        items[i] = item
+                    }
+                    daoSession.tPetugasPengujianDao.insertInTx(items.toList())
                 }
             }
         }

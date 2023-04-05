@@ -22,6 +22,7 @@ import dev.iconpln.mims.data.remote.service.ApiConfig
 import dev.iconpln.mims.databinding.ActivityDetailPemakaianUlpYantekBinding
 import dev.iconpln.mims.tasks.Loadable
 import dev.iconpln.mims.tasks.TambahReportTask
+import dev.iconpln.mims.ui.pemakaian.input_pemakaian.InputPemakaianActivity
 import dev.iconpln.mims.ui.ulp.penerimaan.PenerimaanUlpActivity
 import dev.iconpln.mims.utils.Config
 import dev.iconpln.mims.utils.DateTimeUtils
@@ -73,6 +74,15 @@ class DetailPemakaianUlpYantekActivity : AppCompatActivity(),Loadable {
 
             btnBack.setOnClickListener { onBackPressed() }
             btnSimpan.setOnClickListener { validation() }
+
+            btnPemakaian.setOnClickListener {
+                if (pemakaian.isDonePemakai == 1){
+                    Toast.makeText(this@DetailPemakaianUlpYantekActivity, "Anda sudah melakukan input pemakaian",Toast.LENGTH_SHORT).show()
+                }else{
+                    startActivity(Intent(this@DetailPemakaianUlpYantekActivity, InputPemakaianActivity::class.java)
+                        .putExtra("noTransaksi", noTransaksi))
+                }
+            }
 
             srcNomorMaterial.addTextChangedListener(object : TextWatcher{
                 override fun beforeTextChanged(
@@ -127,9 +137,9 @@ class DetailPemakaianUlpYantekActivity : AppCompatActivity(),Loadable {
         var plant = SharedPrefsUtils.getStringPreference(this@DetailPemakaianUlpYantekActivity,"plant","")
         var storloc = SharedPrefsUtils.getStringPreference(this@DetailPemakaianUlpYantekActivity,"storloc","")
         var username = SharedPrefsUtils.getStringPreference(this@DetailPemakaianUlpYantekActivity, "username","14.Hexing_Electrical")
-        val reportId = "temp_pemakaianUp3" + username + "_" + pemakaian.noTransaksi + "_" + DateTime.now().toString(
+        val reportId = "temp_pemakaian Ulp" + username + "_" + pemakaian.noTransaksi + "_" + DateTime.now().toString(
             Config.DATETIME)
-        val reportName = "Update Data pemakaian up 3"
+        val reportName = "Update Data pemakaian Ulp"
         val reportDescription = "$reportName: "+ " (" + reportId + ")"
         val params = ArrayList<ReportParameter>()
 

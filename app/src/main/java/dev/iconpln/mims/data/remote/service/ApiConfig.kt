@@ -81,6 +81,10 @@ object ApiConfig {
         return "$BASE_URL/reports/pemakaian/updateSelesai"
     }
 
+    fun sendReportPemakai():String{
+        return "$BASE_URL/reports/pemakaian/insertPemakai"
+    }
+
     fun sendReportPetugasPemeriksaanUlp():String{
         return "$BASE_URL/reports/penerimaanUlp/updatePetugasPemeriksaanUlp"
     }

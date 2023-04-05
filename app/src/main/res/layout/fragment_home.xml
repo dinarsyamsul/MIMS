@@ -445,20 +445,6 @@
                                 app:layout_constraintStart_toEndOf="@+id/imageView26"
                                 app:layout_constraintTop_toBottomOf="@+id/textView27" />
 
-                            <TextView
-                                android:id="@+id/txt_jumlah_tracking"
-                                android:layout_width="wrap_content"
-                                android:layout_height="wrap_content"
-                                android:fontFamily="@font/montserrat_reguler"
-                                android:padding="10dp"
-                                android:text="11"
-                                android:textColor="#045A71"
-                                android:textSize="50sp"
-                                app:layout_constraintBottom_toBottomOf="parent"
-                                app:layout_constraintEnd_toEndOf="parent"
-                                app:layout_constraintStart_toStartOf="parent"
-                                app:layout_constraintTop_toBottomOf="@+id/textView28" />
-
                         </androidx.constraintlayout.widget.ConstraintLayout>
 
 

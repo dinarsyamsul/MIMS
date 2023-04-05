@@ -58,7 +58,7 @@
                 android:layout_height="30dp"
                 android:layout_marginEnd="16dp"
                 android:visibility="visible"
-                android:src="@drawable/ic_docview"
+                android:src="@drawable/ic_input_doc_active"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintTop_toTopOf="@+id/lbl_no_material" />
 

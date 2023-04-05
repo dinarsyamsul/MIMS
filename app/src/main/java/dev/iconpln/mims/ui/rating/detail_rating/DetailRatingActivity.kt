@@ -56,6 +56,7 @@ class DetailRatingActivity : AppCompatActivity(),Loadable {
     private lateinit var penerimaanAdapter: RatingPenerimaanAdapter
     private lateinit var waktuAdapter: RatingWaktuAdapter
     private lateinit var penerimaan: TPosPenerimaan
+    private lateinit var dataRating: TTransDataRating
     private lateinit var detailPenerimaan: List<TPosDetailPenerimaan>
     private val cameraRequestFoto = 101
     private val galleryRequestFoto = 102
@@ -86,6 +87,9 @@ class DetailRatingActivity : AppCompatActivity(),Loadable {
         penerimaan = daoSession.tPosPenerimaanDao.queryBuilder()
             .where(TPosPenerimaanDao.Properties.NoDoSmar.eq(noDo)).limit(1).unique()
 
+        dataRating = daoSession.tTransDataRatingDao.queryBuilder()
+            .where(TTransDataRatingDao.Properties.NoDoSmar.eq(noDo)).limit(1).unique()
+
         detailPenerimaan = daoSession.tPosDetailPenerimaanDao.queryBuilder()
             .where(TPosDetailPenerimaanDao.Properties.NoDoSmar.eq(noDo))
             .where(TPosDetailPenerimaanDao.Properties.IsChecked.eq(1))
@@ -99,6 +103,8 @@ class DetailRatingActivity : AppCompatActivity(),Loadable {
 
         ratingWaktus = daoSession.tRatingDao.queryBuilder()
             .where(TRatingDao.Properties.Type.eq("Waktu Pengiriman")).list()
+
+        setDefaultRatingDelivery()
 
         photoNumber = listPhoto.size + 1
 
@@ -255,115 +261,82 @@ class DetailRatingActivity : AppCompatActivity(),Loadable {
 
         waktuAdapter = RatingWaktuAdapter(arrayListOf(), object : RatingWaktuAdapter.OnAdapterListener{
             override fun onClick(po: TRating) {
-                when (po.kdRating) {
-                    "21" -> {
-                        for (i in ratingWaktus){
-                            if (i.kdRating == "21"){
-                                i.isActive = 1
-                                daoSession.tRatingDao.update(i)
-                                val rating = daoSession.tRatingDao.queryBuilder()
-                                    .where(TRatingDao.Properties.Type.eq("Waktu Pengiriman")).list()
-                                binding.txtMessageWaktu.visibility = View.VISIBLE
-                                binding.txtMessageWaktu.text = po.keterangan
-                                ketWaktu = po.keterangan
-                                nilaiWaktu = po.nilai
-                                ratingWaktu = po.kdRating
-                                waktuAdapter.setRatList(rating)
-                            }else{
-                                i.isActive = 0
-                                daoSession.tRatingDao.update(i)
-                                val rating = daoSession.tRatingDao.queryBuilder()
-                                    .where(TRatingDao.Properties.Type.eq("Waktu Pengiriman")).list()
-                                waktuAdapter.setRatList(rating)
+                if (dataRating.ratingDelivery == "25" || dataRating.ratingDelivery == "24"){
+                    Toast.makeText(this@DetailRatingActivity, "Anda tidak dapat memilih rating, karena sudah terdapat nilai default rating", Toast.LENGTH_SHORT).show()
+                }else{
+                    when (po.kdRating) {
+                        "21" -> {
+                            for (i in ratingWaktus){
+                                if (i.kdRating == "21"){
+                                    i.isActive = 1
+                                    daoSession.tRatingDao.update(i)
+                                    val rating = daoSession.tRatingDao.queryBuilder()
+                                        .where(TRatingDao.Properties.Type.eq("Waktu Pengiriman")).list()
+                                    binding.txtMessageWaktu.visibility = View.VISIBLE
+                                    binding.txtMessageWaktu.text = po.keterangan
+                                    ketWaktu = po.keterangan
+                                    nilaiWaktu = po.nilai
+                                    ratingWaktu = po.kdRating
+                                    waktuAdapter.setRatList(rating)
+                                }else{
+                                    i.isActive = 0
+                                    daoSession.tRatingDao.update(i)
+                                    val rating = daoSession.tRatingDao.queryBuilder()
+                                        .where(TRatingDao.Properties.Type.eq("Waktu Pengiriman")).list()
+                                    waktuAdapter.setRatList(rating)
+                                }
                             }
                         }
-                    }
-                    "22" -> {
-                        for (i in ratingWaktus){
-                            if (i.kdRating == "21" || i.kdRating == "22"){
-                                i.isActive = 1
-                                daoSession.tRatingDao.update(i)
-                                val rating = daoSession.tRatingDao.queryBuilder()
-                                    .where(TRatingDao.Properties.Type.eq("Waktu Pengiriman")).list()
-                                waktuAdapter.setRatList(rating)
-                                ketWaktu = po.keterangan
-                                nilaiWaktu = po.nilai
-                                ratingWaktu = po.kdRating
-                                binding.txtMessageWaktu.visibility = View.VISIBLE
-                                binding.txtMessageWaktu.text = po.keterangan
-                            }else{
-                                i.isActive = 0
-                                daoSession.tRatingDao.update(i)
-                                val rating = daoSession.tRatingDao.queryBuilder()
-                                    .where(TRatingDao.Properties.Type.eq("Waktu Pengiriman")).list()
-                                waktuAdapter.setRatList(rating)
+                        "22" -> {
+                            for (i in ratingWaktus){
+                                if (i.kdRating == "21" || i.kdRating == "22"){
+                                    i.isActive = 1
+                                    daoSession.tRatingDao.update(i)
+                                    val rating = daoSession.tRatingDao.queryBuilder()
+                                        .where(TRatingDao.Properties.Type.eq("Waktu Pengiriman")).list()
+                                    waktuAdapter.setRatList(rating)
+                                    ketWaktu = po.keterangan
+                                    nilaiWaktu = po.nilai
+                                    ratingWaktu = po.kdRating
+                                    binding.txtMessageWaktu.visibility = View.VISIBLE
+                                    binding.txtMessageWaktu.text = po.keterangan
+                                }else{
+                                    i.isActive = 0
+                                    daoSession.tRatingDao.update(i)
+                                    val rating = daoSession.tRatingDao.queryBuilder()
+                                        .where(TRatingDao.Properties.Type.eq("Waktu Pengiriman")).list()
+                                    waktuAdapter.setRatList(rating)
+                                }
                             }
                         }
-                    }
-                    "23" -> {
-                        for (i in ratingWaktus){
-                            if (i.kdRating == "21" || i.kdRating == "22"|| i.kdRating == "23"){
-                                i.isActive = 1
-                                daoSession.tRatingDao.update(i)
-                                val rating = daoSession.tRatingDao.queryBuilder()
-                                    .where(TRatingDao.Properties.Type.eq("Waktu Pengiriman")).list()
-                                waktuAdapter.setRatList(rating)
-                                ketWaktu = po.keterangan
-                                nilaiWaktu = po.nilai
-                                ratingWaktu = po.kdRating
-                                binding.txtMessageWaktu.visibility = View.VISIBLE
-                                binding.txtMessageWaktu.text = po.keterangan
-                            }else{
-                                i.isActive = 0
-                                daoSession.tRatingDao.update(i)
-                                val rating = daoSession.tRatingDao.queryBuilder()
-                                    .where(TRatingDao.Properties.Type.eq("Waktu Pengiriman")).list()
-                                waktuAdapter.setRatList(rating)
+                        "23" -> {
+                            for (i in ratingWaktus){
+                                if (i.kdRating == "21" || i.kdRating == "22"|| i.kdRating == "23"){
+                                    i.isActive = 1
+                                    daoSession.tRatingDao.update(i)
+                                    val rating = daoSession.tRatingDao.queryBuilder()
+                                        .where(TRatingDao.Properties.Type.eq("Waktu Pengiriman")).list()
+                                    waktuAdapter.setRatList(rating)
+                                    ketWaktu = po.keterangan
+                                    nilaiWaktu = po.nilai
+                                    ratingWaktu = po.kdRating
+                                    binding.txtMessageWaktu.visibility = View.VISIBLE
+                                    binding.txtMessageWaktu.text = po.keterangan
+                                }else{
+                                    i.isActive = 0
+                                    daoSession.tRatingDao.update(i)
+                                    val rating = daoSession.tRatingDao.queryBuilder()
+                                        .where(TRatingDao.Properties.Type.eq("Waktu Pengiriman")).list()
+                                    waktuAdapter.setRatList(rating)
+                                }
                             }
                         }
-                    }
-                    "24" -> {
-                        for (i in ratingWaktus){
-                            if (i.kdRating == "21" || i.kdRating == "22"|| i.kdRating == "23"|| i.kdRating == "24"){
-                                i.isActive = 1
-                                daoSession.tRatingDao.update(i)
-                                val rating = daoSession.tRatingDao.queryBuilder()
-                                    .where(TRatingDao.Properties.Type.eq("Waktu Pengiriman")).list()
-                                waktuAdapter.setRatList(rating)
-                                ketWaktu = po.keterangan
-                                nilaiWaktu = po.nilai
-                                ratingWaktu = po.kdRating
-                                binding.txtMessageWaktu.visibility = View.VISIBLE
-                                binding.txtMessageWaktu.text = po.keterangan
-                            }else{
-                                i.isActive = 0
-                                daoSession.tRatingDao.update(i)
-                                val rating = daoSession.tRatingDao.queryBuilder()
-                                    .where(TRatingDao.Properties.Type.eq("Waktu Pengiriman")).list()
-                                waktuAdapter.setRatList(rating)
-                            }
+                        "24" -> {
+                            Toast.makeText(this@DetailRatingActivity, "Anda tidak dapat memilih rating lebih dari 3", Toast.LENGTH_SHORT).show()
                         }
-                    }
-                    "25" -> {
-                        for (i in ratingWaktus){
-                            if (i.kdRating == "21" || i.kdRating == "22"|| i.kdRating == "23"|| i.kdRating == "24"|| i.kdRating == "25"){
-                                i.isActive = 1
-                                daoSession.tRatingDao.update(i)
-                                val rating = daoSession.tRatingDao.queryBuilder()
-                                    .where(TRatingDao.Properties.Type.eq("Waktu Pengiriman")).list()
-                                waktuAdapter.setRatList(rating)
-                                ketWaktu = po.keterangan
-                                nilaiWaktu = po.nilai
-                                ratingWaktu = po.kdRating
-                                binding.txtMessageWaktu.visibility = View.VISIBLE
-                                binding.txtMessageWaktu.text = po.keterangan
-                            }else{
-                                i.isActive = 0
-                                daoSession.tRatingDao.update(i)
-                                val rating = daoSession.tRatingDao.queryBuilder()
-                                    .where(TRatingDao.Properties.Type.eq("Waktu Pengiriman")).list()
-                                waktuAdapter.setRatList(rating)
-                            }
+                        "25" -> {
+                            Toast.makeText(this@DetailRatingActivity, "Anda tidak dapat memilih rating lebih dari 3", Toast.LENGTH_SHORT).show()
+
                         }
                     }
                 }
@@ -531,6 +504,32 @@ class DetailRatingActivity : AppCompatActivity(),Loadable {
 
     }
 
+    private fun setDefaultRatingDelivery() {
+        if (dataRating.ratingDelivery == "25"){
+            for (i in ratingWaktus){
+                if (i.kdRating == "21" || i.kdRating == "22"|| i.kdRating == "23"|| i.kdRating == "24"|| i.kdRating == "25"){
+                    i.isActive = 1
+                    daoSession.tRatingDao.update(i)
+                    ratingWaktu = dataRating.ratingDelivery
+                    binding.txtMessageWaktu.visibility = View.VISIBLE
+                    binding.txtMessageWaktu.text = i.keterangan
+                }
+            }
+        }
+
+        if (dataRating.ratingDelivery == "24"){
+            for (i in ratingWaktus){
+                if (i.kdRating == "21" || i.kdRating == "22"|| i.kdRating == "23"|| i.kdRating == "24"){
+                    i.isActive = 1
+                    daoSession.tRatingDao.update(i)
+                    ratingWaktu = dataRating.ratingDelivery
+                    binding.txtMessageWaktu.visibility = View.VISIBLE
+                    binding.txtMessageWaktu.text = i.keterangan
+                }
+            }
+        }
+    }
+
     private fun validated() {
         if (ketWaktu.isNullOrEmpty()){
             Toast.makeText(this@DetailRatingActivity, "Silahkan melakukan rating dahulu", Toast.LENGTH_SHORT).show()
@@ -654,6 +653,10 @@ class DetailRatingActivity : AppCompatActivity(),Loadable {
         val currentDateTime = LocalDateTime.now().toString(Config.DATETIME)
         val currentUtc = DateTimeUtils.currentUtc
         Log.i("datime","${currentDateTime}")
+
+        penerimaan.isDone = 1
+        penerimaan.statusPenerimaan = "DITERIMA"
+        daoSession.tPosPenerimaanDao.update(penerimaan)
 
         //region Add report visit to queue
         var jwt = SharedPrefsUtils.getStringPreference(this@DetailRatingActivity,"jwt","")

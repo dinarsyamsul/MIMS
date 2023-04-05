@@ -52,6 +52,9 @@ data class LoginResponse(
 	@field:SerializedName("ratings")
 	val ratings: List<RatingsItem?>? = null,
 
+	@field:SerializedName("dataRatings")
+	val dataRatings: List<DataRatingsItem?>? = null,
+
 	@field:SerializedName("user")
 	val user: User? = null,
 
@@ -86,7 +89,10 @@ data class LoginResponse(
 	val snPemakaianUlp: List<SnPemakaianUlpItem?>? = null,
 
 	@field:SerializedName("snPenerimaanUlp")
-	val snPenerimaanUlp: List<SnPenerimaanUlpItem?>? = null
+	val snPenerimaanUlp: List<SnPenerimaanUlpItem?>? = null,
+
+	@field:SerializedName("petugas_pengujian")
+	val petugasPengujian: List<PetugasPengujianItem?>? = null
 )
 
 data class RatingsItem(
@@ -320,6 +326,9 @@ data class PosItem(
 	@field:SerializedName("created_date")
 	val createdDate: String? = "",
 
+	@field:SerializedName("po_date")
+	val poDate: String? = "",
+
 	@field:SerializedName("courier_person_name")
 	val courierPersonName: String? = "",
 
@@ -360,7 +369,8 @@ data class PosItem(
 	val statusPemeriksaan: String? = "",
 
 	@field:SerializedName("status_penerimaan")
-	val statusPenerimaan: String? = ""
+	val statusPenerimaan: String? = "",
+
 )
 
 data class PengujiansItem(
@@ -1096,4 +1106,42 @@ data class SnPenerimaanUlpItem(
 
 	@field:SerializedName("status")
 	val status: Any? = null
+)
+
+data class DataRatingsItem(
+
+	@field:SerializedName("ketepatan")
+	val ketepatan: Int? = null,
+
+	@field:SerializedName("rating_quality")
+	val ratingQuality: String? = null,
+
+	@field:SerializedName("rating_delivery")
+	val ratingDelivery: String? = null,
+
+	@field:SerializedName("selesai_rating")
+	val selesaiRating: Boolean? = null,
+
+	@field:SerializedName("rating_doc")
+	val ratingDoc: List<String?>? = null,
+
+	@field:SerializedName("no_do_smar")
+	val noDoSmar: String? = null,
+
+	@field:SerializedName("rating_response")
+	val ratingResponse: String? = null
+)
+
+data class PetugasPengujianItem(
+	@field:SerializedName("nip")
+	val nip: String? = null,
+
+	@field:SerializedName("jabatan")
+	val jabatan: String? = null,
+
+	@field:SerializedName("nama_petugas")
+	val namaPetugas: String? = null,
+
+	@field:SerializedName("no_pengujian")
+	val noPengujian: String? = null
 )

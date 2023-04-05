@@ -100,42 +100,42 @@ class RatingActivity : AppCompatActivity() {
             rvPackaging.setHasFixedSize(true)
             rvPackaging.layoutManager = LinearLayoutManager(this@RatingActivity, LinearLayoutManager.VERTICAL, false)
 
-            btnTerima.setOnClickListener {
-                validate()
-            }
+//            btnTerima.setOnClickListener {
+//                validate()
+//            }
         }
 
     }
 
-    private fun validate() {
-        if (penerimaan.ratingDone != 1){
-            Toast.makeText(this@RatingActivity, "Kamu belum melakukan rating", Toast.LENGTH_SHORT).show()
-            return
-        }
-
-        val dialog = Dialog(this@RatingActivity)
-        dialog.setContentView(R.layout.popup_penerimaan);
-        dialog.window!!.setLayout(ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.WRAP_CONTENT);
-        dialog.setCancelable(false);
-        dialog.window!!.attributes.windowAnimations = R.style.DialogUpDown;
-        val btnOk = dialog.findViewById(R.id.btn_ok) as AppCompatButton
-        val message = dialog.findViewById(R.id.textView16) as TextView
-        val txtMessage = dialog.findViewById(R.id.textView22) as TextView
-
-        message.text = "Berhasil"
-        txtMessage.text = "Data berhasil di kirim"
-
-        penerimaan.isDone = 1
-        penerimaan.statusPenerimaan = "DITERIMA"
-        daoSession.tPosPenerimaanDao.update(penerimaan)
-
-        btnOk.setOnClickListener {
-            dialog.dismiss();
-            startActivity(Intent(this@RatingActivity, PenerimaanActivity::class.java )
-                .setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP))
-            finish()
-        }
-
-        dialog.show();
-    }
+//    private fun validate() {
+//        if (penerimaan.ratingDone != 1){
+//            Toast.makeText(this@RatingActivity, "Kamu belum melakukan rating", Toast.LENGTH_SHORT).show()
+//            return
+//        }
+//
+//        val dialog = Dialog(this@RatingActivity)
+//        dialog.setContentView(R.layout.popup_penerimaan);
+//        dialog.window!!.setLayout(ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.WRAP_CONTENT);
+//        dialog.setCancelable(false);
+//        dialog.window!!.attributes.windowAnimations = R.style.DialogUpDown;
+//        val btnOk = dialog.findViewById(R.id.btn_ok) as AppCompatButton
+//        val message = dialog.findViewById(R.id.textView16) as TextView
+//        val txtMessage = dialog.findViewById(R.id.textView22) as TextView
+//
+//        message.text = "Berhasil"
+//        txtMessage.text = "Data berhasil di kirim"
+//
+//        penerimaan.isDone = 1
+//        penerimaan.statusPenerimaan = "DITERIMA"
+//        daoSession.tPosPenerimaanDao.update(penerimaan)
+//
+//        btnOk.setOnClickListener {
+//            dialog.dismiss();
+//            startActivity(Intent(this@RatingActivity, PenerimaanActivity::class.java )
+//                .setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP))
+//            finish()
+//        }
+//
+//        dialog.show();
+//    }
 }

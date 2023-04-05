@@ -8,6 +8,7 @@ import android.content.Intent
 import android.content.pm.PackageManager
 import android.graphics.Bitmap
 import android.graphics.BitmapFactory
+import android.os.Build
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.util.Log
@@ -17,6 +18,7 @@ import android.widget.ImageView
 import android.widget.TextView
 import android.widget.Toast
 import androidx.activity.viewModels
+import androidx.annotation.RequiresApi
 import androidx.appcompat.widget.AppCompatButton
 import androidx.cardview.widget.CardView
 import androidx.core.app.ActivityCompat
@@ -37,15 +39,15 @@ import dev.iconpln.mims.tasks.Loadable
 import dev.iconpln.mims.tasks.TambahReportTask
 import dev.iconpln.mims.ui.pemeriksaan.PemeriksaanViewModel
 import dev.iconpln.mims.ui.pnerimaan.PenerimaanActivity
-import dev.iconpln.mims.utils.Config
-import dev.iconpln.mims.utils.DateTimeUtils
-import dev.iconpln.mims.utils.SharedPrefsUtils
-import dev.iconpln.mims.utils.StorageUtils
+import dev.iconpln.mims.utils.*
 import org.joda.time.DateTime
 import org.joda.time.LocalDateTime
 import java.io.File
 import java.io.FileOutputStream
 import java.text.SimpleDateFormat
+import java.time.LocalDate
+import java.time.format.DateTimeFormatter
+import java.time.temporal.ChronoUnit
 import java.util.*
 
 class InputPetugasPenerimaanActivity : AppCompatActivity(), Loadable {
@@ -61,8 +63,10 @@ class InputPetugasPenerimaanActivity : AppCompatActivity(), Loadable {
     private val galleryRequestFoto = 102
     private var noDo: String? = ""
     private var photoNumber: Int = 0
+    private var tglTerima: String? = ""
     private var progressDialog: AlertDialog? = null
 
+    @RequiresApi(Build.VERSION_CODES.O)
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         binding = ActivityInputPetugasPenerimaanBinding.inflate(layoutInflater)
@@ -135,7 +139,7 @@ class InputPetugasPenerimaanActivity : AppCompatActivity(), Loadable {
 
             if (dataPen.expeditions.isNullOrEmpty()) edtEkspedisi.setText("JNE") else edtEkspedisi.setText("${dataPen.expeditions}")
 
-            edtNamaKurir.setText("${dataPen.kurirPengantar}")
+            if (dataPen.kurirPengantar.isNullOrEmpty()) edtNamaKurir.setText("") else edtNamaKurir.setText("${dataPen.kurirPengantar}")
 
             if (listPhoto.isEmpty()){
                 btnUploadPhoto.visibility = View.VISIBLE
@@ -154,6 +158,7 @@ class InputPetugasPenerimaanActivity : AppCompatActivity(), Loadable {
 
                 val myFormat = "yyyy-MM-dd" // mention the format you need
                 val sdf = SimpleDateFormat(myFormat, Locale.US)
+                tglTerima = sdf.format(cal.time)
                 binding.edtTanggalDiterima.setText(sdf.format(cal.time))
 
             }
@@ -204,6 +209,7 @@ class InputPetugasPenerimaanActivity : AppCompatActivity(), Loadable {
         dialog.show()
     }
 
+    @RequiresApi(Build.VERSION_CODES.O)
     private fun validation() {
         with(binding){
             val tglDiterima = edtTanggalDiterima.text.toString()
@@ -240,6 +246,7 @@ class InputPetugasPenerimaanActivity : AppCompatActivity(), Loadable {
         }
     }
 
+    @RequiresApi(Build.VERSION_CODES.O)
     private fun insertData(
         tglDiterima: String,
         petugasPenerima: String,
@@ -265,9 +272,74 @@ class InputPetugasPenerimaanActivity : AppCompatActivity(), Loadable {
         btnOk.setOnClickListener {
             dialog.dismiss();
             submitForm(tglDiterima,petugasPenerima,namaKurir)
+            insertDefaultRating()
         }
 
         dialog.show();
+    }
+
+    @RequiresApi(Build.VERSION_CODES.O)
+    private fun insertDefaultRating() {
+        val poDate = dataPen.poDate
+        val leadTime = dataPen.leadTime
+        val tglSerahTerima = tglTerima
+        val ratingResponse = 0
+        val ratingQuality = 0
+
+        val formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd")
+        val startDate = LocalDate.parse(poDate, formatter)
+        val endDate = LocalDate.parse(tglSerahTerima, formatter)
+        val diffInDays = ChronoUnit.DAYS.between(startDate, endDate)
+
+        if (leadTime - diffInDays > 0L){
+            val ratingDelivery = 25
+
+            val tTransDataRating = TTransDataRating()
+            tTransDataRating.ratingDelivery = ratingDelivery.toString()
+            tTransDataRating.ratingQuality = ratingQuality.toString()
+            tTransDataRating.ratingResponse = ratingResponse.toString()
+            tTransDataRating.noDoSmar = noDo
+            tTransDataRating.ketepatan = 0
+            tTransDataRating.selesaiRating = false
+            tTransDataRating.isDone = 0
+            daoSession.tTransDataRatingDao.insert(tTransDataRating)
+        }else if (leadTime - diffInDays == 0L){
+            val ratingDelivery = 24
+
+            val tTransDataRating = TTransDataRating()
+            tTransDataRating.ratingDelivery = ratingDelivery.toString()
+            tTransDataRating.ratingQuality = ratingQuality.toString()
+            tTransDataRating.ratingResponse = ratingResponse.toString()
+            tTransDataRating.noDoSmar = noDo
+            tTransDataRating.ketepatan = 0
+            tTransDataRating.selesaiRating = false
+            tTransDataRating.isDone = 0
+            daoSession.tTransDataRatingDao.insert(tTransDataRating)
+        }else if (leadTime - diffInDays < 0L){
+            val ratingDelivery = 0
+
+            val tTransDataRating = TTransDataRating()
+            tTransDataRating.ratingDelivery = ratingDelivery.toString()
+            tTransDataRating.ratingQuality = ratingQuality.toString()
+            tTransDataRating.ratingResponse = ratingResponse.toString()
+            tTransDataRating.noDoSmar = noDo
+            tTransDataRating.ketepatan = 0
+            tTransDataRating.selesaiRating = false
+            tTransDataRating.isDone = 0
+            daoSession.tTransDataRatingDao.insert(tTransDataRating)
+        }else{
+            val ratingDelivery = 0
+
+            val tTransDataRating = TTransDataRating()
+            tTransDataRating.ratingDelivery = ratingDelivery.toString()
+            tTransDataRating.ratingQuality = ratingQuality.toString()
+            tTransDataRating.ratingResponse = ratingResponse.toString()
+            tTransDataRating.noDoSmar = noDo
+            tTransDataRating.ketepatan = 0
+            tTransDataRating.selesaiRating = false
+            tTransDataRating.isDone = 0
+            daoSession.tTransDataRatingDao.insert(tTransDataRating)
+        }
     }
 
     private fun submitForm(tglDiterima: String, petugasPenerima: String, namaKurir: String) {

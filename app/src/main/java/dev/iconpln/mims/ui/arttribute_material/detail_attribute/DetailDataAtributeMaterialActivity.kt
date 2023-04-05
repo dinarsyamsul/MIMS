@@ -20,12 +20,15 @@ class DetailDataAtributeMaterialActivity : AppCompatActivity() {
     private lateinit var adapter: DetailDataAttributeAdapter
     private var sn: String = ""
     private var noMaterial = ""
+    private var noBatch = ""
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         binding = ActivityDetailDataAtributeMaterialBinding.inflate(layoutInflater)
         setContentView(binding.root)
         noMaterial = intent.getStringExtra("noMaterial")!!
+        noBatch = intent.getStringExtra("noBatch")!!
+
 
         daoSession = (application as MyApplication).daoSession!!
         adapter = DetailDataAttributeAdapter(arrayListOf(), object : DetailDataAttributeAdapter.OnAdapterListener{
@@ -65,13 +68,16 @@ class DetailDataAtributeMaterialActivity : AppCompatActivity() {
 
     private fun doSearch() {
         val listFilter = daoSession.tMaterialDetailDao.queryBuilder()
+            .where(TMaterialDetailDao.Properties.NomorMaterial.eq(noMaterial))
+            .where(TMaterialDetailDao.Properties.NoProduksi.eq(noBatch))
             .where(TMaterialDetailDao.Properties.SerialNumber.like("%"+sn+"%")).list()
         adapter.setMaterialList(listFilter)
     }
 
     private fun fetchLocal() {
         val list = daoSession.tMaterialDetailDao.queryBuilder()
-            .where(TMaterialDetailDao.Properties.NomorMaterial.eq(noMaterial)).list()
+            .where(TMaterialDetailDao.Properties.NomorMaterial.eq(noMaterial))
+            .where(TMaterialDetailDao.Properties.NoProduksi.eq(noBatch)).list()
         adapter.setMaterialList(list)
     }
 }

@@ -112,6 +112,7 @@ class PenerimaanViewModel: ViewModel() {
                             item.statusPemeriksaan = if (model?.statusPemeriksaan.isNullOrEmpty()) "" else model?.statusPemeriksaan
                             item.statusPenerimaan = if (model?.statusPenerimaan.isNullOrEmpty()) "" else model?.statusPenerimaan
 
+                            item.poDate = model.poDate
                             item.kodeStatusDoMims = model.kodeStatusDoMims
                             item.doStatus = model.doStatus
                             item.expeditions = model.expeditions

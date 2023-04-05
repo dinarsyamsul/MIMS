@@ -14,6 +14,7 @@ import dev.iconpln.mims.data.local.database.DaoSession
 import dev.iconpln.mims.data.local.database.TPengujian
 import dev.iconpln.mims.data.local.database.TPengujianDao
 import dev.iconpln.mims.databinding.ActivityPengujianBinding
+import dev.iconpln.mims.ui.pengujian.petugas.PetugasPengujianActivity
 import dev.iconpln.mims.ui.role.pabrikan.pengujian.PengujianViewModel
 import dev.iconpln.mims.ui.role.pabrikan.pengujian.pengujian_detail.PengujianDetailActivity
 import kotlin.collections.ArrayList
@@ -43,6 +44,12 @@ class PengujianActivity : AppCompatActivity() {
         adapter = PengujianAdapter(arrayListOf(), object : PengujianAdapter.OnAdapterListener {
             override fun onClick(pengujian: TPengujian) {
                 startActivity(Intent(this@PengujianActivity, PengujianDetailActivity::class.java)
+                    .putExtra("noPengujian", pengujian.noPengujian))
+            }
+
+        }, object : PengujianAdapter.OnAdapterListenerPetugas{
+            override fun onClick(pengujian: TPengujian) {
+                startActivity(Intent(this@PengujianActivity, PetugasPengujianActivity::class.java)
                     .putExtra("noPengujian", pengujian.noPengujian))
             }
 

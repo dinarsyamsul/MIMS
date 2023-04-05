@@ -163,6 +163,7 @@ public class MainGenerator {
         tPos.addStringProperty("CreatedDate");
         tPos.addStringProperty("PlanCodeNo");
         tPos.addStringProperty("PlantName");
+        tPos.addStringProperty("PoDate");
         tPos.addStringProperty("NoDoMims");
         tPos.addStringProperty("DoStatus");
         tPos.addStringProperty("Expeditions");
@@ -193,6 +194,7 @@ public class MainGenerator {
         tPosPenerimaan.addStringProperty("PoMpNo");
         tPosPenerimaan.addStringProperty("NoDoSmar");
         tPosPenerimaan.addIntProperty("LeadTime");
+        tPosPenerimaan.addStringProperty("PoDate");
         tPosPenerimaan.addStringProperty("Storloc");
         tPosPenerimaan.addStringProperty("CreatedDate");
         tPosPenerimaan.addStringProperty("PlanCodeNo");
@@ -369,6 +371,25 @@ public class MainGenerator {
         tRating.addIntProperty("Nilai");
         tRating.addStringProperty("Type");
         tRating.addIntProperty("IsActive");
+
+        Entity tDataRating = schema.addEntity("TDataRating");
+        tDataRating.addIdProperty();
+        tDataRating.addIntProperty("Ketepatan");
+        tDataRating.addStringProperty("RatingQuality");
+        tDataRating.addStringProperty("RatingDelivery");
+        tDataRating.addBooleanProperty("SelesaiRating");
+        tDataRating.addStringProperty("NoDoSmar");
+        tDataRating.addStringProperty("RatingResponse");
+
+        Entity tTransDataRating = schema.addEntity("TTransDataRating");
+        tTransDataRating.addIdProperty();
+        tTransDataRating.addIntProperty("Ketepatan");
+        tTransDataRating.addStringProperty("RatingQuality");
+        tTransDataRating.addStringProperty("RatingDelivery");
+        tTransDataRating.addBooleanProperty("SelesaiRating");
+        tTransDataRating.addStringProperty("NoDoSmar");
+        tTransDataRating.addStringProperty("RatingResponse");
+        tTransDataRating.addIntProperty("IsDone");
 
         Entity tMonitoringPermintaan = schema.addEntity("TMonitoringPermintaan");
         tMonitoringPermintaan.addIdProperty();
@@ -574,6 +595,14 @@ public class MainGenerator {
         tPemakaian.addStringProperty("Daya");
         tPemakaian.addStringProperty("TanggalBayar");
 
+        tPemakaian.addStringProperty("NoPk");
+        tPemakaian.addStringProperty("NamaKegiatan");
+        tPemakaian.addStringProperty("Lokasi");
+        tPemakaian.addStringProperty("Pemeriksa");
+        tPemakaian.addStringProperty("Penerima");
+        tPemakaian.addStringProperty("KepalaGudang");
+        tPemakaian.addIntProperty("IsDonePemakai");
+
         Entity tPemakaianDetail = schema.addEntity("TPemakaianDetail");
         tPemakaianDetail.addIdProperty();
         tPemakaianDetail.addStringProperty("NoTransaksi");
@@ -608,6 +637,13 @@ public class MainGenerator {
         tListSnMaterialPemakaianUlp.addStringProperty("NoMaterial");
         tListSnMaterialPemakaianUlp.addStringProperty("NoSerialNumber");
         tListSnMaterialPemakaianUlp.addIntProperty("IsScanned");
+
+        Entity tPetugasPengujian = schema.addEntity("TPetugasPengujian");
+        tPetugasPengujian.addIdProperty();
+        tPetugasPengujian.addStringProperty("Nip");
+        tPetugasPengujian.addStringProperty("NamaPetugas");
+        tPetugasPengujian.addStringProperty("Jabatan");
+        tPetugasPengujian.addStringProperty("NoPengujian");
 
         new DaoGenerator().generateAll(schema, "../MIMS-Master/app/src/main/java");
 

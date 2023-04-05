@@ -7,7 +7,7 @@ import androidx.recyclerview.widget.RecyclerView
 import dev.iconpln.mims.data.local.database.TPengujian
 import dev.iconpln.mims.databinding.ItemPengujianBinding
 
-class PengujianAdapter(val lisModels: MutableList<TPengujian>, var listener: OnAdapterListener)
+class PengujianAdapter(val lisModels: MutableList<TPengujian>, var listener: OnAdapterListener,var listener2: OnAdapterListenerPetugas)
     : RecyclerView.Adapter<PengujianAdapter.ViewHolder>() {
 
     fun setPengujianList(mat: List<TPengujian>){
@@ -60,10 +60,15 @@ class PengujianAdapter(val lisModels: MutableList<TPengujian>, var listener: OnA
             }
 
             itemView.setOnClickListener { listener.onClick(pengujian) }
+            binding.btnViewPetugas.setOnClickListener { listener2.onClick(pengujian) }
         }
     }
 
     interface OnAdapterListener{
+        fun onClick(pengujian: TPengujian)
+    }
+
+    interface OnAdapterListenerPetugas{
         fun onClick(pengujian: TPengujian)
     }
 }

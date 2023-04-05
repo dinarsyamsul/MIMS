@@ -3,6 +3,7 @@ package dev.iconpln.mims.ui.pemakaian
 import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
+import dev.iconpln.mims.R
 import dev.iconpln.mims.data.local.database.TPemakaian
 import dev.iconpln.mims.data.local.database.TPemakaianDetail
 import dev.iconpln.mims.data.local.database.TTransPemakaianDetail
@@ -36,6 +37,12 @@ class PemakaianDetailAdapter(val lisModels: MutableList<TTransPemakaianDetail>, 
     inner class ViewHolder(val binding: ItemDataDetailPemakaianUlpBinding): RecyclerView.ViewHolder(binding.root){
         fun bind(pemakaian : TTransPemakaianDetail){
             with(binding){
+                if (pemakaian.isDone == 1){
+                    ivDelivery.setImageResource(R.drawable.ic_input_doc_done)
+                }else{
+                    ivDelivery.setImageResource(R.drawable.ic_input_doc_active)
+                }
+
                 txtJumlahPemakaian.text = pemakaian.qtyPemakaian
                 txtJumlahReservasi.text = pemakaian.qtyReservasi
                 txtSatuan.text = pemakaian.unit

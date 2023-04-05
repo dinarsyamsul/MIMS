@@ -45,6 +45,13 @@ public class TPemakaianDao extends AbstractDao<TPemakaian, Long> {
         public final static Property Tarif = new Property(20, String.class, "Tarif", false, "TARIF");
         public final static Property Daya = new Property(21, String.class, "Daya", false, "DAYA");
         public final static Property TanggalBayar = new Property(22, String.class, "TanggalBayar", false, "TANGGAL_BAYAR");
+        public final static Property NoPk = new Property(23, String.class, "NoPk", false, "NO_PK");
+        public final static Property NamaKegiatan = new Property(24, String.class, "NamaKegiatan", false, "NAMA_KEGIATAN");
+        public final static Property Lokasi = new Property(25, String.class, "Lokasi", false, "LOKASI");
+        public final static Property Pemeriksa = new Property(26, String.class, "Pemeriksa", false, "PEMERIKSA");
+        public final static Property Penerima = new Property(27, String.class, "Penerima", false, "PENERIMA");
+        public final static Property KepalaGudang = new Property(28, String.class, "KepalaGudang", false, "KEPALA_GUDANG");
+        public final static Property IsDonePemakai = new Property(29, Integer.class, "IsDonePemakai", false, "IS_DONE_PEMAKAI");
     }
 
 
@@ -82,7 +89,14 @@ public class TPemakaianDao extends AbstractDao<TPemakaian, Long> {
                 "\"ALAMAT_PELANGGAN\" TEXT," + // 19: AlamatPelanggan
                 "\"TARIF\" TEXT," + // 20: Tarif
                 "\"DAYA\" TEXT," + // 21: Daya
-                "\"TANGGAL_BAYAR\" TEXT);"); // 22: TanggalBayar
+                "\"TANGGAL_BAYAR\" TEXT," + // 22: TanggalBayar
+                "\"NO_PK\" TEXT," + // 23: NoPk
+                "\"NAMA_KEGIATAN\" TEXT," + // 24: NamaKegiatan
+                "\"LOKASI\" TEXT," + // 25: Lokasi
+                "\"PEMERIKSA\" TEXT," + // 26: Pemeriksa
+                "\"PENERIMA\" TEXT," + // 27: Penerima
+                "\"KEPALA_GUDANG\" TEXT," + // 28: KepalaGudang
+                "\"IS_DONE_PEMAKAI\" INTEGER);"); // 29: IsDonePemakai
     }
 
     /** Drops the underlying database table. */
@@ -209,6 +223,41 @@ public class TPemakaianDao extends AbstractDao<TPemakaian, Long> {
         if (TanggalBayar != null) {
             stmt.bindString(23, TanggalBayar);
         }
+ 
+        String NoPk = entity.getNoPk();
+        if (NoPk != null) {
+            stmt.bindString(24, NoPk);
+        }
+ 
+        String NamaKegiatan = entity.getNamaKegiatan();
+        if (NamaKegiatan != null) {
+            stmt.bindString(25, NamaKegiatan);
+        }
+ 
+        String Lokasi = entity.getLokasi();
+        if (Lokasi != null) {
+            stmt.bindString(26, Lokasi);
+        }
+ 
+        String Pemeriksa = entity.getPemeriksa();
+        if (Pemeriksa != null) {
+            stmt.bindString(27, Pemeriksa);
+        }
+ 
+        String Penerima = entity.getPenerima();
+        if (Penerima != null) {
+            stmt.bindString(28, Penerima);
+        }
+ 
+        String KepalaGudang = entity.getKepalaGudang();
+        if (KepalaGudang != null) {
+            stmt.bindString(29, KepalaGudang);
+        }
+ 
+        Integer IsDonePemakai = entity.getIsDonePemakai();
+        if (IsDonePemakai != null) {
+            stmt.bindLong(30, IsDonePemakai);
+        }
     }
 
     @Override
@@ -329,6 +378,41 @@ public class TPemakaianDao extends AbstractDao<TPemakaian, Long> {
         if (TanggalBayar != null) {
             stmt.bindString(23, TanggalBayar);
         }
+ 
+        String NoPk = entity.getNoPk();
+        if (NoPk != null) {
+            stmt.bindString(24, NoPk);
+        }
+ 
+        String NamaKegiatan = entity.getNamaKegiatan();
+        if (NamaKegiatan != null) {
+            stmt.bindString(25, NamaKegiatan);
+        }
+ 
+        String Lokasi = entity.getLokasi();
+        if (Lokasi != null) {
+            stmt.bindString(26, Lokasi);
+        }
+ 
+        String Pemeriksa = entity.getPemeriksa();
+        if (Pemeriksa != null) {
+            stmt.bindString(27, Pemeriksa);
+        }
+ 
+        String Penerima = entity.getPenerima();
+        if (Penerima != null) {
+            stmt.bindString(28, Penerima);
+        }
+ 
+        String KepalaGudang = entity.getKepalaGudang();
+        if (KepalaGudang != null) {
+            stmt.bindString(29, KepalaGudang);
+        }
+ 
+        Integer IsDonePemakai = entity.getIsDonePemakai();
+        if (IsDonePemakai != null) {
+            stmt.bindLong(30, IsDonePemakai);
+        }
     }
 
     @Override
@@ -361,7 +445,14 @@ public class TPemakaianDao extends AbstractDao<TPemakaian, Long> {
             cursor.isNull(offset + 19) ? null : cursor.getString(offset + 19), // AlamatPelanggan
             cursor.isNull(offset + 20) ? null : cursor.getString(offset + 20), // Tarif
             cursor.isNull(offset + 21) ? null : cursor.getString(offset + 21), // Daya
-            cursor.isNull(offset + 22) ? null : cursor.getString(offset + 22) // TanggalBayar
+            cursor.isNull(offset + 22) ? null : cursor.getString(offset + 22), // TanggalBayar
+            cursor.isNull(offset + 23) ? null : cursor.getString(offset + 23), // NoPk
+            cursor.isNull(offset + 24) ? null : cursor.getString(offset + 24), // NamaKegiatan
+            cursor.isNull(offset + 25) ? null : cursor.getString(offset + 25), // Lokasi
+            cursor.isNull(offset + 26) ? null : cursor.getString(offset + 26), // Pemeriksa
+            cursor.isNull(offset + 27) ? null : cursor.getString(offset + 27), // Penerima
+            cursor.isNull(offset + 28) ? null : cursor.getString(offset + 28), // KepalaGudang
+            cursor.isNull(offset + 29) ? null : cursor.getInt(offset + 29) // IsDonePemakai
         );
         return entity;
     }
@@ -391,6 +482,13 @@ public class TPemakaianDao extends AbstractDao<TPemakaian, Long> {
         entity.setTarif(cursor.isNull(offset + 20) ? null : cursor.getString(offset + 20));
         entity.setDaya(cursor.isNull(offset + 21) ? null : cursor.getString(offset + 21));
         entity.setTanggalBayar(cursor.isNull(offset + 22) ? null : cursor.getString(offset + 22));
+        entity.setNoPk(cursor.isNull(offset + 23) ? null : cursor.getString(offset + 23));
+        entity.setNamaKegiatan(cursor.isNull(offset + 24) ? null : cursor.getString(offset + 24));
+        entity.setLokasi(cursor.isNull(offset + 25) ? null : cursor.getString(offset + 25));
+        entity.setPemeriksa(cursor.isNull(offset + 26) ? null : cursor.getString(offset + 26));
+        entity.setPenerima(cursor.isNull(offset + 27) ? null : cursor.getString(offset + 27));
+        entity.setKepalaGudang(cursor.isNull(offset + 28) ? null : cursor.getString(offset + 28));
+        entity.setIsDonePemakai(cursor.isNull(offset + 29) ? null : cursor.getInt(offset + 29));
      }
     
     @Override

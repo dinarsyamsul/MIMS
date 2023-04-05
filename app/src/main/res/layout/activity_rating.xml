@@ -683,26 +683,6 @@
                 app:layout_constraintTop_toBottomOf="@+id/lbl_list_packaging"
                 tools:listitem="@layout/item_packaging" />
 
-            <androidx.appcompat.widget.AppCompatButton
-                android:id="@+id/btn_terima"
-                android:layout_width="match_parent"
-                android:layout_height="50dp"
-                android:layout_marginStart="23dp"
-                android:layout_marginEnd="23dp"
-                android:layout_marginTop="15dp"
-                android:layout_marginBottom="15dp"
-                android:background="@drawable/br_btn"
-                android:fontFamily="@font/montserrat_reguler"
-                android:text="Terima"
-                android:textAllCaps="false"
-                android:textColor="@color/white"
-                android:textSize="14sp"
-                app:layout_constraintBottom_toBottomOf="parent"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/rv_packaging" />
-
-
-
         </androidx.constraintlayout.widget.ConstraintLayout>
     </ScrollView>
 
