@@ -45,16 +45,52 @@ class DetailApprovalMaterialActivity : AppCompatActivity() {
         viewModel.getMaterialRegistrasiDetailByDate(tglRegis, status)
         viewModel.getNomorMaterialForAktivasi()
 
-        viewModel.nomorMaterialResponse.observe(this){
-            if (it != null){
+        viewModel.nomorMaterialResponse.observe(this) {
+            if (it != null) {
                 val materialData = it.data
-                val noMaterialItem = materialData.map { "No. Material : ${it.nomorMaterial}\nDeskripsi : ${it.materialDesc}" }.toTypedArray()
-                val adapterDropdown = CustomDropdownAdapter(this, R.layout.dropdown_material_layout, noMaterialItem)
+                val noMaterialItem =
+                    materialData.map { "No. Material : ${it.nomorMaterial}\nDeskripsi : ${it.materialDesc}" }
+                        .toTypedArray()
+                val noMaterialItemAll = arrayOf("ALL") + noMaterialItem
+//                val adapterDropdown = CustomDropdownAdapter(
+//                    this,
+//                    R.layout.dropdown_material_layout,
+//                    noMaterialItemAll
+//                )
+                val adapterDropdown = object : ArrayAdapter<String>(this, 0, noMaterialItemAll) {
+                    override fun getView(position: Int, convertView: View?, parent: ViewGroup): View {
+                        val inflater = LayoutInflater.from(context)
+                        val itemLayout = if (position == count - 1) {
+                            R.layout.dropdown_material_layout // Use default layout for other items
+                        } else {
+                            R.layout.dropdown_material_all_layout // Use custom layout for "ALL" item
+
+                        }
+                        val view = convertView ?: inflater.inflate(itemLayout, parent, false)
+                        val item = getItem(position) ?: ""
+                        val textView = view.findViewById<TextView>(R.id.item_name)
+                        textView.text = item
+                        return view
+                    }
+                }
                 binding.dropdownNoMaterial.setAdapter(adapterDropdown)
                 binding.dropdownNoMaterial.setOnItemClickListener { parent, _, position, _ ->
                     val selectedItem = parent.getItemAtPosition(position) as String
-                    noMaterial = selectedItem.split("\n")[0]
-                    viewModel.getMaterialRegistrasiDetailByDate(tgl_registrasi = tglRegis, status = status, sn = sn, no_material = noMaterial)
+                    if (selectedItem == "ALL") {
+                        noMaterial = ""
+                    } else {
+                        val label = "No. Material : "
+                        noMaterial =
+                            selectedItem.substring(selectedItem.indexOf(label) + label.length)
+                                .split("\n")[0]
+                    }
+                    viewModel.getMaterialRegistrasiDetailByDate(
+                        tgl_registrasi = tglRegis,
+                        status = status,
+                        sn = sn,
+                        no_material = noMaterial
+                    )
+
                 }
             }
         }
@@ -121,13 +157,19 @@ class DetailApprovalMaterialActivity : AppCompatActivity() {
                 start: Int,
                 count: Int,
                 after: Int
-            ) {}
+            ) {
+            }
 
             override fun onTextChanged(s: CharSequence?, start: Int, before: Int, count: Int) {}
 
             override fun afterTextChanged(s: Editable?) {
                 sn = s.toString()
-                viewModel.getMaterialRegistrasiDetailByDate(tgl_registrasi = tglRegis, status = status, sn = sn, no_material = noMaterial)
+                viewModel.getMaterialRegistrasiDetailByDate(
+                    tgl_registrasi = tglRegis,
+                    status = status,
+                    sn = sn,
+                    no_material = noMaterial
+                )
             }
 
         })
@@ -176,7 +218,12 @@ class DetailApprovalMaterialActivity : AppCompatActivity() {
         val btnOK = view.findViewById<Button>(R.id.btn_approve_ok)
         builder.setView(view)
         btnOK.setOnClickListener {
-            viewModel.getMaterialRegistrasiDetailByDate(tgl_registrasi = tglRegis, status = status, sn = sn, no_material = noMaterial)
+            viewModel.getMaterialRegistrasiDetailByDate(
+                tgl_registrasi = tglRegis,
+                status = status,
+                sn = sn,
+                no_material = noMaterial
+            )
             builder.dismiss()
         }
 
