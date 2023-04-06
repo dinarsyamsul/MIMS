@@ -39,7 +39,7 @@
             android:fontFamily="@font/montserrat_semibold"
             android:text="PLN Jakarta Pusat"
             android:textColor="#666666"
-            android:textSize="14sp" />
+            android:textSize="12sp" />
     </androidx.cardview.widget.CardView>
 
     <de.hdodenhof.circleimageview.CircleImageView
@@ -115,6 +115,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginEnd="14dp"
+                android:backgroundTint="#01A1B9"
                 android:background="@drawable/ic_baseline_keyboard_arrow_right_24"
                 card_view:layout_constraintBottom_toBottomOf="@+id/textView3"
                 card_view:layout_constraintEnd_toEndOf="parent"
@@ -163,11 +164,14 @@
                 card_view:layout_constraintStart_toEndOf="@+id/imageView1"
                 card_view:layout_constraintTop_toTopOf="@+id/imageView1" />
 
-            <androidx.appcompat.widget.SwitchCompat
+            <Switch
                 android:id="@+id/btn_switch"
                 android:layout_width="wrap_content"
-                android:layout_height="20dp"
+                android:layout_height="wrap_content"
                 android:layout_marginEnd="14dp"
+                android:thumb="@drawable/cstm_thumb"
+                android:track="@drawable/cstm_track"
+                tools:ignore="UseSwitchCompatOrMaterialXml"
                 card_view:layout_constraintBottom_toBottomOf="@+id/textView1"
                 card_view:layout_constraintEnd_toEndOf="parent"
                 card_view:layout_constraintTop_toTopOf="@+id/textView1" />
@@ -220,6 +224,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginEnd="14dp"
+                android:backgroundTint="#01A1B9"
                 android:background="@drawable/ic_baseline_keyboard_arrow_right_24"
                 card_view:layout_constraintBottom_toBottomOf="@+id/textView2"
                 card_view:layout_constraintEnd_toEndOf="parent"
@@ -261,6 +266,7 @@
                 android:layout_height="wrap_content"
                 android:layout_marginStart="15dp"
                 android:layout_marginEnd="15dp"
+                android:backgroundTint="#01A1B9"
                 android:fontFamily="@font/montserrat"
                 android:text="Transmission History"
                 card_view:layout_constraintBottom_toBottomOf="@+id/imageView8"
@@ -273,6 +279,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginEnd="14dp"
+                android:backgroundTint="#01A1B9"
                 android:background="@drawable/ic_baseline_keyboard_arrow_right_24"
                 card_view:layout_constraintBottom_toBottomOf="@+id/textView8"
                 card_view:layout_constraintEnd_toEndOf="parent"

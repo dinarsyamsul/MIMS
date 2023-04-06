@@ -182,6 +182,19 @@
                 app:layout_constraintStart_toStartOf="@+id/lbl_foto_surat_barang"
                 app:layout_constraintTop_toBottomOf="@+id/lbl_foto_surat_barang" />
 
+            <TextView
+                android:id="@+id/maksfoto"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="22dp"
+                android:fontFamily="@font/montserrat"
+                android:text="Maksimal 5 File Foto"
+                android:textColor="#96979B"
+                android:textSize="12sp"
+                app:layout_constraintBottom_toBottomOf="@+id/btn_upload_photo"
+                app:layout_constraintStart_toEndOf="@+id/btn_upload_photo"
+                app:layout_constraintTop_toTopOf="@+id/btn_upload_photo" />
+
             <androidx.recyclerview.widget.RecyclerView
                 android:id="@+id/rv_add_foto"
                 android:layout_width="0dp"

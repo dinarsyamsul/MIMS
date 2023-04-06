@@ -4,7 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@color/white"
+    android:background="#FFFFFF"
     tools:context=".HomeActivity">
 
     <com.google.android.material.bottomnavigation.BottomNavigationView
@@ -15,7 +15,7 @@
         android:layout_marginEnd="24dp"
         android:layout_marginBottom="16dp"
         android:background="@drawable/subtract1"
-        android:backgroundTint="@color/white"
+        android:backgroundTint="#FFFFFF"
         app:elevation="4dp"
         app:itemIconTint="@color/black"
         app:itemTextColor="@color/black"
