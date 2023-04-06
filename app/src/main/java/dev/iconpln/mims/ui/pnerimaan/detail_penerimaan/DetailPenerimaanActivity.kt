@@ -378,7 +378,7 @@ class DetailPenerimaanActivity : AppCompatActivity(),Loadable {
         val btnOk = dialog.findViewById(R.id.btn_ok) as AppCompatButton
         val txtMessage = dialog.findViewById(R.id.txt_message) as TextView
 
-        txtMessage.text = "Material berhasil diterima tanpa pemeriksaan"
+        txtMessage.text = "Material berhasil diterima dengan pemeriksaan"
 
         btnOk.setOnClickListener {
             dialog.dismiss();

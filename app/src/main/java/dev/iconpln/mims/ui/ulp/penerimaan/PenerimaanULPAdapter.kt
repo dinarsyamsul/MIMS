@@ -38,6 +38,8 @@ class PenerimaanULPAdapter(val lisModels: MutableList<TTransPenerimaanUlp>, var 
                 txtVendorAsal.text = pengujian.noPermintaan
                 txtStatusPemeriksaan.text = pengujian.tempStatusPemeriksaan
                 txtTglPengiriman.text = pengujian.deliveryDate
+                txtUnitTujuan.text = pengujian.tanggalPenerimaan
+                txtJumlahKardus.text = pengujian.jumlahKardus.toString()
 
                 if (pengujian.isDonePemeriksaan == 1){
                     if (pengujian.isDone == 1){

@@ -101,6 +101,7 @@ class HomeFragment : Fragment() {
         binding.btnPemakaian.visibility = View.GONE
         binding.btnPenerimaanUlp.visibility = View.GONE
         binding.btnMonitoringPermintaan.visibility = View.GONE
+        binding.btnRegistrasi.visibility = View.GONE
 
         var listPrivilege = daoSession.tPrivilegeDao.queryBuilder().list()
 
@@ -139,6 +140,10 @@ class HomeFragment : Fragment() {
 
             if (i.methodId == "is_monitoring_permintaan" && i.isActive == "1"){
                 binding.btnMonitoringPermintaan.visibility = View.VISIBLE
+            }
+
+            if (i.methodId == "is_registrasi" && i.isActive == "1"){
+                binding.btnRegistrasi.visibility = View.VISIBLE
             }
 
             binding.txtJumlahAttribut.text = nilaiMaterial
@@ -222,20 +227,31 @@ class HomeFragment : Fragment() {
             dialog.show()
         }
 
+        binding.btnRegistrasi.setOnClickListener {
+            val dialog = BottomSheetDialog(requireActivity(), R.style.AppBottomSheetDialogTheme)
+            val view = layoutInflater.inflate(R.layout.bottom_sheet_dialog_registrasi, null)
+            val btnRegister = view.findViewById(R.id.cv_registrasi) as CardView
+            val btnAproval = view.findViewById(R.id.cv_approval) as CardView
+
+            btnRegister.setOnClickListener {
+                startActivity(Intent(requireActivity(), RegistrasiSnMaterialActivity::class.java))
+            }
+
+            btnAproval.setOnClickListener {
+                startActivity(Intent(requireActivity(), ApprovalActivity::class.java))
+            }
+
+            dialog.setCancelable(true)
+            dialog.setContentView(view)
+            dialog.show()
+        }
+
         binding.btnTracking.setOnClickListener {
             startActivity(Intent(requireActivity(), TrackingHistoryActivity::class.java))
         }
 
         binding.btnPengiriman.setOnClickListener {
             startActivity(Intent(requireActivity(), PengirimanActivity::class.java))
-        }
-
-        binding.btnRegister.setOnClickListener {
-            startActivity(Intent(requireActivity(), RegistrasiSnMaterialActivity::class.java))
-        }
-
-        binding.btnApproval.setOnClickListener {
-            startActivity(Intent(requireActivity(), ApprovalActivity::class.java))
         }
     }
 

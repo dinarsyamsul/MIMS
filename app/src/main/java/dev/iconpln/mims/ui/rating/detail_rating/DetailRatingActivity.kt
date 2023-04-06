@@ -511,6 +511,8 @@ class DetailRatingActivity : AppCompatActivity(),Loadable {
                     i.isActive = 1
                     daoSession.tRatingDao.update(i)
                     ratingWaktu = dataRating.ratingDelivery
+                    ketWaktu = i.keterangan
+                    nilaiWaktu = i.nilai
                     binding.txtMessageWaktu.visibility = View.VISIBLE
                     binding.txtMessageWaktu.text = i.keterangan
                 }
@@ -523,6 +525,8 @@ class DetailRatingActivity : AppCompatActivity(),Loadable {
                     i.isActive = 1
                     daoSession.tRatingDao.update(i)
                     ratingWaktu = dataRating.ratingDelivery
+                    ketWaktu = i.keterangan
+                    nilaiWaktu = i.nilai
                     binding.txtMessageWaktu.visibility = View.VISIBLE
                     binding.txtMessageWaktu.text = i.keterangan
                 }
