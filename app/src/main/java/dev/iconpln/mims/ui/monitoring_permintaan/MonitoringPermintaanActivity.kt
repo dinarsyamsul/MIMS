@@ -155,6 +155,7 @@ class MonitoringPermintaanActivity : AppCompatActivity() {
                     item.qtyPengeluaran = model?.qtyPengeluaran.toString()
                     item.qtyPermintaan = model?.qtyPermintaan ?: 0
                     item.qtyScan = model?.qtyScan.toString()
+                    item.qtyAkanDiScan = 0
                     item.isScannedSn = 0
                     item.isDone = 0
 

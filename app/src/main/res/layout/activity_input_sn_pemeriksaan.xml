@@ -232,6 +232,16 @@
                 app:layout_constraintStart_toStartOf="@+id/textView12"
                 app:layout_constraintTop_toBottomOf="@+id/btn_scan_sn_material" />
 
+            <ImageView
+                android:id="@+id/btn_scan"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginEnd="23dp"
+                android:background="@drawable/ic_scan_sn"
+                app:layout_constraintBottom_toBottomOf="@+id/lbl_no_sn"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintTop_toTopOf="@+id/lbl_no_sn" />
+
             <EditText
                 android:id="@+id/src_no_sn"
                 android:layout_width="0dp"
@@ -248,7 +258,7 @@
                 android:textSize="12sp"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/lbl_no_sn" />
+                app:layout_constraintTop_toBottomOf="@+id/btn_scan" />
 
             <View
                 android:id="@+id/view8"

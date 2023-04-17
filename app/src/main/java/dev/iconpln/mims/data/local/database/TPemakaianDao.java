@@ -52,6 +52,7 @@ public class TPemakaianDao extends AbstractDao<TPemakaian, Long> {
         public final static Property Penerima = new Property(27, String.class, "Penerima", false, "PENERIMA");
         public final static Property KepalaGudang = new Property(28, String.class, "KepalaGudang", false, "KEPALA_GUDANG");
         public final static Property IsDonePemakai = new Property(29, Integer.class, "IsDonePemakai", false, "IS_DONE_PEMAKAI");
+        public final static Property IsDone = new Property(30, Integer.class, "IsDone", false, "IS_DONE");
     }
 
 
@@ -96,7 +97,8 @@ public class TPemakaianDao extends AbstractDao<TPemakaian, Long> {
                 "\"PEMERIKSA\" TEXT," + // 26: Pemeriksa
                 "\"PENERIMA\" TEXT," + // 27: Penerima
                 "\"KEPALA_GUDANG\" TEXT," + // 28: KepalaGudang
-                "\"IS_DONE_PEMAKAI\" INTEGER);"); // 29: IsDonePemakai
+                "\"IS_DONE_PEMAKAI\" INTEGER," + // 29: IsDonePemakai
+                "\"IS_DONE\" INTEGER);"); // 30: IsDone
     }
 
     /** Drops the underlying database table. */
@@ -258,6 +260,11 @@ public class TPemakaianDao extends AbstractDao<TPemakaian, Long> {
         if (IsDonePemakai != null) {
             stmt.bindLong(30, IsDonePemakai);
         }
+ 
+        Integer IsDone = entity.getIsDone();
+        if (IsDone != null) {
+            stmt.bindLong(31, IsDone);
+        }
     }
 
     @Override
@@ -413,6 +420,11 @@ public class TPemakaianDao extends AbstractDao<TPemakaian, Long> {
         if (IsDonePemakai != null) {
             stmt.bindLong(30, IsDonePemakai);
         }
+ 
+        Integer IsDone = entity.getIsDone();
+        if (IsDone != null) {
+            stmt.bindLong(31, IsDone);
+        }
     }
 
     @Override
@@ -452,7 +464,8 @@ public class TPemakaianDao extends AbstractDao<TPemakaian, Long> {
             cursor.isNull(offset + 26) ? null : cursor.getString(offset + 26), // Pemeriksa
             cursor.isNull(offset + 27) ? null : cursor.getString(offset + 27), // Penerima
             cursor.isNull(offset + 28) ? null : cursor.getString(offset + 28), // KepalaGudang
-            cursor.isNull(offset + 29) ? null : cursor.getInt(offset + 29) // IsDonePemakai
+            cursor.isNull(offset + 29) ? null : cursor.getInt(offset + 29), // IsDonePemakai
+            cursor.isNull(offset + 30) ? null : cursor.getInt(offset + 30) // IsDone
         );
         return entity;
     }
@@ -489,6 +502,7 @@ public class TPemakaianDao extends AbstractDao<TPemakaian, Long> {
         entity.setPenerima(cursor.isNull(offset + 27) ? null : cursor.getString(offset + 27));
         entity.setKepalaGudang(cursor.isNull(offset + 28) ? null : cursor.getString(offset + 28));
         entity.setIsDonePemakai(cursor.isNull(offset + 29) ? null : cursor.getInt(offset + 29));
+        entity.setIsDone(cursor.isNull(offset + 30) ? null : cursor.getInt(offset + 30));
      }
     
     @Override

@@ -420,20 +420,30 @@
                 app:layout_constraintStart_toStartOf="@+id/lbl_input_petugas"
                 app:layout_constraintTop_toBottomOf="@+id/lbl_input_petugas" />
 
-            <EditText
+            <com.google.android.material.textfield.TextInputLayout
                 android:id="@+id/edt_ketua_pemeriksa"
+                style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox.ExposedDropdownMenu"
                 android:layout_width="0dp"
-                android:layout_height="50dp"
+                android:layout_height="wrap_content"
                 android:layout_marginTop="10dp"
-                android:background="@drawable/srchview"
                 android:fontFamily="@font/montserrat_reguler"
-                android:hint="Nama ketua pemeriksa"
-                android:paddingLeft="20dp"
-                android:paddingRight="20dp"
                 android:textSize="12sp"
+                app:hintAnimationEnabled="true"
                 app:layout_constraintEnd_toEndOf="@+id/cv_daftarList"
                 app:layout_constraintStart_toStartOf="@+id/lbl_ketua_pemeriksa"
-                app:layout_constraintTop_toBottomOf="@+id/lbl_ketua_pemeriksa" />
+                app:layout_constraintTop_toBottomOf="@+id/lbl_ketua_pemeriksa" >
+
+                <AutoCompleteTextView
+                    android:id="@+id/dropdown_ketua"
+                    style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox.ExposedDropdownMenu"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:background="@drawable/txt_input_layout"
+                    android:inputType="none"
+                    android:text="Pilih Ketua" />
+
+            </com.google.android.material.textfield.TextInputLayout>
 
             <TextView
                 android:id="@+id/lbl_nama_manager"
@@ -447,20 +457,30 @@
                 app:layout_constraintStart_toStartOf="@+id/edt_ketua_pemeriksa"
                 app:layout_constraintTop_toBottomOf="@+id/edt_ketua_pemeriksa" />
 
-            <EditText
+            <com.google.android.material.textfield.TextInputLayout
                 android:id="@+id/edt_nama_manager"
+                style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox.ExposedDropdownMenu"
                 android:layout_width="0dp"
-                android:layout_height="50dp"
+                android:layout_height="wrap_content"
                 android:layout_marginTop="10dp"
-                android:background="@drawable/srchview"
                 android:fontFamily="@font/montserrat_reguler"
-                android:hint="Nama Manager"
-                android:paddingLeft="20dp"
-                android:paddingRight="20dp"
                 android:textSize="12sp"
+                app:hintAnimationEnabled="true"
                 app:layout_constraintEnd_toEndOf="@+id/edt_ketua_pemeriksa"
                 app:layout_constraintStart_toStartOf="@+id/lbl_nama_manager"
-                app:layout_constraintTop_toBottomOf="@+id/lbl_nama_manager" />
+                app:layout_constraintTop_toBottomOf="@+id/lbl_nama_manager">
+
+                <AutoCompleteTextView
+                    android:id="@+id/dropdown_manager"
+                    style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox.ExposedDropdownMenu"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:background="@drawable/txt_input_layout"
+                    android:inputType="none"
+                    android:text="Pilih Manager" />
+
+            </com.google.android.material.textfield.TextInputLayout>
 
             <TextView
                 android:id="@+id/lbl_sekretaris"
@@ -474,20 +494,30 @@
                 app:layout_constraintStart_toStartOf="@+id/lbl_nama_manager"
                 app:layout_constraintTop_toBottomOf="@+id/edt_nama_manager" />
 
-            <EditText
+            <com.google.android.material.textfield.TextInputLayout
                 android:id="@+id/edt_sekretaris"
+                style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox.ExposedDropdownMenu"
                 android:layout_width="0dp"
-                android:layout_height="50dp"
+                android:layout_height="wrap_content"
                 android:layout_marginTop="10dp"
-                android:background="@drawable/srchview"
                 android:fontFamily="@font/montserrat_reguler"
-                android:hint="Nama sekretaris"
-                android:paddingLeft="20dp"
-                android:paddingRight="20dp"
                 android:textSize="12sp"
+                app:hintAnimationEnabled="true"
                 app:layout_constraintEnd_toEndOf="@+id/edt_nama_manager"
                 app:layout_constraintStart_toStartOf="@+id/lbl_sekretaris"
-                app:layout_constraintTop_toBottomOf="@+id/lbl_sekretaris" />
+                app:layout_constraintTop_toBottomOf="@+id/lbl_sekretaris">
+
+                <AutoCompleteTextView
+                    android:id="@+id/dropdown_sekretaris"
+                    style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox.ExposedDropdownMenu"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:background="@drawable/txt_input_layout"
+                    android:inputType="none"
+                    android:text="Pilih Sekretaris" />
+
+            </com.google.android.material.textfield.TextInputLayout>
 
             <TextView
                 android:id="@+id/lbl_anggota"
@@ -501,20 +531,30 @@
                 app:layout_constraintStart_toStartOf="@+id/lbl_nama_manager"
                 app:layout_constraintTop_toBottomOf="@+id/edt_sekretaris" />
 
-            <EditText
+            <com.google.android.material.textfield.TextInputLayout
                 android:id="@+id/edt_anggota"
+                style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox.ExposedDropdownMenu"
                 android:layout_width="0dp"
-                android:layout_height="50dp"
+                android:layout_height="wrap_content"
                 android:layout_marginTop="10dp"
-                android:background="@drawable/srchview"
                 android:fontFamily="@font/montserrat_reguler"
-                android:hint="Nama anggota"
-                android:paddingLeft="20dp"
-                android:paddingRight="20dp"
                 android:textSize="12sp"
+                app:hintAnimationEnabled="true"
                 app:layout_constraintEnd_toEndOf="@+id/edt_nama_manager"
                 app:layout_constraintStart_toStartOf="@+id/lbl_sekretaris"
-                app:layout_constraintTop_toBottomOf="@+id/lbl_anggota" />
+                app:layout_constraintTop_toBottomOf="@+id/lbl_anggota">
+
+                <AutoCompleteTextView
+                    android:id="@+id/dropdown_anggota"
+                    style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox.ExposedDropdownMenu"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:background="@drawable/txt_input_layout"
+                    android:inputType="none"
+                    android:text="Pilih Anggota" />
+
+            </com.google.android.material.textfield.TextInputLayout>
 
             <TextView
                 android:id="@+id/lbl_new_anggota"
@@ -554,7 +594,7 @@
                 android:text="Tambah Anggota"
                 android:textAllCaps="false"
                 android:textColor="#045A71"
-                android:visibility="visible"
+                android:visibility="gone"
                 app:layout_constraintEnd_toEndOf="@+id/edt_anggota"
                 app:layout_constraintTop_toBottomOf="@+id/edt_anggota" />
 

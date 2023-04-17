@@ -58,7 +58,7 @@ class PenerimaanAdapter(val lisModels: MutableList<TPosPenerimaan>,
 
 
                 if (!pe.tanggalDiterima.isNullOrEmpty()){
-                    if (listDetailPen.isNullOrEmpty()){
+                    if (listDetailPen.isNullOrEmpty() || pe.statusPenerimaan == "DITERIMA"){
                         ivDoc.setImageResource(R.drawable.ic_input_doc_done)
                         if (pe.isRating == 1){
                             ivDelivery.setImageResource(R.drawable.ic_input_delivery_to_rating_active)

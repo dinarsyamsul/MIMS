@@ -43,6 +43,20 @@
         android:usesCleartextTraffic="true"
         tools:targetApi="31">
         <activity
+            android:name=".ui.monitoring_complaint.detail_monitoring_complaint.MonitoringComplaintDetailActivity"
+            android:exported="false">
+            <meta-data
+                android:name="android.app.lib_name"
+                android:value="" />
+        </activity>
+        <activity
+            android:name=".ui.monitoring_complaint.MonitoringComplaintActivity"
+            android:exported="false">
+            <meta-data
+                android:name="android.app.lib_name"
+                android:value="" />
+        </activity>
+        <activity
             android:name=".ui.pemakaian.input_pemakaian.InputPemakaianActivity"
             android:exported="false">
             <meta-data
@@ -63,7 +77,6 @@
                 android:name="android.app.lib_name"
                 android:value="" />
         </activity>
-
         <activity
             android:name=".ui.pnerimaan.registrasi.AlertDialogRegistrasi"
             android:exported="false">
@@ -71,8 +84,7 @@
                 android:name="android.app.lib_name"
                 android:value="" />
         </activity>
-        <activity
-            android:name=".ui.pnerimaan.registrasi.RegistrasiSnMaterialActivity">
+        <activity android:name=".ui.pnerimaan.registrasi.RegistrasiSnMaterialActivity">
             <meta-data
                 android:name="android.app.lib_name"
                 android:value="" />

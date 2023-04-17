@@ -347,6 +347,17 @@ class DatabaseReport constructor(context: Context) : SQLiteOpenHelper(context, D
         return result
     }
 
+    fun isTransimitionNotSendExist(): Boolean {
+        val today = LocalDate.now().toString("yyyy-MM-dd")
+        val db = readableDatabase
+        val sql = "select id_report, nama_parameter, nilai_parameter from report join parameter on id_report = report_id and status_done = 0 "
+        val cursor = db.rawQuery(sql, null)
+        val numRow = cursor.count
+        cursor.close()
+        db.close()
+        return numRow > 0
+    }
+
     companion object {
         fun getDeskripsi(listReport: List<GenericReport>): Array<String> {
             val daftar = Array(listReport.size, { _ -> "" })

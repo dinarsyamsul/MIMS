@@ -41,6 +41,7 @@ public class TPemakaian {
     private String Penerima;
     private String KepalaGudang;
     private Integer IsDonePemakai;
+    private Integer IsDone;
 
     @Generated
     public TPemakaian() {
@@ -51,7 +52,7 @@ public class TPemakaian {
     }
 
     @Generated
-    public TPemakaian(Long id, String NoTransaksi, String NoReservasi, String NoPemesanan, String KodeIntegrasi, String Plant, String StorLoc, String StatusPemakaian, String TanggalReservasi, String TanggalPemakaian, String TanggalPengeluaran, String TanggalDokumen, String JenisPekerjaan, String Sumber, String StatusKirimAgo, String StatusSap, String NoAgenda, String IdPelanggan, String NamaPelanggan, String AlamatPelanggan, String Tarif, String Daya, String TanggalBayar, String NoPk, String NamaKegiatan, String Lokasi, String Pemeriksa, String Penerima, String KepalaGudang, Integer IsDonePemakai) {
+    public TPemakaian(Long id, String NoTransaksi, String NoReservasi, String NoPemesanan, String KodeIntegrasi, String Plant, String StorLoc, String StatusPemakaian, String TanggalReservasi, String TanggalPemakaian, String TanggalPengeluaran, String TanggalDokumen, String JenisPekerjaan, String Sumber, String StatusKirimAgo, String StatusSap, String NoAgenda, String IdPelanggan, String NamaPelanggan, String AlamatPelanggan, String Tarif, String Daya, String TanggalBayar, String NoPk, String NamaKegiatan, String Lokasi, String Pemeriksa, String Penerima, String KepalaGudang, Integer IsDonePemakai, Integer IsDone) {
         this.id = id;
         this.NoTransaksi = NoTransaksi;
         this.NoReservasi = NoReservasi;
@@ -82,6 +83,7 @@ public class TPemakaian {
         this.Penerima = Penerima;
         this.KepalaGudang = KepalaGudang;
         this.IsDonePemakai = IsDonePemakai;
+        this.IsDone = IsDone;
     }
 
     public Long getId() {
@@ -322,6 +324,14 @@ public class TPemakaian {
 
     public void setIsDonePemakai(Integer IsDonePemakai) {
         this.IsDonePemakai = IsDonePemakai;
+    }
+
+    public Integer getIsDone() {
+        return IsDone;
+    }
+
+    public void setIsDone(Integer IsDone) {
+        this.IsDone = IsDone;
     }
 
 }

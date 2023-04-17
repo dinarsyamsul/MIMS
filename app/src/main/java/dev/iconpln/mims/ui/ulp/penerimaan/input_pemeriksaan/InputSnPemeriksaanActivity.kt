@@ -85,6 +85,7 @@ class InputSnPemeriksaanActivity : AppCompatActivity(),Loadable {
 
             btnScanSnMaterial.setOnClickListener { openScanner() }
             btnInputSnManual.setOnClickListener { showPopUp() }
+            btnScan.setOnClickListener { openScanner() }
 
             rvListSn.adapter = adapter
             rvListSn.layoutManager = LinearLayoutManager(this@InputSnPemeriksaanActivity,LinearLayoutManager.VERTICAL,false)
@@ -230,41 +231,7 @@ class InputSnPemeriksaanActivity : AppCompatActivity(),Loadable {
         try {
             if(!result.contents.isNullOrEmpty()){
                 Log.i("hit barcode","${result.contents}")
-                val listSn = TListSnMaterialPenerimaanUlp()
-                listSn.noRepackaging = noRepackaging
-                listSn.isScanned = 1
-                listSn.status = "SESUAI"
-                listSn.noMaterial = noMaterial
-                listSn.noSerialNumber = result.contents
-                daoSession.tListSnMaterialPenerimaanUlpDao.insert(listSn)
-
-                val reloadList = daoSession.tListSnMaterialPenerimaanUlpDao.queryBuilder()
-                    .where(TListSnMaterialPenerimaanUlpDao.Properties.NoRepackaging.eq(noRepackaging))
-                    .where(TListSnMaterialPenerimaanUlpDao.Properties.NoMaterial.eq(noMaterial)).list()
-
-                adapter.setTmsList(reloadList)
-//                val listSn = TMonitoringSnMaterial()
-//                var isSnExist = false
-//                for (i in listSnPermaterial){
-//                    if (i.serialNumber == result.contents){
-//                        isSnExist = true
-//                        listSn.noRepackaging = noRepackaging
-//                        listSn.isScanned = 1
-//                        listSn.serialNumber = result.contents
-//                        listSn.nomorMaterial = noMaterial
-//                        listSn.status = "SESUAI"
-//                        daoSession.tMonitoringSnMaterialDao.insert(listSn)
-//                    }
-//                }
-//
-//                if (!isSnExist){
-//                    Toast.makeText(this@InputSnMonitoringPermintaanActivity, "SN Tidak ditemukan", Toast.LENGTH_SHORT).show()
-//                }
-//
-//                val reloadList = daoSession.tMonitoringSnMaterialDao.queryBuilder()
-//                    .where(TMonitoringSnMaterialDao.Properties.NoRepackaging.eq(noRepackaging))
-//                    .list()
-//                adapter.setTmsList(reloadList)
+                binding.srcNoSn.setText(result.contents)
             }
         }catch (e: Exception){
             Log.e("exception", e.toString())

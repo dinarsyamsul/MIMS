@@ -1,6 +1,7 @@
 package dev.iconpln.mims.ui.transmission_history
 
 import android.app.ActivityManager
+import android.app.Dialog
 import android.content.BroadcastReceiver
 import android.content.Context
 import android.content.Intent
@@ -8,16 +9,23 @@ import android.content.IntentFilter
 import android.os.Bundle
 import android.os.StrictMode
 import android.util.Log
-import android.widget.ArrayAdapter
-import android.widget.Button
-import android.widget.ListView
+import android.view.View
+import android.view.ViewGroup
+import android.widget.*
 import androidx.appcompat.app.AppCompatActivity
+import androidx.appcompat.widget.AppCompatButton
 import dev.iconpln.mims.MyApplication
 import dev.iconpln.mims.R
 import dev.iconpln.mims.data.local.database.DaoSession
 import dev.iconpln.mims.data.local.database_local.DatabaseReport
 import dev.iconpln.mims.data.local.database_local.ReportUploader
+import dev.iconpln.mims.utils.ConnectionDetectorUtil
 import dev.iconpln.mims.utils.DataController
+import dev.iconpln.mims.utils.DialogUtils
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.GlobalScope
+import kotlinx.coroutines.launch
+import kotlinx.coroutines.withContext
 import java.util.*
 
 class TransmissionActivity : AppCompatActivity() {
@@ -43,16 +51,68 @@ class TransmissionActivity : AppCompatActivity() {
     private var mPageTitle: String = ""
     private var mEmailSupport: String = ""
     //endregion
+    private lateinit var btnForceSending: ImageButton
+    private lateinit var txtSending: TextView
+    private lateinit var pgLoading: ProgressBar
+    private lateinit var btnBack: ImageView
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_transmission_history)
         initData()
         init()
+        forceSending()
     }
 
     private fun initData() {
         daoSession = (application as MyApplication).daoSession!!
+        btnForceSending = findViewById(R.id.btn_force_sending)
+        btnBack = findViewById(R.id.btn_back)
+        txtSending = findViewById(R.id.txtSending)
+        pgLoading = findViewById(R.id.pgLoading)
+
+        btnBack.setOnClickListener { onBackPressed() }
+    }
+
+    private fun forceSending() {
+        btnForceSending.setOnClickListener {
+            val connectionDetector = ConnectionDetectorUtil(this@TransmissionActivity)
+            if (!sending && connectionDetector.isConnectingToInternet){
+                val dialog = Dialog(this@TransmissionActivity)
+                dialog.setContentView(R.layout.popup_force_sending);
+                dialog.window!!.setLayout(ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.WRAP_CONTENT);
+                dialog.setCancelable(false);
+                dialog.window!!.attributes.windowAnimations = R.style.DialogUpDown;
+                val btnYa = dialog.findViewById(R.id.btn_ya) as AppCompatButton
+                val btnTidak = dialog.findViewById(R.id.btn_tidak) as AppCompatButton
+                btnTidak.setOnClickListener {
+                    dialog.dismiss()
+                }
+                btnYa.setOnClickListener {
+                    dialog.dismiss()
+                    if(!databaseReport!!.isTransimitionNotSendExist()){
+                        txtSending.visibility = View.GONE
+                        pgLoading.visibility = View.GONE
+                        Toast.makeText(this@TransmissionActivity,"Tidak ada data yang harus di kirim, karena data telah terkirim semua",Toast.LENGTH_LONG).show()
+                    }else{
+                        txtSending.text = "Force Sending. . . "
+                        txtSending.visibility = View.VISIBLE
+                        pgLoading.visibility = View.VISIBLE
+
+                        GlobalScope.launch(Dispatchers.IO) { sendReport() }
+                    }
+                    dialog.dismiss()
+                }
+                dialog.show()
+            }
+            else if(!sending && !connectionDetector.isConnectingToInternet){
+                Toast.makeText(this@TransmissionActivity,"Anda tidak terhubung ke Server. Aktifkan internet terlebih dahulu",Toast.LENGTH_LONG).show()
+            }else if(sending && connectionDetector.isConnectingToInternet){
+                Toast.makeText(this@TransmissionActivity,"Proses pengiriman data sedang berjalan, harap di tunggu hingga semua data terkirim",Toast.LENGTH_LONG).show()
+            }else{
+                Toast.makeText(this@TransmissionActivity,"Anda tidak terhubung ke Server. Aktifkan internet terlebih dahulu",Toast.LENGTH_LONG).show()
+            }
+        }
     }
 
     override fun onResume() {
@@ -110,6 +170,13 @@ class TransmissionActivity : AppCompatActivity() {
                         }
                     }
 
+                    if(!databaseReport!!.isTransimitionNotSendExist()){
+                        txtSending.visibility = View.GONE
+                        pgLoading.visibility = View.GONE
+                        sending = false
+                        Toast.makeText(this@TransmissionActivity,"Semua report berhasil terkirim",Toast.LENGTH_LONG).show()
+                    }
+
                     Log.i("accepet reciever", "eksekusi reciever")
 
                 } catch (e: Exception) {
@@ -162,7 +229,7 @@ class TransmissionActivity : AppCompatActivity() {
         return false
     }
 
-    internal fun sendReport() {
+    internal suspend fun sendReport() {
         try{
             sending = true
             val databaseReport = DatabaseReport.getDatabase(applicationContext)
@@ -181,11 +248,13 @@ class TransmissionActivity : AppCompatActivity() {
 
     }
 
-    private fun sendResult() {
-        if (!isLoading) {
-            val intent = Intent(Intent.ACTION_SEND)
-            sendBroadcast(intent)
-            Log.i("ReportUploader.kt", "Send result reciever")
+    private suspend fun sendResult() {
+        withContext(Dispatchers.IO){
+            if (!isLoading) {
+                val intent = Intent(Intent.ACTION_SEND)
+                sendBroadcast(intent)
+                Log.i("ReportUploader.kt", "Send result reciever")
+            }
         }
     }
 }

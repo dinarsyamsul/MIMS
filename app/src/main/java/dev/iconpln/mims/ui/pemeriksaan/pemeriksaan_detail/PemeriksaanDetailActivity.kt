@@ -63,7 +63,6 @@ class PemeriksaanDetailActivity : AppCompatActivity(), Loadable {
         Log.d("checkSns", listSns.size.toString())
         listPemDetail = daoSession.tPemeriksaanDetailDao.queryBuilder()
             .where(TPemeriksaanDetailDao.Properties.NoPemeriksaan.eq(noPem))
-            .where(TPemeriksaanDetailDao.Properties.IsPeriksa.eq(1))
             .where(TPemeriksaanDetailDao.Properties.IsComplaint.eq(0))
             .list()
         pemeriksaan = daoSession.tPemeriksaanDao.queryBuilder()
@@ -131,7 +130,6 @@ class PemeriksaanDetailActivity : AppCompatActivity(), Loadable {
                 override fun afterTextChanged(s: Editable?) {
                     val listSnsFilter = daoSession.tPemeriksaanDetailDao.queryBuilder()
                         .where(TPemeriksaanDetailDao.Properties.NoPemeriksaan.eq(noPem))
-                        .where(TPemeriksaanDetailDao.Properties.IsPeriksa.eq(1))
                         .where(TPemeriksaanDetailDao.Properties.IsComplaint.eq(0))
                         .whereOr(TPemeriksaanDetailDao.Properties.Sn.like("%"+s.toString()+"%"),
                             TPemeriksaanDetailDao.Properties.NoPackaging.like("%"+s.toString()+"%"))

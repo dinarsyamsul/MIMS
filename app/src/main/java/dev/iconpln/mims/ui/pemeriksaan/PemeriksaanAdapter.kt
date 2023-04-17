@@ -51,6 +51,7 @@ class PemeriksaanAdapter(
                 var listPemDetail = daoSession.tPemeriksaanDetailDao.queryBuilder()
                     .where(TPemeriksaanDetailDao.Properties.NoPemeriksaan.eq(pe.noPemeriksaan))
                     .where(TPemeriksaanDetailDao.Properties.IsPeriksa.eq(1))
+                    .where(TPemeriksaanDetailDao.Properties.StatusPemeriksaan.eq("BELUM DIPERIKSA"))
                     .where(TPemeriksaanDetailDao.Properties.IsComplaint.eq(0))
                     .where(TPemeriksaanDetailDao.Properties.NoPemeriksaan.notEq(""))
                     .list()
@@ -61,6 +62,9 @@ class PemeriksaanAdapter(
                 if (pe.namaKetua.isNotEmpty() && pe.isDone == 0){
                     ivInputPerson.setImageResource(R.drawable.ic_input_petugas_done)
                     ivDoc.setImageResource(R.drawable.ic_input_doc_active)
+                }else if (pe.namaKetua.isNullOrEmpty() && pe.isDone == 0){
+                    ivInputPerson.setImageResource(R.drawable.ic_input_petugas_active)
+                    ivDoc.setImageResource(R.drawable.ic_input_doc_false)
                 }
 
                 if (pe.isDone == 1 || listPemDetail.size == 0){

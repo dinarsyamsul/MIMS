@@ -46,7 +46,9 @@ class PenerimaanUlpActivity : AppCompatActivity() {
                 insertDataDetail(pengujian.noRepackaging)
                 if (pengujian.isDonePemeriksaan == 1){
                     Toast.makeText(this@PenerimaanUlpActivity, "Anda sudah menyelesaikan pengiriman ini", Toast.LENGTH_SHORT).show()
-                }else{
+                }else if(pengujian.statusPemeriksaan == "SUDAH DIPERIKSA" && pengujian.statusPenerimaan == "DITERIMA"){
+                    Toast.makeText(this@PenerimaanUlpActivity, "Pengiriman ini sudah di selesaikan", Toast.LENGTH_SHORT).show()
+                } else{
                     startActivity(Intent(this@PenerimaanUlpActivity, PetugasPemeriksaanActivity::class.java)
                         .putExtra("noRepackaging", pengujian.noRepackaging)
                         .putExtra("noPengiriman", pengujian.noPengiriman))

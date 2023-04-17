@@ -457,6 +457,7 @@ public class MainGenerator {
         tTransMonitoringPermintaanDetail.addStringProperty("QtyScan");
         tTransMonitoringPermintaanDetail.addStringProperty("Kategori");
         tTransMonitoringPermintaanDetail.addStringProperty("QtyPengeluaran");
+        tTransMonitoringPermintaanDetail.addIntProperty("QtyAkanDiScan");
         tTransMonitoringPermintaanDetail.addIntProperty("IsScannedSn");
         tTransMonitoringPermintaanDetail.addIntProperty("IsDone");
 
@@ -602,6 +603,7 @@ public class MainGenerator {
         tPemakaian.addStringProperty("Penerima");
         tPemakaian.addStringProperty("KepalaGudang");
         tPemakaian.addIntProperty("IsDonePemakai");
+        tPemakaian.addIntProperty("IsDone");
 
         Entity tPemakaianDetail = schema.addEntity("TPemakaianDetail");
         tPemakaianDetail.addIdProperty();
@@ -644,6 +646,35 @@ public class MainGenerator {
         tPetugasPengujian.addStringProperty("NamaPetugas");
         tPetugasPengujian.addStringProperty("Jabatan");
         tPetugasPengujian.addStringProperty("NoPengujian");
+
+        Entity tMonitoringComplaint = schema.addEntity("TMonitoringComplaint");
+        tMonitoringComplaint.addIdProperty();
+        tMonitoringComplaint.addStringProperty("NoKomplainSmar");
+        tMonitoringComplaint.addStringProperty("NoDoSmar");
+        tMonitoringComplaint.addStringProperty("TanggalSelesai");
+        tMonitoringComplaint.addStringProperty("PoSapNo");
+        tMonitoringComplaint.addIntProperty("qty");
+        tMonitoringComplaint.addStringProperty("NoKomplain");
+        tMonitoringComplaint.addStringProperty("Alasan");
+        tMonitoringComplaint.addStringProperty("Status");
+        tMonitoringComplaint.addStringProperty("PlantName");
+        tMonitoringComplaint.addStringProperty("TanggalPO");
+
+        Entity tMonitoringComplaintDetail = schema.addEntity("TMonitoringComplaintDetail");
+        tMonitoringComplaintDetail.addIdProperty();
+        tMonitoringComplaintDetail.addStringProperty("NoMatSap");
+        tMonitoringComplaintDetail.addStringProperty("DoLineItem");
+        tMonitoringComplaintDetail.addStringProperty("TanggalPengajuan");
+        tMonitoringComplaintDetail.addStringProperty("NoPackaging");
+        tMonitoringComplaintDetail.addStringProperty("NoSerial");
+        tMonitoringComplaintDetail.addStringProperty("NoKomplain");
+        tMonitoringComplaintDetail.addStringProperty("Status");
+        tMonitoringComplaintDetail.addStringProperty("NoDoSmar");
+        tMonitoringComplaintDetail.addStringProperty("TanggalSelesai");
+        tMonitoringComplaintDetail.addStringProperty("StatusPeriksa");
+        tMonitoringComplaintDetail.addStringProperty("PartialCode");
+        tMonitoringComplaintDetail.addIntProperty("IsChecked");
+        tMonitoringComplaintDetail.addIntProperty("IsDone");
 
         new DaoGenerator().generateAll(schema, "../MIMS-Master/app/src/main/java");
 

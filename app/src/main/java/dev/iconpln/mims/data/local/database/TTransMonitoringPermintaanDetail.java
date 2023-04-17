@@ -22,6 +22,7 @@ public class TTransMonitoringPermintaanDetail {
     private String QtyScan;
     private String Kategori;
     private String QtyPengeluaran;
+    private Integer QtyAkanDiScan;
     private Integer IsScannedSn;
     private Integer IsDone;
 
@@ -34,7 +35,7 @@ public class TTransMonitoringPermintaanDetail {
     }
 
     @Generated
-    public TTransMonitoringPermintaanDetail(Long id, String NoPermintaan, String NoTransaksi, String NoRepackaging, String NomorMaterial, String Unit, Integer QtyPermintaan, String MaterialDesc, String QtyScan, String Kategori, String QtyPengeluaran, Integer IsScannedSn, Integer IsDone) {
+    public TTransMonitoringPermintaanDetail(Long id, String NoPermintaan, String NoTransaksi, String NoRepackaging, String NomorMaterial, String Unit, Integer QtyPermintaan, String MaterialDesc, String QtyScan, String Kategori, String QtyPengeluaran, Integer QtyAkanDiScan, Integer IsScannedSn, Integer IsDone) {
         this.id = id;
         this.NoPermintaan = NoPermintaan;
         this.NoTransaksi = NoTransaksi;
@@ -46,6 +47,7 @@ public class TTransMonitoringPermintaanDetail {
         this.QtyScan = QtyScan;
         this.Kategori = Kategori;
         this.QtyPengeluaran = QtyPengeluaran;
+        this.QtyAkanDiScan = QtyAkanDiScan;
         this.IsScannedSn = IsScannedSn;
         this.IsDone = IsDone;
     }
@@ -136,6 +138,14 @@ public class TTransMonitoringPermintaanDetail {
 
     public void setQtyPengeluaran(String QtyPengeluaran) {
         this.QtyPengeluaran = QtyPengeluaran;
+    }
+
+    public Integer getQtyAkanDiScan() {
+        return QtyAkanDiScan;
+    }
+
+    public void setQtyAkanDiScan(Integer QtyAkanDiScan) {
+        this.QtyAkanDiScan = QtyAkanDiScan;
     }
 
     public Integer getIsScannedSn() {

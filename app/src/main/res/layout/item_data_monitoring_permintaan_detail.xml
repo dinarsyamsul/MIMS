@@ -139,7 +139,7 @@
             android:layout_height="0dp"
             android:layout_marginStart="5dp"
             android:fontFamily="@font/montserrat_reguler"
-            android:text="21-01-2023"
+            android:text="0"
             android:textSize="10sp"
             app:layout_constraintBottom_toBottomOf="@+id/txt_satuan"
             app:layout_constraintStart_toEndOf="@+id/imageView3"

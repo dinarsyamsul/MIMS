@@ -37,12 +37,12 @@ class PenerimaanULPAdapter(val lisModels: MutableList<TTransPenerimaanUlp>, var 
                 txtStatusPenerimaan.text = pengujian.tempStatusPenerimaan
                 txtVendorAsal.text = pengujian.noPermintaan
                 txtStatusPemeriksaan.text = pengujian.tempStatusPemeriksaan
-                txtTglPengiriman.text = pengujian.deliveryDate
-                txtUnitTujuan.text = pengujian.tanggalPenerimaan
+                txtTglPengiriman.text = pengujian.deliveryDate.take(10)
+                txtTanggalPenerimaan.text = if(pengujian.tanggalPenerimaan.isNullOrEmpty()) "-" else pengujian.tanggalPenerimaan
                 txtJumlahKardus.text = pengujian.jumlahKardus.toString()
 
                 if (pengujian.isDonePemeriksaan == 1){
-                    if (pengujian.isDone == 1){
+                    if (pengujian.isDone == 1 || pengujian.statusPemeriksaan == "SUDAH DIPERIKSA" && pengujian.statusPenerimaan == "DITERIMA"){
                         ivDoc.setImageResource(R.drawable.ic_input_doc_done)
                     }else{
                         ivDoc.setImageResource(R.drawable.ic_input_doc_done)

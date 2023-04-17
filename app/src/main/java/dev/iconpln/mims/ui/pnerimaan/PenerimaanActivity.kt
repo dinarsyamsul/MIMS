@@ -52,7 +52,7 @@ class PenerimaanActivity : AppCompatActivity() {
 
         }, object: PenerimaanAdapter.OnAdapterListenerDoc{
             override fun onClick(po: TPosPenerimaan) {
-                if (po.tanggalDiterima.isNullOrEmpty()){
+                if (po.tanggalDiterima.isNullOrEmpty() || po.statusPenerimaan == "DITERIMA"){
                     Toast.makeText(this@PenerimaanActivity, "Kamu belum melakukan input data penerimaan", Toast.LENGTH_SHORT).show()
                 }else{
                     val penerimaanDetails = daoSession.tPosDetailPenerimaanDao.queryBuilder()

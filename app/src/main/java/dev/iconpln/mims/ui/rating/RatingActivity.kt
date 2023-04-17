@@ -25,7 +25,7 @@ import dev.iconpln.mims.ui.rating.detail_rating.DetailRatingActivity
 class RatingActivity : AppCompatActivity() {
     private lateinit var binding: ActivityRatingBinding
     private lateinit var daoSession: DaoSession
-    private lateinit var listPenDetail: MutableList<TPosDetailPenerimaan>
+    private lateinit var listPenDetail: MutableList<TPosSns>
     private lateinit var penerimaan: TPosPenerimaan
     private lateinit var adapter: RatingAdapter
     private var noDo: String = ""
@@ -37,16 +37,14 @@ class RatingActivity : AppCompatActivity() {
         daoSession = (application as MyApplication).daoSession!!
         noDo = intent.getStringExtra("noDo")!!
 
-        listPenDetail = daoSession.tPosDetailPenerimaanDao.queryBuilder()
-            .where(TPosDetailPenerimaanDao.Properties.NoDoSmar.eq(noDo))
-            .where(TPosDetailPenerimaanDao.Properties.IsDone.eq(1))
-            .where(TPosDetailPenerimaanDao.Properties.IsChecked.eq(1)).list()
+        listPenDetail = daoSession.tPosSnsDao.queryBuilder()
+            .where(TPosSnsDao.Properties.NoDoSmar.eq(noDo)).list()
 
         penerimaan = daoSession.tPosPenerimaanDao.queryBuilder()
             .where(TPosPenerimaanDao.Properties.NoDoSmar.eq(noDo)).list().get(0)
 
         adapter = RatingAdapter(arrayListOf(), object : RatingAdapter.OnAdapterListener{
-            override fun onClick(po: TPosDetailPenerimaan) {}
+            override fun onClick(po: TPosSns) {}
 
         })
 
@@ -60,14 +58,14 @@ class RatingActivity : AppCompatActivity() {
             txtStoreloc.text = penerimaan.storloc
             txtKuantitasDiterima.text = penerimaan.total
             txtNamaKurir.text = penerimaan.kurirPengantar
-            txtPetugasPengiriman.text = penerimaan.courierPersonName
+            txtPetugasPengiriman.text = penerimaan.kurirPengantar
             txtPrimaryOrder.text = penerimaan.poSapNo
             txtTglDiterima.text = penerimaan.tanggalDiterima
             txtTglPengiriman.text = penerimaan.createdDate
             txtTglTerima.text = penerimaan.tanggalDiterima
             txtTlsk.text = penerimaan.tlskNo
             txtUnitAsal.text = penerimaan.plantName
-            txtVendor.text = "-"
+            txtPrimaryOrder.text = if (penerimaan.poMpNo.isNullOrEmpty()) "-" else penerimaan.poMpNo
 
             if (penerimaan.ratingDone == 1){
                 btnRating.setImageResource(R.drawable.ic_rating_done)
@@ -100,11 +98,44 @@ class RatingActivity : AppCompatActivity() {
             rvPackaging.setHasFixedSize(true)
             rvPackaging.layoutManager = LinearLayoutManager(this@RatingActivity, LinearLayoutManager.VERTICAL, false)
 
+            btnBack.setOnClickListener {
+                onBackPressed()
+            }
 //            btnTerima.setOnClickListener {
 //                validate()
 //            }
         }
+        insertDataRating()
+    }
 
+    private fun insertDataRating() {
+        val dataRating = daoSession.tDataRatingDao.queryBuilder()
+            .where(TDataRatingDao.Properties.NoDoSmar.eq(noDo)).list()
+        if (dataRating != null){
+            val size = dataRating.size
+            if (size > 0) {
+                val items = arrayOfNulls<TTransDataRating>(size)
+                var item: TTransDataRating
+                for ((i, model) in dataRating.withIndex()){
+                    item = TTransDataRating()
+                    item.noDoSmar = model?.noDoSmar
+                    item.ratingResponse = model?.ratingResponse
+                    item.ratingQuality = model?.ratingQuality
+                    item.ratingDelivery = model?.ratingDelivery
+                    item.selesaiRating = model?.selesaiRating
+                    item.ketepatan = model?.ketepatan
+                    item.isDone = 0
+                    items[i] = item
+                }
+                daoSession.tTransDataRatingDao.insertInTx(items.toList())
+            }
+        }
+    }
+
+    override fun onBackPressed() {
+       startActivity(Intent(this,PenerimaanActivity::class.java)
+           .setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP))
+        finish()
     }
 
 //    private fun validate() {

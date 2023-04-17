@@ -55,6 +55,7 @@ class PemeriksaanActivity : AppCompatActivity() {
                         var listPemDetail = daoSession.tPemeriksaanDetailDao.queryBuilder()
                             .where(TPemeriksaanDetailDao.Properties.NoPemeriksaan.eq(po.noPemeriksaan))
                             .where(TPemeriksaanDetailDao.Properties.IsPeriksa.eq(1))
+                            .where(TPemeriksaanDetailDao.Properties.StatusPemeriksaan.eq("BELUM DIPERIKSA"))
                             .where(TPemeriksaanDetailDao.Properties.IsComplaint.eq(0))
                             .where(TPemeriksaanDetailDao.Properties.NoPemeriksaan.notEq(""))
                             .list()
@@ -136,7 +137,8 @@ class PemeriksaanActivity : AppCompatActivity() {
                     rvPemeriksaan.adapter = adapter
                     rvPemeriksaan.setHasFixedSize(true)
                     rvPemeriksaan.layoutManager = LinearLayoutManager(this@PemeriksaanActivity,LinearLayoutManager.VERTICAL, false)
-                    adapter.setPeList(search)                }else{
+                    adapter.setPeList(search)
+                }else{
                     val search = daoSession.tPemeriksaanDao.queryBuilder()
                         .whereOr(TPemeriksaanDao.Properties.NoDoSmar.like("%"+noDo+"%")
                             ,TPemeriksaanDao.Properties.PoSapNo.like("%"+noDo+"%"))
@@ -147,7 +149,8 @@ class PemeriksaanActivity : AppCompatActivity() {
                     rvPemeriksaan.adapter = adapter
                     rvPemeriksaan.setHasFixedSize(true)
                     rvPemeriksaan.layoutManager = LinearLayoutManager(this@PemeriksaanActivity,LinearLayoutManager.VERTICAL, false)
-                    adapter.setPeList(search)                }
+                    adapter.setPeList(search)
+                    }
 
             }
         }

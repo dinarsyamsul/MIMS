@@ -92,7 +92,13 @@ data class LoginResponse(
 	val snPenerimaanUlp: List<SnPenerimaanUlpItem?>? = null,
 
 	@field:SerializedName("petugas_pengujian")
-	val petugasPengujian: List<PetugasPengujianItem?>? = null
+	val petugasPengujian: List<PetugasPengujianItem?>? = null,
+
+	@field:SerializedName("monitoring_komplain")
+	val monitoringKomplain: List<MonitoringKomplainItem?>? = null,
+
+	@field:SerializedName("monitoring_komplain_detail")
+	val monitoringKomplainDetail: List<MonitoringKomplainDetailItem?>? = null
 )
 
 data class RatingsItem(
@@ -491,7 +497,10 @@ data class User(
 	val userId: Int? = 0,
 
 	@field:SerializedName("role_id")
-	val roleId: Int? = 0
+	val roleId: Int? = 0,
+
+	@field:SerializedName("subrole_id")
+	val subroleId: Int? = 0
 )
 
 data class PrivilegeItem(
@@ -1144,4 +1153,64 @@ data class PetugasPengujianItem(
 
 	@field:SerializedName("no_pengujian")
 	val noPengujian: String? = null
+)
+
+data class MonitoringKomplainItem(
+
+	@field:SerializedName("no_komplain_smar")
+	val noKomplainSmar: String? = null,
+
+	@field:SerializedName("no_do_smar")
+	val noDoSmar: String? = null,
+
+	@field:SerializedName("finish_date")
+	val finishDate: String? = null,
+
+	@field:SerializedName("po_sap_no")
+	val poSapNo: String? = null,
+
+	@field:SerializedName("qty")
+	val qty: Int? = null,
+
+	@field:SerializedName("no_komplain")
+	val noKomplain: String? = null,
+
+	@field:SerializedName("alasan")
+	val alasan: String? = null,
+
+	@field:SerializedName("status")
+	val status: String? = null,
+
+	@field:SerializedName("plant_name")
+	val plantName: String? = null,
+
+	@field:SerializedName("tanggal_po")
+	val tanggalPo: String? = null
+)
+
+data class MonitoringKomplainDetailItem(
+
+	@field:SerializedName("no_mat_sap")
+	val noMatSap: String? = null,
+
+	@field:SerializedName("no_do_smar")
+	val noDoSmar: String? = null,
+
+	@field:SerializedName("do_line_item")
+	val doLineItem: String? = null,
+
+	@field:SerializedName("tanggal_pengajuan")
+	val tanggalPengajuan: String? = null,
+
+	@field:SerializedName("no_packaging")
+	val noPackaging: String? = null,
+
+	@field:SerializedName("no_serial")
+	val noSerial: String? = null,
+
+	@field:SerializedName("no_komplain")
+	val noKomplain: String? = null,
+
+	@field:SerializedName("status")
+	val status: String? = null
 )

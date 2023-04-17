@@ -115,18 +115,18 @@
                 android:layout_height="14dp"
                 android:layout_marginStart="5dp"
                 android:src="@drawable/unit_list_monitoring1"
-                app:layout_constraintEnd_toStartOf="@+id/lbl_status_reservasi"
+                app:layout_constraintEnd_toStartOf="@+id/lbl_no_transaksi"
                 app:layout_constraintStart_toEndOf="@+id/lbl_tgl_reservasi"
                 app:layout_constraintTop_toTopOf="@+id/lbl_tgl_reservasi" />
 
             <TextView
-                android:id="@+id/lbl_status_reservasi"
+                android:id="@+id/lbl_no_transaksi"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_marginStart="5dp"
                 android:layout_marginEnd="16dp"
                 android:fontFamily="@font/montserrat_reguler"
-                android:text="Status Reservasi"
+                android:text="No. Transaksi"
                 android:textColor="#3F3D56"
                 android:textSize="10sp"
                 app:layout_constraintBottom_toBottomOf="@+id/imageView1"
@@ -135,7 +135,7 @@
                 app:layout_constraintTop_toTopOf="@+id/imageView1" />
 
             <TextView
-                android:id="@+id/txt_status_reservasi"
+                android:id="@+id/txt_no_transaksi"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_marginStart="5dp"
@@ -143,7 +143,7 @@
                 android:fontFamily="@font/montserrat_reguler"
                 android:text="111011"
                 android:textSize="10sp"
-                app:layout_constraintEnd_toEndOf="@+id/lbl_status_reservasi"
+                app:layout_constraintEnd_toEndOf="@+id/lbl_no_transaksi"
                 app:layout_constraintHorizontal_bias="0.0"
                 app:layout_constraintStart_toEndOf="@+id/imageView1"
                 app:layout_constraintTop_toBottomOf="@+id/lbl_tgl_reservasi" />
@@ -155,18 +155,18 @@
                 android:layout_marginStart="5dp"
                 android:layout_marginTop="8dp"
                 android:src="@drawable/unit_list_monitoring1"
-                app:layout_constraintEnd_toStartOf="@+id/lbl_status_reservasi"
+                app:layout_constraintEnd_toStartOf="@+id/lbl_no_transaksi"
                 app:layout_constraintStart_toEndOf="@+id/lbl_tgl_reservasi"
-                app:layout_constraintTop_toBottomOf="@+id/txt_status_reservasi" />
+                app:layout_constraintTop_toBottomOf="@+id/txt_no_transaksi" />
 
             <TextView
-                android:id="@+id/lbl_status_kirim_sap"
+                android:id="@+id/lbl_status_pemakaian"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_marginStart="5dp"
                 android:layout_marginEnd="16dp"
                 android:fontFamily="@font/montserrat_reguler"
-                android:text="Status Kirim SAP Reservasi"
+                android:text="Status SN Pemakaian"
                 android:textColor="#3F3D56"
                 android:textSize="10sp"
                 app:layout_constraintBottom_toBottomOf="@+id/imageView5"
@@ -175,7 +175,7 @@
                 app:layout_constraintTop_toTopOf="@+id/imageView5" />
 
             <TextView
-                android:id="@+id/txt_status_kirim_sap"
+                android:id="@+id/txt_status_pemakaian"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_marginStart="5dp"
@@ -183,10 +183,10 @@
                 android:fontFamily="@font/montserrat_reguler"
                 android:text="111011"
                 android:textSize="10sp"
-                app:layout_constraintEnd_toEndOf="@+id/lbl_status_kirim_sap"
+                app:layout_constraintEnd_toEndOf="@+id/lbl_status_pemakaian"
                 app:layout_constraintHorizontal_bias="0.0"
                 app:layout_constraintStart_toEndOf="@+id/imageView5"
-                app:layout_constraintTop_toBottomOf="@+id/lbl_status_kirim_sap" />
+                app:layout_constraintTop_toBottomOf="@+id/lbl_status_pemakaian" />
 
             <ImageView
                 android:id="@+id/imageView2"
@@ -203,7 +203,7 @@
                 android:layout_height="wrap_content"
                 android:layout_marginStart="5dp"
                 android:fontFamily="@font/montserrat_reguler"
-                android:text="Satuan"
+                android:text="Jenis Pekerjaan"
                 android:textColor="#3F3D56"
                 android:textSize="10sp"
                 app:layout_constraintBottom_toBottomOf="@+id/imageView2"

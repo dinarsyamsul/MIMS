@@ -43,7 +43,7 @@ class MonitoringPermintaanDetailActivity : AppCompatActivity(),Loadable {
     private var noPermintaan: String = ""
     private var noTransaksi: String = ""
     private var srcNoMaterialTxt: String = ""
-    private lateinit var monitoringPenerimaan: TTransMonitoringPermintaan
+    private lateinit var monitoringPermintaan: TTransMonitoringPermintaan
     private var progressDialog: AlertDialog? = null
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -56,7 +56,7 @@ class MonitoringPermintaanDetailActivity : AppCompatActivity(),Loadable {
         noTransaksi = intent.getStringExtra("noTransaksi")!!
 
 
-        monitoringPenerimaan = daoSession.tTransMonitoringPermintaanDao.queryBuilder()
+        monitoringPermintaan = daoSession.tTransMonitoringPermintaanDao.queryBuilder()
             .where(TTransMonitoringPermintaanDao.Properties.NoPermintaan.eq(noPermintaan)).list()[0]
 
         viewModel.getMonitoringPermintaanDetail(daoSession, noTransaksi)
@@ -72,7 +72,8 @@ class MonitoringPermintaanDetailActivity : AppCompatActivity(),Loadable {
                         .putExtra("desc", mpd.materialDesc)
                         .putExtra("kategori", mpd.kategori)
                         .putExtra("noRepackaging", mpd.noRepackaging)
-                        .putExtra("noTransaksi", mpd.noTransaksi))
+                        .putExtra("noTransaksi", mpd.noTransaksi)
+                        .putExtra("qtyPermintaan", mpd.qtyPermintaan))
                 }
             }
 
@@ -86,8 +87,8 @@ class MonitoringPermintaanDetailActivity : AppCompatActivity(),Loadable {
             btnBack.setOnClickListener { onBackPressed() }
             btnSimpan.setOnClickListener { validate() }
             txtNoPermintaan.text = noPermintaan
-            txtNoPackaging.text = monitoringPenerimaan.noRepackaging
-            txtGudangTujuan.text = monitoringPenerimaan.storLocTujuanName
+            txtNoPackaging.text = monitoringPermintaan.noRepackaging
+            txtGudangTujuan.text = monitoringPermintaan.storLocTujuanName
 
             rvMonitoringPermintaanDetail.adapter = adapter
             rvMonitoringPermintaanDetail.layoutManager = LinearLayoutManager(this@MonitoringPermintaanDetailActivity, LinearLayoutManager.VERTICAL,false)
@@ -125,7 +126,7 @@ class MonitoringPermintaanDetailActivity : AppCompatActivity(),Loadable {
         }
 
         for (i in listMonitoringDetail){
-            if (i.qtyPermintaan != i.qtyScan.toInt()){
+            if (i.qtyPermintaan != i.qtyAkanDiScan){
                 Toast.makeText(this@MonitoringPermintaanDetailActivity, "Masih ada material yang kurang", Toast.LENGTH_SHORT).show()
                 return
             }
@@ -191,12 +192,12 @@ class MonitoringPermintaanDetailActivity : AppCompatActivity(),Loadable {
 
         for (i in listIsDone){
             params.add(ReportParameter("1", reportId, "no_material", i.nomorMaterial!!, ReportParameter.TEXT))
-            params.add(ReportParameter("2", reportId, "no_permintaan", monitoringPenerimaan.noPermintaan, ReportParameter.TEXT))
+            params.add(ReportParameter("2", reportId, "no_permintaan", monitoringPermintaan.noPermintaan, ReportParameter.TEXT))
             params.add(ReportParameter("3", reportId, "qty_scan", i.qtyScan, ReportParameter.TEXT))
             params.add(ReportParameter("4", reportId, "jumlah_kardus",jumlahKardus , ReportParameter.TEXT))
             params.add(ReportParameter("5", reportId, "username", username!!, ReportParameter.TEXT))
-            params.add(ReportParameter("6", reportId, "plant", monitoringPenerimaan.plant, ReportParameter.TEXT))
-            params.add(ReportParameter("7", reportId, "stor_loc", monitoringPenerimaan.storLocAsal, ReportParameter.TEXT))
+            params.add(ReportParameter("6", reportId, "plant", monitoringPermintaan.plant, ReportParameter.TEXT))
+            params.add(ReportParameter("7", reportId, "stor_loc", monitoringPermintaan.storLocAsal, ReportParameter.TEXT))
             params.add(ReportParameter("8", reportId, "no_transaksi", i.noTransaksi, ReportParameter.TEXT))
         }
 

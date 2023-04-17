@@ -107,6 +107,7 @@ class LoginActivity : AppCompatActivity() {
                         SharedPrefsUtils.setStringPreference(this@LoginActivity, "password", password)
                         SharedPrefsUtils.setStringPreference(this@LoginActivity, "plant", it.user?.plant!!)
                         SharedPrefsUtils.setStringPreference(this@LoginActivity, "storloc", it.user?.storloc!!)
+                        SharedPrefsUtils.setIntegerPreference(this@LoginActivity, "subroleId", it.user?.subroleId!!)
 
                         withContext(Dispatchers.Main){
                             val intentToHome = Intent(this@LoginActivity, HomeActivity::class.java)

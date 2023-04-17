@@ -138,7 +138,7 @@
                 android:layout_marginTop="10dp"
                 android:background="@drawable/srchview"
                 android:fontFamily="@font/montserrat_reguler"
-                android:hint="Nama ekspedisi"
+                android:hint="Nama kurir"
                 android:paddingLeft="20dp"
                 android:paddingRight="20dp"
                 android:textSize="12sp"

@@ -132,7 +132,12 @@ class PenerimaanViewModel: ViewModel() {
                                 model.ratingDelivery.isNotEmpty() &&
                                 model.ratingQuality.isNotEmpty()) item.isDone = 1 else item.isDone = 0
 
-                            item.isRating = 0
+                            if (model.statusPenerimaan == "DITERIMA" && model.statusPemeriksaan == "SELESAI"){
+                                item.isRating = 1
+                            }else{
+                                item.isRating = 0
+                            }
+
                             item.ratingDone = 0
                             items[i] = item
                         }

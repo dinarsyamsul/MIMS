@@ -72,17 +72,17 @@ class PengujianDetailActivity : AppCompatActivity() {
 
             tabLayout.addOnTabSelectedListener(object : com.google.android.material.tabs.TabLayout.OnTabSelectedListener{
                 override fun onTabSelected(tab: com.google.android.material.tabs.TabLayout.Tab?) {
-                    if (tab?.text == "ALL"){
-                        filter = tab?.text.toString()
+                    if (tab?.text == "All"){
+                        filter = tab?.text.toString().uppercase()
                         doSearch()
-                    }else if (tab?.text == "LOLOS"){
-                        filter = tab?.text.toString()
+                    }else if (tab?.text == "Lolos"){
+                        filter = tab?.text.toString().uppercase()
                         doSearch()
-                    }else if (tab?.text == "TIDAK LOLOS"){
-                        filter = tab?.text.toString()
+                    }else if (tab?.text == "Tidak Lolos"){
+                        filter = tab?.text.toString().uppercase()
                         doSearch()
-                    }else if (tab?.text == "RUSAK"){
-                        filter = tab?.text.toString()
+                    }else if (tab?.text == "Rusak"){
+                        filter = tab?.text.toString().uppercase()
                         doSearch()
                     }
                 }

@@ -134,8 +134,10 @@ class DetailRatingActivity : AppCompatActivity(),Loadable {
 
                     if (newList.isEmpty()){
                         binding.btnUploadPhoto.visibility = View.VISIBLE
+                        binding.maksfoto.visibility = View.VISIBLE
                     }else {
                         binding.btnUploadPhoto.visibility = View.GONE
+                        binding.maksfoto.visibility = View.GONE
                     }
                 }
 
@@ -471,8 +473,10 @@ class DetailRatingActivity : AppCompatActivity(),Loadable {
 
             if (listPhoto.isEmpty()){
                 btnUploadPhoto.visibility = View.VISIBLE
+                maksfoto.visibility = View.VISIBLE
             }else {
                 btnUploadPhoto.visibility = View.GONE
+                maksfoto.visibility = View.GONE
             }
 
             rvAddFoto.adapter = adapter
@@ -493,8 +497,10 @@ class DetailRatingActivity : AppCompatActivity(),Loadable {
 
             if (listPhoto.isEmpty()){
                 btnUploadPhoto.visibility = View.VISIBLE
+                maksfoto.visibility = View.VISIBLE
             }else {
                 btnUploadPhoto.visibility = View.GONE
+                maksfoto.visibility = View.GONE
             }
 
             btnUploadPhoto.setOnClickListener { doFoto() }
@@ -737,8 +743,11 @@ class DetailRatingActivity : AppCompatActivity(),Loadable {
 
             if (listPhoto.isEmpty()){
                 binding.btnUploadPhoto.visibility = View.VISIBLE
+                binding.maksfoto.visibility = View.VISIBLE
             }else {
                 binding.btnUploadPhoto.visibility = View.GONE
+                binding.maksfoto.visibility = View.GONE
+
             }
         }else{
             Log.d("cancel", "cacelPhoto")
@@ -763,8 +772,10 @@ class DetailRatingActivity : AppCompatActivity(),Loadable {
 
             if (listPhoto.isEmpty()){
                 binding.btnUploadPhoto.visibility = View.VISIBLE
+                binding.maksfoto.visibility = View.VISIBLE
             }else {
                 binding.btnUploadPhoto.visibility = View.GONE
+                binding.maksfoto.visibility = View.GONE
             }
         }else{
             Log.d("cancel", "cacelPhoto")

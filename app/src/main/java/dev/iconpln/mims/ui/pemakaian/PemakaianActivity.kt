@@ -7,6 +7,7 @@ import android.os.Bundle
 import android.text.Editable
 import android.text.TextWatcher
 import android.util.Log
+import android.widget.Toast
 import androidx.core.widget.addTextChangedListener
 import androidx.recyclerview.widget.LinearLayoutManager
 import dev.iconpln.mims.MyApplication
@@ -41,9 +42,13 @@ class PemakaianActivity : AppCompatActivity() {
 
         adapter = PemakaianAdapter(arrayListOf(), object : PemakaianAdapter.OnAdapterListener{
             override fun onClick(pemakaian: TPemakaian) {
-                insertDataDetail(pemakaian.noTransaksi)
-                startActivity(Intent(this@PemakaianActivity, DetailPemakaianUlpYantekActivity::class.java)
-                    .putExtra("noTransaksi", pemakaian.noTransaksi))
+                if (pemakaian.isDone == 1 || pemakaian.statusPemakaian == "TERPAKAI"){
+                    Toast.makeText(this@PemakaianActivity, "Anda sudah menyelesaikan pemakaian ini", Toast.LENGTH_SHORT).show()
+                }else{
+                    insertDataDetail(pemakaian.noTransaksi)
+                    startActivity(Intent(this@PemakaianActivity, DetailPemakaianUlpYantekActivity::class.java)
+                        .putExtra("noTransaksi", pemakaian.noTransaksi))
+                }
             }
 
         })

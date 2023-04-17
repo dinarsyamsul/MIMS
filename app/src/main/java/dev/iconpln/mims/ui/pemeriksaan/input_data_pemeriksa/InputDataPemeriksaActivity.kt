@@ -5,10 +5,12 @@ import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.util.Log
 import android.view.View
+import android.widget.ArrayAdapter
 import android.widget.Toast
 import dev.iconpln.mims.MyApplication
 import dev.iconpln.mims.R
 import dev.iconpln.mims.data.local.database.DaoSession
+import dev.iconpln.mims.data.local.database.TMonitoringComplaintDao
 import dev.iconpln.mims.data.local.database.TPemeriksaan
 import dev.iconpln.mims.data.local.database.TPemeriksaanDao
 import dev.iconpln.mims.data.local.database_local.GenericReport
@@ -32,6 +34,11 @@ class InputDataPemeriksaActivity : AppCompatActivity(),Loadable {
     private lateinit var daoSession: DaoSession
     private lateinit var pemeriksaan: TPemeriksaan
     private var noPem : String = ""
+    private var ketua = ""
+    private var manager = ""
+    private var sekretaris = ""
+    private var anggota = ""
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         binding = ActivityInputDataPemeriksaBinding.inflate(layoutInflater)
@@ -60,14 +67,63 @@ class InputDataPemeriksaActivity : AppCompatActivity(),Loadable {
                 btnTambahAnggota.visibility = View.GONE
             }
         }
+
+        setKetua()
+        setManager()
+        setSekretaris()
+        setAnggota()
+    }
+
+    private fun setAnggota() {
+        val statusArray = arrayOf(
+            "IRSAN","ARYA","WINGGAR"
+        )
+        val adapterStatus = ArrayAdapter(this@InputDataPemeriksaActivity, android.R.layout.simple_dropdown_item_1line, statusArray)
+        binding.dropdownAnggota.setAdapter(adapterStatus)
+        binding.dropdownAnggota.setOnItemClickListener { parent, view, position, id ->
+            anggota = statusArray[position]
+        }
+    }
+
+    private fun setSekretaris() {
+        val statusArray = arrayOf(
+            "RIZAL"
+        )
+        val adapterStatus = ArrayAdapter(this@InputDataPemeriksaActivity, android.R.layout.simple_dropdown_item_1line, statusArray)
+        binding.dropdownSekretaris.setAdapter(adapterStatus)
+        binding.dropdownSekretaris.setOnItemClickListener { parent, view, position, id ->
+            sekretaris = statusArray[position]
+        }
+    }
+
+    private fun setManager() {
+        val statusArray = arrayOf(
+            "ASEP"
+        )
+        val adapterStatus = ArrayAdapter(this@InputDataPemeriksaActivity, android.R.layout.simple_dropdown_item_1line, statusArray)
+        binding.dropdownManager.setAdapter(adapterStatus)
+        binding.dropdownManager.setOnItemClickListener { parent, view, position, id ->
+            manager = statusArray[position]
+        }
+    }
+
+    private fun setKetua() {
+        val statusArray = arrayOf(
+            "BUNGA"
+        )
+        val adapterStatus = ArrayAdapter(this@InputDataPemeriksaActivity, android.R.layout.simple_dropdown_item_1line, statusArray)
+        binding.dropdownKetua.setAdapter(adapterStatus)
+        binding.dropdownKetua.setOnItemClickListener { parent, view, position, id ->
+            ketua = statusArray[position]
+        }
     }
 
     private fun validation() {
         with(binding){
-            val namaManager = edtNamaManager.text.toString()
-            val namaAnggota = edtAnggota.text.toString()
-            val namaKetua = edtKetuaPemeriksa.text.toString()
-            val namaSekretaris = edtSekretaris.text.toString()
+            val namaManager = manager
+            val namaAnggota = anggota
+            val namaKetua = ketua
+            val namaSekretaris = sekretaris
             val namaAnggotaBaru = edtNewAnggota.text.toString()
 
             if (namaManager.isNullOrEmpty()){

@@ -24,6 +24,7 @@ import dev.iconpln.mims.databinding.FragmentHomeBinding
 import dev.iconpln.mims.ui.monitoring.MonitoringActivity
 import dev.iconpln.mims.ui.pengiriman.PengirimanActivity
 import dev.iconpln.mims.ui.arttribute_material.DataAtributMaterialActivity
+import dev.iconpln.mims.ui.monitoring_complaint.MonitoringComplaintActivity
 import dev.iconpln.mims.ui.monitoring_permintaan.MonitoringPermintaanActivity
 import dev.iconpln.mims.ui.pemakaian.PemakaianActivity
 import dev.iconpln.mims.ui.pemeriksaan.PemeriksaanActivity
@@ -72,6 +73,7 @@ class HomeFragment : Fragment() {
         val nilaiPengujian = daoSession.tPengujianDao.loadAll().size.toString()
         val nilaiPenerimaanUp3 =  daoSession.tPosDao.queryBuilder()
             .where(TPosDao.Properties.KodeStatusDoMims.eq("102")).list().size.toString()
+        val nilaiMonitoringComplaint = daoSession.tMonitoringComplaintDao.loadAll().size.toString()
 
         dialog = Dialog(requireActivity())
         dialog.setContentView(R.layout.popup_loading)
@@ -102,6 +104,7 @@ class HomeFragment : Fragment() {
         binding.btnPenerimaanUlp.visibility = View.GONE
         binding.btnMonitoringPermintaan.visibility = View.GONE
         binding.btnRegistrasi.visibility = View.GONE
+        binding.btnMonitoringComplaint.visibility = View.GONE
 
         var listPrivilege = daoSession.tPrivilegeDao.queryBuilder().list()
 
@@ -146,6 +149,10 @@ class HomeFragment : Fragment() {
                 binding.btnRegistrasi.visibility = View.VISIBLE
             }
 
+            if (i.methodId == "is_monitoring_komplain" && i.isActive == "1"){
+                binding.btnMonitoringComplaint.visibility = View.VISIBLE
+            }
+
             binding.txtJumlahAttribut.text = nilaiMaterial
             binding.txtJumlahMonitoring.text = nilaiMonitoring
             binding.txtJumlahPemakaian.text = nilaiPemakaian
@@ -154,7 +161,34 @@ class HomeFragment : Fragment() {
             binding.txtJumlahPengiriman.text = nilaiPengiriman
             binding.txtJumlahPengujian.text = nilaiPengujian
             binding.txtJumlahPenerimaanUp3.text = nilaiPenerimaanUp3
+            binding.txtJumlahMonitoringComplaint.text = nilaiMonitoringComplaint
 
+        }
+
+        binding.btnMonitoringComplaint.setOnClickListener {
+            val dialog = BottomSheetDialog(requireActivity(), R.style.AppBottomSheetDialogTheme)
+            val view = layoutInflater.inflate(R.layout.bottom_sheet_dialog_monitoring_complaint, null)
+            val btnAdminGudang = view.findViewById<CardView>(R.id.cv_admin_gudang)
+            val btnPemeriksa = view.findViewById<CardView>(R.id.cv_pemeriksa)
+            val subrole = SharedPrefsUtils.getIntegerPreference(requireActivity(),"subroleId",0)
+
+            if (subrole == 3){
+                btnAdminGudang.visibility = View.GONE
+            }else{
+                btnPemeriksa.visibility = View.GONE
+            }
+
+            btnAdminGudang.setOnClickListener {
+                startActivity(Intent(requireActivity(), MonitoringComplaintActivity::class.java))
+            }
+
+            btnPemeriksa.setOnClickListener {
+                startActivity(Intent(requireActivity(), MonitoringComplaintActivity::class.java))
+            }
+
+            dialog.setCancelable(true)
+            dialog.setContentView(view)
+            dialog.show()
         }
 
         binding.btnMonitoringPermintaan.setOnClickListener {
@@ -213,6 +247,13 @@ class HomeFragment : Fragment() {
             val view = layoutInflater.inflate(R.layout.bottom_sheet_dialog, null)
             val btnPemeriksaan = view.findViewById<CardView>(R.id.cv_pemeriksaan)
             val btnPenerimaan = view.findViewById<CardView>(R.id.cv_penerimaan)
+            val subrole = SharedPrefsUtils.getIntegerPreference(requireActivity(),"subroleId",0)
+
+            if (subrole == 3){
+                btnPenerimaan.visibility = View.GONE
+            }else{
+                btnPemeriksaan.visibility = View.GONE
+            }
 
             btnPenerimaan.setOnClickListener {
                 startActivity(Intent(requireActivity(), PenerimaanActivity::class.java))
@@ -311,9 +352,13 @@ class HomeFragment : Fragment() {
         daoSession.tRatingDao.deleteAll()
         daoSession.tMonitoringPermintaanDao.deleteAll()
         daoSession.tMonitoringPermintaanDetailDao.deleteAll()
+        daoSession.tTransMonitoringPermintaanDao.deleteAll()
+        daoSession.tTransMonitoringPermintaanDetailDao.deleteAll()
         daoSession.tSnMonitoringPermintaanDao.deleteAll()
         daoSession.tPenerimaanUlpDao.deleteAll()
         daoSession.tPenerimaanDetailUlpDao.deleteAll()
+        daoSession.tTransPenerimaanUlpDao.deleteAll()
+        daoSession.tTransPenerimaanDetailUlpDao.deleteAll()
         daoSession.tSnPermaterialDao.deleteAll()
         daoSession.tListSnMaterialPenerimaanUlpDao.deleteAll()
         daoSession.tListSnMaterialPemakaianUlpDao.deleteAll()
@@ -324,6 +369,8 @@ class HomeFragment : Fragment() {
         daoSession.tDataRatingDao.deleteAll()
         daoSession.tPetugasPengujianDao.deleteAll()
         daoSession.tPhotoDao.deleteAll()
+        daoSession.tMonitoringComplaintDao.deleteAll()
+        daoSession.tMonitoringComplaintDetailDao.deleteAll()
 
 
         if (result != null){
@@ -911,6 +958,7 @@ class HomeFragment : Fragment() {
                         item.penerima = ""
                         item.kepalaGudang = ""
                         item.isDonePemakai = 0
+                        item.isDone = 0
                         items[i] = item
                     }
                     daoSession.tPemakaianDao.insertInTx(items.toList())
@@ -1011,6 +1059,55 @@ class HomeFragment : Fragment() {
                     daoSession.tPetugasPengujianDao.insertInTx(items.toList())
                 }
             }
+
+            if (result.monitoringKomplain != null){
+                val size = result.monitoringKomplain.size
+                if (size > 0) {
+                    val items = arrayOfNulls<TMonitoringComplaint>(size)
+                    var item: TMonitoringComplaint
+                    for ((i, model) in result.monitoringKomplain.withIndex()){
+                        item = TMonitoringComplaint()
+                        item.noDoSmar = model?.noDoSmar
+                        item.qty = model?.qty
+                        item.poSapNo = model?.poSapNo
+                        item.status = model?.status
+                        item.alasan = model?.alasan
+                        item.noKomplain = model?.noKomplain
+                        item.noKomplainSmar = model?.noKomplainSmar
+                        item.plantName = model?.plantName
+                        item.tanggalSelesai = if (model?.finishDate.isNullOrEmpty()) "" else model?.finishDate
+                        item.tanggalPO = model?.tanggalPo
+                        items[i] = item
+                    }
+                    daoSession.tMonitoringComplaintDao.insertInTx(items.toList())
+                }
+            }
+
+            if (result.monitoringKomplainDetail != null){
+                val size = result.monitoringKomplainDetail.size
+                if (size > 0) {
+                    val items = arrayOfNulls<TMonitoringComplaintDetail>(size)
+                    var item: TMonitoringComplaintDetail
+                    for ((i, model) in result.monitoringKomplainDetail.withIndex()){
+                        item = TMonitoringComplaintDetail()
+                        item.doLineItem = model?.doLineItem
+                        item.status = model?.status
+                        item.noPackaging = model?.noPackaging
+                        item.noMatSap = model?.noMatSap
+                        item.noKomplain = model?.noKomplain
+                        item.noSerial = model?.noSerial
+                        item.tanggalPengajuan = model?.tanggalPengajuan
+                        item.tanggalSelesai = ""
+                        item.noDoSmar = model?.noDoSmar
+                        item.isChecked = 0
+                        item.isDone = 0
+                        item.statusPeriksa = ""
+                        items[i] = item
+                    }
+                    daoSession.tMonitoringComplaintDetailDao.insertInTx(items.toList())
+                }
+            }
+
         }
     }
 

@@ -45,6 +45,7 @@ class InputSnMonitoringPermintaanActivity : AppCompatActivity() {
     private var kategori = ""
     private var storloc = ""
     private var plant = ""
+    private var qtyPermintaan = 0
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -58,6 +59,7 @@ class InputSnMonitoringPermintaanActivity : AppCompatActivity() {
         noMaterial = intent.getStringExtra("noMat").toString()
         descMaterial = intent.getStringExtra("desc").toString()
         kategori = intent.getStringExtra("kategori").toString()
+        qtyPermintaan = intent.getIntExtra("qtyPermintaan",0)
 
         plant = SharedPrefsUtils.getStringPreference(this@InputSnMonitoringPermintaanActivity,"plant","").toString()
         storloc = SharedPrefsUtils.getStringPreference(this@InputSnMonitoringPermintaanActivity,"storloc","").toString()
@@ -112,7 +114,8 @@ class InputSnMonitoringPermintaanActivity : AppCompatActivity() {
             txtKategori.text = kategori
             txtNoMaterial.text = noMaterial
             txtUnitAsal.text = monitoringPenerimaan.storLocAsalName
-            txtQtyPermaterial.text = listSnPermaterial.size.toString()
+            txtQtyPermintaan.text = qtyPermintaan.toString()
+            txtQtyScanned.text = listSnm.size.toString()
 
             srcNoSn.addTextChangedListener(object : TextWatcher{
                 override fun beforeTextChanged(
@@ -181,8 +184,9 @@ class InputSnMonitoringPermintaanActivity : AppCompatActivity() {
                                 .where(TTransMonitoringPermintaanDetailDao.Properties.NomorMaterial.eq(noMaterial))
                                 .list()[0]
 
-                            permintaanDetail.qtyScan = reloadList.size.toString()
+                            permintaanDetail.qtyAkanDiScan = reloadList.size
                             daoSession.tTransMonitoringPermintaanDetailDao.update(permintaanDetail)
+                            binding.txtQtyScanned.text = reloadList.size.toString()
                         }else{
                             dialog.dismiss()
                             Toast.makeText(this@InputSnMonitoringPermintaanActivity, response.body()?.message, Toast.LENGTH_SHORT).show()
@@ -242,7 +246,7 @@ class InputSnMonitoringPermintaanActivity : AppCompatActivity() {
             permintaanDetail.isScannedSn = 1
         }
 
-        permintaanDetail.qtyScan = listSnm.size.toString()
+        permintaanDetail.qtyAkanDiScan = listSnm.size
         permintaanDetail.isDone = 1
         daoSession.tTransMonitoringPermintaanDetailDao.update(permintaanDetail)
 
@@ -323,6 +327,8 @@ class InputSnMonitoringPermintaanActivity : AppCompatActivity() {
                                 .where(TMonitoringSnMaterialDao.Properties.NomorMaterial.eq(noMaterial)).list()
 
                             adapter.setTmsList(reloadList)
+
+                            binding.txtQtyScanned.text = reloadList.size.toString()
                         }else{
                             dialog.dismiss()
                             Toast.makeText(this@InputSnMonitoringPermintaanActivity, response.body()?.message, Toast.LENGTH_SHORT).show()
@@ -395,7 +401,7 @@ class InputSnMonitoringPermintaanActivity : AppCompatActivity() {
                 .where(TTransMonitoringPermintaanDetailDao.Properties.NomorMaterial.eq(noMaterial))
                 .list()[0]
 
-            permintaanDetail.qtyScan = listSnm.size.toString()
+            permintaanDetail.qtyAkanDiScan = listSnm.size
             daoSession.tTransMonitoringPermintaanDetailDao.update(permintaanDetail)
 
             startActivity(Intent(this@InputSnMonitoringPermintaanActivity, MonitoringPermintaanDetailActivity::class.java)

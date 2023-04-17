@@ -56,8 +56,12 @@ class DetailPemakaianUlpYantekActivity : AppCompatActivity(),Loadable {
 
         adapter = PemakaianDetailAdapter(arrayListOf(), object : PemakaianDetailAdapter.OnAdapterListener{
             override fun onClick(pemakaian: TTransPemakaianDetail) {
-                startActivity(Intent(this@DetailPemakaianUlpYantekActivity, InputSnPemakaianActivity::class.java)
-                    .putExtra("noTransaksi", pemakaian.noTransaksi))
+                if (pemakaian.isDone == 1){
+                    Toast.makeText(this@DetailPemakaianUlpYantekActivity, "Anda sudah menyelesaikan pemakaian ini", Toast.LENGTH_SHORT).show()
+                }else{
+                    startActivity(Intent(this@DetailPemakaianUlpYantekActivity, InputSnPemakaianActivity::class.java)
+                        .putExtra("noTransaksi", pemakaian.noTransaksi))
+                }
             }
 
         })
@@ -131,6 +135,10 @@ class DetailPemakaianUlpYantekActivity : AppCompatActivity(),Loadable {
         val currentDateTime = LocalDateTime.now().toString(Config.DATETIME)
         val currentUtc = DateTimeUtils.currentUtc
         Log.i("datime","${currentDateTime}")
+
+        pemakaian.isDone = 1
+        pemakaian.statusPemakaian = "TERPAKAI"
+        daoSession.tPemakaianDao.update(pemakaian)
 
         //region Add report visit to queue
         var jwt = SharedPrefsUtils.getStringPreference(this@DetailPemakaianUlpYantekActivity,"jwt","")

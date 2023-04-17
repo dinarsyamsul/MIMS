@@ -155,8 +155,10 @@ class DetailPemeriksaanActivity : AppCompatActivity(),Loadable {
         Log.i("datime","${currentDateTime}")
 
         penerimaans.isDonePemeriksaan = 1
-        penerimaans.tempStatusPemeriksaan = "SUDAH DIPERIKSA"
+        penerimaans.tempStatusPemeriksaan = "SELESAI"
+        penerimaans.tempStatusPenerimaan = "DITERIMA"
         penerimaans.tanggalPemeriksaan = currentDate
+        penerimaans.tanggalPenerimaan = currentDate
         daoSession.tTransPenerimaanUlpDao.update(penerimaans)
 
         //region Add report visit to queue

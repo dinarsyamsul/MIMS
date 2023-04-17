@@ -92,7 +92,7 @@
                         android:layout_marginStart="16dp"
                         android:layout_marginTop="16dp"
                         android:fontFamily="@font/montserrat_reguler"
-                        android:text="No. DO"
+                        android:text="No. PO"
                         android:textColor="#3F3D56"
                         android:textSize="12sp"
                         app:layout_constraintStart_toStartOf="@+id/vw_line"
@@ -242,7 +242,7 @@
                         app:layout_constraintStart_toEndOf="@+id/imageView5"
                         app:layout_constraintTop_toBottomOf="@+id/lbl_tlsk" />
 
-                    <ImageView
+                    ImageView
                         android:id="@+id/imageView2"
                         android:layout_width="20dp"
                         android:layout_height="20dp"
@@ -251,32 +251,6 @@
                         app:layout_constraintStart_toStartOf="@+id/imageView"
                         app:layout_constraintTop_toBottomOf="@+id/txt_no_do" />
 
-                    <TextView
-                        android:id="@+id/lbl_vendor"
-                        android:layout_width="0dp"
-                        android:layout_height="wrap_content"
-                        android:layout_marginStart="5dp"
-                        android:fontFamily="@font/montserrat_reguler"
-                        android:text="Kurir Pengiriman"
-                        android:textColor="#3F3D56"
-                        android:textSize="12sp"
-                        app:layout_constraintBottom_toBottomOf="@+id/imageView2"
-                        app:layout_constraintEnd_toEndOf="@+id/txt_no_do"
-                        app:layout_constraintStart_toEndOf="@+id/imageView2"
-                        app:layout_constraintTop_toTopOf="@+id/imageView2" />
-
-                    <TextView
-                        android:id="@+id/txt_vendor"
-                        android:layout_width="0dp"
-                        android:layout_height="wrap_content"
-                        android:layout_marginStart="5dp"
-                        android:fontFamily="@font/montserrat_reguler"
-                        android:text="PLTA Sumber Waras"
-                        android:textSize="12sp"
-                        app:layout_constraintEnd_toEndOf="@+id/lbl_vendor"
-                        app:layout_constraintStart_toEndOf="@+id/imageView2"
-                        app:layout_constraintTop_toBottomOf="@+id/lbl_vendor" />
-
                     <ImageView
                         android:id="@+id/imageView10"
                         android:layout_width="20dp"
@@ -284,7 +258,7 @@
                         android:layout_marginTop="8dp"
                         android:src="@drawable/ic_number"
                         app:layout_constraintStart_toStartOf="@+id/imageView"
-                        app:layout_constraintTop_toBottomOf="@+id/txt_vendor" />
+                        app:layout_constraintTop_toBottomOf="@+id/txt_no_do" />
 
                     <TextView
                         android:id="@+id/lbl_plant"
@@ -297,19 +271,18 @@
                         android:textSize="12sp"
                         app:layout_constraintBottom_toBottomOf="@+id/imageView10"
                         app:layout_constraintEnd_toEndOf="@+id/txt_no_do"
-                        app:layout_constraintStart_toEndOf="@+id/imageView2"
+                        app:layout_constraintStart_toStartOf="@+id/txt_no_do"
                         app:layout_constraintTop_toTopOf="@+id/imageView10" />
 
                     <TextView
                         android:id="@+id/txt_plant"
                         android:layout_width="0dp"
                         android:layout_height="wrap_content"
-                        android:layout_marginStart="5dp"
                         android:fontFamily="@font/montserrat_reguler"
                         android:text="PLTA Sumber Waras"
                         android:textSize="12sp"
-                        app:layout_constraintEnd_toEndOf="@+id/lbl_vendor"
-                        app:layout_constraintStart_toEndOf="@+id/imageView2"
+                        app:layout_constraintEnd_toEndOf="@+id/lbl_plant"
+                        app:layout_constraintStart_toStartOf="@+id/lbl_plant"
                         app:layout_constraintTop_toBottomOf="@+id/lbl_plant" />
 
                     <ImageView
@@ -364,26 +337,24 @@
                         android:id="@+id/lbl_storeloc"
                         android:layout_width="0dp"
                         android:layout_height="wrap_content"
-                        android:layout_marginStart="5dp"
                         android:fontFamily="@font/montserrat_reguler"
                         android:text="Storeloc"
                         android:textColor="#3F3D56"
                         android:textSize="12sp"
                         app:layout_constraintBottom_toBottomOf="@+id/imageView12"
                         app:layout_constraintEnd_toEndOf="@+id/txt_no_do"
-                        app:layout_constraintStart_toEndOf="@+id/imageView2"
+                        app:layout_constraintStart_toStartOf="@+id/txt_plant"
                         app:layout_constraintTop_toTopOf="@+id/imageView12" />
 
                     <TextView
                         android:id="@+id/txt_storeloc"
                         android:layout_width="0dp"
                         android:layout_height="wrap_content"
-                        android:layout_marginStart="5dp"
                         android:fontFamily="@font/montserrat_reguler"
                         android:text="PLTA Sumber Waras"
                         android:textSize="12sp"
-                        app:layout_constraintEnd_toEndOf="@+id/lbl_vendor"
-                        app:layout_constraintStart_toEndOf="@+id/imageView2"
+                        app:layout_constraintEnd_toEndOf="@+id/lbl_storeloc"
+                        app:layout_constraintStart_toStartOf="@+id/lbl_storeloc"
                         app:layout_constraintTop_toBottomOf="@+id/lbl_storeloc" />
 
                     <ImageView
@@ -438,26 +409,24 @@
                         android:id="@+id/lbl_tgl_diterima"
                         android:layout_width="0dp"
                         android:layout_height="wrap_content"
-                        android:layout_marginStart="5dp"
                         android:fontFamily="@font/montserrat_reguler"
                         android:text="Tanggal Diterima"
                         android:textColor="#3F3D56"
                         android:textSize="12sp"
                         app:layout_constraintBottom_toBottomOf="@+id/imageView14"
-                        app:layout_constraintEnd_toEndOf="@+id/txt_no_do"
-                        app:layout_constraintStart_toEndOf="@+id/imageView2"
+                        app:layout_constraintEnd_toEndOf="@+id/txt_storeloc"
+                        app:layout_constraintStart_toStartOf="@+id/txt_storeloc"
                         app:layout_constraintTop_toTopOf="@+id/imageView14" />
 
                     <TextView
                         android:id="@+id/txt_tgl_diterima"
                         android:layout_width="0dp"
                         android:layout_height="wrap_content"
-                        android:layout_marginStart="5dp"
                         android:fontFamily="@font/montserrat_reguler"
                         android:text="PLTA Sumber Waras"
                         android:textSize="12sp"
-                        app:layout_constraintEnd_toEndOf="@+id/lbl_vendor"
-                        app:layout_constraintStart_toEndOf="@+id/imageView2"
+                        app:layout_constraintEnd_toEndOf="@+id/lbl_tgl_diterima"
+                        app:layout_constraintStart_toStartOf="@+id/lbl_tgl_diterima"
                         app:layout_constraintTop_toBottomOf="@+id/lbl_tgl_diterima" />
 
                     <ImageView
@@ -512,26 +481,24 @@
                         android:id="@+id/lbl_kuantitas_diterima"
                         android:layout_width="0dp"
                         android:layout_height="wrap_content"
-                        android:layout_marginStart="5dp"
                         android:fontFamily="@font/montserrat_reguler"
                         android:text="Kuantitas Diterima"
                         android:textColor="#3F3D56"
                         android:textSize="12sp"
                         app:layout_constraintBottom_toBottomOf="@+id/imageView17"
                         app:layout_constraintEnd_toEndOf="@+id/txt_no_do"
-                        app:layout_constraintStart_toEndOf="@+id/imageView2"
+                        app:layout_constraintStart_toStartOf="@+id/txt_tgl_diterima"
                         app:layout_constraintTop_toTopOf="@+id/imageView17" />
 
                     <TextView
                         android:id="@+id/txt_kuantitas_Diterima"
                         android:layout_width="0dp"
                         android:layout_height="wrap_content"
-                        android:layout_marginStart="5dp"
                         android:fontFamily="@font/montserrat_reguler"
                         android:text="PLTA Sumber Waras"
                         android:textSize="12sp"
-                        app:layout_constraintEnd_toEndOf="@+id/lbl_vendor"
-                        app:layout_constraintStart_toEndOf="@+id/imageView2"
+                        app:layout_constraintEnd_toEndOf="@+id/lbl_kuantitas_diterima"
+                        app:layout_constraintStart_toStartOf="@+id/lbl_kuantitas_diterima"
                         app:layout_constraintTop_toBottomOf="@+id/lbl_kuantitas_diterima" />
 
                     <ImageView
@@ -586,28 +553,26 @@
                         android:id="@+id/lbl_nama_kurir"
                         android:layout_width="0dp"
                         android:layout_height="wrap_content"
-                        android:layout_marginStart="5dp"
                         android:fontFamily="@font/montserrat_reguler"
                         android:text="Nama Kurir"
                         android:textColor="#3F3D56"
                         android:textSize="12sp"
                         app:layout_constraintBottom_toBottomOf="@+id/imageView19"
                         app:layout_constraintEnd_toEndOf="@+id/txt_no_do"
-                        app:layout_constraintStart_toEndOf="@+id/imageView2"
+                        app:layout_constraintStart_toStartOf="@+id/txt_kuantitas_Diterima"
                         app:layout_constraintTop_toTopOf="@+id/imageView19" />
 
                     <TextView
                         android:id="@+id/txt_nama_kurir"
                         android:layout_width="0dp"
                         android:layout_height="wrap_content"
-                        android:layout_marginStart="5dp"
                         android:layout_marginBottom="15dp"
                         android:fontFamily="@font/montserrat_reguler"
                         android:text="PLTA Sumber Waras"
                         android:textSize="12sp"
                         app:layout_constraintBottom_toBottomOf="parent"
-                        app:layout_constraintEnd_toEndOf="@+id/lbl_vendor"
-                        app:layout_constraintStart_toEndOf="@+id/imageView2"
+                        app:layout_constraintEnd_toEndOf="@+id/lbl_nama_kurir"
+                        app:layout_constraintStart_toStartOf="@+id/lbl_nama_kurir"
                         app:layout_constraintTop_toBottomOf="@+id/lbl_nama_kurir" />
 
                 </androidx.constraintlayout.widget.ConstraintLayout>

@@ -39,7 +39,6 @@ import dev.iconpln.mims.utils.SharedPrefsUtils
 import org.joda.time.DateTime
 import org.joda.time.LocalDateTime
 import java.util.ArrayList
-import java.util.Random
 import java.util.UUID
 
 
@@ -64,6 +63,8 @@ class DetailPenerimaanActivity : AppCompatActivity(),Loadable {
 
         listDetailPen = daoSession.tPosDetailPenerimaanDao.queryBuilder()
             .where(TPosDetailPenerimaanDao.Properties.NoDoSmar.eq(noDo))
+            .whereOr(TPosDetailPenerimaanDao.Properties.StatusPenerimaan.notEq("DITERIMA"),
+                TPosDetailPenerimaanDao.Properties.StatusPenerimaan.notEq("BELUM DIPERIKSA"))
             .where(TPosDetailPenerimaanDao.Properties.IsDone.eq(0)).list()
 
         penerimaan = daoSession.tPosPenerimaanDao.queryBuilder()
@@ -328,13 +329,13 @@ class DetailPenerimaanActivity : AppCompatActivity(),Loadable {
             }
         }
 
-        updateData()
+        updateData(isPeriksa)
     }
 
-    private fun updateData() {
+    private fun updateData(isPeriksa: Int) {
         val checkedList = daoSession.tPosDetailPenerimaanDao.queryBuilder()
             .where(TPosDetailPenerimaanDao.Properties.NoDoSmar.eq(noDo))
-            .where(TPosDetailPenerimaanDao.Properties.IsDone.eq(1)).list()
+            .where(TPosDetailPenerimaanDao.Properties.IsDone.eq(0)).list()
 
         val checkSnKomplaint = daoSession.tPosDetailPenerimaanDao.queryBuilder()
             .where(TPosDetailPenerimaanDao.Properties.NoDoSmar.eq(noDo))
@@ -344,11 +345,14 @@ class DetailPenerimaanActivity : AppCompatActivity(),Loadable {
         val checkListPemeriksaan = daoSession.tPemeriksaanDao.queryBuilder()
             .where(TPemeriksaanDao.Properties.NoDoSmar.eq(noDo)).list().size > 0
 
-        if (checkedList.size == listDetailPen.size){
+
+
+        if (checkedList.size == 0){
 
             if (checkListPemeriksaan){
                 if (checkSnKomplaint){
                     penerimaan.statusPenerimaan = "DITERIMA"
+                    penerimaan.statusPemeriksaan = "KOMPLAIN"
                     penerimaan.isRating = 0
                     daoSession.tPosPenerimaanDao.update(penerimaan)
                 }else{
@@ -359,12 +363,13 @@ class DetailPenerimaanActivity : AppCompatActivity(),Loadable {
             }else{
                 if (checkSnKomplaint){
                     penerimaan.statusPenerimaan = "DITERIMA"
+                    penerimaan.statusPemeriksaan = "KOMPLAIN"
                     penerimaan.isRating = 0
                     daoSession.tPosPenerimaanDao.update(penerimaan)
                 }else{
                     penerimaan.statusPenerimaan = "DITERIMA"
                     penerimaan.isRating = 1
-                    penerimaan.statusPemeriksaan = "SUDAH DIPERIKSA"
+                    penerimaan.statusPemeriksaan = "SELESAI"
                     daoSession.tPosPenerimaanDao.update(penerimaan)
                 }
             }
@@ -378,7 +383,11 @@ class DetailPenerimaanActivity : AppCompatActivity(),Loadable {
         val btnOk = dialog.findViewById(R.id.btn_ok) as AppCompatButton
         val txtMessage = dialog.findViewById(R.id.txt_message) as TextView
 
-        txtMessage.text = "Material berhasil diterima dengan pemeriksaan"
+        if (isPeriksa == 1){
+            txtMessage.text = "Material berhasil diterima dengan pemeriksaan"
+        }else{
+            txtMessage.text = "Material berhasil diterima tanpa pemeriksaan"
+        }
 
         btnOk.setOnClickListener {
             dialog.dismiss();

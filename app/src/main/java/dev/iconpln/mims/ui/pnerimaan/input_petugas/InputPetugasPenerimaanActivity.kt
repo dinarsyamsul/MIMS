@@ -114,8 +114,10 @@ class InputPetugasPenerimaanActivity : AppCompatActivity(), Loadable {
 
                     if (newList.isEmpty()){
                         binding.btnUploadPhoto.visibility = View.VISIBLE
+                        binding.maksfoto.visibility = View.VISIBLE
                     }else {
                         binding.btnUploadPhoto.visibility = View.GONE
+                        binding.maksfoto.visibility = View.GONE
                     }
                 }
 
@@ -143,8 +145,10 @@ class InputPetugasPenerimaanActivity : AppCompatActivity(), Loadable {
 
             if (listPhoto.isEmpty()){
                 btnUploadPhoto.visibility = View.VISIBLE
+                maksfoto.visibility = View.VISIBLE
             }else {
                 btnUploadPhoto.visibility = View.GONE
+                maksfoto.visibility = View.GONE
             }
 
             btnUploadPhoto.setOnClickListener {
@@ -416,8 +420,10 @@ class InputPetugasPenerimaanActivity : AppCompatActivity(), Loadable {
 
             if (listPhoto.isEmpty()){
                 binding.btnUploadPhoto.visibility = View.VISIBLE
+                binding.maksfoto.visibility = View.VISIBLE
             }else {
                 binding.btnUploadPhoto.visibility = View.GONE
+                binding.maksfoto.visibility = View.GONE
             }
             adapter.setPhotoList(listPhoto)
         }else{
@@ -441,8 +447,10 @@ class InputPetugasPenerimaanActivity : AppCompatActivity(), Loadable {
 
             if (listPhoto.isEmpty()){
                 binding.btnUploadPhoto.visibility = View.VISIBLE
+                binding.maksfoto.visibility = View.VISIBLE
             }else {
                 binding.btnUploadPhoto.visibility = View.GONE
+                binding.maksfoto.visibility = View.GONE
             }
 
             adapter.setPhotoList(listPhoto)

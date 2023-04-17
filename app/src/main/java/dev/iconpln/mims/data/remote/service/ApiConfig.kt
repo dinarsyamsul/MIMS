@@ -49,6 +49,14 @@ object ApiConfig {
         return "$BASE_URL/reports/v3/sendReportPemeriksaan"
     }
 
+    fun sendTerimaMonitoringComplaint(): String {
+        return "$BASE_URL/reports/v3/sendReportTerimaMonitoringComplaint"
+    }
+
+    fun sendRejectMonitoringComplaint(): String {
+        return "$BASE_URL/reports/v3/sendReportRejectMonitoringComplaint"
+    }
+
     fun sendComplaint(): String {
         return "$BASE_URL/reports/v3/sendReportComplaint"
     }

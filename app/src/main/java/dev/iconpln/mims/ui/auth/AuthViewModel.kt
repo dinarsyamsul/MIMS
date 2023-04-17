@@ -257,9 +257,13 @@ class AuthViewModel: ViewModel() {
         daoSession.tRatingDao.deleteAll()
         daoSession.tMonitoringPermintaanDao.deleteAll()
         daoSession.tMonitoringPermintaanDetailDao.deleteAll()
+        daoSession.tTransMonitoringPermintaanDao.deleteAll()
+        daoSession.tTransMonitoringPermintaanDetailDao.deleteAll()
         daoSession.tSnMonitoringPermintaanDao.deleteAll()
         daoSession.tPenerimaanUlpDao.deleteAll()
         daoSession.tPenerimaanDetailUlpDao.deleteAll()
+        daoSession.tTransPenerimaanUlpDao.deleteAll()
+        daoSession.tTransPenerimaanDetailUlpDao.deleteAll()
         daoSession.tSnPermaterialDao.deleteAll()
         daoSession.tListSnMaterialPenerimaanUlpDao.deleteAll()
         daoSession.tListSnMaterialPemakaianUlpDao.deleteAll()
@@ -270,6 +274,8 @@ class AuthViewModel: ViewModel() {
         daoSession.tDataRatingDao.deleteAll()
         daoSession.tPetugasPengujianDao.deleteAll()
         daoSession.tPhotoDao.deleteAll()
+        daoSession.tMonitoringComplaintDao.deleteAll()
+        daoSession.tMonitoringComplaintDetailDao.deleteAll()
 
 
         if (result != null){
@@ -304,7 +310,7 @@ class AuthViewModel: ViewModel() {
                         item.materialGroup = model?.materialGroup
                         item.namaKategoriMaterial = model?.namaKategoriMaterial
 
-                        item.tanggalDiterima = "" //belum perlu ditarik
+                        item.tanggalDiterima = model?.tglSerahTerima
 
                         item.petugasPenerima = model?.petugasPenerima
 
@@ -857,6 +863,7 @@ class AuthViewModel: ViewModel() {
                         item.penerima = ""
                         item.kepalaGudang = ""
                         item.isDonePemakai = 0
+                        item.isDone = 0
                         items[i] = item
                     }
                     daoSession.tPemakaianDao.insertInTx(items.toList())
@@ -955,6 +962,54 @@ class AuthViewModel: ViewModel() {
                         items[i] = item
                     }
                     daoSession.tPetugasPengujianDao.insertInTx(items.toList())
+                }
+            }
+
+            if (result.monitoringKomplain != null){
+                val size = result.monitoringKomplain.size
+                if (size > 0) {
+                    val items = arrayOfNulls<TMonitoringComplaint>(size)
+                    var item: TMonitoringComplaint
+                    for ((i, model) in result.monitoringKomplain.withIndex()){
+                        item = TMonitoringComplaint()
+                        item.noDoSmar = model?.noDoSmar
+                        item.qty = model?.qty
+                        item.poSapNo = model?.poSapNo
+                        item.status = model?.status
+                        item.alasan = model?.alasan
+                        item.noKomplain = model?.noKomplain
+                        item.noKomplainSmar = model?.noKomplainSmar
+                        item.plantName = model?.plantName
+                        item.tanggalSelesai = if (model?.finishDate.isNullOrEmpty()) "" else model?.finishDate
+                        item.tanggalPO = model?.tanggalPo
+                        items[i] = item
+                    }
+                    daoSession.tMonitoringComplaintDao.insertInTx(items.toList())
+                }
+            }
+
+            if (result.monitoringKomplainDetail != null){
+                val size = result.monitoringKomplainDetail.size
+                if (size > 0) {
+                    val items = arrayOfNulls<TMonitoringComplaintDetail>(size)
+                    var item: TMonitoringComplaintDetail
+                    for ((i, model) in result.monitoringKomplainDetail.withIndex()){
+                        item = TMonitoringComplaintDetail()
+                        item.doLineItem = model?.doLineItem
+                        item.status = model?.status
+                        item.noPackaging = model?.noPackaging
+                        item.noMatSap = model?.noMatSap
+                        item.noKomplain = model?.noKomplain
+                        item.noSerial = model?.noSerial
+                        item.tanggalPengajuan = model?.tanggalPengajuan
+                        item.tanggalSelesai = ""
+                        item.noDoSmar = model?.noDoSmar
+                        item.isChecked = 0
+                        item.isDone = 0
+                        item.statusPeriksa = ""
+                        items[i] = item
+                    }
+                    daoSession.tMonitoringComplaintDetailDao.insertInTx(items.toList())
                 }
             }
 
