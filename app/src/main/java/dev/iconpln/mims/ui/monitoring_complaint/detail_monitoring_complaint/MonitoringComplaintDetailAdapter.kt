@@ -11,6 +11,7 @@ import dev.iconpln.mims.databinding.ItemListMonitoringKomplainBinding
 class MonitoringComplaintDetailAdapter(val lisModels: MutableList<TMonitoringComplaintDetail>,
                                        var listenerNormal: MonitoringComplaintDetailAdapter.OnAdapterListenerNormal,
                                        var listenerCacat: MonitoringComplaintDetailAdapter.OnAdapterListenerCacat,
+                                       var listenerAlasan: MonitoringComplaintDetailAdapter.OnAdapterAlasanKomplain,
                                        var daoSession: DaoSession, var subrole: Int, var status: String)
     : RecyclerView.Adapter<MonitoringComplaintDetailAdapter.ViewHolder>() {
 
@@ -37,13 +38,17 @@ class MonitoringComplaintDetailAdapter(val lisModels: MutableList<TMonitoringCom
     inner class ViewHolder(val binding: ItemListMonitoringKomplainBinding): RecyclerView.ViewHolder(binding.root){
         fun bind(complaint : TMonitoringComplaintDetail){
             with(binding){
-                txtDeliveryOrder.text = complaint.noDoSmar
+                txtDeliveryOrder.text = complaint.noSerial
                 txtNoKomplain.text = complaint.noKomplain
                 txtStatusKomplain.text = complaint.status
                 txtNoPackaging.text = complaint.noPackaging
                 txtNoMatSap.text = complaint.noMatSap
                 txtTanggalPengajuan.text = complaint.tanggalPengajuan
                 txtTanggalSelesai.text = if (complaint.tanggalSelesai.isNullOrEmpty()) "-" else complaint.tanggalSelesai
+
+                txtAlasanKomplain.setOnClickListener {
+                    listenerAlasan.onClick(complaint)
+                }
 
                 if (status == "ACTIVE"){
                     cbSesuai.isEnabled = false
@@ -106,5 +111,9 @@ class MonitoringComplaintDetailAdapter(val lisModels: MutableList<TMonitoringCom
 
     interface  OnAdapterListenerCacat{
         fun onClick(po: Boolean)
+    }
+
+    interface OnAdapterAlasanKomplain{
+        fun onClick(po: TMonitoringComplaintDetail)
     }
 }

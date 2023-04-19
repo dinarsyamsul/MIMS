@@ -60,9 +60,9 @@ class RatingActivity : AppCompatActivity() {
             txtNamaKurir.text = penerimaan.kurirPengantar
             txtPetugasPengiriman.text = penerimaan.kurirPengantar
             txtPrimaryOrder.text = penerimaan.poSapNo
-            txtTglDiterima.text = penerimaan.tanggalDiterima
+            txtTglDiterima.text = penerimaan.tanggalDiterima.take(10)
             txtTglPengiriman.text = penerimaan.createdDate
-            txtTglTerima.text = penerimaan.tanggalDiterima
+            txtTglTerima.text = penerimaan.poDate.take(10)
             txtTlsk.text = penerimaan.tlskNo
             txtUnitAsal.text = penerimaan.plantName
             txtPrimaryOrder.text = if (penerimaan.poMpNo.isNullOrEmpty()) "-" else penerimaan.poMpNo

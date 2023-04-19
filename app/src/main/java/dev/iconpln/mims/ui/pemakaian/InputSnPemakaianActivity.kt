@@ -51,6 +51,7 @@ class InputSnPemakaianActivity : AppCompatActivity(),Loadable {
     private lateinit var pemakaianDetail: TTransPemakaianDetail
     private var plant: String = ""
     private var storloc: String = ""
+    private var noMat = ""
     private lateinit var lisSn : List<TListSnMaterialPemakaianUlp>
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -61,17 +62,20 @@ class InputSnPemakaianActivity : AppCompatActivity(),Loadable {
 
         noTransaksi = intent.getStringExtra("noTransaksi")!!
 
+        noMat = intent.getStringExtra("noMat")!!
         plant = SharedPrefsUtils.getStringPreference(this@InputSnPemakaianActivity,"plant","")!!
         storloc = SharedPrefsUtils.getStringPreference(this@InputSnPemakaianActivity,"storloc","")!!
 
         lisSn = daoSession.tListSnMaterialPemakaianUlpDao.queryBuilder()
-            .where(TListSnMaterialPemakaianUlpDao.Properties.NoTransaksi.eq(noTransaksi)).list()
+            .where(TListSnMaterialPemakaianUlpDao.Properties.NoTransaksi.eq(noTransaksi))
+            .where(TListSnMaterialPemakaianUlpDao.Properties.NoMaterial.eq(noMat)).list()
 
         pemakaian = daoSession.tPemakaianDao.queryBuilder()
             .where(TPemakaianDao.Properties.NoTransaksi.eq(noTransaksi)).list().get(0)
 
         pemakaianDetail = daoSession.tTransPemakaianDetailDao.queryBuilder()
-            .where(TTransPemakaianDetailDao.Properties.NoTransaksi.eq(noTransaksi)).list().get(0)
+            .where(TTransPemakaianDetailDao.Properties.NoTransaksi.eq(noTransaksi))
+            .where(TTransPemakaianDetailDao.Properties.NomorMaterial.eq(noMat)).list().get(0)
 
         adapter = PemakaianUlpSnAdapter(arrayListOf(), object : PemakaianUlpSnAdapter.OnAdapterListener{
             override fun onClick(tms: TListSnMaterialPemakaianUlp) {
@@ -111,12 +115,17 @@ class InputSnPemakaianActivity : AppCompatActivity(),Loadable {
             btnScanSnMaterial.setOnClickListener { openScanner() }
             btnInputSnManual.setOnClickListener { showPopUp() }
 
+            val listSn = daoSession.tListSnMaterialPemakaianUlpDao.queryBuilder()
+                .where(TListSnMaterialPemakaianUlpDao.Properties.NoTransaksi.eq(noTransaksi))
+                .where(TListSnMaterialPemakaianUlpDao.Properties.NoMaterial.eq(noMat)).list()
+
             txtIdPelanggan.text = if(pemakaian.idPelanggan.isNullOrEmpty()) "-" else pemakaian.idPelanggan
             txtNoAgenda.text = if(pemakaian.noAgenda.isNullOrEmpty()) "-" else pemakaian.noAgenda
 
             btnBack.setOnClickListener { onBackPressed() }
             btnSimpan.setOnClickListener {
                 pemakaianDetail.isDone = 1
+                pemakaianDetail.qtyPemakaian = listSn.size.toString()
                 daoSession.tTransPemakaianDetailDao.update(pemakaianDetail)
                 submitForm()
             }
@@ -134,6 +143,10 @@ class InputSnPemakaianActivity : AppCompatActivity(),Loadable {
         val currentUtc = DateTimeUtils.currentUtc
         Log.i("datime","${currentDateTime}")
 
+        val listSn = daoSession.tListSnMaterialPemakaianUlpDao.queryBuilder()
+            .where(TListSnMaterialPemakaianUlpDao.Properties.NoTransaksi.eq(noTransaksi))
+            .where(TListSnMaterialPemakaianUlpDao.Properties.NoMaterial.eq(noMat)).list()
+
         var jwt = SharedPrefsUtils.getStringPreference(this@InputSnPemakaianActivity,"jwt","")
         var plant = SharedPrefsUtils.getStringPreference(this@InputSnPemakaianActivity,"plant","")
         var storloc = SharedPrefsUtils.getStringPreference(this@InputSnPemakaianActivity,"storloc","")
@@ -145,9 +158,10 @@ class InputSnPemakaianActivity : AppCompatActivity(),Loadable {
         val params = ArrayList<ReportParameter>()
 
         params.add(ReportParameter("1", reportId, "no_transaksi", noTransaksi, ReportParameter.TEXT))
-        params.add(ReportParameter("2", reportId, "user_plant", plant!!, ReportParameter.TEXT))
+        params.add(ReportParameter("2", reportId, "no_material", noMat!!, ReportParameter.TEXT))
         params.add(ReportParameter("3", reportId, "user_loc", storloc!!, ReportParameter.TEXT))
         params.add(ReportParameter("4", reportId, "username",username!! , ReportParameter.TEXT))
+        params.add(ReportParameter("5", reportId, "qty",listSn.size.toString() , ReportParameter.TEXT))
 
         val report = GenericReport(reportId, jwt!!, reportName, reportDescription, ApiConfig.sendReportPemakaianUlpDetail(), currentDate, Config.NO_CODE, currentUtc, params)
         reports.add(report)
@@ -184,7 +198,8 @@ class InputSnPemakaianActivity : AppCompatActivity(),Loadable {
                             daoSession.tListSnMaterialPemakaianUlpDao.delete(toDelete)
 
                             val refreshList = daoSession.tListSnMaterialPemakaianUlpDao.queryBuilder()
-                                .where(TListSnMaterialPemakaianUlpDao.Properties.NoTransaksi.eq(noTransaksi)).list()
+                                .where(TListSnMaterialPemakaianUlpDao.Properties.NoTransaksi.eq(noTransaksi))
+                                .where(TListSnMaterialPemakaianUlpDao.Properties.NoMaterial.eq(noMat)).list()
                             adapter.setTmsList(refreshList)
                             showLoading(false)
                         }else{
@@ -232,7 +247,7 @@ class InputSnPemakaianActivity : AppCompatActivity(),Loadable {
 
         CoroutineScope(Dispatchers.IO).launch {
             val response = ApiConfig.getApiService(this@InputSnPemakaianActivity)
-                .addSn(pemakaian.noTransaksi,pemakaianDetail.nomorMaterial,sn,plant,storloc)
+                .addSn(pemakaian.noTransaksi,noMat,sn,plant,storloc)
             withContext(Dispatchers.Main){
                 if (response.isSuccessful){
                     try {
@@ -241,13 +256,14 @@ class InputSnPemakaianActivity : AppCompatActivity(),Loadable {
                             showPopUpSuccess("Simpan")
                             val listSn = TListSnMaterialPemakaianUlp()
                             listSn.isScanned = 1
-                            listSn.noMaterial = pemakaianDetail.nomorMaterial
+                            listSn.noMaterial = noMat
                             listSn.noSerialNumber = sn
                             listSn.noTransaksi = pemakaianDetail.noTransaksi
                             daoSession.tListSnMaterialPemakaianUlpDao.insert(listSn)
 
                             val reloadList = daoSession.tListSnMaterialPemakaianUlpDao.queryBuilder()
-                                .where(TListSnMaterialPemakaianUlpDao.Properties.NoTransaksi.eq(noTransaksi)).list()
+                                .where(TListSnMaterialPemakaianUlpDao.Properties.NoTransaksi.eq(noTransaksi))
+                                .where(TListSnMaterialPemakaianUlpDao.Properties.NoMaterial.eq(noMat)).list()
 
                             adapter.setTmsList(reloadList)
                         }else{

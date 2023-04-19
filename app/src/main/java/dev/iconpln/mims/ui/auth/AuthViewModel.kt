@@ -459,6 +459,7 @@ class AuthViewModel: ViewModel() {
                         item.doStatus = model?.doStatus
                         item.expeditions = model?.ekspedition
                         item.poDate = model?.poDate
+                        item.sudahBisaRating = model?.sudahBisaRating
                         if (model?.ratingDelivery.isNullOrEmpty()) item.ratingDelivery = "" else item.ratingDelivery = model?.ratingDelivery
                         if (model?.ratingQuality.isNullOrEmpty()) item.ratingQuality = "" else item.ratingQuality = model?.ratingQuality
                         if (model?.ratingResponse.isNullOrEmpty()) item.ratingResponse = "" else item.ratingResponse = model?.ratingResponse

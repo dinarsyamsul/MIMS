@@ -48,7 +48,8 @@ class MonitoringComplaintActivity : AppCompatActivity() {
                         startActivity(Intent(this@MonitoringComplaintActivity, MonitoringComplaintDetailActivity::class.java)
                             .putExtra("noKomplain", mp.noKomplain)
                             .putExtra("noDo", mp.noDoSmar)
-                            .putExtra("status", mp.status))
+                            .putExtra("status", mp.status)
+                            .putExtra("alasan", mp.alasan))
                     }else{
                         Toast.makeText(this@MonitoringComplaintActivity, "Komplain ini sudah di selesai di periksa", Toast.LENGTH_SHORT).show()
                     }
@@ -56,7 +57,8 @@ class MonitoringComplaintActivity : AppCompatActivity() {
                     startActivity(Intent(this@MonitoringComplaintActivity, MonitoringComplaintDetailActivity::class.java)
                         .putExtra("noKomplain", mp.noKomplain)
                         .putExtra("noDo", mp.noDoSmar)
-                        .putExtra("status", mp.status))
+                        .putExtra("status", mp.status)
+                        .putExtra("alasan", mp.alasan))
                 }
             }
 

@@ -35,6 +35,7 @@ public class TPos {
     private String PetugasPenerima;
     private String TglDiterima;
     private String KurirPengantar;
+    private Boolean SudahBisaRating;
     private String DoLineItem;
     private String RatingResponse;
     private String RatingQuality;
@@ -51,7 +52,7 @@ public class TPos {
     }
 
     @Generated
-    public TPos(Long id, String StorLoc, String Total, String TlskNo, String PoSapNo, String PoMpNo, String NoDoSmar, Integer LeadTime, String Storloc, String CreatedDate, String PlanCodeNo, String PlantName, String PoDate, String NoDoMims, String DoStatus, String Expeditions, String KodeStatusDoMims, String CourierPersonName, String KdPabrikan, String MaterialGroup, String NamaKategoriMaterial, String PetugasPenerima, String TglDiterima, String KurirPengantar, String DoLineItem, String RatingResponse, String RatingQuality, String RatingDelivery, String StatusPemeriksaan, String StatusPenerimaan) {
+    public TPos(Long id, String StorLoc, String Total, String TlskNo, String PoSapNo, String PoMpNo, String NoDoSmar, Integer LeadTime, String Storloc, String CreatedDate, String PlanCodeNo, String PlantName, String PoDate, String NoDoMims, String DoStatus, String Expeditions, String KodeStatusDoMims, String CourierPersonName, String KdPabrikan, String MaterialGroup, String NamaKategoriMaterial, String PetugasPenerima, String TglDiterima, String KurirPengantar, Boolean SudahBisaRating, String DoLineItem, String RatingResponse, String RatingQuality, String RatingDelivery, String StatusPemeriksaan, String StatusPenerimaan) {
         this.id = id;
         this.StorLoc = StorLoc;
         this.Total = Total;
@@ -76,6 +77,7 @@ public class TPos {
         this.PetugasPenerima = PetugasPenerima;
         this.TglDiterima = TglDiterima;
         this.KurirPengantar = KurirPengantar;
+        this.SudahBisaRating = SudahBisaRating;
         this.DoLineItem = DoLineItem;
         this.RatingResponse = RatingResponse;
         this.RatingQuality = RatingQuality;
@@ -274,6 +276,14 @@ public class TPos {
 
     public void setKurirPengantar(String KurirPengantar) {
         this.KurirPengantar = KurirPengantar;
+    }
+
+    public Boolean getSudahBisaRating() {
+        return SudahBisaRating;
+    }
+
+    public void setSudahBisaRating(Boolean SudahBisaRating) {
+        this.SudahBisaRating = SudahBisaRating;
     }
 
     public String getDoLineItem() {

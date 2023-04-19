@@ -44,6 +44,7 @@ class MonitoringComplaintDetailActivity : AppCompatActivity(), Loadable {
     private var noDo = ""
     private var noKomplain = ""
     private var status = ""
+    private var alasan = ""
     private var totalCacat = 0
     private var totalNormal = 0
     private var subrole = 0
@@ -58,6 +59,7 @@ class MonitoringComplaintDetailActivity : AppCompatActivity(), Loadable {
         noKomplain = intent.getStringExtra("noKomplain")!!
         subrole = SharedPrefsUtils.getIntegerPreference(this, "subroleId", 0)
         status = intent.getStringExtra("status")!!
+        alasan = intent.getStringExtra("alasan")!!
 
         if (subrole == 3){
             listComplaint = daoSession.tMonitoringComplaintDetailDao.queryBuilder()
@@ -98,7 +100,23 @@ class MonitoringComplaintDetailActivity : AppCompatActivity(), Loadable {
                     }
                 }
 
-            }, daoSession,subrole,status)
+            },object : MonitoringComplaintDetailAdapter.OnAdapterAlasanKomplain{
+                override fun onClick(po: TMonitoringComplaintDetail) {
+                    val dialog = Dialog(this@MonitoringComplaintDetailActivity)
+                    dialog.setContentView(R.layout.popup_alasan_reject);
+                    dialog.window!!.setLayout(ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.WRAP_CONTENT);
+                    dialog.setCancelable(false);
+                    dialog.window!!.attributes.windowAnimations = R.style.DialogUpDown;
+                    val btnYa = dialog.findViewById(R.id.btn_ya) as AppCompatButton
+                    val alasans = dialog.findViewById(R.id.et_alasan_reject) as TextView
+
+                    alasans.text = alasan
+
+                    btnYa.setOnClickListener { dialog.dismiss() }
+
+                    dialog.show();
+                }
+            },daoSession,subrole,status)
 
         adapter.setComplaint(listComplaint)
 

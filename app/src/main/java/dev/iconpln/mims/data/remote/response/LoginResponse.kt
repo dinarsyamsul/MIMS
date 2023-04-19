@@ -377,6 +377,9 @@ data class PosItem(
 	@field:SerializedName("status_penerimaan")
 	val statusPenerimaan: String? = "",
 
+	@field:SerializedName("sudah_bisa_rating")
+	val sudahBisaRating: Boolean,
+
 )
 
 data class PengujiansItem(

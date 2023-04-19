@@ -343,7 +343,8 @@ class DetailPenerimaanActivity : AppCompatActivity(),Loadable {
             .where(TPosDetailPenerimaanDao.Properties.IsComplaint.eq(1)).list().size > 0
 
         val checkListPemeriksaan = daoSession.tPemeriksaanDao.queryBuilder()
-            .where(TPemeriksaanDao.Properties.NoDoSmar.eq(noDo)).list().size > 0
+            .where(TPemeriksaanDao.Properties.NoDoSmar.eq(noDo))
+            .where(TPemeriksaanDao.Properties.StatusPemeriksaan.notEq("SUDAH DIPERIKSA")).list().size > 0
 
 
 
@@ -351,19 +352,20 @@ class DetailPenerimaanActivity : AppCompatActivity(),Loadable {
 
             if (checkListPemeriksaan){
                 if (checkSnKomplaint){
-                    penerimaan.statusPenerimaan = "DITERIMA"
-                    penerimaan.statusPemeriksaan = "KOMPLAIN"
+                    penerimaan.statusPenerimaan = "KOMPLAIN"
+                    penerimaan.statusPemeriksaan = "SEDANG DIPERIKSA"
                     penerimaan.isRating = 0
                     daoSession.tPosPenerimaanDao.update(penerimaan)
                 }else{
                     penerimaan.statusPenerimaan = "DITERIMA"
+                    penerimaan.statusPemeriksaan = "SEDANG DIPERIKSA"
                     penerimaan.isRating = 0
                     daoSession.tPosPenerimaanDao.update(penerimaan)
                 }
             }else{
                 if (checkSnKomplaint){
-                    penerimaan.statusPenerimaan = "DITERIMA"
-                    penerimaan.statusPemeriksaan = "KOMPLAIN"
+                    penerimaan.statusPenerimaan = "KOMPLAIN"
+                    penerimaan.statusPemeriksaan = "SELESAI"
                     penerimaan.isRating = 0
                     daoSession.tPosPenerimaanDao.update(penerimaan)
                 }else{

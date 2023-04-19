@@ -264,7 +264,6 @@
                         android:id="@+id/lbl_plant"
                         android:layout_width="0dp"
                         android:layout_height="wrap_content"
-                        android:layout_marginStart="5dp"
                         android:fontFamily="@font/montserrat_reguler"
                         android:text="Plant"
                         android:textColor="#3F3D56"

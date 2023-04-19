@@ -46,12 +46,13 @@ public class TPosDao extends AbstractDao<TPos, Long> {
         public final static Property PetugasPenerima = new Property(21, String.class, "PetugasPenerima", false, "PETUGAS_PENERIMA");
         public final static Property TglDiterima = new Property(22, String.class, "TglDiterima", false, "TGL_DITERIMA");
         public final static Property KurirPengantar = new Property(23, String.class, "KurirPengantar", false, "KURIR_PENGANTAR");
-        public final static Property DoLineItem = new Property(24, String.class, "DoLineItem", false, "DO_LINE_ITEM");
-        public final static Property RatingResponse = new Property(25, String.class, "RatingResponse", false, "RATING_RESPONSE");
-        public final static Property RatingQuality = new Property(26, String.class, "RatingQuality", false, "RATING_QUALITY");
-        public final static Property RatingDelivery = new Property(27, String.class, "RatingDelivery", false, "RATING_DELIVERY");
-        public final static Property StatusPemeriksaan = new Property(28, String.class, "StatusPemeriksaan", false, "STATUS_PEMERIKSAAN");
-        public final static Property StatusPenerimaan = new Property(29, String.class, "StatusPenerimaan", false, "STATUS_PENERIMAAN");
+        public final static Property SudahBisaRating = new Property(24, Boolean.class, "SudahBisaRating", false, "SUDAH_BISA_RATING");
+        public final static Property DoLineItem = new Property(25, String.class, "DoLineItem", false, "DO_LINE_ITEM");
+        public final static Property RatingResponse = new Property(26, String.class, "RatingResponse", false, "RATING_RESPONSE");
+        public final static Property RatingQuality = new Property(27, String.class, "RatingQuality", false, "RATING_QUALITY");
+        public final static Property RatingDelivery = new Property(28, String.class, "RatingDelivery", false, "RATING_DELIVERY");
+        public final static Property StatusPemeriksaan = new Property(29, String.class, "StatusPemeriksaan", false, "STATUS_PEMERIKSAAN");
+        public final static Property StatusPenerimaan = new Property(30, String.class, "StatusPenerimaan", false, "STATUS_PENERIMAAN");
     }
 
 
@@ -91,12 +92,13 @@ public class TPosDao extends AbstractDao<TPos, Long> {
                 "\"PETUGAS_PENERIMA\" TEXT," + // 21: PetugasPenerima
                 "\"TGL_DITERIMA\" TEXT," + // 22: TglDiterima
                 "\"KURIR_PENGANTAR\" TEXT," + // 23: KurirPengantar
-                "\"DO_LINE_ITEM\" TEXT," + // 24: DoLineItem
-                "\"RATING_RESPONSE\" TEXT," + // 25: RatingResponse
-                "\"RATING_QUALITY\" TEXT," + // 26: RatingQuality
-                "\"RATING_DELIVERY\" TEXT," + // 27: RatingDelivery
-                "\"STATUS_PEMERIKSAAN\" TEXT," + // 28: StatusPemeriksaan
-                "\"STATUS_PENERIMAAN\" TEXT);"); // 29: StatusPenerimaan
+                "\"SUDAH_BISA_RATING\" INTEGER," + // 24: SudahBisaRating
+                "\"DO_LINE_ITEM\" TEXT," + // 25: DoLineItem
+                "\"RATING_RESPONSE\" TEXT," + // 26: RatingResponse
+                "\"RATING_QUALITY\" TEXT," + // 27: RatingQuality
+                "\"RATING_DELIVERY\" TEXT," + // 28: RatingDelivery
+                "\"STATUS_PEMERIKSAAN\" TEXT," + // 29: StatusPemeriksaan
+                "\"STATUS_PENERIMAAN\" TEXT);"); // 30: StatusPenerimaan
     }
 
     /** Drops the underlying database table. */
@@ -229,34 +231,39 @@ public class TPosDao extends AbstractDao<TPos, Long> {
             stmt.bindString(24, KurirPengantar);
         }
  
+        Boolean SudahBisaRating = entity.getSudahBisaRating();
+        if (SudahBisaRating != null) {
+            stmt.bindLong(25, SudahBisaRating ? 1L: 0L);
+        }
+ 
         String DoLineItem = entity.getDoLineItem();
         if (DoLineItem != null) {
-            stmt.bindString(25, DoLineItem);
+            stmt.bindString(26, DoLineItem);
         }
  
         String RatingResponse = entity.getRatingResponse();
         if (RatingResponse != null) {
-            stmt.bindString(26, RatingResponse);
+            stmt.bindString(27, RatingResponse);
         }
  
         String RatingQuality = entity.getRatingQuality();
         if (RatingQuality != null) {
-            stmt.bindString(27, RatingQuality);
+            stmt.bindString(28, RatingQuality);
         }
  
         String RatingDelivery = entity.getRatingDelivery();
         if (RatingDelivery != null) {
-            stmt.bindString(28, RatingDelivery);
+            stmt.bindString(29, RatingDelivery);
         }
  
         String StatusPemeriksaan = entity.getStatusPemeriksaan();
         if (StatusPemeriksaan != null) {
-            stmt.bindString(29, StatusPemeriksaan);
+            stmt.bindString(30, StatusPemeriksaan);
         }
  
         String StatusPenerimaan = entity.getStatusPenerimaan();
         if (StatusPenerimaan != null) {
-            stmt.bindString(30, StatusPenerimaan);
+            stmt.bindString(31, StatusPenerimaan);
         }
     }
 
@@ -384,34 +391,39 @@ public class TPosDao extends AbstractDao<TPos, Long> {
             stmt.bindString(24, KurirPengantar);
         }
  
+        Boolean SudahBisaRating = entity.getSudahBisaRating();
+        if (SudahBisaRating != null) {
+            stmt.bindLong(25, SudahBisaRating ? 1L: 0L);
+        }
+ 
         String DoLineItem = entity.getDoLineItem();
         if (DoLineItem != null) {
-            stmt.bindString(25, DoLineItem);
+            stmt.bindString(26, DoLineItem);
         }
  
         String RatingResponse = entity.getRatingResponse();
         if (RatingResponse != null) {
-            stmt.bindString(26, RatingResponse);
+            stmt.bindString(27, RatingResponse);
         }
  
         String RatingQuality = entity.getRatingQuality();
         if (RatingQuality != null) {
-            stmt.bindString(27, RatingQuality);
+            stmt.bindString(28, RatingQuality);
         }
  
         String RatingDelivery = entity.getRatingDelivery();
         if (RatingDelivery != null) {
-            stmt.bindString(28, RatingDelivery);
+            stmt.bindString(29, RatingDelivery);
         }
  
         String StatusPemeriksaan = entity.getStatusPemeriksaan();
         if (StatusPemeriksaan != null) {
-            stmt.bindString(29, StatusPemeriksaan);
+            stmt.bindString(30, StatusPemeriksaan);
         }
  
         String StatusPenerimaan = entity.getStatusPenerimaan();
         if (StatusPenerimaan != null) {
-            stmt.bindString(30, StatusPenerimaan);
+            stmt.bindString(31, StatusPenerimaan);
         }
     }
 
@@ -447,12 +459,13 @@ public class TPosDao extends AbstractDao<TPos, Long> {
             cursor.isNull(offset + 21) ? null : cursor.getString(offset + 21), // PetugasPenerima
             cursor.isNull(offset + 22) ? null : cursor.getString(offset + 22), // TglDiterima
             cursor.isNull(offset + 23) ? null : cursor.getString(offset + 23), // KurirPengantar
-            cursor.isNull(offset + 24) ? null : cursor.getString(offset + 24), // DoLineItem
-            cursor.isNull(offset + 25) ? null : cursor.getString(offset + 25), // RatingResponse
-            cursor.isNull(offset + 26) ? null : cursor.getString(offset + 26), // RatingQuality
-            cursor.isNull(offset + 27) ? null : cursor.getString(offset + 27), // RatingDelivery
-            cursor.isNull(offset + 28) ? null : cursor.getString(offset + 28), // StatusPemeriksaan
-            cursor.isNull(offset + 29) ? null : cursor.getString(offset + 29) // StatusPenerimaan
+            cursor.isNull(offset + 24) ? null : cursor.getShort(offset + 24) != 0, // SudahBisaRating
+            cursor.isNull(offset + 25) ? null : cursor.getString(offset + 25), // DoLineItem
+            cursor.isNull(offset + 26) ? null : cursor.getString(offset + 26), // RatingResponse
+            cursor.isNull(offset + 27) ? null : cursor.getString(offset + 27), // RatingQuality
+            cursor.isNull(offset + 28) ? null : cursor.getString(offset + 28), // RatingDelivery
+            cursor.isNull(offset + 29) ? null : cursor.getString(offset + 29), // StatusPemeriksaan
+            cursor.isNull(offset + 30) ? null : cursor.getString(offset + 30) // StatusPenerimaan
         );
         return entity;
     }
@@ -483,12 +496,13 @@ public class TPosDao extends AbstractDao<TPos, Long> {
         entity.setPetugasPenerima(cursor.isNull(offset + 21) ? null : cursor.getString(offset + 21));
         entity.setTglDiterima(cursor.isNull(offset + 22) ? null : cursor.getString(offset + 22));
         entity.setKurirPengantar(cursor.isNull(offset + 23) ? null : cursor.getString(offset + 23));
-        entity.setDoLineItem(cursor.isNull(offset + 24) ? null : cursor.getString(offset + 24));
-        entity.setRatingResponse(cursor.isNull(offset + 25) ? null : cursor.getString(offset + 25));
-        entity.setRatingQuality(cursor.isNull(offset + 26) ? null : cursor.getString(offset + 26));
-        entity.setRatingDelivery(cursor.isNull(offset + 27) ? null : cursor.getString(offset + 27));
-        entity.setStatusPemeriksaan(cursor.isNull(offset + 28) ? null : cursor.getString(offset + 28));
-        entity.setStatusPenerimaan(cursor.isNull(offset + 29) ? null : cursor.getString(offset + 29));
+        entity.setSudahBisaRating(cursor.isNull(offset + 24) ? null : cursor.getShort(offset + 24) != 0);
+        entity.setDoLineItem(cursor.isNull(offset + 25) ? null : cursor.getString(offset + 25));
+        entity.setRatingResponse(cursor.isNull(offset + 26) ? null : cursor.getString(offset + 26));
+        entity.setRatingQuality(cursor.isNull(offset + 27) ? null : cursor.getString(offset + 27));
+        entity.setRatingDelivery(cursor.isNull(offset + 28) ? null : cursor.getString(offset + 28));
+        entity.setStatusPemeriksaan(cursor.isNull(offset + 29) ? null : cursor.getString(offset + 29));
+        entity.setStatusPenerimaan(cursor.isNull(offset + 30) ? null : cursor.getString(offset + 30));
      }
     
     @Override

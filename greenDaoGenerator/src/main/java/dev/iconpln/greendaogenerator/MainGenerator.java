@@ -175,6 +175,7 @@ public class MainGenerator {
         tPos.addStringProperty("PetugasPenerima");
         tPos.addStringProperty("TglDiterima");
         tPos.addStringProperty("KurirPengantar");
+        tPos.addBooleanProperty("SudahBisaRating");
         tPos.addStringProperty("DoLineItem");
         tPos.addStringProperty("RatingResponse");
         tPos.addStringProperty("RatingQuality");

@@ -60,7 +60,8 @@ class DetailPemakaianUlpYantekActivity : AppCompatActivity(),Loadable {
                     Toast.makeText(this@DetailPemakaianUlpYantekActivity, "Anda sudah menyelesaikan pemakaian ini", Toast.LENGTH_SHORT).show()
                 }else{
                     startActivity(Intent(this@DetailPemakaianUlpYantekActivity, InputSnPemakaianActivity::class.java)
-                        .putExtra("noTransaksi", pemakaian.noTransaksi))
+                        .putExtra("noTransaksi", pemakaian.noTransaksi)
+                        .putExtra("noMat",pemakaian.nomorMaterial))
                 }
             }
 
@@ -69,7 +70,7 @@ class DetailPemakaianUlpYantekActivity : AppCompatActivity(),Loadable {
         adapter.setpemakaianList(detailPemakaians)
 
         with(binding){
-            txtNoPemakaian.text = pemakaian.noReservasi
+            txtNoReservasi.text = pemakaian.noReservasi
             txtTotalData.text = "Total ${detailPemakaians.size} data"
 
             rvPemakaianUlp.adapter = adapter
