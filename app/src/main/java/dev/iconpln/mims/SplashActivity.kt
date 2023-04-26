@@ -10,6 +10,7 @@ import androidx.lifecycle.asLiveData
 import dev.iconpln.mims.ui.auth.LoginActivity
 import dev.iconpln.mims.ui.auth.LoginBiometricActivity
 import dev.iconpln.mims.ui.pnerimaan.approval.ApprovalActivity
+import dev.iconpln.mims.ui.ulp.penerimaan.PenerimaanUlpActivity
 import dev.iconpln.mims.utils.Config
 import dev.iconpln.mims.utils.SessionManager
 

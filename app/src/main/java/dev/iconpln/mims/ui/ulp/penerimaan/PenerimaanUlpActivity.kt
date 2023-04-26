@@ -24,6 +24,7 @@ class PenerimaanUlpActivity : AppCompatActivity() {
     private lateinit var cal: Calendar
     private var deliveryDate = ""
     private var srcNoPengiriman = ""
+    private var srcNoPermintaan = ""
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -35,6 +36,7 @@ class PenerimaanUlpActivity : AppCompatActivity() {
         insertData()
         setDatePicker()
         setSrcNoPengiriman()
+        setSrcNoPermintaan()
 
         penerimaanUlps = daoSession.tTransPenerimaanUlpDao.queryBuilder()
             .whereOr(TTransPenerimaanUlpDao.Properties.StatusPenerimaan.notEq("DITERIMA"),
@@ -84,6 +86,22 @@ class PenerimaanUlpActivity : AppCompatActivity() {
                 adapter.setPenerimaanList(searchList)
             }
 
+        })
+    }
+
+    private fun setSrcNoPermintaan(){
+        binding.srcNoPermintaanULP.addTextChangedListener(object : TextWatcher{
+            override fun beforeTextChanged(p0: CharSequence?, p1: Int, p2: Int, p3: Int) {}
+
+            override fun onTextChanged(p0: CharSequence?, p1: Int, p2: Int, p3: Int) {}
+
+            override fun afterTextChanged(sp: Editable?) {
+                srcNoPermintaan = sp.toString()
+                val searchPermintaanList = daoSession.tTransPenerimaanUlpDao.queryBuilder()
+                    .where(TTransPenerimaanUlpDao.Properties.NoPermintaan.like("%"+srcNoPermintaan+"%")).list()
+
+                adapter.setPenerimaanList(searchPermintaanList)
+            }
         })
     }
 
