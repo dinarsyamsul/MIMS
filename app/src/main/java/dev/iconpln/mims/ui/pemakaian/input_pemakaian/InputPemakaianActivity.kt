@@ -42,6 +42,12 @@ class InputPemakaianActivity : AppCompatActivity(), Loadable {
             .where(TPemakaianDao.Properties.NoTransaksi.eq(noTransaksi)).list().get(0)
 
         with(binding){
+            edtNoPk.setText(pemakaian.noPk)
+            edtNamaKegiatan.setText(pemakaian.namaKegiatan)
+            edtNamaPelanggan.setText(pemakaian.namaPelanggan)
+            edtLokasi.setText(pemakaian.lokasi)
+            edtPemeriksa.setText(pemakaian.pemeriksa)
+            edtPenerima.setText(pemakaian.penerima)
             edtKepalaGudang.setText("ADMIN GUDANG ULP")
             edtPejabatPengesahan.setText("MANAJER ULP")
 

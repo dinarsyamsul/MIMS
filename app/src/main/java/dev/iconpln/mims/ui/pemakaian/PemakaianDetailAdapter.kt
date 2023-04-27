@@ -4,14 +4,13 @@ import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
 import dev.iconpln.mims.R
-import dev.iconpln.mims.data.local.database.TPemakaian
-import dev.iconpln.mims.data.local.database.TPemakaianDetail
-import dev.iconpln.mims.data.local.database.TTransPemakaianDetail
+import dev.iconpln.mims.data.local.database.*
 import dev.iconpln.mims.data.remote.PemakaianUlpData
 import dev.iconpln.mims.databinding.ItemDataDetailPemakaianUlpBinding
 import dev.iconpln.mims.databinding.ItemDataPemakaianUlpBinding
 
-class PemakaianDetailAdapter(val lisModels: MutableList<TTransPemakaianDetail>, var listener: OnAdapterListener)
+class PemakaianDetailAdapter(val lisModels: MutableList<TTransPemakaianDetail>,
+                             var listener: OnAdapterListener, val daoSession: DaoSession)
     : RecyclerView.Adapter<PemakaianDetailAdapter.ViewHolder>() {
 
     fun setpemakaianList(mat: List<TTransPemakaianDetail>){
@@ -37,13 +36,17 @@ class PemakaianDetailAdapter(val lisModels: MutableList<TTransPemakaianDetail>, 
     inner class ViewHolder(val binding: ItemDataDetailPemakaianUlpBinding): RecyclerView.ViewHolder(binding.root){
         fun bind(pemakaian : TTransPemakaianDetail){
             with(binding){
+                val jumlahPemakaian = daoSession.tListSnMaterialPemakaianUlpDao.queryBuilder()
+                    .where(TListSnMaterialPemakaianUlpDao.Properties.NoTransaksi.eq(pemakaian.noTransaksi))
+                    .where(TListSnMaterialPemakaianUlpDao.Properties.NoMaterial.eq(pemakaian.nomorMaterial)).list()
+
                 if (pemakaian.isDone == 1){
                     ivDelivery.setImageResource(R.drawable.ic_input_doc_done)
                 }else{
                     ivDelivery.setImageResource(R.drawable.ic_input_doc_active)
                 }
 
-                txtJumlahPemakaian.text = pemakaian.qtyPemakaian
+                txtJumlahPemakaian.text = jumlahPemakaian.size.toString()
                 txtJumlahReservasi.text = pemakaian.qtyReservasi
                 txtSatuan.text = pemakaian.unit
                 txtNamaMaterial.text = pemakaian.namaMaterial

@@ -10,11 +10,7 @@ import android.widget.Toast
 import androidx.core.widget.addTextChangedListener
 import androidx.recyclerview.widget.LinearLayoutManager
 import dev.iconpln.mims.MyApplication
-import dev.iconpln.mims.data.local.database.DaoSession
-import dev.iconpln.mims.data.local.database.TPemakaian
-import dev.iconpln.mims.data.local.database.TPemakaianDao
-import dev.iconpln.mims.data.local.database.TTransPemakaianDetail
-import dev.iconpln.mims.data.local.database.TTransPemakaianDetailDao
+import dev.iconpln.mims.data.local.database.*
 import dev.iconpln.mims.data.local.database_local.GenericReport
 import dev.iconpln.mims.data.local.database_local.ReportParameter
 import dev.iconpln.mims.data.local.database_local.ReportUploader
@@ -65,7 +61,7 @@ class DetailPemakaianUlpYantekActivity : AppCompatActivity(),Loadable {
                 }
             }
 
-        })
+        },daoSession)
 
         adapter.setpemakaianList(detailPemakaians)
 
@@ -131,6 +127,10 @@ class DetailPemakaianUlpYantekActivity : AppCompatActivity(),Loadable {
     }
 
     private fun submitForm() {
+        val detailPemakaian = daoSession.tTransPemakaianDetailDao.queryBuilder()
+            .where(TTransPemakaianDetailDao.Properties.NoTransaksi.eq(noTransaksi)).list()
+        
+        var materials = ""
         val reports = ArrayList<GenericReport>()
         val currentDate = LocalDateTime.now().toString(Config.DATE)
         val currentDateTime = LocalDateTime.now().toString(Config.DATETIME)
@@ -140,6 +140,15 @@ class DetailPemakaianUlpYantekActivity : AppCompatActivity(),Loadable {
         pemakaian.isDone = 1
         pemakaian.statusPemakaian = "TERPAKAI"
         daoSession.tPemakaianDao.update(pemakaian)
+
+        for (i in detailPemakaian){
+            materials += "${i.nomorMaterial},${i.qtyPemakaian};"
+            Log.d("checkMaterials", materials)
+        }
+
+        if (materials != "") {
+            materials = materials.substring(0, materials.length - 1)
+        }
 
         //region Add report visit to queue
         var jwt = SharedPrefsUtils.getStringPreference(this@DetailPemakaianUlpYantekActivity,"jwt","")
@@ -153,9 +162,7 @@ class DetailPemakaianUlpYantekActivity : AppCompatActivity(),Loadable {
         val params = ArrayList<ReportParameter>()
 
         params.add(ReportParameter("1", reportId, "no_transaksi", pemakaian.noTransaksi!!, ReportParameter.TEXT))
-        params.add(ReportParameter("2", reportId, "user_plant", plant!!, ReportParameter.TEXT))
-        params.add(ReportParameter("3", reportId, "user_loc", storloc!!, ReportParameter.TEXT))
-        params.add(ReportParameter("4", reportId, "username",username!! , ReportParameter.TEXT))
+        params.add(ReportParameter("2", reportId, "materials",materials , ReportParameter.TEXT))
 
         val report = GenericReport(reportId, jwt!!, reportName, reportDescription, ApiConfig.sendReportPemakaianUlpSelesai(), currentDate, Config.NO_CODE, currentUtc, params)
         reports.add(report)
@@ -177,5 +184,11 @@ class DetailPemakaianUlpYantekActivity : AppCompatActivity(),Loadable {
         startActivity(Intent(this@DetailPemakaianUlpYantekActivity, PemakaianActivity::class.java)
             .setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP))
         finish()
+    }
+
+    override fun onResume() {
+        Log.d("checkRefresh","refresh recylerview detail oemakaian ulp")
+        adapter.setpemakaianList(detailPemakaians)
+        super.onResume()
     }
 }

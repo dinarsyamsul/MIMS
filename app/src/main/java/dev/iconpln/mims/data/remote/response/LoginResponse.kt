@@ -1084,7 +1084,28 @@ data class PemakaianItem(
 	val kodeIntegrasi: String? = "",
 
 	@field:SerializedName("tanggal_pengeluaran")
-	val tanggalPengeluaran: String? = ""
+	val tanggalPengeluaran: String? = "",
+
+	@field:SerializedName("no_pk")
+	val noPk: String? = "",
+
+	@field:SerializedName("lokasi")
+	val lokasi: String? = "",
+
+	@field:SerializedName("kepala_gudang")
+	val kepalaGudang: String? = "",
+
+	@field:SerializedName("pejabat_pengesahan")
+	val pejabatPengesahan: String? = "",
+
+	@field:SerializedName("pemeriksa")
+	val pemeriksa: String? = "",
+
+	@field:SerializedName("penerima")
+	val penerima: String? = "",
+
+	@field:SerializedName("nama_kegiatan")
+	val namaKegiatan: String? = "",
 )
 
 data class SnPemakaianUlpItem(

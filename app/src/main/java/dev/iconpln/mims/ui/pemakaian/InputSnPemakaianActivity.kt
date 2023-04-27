@@ -42,7 +42,7 @@ import org.joda.time.DateTime
 import org.joda.time.LocalDateTime
 import java.util.ArrayList
 
-class InputSnPemakaianActivity : AppCompatActivity(),Loadable {
+class InputSnPemakaianActivity : AppCompatActivity() {
     private lateinit var binding: ActivityInputSnPemakaianBinding
     private lateinit var daoSession: DaoSession
     private var noTransaksi: String = ""
@@ -112,12 +112,12 @@ class InputSnPemakaianActivity : AppCompatActivity(),Loadable {
         adapter.setTmsList(lisSn)
 
         with(binding){
-            btnScanSnMaterial.setOnClickListener { openScanner() }
-            btnInputSnManual.setOnClickListener { showPopUp() }
-
-            val listSn = daoSession.tListSnMaterialPemakaianUlpDao.queryBuilder()
+            val jumlahPemakaian = daoSession.tListSnMaterialPemakaianUlpDao.queryBuilder()
                 .where(TListSnMaterialPemakaianUlpDao.Properties.NoTransaksi.eq(noTransaksi))
                 .where(TListSnMaterialPemakaianUlpDao.Properties.NoMaterial.eq(noMat)).list()
+
+            btnScanSnMaterial.setOnClickListener { openScanner() }
+            btnInputSnManual.setOnClickListener { showPopUp() }
 
             txtIdPelanggan.text = if(pemakaian.idPelanggan.isNullOrEmpty()) "-" else pemakaian.idPelanggan
             txtNoAgenda.text = if(pemakaian.noAgenda.isNullOrEmpty()) "-" else pemakaian.noAgenda
@@ -125,53 +125,21 @@ class InputSnPemakaianActivity : AppCompatActivity(),Loadable {
             btnBack.setOnClickListener { onBackPressed() }
             btnSimpan.setOnClickListener {
                 pemakaianDetail.isDone = 1
-                pemakaianDetail.qtyPemakaian = listSn.size.toString()
+                pemakaianDetail.qtyPemakaian = jumlahPemakaian.size.toString()
                 daoSession.tTransPemakaianDetailDao.update(pemakaianDetail)
-                submitForm()
+
+                Toast.makeText(this@InputSnPemakaianActivity, "Berhasil simpan data",Toast.LENGTH_SHORT).show()
+                startActivity(
+                    Intent(this@InputSnPemakaianActivity, DetailPemakaianUlpYantekActivity::class.java)
+                        .putExtra("noTransaksi", noTransaksi)
+                        .setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP))
+                finish()
             }
 
             rvListSn.adapter = adapter
             rvListSn.setHasFixedSize(true)
             rvListSn.layoutManager = LinearLayoutManager(this@InputSnPemakaianActivity, LinearLayoutManager.VERTICAL, false)
         }
-    }
-
-    private fun submitForm() {
-        val reports = ArrayList<GenericReport>()
-        val currentDate = LocalDateTime.now().toString(Config.DATE)
-        val currentDateTime = LocalDateTime.now().toString(Config.DATETIME)
-        val currentUtc = DateTimeUtils.currentUtc
-        Log.i("datime","${currentDateTime}")
-
-        val listSn = daoSession.tListSnMaterialPemakaianUlpDao.queryBuilder()
-            .where(TListSnMaterialPemakaianUlpDao.Properties.NoTransaksi.eq(noTransaksi))
-            .where(TListSnMaterialPemakaianUlpDao.Properties.NoMaterial.eq(noMat)).list()
-
-        var jwt = SharedPrefsUtils.getStringPreference(this@InputSnPemakaianActivity,"jwt","")
-        var plant = SharedPrefsUtils.getStringPreference(this@InputSnPemakaianActivity,"plant","")
-        var storloc = SharedPrefsUtils.getStringPreference(this@InputSnPemakaianActivity,"storloc","")
-        var username = SharedPrefsUtils.getStringPreference(this@InputSnPemakaianActivity, "username","14.Hexing_Electrical")
-        val reportId = "temp_pemakaianUp3_detail" + username + "_" + noTransaksi + "_" + DateTime.now().toString(
-            Config.DATETIME)
-        val reportName = "Update Data pemakaian Detail up 3"
-        val reportDescription = "$reportName: "+ " (" + reportId + ")"
-        val params = ArrayList<ReportParameter>()
-
-        params.add(ReportParameter("1", reportId, "no_transaksi", noTransaksi, ReportParameter.TEXT))
-        params.add(ReportParameter("2", reportId, "no_material", noMat!!, ReportParameter.TEXT))
-        params.add(ReportParameter("3", reportId, "user_loc", storloc!!, ReportParameter.TEXT))
-        params.add(ReportParameter("4", reportId, "username",username!! , ReportParameter.TEXT))
-        params.add(ReportParameter("5", reportId, "qty",listSn.size.toString() , ReportParameter.TEXT))
-
-        val report = GenericReport(reportId, jwt!!, reportName, reportDescription, ApiConfig.sendReportPemakaianUlpDetail(), currentDate, Config.NO_CODE, currentUtc, params)
-        reports.add(report)
-        //endregion
-
-        val task = TambahReportTask(this, reports)
-        task.execute()
-
-        val iService = Intent(applicationContext, ReportUploader::class.java)
-        startService(iService)
     }
 
     private fun deleteSn(sn: String) {
@@ -341,18 +309,5 @@ class InputSnPemakaianActivity : AppCompatActivity(),Loadable {
         }catch (e: Exception){
             Log.e("exception", e.toString())
         }
-    }
-
-    override fun setLoading(show: Boolean, title: String, message: String) {
-
-    }
-
-    override fun setFinish(result: Boolean, message: String) {
-        Toast.makeText(this@InputSnPemakaianActivity, message,Toast.LENGTH_SHORT).show()
-        startActivity(
-            Intent(this@InputSnPemakaianActivity, DetailPemakaianUlpYantekActivity::class.java)
-            .putExtra("noTransaksi", noTransaksi)
-            .setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP))
-        finish()
     }
 }

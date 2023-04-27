@@ -857,12 +857,12 @@ class AuthViewModel: ViewModel() {
                         item.tanggalReservasi = model?.tanggalReservasi
                         item.tarif = model?.tarif
 
-                        item.noPk = ""
-                        item.namaKegiatan = ""
-                        item.lokasi = ""
-                        item.pemeriksa = ""
-                        item.penerima = ""
-                        item.kepalaGudang = ""
+                        item.noPk = model?.noPk
+                        item.namaKegiatan = model?.namaKegiatan
+                        item.lokasi = model?.lokasi
+                        item.pemeriksa = model?.pemeriksa
+                        item.penerima = model?.penerima
+                        item.kepalaGudang = model?.kepalaGudang
                         item.isDonePemakai = 0
                         item.isDone = 0
                         items[i] = item
