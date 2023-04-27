@@ -1,0 +1,293 @@
+Index: app/src/main/java/dev/iconpln/mims/ui/monitoring_complaint/MonitoringComplaintActivity.kt
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.BaseRevisionTextPatchEP
+<+>package dev.iconpln.mims.ui.monitoring_complaint\r\n\r\nimport android.content.Intent\r\nimport androidx.appcompat.app.AppCompatActivity\r\nimport android.os.Bundle\r\nimport android.text.Editable\r\nimport android.text.TextWatcher\r\nimport android.util.Log\r\nimport android.widget.ArrayAdapter\r\nimport android.widget.Toast\r\nimport androidx.recyclerview.widget.LinearLayoutManager\r\nimport dev.iconpln.mims.MyApplication\r\nimport dev.iconpln.mims.data.local.database.DaoSession\r\nimport dev.iconpln.mims.data.local.database.TMonitoringComplaint\r\nimport dev.iconpln.mims.data.local.database.TMonitoringComplaintDao\r\nimport dev.iconpln.mims.data.local.database.TMonitoringComplaintDetailDao\r\nimport dev.iconpln.mims.databinding.ActivityMonitoringComplaintBinding\r\nimport dev.iconpln.mims.ui.monitoring_complaint.detail_monitoring_complaint.MonitoringComplaintDetailActivity\r\nimport dev.iconpln.mims.utils.SharedPrefsUtils\r\n\r\nclass MonitoringComplaintActivity : AppCompatActivity() {\r\n    private lateinit var binding: ActivityMonitoringComplaintBinding\r\n    private lateinit var daoSession: DaoSession\r\n    private lateinit var listComplaint: List<TMonitoringComplaint>\r\n    private lateinit var adapter: MonitoringComplaintAdapter\r\n    private var subrole = 0\r\n\r\n    override fun onCreate(savedInstanceState: Bundle?) {\r\n        super.onCreate(savedInstanceState)\r\n        binding = ActivityMonitoringComplaintBinding.inflate(layoutInflater)\r\n        setContentView(binding.root)\r\n        daoSession = (application as MyApplication).daoSession!!\r\n        subrole = SharedPrefsUtils.getIntegerPreference(this,\"subroleId\",0)\r\n\r\n        listComplaint = daoSession.tMonitoringComplaintDao.queryBuilder()\r\n            .orderAsc(TMonitoringComplaintDao.Properties.Status)\r\n            .list()\r\n\r\n        adapter = MonitoringComplaintAdapter(arrayListOf(), object : MonitoringComplaintAdapter.OnAdapterListener{\r\n            override fun onClick(mp: TMonitoringComplaint) {\r\n                if (subrole != 3){\r\n                    val checkComplaintDetail = daoSession.tMonitoringComplaintDetailDao.queryBuilder()\r\n                        .where(TMonitoringComplaintDetailDao.Properties.NoKomplain.eq(mp.noKomplain))\r\n                        .where(TMonitoringComplaintDetailDao.Properties.Status.eq(\"SEDANG KOMPLAIN\")).list().size\r\n                    Log.d(\"checkComplaintDetail\", checkComplaintDetail.toString())\r\n\r\n                    if (checkComplaintDetail > 0){\r\n                        startActivity(Intent(this@MonitoringComplaintActivity, MonitoringComplaintDetailActivity::class.java)\r\n                            .putExtra(\"noKomplain\", mp.noKomplain)\r\n                            .putExtra(\"noDo\", mp.noDoSmar)\r\n                            .putExtra(\"status\", mp.status))\r\n                    }else{\r\n                        Toast.makeText(this@MonitoringComplaintActivity, \"Komplain ini sudah di selesai di periksa\", Toast.LENGTH_SHORT).show()\r\n                    }\r\n                }else{\r\n                    startActivity(Intent(this@MonitoringComplaintActivity, MonitoringComplaintDetailActivity::class.java)\r\n                        .putExtra(\"noKomplain\", mp.noKomplain)\r\n                        .putExtra(\"noDo\", mp.noDoSmar)\r\n                        .putExtra(\"status\", mp.status))\r\n                }\r\n            }\r\n\r\n        },daoSession,subrole)\r\n\r\n        adapter.setComplaint(listComplaint)\r\n\r\n        with(binding){\r\n            btnBack.setOnClickListener { onBackPressed() }\r\n            tvTotalData.text = \"Total data ${listComplaint.size}\"\r\n            srcNomorPoDo.addTextChangedListener(object : TextWatcher{\r\n                override fun beforeTextChanged(\r\n                    s: CharSequence?,\r\n                    start: Int,\r\n                    count: Int,\r\n                    after: Int\r\n                ) {}\r\n\r\n                override fun onTextChanged(s: CharSequence?, start: Int, before: Int, count: Int) {}\r\n\r\n                override fun afterTextChanged(s: Editable?) {\r\n                    val searchList = daoSession.tMonitoringComplaintDao.queryBuilder()\r\n                        .whereOr(TMonitoringComplaintDao.Properties.NoDoSmar.like(\"%\"+s.toString()+\"%\"),\r\n                            TMonitoringComplaintDao.Properties.PoSapNo.like(\"%\"+s.toString()+\"%\"))\r\n                        .orderAsc(TMonitoringComplaintDao.Properties.Status)\r\n                        .list()\r\n\r\n                    binding.rvMonitoringKomplain.adapter = null\r\n                    binding.rvMonitoringKomplain.layoutManager = null\r\n                    binding.rvMonitoringKomplain.adapter = adapter\r\n                    binding.rvMonitoringKomplain.setHasFixedSize(true)\r\n                    binding.rvMonitoringKomplain.layoutManager = LinearLayoutManager(this@MonitoringComplaintActivity, LinearLayoutManager.VERTICAL, false)\r\n                    adapter.setComplaint(searchList)\r\n                }\r\n\r\n            })\r\n\r\n            val statusArray = arrayOf(\r\n                \"TERBARU\",\"TERLAMA\"\r\n            )\r\n            val adapterStatus = ArrayAdapter(this@MonitoringComplaintActivity, android.R.layout.simple_dropdown_item_1line, statusArray)\r\n            dropdownUrutkan.setAdapter(adapterStatus)\r\n            dropdownUrutkan.setOnItemClickListener { parent, view, position, id ->\r\n                if (statusArray[position] == \"TERBARU\"){\r\n                    val searchList = daoSession.tMonitoringComplaintDao.queryBuilder()\r\n                        .orderDesc(TMonitoringComplaintDao.Properties.TanggalPO).list()\r\n\r\n                    binding.rvMonitoringKomplain.adapter = null\r\n                    binding.rvMonitoringKomplain.layoutManager = null\r\n                    binding.rvMonitoringKomplain.adapter = adapter\r\n                    binding.rvMonitoringKomplain.setHasFixedSize(true)\r\n                    binding.rvMonitoringKomplain.layoutManager = LinearLayoutManager(this@MonitoringComplaintActivity, LinearLayoutManager.VERTICAL, false)\r\n                    adapter.setComplaint(searchList)\r\n                }else{\r\n                    val searchList = daoSession.tMonitoringComplaintDao.queryBuilder()\r\n                        .orderAsc(TMonitoringComplaintDao.Properties.TanggalPO).list()\r\n\r\n                    binding.rvMonitoringKomplain.adapter = null\r\n                    binding.rvMonitoringKomplain.layoutManager = null\r\n                    binding.rvMonitoringKomplain.adapter = adapter\r\n                    binding.rvMonitoringKomplain.setHasFixedSize(true)\r\n                    binding.rvMonitoringKomplain.layoutManager = LinearLayoutManager(this@MonitoringComplaintActivity, LinearLayoutManager.VERTICAL, false)\r\n                    adapter.setComplaint(searchList)\r\n                }\r\n\r\n            }\r\n\r\n            rvMonitoringKomplain.adapter = adapter\r\n            rvMonitoringKomplain.setHasFixedSize(true)\r\n            rvMonitoringKomplain.layoutManager = LinearLayoutManager(this@MonitoringComplaintActivity, LinearLayoutManager.VERTICAL,false)\r\n        }\r\n    }\r\n}
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+diff --git a/app/src/main/java/dev/iconpln/mims/ui/monitoring_complaint/MonitoringComplaintActivity.kt b/app/src/main/java/dev/iconpln/mims/ui/monitoring_complaint/MonitoringComplaintActivity.kt
+--- a/app/src/main/java/dev/iconpln/mims/ui/monitoring_complaint/MonitoringComplaintActivity.kt	(revision d6cdf8d6b371596dfc0025e8902d0dc0cfb3f6f4)
++++ b/app/src/main/java/dev/iconpln/mims/ui/monitoring_complaint/MonitoringComplaintActivity.kt	(date 1681894382201)
+@@ -10,6 +10,7 @@
+ import android.widget.Toast
+ import androidx.recyclerview.widget.LinearLayoutManager
+ import dev.iconpln.mims.MyApplication
++import dev.iconpln.mims.R
+ import dev.iconpln.mims.data.local.database.DaoSession
+ import dev.iconpln.mims.data.local.database.TMonitoringComplaint
+ import dev.iconpln.mims.data.local.database.TMonitoringComplaintDao
+@@ -23,7 +24,9 @@
+     private lateinit var daoSession: DaoSession
+     private lateinit var listComplaint: List<TMonitoringComplaint>
+     private lateinit var adapter: MonitoringComplaintAdapter
++    private val listStatus: ArrayList<String> = ArrayList()
+     private var subrole = 0
++    private var statusChcked = "ALL"
+ 
+     override fun onCreate(savedInstanceState: Bundle?) {
+         super.onCreate(savedInstanceState)
+@@ -36,6 +39,12 @@
+             .orderAsc(TMonitoringComplaintDao.Properties.Status)
+             .list()
+ 
++        listComplaint = daoSession.tMonitoringComplaintDao.queryBuilder().list()
++        listStatus.add("ALL")
++        for (i in listComplaint){
++            listStatus.add(i.status)
++        }
++
+         adapter = MonitoringComplaintAdapter(arrayListOf(), object : MonitoringComplaintAdapter.OnAdapterListener{
+             override fun onClick(mp: TMonitoringComplaint) {
+                 if (subrole != 3){
+@@ -124,9 +133,61 @@
+ 
+             }
+ 
++//            val statusCheck = arrayOf(
++//                "Closed", "Active"
++//            )
++
++
++            val adapterStatusCheck = ArrayAdapter(this@MonitoringComplaintActivity, android.R.layout.simple_dropdown_item_1line, listStatus.distinct())
++            binding.dropdownUrutkanStatus.setAdapter(adapterStatusCheck)
++            binding.dropdownUrutkanStatus.setOnItemClickListener { parent, view, position, id ->
++                statusChcked = binding.dropdownUrutkanStatus.text.toString()
++                doSearch()
++            }
++
++//            val adapterCheck = ArrayAdapter(this@MonitoringComplaintActivity, android.R.layout.simple_dropdown_item_1line, statusCheck)
++//            dropdownUrutkanStatus.setAdapter(adapterCheck)
++//            dropdownUrutkanStatus.setOnItemClickListener { parent, view, position, id ->
++//                if (statusCheck[position] == "Closed"){
++//                    val searchList = daoSession.tMonitoringComplaintDao.queryBuilder()
++//                        .where(TMonitoringComplaintDao.Properties.Status.like("%"+statusChcked+"%")).list()
++//
++//                    binding.rvMonitoringKomplain.adapter = null
++//                    binding.rvMonitoringKomplain.layoutManager = null
++//                    binding.rvMonitoringKomplain.adapter = adapter
++//                    binding.rvMonitoringKomplain.setHasFixedSize(true)
++//                    binding.rvMonitoringKomplain.layoutManager = LinearLayoutManager(this@MonitoringComplaintActivity, LinearLayoutManager.VERTICAL, false)
++//                    adapter.setComplaint(searchList)
++//                } else {
++//                    val searchList = daoSession.tMonitoringComplaintDao.queryBuilder()
++//                        .(TMonitoringComplaintDao.Properties.Status.like("%"+statusChcked+"%")).list()
++//
++//                    binding.rvMonitoringKomplain.adapter = null
++//                    binding.rvMonitoringKomplain.layoutManager = null
++//                    binding.rvMonitoringKomplain.adapter = adapter
++//                    binding.rvMonitoringKomplain.setHasFixedSize(true)
++//                    binding.rvMonitoringKomplain.layoutManager = LinearLayoutManager(this@MonitoringComplaintActivity, LinearLayoutManager.VERTICAL, false)
++//                    adapter.setComplaint(searchList)
++//
++//                }
++//            }
++
++
+             rvMonitoringKomplain.adapter = adapter
+             rvMonitoringKomplain.setHasFixedSize(true)
+             rvMonitoringKomplain.layoutManager = LinearLayoutManager(this@MonitoringComplaintActivity, LinearLayoutManager.VERTICAL,false)
+         }
+     }
++
++    private fun doSearch(){
++        if (statusChcked == "ALL"){
++            val listSearch = daoSession.tMonitoringComplaintDao.queryBuilder()
++                .orderDesc(TMonitoringComplaintDao.Properties.TanggalPO).list()
++            adapter.setComplaint(listSearch)
++        } else {
++            val listSearch = daoSession.tMonitoringComplaintDao.queryBuilder()
++                .where(TMonitoringComplaintDao.Properties.Status.eq(statusChcked)).list()
++            adapter.setComplaint(listSearch)
++        }
++    }
+ }
+\ No newline at end of file
+Index: app/src/main/java/dev/iconpln/mims/ui/ulp/penerimaan/PenerimaanUlpActivity.kt
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.BaseRevisionTextPatchEP
+<+>package dev.iconpln.mims.ui.ulp.penerimaan\r\n\r\nimport android.app.DatePickerDialog\r\nimport android.content.Intent\r\nimport androidx.appcompat.app.AppCompatActivity\r\nimport android.os.Bundle\r\nimport android.text.Editable\r\nimport android.text.TextWatcher\r\nimport android.widget.Toast\r\nimport androidx.recyclerview.widget.LinearLayoutManager\r\nimport dev.iconpln.mims.MyApplication\r\nimport dev.iconpln.mims.data.local.database.*\r\nimport dev.iconpln.mims.databinding.ActivityPenerimaanUlpBinding\r\nimport dev.iconpln.mims.ui.ulp.penerimaan.input_pemeriksaan.PetugasPemeriksaanActivity\r\nimport dev.iconpln.mims.ui.ulp.penerimaan.input_penerimaan.PetugasPenerimaanULPActivity\r\nimport java.text.SimpleDateFormat\r\nimport java.util.*\r\n\r\nclass PenerimaanUlpActivity : AppCompatActivity() {\r\n    private lateinit var binding: ActivityPenerimaanUlpBinding\r\n    private lateinit var daoSession: DaoSession\r\n    private lateinit var adapter: PenerimaanULPAdapter\r\n    private lateinit var penerimaanUlps: List<TTransPenerimaanUlp>\r\n    private lateinit var cal: Calendar\r\n    private var deliveryDate = \"\"\r\n    private var srcNoPengiriman = \"\"\r\n\r\n    override fun onCreate(savedInstanceState: Bundle?) {\r\n        super.onCreate(savedInstanceState)\r\n        binding = ActivityPenerimaanUlpBinding.inflate(layoutInflater)\r\n        setContentView(binding.root)\r\n        daoSession = (application as MyApplication).daoSession!!\r\n        cal = Calendar.getInstance()\r\n\r\n        insertData()\r\n        setDatePicker()\r\n        setSrcNoPengiriman()\r\n\r\n        penerimaanUlps = daoSession.tTransPenerimaanUlpDao.queryBuilder()\r\n            .whereOr(TTransPenerimaanUlpDao.Properties.StatusPenerimaan.notEq(\"DITERIMA\"),\r\n                TTransPenerimaanUlpDao.Properties.StatusPemeriksaan.notEq(\"SUDAH DIPERIKSA\")).list()\r\n\r\n\r\n        adapter = PenerimaanULPAdapter(arrayListOf(), object : PenerimaanULPAdapter.OnAdapterListener{\r\n            override fun onClick(pengujian: TTransPenerimaanUlp) {\r\n                insertDataDetail(pengujian.noRepackaging)\r\n                if (pengujian.isDonePemeriksaan == 1){\r\n                    Toast.makeText(this@PenerimaanUlpActivity, \"Anda sudah menyelesaikan pengiriman ini\", Toast.LENGTH_SHORT).show()\r\n                }else if(pengujian.statusPemeriksaan == \"SUDAH DIPERIKSA\" && pengujian.statusPenerimaan == \"DITERIMA\"){\r\n                    Toast.makeText(this@PenerimaanUlpActivity, \"Pengiriman ini sudah di selesaikan\", Toast.LENGTH_SHORT).show()\r\n                } else{\r\n                    startActivity(Intent(this@PenerimaanUlpActivity, PetugasPemeriksaanActivity::class.java)\r\n                        .putExtra(\"noRepackaging\", pengujian.noRepackaging)\r\n                        .putExtra(\"noPengiriman\", pengujian.noPengiriman))\r\n                }\r\n            }\r\n\r\n        })\r\n\r\n        adapter.setPenerimaanList(penerimaanUlps)\r\n\r\n        with(binding){\r\n            btnBack.setOnClickListener { onBackPressed() }\r\n            rvPenerimaanULP.adapter = adapter\r\n            rvPenerimaanULP.setHasFixedSize(true)\r\n            rvPenerimaanULP.layoutManager = LinearLayoutManager(this@PenerimaanUlpActivity, LinearLayoutManager.VERTICAL, false)\r\n        }\r\n\r\n\r\n    }\r\n\r\n    private fun setSrcNoPengiriman() {\r\n        binding.srcNoPengirimanULP.addTextChangedListener(object : TextWatcher{\r\n            override fun beforeTextChanged(s: CharSequence?, start: Int, count: Int, after: Int) {}\r\n\r\n            override fun onTextChanged(s: CharSequence?, start: Int, before: Int, count: Int) {}\r\n\r\n            override fun afterTextChanged(s: Editable?) {\r\n                srcNoPengiriman = s.toString()\r\n                val searchList = daoSession.tTransPenerimaanUlpDao.queryBuilder()\r\n                    .where(TTransPenerimaanUlpDao.Properties.DeliveryDate.like(\"%\"+deliveryDate+\"%\"))\r\n                    .where(TTransPenerimaanUlpDao.Properties.NoPengiriman.like(\"%\"+srcNoPengiriman+\"%\")).list()\r\n\r\n                adapter.setPenerimaanList(searchList)\r\n            }\r\n\r\n        })\r\n    }\r\n\r\n    private fun setDatePicker() {\r\n        val dateSetListenerPermintaan = DatePickerDialog.OnDateSetListener { view, year, monthOfYear, dayOfMonth ->\r\n            cal.set(Calendar.YEAR, year)\r\n            cal.set(Calendar.MONTH, monthOfYear)\r\n            cal.set(Calendar.DAY_OF_MONTH, dayOfMonth)\r\n\r\n            val myFormat = \"yyyy-MM-dd\" // mention the format you need\r\n            val sdf = SimpleDateFormat(myFormat, Locale.US)\r\n            deliveryDate = sdf.format(cal.time)\r\n            binding.edtTanggalDiterimaULP.setText(deliveryDate)\r\n\r\n            val searchList = daoSession.tTransPenerimaanUlpDao.queryBuilder()\r\n                .where(TTransPenerimaanUlpDao.Properties.DeliveryDate.like(\"%\"+deliveryDate+\"%\"))\r\n                .where(TTransPenerimaanUlpDao.Properties.NoPengiriman.like(\"%\"+srcNoPengiriman+\"%\")).list()\r\n\r\n            adapter.setPenerimaanList(searchList)\r\n        }\r\n\r\n        binding.edtTanggalDiterimaULP.setOnClickListener {\r\n            DatePickerDialog(this@PenerimaanUlpActivity, dateSetListenerPermintaan,\r\n                cal.get(Calendar.YEAR),\r\n                cal.get(Calendar.MONTH),\r\n                cal.get(Calendar.DAY_OF_MONTH)).show()\r\n        }\r\n    }\r\n\r\n    private fun insertDataDetail(noRepackaging: String) {\r\n        val transPenerimaanDetails = daoSession.tTransPenerimaanDetailUlpDao.queryBuilder()\r\n            .where(TTransPenerimaanDetailUlpDao.Properties.NoRepackaging.eq(noRepackaging)).list()\r\n\r\n        val penerimaanDetails = daoSession.tPenerimaanDetailUlpDao.queryBuilder()\r\n            .where(TPenerimaanDetailUlpDao.Properties.NoRepackaging.eq(noRepackaging)).list()\r\n\r\n        if (transPenerimaanDetails.isEmpty()){\r\n            val size = penerimaanDetails.size\r\n            if (size > 0) {\r\n                val items = arrayOfNulls<TTransPenerimaanDetailUlp>(size)\r\n                var item: TTransPenerimaanDetailUlp\r\n                for ((i, model) in penerimaanDetails.withIndex()){\r\n                    item = TTransPenerimaanDetailUlp()\r\n                    item.noRepackaging = model?.noRepackaging\r\n                    item.noTransaksi = model?.noTransaksi\r\n                    item.qtyPenerimaan = model?.qtyPenerimaan\r\n                    item.materialDesc = model?.materialDesc\r\n                    item.noMaterial = model?.noMaterial\r\n                    item.qtyPemeriksaan = model?.qtyPemeriksaan\r\n                    item.qtyPengiriman = model?.qtyPengiriman\r\n                    item.qtyPermintaan = model?.qtyPermintaan\r\n                    item.qtySesuai = model?.qtySesuai\r\n                    item.isDone = 0\r\n                    items[i] = item\r\n                }\r\n                daoSession.tTransPenerimaanDetailUlpDao.insertInTx(items.toList())\r\n            }\r\n        }\r\n    }\r\n\r\n    private fun insertData() {\r\n        val transPenerimaanUlp = daoSession.tTransPenerimaanUlpDao.queryBuilder()\r\n            .where(TTransPenerimaanUlpDao.Properties.StatusPemeriksaan.notEq(\"SUDAH DIPERIKSA\"))\r\n            .where(TTransPenerimaanUlpDao.Properties.StatusPenerimaan.notEq(\"DITERIMA\"))\r\n            .list()\r\n\r\n        val penerimaanUlps = daoSession.tPenerimaanUlpDao.queryBuilder()\r\n            .where(TPenerimaanUlpDao.Properties.StatusPemeriksaan.notEq(\"SUDAH DIPERIKSA\"))\r\n            .where(TPenerimaanUlpDao.Properties.StatusPenerimaan.notEq(\"DITERIMA\"))\r\n            .list()\r\n\r\n        if (transPenerimaanUlp.isEmpty()){\r\n            val size = penerimaanUlps.size\r\n            if (size > 0) {\r\n                val items = arrayOfNulls<TTransPenerimaanUlp>(size)\r\n                var item: TTransPenerimaanUlp\r\n                for ((i, model) in penerimaanUlps.withIndex()){\r\n                    item = TTransPenerimaanUlp()\r\n                    item.noPengiriman = model?.noPengiriman\r\n                    item.noPermintaan = model?.noPermintaan\r\n                    item.statusPemeriksaan = model?.statusPemeriksaan\r\n                    item.deliveryDate = model?.deliveryDate\r\n                    item.statusPenerimaan = model?.statusPenerimaan\r\n                    item.jumlahKardus = model?.jumlahKardus\r\n                    item.gudangAsal = model?.gudangAsal\r\n                    item.noRepackaging = model?.noRepackaging\r\n                    item.gudangTujuan = model?.gudangTujuan\r\n                    item.tanggalPemeriksaan = model?.tanggalPemeriksaan\r\n                    item.tanggalPenerimaan = model?.tanggalPenerimaan\r\n                    item.kepalaGudangPemeriksa = model?.kepalaGudangPemeriksa\r\n                    item.pejabatPemeriksa = model?.pejabatPemeriksa\r\n                    item.jabatanPemeriksa = model?.jabatanPemeriksa\r\n                    item.namaPetugasPemeriksa = model?.namaPetugasPemeriksa\r\n                    item.jabatanPetugasPemeriksa = model?.jabatanPetugasPemeriksa\r\n                    item.kepalaGudangPenerima = model?.kepalaGudangPenerima\r\n                    item.noPk = model?.noPk\r\n                    item.tanggalDokumen = model?.tanggalDokumen\r\n                    item.pejabatPenerima = model?.pejabatPenerima\r\n                    item.kurir = model?.kurir\r\n                    item.noNota = model?.noNota\r\n                    item.noMaterial = model?.noMaterial\r\n                    item.spesifikasi = model?.spesifikasi\r\n                    item.kuantitasPeriksa = model?.kuantitasPeriksa\r\n                    item.kuantitas = model?.kuantitas\r\n                    item.tempStatusPenerimaan = model.statusPenerimaan\r\n                    item.tempStatusPemeriksaan = model.statusPemeriksaan\r\n                    item.isDone = 0\r\n                    item.isDonePemeriksaan = 0\r\n                    items[i] = item\r\n                }\r\n                daoSession.tTransPenerimaanUlpDao.insertInTx(items.toList())\r\n            }\r\n        }\r\n    }\r\n}
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+diff --git a/app/src/main/java/dev/iconpln/mims/ui/ulp/penerimaan/PenerimaanUlpActivity.kt b/app/src/main/java/dev/iconpln/mims/ui/ulp/penerimaan/PenerimaanUlpActivity.kt
+--- a/app/src/main/java/dev/iconpln/mims/ui/ulp/penerimaan/PenerimaanUlpActivity.kt	(revision d6cdf8d6b371596dfc0025e8902d0dc0cfb3f6f4)
++++ b/app/src/main/java/dev/iconpln/mims/ui/ulp/penerimaan/PenerimaanUlpActivity.kt	(date 1681832258891)
+@@ -24,6 +24,7 @@
+     private lateinit var cal: Calendar
+     private var deliveryDate = ""
+     private var srcNoPengiriman = ""
++    private var srcNoPermintaan = ""
+ 
+     override fun onCreate(savedInstanceState: Bundle?) {
+         super.onCreate(savedInstanceState)
+@@ -35,6 +36,7 @@
+         insertData()
+         setDatePicker()
+         setSrcNoPengiriman()
++        setSrcNoPermintaan()
+ 
+         penerimaanUlps = daoSession.tTransPenerimaanUlpDao.queryBuilder()
+             .whereOr(TTransPenerimaanUlpDao.Properties.StatusPenerimaan.notEq("DITERIMA"),
+@@ -87,6 +89,22 @@
+         })
+     }
+ 
++    private fun setSrcNoPermintaan(){
++        binding.srcNoPermintaanULP.addTextChangedListener(object : TextWatcher{
++            override fun beforeTextChanged(p0: CharSequence?, p1: Int, p2: Int, p3: Int) {}
++
++            override fun onTextChanged(p0: CharSequence?, p1: Int, p2: Int, p3: Int) {}
++
++            override fun afterTextChanged(sp: Editable?) {
++                srcNoPermintaan = sp.toString()
++                val searchPermintaanList = daoSession.tTransPenerimaanUlpDao.queryBuilder()
++                    .where(TTransPenerimaanUlpDao.Properties.NoPermintaan.like("%"+srcNoPermintaan+"%")).list()
++
++                adapter.setPenerimaanList(searchPermintaanList)
++            }
++        })
++    }
++
+     private fun setDatePicker() {
+         val dateSetListenerPermintaan = DatePickerDialog.OnDateSetListener { view, year, monthOfYear, dayOfMonth ->
+             cal.set(Calendar.YEAR, year)
+Index: app/src/main/res/layout/activity_monitoring_complaint.xml
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.BaseRevisionTextPatchEP
+<+><?xml version=\"1.0\" encoding=\"utf-8\"?>\r\n<androidx.constraintlayout.widget.ConstraintLayout xmlns:android=\"http://schemas.android.com/apk/res/android\"\r\n    xmlns:app=\"http://schemas.android.com/apk/res-auto\"\r\n    xmlns:tools=\"http://schemas.android.com/tools\"\r\n    android:layout_width=\"match_parent\"\r\n    android:layout_height=\"match_parent\"\r\n    android:background=\"@color/white\"\r\n    tools:context=\".ui.monitoring_complaint.MonitoringComplaintActivity\">\r\n\r\n    <ImageView\r\n        android:id=\"@+id/header\"\r\n        android:layout_width=\"match_parent\"\r\n        android:layout_height=\"84dp\"\r\n        android:background=\"@drawable/dashboard\"\r\n        app:layout_constraintEnd_toEndOf=\"parent\"\r\n        app:layout_constraintStart_toStartOf=\"parent\"\r\n        app:layout_constraintTop_toTopOf=\"parent\" />\r\n\r\n    <ImageButton\r\n        android:id=\"@+id/btn_back\"\r\n        android:layout_width=\"50dp\"\r\n        android:layout_height=\"50dp\"\r\n        android:layout_marginStart=\"29dp\"\r\n        android:background=\"#00FFFFFF\"\r\n        android:src=\"@drawable/ic_baseline_arrow_back_ios_24\"\r\n        app:layout_constraintBottom_toBottomOf=\"@+id/textView3\"\r\n        app:layout_constraintEnd_toStartOf=\"@id/textView3\"\r\n        app:layout_constraintHorizontal_chainStyle=\"spread_inside\"\r\n        app:layout_constraintStart_toStartOf=\"@+id/header\"\r\n        app:layout_constraintTop_toTopOf=\"@+id/textView3\" />\r\n\r\n    <TextView\r\n        android:id=\"@+id/textView3\"\r\n        android:layout_width=\"0dp\"\r\n        android:layout_height=\"wrap_content\"\r\n        android:layout_marginEnd=\"80dp\"\r\n        android:fontFamily=\"@font/montserrat_reguler\"\r\n        android:text=\"Monitoring Komplain\"\r\n        android:textAlignment=\"center\"\r\n        android:textColor=\"@color/white\"\r\n        android:textSize=\"16dp\"\r\n        android:textStyle=\"bold\"\r\n        app:layout_constraintBottom_toBottomOf=\"@+id/header\"\r\n        app:layout_constraintEnd_toEndOf=\"parent\"\r\n        app:layout_constraintStart_toEndOf=\"@+id/btn_back\"\r\n        app:layout_constraintTop_toTopOf=\"parent\" />\r\n\r\n    <TextView\r\n        android:id=\"@+id/txt_nomorPo\"\r\n        android:layout_width=\"wrap_content\"\r\n        android:layout_height=\"wrap_content\"\r\n        android:layout_marginStart=\"23dp\"\r\n        android:layout_marginTop=\"10dp\"\r\n        android:text=\"No. PO / No. DO\"\r\n        android:textColor=\"#3F3D56\"\r\n        android:textSize=\"12sp\"\r\n        android:textStyle=\"bold\"\r\n        app:layout_constraintStart_toStartOf=\"parent\"\r\n        app:layout_constraintTop_toBottomOf=\"@+id/tinp_monitoring_komplain\" />\r\n\r\n    <EditText\r\n        android:id=\"@+id/src_nomorPoDo\"\r\n        android:layout_width=\"0dp\"\r\n        android:layout_height=\"50dp\"\r\n        android:layout_marginStart=\"23dp\"\r\n        android:layout_marginTop=\"10dp\"\r\n        android:layout_marginEnd=\"25dp\"\r\n        android:background=\"@drawable/srchview\"\r\n        android:drawableEnd=\"@drawable/ic_search\"\r\n        android:fontFamily=\"@font/montserrat_reguler\"\r\n        android:hint=\"Search here\"\r\n        android:paddingLeft=\"20dp\"\r\n        android:paddingRight=\"20dp\"\r\n        android:textSize=\"12sp\"\r\n        app:layout_constraintEnd_toEndOf=\"parent\"\r\n        app:layout_constraintStart_toStartOf=\"parent\"\r\n        app:layout_constraintTop_toBottomOf=\"@+id/txt_nomorPo\" />\r\n\r\n    <View\r\n        android:id=\"@+id/view7\"\r\n        android:layout_width=\"0dp\"\r\n        android:layout_height=\"1dp\"\r\n        android:layout_marginTop=\"10dp\"\r\n        android:background=\"#B9B9B9\"\r\n        app:layout_constraintEnd_toEndOf=\"@+id/src_nomorPoDo\"\r\n        app:layout_constraintStart_toStartOf=\"@+id/src_nomorPoDo\"\r\n        app:layout_constraintTop_toBottomOf=\"@+id/src_nomorPoDo\" />\r\n\r\n    <TextView\r\n        android:id=\"@+id/lbl_urutkan\"\r\n        android:layout_width=\"wrap_content\"\r\n        android:layout_height=\"wrap_content\"\r\n        android:layout_marginStart=\"24dp\"\r\n        android:layout_marginTop=\"20dp\"\r\n        android:fontFamily=\"@font/montserrat_reguler\"\r\n        android:text=\"Urutkan Berdasarkan\"\r\n        android:textColor=\"#3F3D56\"\r\n        android:textSize=\"12sp\"\r\n        android:textStyle=\"bold\"\r\n        app:layout_constraintStart_toStartOf=\"parent\"\r\n        app:layout_constraintTop_toBottomOf=\"@+id/header\" />\r\n\r\n    <com.google.android.material.textfield.TextInputLayout\r\n        android:id=\"@+id/tinp_monitoring_komplain\"\r\n        style=\"@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox.ExposedDropdownMenu\"\r\n        android:layout_width=\"0dp\"\r\n        android:layout_height=\"wrap_content\"\r\n        android:layout_marginTop=\"10dp\"\r\n        android:layout_marginEnd=\"25dp\"\r\n        app:hintAnimationEnabled=\"true\"\r\n        app:layout_constraintEnd_toEndOf=\"parent\"\r\n        app:layout_constraintStart_toStartOf=\"@+id/lbl_urutkan\"\r\n        app:layout_constraintTop_toBottomOf=\"@+id/lbl_urutkan\">\r\n\r\n        <AutoCompleteTextView\r\n            android:id=\"@+id/dropdown_urutkan\"\r\n            style=\"@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox.ExposedDropdownMenu\"\r\n            android:layout_width=\"match_parent\"\r\n            android:layout_height=\"wrap_content\"\r\n            android:layout_weight=\"1\"\r\n            android:background=\"@drawable/txt_input_layout\"\r\n            android:inputType=\"none\"\r\n            android:text=\"Pilih Urutan\" />\r\n\r\n    </com.google.android.material.textfield.TextInputLayout>\r\n\r\n    <androidx.recyclerview.widget.RecyclerView\r\n        android:id=\"@+id/rv_monitoring_komplain\"\r\n        android:layout_width=\"0dp\"\r\n        android:layout_height=\"0dp\"\r\n        android:layout_marginTop=\"3dp\"\r\n        android:layout_marginBottom=\"3dp\"\r\n        app:layout_constraintBottom_toTopOf=\"@+id/tv_total_data\"\r\n        app:layout_constraintEnd_toEndOf=\"parent\"\r\n        app:layout_constraintStart_toStartOf=\"parent\"\r\n        app:layout_constraintTop_toBottomOf=\"@+id/view7\"\r\n        tools:listitem=\"@layout/item_data_monitoring_komplain\" />\r\n\r\n    <TextView\r\n        android:id=\"@+id/tv_total_data\"\r\n        android:layout_width=\"wrap_content\"\r\n        android:layout_height=\"wrap_content\"\r\n        android:layout_marginBottom=\"10dp\"\r\n        android:fontFamily=\"@font/montserrat_reguler\"\r\n        android:text=\"Total: 0 Data\"\r\n        android:textColor=\"#96979B\"\r\n        android:textSize=\"@dimen/_9ssp\"\r\n        app:layout_constraintBottom_toBottomOf=\"parent\"\r\n        app:layout_constraintStart_toStartOf=\"@+id/src_nomorPoDo\" />\r\n\r\n\r\n\r\n</androidx.constraintlayout.widget.ConstraintLayout>
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+diff --git a/app/src/main/res/layout/activity_monitoring_complaint.xml b/app/src/main/res/layout/activity_monitoring_complaint.xml
+--- a/app/src/main/res/layout/activity_monitoring_complaint.xml	(revision d6cdf8d6b371596dfc0025e8902d0dc0cfb3f6f4)
++++ b/app/src/main/res/layout/activity_monitoring_complaint.xml	(date 1681894329029)
+@@ -56,7 +56,7 @@
+         android:textSize="12sp"
+         android:textStyle="bold"
+         app:layout_constraintStart_toStartOf="parent"
+-        app:layout_constraintTop_toBottomOf="@+id/tinp_monitoring_komplain" />
++        app:layout_constraintTop_toBottomOf="@+id/tinp_monitoring_komplain_status" />
+ 
+     <EditText
+         android:id="@+id/src_nomorPoDo"
+@@ -121,6 +121,44 @@
+             android:background="@drawable/txt_input_layout"
+             android:inputType="none"
+             android:text="Pilih Urutan" />
++
++    </com.google.android.material.textfield.TextInputLayout>
++
++    <TextView
++        android:id="@+id/lbl_urutkanStatus"
++        android:layout_width="wrap_content"
++        android:layout_height="wrap_content"
++        android:layout_marginStart="24dp"
++        android:layout_marginTop="20dp"
++        android:fontFamily="@font/montserrat_reguler"
++        android:text="Status Komplain"
++        android:textColor="#3F3D56"
++        android:textSize="12sp"
++        android:textStyle="bold"
++        app:layout_constraintStart_toStartOf="parent"
++        app:layout_constraintTop_toBottomOf="@+id/tinp_monitoring_komplain" />
++
++    <com.google.android.material.textfield.TextInputLayout
++        android:id="@+id/tinp_monitoring_komplain_status"
++        style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox.ExposedDropdownMenu"
++        android:layout_width="0dp"
++        android:layout_height="wrap_content"
++        android:layout_marginTop="10dp"
++        android:layout_marginEnd="25dp"
++        app:hintAnimationEnabled="true"
++        app:layout_constraintEnd_toEndOf="parent"
++        app:layout_constraintStart_toStartOf="@+id/lbl_urutkanStatus"
++        app:layout_constraintTop_toBottomOf="@+id/lbl_urutkanStatus">
++
++        <AutoCompleteTextView
++            android:id="@+id/dropdown_urutkan_status"
++            style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox.ExposedDropdownMenu"
++            android:layout_width="match_parent"
++            android:layout_height="wrap_content"
++            android:layout_weight="1"
++            android:background="@drawable/txt_input_layout"
++            android:inputType="none"
++            android:text="Pilih Urutan" />
+ 
+     </com.google.android.material.textfield.TextInputLayout>
+ 
+Index: app/src/main/java/dev/iconpln/mims/SplashActivity.kt
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.BaseRevisionTextPatchEP
+<+>package dev.iconpln.mims\r\n\r\nimport android.content.Intent\r\nimport android.os.Bundle\r\nimport android.os.Handler\r\nimport android.os.Looper\r\nimport android.util.Log\r\nimport androidx.appcompat.app.AppCompatActivity\r\nimport androidx.lifecycle.asLiveData\r\nimport dev.iconpln.mims.ui.auth.LoginActivity\r\nimport dev.iconpln.mims.ui.auth.LoginBiometricActivity\r\nimport dev.iconpln.mims.ui.pnerimaan.approval.ApprovalActivity\r\nimport dev.iconpln.mims.utils.Config\r\nimport dev.iconpln.mims.utils.SessionManager\r\n\r\nclass SplashActivity : AppCompatActivity() {\r\n    private lateinit var sessions: SessionManager\r\n\r\n    override fun onCreate(savedInstanceState: Bundle?) {\r\n        super.onCreate(savedInstanceState)\r\n        setContentView(R.layout.activity_splash)\r\n\r\n        sessions = SessionManager(this)\r\n\r\n        Handler(Looper.getMainLooper()).postDelayed({\r\n            sessions.session_activity.asLiveData().observe(this){ session ->\r\n                when(session){\r\n                    Config.IS_LOGIN -> {\r\n//                        startActivity(Intent(this, HomeActivity::class.java))\r\n//                        finish()\r\n                        checkingLogin(session)\r\n                    }else -> {\r\n                        startActivity(Intent(this, LoginActivity::class.java))\r\n                        finish()\r\n                    }\r\n                }\r\n            }\r\n        }, 1500)\r\n    }\r\n\r\n    private fun checkingLogin(session: String) {\r\n        sessions.is_login_biometric.asLiveData().observe(this){\r\n            Log.d(\"checkSession\", it.toString())\r\n            when(it){\r\n                1 -> {\r\n                    if(session == Config.IS_LOGIN){\r\n                        startActivity(Intent(this@SplashActivity, HomeActivity::class.java))\r\n                        finish()\r\n                    }else{\r\n                        startActivity(Intent(this@SplashActivity, LoginBiometricActivity::class.java))\r\n                        finish()\r\n                    }\r\n                }else -> {\r\n                    if(session == Config.IS_LOGIN){\r\n                        startActivity(Intent(this@SplashActivity, HomeActivity::class.java))\r\n                        finish()\r\n                    }else{\r\n                        startActivity(Intent(this@SplashActivity, LoginActivity::class.java))\r\n                        finish()\r\n                    }\r\n                }\r\n            }\r\n        }\r\n    }\r\n}
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+diff --git a/app/src/main/java/dev/iconpln/mims/SplashActivity.kt b/app/src/main/java/dev/iconpln/mims/SplashActivity.kt
+--- a/app/src/main/java/dev/iconpln/mims/SplashActivity.kt	(revision d6cdf8d6b371596dfc0025e8902d0dc0cfb3f6f4)
++++ b/app/src/main/java/dev/iconpln/mims/SplashActivity.kt	(date 1681832524745)
+@@ -10,6 +10,7 @@
+ import dev.iconpln.mims.ui.auth.LoginActivity
+ import dev.iconpln.mims.ui.auth.LoginBiometricActivity
+ import dev.iconpln.mims.ui.pnerimaan.approval.ApprovalActivity
++import dev.iconpln.mims.ui.ulp.penerimaan.PenerimaanUlpActivity
+ import dev.iconpln.mims.utils.Config
+ import dev.iconpln.mims.utils.SessionManager
+ 
+Index: app/src/main/res/layout/activity_penerimaan_ulp.xml
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.BaseRevisionTextPatchEP
+<+><?xml version=\"1.0\" encoding=\"utf-8\"?>\r\n<androidx.constraintlayout.widget.ConstraintLayout xmlns:android=\"http://schemas.android.com/apk/res/android\"\r\n    xmlns:app=\"http://schemas.android.com/apk/res-auto\"\r\n    xmlns:tools=\"http://schemas.android.com/tools\"\r\n    android:layout_width=\"match_parent\"\r\n    android:layout_height=\"match_parent\"\r\n    tools:context=\".ui.ulp.penerimaan.PenerimaanUlpActivity\">\r\n\r\n    <ImageView\r\n        android:id=\"@+id/header\"\r\n        android:layout_width=\"match_parent\"\r\n        android:layout_height=\"84dp\"\r\n        android:background=\"@drawable/dashboard\"\r\n        app:layout_constraintEnd_toEndOf=\"parent\"\r\n        app:layout_constraintStart_toStartOf=\"parent\"\r\n        app:layout_constraintTop_toTopOf=\"parent\" />\r\n\r\n    <ImageButton\r\n        android:id=\"@+id/btn_back\"\r\n        android:layout_width=\"50dp\"\r\n        android:layout_height=\"50dp\"\r\n        android:layout_marginStart=\"29dp\"\r\n        android:background=\"#00FFFFFF\"\r\n        android:src=\"@drawable/ic_baseline_arrow_back_ios_24\"\r\n        app:layout_constraintBottom_toBottomOf=\"@+id/textView3\"\r\n        app:layout_constraintEnd_toStartOf=\"@id/textView3\"\r\n        app:layout_constraintHorizontal_chainStyle=\"spread_inside\"\r\n        app:layout_constraintStart_toStartOf=\"@+id/header\"\r\n        app:layout_constraintTop_toTopOf=\"@+id/textView3\" />\r\n\r\n    <TextView\r\n        android:id=\"@+id/textView3\"\r\n        android:layout_width=\"0dp\"\r\n        android:layout_height=\"wrap_content\"\r\n        android:layout_marginEnd=\"80dp\"\r\n        android:fontFamily=\"@font/montserrat_reguler\"\r\n        android:text=\" Penerimaan\"\r\n        android:textAlignment=\"center\"\r\n        android:textColor=\"@color/white\"\r\n        android:textSize=\"16dp\"\r\n        android:textStyle=\"bold\"\r\n        app:layout_constraintBottom_toBottomOf=\"@+id/header\"\r\n        app:layout_constraintEnd_toEndOf=\"parent\"\r\n        app:layout_constraintStart_toEndOf=\"@+id/btn_back\"\r\n        app:layout_constraintTop_toTopOf=\"parent\" />\r\n\r\n    <TextView\r\n        android:id=\"@+id/lbl_nopengirimanULP\"\r\n        android:layout_width=\"wrap_content\"\r\n        android:layout_height=\"wrap_content\"\r\n        android:layout_marginStart=\"24dp\"\r\n        android:layout_marginTop=\"20dp\"\r\n        android:fontFamily=\"@font/montserrat_reguler\"\r\n        android:text=\"No. Pengiriman\"\r\n        android:textColor=\"#3F3D56\"\r\n        android:textSize=\"12sp\"\r\n        android:textStyle=\"bold\"\r\n        app:layout_constraintStart_toStartOf=\"parent\"\r\n        app:layout_constraintTop_toBottomOf=\"@+id/header\" />\r\n\r\n    <EditText\r\n        android:id=\"@+id/src_no_pengirimanULP\"\r\n        android:layout_width=\"0dp\"\r\n        android:layout_height=\"50dp\"\r\n        android:layout_marginStart=\"23dp\"\r\n        android:layout_marginTop=\"10dp\"\r\n        android:layout_marginEnd=\"25dp\"\r\n        android:background=\"@drawable/srchview\"\r\n        android:drawableEnd=\"@drawable/ic_search\"\r\n        android:fontFamily=\"@font/montserrat_reguler\"\r\n        android:hint=\"Search here\"\r\n        android:paddingLeft=\"20dp\"\r\n        android:paddingRight=\"20dp\"\r\n        android:textSize=\"12sp\"\r\n        app:layout_constraintEnd_toEndOf=\"parent\"\r\n        app:layout_constraintStart_toStartOf=\"parent\"\r\n        app:layout_constraintTop_toBottomOf=\"@+id/lbl_nopengirimanULP\" />\r\n\r\n    <TextView\r\n        android:id=\"@+id/lbl_tanggal_diterima\"\r\n        android:layout_width=\"wrap_content\"\r\n        android:layout_height=\"wrap_content\"\r\n        android:layout_marginStart=\"25dp\"\r\n        android:layout_marginTop=\"20dp\"\r\n        android:text=\"Tanggal Pengiriman\"\r\n        android:textColor=\"#3F3D56\"\r\n        android:textSize=\"12sp\"\r\n        android:textStyle=\"bold\"\r\n        app:layout_constraintStart_toStartOf=\"parent\"\r\n        app:layout_constraintTop_toBottomOf=\"@+id/src_no_pengirimanULP\" />\r\n\r\n    <EditText\r\n        android:id=\"@+id/edt_tanggal_diterimaULP\"\r\n        android:layout_width=\"0dp\"\r\n        android:layout_height=\"50dp\"\r\n        android:layout_marginTop=\"4dp\"\r\n        android:layout_marginEnd=\"25dp\"\r\n        android:background=\"@drawable/srchview\"\r\n        android:cursorVisible=\"false\"\r\n        android:drawableEnd=\"@drawable/ic_baseline_date_range_24\"\r\n        android:focusable=\"false\"\r\n        android:fontFamily=\"@font/montserrat_reguler\"\r\n        android:paddingLeft=\"20dp\"\r\n        android:paddingRight=\"20dp\"\r\n        android:textColor=\"@drawable/et_selector\"\r\n        android:textSize=\"12sp\"\r\n        app:layout_constraintEnd_toEndOf=\"parent\"\r\n        app:layout_constraintStart_toStartOf=\"@+id/lbl_tanggal_diterima\"\r\n        app:layout_constraintTop_toBottomOf=\"@+id/lbl_tanggal_diterima\" />\r\n\r\n    <androidx.recyclerview.widget.RecyclerView\r\n        android:id=\"@+id/rv_penerimaanULP\"\r\n        android:layout_width=\"0dp\"\r\n        android:layout_height=\"0dp\"\r\n        android:layout_marginTop=\"3dp\"\r\n        app:layout_constraintBottom_toBottomOf=\"parent\"\r\n        app:layout_constraintEnd_toEndOf=\"parent\"\r\n        app:layout_constraintStart_toStartOf=\"parent\"\r\n        app:layout_constraintTop_toBottomOf=\"@+id/edt_tanggal_diterimaULP\"\r\n        tools:listitem=\"@layout/item_data_pemeriksaanulp\" />\r\n\r\n    <ProgressBar\r\n        android:id=\"@+id/progress_bar\"\r\n        android:layout_width=\"wrap_content\"\r\n        android:layout_height=\"wrap_content\"\r\n        app:layout_constraintEnd_toEndOf=\"parent\"\r\n        android:visibility=\"gone\"\r\n        app:layout_constraintStart_toStartOf=\"parent\"\r\n        tools:ignore=\"MissingConstraints\" />\r\n\r\n</androidx.constraintlayout.widget.ConstraintLayout>
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+diff --git a/app/src/main/res/layout/activity_penerimaan_ulp.xml b/app/src/main/res/layout/activity_penerimaan_ulp.xml
+--- a/app/src/main/res/layout/activity_penerimaan_ulp.xml	(revision d6cdf8d6b371596dfc0025e8902d0dc0cfb3f6f4)
++++ b/app/src/main/res/layout/activity_penerimaan_ulp.xml	(date 1681832258876)
+@@ -76,6 +76,38 @@
+         app:layout_constraintStart_toStartOf="parent"
+         app:layout_constraintTop_toBottomOf="@+id/lbl_nopengirimanULP" />
+ 
++    <TextView
++        android:id="@+id/lbl_noPermintaanULP"
++        android:layout_width="wrap_content"
++        android:layout_height="wrap_content"
++        android:layout_marginStart="24dp"
++        android:layout_marginTop="20dp"
++        android:fontFamily="@font/montserrat_reguler"
++        android:text="No. Permintaan"
++        android:textColor="#3F3D56"
++        android:textSize="12sp"
++        android:textStyle="bold"
++        app:layout_constraintStart_toStartOf="parent"
++        app:layout_constraintTop_toBottomOf="@+id/src_no_pengirimanULP" />
++
++    <EditText
++        android:id="@+id/src_no_permintaan_ULP"
++        android:layout_width="0dp"
++        android:layout_height="50dp"
++        android:layout_marginStart="23dp"
++        android:layout_marginTop="10dp"
++        android:layout_marginEnd="25dp"
++        android:background="@drawable/srchview"
++        android:drawableEnd="@drawable/ic_search"
++        android:fontFamily="@font/montserrat_reguler"
++        android:hint="Search here"
++        android:paddingLeft="20dp"
++        android:paddingRight="20dp"
++        android:textSize="12sp"
++        app:layout_constraintEnd_toEndOf="parent"
++        app:layout_constraintStart_toStartOf="parent"
++        app:layout_constraintTop_toBottomOf="@+id/lbl_noPermintaanULP" />
++
+     <TextView
+         android:id="@+id/lbl_tanggal_diterima"
+         android:layout_width="wrap_content"
+@@ -87,7 +119,7 @@
+         android:textSize="12sp"
+         android:textStyle="bold"
+         app:layout_constraintStart_toStartOf="parent"
+-        app:layout_constraintTop_toBottomOf="@+id/src_no_pengirimanULP" />
++        app:layout_constraintTop_toBottomOf="@+id/src_no_permintaan_ULP" />
+ 
+     <EditText
+         android:id="@+id/edt_tanggal_diterimaULP"

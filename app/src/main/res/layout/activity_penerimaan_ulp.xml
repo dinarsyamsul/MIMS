@@ -77,6 +77,38 @@
         app:layout_constraintTop_toBottomOf="@+id/lbl_nopengirimanULP" />
 
     <TextView
+        android:id="@+id/lbl_noPermintaanULP"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="24dp"
+        android:layout_marginTop="20dp"
+        android:fontFamily="@font/montserrat_reguler"
+        android:text="No. Permintaan"
+        android:textColor="#3F3D56"
+        android:textSize="12sp"
+        android:textStyle="bold"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/src_no_pengirimanULP" />
+
+    <EditText
+        android:id="@+id/src_no_permintaan_ULP"
+        android:layout_width="0dp"
+        android:layout_height="50dp"
+        android:layout_marginStart="23dp"
+        android:layout_marginTop="10dp"
+        android:layout_marginEnd="25dp"
+        android:background="@drawable/srchview"
+        android:drawableEnd="@drawable/ic_search"
+        android:fontFamily="@font/montserrat_reguler"
+        android:hint="Search here"
+        android:paddingLeft="20dp"
+        android:paddingRight="20dp"
+        android:textSize="12sp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/lbl_noPermintaanULP" />
+
+    <TextView
         android:id="@+id/lbl_tanggal_diterima"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
@@ -87,7 +119,7 @@
         android:textSize="12sp"
         android:textStyle="bold"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/src_no_pengirimanULP" />
+        app:layout_constraintTop_toBottomOf="@+id/src_no_permintaan_ULP" />
 
     <EditText
         android:id="@+id/edt_tanggal_diterimaULP"

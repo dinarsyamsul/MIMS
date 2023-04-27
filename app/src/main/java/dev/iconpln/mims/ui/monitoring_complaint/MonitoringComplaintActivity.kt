@@ -10,6 +10,7 @@ import android.widget.ArrayAdapter
 import android.widget.Toast
 import androidx.recyclerview.widget.LinearLayoutManager
 import dev.iconpln.mims.MyApplication
+import dev.iconpln.mims.R
 import dev.iconpln.mims.data.local.database.DaoSession
 import dev.iconpln.mims.data.local.database.TMonitoringComplaint
 import dev.iconpln.mims.data.local.database.TMonitoringComplaintDao
@@ -23,7 +24,9 @@ class MonitoringComplaintActivity : AppCompatActivity() {
     private lateinit var daoSession: DaoSession
     private lateinit var listComplaint: List<TMonitoringComplaint>
     private lateinit var adapter: MonitoringComplaintAdapter
+    private val listStatus: ArrayList<String> = ArrayList()
     private var subrole = 0
+    private var statusChcked = "ALL"
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -35,6 +38,12 @@ class MonitoringComplaintActivity : AppCompatActivity() {
         listComplaint = daoSession.tMonitoringComplaintDao.queryBuilder()
             .orderAsc(TMonitoringComplaintDao.Properties.Status)
             .list()
+
+        listComplaint = daoSession.tMonitoringComplaintDao.queryBuilder().list()
+        listStatus.add("ALL")
+        for (i in listComplaint){
+            listStatus.add(i.status)
+        }
 
         adapter = MonitoringComplaintAdapter(arrayListOf(), object : MonitoringComplaintAdapter.OnAdapterListener{
             override fun onClick(mp: TMonitoringComplaint) {
@@ -126,9 +135,61 @@ class MonitoringComplaintActivity : AppCompatActivity() {
 
             }
 
+//            val statusCheck = arrayOf(
+//                "Closed", "Active"
+//            )
+
+
+            val adapterStatusCheck = ArrayAdapter(this@MonitoringComplaintActivity, android.R.layout.simple_dropdown_item_1line, listStatus.distinct())
+            binding.dropdownUrutkanStatus.setAdapter(adapterStatusCheck)
+            binding.dropdownUrutkanStatus.setOnItemClickListener { parent, view, position, id ->
+                statusChcked = binding.dropdownUrutkanStatus.text.toString()
+                doSearch()
+            }
+
+//            val adapterCheck = ArrayAdapter(this@MonitoringComplaintActivity, android.R.layout.simple_dropdown_item_1line, statusCheck)
+//            dropdownUrutkanStatus.setAdapter(adapterCheck)
+//            dropdownUrutkanStatus.setOnItemClickListener { parent, view, position, id ->
+//                if (statusCheck[position] == "Closed"){
+//                    val searchList = daoSession.tMonitoringComplaintDao.queryBuilder()
+//                        .where(TMonitoringComplaintDao.Properties.Status.like("%"+statusChcked+"%")).list()
+//
+//                    binding.rvMonitoringKomplain.adapter = null
+//                    binding.rvMonitoringKomplain.layoutManager = null
+//                    binding.rvMonitoringKomplain.adapter = adapter
+//                    binding.rvMonitoringKomplain.setHasFixedSize(true)
+//                    binding.rvMonitoringKomplain.layoutManager = LinearLayoutManager(this@MonitoringComplaintActivity, LinearLayoutManager.VERTICAL, false)
+//                    adapter.setComplaint(searchList)
+//                } else {
+//                    val searchList = daoSession.tMonitoringComplaintDao.queryBuilder()
+//                        .(TMonitoringComplaintDao.Properties.Status.like("%"+statusChcked+"%")).list()
+//
+//                    binding.rvMonitoringKomplain.adapter = null
+//                    binding.rvMonitoringKomplain.layoutManager = null
+//                    binding.rvMonitoringKomplain.adapter = adapter
+//                    binding.rvMonitoringKomplain.setHasFixedSize(true)
+//                    binding.rvMonitoringKomplain.layoutManager = LinearLayoutManager(this@MonitoringComplaintActivity, LinearLayoutManager.VERTICAL, false)
+//                    adapter.setComplaint(searchList)
+//
+//                }
+//            }
+
+
             rvMonitoringKomplain.adapter = adapter
             rvMonitoringKomplain.setHasFixedSize(true)
             rvMonitoringKomplain.layoutManager = LinearLayoutManager(this@MonitoringComplaintActivity, LinearLayoutManager.VERTICAL,false)
+        }
+    }
+
+    private fun doSearch(){
+        if (statusChcked == "ALL"){
+            val listSearch = daoSession.tMonitoringComplaintDao.queryBuilder()
+                .orderDesc(TMonitoringComplaintDao.Properties.TanggalPO).list()
+            adapter.setComplaint(listSearch)
+        } else {
+            val listSearch = daoSession.tMonitoringComplaintDao.queryBuilder()
+                .where(TMonitoringComplaintDao.Properties.Status.eq(statusChcked)).list()
+            adapter.setComplaint(listSearch)
         }
     }
 }
