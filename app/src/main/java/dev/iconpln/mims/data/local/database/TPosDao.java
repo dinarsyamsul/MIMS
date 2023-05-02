@@ -53,6 +53,9 @@ public class TPosDao extends AbstractDao<TPos, Long> {
         public final static Property RatingDelivery = new Property(28, String.class, "RatingDelivery", false, "RATING_DELIVERY");
         public final static Property StatusPemeriksaan = new Property(29, String.class, "StatusPemeriksaan", false, "STATUS_PEMERIKSAAN");
         public final static Property StatusPenerimaan = new Property(30, String.class, "StatusPenerimaan", false, "STATUS_PENERIMAAN");
+        public final static Property IsBabg = new Property(31, Boolean.class, "IsBabg", false, "IS_BABG");
+        public final static Property IsBabgConfirm = new Property(32, Boolean.class, "IsBabgConfirm", false, "IS_BABG_CONFIRM");
+        public final static Property SlaIntegrasiSap = new Property(33, Boolean.class, "SlaIntegrasiSap", false, "SLA_INTEGRASI_SAP");
     }
 
 
@@ -98,7 +101,10 @@ public class TPosDao extends AbstractDao<TPos, Long> {
                 "\"RATING_QUALITY\" TEXT," + // 27: RatingQuality
                 "\"RATING_DELIVERY\" TEXT," + // 28: RatingDelivery
                 "\"STATUS_PEMERIKSAAN\" TEXT," + // 29: StatusPemeriksaan
-                "\"STATUS_PENERIMAAN\" TEXT);"); // 30: StatusPenerimaan
+                "\"STATUS_PENERIMAAN\" TEXT," + // 30: StatusPenerimaan
+                "\"IS_BABG\" INTEGER," + // 31: IsBabg
+                "\"IS_BABG_CONFIRM\" INTEGER," + // 32: IsBabgConfirm
+                "\"SLA_INTEGRASI_SAP\" INTEGER);"); // 33: SlaIntegrasiSap
     }
 
     /** Drops the underlying database table. */
@@ -265,6 +271,21 @@ public class TPosDao extends AbstractDao<TPos, Long> {
         if (StatusPenerimaan != null) {
             stmt.bindString(31, StatusPenerimaan);
         }
+ 
+        Boolean IsBabg = entity.getIsBabg();
+        if (IsBabg != null) {
+            stmt.bindLong(32, IsBabg ? 1L: 0L);
+        }
+ 
+        Boolean IsBabgConfirm = entity.getIsBabgConfirm();
+        if (IsBabgConfirm != null) {
+            stmt.bindLong(33, IsBabgConfirm ? 1L: 0L);
+        }
+ 
+        Boolean SlaIntegrasiSap = entity.getSlaIntegrasiSap();
+        if (SlaIntegrasiSap != null) {
+            stmt.bindLong(34, SlaIntegrasiSap ? 1L: 0L);
+        }
     }
 
     @Override
@@ -425,6 +446,21 @@ public class TPosDao extends AbstractDao<TPos, Long> {
         if (StatusPenerimaan != null) {
             stmt.bindString(31, StatusPenerimaan);
         }
+ 
+        Boolean IsBabg = entity.getIsBabg();
+        if (IsBabg != null) {
+            stmt.bindLong(32, IsBabg ? 1L: 0L);
+        }
+ 
+        Boolean IsBabgConfirm = entity.getIsBabgConfirm();
+        if (IsBabgConfirm != null) {
+            stmt.bindLong(33, IsBabgConfirm ? 1L: 0L);
+        }
+ 
+        Boolean SlaIntegrasiSap = entity.getSlaIntegrasiSap();
+        if (SlaIntegrasiSap != null) {
+            stmt.bindLong(34, SlaIntegrasiSap ? 1L: 0L);
+        }
     }
 
     @Override
@@ -465,7 +501,10 @@ public class TPosDao extends AbstractDao<TPos, Long> {
             cursor.isNull(offset + 27) ? null : cursor.getString(offset + 27), // RatingQuality
             cursor.isNull(offset + 28) ? null : cursor.getString(offset + 28), // RatingDelivery
             cursor.isNull(offset + 29) ? null : cursor.getString(offset + 29), // StatusPemeriksaan
-            cursor.isNull(offset + 30) ? null : cursor.getString(offset + 30) // StatusPenerimaan
+            cursor.isNull(offset + 30) ? null : cursor.getString(offset + 30), // StatusPenerimaan
+            cursor.isNull(offset + 31) ? null : cursor.getShort(offset + 31) != 0, // IsBabg
+            cursor.isNull(offset + 32) ? null : cursor.getShort(offset + 32) != 0, // IsBabgConfirm
+            cursor.isNull(offset + 33) ? null : cursor.getShort(offset + 33) != 0 // SlaIntegrasiSap
         );
         return entity;
     }
@@ -503,6 +542,9 @@ public class TPosDao extends AbstractDao<TPos, Long> {
         entity.setRatingDelivery(cursor.isNull(offset + 28) ? null : cursor.getString(offset + 28));
         entity.setStatusPemeriksaan(cursor.isNull(offset + 29) ? null : cursor.getString(offset + 29));
         entity.setStatusPenerimaan(cursor.isNull(offset + 30) ? null : cursor.getString(offset + 30));
+        entity.setIsBabg(cursor.isNull(offset + 31) ? null : cursor.getShort(offset + 31) != 0);
+        entity.setIsBabgConfirm(cursor.isNull(offset + 32) ? null : cursor.getShort(offset + 32) != 0);
+        entity.setSlaIntegrasiSap(cursor.isNull(offset + 33) ? null : cursor.getShort(offset + 33) != 0);
      }
     
     @Override

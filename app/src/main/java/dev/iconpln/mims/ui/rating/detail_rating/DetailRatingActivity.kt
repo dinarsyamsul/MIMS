@@ -6,6 +6,7 @@ import android.content.Intent
 import android.content.pm.PackageManager
 import android.graphics.Bitmap
 import android.graphics.BitmapFactory
+import android.graphics.Color
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.util.Log
@@ -71,6 +72,7 @@ class DetailRatingActivity : AppCompatActivity(),Loadable {
     var ratingPenyedia: String? = ""
     var ratingWaktu: String? = ""
     var ratingPenerimaan: String? = ""
+    private var role = 0
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -78,6 +80,7 @@ class DetailRatingActivity : AppCompatActivity(),Loadable {
         setContentView(binding.root)
         daoSession = (application as MyApplication).daoSession!!
         noDo = intent.getStringExtra("noDo")
+        role = SharedPrefsUtils.getIntegerPreference(this@DetailRatingActivity, "roleId",0)
 
         listPhoto = daoSession.tPhotoDao.queryBuilder()
             .where(TPhotoDao.Properties.NoDo.eq(noDo))
@@ -506,6 +509,14 @@ class DetailRatingActivity : AppCompatActivity(),Loadable {
             btnUploadPhoto.setOnClickListener { doFoto() }
             btnClose.setOnClickListener { onBackPressed() }
             btnSimpan.setOnClickListener { validated() }
+
+            if (role == 10){
+                lblFotoSuratBarang.visibility = View.GONE
+                btnUploadPhoto.visibility = View.GONE
+                maksfoto.visibility = View.GONE
+                btnSimpan.isEnabled = false
+                btnSimpan.setBackgroundColor(Color.GRAY)
+            }
         }
 
     }

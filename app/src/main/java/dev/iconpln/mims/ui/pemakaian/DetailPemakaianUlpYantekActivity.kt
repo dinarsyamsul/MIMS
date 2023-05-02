@@ -142,7 +142,11 @@ class DetailPemakaianUlpYantekActivity : AppCompatActivity(),Loadable {
         daoSession.tPemakaianDao.update(pemakaian)
 
         for (i in detailPemakaian){
-            materials += "${i.nomorMaterial},${i.qtyPemakaian};"
+            val jumlahPemakaian = daoSession.tListSnMaterialPemakaianUlpDao.queryBuilder()
+                .where(TListSnMaterialPemakaianUlpDao.Properties.NoTransaksi.eq(i.noTransaksi))
+                .where(TListSnMaterialPemakaianUlpDao.Properties.NoMaterial.eq(i.nomorMaterial)).list().size
+
+            materials += "${i.nomorMaterial},${jumlahPemakaian};"
             Log.d("checkMaterials", materials)
         }
 

@@ -56,6 +56,8 @@ class ApprovalActivity : AppCompatActivity() {
         }
 
         setRecyclerView()
+
+        binding.btnBack.setOnClickListener { onBackPressed() }
     }
 
     private fun setRecyclerView() {

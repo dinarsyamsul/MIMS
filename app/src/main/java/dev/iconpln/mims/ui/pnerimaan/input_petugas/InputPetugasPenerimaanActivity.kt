@@ -8,6 +8,7 @@ import android.content.Intent
 import android.content.pm.PackageManager
 import android.graphics.Bitmap
 import android.graphics.BitmapFactory
+import android.graphics.Color
 import android.os.Build
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
@@ -65,6 +66,7 @@ class InputPetugasPenerimaanActivity : AppCompatActivity(), Loadable {
     private var photoNumber: Int = 0
     private var tglTerima: String? = ""
     private var progressDialog: AlertDialog? = null
+    private var role = 0
 
     @RequiresApi(Build.VERSION_CODES.O)
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -76,6 +78,7 @@ class InputPetugasPenerimaanActivity : AppCompatActivity(), Loadable {
 
         cal = Calendar.getInstance()
         noDo = intent.getStringExtra("noDo")
+        role = SharedPrefsUtils.getIntegerPreference(this@InputPetugasPenerimaanActivity, "roleId",0)
 
         listPhoto = daoSession.tPhotoDao.queryBuilder()
             .where(TPhotoDao.Properties.NoDo.eq(noDo))
@@ -179,6 +182,16 @@ class InputPetugasPenerimaanActivity : AppCompatActivity(), Loadable {
             rvAddFoto.adapter = adapter
             rvAddFoto.layoutManager = LinearLayoutManager(this@InputPetugasPenerimaanActivity, LinearLayoutManager.VERTICAL, false)
             rvAddFoto.setHasFixedSize(true)
+
+            if (role == 10){
+                btnSimpan.isEnabled = false
+                btnUploadPhoto.visibility = View.GONE
+                btnSimpan.setBackgroundColor(Color.GRAY)
+
+                lblFotoSuratBarang.visibility = View.GONE
+                rvAddFoto.visibility = View.GONE
+                maksfoto.visibility = View.GONE
+            }
         }
     }
 

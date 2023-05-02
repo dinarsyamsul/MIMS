@@ -4,6 +4,7 @@ package dev.iconpln.mims.ui.pnerimaan.detail_penerimaan
 import android.app.AlertDialog
 import android.app.Dialog
 import android.content.Intent
+import android.graphics.Color
 import android.os.Bundle
 import android.text.Editable
 import android.text.TextWatcher
@@ -52,6 +53,7 @@ class DetailPenerimaanActivity : AppCompatActivity(),Loadable {
     private lateinit var penerimaan: TPosPenerimaan
     private var noDo: String = ""
     private var partialCode = ""
+    private var role = 0
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -60,6 +62,7 @@ class DetailPenerimaanActivity : AppCompatActivity(),Loadable {
         daoSession = (application as MyApplication).daoSession!!
         noDo = intent.getStringExtra("noDo")!!
         partialCode = "${noDo}${UUID.randomUUID()}"
+        role = SharedPrefsUtils.getIntegerPreference(this@DetailPenerimaanActivity, "roleId",0)
 
         listDetailPen = daoSession.tPosDetailPenerimaanDao.queryBuilder()
             .where(TPosDetailPenerimaanDao.Properties.NoDoSmar.eq(noDo))
@@ -71,7 +74,7 @@ class DetailPenerimaanActivity : AppCompatActivity(),Loadable {
             .where(TPosPenerimaanDao.Properties.NoDoSmar.eq(noDo)).limit(1).unique()
 
         adapter = DetailPenerimaanAdapter(arrayListOf(), object : DetailPenerimaanAdapter.OnAdapterListener{
-            override fun onClick(po: TPosDetailPenerimaan) {}},daoSession,partialCode)
+            override fun onClick(po: TPosDetailPenerimaan) {}},daoSession,partialCode,role)
 
         adapter.setData(listDetailPen)
 
@@ -107,6 +110,22 @@ class DetailPenerimaanActivity : AppCompatActivity(),Loadable {
                 }
 
             })
+
+            if (role == 10){
+                cbSesuai.isEnabled = false
+                cbTidakSesuai.isEnabled = false
+
+                btnKomplain.isEnabled = false
+                btnKomplain.setBackgroundColor(Color.GRAY)
+                btnTerima.isEnabled = false
+                btnTerima.setBackgroundColor(Color.GRAY)
+            }else{
+                cbSesuai.isEnabled = true
+                cbTidakSesuai.isEnabled = true
+
+                btnKomplain.isEnabled = true
+                btnTerima.isEnabled = true
+            }
 
             cbSesuai.setOnCheckedChangeListener { buttonView, isChecked ->
                 cbTidakSesuai.isEnabled = !isChecked

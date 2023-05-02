@@ -107,6 +107,8 @@ class RegistrasiSnMaterialActivity : AppCompatActivity() {
         })
 
         setRecyclerView()
+
+        binding.btnBack.setOnClickListener { onBackPressed() }
     }
 
     private fun showInputSnDialogBox() {

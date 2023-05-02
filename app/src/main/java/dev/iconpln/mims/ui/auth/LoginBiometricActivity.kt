@@ -113,7 +113,12 @@ class LoginBiometricActivity : AppCompatActivity() {
                             it.user?.kdUser.toString()
                         )
                         SharedPrefsUtils.setStringPreference(this@LoginBiometricActivity,"jwt", it.token!!)
+                        SharedPrefsUtils.setStringPreference(this@LoginBiometricActivity, "username", username)
                         SharedPrefsUtils.setStringPreference(this@LoginBiometricActivity, "email", it.user?.mail!!)
+                        SharedPrefsUtils.setStringPreference(this@LoginBiometricActivity, "plant", it.user?.plant!!)
+                        SharedPrefsUtils.setStringPreference(this@LoginBiometricActivity, "storloc", it.user?.storloc!!)
+                        SharedPrefsUtils.setIntegerPreference(this@LoginBiometricActivity, "subroleId", it.user?.subroleId!!)
+                        SharedPrefsUtils.setIntegerPreference(this@LoginBiometricActivity, "roleId", it.user?.roleId!!)
 
                         withContext(Dispatchers.Main){
                             val intentToHome = Intent(this@LoginBiometricActivity, HomeActivity::class.java)

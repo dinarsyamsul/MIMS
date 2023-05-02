@@ -106,6 +106,11 @@ class PemakaianActivity : AppCompatActivity() {
             .where(TPemakaianDao.Properties.TanggalReservasi.like("%"+tglReservasi+"%"))
             .where(TPemakaianDao.Properties.NoReservasi.like("%"+noReservasi+"%")).list()
 
+        binding.rvPemakaianUlp.adapter = null
+        binding.rvPemakaianUlp.layoutManager = null
+        binding.rvPemakaianUlp.adapter = adapter
+        binding.rvPemakaianUlp.layoutManager = LinearLayoutManager(this@PemakaianActivity, LinearLayoutManager.VERTICAL, false)
+        binding.rvPemakaianUlp.setHasFixedSize(true)
         adapter.setpemakaianList(searchList)
     }
 

@@ -13,7 +13,7 @@ import dev.iconpln.mims.databinding.ItemPackagingPemeriksaanBinding
 import dev.iconpln.mims.databinding.ItemSnMaterialBinding
 
 class DetailPenerimaanAdapter(val lisModels: MutableList<TPosDetailPenerimaan>,
-                              var listener: OnAdapterListener, var daoSession: DaoSession,var partialCode: String)
+                              var listener: OnAdapterListener, var daoSession: DaoSession,var partialCode: String, var role: Int)
     : RecyclerView.Adapter<DetailPenerimaanAdapter.ViewHolder>() {
 
     fun setData(po: List<TPosDetailPenerimaan>){
@@ -45,6 +45,14 @@ class DetailPenerimaanAdapter(val lisModels: MutableList<TPosDetailPenerimaan>,
                 txtVendor.text = "-"
 
 //                cbSesuai.isChecked = po.isDone == 1
+
+                if (role == 10){
+                    cbSesuai.isEnabled = false
+                    cbTidakSesuai.isEnabled = false
+                }else{
+                    cbSesuai.isEnabled = true
+                    cbTidakSesuai.isEnabled = true
+                }
 
                 if (tpd.isChecked == 1 && tpd.statusPenerimaan == "SESUAI"){
                     cbSesuai.isChecked = true

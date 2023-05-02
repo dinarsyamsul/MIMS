@@ -42,6 +42,9 @@ public class TPos {
     private String RatingDelivery;
     private String StatusPemeriksaan;
     private String StatusPenerimaan;
+    private Boolean IsBabg;
+    private Boolean IsBabgConfirm;
+    private Boolean SlaIntegrasiSap;
 
     @Generated
     public TPos() {
@@ -52,7 +55,7 @@ public class TPos {
     }
 
     @Generated
-    public TPos(Long id, String StorLoc, String Total, String TlskNo, String PoSapNo, String PoMpNo, String NoDoSmar, Integer LeadTime, String Storloc, String CreatedDate, String PlanCodeNo, String PlantName, String PoDate, String NoDoMims, String DoStatus, String Expeditions, String KodeStatusDoMims, String CourierPersonName, String KdPabrikan, String MaterialGroup, String NamaKategoriMaterial, String PetugasPenerima, String TglDiterima, String KurirPengantar, Boolean SudahBisaRating, String DoLineItem, String RatingResponse, String RatingQuality, String RatingDelivery, String StatusPemeriksaan, String StatusPenerimaan) {
+    public TPos(Long id, String StorLoc, String Total, String TlskNo, String PoSapNo, String PoMpNo, String NoDoSmar, Integer LeadTime, String Storloc, String CreatedDate, String PlanCodeNo, String PlantName, String PoDate, String NoDoMims, String DoStatus, String Expeditions, String KodeStatusDoMims, String CourierPersonName, String KdPabrikan, String MaterialGroup, String NamaKategoriMaterial, String PetugasPenerima, String TglDiterima, String KurirPengantar, Boolean SudahBisaRating, String DoLineItem, String RatingResponse, String RatingQuality, String RatingDelivery, String StatusPemeriksaan, String StatusPenerimaan, Boolean IsBabg, Boolean IsBabgConfirm, Boolean SlaIntegrasiSap) {
         this.id = id;
         this.StorLoc = StorLoc;
         this.Total = Total;
@@ -84,6 +87,9 @@ public class TPos {
         this.RatingDelivery = RatingDelivery;
         this.StatusPemeriksaan = StatusPemeriksaan;
         this.StatusPenerimaan = StatusPenerimaan;
+        this.IsBabg = IsBabg;
+        this.IsBabgConfirm = IsBabgConfirm;
+        this.SlaIntegrasiSap = SlaIntegrasiSap;
     }
 
     public Long getId() {
@@ -332,6 +338,30 @@ public class TPos {
 
     public void setStatusPenerimaan(String StatusPenerimaan) {
         this.StatusPenerimaan = StatusPenerimaan;
+    }
+
+    public Boolean getIsBabg() {
+        return IsBabg;
+    }
+
+    public void setIsBabg(Boolean IsBabg) {
+        this.IsBabg = IsBabg;
+    }
+
+    public Boolean getIsBabgConfirm() {
+        return IsBabgConfirm;
+    }
+
+    public void setIsBabgConfirm(Boolean IsBabgConfirm) {
+        this.IsBabgConfirm = IsBabgConfirm;
+    }
+
+    public Boolean getSlaIntegrasiSap() {
+        return SlaIntegrasiSap;
+    }
+
+    public void setSlaIntegrasiSap(Boolean SlaIntegrasiSap) {
+        this.SlaIntegrasiSap = SlaIntegrasiSap;
     }
 
 }

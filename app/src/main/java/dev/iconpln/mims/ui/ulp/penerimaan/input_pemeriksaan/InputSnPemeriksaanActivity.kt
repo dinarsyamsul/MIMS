@@ -147,9 +147,9 @@ class InputSnPemeriksaanActivity : AppCompatActivity(),Loadable {
         var plant = SharedPrefsUtils.getStringPreference(this@InputSnPemeriksaanActivity,"plant","")
         var storloc = SharedPrefsUtils.getStringPreference(this@InputSnPemeriksaanActivity,"storloc","")
         var username = SharedPrefsUtils.getStringPreference(this@InputSnPemeriksaanActivity, "username","14.Hexing_Electrical")
-        val reportId = "temp_pemeriksaanUp3_detail" + username + "_" + penerimaan.noPermintaan + "_" + DateTime.now().toString(
+        val reportId = "temp_pemeriksaanUlp_detail" + username + "_" + penerimaan.noPermintaan + "_" + DateTime.now().toString(
             Config.DATETIME)
-        val reportName = "Update Data pemeriksaan Detail up 3"
+        val reportName = "Update Data pemeriksaan Detail ulp"
         val reportDescription = "$reportName: "+ " (" + reportId + ")"
         val params = ArrayList<ReportParameter>()
 

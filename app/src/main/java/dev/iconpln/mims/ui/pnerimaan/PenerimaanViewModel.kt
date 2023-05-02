@@ -139,6 +139,16 @@ class PenerimaanViewModel: ViewModel() {
                             }
 
                             item.ratingDone = 0
+
+                            if (model.isBabg && !model.isBabgConfirm || model.slaIntegrasiSap && model.poSapNo.isNullOrEmpty()){
+                                item.bisaTerima = 0
+                            }else if (model.isBabg && model.isBabgConfirm || model.slaIntegrasiSap && model.poSapNo.isNotEmpty()){
+                                item.bisaTerima = 1
+                            }else if (!model.isBabg || !model.slaIntegrasiSap){
+                                item.bisaTerima = 1
+                            }else{
+                                item.bisaTerima = 0
+                            }
                             items[i] = item
                         }
                         daoSession.tPosPenerimaanDao.insertInTx(items.toList())

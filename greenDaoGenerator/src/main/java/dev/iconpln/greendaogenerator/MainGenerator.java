@@ -182,7 +182,9 @@ public class MainGenerator {
         tPos.addStringProperty("RatingDelivery");
         tPos.addStringProperty("StatusPemeriksaan");
         tPos.addStringProperty("StatusPenerimaan");
-
+        tPos.addBooleanProperty("IsBabg");
+        tPos.addBooleanProperty("IsBabgConfirm");
+        tPos.addBooleanProperty("SlaIntegrasiSap");
 
         // endregion
 
@@ -223,6 +225,7 @@ public class MainGenerator {
         tPosPenerimaan.addStringProperty("NilaiRatingWaktu");
         tPosPenerimaan.addStringProperty("NilaiRatingQuality");
         tPosPenerimaan.addStringProperty("DoLineItem");
+        tPosPenerimaan.addIntProperty("BisaTerima");
         tPosPenerimaan.addIntProperty("IsRating");
         tPosPenerimaan.addIntProperty("isDone");
         tPosPenerimaan.addIntProperty("ratingDone");

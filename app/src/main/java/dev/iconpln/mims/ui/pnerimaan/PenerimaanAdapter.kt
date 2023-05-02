@@ -56,26 +56,26 @@ class PenerimaanAdapter(val lisModels: MutableList<TPosPenerimaan>,
                 ivDoc.setOnClickListener { listenerDoc.onClick(pe) }
                 ivDelivery.setOnClickListener { listenerRate.onClick(pe) }
 
-
-                if (!pe.tanggalDiterima.isNullOrEmpty()){
-                    if (listDetailPen.isNullOrEmpty() || pe.statusPenerimaan == "DITERIMA"){
-                        ivDoc.setImageResource(R.drawable.ic_input_doc_done)
-                        if (pe.isRating == 1){
-                            ivDelivery.setImageResource(R.drawable.ic_input_delivery_to_rating_active)
+                if (pe.bisaTerima == 1){
+                    if (!pe.tanggalDiterima.isNullOrEmpty()){
+                        if (listDetailPen.isNullOrEmpty() || pe.statusPenerimaan == "DITERIMA"){
+                            ivDoc.setImageResource(R.drawable.ic_input_doc_done)
+                            if (pe.isRating == 1){
+                                ivDelivery.setImageResource(R.drawable.ic_input_delivery_to_rating_active)
+                            }
+                        }else{
+                            ivDoc.setImageResource(R.drawable.ic_input_doc_active)
                         }
-                    }else{
-                        ivDoc.setImageResource(R.drawable.ic_input_doc_active)
+
+                        ivInputPerson.setImageResource(R.drawable.ic_input_petugas_done)
+//                    ivDelivery.setImageResource(R.drawable.ic_input_delivery_to_rating_active)
                     }
 
-                    ivInputPerson.setImageResource(R.drawable.ic_input_petugas_done)
-//                    ivDelivery.setImageResource(R.drawable.ic_input_delivery_to_rating_active)
-                }
-
-                if (pe.isDone == 1){
-                    ivDoc.setImageResource(R.drawable.ic_input_doc_done)
-                    ivDelivery.setImageResource(R.drawable.ic_input_delivery_to_rating_done)
-                    ivInputPerson.setImageResource(R.drawable.ic_input_petugas_done)
-                }
+                    if (pe.isDone == 1){
+                        ivDoc.setImageResource(R.drawable.ic_input_doc_done)
+                        ivDelivery.setImageResource(R.drawable.ic_input_delivery_to_rating_done)
+                        ivInputPerson.setImageResource(R.drawable.ic_input_petugas_done)
+                    }
 
 
 //                if(po.isDone == 1){
@@ -83,6 +83,12 @@ class PenerimaanAdapter(val lisModels: MutableList<TPosPenerimaan>,
 //                }else{
 //                    isChecked.visibility = View.GONE
 //                }
+
+                }else{
+                    ivDoc.setImageResource(R.drawable.ic_input_doc_false)
+                    ivDelivery.setImageResource(R.drawable.ic_input_delivery_to_rating_false)
+                    ivInputPerson.setImageResource(R.drawable.ic_input_petugas_false)
+                }
             }
         }
     }

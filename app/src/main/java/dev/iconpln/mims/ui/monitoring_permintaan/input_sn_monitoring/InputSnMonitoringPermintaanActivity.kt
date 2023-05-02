@@ -46,6 +46,7 @@ class InputSnMonitoringPermintaanActivity : AppCompatActivity() {
     private var storloc = ""
     private var plant = ""
     private var qtyPermintaan = 0
+    private var roleId = 0
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -63,6 +64,7 @@ class InputSnMonitoringPermintaanActivity : AppCompatActivity() {
 
         plant = SharedPrefsUtils.getStringPreference(this@InputSnMonitoringPermintaanActivity,"plant","").toString()
         storloc = SharedPrefsUtils.getStringPreference(this@InputSnMonitoringPermintaanActivity,"storloc","").toString()
+        roleId = SharedPrefsUtils.getIntegerPreference(this@InputSnMonitoringPermintaanActivity, "roleId",0)
 
         listSnm = daoSession.tMonitoringSnMaterialDao.queryBuilder()
             .where(TMonitoringSnMaterialDao.Properties.NoRepackaging.eq(noRepackaging))
@@ -164,7 +166,7 @@ class InputSnMonitoringPermintaanActivity : AppCompatActivity() {
 
         CoroutineScope(Dispatchers.IO).launch {
             val response = ApiConfig.getApiService(this@InputSnMonitoringPermintaanActivity)
-                .permintaanDeleteSn(noRepackaging,noMaterial,tms.serialNumber)
+                .permintaanDeleteSn(noRepackaging,noMaterial,tms.serialNumber,roleId)
             withContext(Dispatchers.Main){
                 if (response.isSuccessful){
                     dialog.dismiss()
@@ -307,7 +309,7 @@ class InputSnMonitoringPermintaanActivity : AppCompatActivity() {
 
         CoroutineScope(Dispatchers.IO).launch {
             val response = ApiConfig.getApiService(this@InputSnMonitoringPermintaanActivity)
-                .permintaanAddSn(noRepackaging,noMaterial,sn,plant, storloc)
+                .permintaanAddSn(noRepackaging,noMaterial,sn,plant, storloc,roleId)
             withContext(Dispatchers.Main){
                 if (response.isSuccessful){
                     try {

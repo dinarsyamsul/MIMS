@@ -465,6 +465,9 @@ class AuthViewModel: ViewModel() {
                         if (model?.ratingResponse.isNullOrEmpty()) item.ratingResponse = "" else item.ratingResponse = model?.ratingResponse
                         item.statusPemeriksaan = if(model?.statusPemeriksaan.isNullOrEmpty()) "" else model?.statusPemeriksaan
                         item.statusPenerimaan = if(model?.statusPenerimaan.isNullOrEmpty()) "" else model?.statusPenerimaan
+                        item.isBabg = model?.isBabg
+                        item.isBabgConfirm = model?.isBabgConfirm
+                        item.slaIntegrasiSap = model?.slaIntegrasiSap
                         items[i] = item
                     }
                     daoSession.tPosDao.insertInTx(items.toList())

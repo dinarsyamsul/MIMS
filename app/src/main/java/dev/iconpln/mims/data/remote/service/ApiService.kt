@@ -93,7 +93,8 @@ interface ApiService {
         @Field("no_material") noMaterial: String,
         @Field("serial_number") serialNumber: String,
         @Field("user_plant") userPlant: String,
-        @Field("user_loc") userLoc: String
+        @Field("user_loc") userLoc: String,
+        @Field("role_id") roleId: Int
     ): Response<SnResponse>
 
     @FormUrlEncoded
@@ -101,7 +102,8 @@ interface ApiService {
     suspend fun permintaanDeleteSn(
         @Field("no_repackaging") noRepackaging: String,
         @Field("no_material") noMaterial: String,
-        @Field("serial_number") serialNumber: String
+        @Field("serial_number") serialNumber: String,
+        @Field("role_id") roleId: Int
     ): Response<SnResponse>
 
     @FormUrlEncoded

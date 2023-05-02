@@ -41,43 +41,54 @@ class PenerimaanActivity : AppCompatActivity() {
 
         adapter = PenerimaanAdapter(arrayListOf(), object : PenerimaanAdapter.OnAdapterListener{
             override fun onClick(po: TPosPenerimaan) {
-                if(po.petugasPenerima.isNullOrEmpty()){
-                    startActivity(Intent(this@PenerimaanActivity, InputPetugasPenerimaanActivity::class.java)
-                        .putExtra("noDo", po.noDoSmar))
+                if(po.bisaTerima == 0){
+                    Toast.makeText(this@PenerimaanActivity, "BABG belum di konfirmasi", Toast.LENGTH_SHORT).show()
                 }else{
-                    Toast.makeText(this@PenerimaanActivity, "Kamu sudah melakukan input data penerimaan", Toast.LENGTH_SHORT).show()
+                    if(po.petugasPenerima.isNullOrEmpty()){
+                        startActivity(Intent(this@PenerimaanActivity, InputPetugasPenerimaanActivity::class.java)
+                            .putExtra("noDo", po.noDoSmar))
+                    }else{
+                        Toast.makeText(this@PenerimaanActivity, "Kamu sudah melakukan input data penerimaan", Toast.LENGTH_SHORT).show()
+                    }
                 }
-
             }
 
         }, object: PenerimaanAdapter.OnAdapterListenerDoc{
             override fun onClick(po: TPosPenerimaan) {
-                if (po.tanggalDiterima.isNullOrEmpty() || po.statusPenerimaan == "DITERIMA"){
-                    Toast.makeText(this@PenerimaanActivity, "Kamu belum melakukan input data penerimaan", Toast.LENGTH_SHORT).show()
+                if(po.bisaTerima == 0){
+                    Toast.makeText(this@PenerimaanActivity, "BABG belum di konfirmasi", Toast.LENGTH_SHORT).show()
                 }else{
-                    val penerimaanDetails = daoSession.tPosDetailPenerimaanDao.queryBuilder()
-                        .where(TPosDetailPenerimaanDao.Properties.NoDoSmar.eq(po.noDoSmar))
-                        .where(TPosDetailPenerimaanDao.Properties.IsDone.eq(0)).list()
-
-                    if (penerimaanDetails.isNullOrEmpty()){
-                        Toast.makeText(this@PenerimaanActivity, "Kamu sudah melakukan pemeriksaan dokumen di DO ini", Toast.LENGTH_SHORT).show()
+                    if (po.tanggalDiterima.isNullOrEmpty() || po.statusPenerimaan == "DITERIMA"){
+                        Toast.makeText(this@PenerimaanActivity, "Kamu belum melakukan input data penerimaan", Toast.LENGTH_SHORT).show()
                     }else{
-                        startActivity(Intent(this@PenerimaanActivity, DetailPenerimaanActivity::class.java)
-                            .putExtra("noDo", po.noDoSmar))
+                        val penerimaanDetails = daoSession.tPosDetailPenerimaanDao.queryBuilder()
+                            .where(TPosDetailPenerimaanDao.Properties.NoDoSmar.eq(po.noDoSmar))
+                            .where(TPosDetailPenerimaanDao.Properties.IsDone.eq(0)).list()
+
+                        if (penerimaanDetails.isNullOrEmpty()){
+                            Toast.makeText(this@PenerimaanActivity, "Kamu sudah melakukan pemeriksaan dokumen di DO ini", Toast.LENGTH_SHORT).show()
+                        }else{
+                            startActivity(Intent(this@PenerimaanActivity, DetailPenerimaanActivity::class.java)
+                                .putExtra("noDo", po.noDoSmar))
+                        }
                     }
                 }
             }
 
         }, object : PenerimaanAdapter.OnAdapterListenerRate {
             override fun onClick(po: TPosPenerimaan) {
-                if (po.isDone == 1){
-                    Toast.makeText(this@PenerimaanActivity, "Kamu sudah melakukan rating di DO ini", Toast.LENGTH_SHORT).show()
+                if(po.bisaTerima == 0){
+                    Toast.makeText(this@PenerimaanActivity, "BABG belum di konfirmasi", Toast.LENGTH_SHORT).show()
                 }else{
-                    if (po.isRating == 1){
-                        startActivity(Intent(this@PenerimaanActivity, RatingActivity::class.java)
-                            .putExtra("noDo", po.noDoSmar))
+                    if (po.isDone == 1){
+                        Toast.makeText(this@PenerimaanActivity, "Kamu sudah melakukan rating di DO ini", Toast.LENGTH_SHORT).show()
                     }else{
-                        Toast.makeText(this@PenerimaanActivity, "Kamu belum bisa melakukan rating", Toast.LENGTH_SHORT).show()
+                        if (po.isRating == 1){
+                            startActivity(Intent(this@PenerimaanActivity, RatingActivity::class.java)
+                                .putExtra("noDo", po.noDoSmar))
+                        }else{
+                            Toast.makeText(this@PenerimaanActivity, "Kamu belum bisa melakukan rating", Toast.LENGTH_SHORT).show()
+                        }
                     }
                 }
             }

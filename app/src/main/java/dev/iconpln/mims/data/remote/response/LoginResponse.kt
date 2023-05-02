@@ -380,6 +380,15 @@ data class PosItem(
 	@field:SerializedName("sudah_bisa_rating")
 	val sudahBisaRating: Boolean,
 
+	@field:SerializedName("isbabg")
+	val isBabg: Boolean,
+
+	@field:SerializedName("isbabgconfirm")
+	val isBabgConfirm: Boolean,
+
+	@field:SerializedName("sla_integrasi_sap")
+	val slaIntegrasiSap: Boolean,
+
 )
 
 data class PengujiansItem(

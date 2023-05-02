@@ -12,6 +12,7 @@ import android.widget.TextView
 import android.widget.Toast
 import androidx.appcompat.widget.AppCompatButton
 import androidx.cardview.widget.CardView
+import androidx.core.view.marginBottom
 import androidx.fragment.app.Fragment
 import com.google.android.material.bottomsheet.BottomSheetDialog
 import dev.iconpln.mims.HomeActivity
@@ -247,11 +248,9 @@ class HomeFragment : Fragment() {
             val view = layoutInflater.inflate(R.layout.bottom_sheet_dialog, null)
             val btnPemeriksaan = view.findViewById<CardView>(R.id.cv_pemeriksaan)
             val btnPenerimaan = view.findViewById<CardView>(R.id.cv_penerimaan)
-            val subrole = SharedPrefsUtils.getIntegerPreference(requireActivity(),"subroleId",0)
+            val role = SharedPrefsUtils.getIntegerPreference(requireActivity(), "roleId",3)
 
-            if (subrole == 3){
-                btnPenerimaan.visibility = View.GONE
-            }else{
+            if (role == 3){
                 btnPemeriksaan.visibility = View.GONE
             }
 
@@ -273,6 +272,13 @@ class HomeFragment : Fragment() {
             val view = layoutInflater.inflate(R.layout.bottom_sheet_dialog_registrasi, null)
             val btnRegister = view.findViewById(R.id.cv_registrasi) as CardView
             val btnAproval = view.findViewById(R.id.cv_approval) as CardView
+            val role = SharedPrefsUtils.getIntegerPreference(requireActivity(), "roleId",3)
+
+            if (role == 3 || role == 7){
+                btnAproval.visibility = View.GONE
+            }else if (role == 5 || role == 8){
+                btnRegister.visibility = View.GONE
+            }
 
             btnRegister.setOnClickListener {
                 startActivity(Intent(requireActivity(), RegistrasiSnMaterialActivity::class.java))
@@ -560,6 +566,9 @@ class HomeFragment : Fragment() {
                         if (model?.ratingResponse.isNullOrEmpty()) item.ratingResponse = "" else item.ratingResponse = model?.ratingResponse
                         item.statusPemeriksaan = if(model?.statusPemeriksaan.isNullOrEmpty()) "" else model?.statusPemeriksaan
                         item.statusPenerimaan = if(model?.statusPenerimaan.isNullOrEmpty()) "" else model?.statusPenerimaan
+                        item.isBabg = model?.isBabg
+                        item.isBabgConfirm = model?.isBabgConfirm
+                        item.slaIntegrasiSap = model?.slaIntegrasiSap
                         items[i] = item
                     }
                     daoSession.tPosDao.insertInTx(items.toList())
