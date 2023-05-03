@@ -276,6 +276,7 @@ class AuthViewModel: ViewModel() {
         daoSession.tPhotoDao.deleteAll()
         daoSession.tMonitoringComplaintDao.deleteAll()
         daoSession.tMonitoringComplaintDetailDao.deleteAll()
+        daoSession.tMonitoringSnMaterialDao.deleteAll()
 
 
         if (result != null){
@@ -811,18 +812,19 @@ class AuthViewModel: ViewModel() {
             if (result.snPermintaan != null){
                 val size = result.snPermintaan.size
                 if (size > 0) {
-                    val items = arrayOfNulls<TSnMonitoringPermintaan>(size)
-                    var item: TSnMonitoringPermintaan
+                    val items = arrayOfNulls<TMonitoringSnMaterial>(size)
+                    var item: TMonitoringSnMaterial
                     for ((i, model) in result.snPermintaan.withIndex()){
-                        item = TSnMonitoringPermintaan()
+                        item = TMonitoringSnMaterial()
 
                         item.noRepackaging = model?.noRepackaging
                         item.nomorMaterial = model?.nomorMaterial
                         item.serialNumber = model?.serialNumber
                         item.status = if (model?.status.isNullOrEmpty()) "" else model?.status
+                        item.isScanned = 0
                         items[i] = item
                     }
-                    daoSession.tSnMonitoringPermintaanDao.insertInTx(items.toList())
+                    daoSession.tMonitoringSnMaterialDao.insertInTx(items.toList())
                 }
             }
 

@@ -34,7 +34,6 @@ class InputSnMonitoringPermintaanActivity : AppCompatActivity() {
     private lateinit var binding: ActivityInputSnMonitoringPermintaanBinding
     private lateinit var daoSession: DaoSession
     private lateinit var listSnm: List<TMonitoringSnMaterial>
-    private lateinit var listSnPermaterial: List<TSnMonitoringPermintaan>
     private lateinit var monitoringPenerimaan: TTransMonitoringPermintaan
     private lateinit var adapter: MonitoringPermintaanSnAdapter
     private var noPermintaan = ""
@@ -70,9 +69,6 @@ class InputSnMonitoringPermintaanActivity : AppCompatActivity() {
             .where(TMonitoringSnMaterialDao.Properties.NoRepackaging.eq(noRepackaging))
             .where(TMonitoringSnMaterialDao.Properties.NomorMaterial.eq(noMaterial))
             .list()
-
-        listSnPermaterial = daoSession.tSnMonitoringPermintaanDao.queryBuilder()
-            .where(TSnMonitoringPermintaanDao.Properties.NoRepackaging.eq(noRepackaging)).list()
 
         monitoringPenerimaan = daoSession.tTransMonitoringPermintaanDao.queryBuilder()
             .where(TTransMonitoringPermintaanDao.Properties.NoTransaksi.eq(noTransaksi)).list()[0]
