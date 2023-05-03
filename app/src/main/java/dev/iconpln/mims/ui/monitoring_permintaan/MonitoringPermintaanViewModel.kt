@@ -69,13 +69,13 @@ class MonitoringPermintaanViewModel: ViewModel() {
         daoSession: DaoSession,
         srcNoPermintaanText: String,
         srcStatusPengeluaranText: String,
-        srcGudangAsalText: String,
+        srcGudangTujuanText: String,
         srcTglPermintaanText: String
     ){
         var listDataMonitoring = daoSession.tTransMonitoringPermintaanDao.queryBuilder().where(
             TTransMonitoringPermintaanDao.Properties.NoPermintaan.like("%" + srcNoPermintaanText + "%"),
             TTransMonitoringPermintaanDao.Properties.KodePengeluaran.like("%" + srcStatusPengeluaranText + "%"),
-            TTransMonitoringPermintaanDao.Properties.StorLocAsalName.like("%" + srcGudangAsalText + "%"),
+            TTransMonitoringPermintaanDao.Properties.StorLocTujuanName.like("%" + srcGudangTujuanText + "%"),
             TTransMonitoringPermintaanDao.Properties.TanggalPermintaan.like("%" + srcTglPermintaanText + "%")).list()
 
         _monitoringPermintaanResponse.postValue(listDataMonitoring)

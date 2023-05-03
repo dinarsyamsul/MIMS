@@ -160,6 +160,8 @@ class MonitoringPermintaanDetailActivity : AppCompatActivity(),Loadable {
     }
 
     private fun submitForm(jumlahKardus: String) {
+        var materials = ""
+
         val listMonitoringDetail = daoSession.tTransMonitoringPermintaanDetailDao.queryBuilder()
             .where(TTransMonitoringPermintaanDetailDao.Properties.NoTransaksi.eq(noTransaksi)).list()
 
@@ -169,6 +171,27 @@ class MonitoringPermintaanDetailActivity : AppCompatActivity(),Loadable {
                 daoSession.tTransMonitoringPermintaanDetailDao.update(i)
                 Toast.makeText(this@MonitoringPermintaanDetailActivity, "Berhasil mengirim material ${i.nomorMaterial}", Toast.LENGTH_SHORT).show()
             }
+        }
+
+        val listIsDone = daoSession.tTransMonitoringPermintaanDetailDao.queryBuilder()
+            .where(TTransMonitoringPermintaanDetailDao.Properties.NoTransaksi.eq(noTransaksi))
+            .where(TTransMonitoringPermintaanDetailDao.Properties.IsScannedSn.eq(1)).list()
+
+        for(i in listIsDone){
+            materials += "${i.nomorMaterial},${i.qtyScan};"
+        }
+
+        if (materials != "") {
+            materials = materials.substring(0, materials.length - 1)
+        }
+
+        val permintaans = daoSession.tTransMonitoringPermintaanDao.queryBuilder()
+            .where(TTransMonitoringPermintaanDao.Properties.NoTransaksi.eq(noTransaksi))
+            .where(TTransMonitoringPermintaanDao.Properties.NoPermintaan.eq(noPermintaan)).list()
+
+        for(i in permintaans){
+            i.kodePengeluaran = "2"
+            daoSession.tTransMonitoringPermintaanDao.update(i)
         }
 
         val reports = ArrayList<GenericReport>()
@@ -186,20 +209,20 @@ class MonitoringPermintaanDetailActivity : AppCompatActivity(),Loadable {
         val reportDescription = "$reportName: "+ " (" + reportId + ")"
         val params = ArrayList<ReportParameter>()
 
-        val listIsDone = daoSession.tTransMonitoringPermintaanDetailDao.queryBuilder()
-            .where(TTransMonitoringPermintaanDetailDao.Properties.NoTransaksi.eq(noTransaksi))
-            .where(TTransMonitoringPermintaanDetailDao.Properties.IsScannedSn.eq(1)).list()
+        params.add(ReportParameter("1", reportId, "no_transaksi", noTransaksi, ReportParameter.TEXT))
+        params.add(ReportParameter("2", reportId, "jumlah_kardus", jumlahKardus, ReportParameter.TEXT))
+        params.add(ReportParameter("3", reportId, "materials", materials, ReportParameter.TEXT))
 
-        for (i in listIsDone){
-            params.add(ReportParameter("1", reportId, "no_material", i.nomorMaterial!!, ReportParameter.TEXT))
-            params.add(ReportParameter("2", reportId, "no_permintaan", monitoringPermintaan.noPermintaan, ReportParameter.TEXT))
-            params.add(ReportParameter("3", reportId, "qty_scan", i.qtyScan, ReportParameter.TEXT))
-            params.add(ReportParameter("4", reportId, "jumlah_kardus",jumlahKardus , ReportParameter.TEXT))
-            params.add(ReportParameter("5", reportId, "username", username!!, ReportParameter.TEXT))
-            params.add(ReportParameter("6", reportId, "plant", monitoringPermintaan.plant, ReportParameter.TEXT))
-            params.add(ReportParameter("7", reportId, "stor_loc", monitoringPermintaan.storLocAsal, ReportParameter.TEXT))
-            params.add(ReportParameter("8", reportId, "no_transaksi", i.noTransaksi, ReportParameter.TEXT))
-        }
+//        for (i in listIsDone){
+//            params.add(ReportParameter("1", reportId, "no_material", i.nomorMaterial!!, ReportParameter.TEXT))
+//            params.add(ReportParameter("2", reportId, "no_permintaan", monitoringPermintaan.noPermintaan, ReportParameter.TEXT))
+//            params.add(ReportParameter("3", reportId, "qty_scan", i.qtyScan, ReportParameter.TEXT))
+//            params.add(ReportParameter("4", reportId, "jumlah_kardus",jumlahKardus , ReportParameter.TEXT))
+//            params.add(ReportParameter("5", reportId, "username", username!!, ReportParameter.TEXT))
+//            params.add(ReportParameter("6", reportId, "plant", monitoringPermintaan.plant, ReportParameter.TEXT))
+//            params.add(ReportParameter("7", reportId, "stor_loc", monitoringPermintaan.storLocAsal, ReportParameter.TEXT))
+//            params.add(ReportParameter("8", reportId, "no_transaksi", i.noTransaksi, ReportParameter.TEXT))
+//        }
 
         val report = GenericReport(reportId, jwt!!, reportName, reportDescription, ApiConfig.sendMonkitoringPermintaan(), currentDate, Config.NO_CODE, currentUtc, params)
         reports.add(report)

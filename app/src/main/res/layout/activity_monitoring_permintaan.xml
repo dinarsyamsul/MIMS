@@ -35,7 +35,7 @@
         android:layout_height="wrap_content"
         android:layout_marginEnd="80dp"
         android:fontFamily="@font/montserrat_reguler"
-        android:text="Monitoring Permintaan"
+        android:text="Monitoring Pengiriman"
         android:textAlignment="center"
         android:textColor="@color/white"
         android:textSize="16dp"
@@ -185,12 +185,12 @@
             </com.google.android.material.textfield.TextInputLayout>
 
             <TextView
-                android:id="@+id/lbl_gudang_asal"
+                android:id="@+id/lbl_gudang_tujuan"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="10dp"
                 android:fontFamily="@font/montserrat_reguler"
-                android:text="Gudang Asal"
+                android:text="Gudang Tujuan"
                 android:textSize="12sp"
                 android:textStyle="bold"
                 app:layout_constraintHorizontal_chainStyle="spread"
@@ -198,18 +198,18 @@
                 app:layout_constraintTop_toBottomOf="@+id/tinp_status_pengeluaran" />
 
             <com.google.android.material.textfield.TextInputLayout
-                android:id="@+id/tinp_gudang_asal"
+                android:id="@+id/tinp_gudang_tujuan"
                 style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox.ExposedDropdownMenu"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="10dp"
                 app:hintAnimationEnabled="true"
                 app:layout_constraintEnd_toEndOf="@+id/cv_tgl_permintaan"
-                app:layout_constraintStart_toStartOf="@+id/lbl_gudang_asal"
-                app:layout_constraintTop_toBottomOf="@+id/lbl_gudang_asal">
+                app:layout_constraintStart_toStartOf="@+id/lbl_gudang_tujuan"
+                app:layout_constraintTop_toBottomOf="@+id/lbl_gudang_tujuan">
 
                 <AutoCompleteTextView
-                    android:id="@+id/dropdown_gudang_asal"
+                    android:id="@+id/dropdown_gudang_tujuan"
                     style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox.ExposedDropdownMenu"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
@@ -228,7 +228,7 @@
                 android:background="#B9B9B9"
                 app:layout_constraintEnd_toEndOf="@+id/cv_tgl_permintaan"
                 app:layout_constraintStart_toStartOf="@+id/cv_tgl_permintaan"
-                app:layout_constraintTop_toBottomOf="@+id/tinp_gudang_asal" />
+                app:layout_constraintTop_toBottomOf="@+id/tinp_gudang_tujuan" />
 
 
             <androidx.recyclerview.widget.RecyclerView

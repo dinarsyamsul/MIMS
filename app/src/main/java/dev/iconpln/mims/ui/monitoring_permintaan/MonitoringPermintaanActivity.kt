@@ -25,7 +25,7 @@ class MonitoringPermintaanActivity : AppCompatActivity() {
     private lateinit var adapter: MonitoringPermintaanAdapter
     private var srcNoPermintaanText: String = ""
     private var srcStatusPengeluaranText: String = ""
-    private var srcGudangAsalText: String = ""
+    private var srcGudangTujuanText: String = ""
     private var srcTglPermintaanText: String = ""
     private lateinit var cal: Calendar
 
@@ -42,16 +42,20 @@ class MonitoringPermintaanActivity : AppCompatActivity() {
 
         adapter = MonitoringPermintaanAdapter(arrayListOf(), object : MonitoringPermintaanAdapter.OnAdapterListener{
             override fun onClick(mp: TTransMonitoringPermintaan) {
-                val checkDetail = daoSession.tTransMonitoringPermintaanDetailDao.queryBuilder()
-                    .where(TTransMonitoringPermintaanDetailDao.Properties.NoTransaksi.eq(mp.noTransaksi))
-                    .where(TTransMonitoringPermintaanDetailDao.Properties.IsDone.eq(0)).list()
-
-                if (checkDetail.isNullOrEmpty()){
-                    Toast.makeText(this@MonitoringPermintaanActivity, "Data material sudah di kirim semua", Toast.LENGTH_SHORT).show()
+                if (mp.kodePengeluaran == "2"){
+                    Toast.makeText(this@MonitoringPermintaanActivity, "Data material sudah menjadi pengeluaran", Toast.LENGTH_SHORT).show()
                 }else{
-                    startActivity(Intent(this@MonitoringPermintaanActivity, MonitoringPermintaanDetailActivity::class.java)
-                        .putExtra("noPermintaan", mp.noPermintaan)
-                        .putExtra("noTransaksi", mp.noTransaksi))
+                    val checkDetail = daoSession.tTransMonitoringPermintaanDetailDao.queryBuilder()
+                        .where(TTransMonitoringPermintaanDetailDao.Properties.NoTransaksi.eq(mp.noTransaksi))
+                        .where(TTransMonitoringPermintaanDetailDao.Properties.IsDone.eq(0)).list()
+
+                    if (checkDetail.isNullOrEmpty()){
+                        Toast.makeText(this@MonitoringPermintaanActivity, "Data material sudah di kirim semua", Toast.LENGTH_SHORT).show()
+                    }else{
+                        startActivity(Intent(this@MonitoringPermintaanActivity, MonitoringPermintaanDetailActivity::class.java)
+                            .putExtra("noPermintaan", mp.noPermintaan)
+                            .putExtra("noTransaksi", mp.noTransaksi))
+                    }
                 }
 
             }
@@ -76,13 +80,13 @@ class MonitoringPermintaanActivity : AppCompatActivity() {
 
                 override fun afterTextChanged(s: Editable?) {
                     srcNoPermintaanText = s.toString()
-                    viewModel.search(daoSession,srcNoPermintaanText,srcStatusPengeluaranText,srcGudangAsalText,srcTglPermintaanText)
+                    viewModel.search(daoSession,srcNoPermintaanText,srcStatusPengeluaranText,srcGudangTujuanText,srcTglPermintaanText)
                 }
 
             })
 
             setStatusPengeluaran()
-            setGudangAsal()
+            setGudangTujuan()
             setDatePicker()
         }
 
@@ -166,18 +170,18 @@ class MonitoringPermintaanActivity : AppCompatActivity() {
         }
     }
 
-    private fun setGudangAsal() {
+    private fun setGudangTujuan() {
         val list = daoSession.tTransMonitoringPermintaanDao.queryBuilder().list()
         val listKategori: ArrayList<String> = ArrayList()
         for (i in list){
-            listKategori.add(i.storLocAsalName)
+            listKategori.add(i.storLocTujuanName)
         }
 
         val adapterKategori = ArrayAdapter(this, android.R.layout.simple_dropdown_item_1line, listKategori.distinct())
-        binding.dropdownGudangAsal.setAdapter(adapterKategori)
-        binding.dropdownGudangAsal.setOnItemClickListener { parent, view, position, id ->
-            srcGudangAsalText = binding.dropdownGudangAsal.text.toString()
-            viewModel.search(daoSession,srcNoPermintaanText,srcStatusPengeluaranText,srcGudangAsalText,srcTglPermintaanText)
+        binding.dropdownGudangTujuan.setAdapter(adapterKategori)
+        binding.dropdownGudangTujuan.setOnItemClickListener { parent, view, position, id ->
+            srcGudangTujuanText = binding.dropdownGudangTujuan.text.toString()
+            viewModel.search(daoSession,srcNoPermintaanText,srcStatusPengeluaranText,srcGudangTujuanText,srcTglPermintaanText)
         }
     }
 
@@ -199,7 +203,7 @@ class MonitoringPermintaanActivity : AppCompatActivity() {
                 "Permintaan" -> srcStatusPengeluaranText = "1"
                 "Pengeluaran" -> srcStatusPengeluaranText = "2"
             }
-            viewModel.search(daoSession,srcNoPermintaanText,srcStatusPengeluaranText,srcGudangAsalText,srcTglPermintaanText)
+            viewModel.search(daoSession,srcNoPermintaanText,srcStatusPengeluaranText,srcGudangTujuanText,srcTglPermintaanText)
         }
     }
 
@@ -213,7 +217,7 @@ class MonitoringPermintaanActivity : AppCompatActivity() {
             val sdf = SimpleDateFormat(myFormat, Locale.US)
             binding.txtTglMulai.text = sdf.format(cal.time)
             srcTglPermintaanText = sdf.format(cal.time)
-            viewModel.search(daoSession,srcNoPermintaanText,srcStatusPengeluaranText,srcGudangAsalText,srcTglPermintaanText)
+            viewModel.search(daoSession,srcNoPermintaanText,srcStatusPengeluaranText,srcGudangTujuanText,srcTglPermintaanText)
 
         }
 
@@ -223,5 +227,12 @@ class MonitoringPermintaanActivity : AppCompatActivity() {
                 cal.get(Calendar.MONTH),
                 cal.get(Calendar.DAY_OF_MONTH)).show()
         }
+    }
+
+    override fun onStart() {
+        viewModel.monitoringPermintaanResponse.observe(this){
+            adapter.setMpList(it)
+        }
+        super.onStart()
     }
 }

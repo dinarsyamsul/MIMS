@@ -55,9 +55,15 @@ class MonitoringPermintaanAdapter(val lisModels: MutableList<TTransMonitoringPer
                     else -> txtStatusPengeluaran.text = "-"
                 }
 
-                if (checkDetail.isNullOrEmpty()){
+                if (mp.kodePengeluaran == "2"){
                     btnDetail.setImageResource(R.drawable.ic_src_doc_selesai)
+                }else{
+                    btnDetail.setImageResource(R.drawable.ic_src_doc)
                 }
+
+//                if (checkDetail.isNullOrEmpty()){
+//                    btnDetail.setImageResource(R.drawable.ic_src_doc_selesai)
+//                }
 
             }
         }

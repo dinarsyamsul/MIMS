@@ -485,7 +485,7 @@
                                 android:layout_height="wrap_content"
                                 android:layout_marginStart="15dp"
                                 android:fontFamily="@font/montserrat_medium"
-                                android:text="Monitoring\nPermintaan"
+                                android:text="Monitoring\nPengiriman"
                                 android:textColor="#3F3D56"
                                 android:textSize="13sp"
                                 app:layout_constraintStart_toEndOf="@+id/imageView60"

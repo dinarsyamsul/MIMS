@@ -70,7 +70,7 @@ object ApiConfig {
     }
 
     fun sendMonkitoringPermintaan():String{
-        return "$BASE_URL/reports/sendReportMonitoringPermintaan"
+        return "$BASE_URL/reports/sendReportMonitoringPermintaan2"
     }
 
     fun sendReportPenerimaanUlpDetail():String{
