@@ -60,13 +60,22 @@ class RegistrasiSnMaterialActivity : AppCompatActivity() {
             }
         }
 
+        viewModel.insertMaterialRegistrasiByScan.observe(this) {
+            if (it != null) {
+                if (it.message == "Success") {
+                    showSuccessInputDialogBoxByScan()
+                }
+            }
+        }
+
         viewModel.isLoading.observe(this){
             binding.progressBar.visibility = if (it) View.VISIBLE else View.GONE
         }
 
         viewModel.errorMessage.observe(this) {
             if (it != null) {
-                rvAdapter.setListRegisSn(arrayListOf())
+//                rvAdapter.setListRegisSn(arrayListOf())
+                viewModel.getMonitoringMaterial(status)
                 Toast.makeText(this, "$it", Toast.LENGTH_LONG).show()
             }
         }
@@ -107,6 +116,8 @@ class RegistrasiSnMaterialActivity : AppCompatActivity() {
         })
 
         setRecyclerView()
+
+        binding.btnBack.setOnClickListener { onBackPressed() }
     }
 
     private fun showInputSnDialogBox() {
@@ -121,9 +132,32 @@ class RegistrasiSnMaterialActivity : AppCompatActivity() {
             builder.dismiss()
         }
         btnRegis.setOnClickListener {
-            viewModel.setInsertMaterialRegistrasi(inputSn.text.toString().trim())
+            viewModel.setInsertMaterialRegistrasi(inputSn.text.toString().trim(), "text")
+            sn = inputSn.text.toString()
         }
         btnScan.setOnClickListener {
+            openScanner()
+            builder.dismiss()
+        }
+        builder.setCanceledOnTouchOutside(false)
+        builder.show()
+    }
+
+    private fun showSuccessInputDialogBoxByScan() {
+        val builder = AlertDialog.Builder(this, R.style.CustomAlertDialog).create()
+        val view = layoutInflater.inflate(R.layout.alert_dialog_berhasil_regis_by_scan, null)
+        val tvSN = view.findViewById<TextView>(R.id.textView22)
+        val tvMessage = view.findViewById<TextView>(R.id.textView23)
+        val btnSelesai = view.findViewById<Button>(R.id.btn_berhasil_regis)
+        val btnScanLagi = view.findViewById<Button>(R.id.btn_scan_again)
+        builder.setView(view)
+        tvSN.text = "SN material $sn"
+        tvMessage.text = "Telah sesuai SPLN dan berhasil di registrasi."
+        btnSelesai.setOnClickListener {
+            builder.dismiss()
+            viewModel.getMonitoringMaterial(status)
+        }
+        btnScanLagi.setOnClickListener {
             openScanner()
             builder.dismiss()
         }
@@ -136,11 +170,11 @@ class RegistrasiSnMaterialActivity : AppCompatActivity() {
         val view = layoutInflater.inflate(R.layout.alert_dialog_berhasil_regis, null)
         val tvSN = view.findViewById<TextView>(R.id.textView22)
         val tvMessage = view.findViewById<TextView>(R.id.textView23)
-        val btnOk = view.findViewById<Button>(R.id.btn_berhasil_regis)
+        val btnSelesai = view.findViewById<Button>(R.id.btn_berhasil_regis)
         builder.setView(view)
         tvSN.text = "SN material $sn"
         tvMessage.text = "Telah sesuai SPLN dan berhasil di registrasi."
-        btnOk.setOnClickListener {
+        btnSelesai.setOnClickListener {
             builder.dismiss()
             viewModel.getMonitoringMaterial(status)
         }
@@ -165,7 +199,7 @@ class RegistrasiSnMaterialActivity : AppCompatActivity() {
             if(!result.contents.isNullOrEmpty()){
                 sn=result.contents
                 Log.i("hit Api","${sn}")
-                viewModel.setInsertMaterialRegistrasi(sn)
+                viewModel.setInsertMaterialRegistrasi(sn, "scan")
             }
         }catch (e: Exception){
             Log.e("exception", e.toString())

@@ -27,6 +27,9 @@ class RegistrasiMaterialViewModel (private val apiService: ApiService) : ViewMod
     private val _monitAktivMaterial = MutableLiveData<MonitoringAktivasiMaterialResponse?>()
     val monitAktivMaterial: LiveData<MonitoringAktivasiMaterialResponse?> = _monitAktivMaterial
 
+    private val _insertMaterialRegistrasiByScan = MutableLiveData<InsertMaterialRegistrasiResponse?>()
+    val insertMaterialRegistrasiByScan: LiveData<InsertMaterialRegistrasiResponse?> = _insertMaterialRegistrasiByScan
+
     private val _insertMaterialRegistrasi = MutableLiveData<InsertMaterialRegistrasiResponse?>()
     val insertMaterialRegistrasi: LiveData<InsertMaterialRegistrasiResponse?> = _insertMaterialRegistrasi
 
@@ -48,7 +51,7 @@ class RegistrasiMaterialViewModel (private val apiService: ApiService) : ViewMod
         }
     }
 
-    fun setInsertMaterialRegistrasi(sn: String) {
+    fun setInsertMaterialRegistrasi(sn: String, inputType: String) {
         _isLoading.value = true
         job = CoroutineScope(Dispatchers.IO + exceptionHandler).launch {
             val requestBody = RequestBodyRegisSn(listOf(sn))
@@ -57,7 +60,11 @@ class RegistrasiMaterialViewModel (private val apiService: ApiService) : ViewMod
                 if (response.isSuccessful) {
                     _isLoading.postValue(false)
                     val insertMaterialRegistrasiResponse = response.body()
-                    _insertMaterialRegistrasi.postValue(insertMaterialRegistrasiResponse)
+                    if (inputType == "scan"){
+                        _insertMaterialRegistrasiByScan.postValue(insertMaterialRegistrasiResponse)
+                    } else {
+                        _insertMaterialRegistrasi.postValue(insertMaterialRegistrasiResponse)
+                    }
                 } else {
                     _isLoading.postValue(false)
                     val error = response.errorBody()?.string()
