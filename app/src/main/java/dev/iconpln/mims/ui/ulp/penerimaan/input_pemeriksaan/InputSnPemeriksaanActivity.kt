@@ -68,6 +68,7 @@ class InputSnPemeriksaanActivity : AppCompatActivity(),Loadable {
             .where(TListSnMaterialPenerimaanUlpDao.Properties.NoMaterial.eq(noMaterial)).list()
 
         details = daoSession.tTransPenerimaanDetailUlpDao.queryBuilder()
+            .where(TTransPenerimaanDetailUlpDao.Properties.NoMaterial.eq(noMaterial))
             .where(TTransPenerimaanDetailUlpDao.Properties.NoTransaksi.eq(noTransaksi)).list().get(0)
 
         penerimaan = daoSession.tTransPenerimaanUlpDao.queryBuilder()

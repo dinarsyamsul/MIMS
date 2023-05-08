@@ -72,8 +72,7 @@ class HomeFragment : Fragment() {
         val nilaiPermintaan = daoSession.tMonitoringPermintaanDao.queryBuilder().list().size.toString()
         val nilaiPengiriman = daoSession.tPosDao.loadAll().size.toString()
         val nilaiPengujian = daoSession.tPengujianDao.loadAll().size.toString()
-        val nilaiPenerimaanUp3 =  daoSession.tPosDao.queryBuilder()
-            .where(TPosDao.Properties.KodeStatusDoMims.eq("102")).list().size.toString()
+        val nilaiPenerimaanUp3 =  daoSession.tPosDao.queryBuilder().list().size.toString()
         val nilaiMonitoringComplaint = daoSession.tMonitoringComplaintDao.loadAll().size.toString()
 
         dialog = Dialog(requireActivity())
@@ -94,7 +93,7 @@ class HomeFragment : Fragment() {
         var username = SharedPrefsUtils.getStringPreference(requireActivity(),"username","14.Hexing_Electric")!!
         var mPassword = SharedPrefsUtils.getStringPreference(requireActivity(),"password","12345")!!
 
-        binding.txtdash1.text = "John Doe"
+        binding.txtdash1.text = username
         binding.btnMonitoring.visibility = View.GONE
         binding.btnPengujian.visibility = View.GONE
         binding.btnPengiriman.visibility = View.GONE

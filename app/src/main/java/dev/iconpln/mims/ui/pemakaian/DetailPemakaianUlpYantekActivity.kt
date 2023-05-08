@@ -117,8 +117,17 @@ class DetailPemakaianUlpYantekActivity : AppCompatActivity(),Loadable {
 
     private fun validation() {
         for (i in detailPemakaians){
+            val jumlahPemakaian = daoSession.tListSnMaterialPemakaianUlpDao.queryBuilder()
+                .where(TListSnMaterialPemakaianUlpDao.Properties.NoTransaksi.eq(i.noTransaksi))
+                .where(TListSnMaterialPemakaianUlpDao.Properties.NoMaterial.eq(i.nomorMaterial)).list()
+
             if (i.isDone == 0){
                 Toast.makeText(this@DetailPemakaianUlpYantekActivity, "Kamu belum menyelesaikan semua pemakaian", Toast.LENGTH_SHORT).show()
+                return
+            }
+
+            if (i.qtyReservasi != jumlahPemakaian.size.toString()){
+                Toast.makeText(this@DetailPemakaianUlpYantekActivity, "Jumlah reservasi ${i.nomorMaterial} masih kurang", Toast.LENGTH_SHORT).show()
                 return
             }
         }

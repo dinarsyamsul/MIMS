@@ -30,7 +30,7 @@ object ApiConfig {
     }
 
     fun sendPenerimaanPerson(): String {
-        return "$BASE_URL/reports/sendReportPenerimaanPerson"
+        return "$BASE_URL/reports/v2/sendReportPenerimaanPerson"
     }
 
     fun sendPenerimaan(): String {

@@ -64,11 +64,16 @@ class DetailPenerimaanActivity : AppCompatActivity(),Loadable {
         partialCode = "${noDo}${UUID.randomUUID()}"
         role = SharedPrefsUtils.getIntegerPreference(this@DetailPenerimaanActivity, "roleId",0)
 
-        listDetailPen = daoSession.tPosDetailPenerimaanDao.queryBuilder()
-            .where(TPosDetailPenerimaanDao.Properties.NoDoSmar.eq(noDo))
-            .whereOr(TPosDetailPenerimaanDao.Properties.StatusPenerimaan.notEq("DITERIMA"),
-                TPosDetailPenerimaanDao.Properties.StatusPenerimaan.notEq("BELUM DIPERIKSA"))
-            .where(TPosDetailPenerimaanDao.Properties.IsDone.eq(0)).list()
+        listDetailPen = if (role == 10){
+            daoSession.tPosDetailPenerimaanDao.queryBuilder()
+                .where(TPosDetailPenerimaanDao.Properties.NoDoSmar.eq(noDo)).list()
+        }else{
+            daoSession.tPosDetailPenerimaanDao.queryBuilder()
+                .where(TPosDetailPenerimaanDao.Properties.NoDoSmar.eq(noDo))
+                .whereOr(TPosDetailPenerimaanDao.Properties.StatusPenerimaan.notEq("DITERIMA"),
+                    TPosDetailPenerimaanDao.Properties.StatusPenerimaan.notEq("BELUM DIPERIKSA"))
+                .where(TPosDetailPenerimaanDao.Properties.IsDone.eq(0)).list()
+        }
 
         penerimaan = daoSession.tPosPenerimaanDao.queryBuilder()
             .where(TPosPenerimaanDao.Properties.NoDoSmar.eq(noDo)).limit(1).unique()

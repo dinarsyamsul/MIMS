@@ -208,6 +208,26 @@ class InputSnMonitoringPermintaanActivity : AppCompatActivity() {
             .where(TMonitoringSnMaterialDao.Properties.NomorMaterial.eq(noMaterial))
             .list()
 
+        val listSnm = daoSession.tMonitoringSnMaterialDao.queryBuilder()
+            .where(TMonitoringSnMaterialDao.Properties.NoRepackaging.eq(noRepackaging))
+            .where(TMonitoringSnMaterialDao.Properties.NomorMaterial.eq(noMaterial))
+            .list()
+
+
+        val permintaanDetail = daoSession.tTransMonitoringPermintaanDetailDao.queryBuilder()
+            .where(TTransMonitoringPermintaanDetailDao.Properties.NoTransaksi.eq(noTransaksi))
+            .where(TTransMonitoringPermintaanDetailDao.Properties.NomorMaterial.eq(noMaterial))
+            .list()[0]
+
+        if (permintaanDetail.qtyPermintaan != listSnm.size){
+            Toast.makeText(this@InputSnMonitoringPermintaanActivity, "Qty scan masih kurang", Toast.LENGTH_SHORT).show()
+            return
+        }
+
+        if (listSnm.size == permintaanDetail.qtyPermintaan){
+            permintaanDetail.isScannedSn = 1
+        }
+
         if (listSn.size == 0){
             Toast.makeText(this@InputSnMonitoringPermintaanActivity, "Tidak boleh simpan sebelum scan sn material", Toast.LENGTH_SHORT).show()
             return
@@ -233,12 +253,19 @@ class InputSnMonitoringPermintaanActivity : AppCompatActivity() {
     private fun submitForm() {
         val listSnm = daoSession.tMonitoringSnMaterialDao.queryBuilder()
             .where(TMonitoringSnMaterialDao.Properties.NoRepackaging.eq(noRepackaging))
+            .where(TMonitoringSnMaterialDao.Properties.NomorMaterial.eq(noMaterial))
             .list()
+
 
         val permintaanDetail = daoSession.tTransMonitoringPermintaanDetailDao.queryBuilder()
             .where(TTransMonitoringPermintaanDetailDao.Properties.NoTransaksi.eq(noTransaksi))
             .where(TTransMonitoringPermintaanDetailDao.Properties.NomorMaterial.eq(noMaterial))
             .list()[0]
+
+//        if (permintaanDetail.qtyPermintaan != listSnm.size){
+//            Toast.makeText(this@InputSnMonitoringPermintaanActivity, "Qty scan masih kurang", Toast.LENGTH_SHORT).show()
+//            return
+//        }
 
         if (listSnm.size == permintaanDetail.qtyPermintaan){
             permintaanDetail.isScannedSn = 1

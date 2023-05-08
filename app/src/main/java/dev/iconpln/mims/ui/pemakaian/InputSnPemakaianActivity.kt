@@ -1,12 +1,9 @@
 package dev.iconpln.mims.ui.pemakaian
 
 import android.app.Dialog
-import android.app.ProgressDialog
 import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
-import android.os.Handler
-import android.os.Looper
 import android.util.Log
 import android.view.ViewGroup
 import android.widget.EditText
@@ -21,26 +18,14 @@ import com.journeyapps.barcodescanner.ScanOptions
 import dev.iconpln.mims.MyApplication
 import dev.iconpln.mims.R
 import dev.iconpln.mims.data.local.database.*
-import dev.iconpln.mims.data.local.database_local.GenericReport
-import dev.iconpln.mims.data.local.database_local.ReportParameter
-import dev.iconpln.mims.data.local.database_local.ReportUploader
 import dev.iconpln.mims.data.remote.service.ApiConfig
 import dev.iconpln.mims.data.scan.CustomScanActivity
 import dev.iconpln.mims.databinding.ActivityInputSnPemakaianBinding
-import dev.iconpln.mims.tasks.Loadable
-import dev.iconpln.mims.tasks.TambahReportTask
-import dev.iconpln.mims.ui.rating.RatingActivity
-import dev.iconpln.mims.ui.ulp.penerimaan.input_pemeriksaan.DetailPemeriksaanActivity
-import dev.iconpln.mims.utils.Config
-import dev.iconpln.mims.utils.DateTimeUtils
 import dev.iconpln.mims.utils.SharedPrefsUtils
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.withContext
-import org.joda.time.DateTime
-import org.joda.time.LocalDateTime
-import java.util.ArrayList
 
 class InputSnPemakaianActivity : AppCompatActivity() {
     private lateinit var binding: ActivityInputSnPemakaianBinding
@@ -112,9 +97,6 @@ class InputSnPemakaianActivity : AppCompatActivity() {
         adapter.setTmsList(lisSn)
 
         with(binding){
-            val jumlahPemakaian = daoSession.tListSnMaterialPemakaianUlpDao.queryBuilder()
-                .where(TListSnMaterialPemakaianUlpDao.Properties.NoTransaksi.eq(noTransaksi))
-                .where(TListSnMaterialPemakaianUlpDao.Properties.NoMaterial.eq(noMat)).list()
 
             btnScanSnMaterial.setOnClickListener { openScanner() }
             btnInputSnManual.setOnClickListener { showPopUp() }
@@ -124,22 +106,37 @@ class InputSnPemakaianActivity : AppCompatActivity() {
 
             btnBack.setOnClickListener { onBackPressed() }
             btnSimpan.setOnClickListener {
-                pemakaianDetail.isDone = 1
-                pemakaianDetail.qtyPemakaian = jumlahPemakaian.size.toString()
-                daoSession.tTransPemakaianDetailDao.update(pemakaianDetail)
+                simpanData()
 
-                Toast.makeText(this@InputSnPemakaianActivity, "Berhasil simpan data",Toast.LENGTH_SHORT).show()
-                startActivity(
-                    Intent(this@InputSnPemakaianActivity, DetailPemakaianUlpYantekActivity::class.java)
-                        .putExtra("noTransaksi", noTransaksi)
-                        .setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP))
-                finish()
             }
 
             rvListSn.adapter = adapter
             rvListSn.setHasFixedSize(true)
             rvListSn.layoutManager = LinearLayoutManager(this@InputSnPemakaianActivity, LinearLayoutManager.VERTICAL, false)
         }
+    }
+
+    private fun simpanData() {
+
+        val jumlahPemakaian = daoSession.tListSnMaterialPemakaianUlpDao.queryBuilder()
+            .where(TListSnMaterialPemakaianUlpDao.Properties.NoTransaksi.eq(noTransaksi))
+            .where(TListSnMaterialPemakaianUlpDao.Properties.NoMaterial.eq(noMat)).list()
+
+        if (pemakaianDetail.qtyReservasi != jumlahPemakaian.size.toString()){
+            Toast.makeText(this@InputSnPemakaianActivity, "Jumlah scan masih kurang",Toast.LENGTH_SHORT).show()
+            return
+        }
+
+        pemakaianDetail.isDone = 1
+        pemakaianDetail.qtyPemakaian = jumlahPemakaian.size.toString()
+        daoSession.tTransPemakaianDetailDao.update(pemakaianDetail)
+
+        Toast.makeText(this@InputSnPemakaianActivity, "Berhasil simpan data",Toast.LENGTH_SHORT).show()
+        startActivity(
+            Intent(this@InputSnPemakaianActivity, DetailPemakaianUlpYantekActivity::class.java)
+                .putExtra("noTransaksi", noTransaksi)
+                .setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP))
+        finish()
     }
 
     private fun deleteSn(sn: String) {

@@ -497,7 +497,7 @@ class PemeriksaanDetailActivity : AppCompatActivity(), Loadable {
         btnYa.setOnClickListener {
             super.onBackPressed()
             for (i in listPemDetail){
-                i.statusPemeriksaan = ""
+//                i.statusPemeriksaan = ""
                 i.isChecked = 0
                 daoSession.update(i)
             }

@@ -87,6 +87,8 @@ class OtpActivity : AppCompatActivity() {
                         SharedPrefsUtils.setStringPreference(this@OtpActivity, "password", password)
                         SharedPrefsUtils.setStringPreference(this@OtpActivity, "plant", it.user?.plant!!)
                         SharedPrefsUtils.setStringPreference(this@OtpActivity, "storloc", it.user?.storloc!!)
+                        SharedPrefsUtils.setIntegerPreference(this@OtpActivity, "subroleId", it.user?.subroleId!!)
+                        SharedPrefsUtils.setIntegerPreference(this@OtpActivity, "roleId", it.user?.roleId!!)
 
                         withContext(Dispatchers.Main){
                             val intentToHome = Intent(this@OtpActivity, HomeActivity::class.java)
@@ -128,6 +130,15 @@ class OtpActivity : AppCompatActivity() {
                     "forgotPassword" -> viewModel.checkOtpForgotPassword(this@OtpActivity,username,otpInput)
                 }
             }
+
+            txtBelumMenerimaKode.setOnClickListener {
+                if (txtBelumMenerimaKode.text.toString() == "Minta OTP kembali"){
+                    Toast.makeText(this@OtpActivity, "Kode OTP berhasil di kirim kembali, silahkan cek email anda", Toast.LENGTH_SHORT).show()
+                    viewModel.sendOtp(this@OtpActivity, username)
+                    countdownTimer.start()
+                }
+            }
+
         }
 
         viewModel.isLoading.observe(this) {

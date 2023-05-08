@@ -17,6 +17,7 @@ import dev.iconpln.mims.databinding.ActivityPenerimaanBinding
 import dev.iconpln.mims.ui.pnerimaan.detail_penerimaan.DetailPenerimaanActivity
 import dev.iconpln.mims.ui.pnerimaan.input_petugas.InputPetugasPenerimaanActivity
 import dev.iconpln.mims.ui.rating.RatingActivity
+import dev.iconpln.mims.utils.SharedPrefsUtils
 
 class PenerimaanActivity : AppCompatActivity() {
     private lateinit var binding: ActivityPenerimaanBinding
@@ -25,6 +26,7 @@ class PenerimaanActivity : AppCompatActivity() {
     private lateinit var adapter: PenerimaanAdapter
     private var filter : String = ""
     private var srcNoDo: String = ""
+    private var role = 0
     private lateinit var penerimaans:  List<TPosPenerimaan>
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -33,43 +35,54 @@ class PenerimaanActivity : AppCompatActivity() {
         setContentView(binding.root)
         daoSession = (application as MyApplication).daoSession!!
         insertDetailPenerimaan()
+        role = SharedPrefsUtils.getIntegerPreference(this@PenerimaanActivity, "roleId",0)
 
-        penerimaans = daoSession.tPosPenerimaanDao.queryBuilder()
-            .where(TPosPenerimaanDao.Properties.KodeStatusDoMims.eq("102")).list()
+
+        penerimaans = daoSession.tPosPenerimaanDao.queryBuilder().list()
 
         viewModel.getPenerimaan(daoSession,penerimaans)
 
         adapter = PenerimaanAdapter(arrayListOf(), object : PenerimaanAdapter.OnAdapterListener{
             override fun onClick(po: TPosPenerimaan) {
-                if(po.bisaTerima == 0){
-                    Toast.makeText(this@PenerimaanActivity, "BABG belum di konfirmasi", Toast.LENGTH_SHORT).show()
+                if (role == 10){
+                    startActivity(Intent(this@PenerimaanActivity, InputPetugasPenerimaanActivity::class.java)
+                        .putExtra("noDo", po.noDoSmar))
                 }else{
-                    if(po.petugasPenerima.isNullOrEmpty()){
-                        startActivity(Intent(this@PenerimaanActivity, InputPetugasPenerimaanActivity::class.java)
-                            .putExtra("noDo", po.noDoSmar))
+                    if(po.bisaTerima == 0){
+                        Toast.makeText(this@PenerimaanActivity, "BABG belum di konfirmasi", Toast.LENGTH_SHORT).show()
                     }else{
-                        Toast.makeText(this@PenerimaanActivity, "Kamu sudah melakukan input data penerimaan", Toast.LENGTH_SHORT).show()
+                        if(po.petugasPenerima.isNullOrEmpty()){
+                            startActivity(Intent(this@PenerimaanActivity, InputPetugasPenerimaanActivity::class.java)
+                                .putExtra("noDo", po.noDoSmar))
+                        }else{
+                            Toast.makeText(this@PenerimaanActivity, "Kamu sudah melakukan input data penerimaan", Toast.LENGTH_SHORT).show()
+                        }
                     }
                 }
             }
 
         }, object: PenerimaanAdapter.OnAdapterListenerDoc{
             override fun onClick(po: TPosPenerimaan) {
-                if(po.bisaTerima == 0){
-                    Toast.makeText(this@PenerimaanActivity, "BABG belum di konfirmasi", Toast.LENGTH_SHORT).show()
+                if (role == 10){
+                    startActivity(Intent(this@PenerimaanActivity, DetailPenerimaanActivity::class.java)
+                        .putExtra("noDo", po.noDoSmar))
                 }else{
-                    if (po.tanggalDiterima.isNullOrEmpty() || po.statusPenerimaan == "DITERIMA"){
-                        Toast.makeText(this@PenerimaanActivity, "Kamu belum melakukan input data penerimaan", Toast.LENGTH_SHORT).show()
+                    if(po.bisaTerima == 0){
+                        Toast.makeText(this@PenerimaanActivity, "BABG belum di konfirmasi", Toast.LENGTH_SHORT).show()
                     }else{
-                        val penerimaanDetails = daoSession.tPosDetailPenerimaanDao.queryBuilder()
-                            .where(TPosDetailPenerimaanDao.Properties.NoDoSmar.eq(po.noDoSmar))
-                            .where(TPosDetailPenerimaanDao.Properties.IsDone.eq(0)).list()
-
-                        if (penerimaanDetails.isNullOrEmpty()){
-                            Toast.makeText(this@PenerimaanActivity, "Kamu sudah melakukan pemeriksaan dokumen di DO ini", Toast.LENGTH_SHORT).show()
+                        if (po.tanggalDiterima.isNullOrEmpty() || po.statusPenerimaan == "DITERIMA"){
+                            Toast.makeText(this@PenerimaanActivity, "Kamu belum melakukan input data penerimaan", Toast.LENGTH_SHORT).show()
                         }else{
-                            startActivity(Intent(this@PenerimaanActivity, DetailPenerimaanActivity::class.java)
-                                .putExtra("noDo", po.noDoSmar))
+                            val penerimaanDetails = daoSession.tPosDetailPenerimaanDao.queryBuilder()
+                                .where(TPosDetailPenerimaanDao.Properties.NoDoSmar.eq(po.noDoSmar))
+                                .where(TPosDetailPenerimaanDao.Properties.IsDone.eq(0)).list()
+
+                            if (penerimaanDetails.isNullOrEmpty()){
+                                Toast.makeText(this@PenerimaanActivity, "Kamu sudah melakukan pemeriksaan dokumen di DO ini", Toast.LENGTH_SHORT).show()
+                            }else{
+                                startActivity(Intent(this@PenerimaanActivity, DetailPenerimaanActivity::class.java)
+                                    .putExtra("noDo", po.noDoSmar))
+                            }
                         }
                     }
                 }
@@ -77,17 +90,22 @@ class PenerimaanActivity : AppCompatActivity() {
 
         }, object : PenerimaanAdapter.OnAdapterListenerRate {
             override fun onClick(po: TPosPenerimaan) {
-                if(po.bisaTerima == 0){
-                    Toast.makeText(this@PenerimaanActivity, "BABG belum di konfirmasi", Toast.LENGTH_SHORT).show()
+                if (role == 10){
+                    startActivity(Intent(this@PenerimaanActivity, RatingActivity::class.java)
+                        .putExtra("noDo", po.noDoSmar))
                 }else{
-                    if (po.isDone == 1){
-                        Toast.makeText(this@PenerimaanActivity, "Kamu sudah melakukan rating di DO ini", Toast.LENGTH_SHORT).show()
+                    if(po.bisaTerima == 0){
+                        Toast.makeText(this@PenerimaanActivity, "BABG belum di konfirmasi", Toast.LENGTH_SHORT).show()
                     }else{
-                        if (po.isRating == 1){
-                            startActivity(Intent(this@PenerimaanActivity, RatingActivity::class.java)
-                                .putExtra("noDo", po.noDoSmar))
+                        if (po.isDone == 1){
+                            Toast.makeText(this@PenerimaanActivity, "Kamu sudah melakukan rating di DO ini", Toast.LENGTH_SHORT).show()
                         }else{
-                            Toast.makeText(this@PenerimaanActivity, "Kamu belum bisa melakukan rating", Toast.LENGTH_SHORT).show()
+                            if (po.isRating == 1){
+                                startActivity(Intent(this@PenerimaanActivity, RatingActivity::class.java)
+                                    .putExtra("noDo", po.noDoSmar))
+                            }else{
+                                Toast.makeText(this@PenerimaanActivity, "Kamu belum bisa melakukan rating", Toast.LENGTH_SHORT).show()
+                            }
                         }
                     }
                 }
@@ -176,14 +194,12 @@ class PenerimaanActivity : AppCompatActivity() {
     private fun doSearch() {
         if (filter == "TERBARU"){
             val search = daoSession.tPosPenerimaanDao.queryBuilder()
-                .where(TPosPenerimaanDao.Properties.KodeStatusDoMims.eq("102"))
                 .whereOr(TPosPenerimaanDao.Properties.NoDoSmar.like("%"+srcNoDo+"%"),TPosPenerimaanDao.Properties.PoSapNo.like("%"+srcNoDo+"%"))
                 .orderDesc(TPosPenerimaanDao.Properties.CreatedDate)
                 .list()
             adapter.setData(search)
         }else{
             val search = daoSession.tPosPenerimaanDao.queryBuilder()
-                .where(TPosPenerimaanDao.Properties.KodeStatusDoMims.eq("102"))
                 .whereOr(TPosPenerimaanDao.Properties.NoDoSmar.like("%"+srcNoDo+"%"),
                     TPosPenerimaanDao.Properties.PoSapNo.like("%"+srcNoDo+"%"))
                 .orderAsc(TPosPenerimaanDao.Properties.CreatedDate)

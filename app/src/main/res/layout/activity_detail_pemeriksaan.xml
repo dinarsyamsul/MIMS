@@ -254,8 +254,10 @@
         android:layout_marginBottom="5dp"
         app:layout_constraintBottom_toTopOf="@+id/txt_total_data"
         app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/view8"
+        app:layout_constraintVertical_bias="0.0"
         tools:listitem="@layout/item_detail_pemeriksaan_ulp" />
 
     <TextView
