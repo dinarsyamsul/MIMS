@@ -195,6 +195,23 @@
             app:layout_constraintStart_toStartOf="@+id/cb_remember_me"
             app:layout_constraintTop_toBottomOf="@+id/cb_remember_me" />
 
+        <androidx.appcompat.widget.AppCompatButton
+            android:id="@+id/btn_login_sso"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="16dp"
+            android:background="@drawable/br_btn_no_solid"
+            android:elevation="8dp"
+            android:fontFamily="@font/montserrat_reguler"
+            android:text="Login SSO"
+            android:textAllCaps="false"
+            android:textColor="#045A71"
+            android:textStyle="bold"
+            app:layout_constraintEnd_toEndOf="@+id/txt_forget_password"
+            app:layout_constraintHorizontal_bias="0.0"
+            app:layout_constraintStart_toStartOf="@+id/cb_remember_me"
+            app:layout_constraintTop_toBottomOf="@+id/btn_login" />
+
         <View
             android:id="@+id/view"
             android:layout_width="112dp"
@@ -203,8 +220,8 @@
             android:background="#B9B9B9"
             app:layout_constraintEnd_toStartOf="@id/lbl_or"
             app:layout_constraintHorizontal_chainStyle="packed"
-            app:layout_constraintStart_toStartOf="@+id/btn_login"
-            app:layout_constraintTop_toBottomOf="@+id/btn_login" />
+            app:layout_constraintStart_toStartOf="@+id/btn_login_sso"
+            app:layout_constraintTop_toBottomOf="@+id/btn_login_sso" />
 
         <TextView
             android:id="@+id/lbl_or"

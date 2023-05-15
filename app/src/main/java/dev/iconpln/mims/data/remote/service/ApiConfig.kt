@@ -58,11 +58,11 @@ object ApiConfig {
     }
 
     fun sendComplaint(): String {
-        return "$BASE_URL/reports/v3/sendReportComplaint"
+        return "$BASE_URL/reports/v4/sendReportComplaint"
     }
 
     fun sendComplaintPemeriksaan(): String {
-        return "$BASE_URL/reports/v3/sendReportComplaintPemeriksaan"
+        return "$BASE_URL/reports/v4/sendReportComplaintPemeriksaan"
     }
 
     fun sendRating():String{

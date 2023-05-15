@@ -37,6 +37,7 @@ class InputSnPemakaianActivity : AppCompatActivity() {
     private var plant: String = ""
     private var storloc: String = ""
     private var noMat = ""
+    private var username = ""
     private lateinit var lisSn : List<TListSnMaterialPemakaianUlp>
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -50,6 +51,7 @@ class InputSnPemakaianActivity : AppCompatActivity() {
         noMat = intent.getStringExtra("noMat")!!
         plant = SharedPrefsUtils.getStringPreference(this@InputSnPemakaianActivity,"plant","")!!
         storloc = SharedPrefsUtils.getStringPreference(this@InputSnPemakaianActivity,"storloc","")!!
+        username = SharedPrefsUtils.getStringPreference(this@InputSnPemakaianActivity, "username", "")!!
 
         lisSn = daoSession.tListSnMaterialPemakaianUlpDao.queryBuilder()
             .where(TListSnMaterialPemakaianUlpDao.Properties.NoTransaksi.eq(noTransaksi))
@@ -212,7 +214,7 @@ class InputSnPemakaianActivity : AppCompatActivity() {
 
         CoroutineScope(Dispatchers.IO).launch {
             val response = ApiConfig.getApiService(this@InputSnPemakaianActivity)
-                .addSn(pemakaian.noTransaksi,noMat,sn,plant,storloc)
+                .addSn(pemakaian.noTransaksi,noMat,sn,plant,storloc,username)
             withContext(Dispatchers.Main){
                 if (response.isSuccessful){
                     try {

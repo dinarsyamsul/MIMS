@@ -22,6 +22,9 @@ data class LoginResponse(
 	@field:SerializedName("token")
 	val token: String? = null,
 
+	@field:SerializedName("id_token_sso")
+	val idTokenSso: String? = null,
+
 	@field:SerializedName("material_groups")
 	val materialGroups: List<MaterialGroupsItem?>? = null,
 
@@ -512,7 +515,10 @@ data class User(
 	val roleId: Int? = 0,
 
 	@field:SerializedName("subrole_id")
-	val subroleId: Int? = 0
+	val subroleId: Int? = 0,
+
+	@field:SerializedName("user_name")
+	val userName: String? = ""
 )
 
 data class PrivilegeItem(

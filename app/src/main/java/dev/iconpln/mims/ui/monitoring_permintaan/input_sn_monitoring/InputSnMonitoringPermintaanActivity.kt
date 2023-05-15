@@ -46,6 +46,7 @@ class InputSnMonitoringPermintaanActivity : AppCompatActivity() {
     private var plant = ""
     private var qtyPermintaan = 0
     private var roleId = 0
+    private var username = ""
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -60,6 +61,7 @@ class InputSnMonitoringPermintaanActivity : AppCompatActivity() {
         descMaterial = intent.getStringExtra("desc").toString()
         kategori = intent.getStringExtra("kategori").toString()
         qtyPermintaan = intent.getIntExtra("qtyPermintaan",0)
+        username = SharedPrefsUtils.getStringPreference(this@InputSnMonitoringPermintaanActivity, "username","")!!
 
         plant = SharedPrefsUtils.getStringPreference(this@InputSnMonitoringPermintaanActivity,"plant","").toString()
         storloc = SharedPrefsUtils.getStringPreference(this@InputSnMonitoringPermintaanActivity,"storloc","").toString()
@@ -332,7 +334,7 @@ class InputSnMonitoringPermintaanActivity : AppCompatActivity() {
 
         CoroutineScope(Dispatchers.IO).launch {
             val response = ApiConfig.getApiService(this@InputSnMonitoringPermintaanActivity)
-                .permintaanAddSn(noRepackaging,noMaterial,sn,plant, storloc,roleId)
+                .permintaanAddSn(noRepackaging,noMaterial,sn,plant, storloc,roleId,username)
             withContext(Dispatchers.Main){
                 if (response.isSuccessful){
                     try {

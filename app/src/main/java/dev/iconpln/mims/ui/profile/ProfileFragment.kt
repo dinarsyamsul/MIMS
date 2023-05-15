@@ -15,6 +15,7 @@ import androidx.lifecycle.asLiveData
 import androidx.lifecycle.lifecycleScope
 import dev.iconpln.mims.R
 import dev.iconpln.mims.databinding.FragmentProfileBinding
+import dev.iconpln.mims.ui.SsoLogoutActivity
 import dev.iconpln.mims.ui.auth.LoginActivity
 import dev.iconpln.mims.ui.auth.LoginBiometricActivity
 import dev.iconpln.mims.ui.auth.change_password.ChangePasswordActivity
@@ -30,6 +31,7 @@ class ProfileFragment : Fragment() {
 
     private var _binding: FragmentProfileBinding? = null
     private val binding get() = _binding!!
+    private var idTokenSso = ""
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -38,6 +40,7 @@ class ProfileFragment : Fragment() {
         // Inflate the layout for this fragment
         _binding = FragmentProfileBinding.inflate(inflater, container, false)
         val view = binding.root
+        idTokenSso = SharedPrefsUtils.getStringPreference(requireActivity(),"idTokenSso","")!!
         return view
     }
 
@@ -96,12 +99,20 @@ class ProfileFragment : Fragment() {
             }
 
             btnYa.setOnClickListener {
-                Logout(session)
+                if (idTokenSso.isNullOrEmpty()){
+                    Logout(session)
+                }else{
+                    logoutSso()
+                }
                 dialog.dismiss()
             }
 
             dialog.show();
         }
+    }
+
+    private fun logoutSso() {
+        startActivity(Intent(requireActivity(),SsoLogoutActivity::class.java))
     }
 
     private fun Logout(session: SessionManager) {

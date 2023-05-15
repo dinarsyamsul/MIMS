@@ -14,26 +14,21 @@ import android.provider.Settings
 import android.util.Log
 import android.view.View
 import android.view.ViewGroup
-import android.widget.ImageView
-import android.widget.TextView
 import android.widget.Toast
 import androidx.activity.viewModels
 import androidx.appcompat.app.AppCompatActivity
-import androidx.appcompat.widget.AppCompatButton
 import androidx.core.app.ActivityCompat
 import dev.iconpln.mims.HomeActivity
 import dev.iconpln.mims.MyApplication
 import dev.iconpln.mims.R
 import dev.iconpln.mims.data.local.database.DaoMaster
 import dev.iconpln.mims.data.local.database.DaoSession
-import dev.iconpln.mims.data.local.database.TMonitoringSnMaterialDao
-import dev.iconpln.mims.data.local.database.TTransMonitoringPermintaanDetailDao
 import dev.iconpln.mims.data.local.database_local.DatabaseReport
 import dev.iconpln.mims.data.local.database_local.ReportUploader
 import dev.iconpln.mims.databinding.ActivityLoginBinding
+import dev.iconpln.mims.ui.SsoLoginActivity
 import dev.iconpln.mims.ui.auth.forgot_password.ForgotPasswordActivity
 import dev.iconpln.mims.ui.auth.otp.OtpActivity
-import dev.iconpln.mims.ui.monitoring_permintaan.monitoring_permintaan_detail.MonitoringPermintaanDetailActivity
 import dev.iconpln.mims.utils.*
 import dev.iconpln.mims.utils.StorageUtils.isPermissionAllowed
 import kotlinx.coroutines.CoroutineScope
@@ -158,6 +153,13 @@ class LoginActivity : AppCompatActivity() {
             binding.edtEmail.setText(SharedPrefsUtils.getStringPreference(this@LoginActivity,"username",""))
             binding.cbRememberMe.isChecked = true
             Log.d("isCheckedRememberMe",isRememberMe.toString())
+        }
+
+        binding.btnLoginSso.setOnClickListener {
+            val url = "https://iam.pln.co.id/svc-core/oauth2/auth?response_type=code&redirect_uri=http%3A%2F%2Flocalhost%3A8080%2Fuser%2Flogin&client_id=hbKhr2QTjnrsvQnqjxU3&scope=openid+phone+email+profile+empinfo+address"
+            startActivity(Intent(this@LoginActivity, SsoLoginActivity::class.java)
+                .putExtra("url", url))
+            finish()
         }
 
     }

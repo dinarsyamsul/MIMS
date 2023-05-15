@@ -176,6 +176,10 @@ class ComplaintActivity : AppCompatActivity(), Loadable {
 
     private fun insertData() {
         var sns = ""
+
+        var penerimaans = daoSession.tPosPenerimaanDao.queryBuilder()
+            .where(TPosPenerimaanDao.Properties.NoDoSmar.eq(noDo)).list().get(0)
+
         var checkedDetPen = daoSession.tPosDetailPenerimaanDao.queryBuilder()
             .where(TPosDetailPenerimaanDao.Properties.NoDoSmar.eq(noDo))
             .where(TPosDetailPenerimaanDao.Properties.IsDone.eq(0))
@@ -194,6 +198,10 @@ class ComplaintActivity : AppCompatActivity(), Loadable {
             i.isDone = 1
             daoSession.tPosDetailPenerimaanDao.update(i)
         }
+
+        penerimaans.statusPenerimaan = "SEDANG KOMPLAIN"
+        penerimaans.statusPemeriksaan = "BELUM DIPERIKSA"
+        daoSession.tPosPenerimaanDao.update(penerimaans)
 
         val reports = ArrayList<GenericReport>()
         val currentDate = LocalDateTime.now().toString(Config.DATE)

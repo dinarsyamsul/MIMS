@@ -74,6 +74,50 @@ class AuthViewModel: ViewModel() {
         }
     }
 
+    fun getLoginSso(context: Context, daoSession: DaoSession, code: String, device_token: String,
+                 mAndroidId: String, mAppVersion: String, mDeviceData: String, mIpAddress: String,
+                 androidVersion: Int, dateTimeUtc: Long,session: SessionManager) {
+        _isLoading.value = true
+        CoroutineScope(Dispatchers.IO).launch {
+            val requestBody = mutableMapOf<String, String>()
+            requestBody["codeIam"] = code
+            requestBody["device_token"] = device_token
+            requestBody["android_id"] = mAndroidId
+            requestBody["app_version"] = "1.0.0"
+            requestBody["device_data"] = mDeviceData
+            requestBody["datetime_utc"] = dateTimeUtc.toString()
+            requestBody["ip_address"] = mIpAddress
+            requestBody["android_version"] = androidVersion.toString()
+
+            val response = ApiConfig.getApiService(context).loginSso(requestBody)
+            withContext(Dispatchers.Main){
+                if (response.isSuccessful) {
+                    try {
+                        _isLoading.value = false
+                        if (response.body()?.status == "failure"){
+                            Toast.makeText(context, response.body()?.message, Toast.LENGTH_SHORT).show()
+                        }else{
+                            val loginResult = response.body()
+                            _loginResponse.postValue(loginResult!!)
+                            inserToDbLocal(daoSession, loginResult)
+                        }
+
+                    }catch (e: Exception){
+                        _isLoading.value = false
+                        Toast.makeText(context, response.body()?.message!!, Toast.LENGTH_SHORT).show()
+                        e.printStackTrace()
+                    }finally {
+                        _isLoading.value = false
+                        Log.i("finally", response.body()?.message!!)
+                    }
+                }else {
+                    _isLoading.value = false
+                    Toast.makeText(context, if(response.body()?.message.isNullOrEmpty()) "Gagal menguhubungkan ke server, silahkan periksa koneksi dan VPN anda" else response.body()?.message.toString(), Toast.LENGTH_SHORT).show()
+                }
+            }
+        }
+    }
+
     fun sendOtp(context: Context, username: String) {
         _isLoading.value = true
         CoroutineScope(Dispatchers.IO).launch {

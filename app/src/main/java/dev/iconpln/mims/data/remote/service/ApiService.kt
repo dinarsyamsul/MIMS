@@ -17,6 +17,12 @@ interface ApiService {
     ): Response<LoginResponse>
 
     @Headers("Content-Type:application/json")
+    @POST("/users/loginSso")
+    suspend fun loginSso(
+        @Body body: Map<String, String>
+    ): Response<LoginResponse>
+
+    @Headers("Content-Type:application/json")
     @POST("/users/sentOtp")
     suspend fun sendOtp(
         @Body body: Map<String, String>
@@ -73,7 +79,8 @@ interface ApiService {
         @Field("no_material") noMaterial: String,
         @Field("serial_number") serialNumber: String,
         @Field("user_plant") userPlant: String,
-        @Field("user_loc") userLoc: String
+        @Field("user_loc") userLoc: String,
+        @Field("user_name") username: String
     ): Response<SnResponse>
 
     @FormUrlEncoded
@@ -94,7 +101,8 @@ interface ApiService {
         @Field("serial_number") serialNumber: String,
         @Field("user_plant") userPlant: String,
         @Field("user_loc") userLoc: String,
-        @Field("role_id") roleId: Int
+        @Field("role_id") roleId: Int,
+        @Field("user_name") username: String
     ): Response<SnResponse>
 
     @FormUrlEncoded
