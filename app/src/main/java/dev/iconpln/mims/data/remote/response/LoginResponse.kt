@@ -101,7 +101,10 @@ data class LoginResponse(
 	val monitoringKomplain: List<MonitoringKomplainItem?>? = null,
 
 	@field:SerializedName("monitoring_komplain_detail")
-	val monitoringKomplainDetail: List<MonitoringKomplainDetailItem?>? = null
+	val monitoringKomplainDetail: List<MonitoringKomplainDetailItem?>? = null,
+
+	@field:SerializedName("pegawai")
+	val pegawai: List<PegawaiItem?>? = null
 )
 
 data class RatingsItem(
@@ -1252,4 +1255,25 @@ data class MonitoringKomplainDetailItem(
 
 	@field:SerializedName("status")
 	val status: String? = null
+)
+
+data class PegawaiItem(
+
+	@field:SerializedName("is_active")
+	val isActive: Boolean? = null,
+
+	@field:SerializedName("nama_pegawai")
+	val namaPegawai: String? = null,
+
+	@field:SerializedName("nip")
+	val nip: String? = null,
+
+	@field:SerializedName("plant")
+	val plant: String? = null,
+
+	@field:SerializedName("kode_jabatan")
+	val kodeJabatan: String? = null,
+
+	@field:SerializedName("nama_jabatan")
+	val namaJabatan: String? = null
 )

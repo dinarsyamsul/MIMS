@@ -168,14 +168,16 @@
 
         <CheckBox
             android:id="@+id/cb_remember_me"
-            android:layout_width="wrap_content"
+            android:layout_width="0dp"
             android:layout_height="23dp"
             android:layout_marginTop="10dp"
-            android:text="Remember Me"
-            android:textSize="12sp"
-            android:textColor="#23272F"
+            android:button="@drawable/checkbox_custom"
             android:fontFamily="@font/montserrat"
-            android:theme="@style/CheckBox"
+            android:paddingStart="5dp"
+            android:text="Remember Me"
+            android:textColor="#23272F"
+            android:textSize="12sp"
+            app:layout_constraintEnd_toEndOf="@+id/textInputLayout2"
             app:layout_constraintStart_toStartOf="@+id/textInputLayout2"
             app:layout_constraintTop_toBottomOf="@+id/tv_msg_error" />
 

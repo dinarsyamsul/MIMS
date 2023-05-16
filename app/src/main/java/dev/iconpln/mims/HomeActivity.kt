@@ -5,6 +5,7 @@ import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.util.Log
+import android.view.MenuItem
 import android.view.ViewGroup
 import android.widget.Toast
 import androidx.activity.viewModels
@@ -54,6 +55,7 @@ class HomeActivity : AppCompatActivity() {
         }
 
         val navView: BottomNavigationView = binding.navViewPabrikan
+        navView.itemIconTintList = null;
 
         val navController = findNavController(R.id.nav_host_fragment_activity_bottom_navigation)
         navView.setupWithNavController(navController)

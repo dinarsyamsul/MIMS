@@ -48,6 +48,9 @@ class ProfileFragment : Fragment() {
         super.onViewCreated(view, savedInstanceState)
         val session = SessionManager(requireActivity())
 
+        binding.txtName.text = SharedPrefsUtils.getStringPreference(requireActivity(), "username","")
+        binding.txtNameCabang.text = "PLN"
+
         session.is_login_biometric.asLiveData().observe(requireActivity()){
             when(it){
                 1 -> binding.btnSwitch.isChecked = true

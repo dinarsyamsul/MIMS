@@ -321,6 +321,7 @@ class AuthViewModel: ViewModel() {
         daoSession.tMonitoringComplaintDao.deleteAll()
         daoSession.tMonitoringComplaintDetailDao.deleteAll()
         daoSession.tMonitoringSnMaterialDao.deleteAll()
+        daoSession.tPegawaiUp3Dao.deleteAll()
 
 
         if (result != null){
@@ -1060,6 +1061,25 @@ class AuthViewModel: ViewModel() {
                         items[i] = item
                     }
                     daoSession.tMonitoringComplaintDetailDao.insertInTx(items.toList())
+                }
+            }
+
+            if (result.pegawai != null){
+                val size = result.pegawai.size
+                if (size > 0) {
+                    val items = arrayOfNulls<TPegawaiUp3>(size)
+                    var item: TPegawaiUp3
+                    for ((i, model) in result.pegawai.withIndex()){
+                        item = TPegawaiUp3()
+                        item.nip = model?.nip
+                        item.namaPegawai = model?.namaPegawai
+                        item.namaJabatan = model?.namaJabatan
+                        item.kodeJabatan = model?.kodeJabatan
+                        item.plant = model?.plant
+                        item.isActive = model?.isActive
+                        items[i] = item
+                    }
+                    daoSession.tPegawaiUp3Dao.insertInTx(items.toList())
                 }
             }
 

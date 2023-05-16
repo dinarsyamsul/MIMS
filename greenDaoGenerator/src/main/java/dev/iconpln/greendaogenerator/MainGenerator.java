@@ -680,6 +680,15 @@ public class MainGenerator {
         tMonitoringComplaintDetail.addIntProperty("IsChecked");
         tMonitoringComplaintDetail.addIntProperty("IsDone");
 
+        Entity tPegawaiUp3 = schema.addEntity("TPegawaiUp3");
+        tPegawaiUp3.addIdProperty();
+        tPegawaiUp3.addStringProperty("Plant");
+        tPegawaiUp3.addStringProperty("NamaPegawai");
+        tPegawaiUp3.addStringProperty("KodeJabatan");
+        tPegawaiUp3.addStringProperty("NamaJabatan");
+        tPegawaiUp3.addStringProperty("Nip");
+        tPegawaiUp3.addBooleanProperty("IsActive");
+
         new DaoGenerator().generateAll(schema, "../MIMS-Master/app/src/main/java");
 
     }

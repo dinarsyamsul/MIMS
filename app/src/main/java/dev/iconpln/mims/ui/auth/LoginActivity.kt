@@ -5,6 +5,7 @@ import android.Manifest.permission.WRITE_EXTERNAL_STORAGE
 import android.app.Dialog
 import android.content.Intent
 import android.content.pm.PackageManager
+import android.graphics.Color
 import android.net.Uri
 import android.os.Build
 import android.os.Build.VERSION.SDK_INT
@@ -150,9 +151,11 @@ class LoginActivity : AppCompatActivity() {
         }
 
         if (isRememberMe){
-            binding.edtEmail.setText(SharedPrefsUtils.getStringPreference(this@LoginActivity,"username",""))
             binding.cbRememberMe.isChecked = true
+            binding.edtEmail.setText(SharedPrefsUtils.getStringPreference(this@LoginActivity,"username",""))
             Log.d("isCheckedRememberMe",isRememberMe.toString())
+        }else{
+            binding.cbRememberMe.isChecked = false
         }
 
         binding.btnLoginSso.setOnClickListener {
