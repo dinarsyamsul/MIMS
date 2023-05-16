@@ -34,7 +34,7 @@ object ApiConfig {
     }
 
     fun sendPenerimaan(): String {
-        return "$BASE_URL/reports/v3/sendReportPenerimaan"
+        return "$BASE_URL/reports/v4/sendReportPenerimaan"
     }
 
     fun insertLokasi(): String {

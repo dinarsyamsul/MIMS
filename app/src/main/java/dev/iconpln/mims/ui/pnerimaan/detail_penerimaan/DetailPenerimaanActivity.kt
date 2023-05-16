@@ -366,11 +366,9 @@ class DetailPenerimaanActivity : AppCompatActivity(),Loadable {
             .where(TPosDetailPenerimaanDao.Properties.IsDone.eq(1))
             .where(TPosDetailPenerimaanDao.Properties.IsComplaint.eq(1)).list().size > 0
 
-        val checkListPemeriksaan = daoSession.tPemeriksaanDao.queryBuilder()
-            .where(TPemeriksaanDao.Properties.NoDoSmar.eq(noDo))
-            .where(TPemeriksaanDao.Properties.StatusPemeriksaan.notEq("SUDAH DIPERIKSA")).list().size > 0
-
-
+        val checkListPemeriksaan = daoSession.tPemeriksaanDetailDao.queryBuilder()
+            .where(TPemeriksaanDetailDao.Properties.NoDoSmar.eq(noDo))
+            .where(TPemeriksaanDetailDao.Properties.StatusPemeriksaan.eq("BELUM DIPERIKSA")).list().size > 0
 
         if (checkedList.size == 0){
 
