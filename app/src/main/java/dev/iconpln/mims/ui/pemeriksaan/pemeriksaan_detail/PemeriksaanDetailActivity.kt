@@ -351,7 +351,10 @@ class PemeriksaanDetailActivity : AppCompatActivity(), Loadable {
         Log.i("datime","${currentDateTime}")
 
         //region Add report visit to queue
-        var jwt = SharedPrefsUtils.getStringPreference(this@PemeriksaanDetailActivity,"jwt","")
+        var jwtWeb = SharedPrefsUtils.getStringPreference(this@PemeriksaanDetailActivity, "jwtWeb", "")
+        var jwtMobile = SharedPrefsUtils.getStringPreference(this@PemeriksaanDetailActivity,"jwt","")
+        var jwt = "$jwtMobile;$jwtWeb"
+        Log.d("nih jwt nya",jwt)
         var username = SharedPrefsUtils.getStringPreference(this@PemeriksaanDetailActivity, "username","14.Hexing_Electrical")
         val reportId = "temp_pemeriksaan" + username + "_" + noDo + "_" + DateTime.now().toString(
             Config.DATETIME)

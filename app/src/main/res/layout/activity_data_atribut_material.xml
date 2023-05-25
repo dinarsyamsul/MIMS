@@ -139,8 +139,7 @@
                 android:fontFamily="@font/montserrat_medium"
                 android:text="Tanggal Awal"
                 android:textColor="#3F3D56"
-                android:textSize="16sp"
-                android:textStyle="bold"
+                android:textSize="12sp"
                 app:layout_constraintEnd_toStartOf="@id/lbl_end_date"
                 app:layout_constraintHorizontal_chainStyle="spread"
                 app:layout_constraintStart_toStartOf="@+id/tinp_pilihTahun"
@@ -155,6 +154,7 @@
                 android:fontFamily="@font/montserrat_medium"
                 android:textColor="#3F3D56"
                 android:text="Tanggal Akhir"
+                android:textSize="12sp"
                 app:layout_constraintEnd_toEndOf="@+id/tinp_pilihTahun"
                 app:layout_constraintStart_toEndOf="@+id/lbl_start_date"
                 app:layout_constraintTop_toBottomOf="@+id/tinp_pilihTahun" />

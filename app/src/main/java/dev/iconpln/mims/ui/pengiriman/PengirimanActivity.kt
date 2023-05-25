@@ -1,10 +1,12 @@
 package dev.iconpln.mims.ui.pengiriman
 
+import android.R
 import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.text.Editable
 import android.text.TextWatcher
+import android.widget.ArrayAdapter
 import androidx.recyclerview.widget.LinearLayoutManager
 import dev.iconpln.mims.MyApplication
 import dev.iconpln.mims.data.local.database.DaoSession
@@ -18,6 +20,7 @@ class PengirimanActivity : AppCompatActivity() {
     private lateinit var daoSession: DaoSession
     private var noDo=""
     private var noPo=""
+    private var kodeStatus=""
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -62,6 +65,40 @@ class PengirimanActivity : AppCompatActivity() {
             }
         })
 
+        val statusArray = arrayOf(
+            "ALL","DITERIMA","DITOLAK","ONPROGRESS","DALAM PERJALANAN","DIKIRIM"
+        )
+        val adapterStatus = ArrayAdapter(this@PengirimanActivity, R.layout.simple_dropdown_item_1line, statusArray)
+        binding.dropdownStatus.setAdapter(adapterStatus)
+        binding.dropdownStatus.setOnItemClickListener { parent, view, position, id ->
+            val status = statusArray[position]
+            when (status) {
+                "ALL" -> {
+                    kodeStatus = ""
+                    fetchDataLocal()
+                }
+                "DITERIMA" -> {
+                    kodeStatus = "105"
+                    fetchDataLocal()
+                }
+                "ONPROGRESS" -> {
+                    kodeStatus = "103"
+                    fetchDataLocal()
+                }
+                "DALAM PERJALANAN" -> {
+                    kodeStatus = "102"
+                    fetchDataLocal()
+                }
+                "DITOLAK" -> {
+                    kodeStatus = "104"
+                    fetchDataLocal()
+                }
+                "DIKIRIM" -> {
+                    kodeStatus = "100"
+                    fetchDataLocal()
+                }
+            }
+        }
         binding.btnBack.setOnClickListener { onBackPressed() }
 
         fetchDataLocal()
@@ -70,7 +107,17 @@ class PengirimanActivity : AppCompatActivity() {
     private fun fetchDataLocal() {
         var listDataPengiriman = daoSession.tPosDao.queryBuilder()
             .where(TPosDao.Properties.NoDoSmar.like("%" + noDo + "%"),
-            TPosDao.Properties.PoSapNo.like("%" + noPo + "%")).list()
+            TPosDao.Properties.PoSapNo.like("%" + noPo + "%"),
+            TPosDao.Properties.KodeStatusDoMims.like("%"+kodeStatus+"%")).list()
+        binding.rvPengiriman.apply {
+            adapter = null
+            layoutManager = null
+
+            adapter = rvAdapter
+            setHasFixedSize(true)
+            layoutManager = LinearLayoutManager(this@PengirimanActivity)
+        }
+
         rvAdapter.setPengirimanList(listDataPengiriman)
     }
 }

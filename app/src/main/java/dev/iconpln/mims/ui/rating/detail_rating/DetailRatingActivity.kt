@@ -680,7 +680,9 @@ class DetailRatingActivity : AppCompatActivity(),Loadable {
         daoSession.tPosPenerimaanDao.update(penerimaan)
 
         //region Add report visit to queue
-        var jwt = SharedPrefsUtils.getStringPreference(this@DetailRatingActivity,"jwt","")
+        var jwtWeb = SharedPrefsUtils.getStringPreference(this@DetailRatingActivity, "jwtWeb", "")
+        var jwtMobile = SharedPrefsUtils.getStringPreference(this@DetailRatingActivity,"jwt","")
+        var jwt = "$jwtMobile;$jwtWeb"
         var username = SharedPrefsUtils.getStringPreference(this@DetailRatingActivity, "username","14.Hexing_Electrical")
         val reportId = "temp_penerimaan" + username + "_" + noDo + "_" + DateTime.now().toString(
             Config.DATETIME)
@@ -734,32 +736,13 @@ class DetailRatingActivity : AppCompatActivity(),Loadable {
             val file = File(dir, "mims" + "picturesFotoKomplain${UUID.randomUUID()}" + ".png")
             val fOut = FileOutputStream(file)
 
-            bitmap.compress(Bitmap.CompressFormat.PNG, 85, fOut)
+            bitmap.compress(Bitmap.CompressFormat.PNG, 65, fOut)
             fOut.flush()
             fOut.close()
+            Log.d("size foto gallery", file.length().toString())
 
-            var photo = TPhoto()
-            photo.noDo = noDo
-            photo.type = "rating"
-            photo.path = file.toString()
-            photo.photoNumber = photoNumber++
-            daoSession.tPhotoDao.insert(photo)
+            insertDataFoto(file)
 
-            listPhoto = daoSession.tPhotoDao.queryBuilder()
-                .where(TPhotoDao.Properties.NoDo.eq(noDo))
-                .where(TPhotoDao.Properties.Type.eq("rating"))
-                .list()
-
-            adapter.setPhotoList(listPhoto)
-
-            if (listPhoto.isEmpty()){
-                binding.btnUploadPhoto.visibility = View.VISIBLE
-                binding.maksfoto.visibility = View.VISIBLE
-            }else {
-                binding.btnUploadPhoto.visibility = View.GONE
-                binding.maksfoto.visibility = View.GONE
-
-            }
         }else{
             Log.d("cancel", "cacelPhoto")
         }
@@ -790,6 +773,37 @@ class DetailRatingActivity : AppCompatActivity(),Loadable {
             }
         }else{
             Log.d("cancel", "cacelPhoto")
+        }
+    }
+
+    private fun insertDataFoto(file: File) {
+
+        if (file.length() > 200000){
+            Toast.makeText(this@DetailRatingActivity, "Ukuran foto tidak boleh melebihi 200 kb", Toast.LENGTH_SHORT).show()
+            return
+        }
+
+        var photo = TPhoto()
+        photo.noDo = noDo
+        photo.type = "rating"
+        photo.path = file.toString()
+        photo.photoNumber = photoNumber++
+        daoSession.tPhotoDao.insert(photo)
+
+        listPhoto = daoSession.tPhotoDao.queryBuilder()
+            .where(TPhotoDao.Properties.NoDo.eq(noDo))
+            .where(TPhotoDao.Properties.Type.eq("rating"))
+            .list()
+
+        adapter.setPhotoList(listPhoto)
+
+        if (listPhoto.isEmpty()){
+            binding.btnUploadPhoto.visibility = View.VISIBLE
+            binding.maksfoto.visibility = View.VISIBLE
+        }else {
+            binding.btnUploadPhoto.visibility = View.GONE
+            binding.maksfoto.visibility = View.GONE
+
         }
     }
 

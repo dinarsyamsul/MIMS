@@ -2,6 +2,7 @@ package dev.iconpln.mims.ui.pengiriman
 
 import android.content.Context
 import android.content.Intent
+import android.graphics.Color
 import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
@@ -41,11 +42,39 @@ class ListPengirimanAdapter(val context: Context, val lisModels: MutableList<TPo
                 txtNoDo.text = data.noDoMims
                 txtUnit.text = data.plantName
                 txtQuantity.text = data.total
+
+                when (data.kodeStatusDoMims) {
+                    "100" -> {
+                        txtStatus.text = "DIKIRIM"
+                        txtStatus.setBackgroundColor(Color.parseColor("#43CDC305"))
+                        txtStatus.setTextColor(Color.parseColor("#DDCDC305"))
+                    }
+                    "104" -> {
+                        txtStatus.text = "DITOLAK"
+                        txtStatus.setBackgroundColor(Color.parseColor("#6FE22626"))
+                        txtStatus.setTextColor(Color.parseColor("#E22626"))
+                    }
+                    "103" -> {
+                        txtStatus.text = "ONPROGRESS"
+                        txtStatus.setBackgroundColor(Color.parseColor("#6872838A"))
+                        txtStatus.setTextColor(Color.parseColor("#72838A"))
+                    }
+                    "102" -> {
+                        txtStatus.text = "DALAM PERJALANAN"
+                        txtStatus.setBackgroundColor(Color.parseColor("#6805136E"))
+                        txtStatus.setTextColor(Color.parseColor("#05136E"))
+                    }
+                    "105" -> {
+                        txtStatus.text = "DITERIMA"
+                    }
+                }
+
                 btnDetail.setOnClickListener {
                     val intent = Intent(context, DetailPengirimanActivity::class.java)
                     intent.putExtra(DetailPengirimanActivity.EXTRA_NO_PENGIRIMAN, data.noDoSmar)
                     context.startActivity(intent)
                 }
+
                 btnLokasi.setOnClickListener {
                     val intent = Intent(context, UpdateLokasiActivity::class.java)
                     intent.putExtra(UpdateLokasiActivity.EXTRA_NO_DOMIMS, data.noDoMims)

@@ -254,6 +254,22 @@ public class MainGenerator {
 
         //endregion
 
+        //region Pos Detail Penerimaan Akhir
+        Entity tPosDetailPenerimaanAkhir = schema.addEntity("TPosDetailPenerimaanAkhir");
+        tPosDetailPenerimaanAkhir.addIdProperty();
+        tPosDetailPenerimaanAkhir.addStringProperty("NoDoSmar");
+        tPosDetailPenerimaanAkhir.addStringProperty("Qty");
+        tPosDetailPenerimaanAkhir.addStringProperty("KdPabrikan");
+        tPosDetailPenerimaanAkhir.addStringProperty("NoPackaging");
+        tPosDetailPenerimaanAkhir.addStringProperty("SerialNumber");
+        tPosDetailPenerimaanAkhir.addStringProperty("NoMaterial");
+        tPosDetailPenerimaanAkhir.addStringProperty("NamaKategoriMaterial");
+        tPosDetailPenerimaanAkhir.addStringProperty("StorLoc");
+        tPosDetailPenerimaanAkhir.addBooleanProperty("IsComplaint");
+        tPosDetailPenerimaanAkhir.addBooleanProperty("IsReceived");
+        tPosDetailPenerimaanAkhir.addBooleanProperty("IsRejected");
+        //endregion
+
         // region possns
         Entity tPosSns = schema.addEntity("TPosSns");
         tPosSns.addIdProperty();

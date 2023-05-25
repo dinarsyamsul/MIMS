@@ -25,6 +25,9 @@ data class LoginResponse(
 	@field:SerializedName("id_token_sso")
 	val idTokenSso: String? = null,
 
+	@field:SerializedName("webtoken")
+	val webToken: String? = null,
+
 	@field:SerializedName("material_groups")
 	val materialGroups: List<MaterialGroupsItem?>? = null,
 
@@ -104,7 +107,10 @@ data class LoginResponse(
 	val monitoringKomplainDetail: List<MonitoringKomplainDetailItem?>? = null,
 
 	@field:SerializedName("pegawai")
-	val pegawai: List<PegawaiItem?>? = null
+	val pegawai: List<PegawaiItem?>? = null,
+
+	@field:SerializedName("data_penerimaan_akhir")
+	val dataPenerimaanAkhir: List<DataPenerimaanAkhirItem?>? = null
 )
 
 data class RatingsItem(
@@ -1276,4 +1282,40 @@ data class PegawaiItem(
 
 	@field:SerializedName("nama_jabatan")
 	val namaJabatan: String? = null
+)
+
+data class DataPenerimaanAkhirItem(
+
+	@field:SerializedName("is_komplained")
+	val isKomplained: Boolean? = false,
+
+	@field:SerializedName("no_mat_sap")
+	val noMatSap: String? = "",
+
+	@field:SerializedName("stor_loc")
+	val storLoc: String? = "",
+
+	@field:SerializedName("no_do_smar")
+	val noDoSmar: String? = "null",
+
+	@field:SerializedName("kd_pabrikan")
+	val kdPabrikan: String? = "",
+
+	@field:SerializedName("is_rejected")
+	val isRejected: Boolean? = false,
+
+	@field:SerializedName("qty_do")
+	val qtyDo: Int? = 0,
+
+	@field:SerializedName("is_received")
+	val isReceived: Boolean? = false,
+
+	@field:SerializedName("nama_kategori_material")
+	val namaKategoriMaterial: String? = "",
+
+	@field:SerializedName("no_packaging")
+	val noPackaging: String? = "",
+
+	@field:SerializedName("no_serial")
+	val noSerial: String? = ""
 )

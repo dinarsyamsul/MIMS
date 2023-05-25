@@ -15,6 +15,7 @@ import dev.iconpln.mims.MyApplication
 import dev.iconpln.mims.data.local.database.*
 import dev.iconpln.mims.databinding.ActivityPenerimaanBinding
 import dev.iconpln.mims.ui.pnerimaan.detail_penerimaan.DetailPenerimaanActivity
+import dev.iconpln.mims.ui.pnerimaan.detail_penerimaan_akhir.DetailPenerimaanAkhirActivity
 import dev.iconpln.mims.ui.pnerimaan.input_petugas.InputPetugasPenerimaanActivity
 import dev.iconpln.mims.ui.rating.RatingActivity
 import dev.iconpln.mims.utils.SharedPrefsUtils
@@ -70,7 +71,7 @@ class PenerimaanActivity : AppCompatActivity() {
                     if(po.bisaTerima == 0){
                         Toast.makeText(this@PenerimaanActivity, "BABG belum di konfirmasi", Toast.LENGTH_SHORT).show()
                     }else{
-                        if (po.tanggalDiterima.isNullOrEmpty() || po.statusPenerimaan == "DITERIMA"){
+                        if (po.tanggalDiterima.isNullOrEmpty() ){//|| po.statusPenerimaan == "DITERIMA"){
                             Toast.makeText(this@PenerimaanActivity, "Kamu belum melakukan input data penerimaan", Toast.LENGTH_SHORT).show()
                         }else{
                             val penerimaanDetails = daoSession.tPosDetailPenerimaanDao.queryBuilder()
@@ -78,10 +79,13 @@ class PenerimaanActivity : AppCompatActivity() {
                                 .where(TPosDetailPenerimaanDao.Properties.IsDone.eq(0)).list()
 
                             if (penerimaanDetails.isNullOrEmpty()){
-                                Toast.makeText(this@PenerimaanActivity, "Kamu sudah melakukan pemeriksaan dokumen di DO ini", Toast.LENGTH_SHORT).show()
+                                startActivity(Intent(this@PenerimaanActivity, DetailPenerimaanAkhirActivity::class.java)
+                                    .putExtra("noDo", po.noDoSmar))
                             }else{
                                 startActivity(Intent(this@PenerimaanActivity, DetailPenerimaanActivity::class.java)
-                                    .putExtra("noDo", po.noDoSmar))
+                                    .putExtra("noDo", po.noDoSmar)
+                                    .putExtra("isDone", po.isDone)
+                                    .putExtra("checkSn", penerimaanDetails.size))
                             }
                         }
                     }
@@ -97,16 +101,16 @@ class PenerimaanActivity : AppCompatActivity() {
                     if(po.bisaTerima == 0){
                         Toast.makeText(this@PenerimaanActivity, "BABG belum di konfirmasi", Toast.LENGTH_SHORT).show()
                     }else{
-                        if (po.isDone == 1){
-                            Toast.makeText(this@PenerimaanActivity, "Kamu sudah melakukan rating di DO ini", Toast.LENGTH_SHORT).show()
-                        }else{
+//                        if (po.isDone == 1){
+//                            Toast.makeText(this@PenerimaanActivity, "Kamu sudah melakukan rating di DO ini", Toast.LENGTH_SHORT).show()
+//                        }else{
                             if (po.isRating == 1){
                                 startActivity(Intent(this@PenerimaanActivity, RatingActivity::class.java)
                                     .putExtra("noDo", po.noDoSmar))
                             }else{
                                 Toast.makeText(this@PenerimaanActivity, "Kamu belum bisa melakukan rating", Toast.LENGTH_SHORT).show()
                             }
-                        }
+//                        }
                     }
                 }
             }
@@ -181,8 +185,16 @@ class PenerimaanActivity : AppCompatActivity() {
                     if (model.statusPemeriksaan.isNullOrEmpty()) item.statusPemeriksaan = "" else item.statusPemeriksaan = model.statusPemeriksaan
                     item.doLineItem = model?.doLineItem
                     item.isComplaint = 0
-                    item.isChecked = 0
-                    item.isDone = 0
+                    if (model.statusPenerimaan == "DITERIMA"){
+                        item.isDone = 1
+                        item.isChecked = 1
+                    }else if (model.statusPenerimaan == "BELUM DIPERIKSA"){
+                        item.isDone = 1
+                        item.isChecked = 1
+                    }else{
+                        item.isDone = 0
+                        item.isChecked = 0
+                    }
                     item.partialCode = ""
                     items[i] = item
                 }

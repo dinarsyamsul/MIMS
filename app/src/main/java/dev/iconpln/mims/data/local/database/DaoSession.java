@@ -20,6 +20,7 @@ import dev.iconpln.mims.data.local.database.TMaterial;
 import dev.iconpln.mims.data.local.database.TPos;
 import dev.iconpln.mims.data.local.database.TPosPenerimaan;
 import dev.iconpln.mims.data.local.database.TPosDetailPenerimaan;
+import dev.iconpln.mims.data.local.database.TPosDetailPenerimaanAkhir;
 import dev.iconpln.mims.data.local.database.TPosSns;
 import dev.iconpln.mims.data.local.database.TSnPermaterial;
 import dev.iconpln.mims.data.local.database.TPemeriksaan;
@@ -60,6 +61,7 @@ import dev.iconpln.mims.data.local.database.TMaterialDao;
 import dev.iconpln.mims.data.local.database.TPosDao;
 import dev.iconpln.mims.data.local.database.TPosPenerimaanDao;
 import dev.iconpln.mims.data.local.database.TPosDetailPenerimaanDao;
+import dev.iconpln.mims.data.local.database.TPosDetailPenerimaanAkhirDao;
 import dev.iconpln.mims.data.local.database.TPosSnsDao;
 import dev.iconpln.mims.data.local.database.TSnPermaterialDao;
 import dev.iconpln.mims.data.local.database.TPemeriksaanDao;
@@ -109,6 +111,7 @@ public class DaoSession extends AbstractDaoSession {
     private final DaoConfig tPosDaoConfig;
     private final DaoConfig tPosPenerimaanDaoConfig;
     private final DaoConfig tPosDetailPenerimaanDaoConfig;
+    private final DaoConfig tPosDetailPenerimaanAkhirDaoConfig;
     private final DaoConfig tPosSnsDaoConfig;
     private final DaoConfig tSnPermaterialDaoConfig;
     private final DaoConfig tPemeriksaanDaoConfig;
@@ -149,6 +152,7 @@ public class DaoSession extends AbstractDaoSession {
     private final TPosDao tPosDao;
     private final TPosPenerimaanDao tPosPenerimaanDao;
     private final TPosDetailPenerimaanDao tPosDetailPenerimaanDao;
+    private final TPosDetailPenerimaanAkhirDao tPosDetailPenerimaanAkhirDao;
     private final TPosSnsDao tPosSnsDao;
     private final TSnPermaterialDao tSnPermaterialDao;
     private final TPemeriksaanDao tPemeriksaanDao;
@@ -216,6 +220,9 @@ public class DaoSession extends AbstractDaoSession {
 
         tPosDetailPenerimaanDaoConfig = daoConfigMap.get(TPosDetailPenerimaanDao.class).clone();
         tPosDetailPenerimaanDaoConfig.initIdentityScope(type);
+
+        tPosDetailPenerimaanAkhirDaoConfig = daoConfigMap.get(TPosDetailPenerimaanAkhirDao.class).clone();
+        tPosDetailPenerimaanAkhirDaoConfig.initIdentityScope(type);
 
         tPosSnsDaoConfig = daoConfigMap.get(TPosSnsDao.class).clone();
         tPosSnsDaoConfig.initIdentityScope(type);
@@ -310,6 +317,7 @@ public class DaoSession extends AbstractDaoSession {
         tPosDao = new TPosDao(tPosDaoConfig, this);
         tPosPenerimaanDao = new TPosPenerimaanDao(tPosPenerimaanDaoConfig, this);
         tPosDetailPenerimaanDao = new TPosDetailPenerimaanDao(tPosDetailPenerimaanDaoConfig, this);
+        tPosDetailPenerimaanAkhirDao = new TPosDetailPenerimaanAkhirDao(tPosDetailPenerimaanAkhirDaoConfig, this);
         tPosSnsDao = new TPosSnsDao(tPosSnsDaoConfig, this);
         tSnPermaterialDao = new TSnPermaterialDao(tSnPermaterialDaoConfig, this);
         tPemeriksaanDao = new TPemeriksaanDao(tPemeriksaanDaoConfig, this);
@@ -350,6 +358,7 @@ public class DaoSession extends AbstractDaoSession {
         registerDao(TPos.class, tPosDao);
         registerDao(TPosPenerimaan.class, tPosPenerimaanDao);
         registerDao(TPosDetailPenerimaan.class, tPosDetailPenerimaanDao);
+        registerDao(TPosDetailPenerimaanAkhir.class, tPosDetailPenerimaanAkhirDao);
         registerDao(TPosSns.class, tPosSnsDao);
         registerDao(TSnPermaterial.class, tSnPermaterialDao);
         registerDao(TPemeriksaan.class, tPemeriksaanDao);
@@ -392,6 +401,7 @@ public class DaoSession extends AbstractDaoSession {
         tPosDaoConfig.clearIdentityScope();
         tPosPenerimaanDaoConfig.clearIdentityScope();
         tPosDetailPenerimaanDaoConfig.clearIdentityScope();
+        tPosDetailPenerimaanAkhirDaoConfig.clearIdentityScope();
         tPosSnsDaoConfig.clearIdentityScope();
         tSnPermaterialDaoConfig.clearIdentityScope();
         tPemeriksaanDaoConfig.clearIdentityScope();
@@ -467,6 +477,10 @@ public class DaoSession extends AbstractDaoSession {
 
     public TPosDetailPenerimaanDao getTPosDetailPenerimaanDao() {
         return tPosDetailPenerimaanDao;
+    }
+
+    public TPosDetailPenerimaanAkhirDao getTPosDetailPenerimaanAkhirDao() {
+        return tPosDetailPenerimaanAkhirDao;
     }
 
     public TPosSnsDao getTPosSnsDao() {

@@ -51,7 +51,8 @@ class PemeriksaanAdapter(
                 var listPemDetail = daoSession.tPemeriksaanDetailDao.queryBuilder()
                     .where(TPemeriksaanDetailDao.Properties.NoPemeriksaan.eq(pe.noPemeriksaan))
                     .where(TPemeriksaanDetailDao.Properties.IsPeriksa.eq(1))
-                    .where(TPemeriksaanDetailDao.Properties.StatusPemeriksaan.eq("BELUM DIPERIKSA"))
+                    .whereOr(TPemeriksaanDetailDao.Properties.StatusPemeriksaan.eq("BELUM DIPERIKSA"),
+                    TPemeriksaanDetailDao.Properties.StatusPemeriksaan.eq("SEDANG DIPERIKSA"))
                     .where(TPemeriksaanDetailDao.Properties.IsComplaint.eq(0))
                     .where(TPemeriksaanDetailDao.Properties.NoPemeriksaan.notEq(""))
                     .list()
@@ -67,7 +68,7 @@ class PemeriksaanAdapter(
                     ivDoc.setImageResource(R.drawable.ic_input_doc_false)
                 }
 
-                if (pe.isDone == 1 || listPemDetail.size == 0){
+                if (pe.isDone == 1 ){//|| listPemDetail.size == 0){
                     listPem.statusPemeriksaan = "SUDAH DIPERIKSA"
                     daoSession.tPemeriksaanDao.update(listPem)
                     txtStatusPemeriksaan.text = "SUDAH DIPERIKSA"

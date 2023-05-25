@@ -201,8 +201,11 @@ class InputDataPemeriksaActivity : AppCompatActivity(),Loadable {
         Log.i("datime","${currentDateTime}")
 
         //region Add report visit to queue
-        var jwt = SharedPrefsUtils.getStringPreference(this@InputDataPemeriksaActivity,"jwt","")
+        var jwtWeb = SharedPrefsUtils.getStringPreference(this@InputDataPemeriksaActivity, "jwtWeb", "")
+        var jwtMobile = SharedPrefsUtils.getStringPreference(this@InputDataPemeriksaActivity,"jwt","")
+        var jwt = "$jwtMobile;$jwtWeb"
         var username = SharedPrefsUtils.getStringPreference(this@InputDataPemeriksaActivity, "username","14.Hexing_Electrical")
+        var plant = SharedPrefsUtils.getStringPreference(this@InputDataPemeriksaActivity, "plant","")
         val reportId = "temp_pemeriksaan" + username + "_" + pemeriksaan.noDoSmar + "_" + DateTime.now().toString(
             Config.DATETIME)
         val reportName = "Update Data Petugas Pemeriksaan"
@@ -226,6 +229,8 @@ class InputDataPemeriksaActivity : AppCompatActivity(),Loadable {
         params.add(ReportParameter("16", reportId, "nip_anggota", anggota.nip, ReportParameter.TEXT))
         params.add(ReportParameter("17", reportId, "kd_jabatan_anggota", anggota.kodeJabatan, ReportParameter.TEXT))
         params.add(ReportParameter("18", reportId, "anggota_baru", "", ReportParameter.TEXT))
+        params.add(ReportParameter("19", reportId, "no_pemeriksaan", pemeriksaan.noPemeriksaan, ReportParameter.TEXT))
+        params.add(ReportParameter("20", reportId, "plantation", plant!!, ReportParameter.TEXT))
 
         val report = GenericReport(reportId, jwt!!, reportName, reportDescription, ApiConfig.sendPemeriksaanPerson(), currentDate, Config.NO_CODE, currentUtc, params)
         reports.add(report)

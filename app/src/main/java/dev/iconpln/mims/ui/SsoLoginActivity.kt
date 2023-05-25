@@ -83,6 +83,7 @@ class SsoLoginActivity : AppCompatActivity() {
                         Log.d("checkUsername",it.user?.userName!!)
                         Log.d("checkIdTokenSSO", it?.idTokenSso!!)
                         SharedPrefsUtils.setStringPreference(this@SsoLoginActivity, "username", it.user?.userName!!)
+                        SharedPrefsUtils.setStringPreference(this@SsoLoginActivity, "jwtWeb", it.webToken!!)
                         SharedPrefsUtils.setStringPreference(this@SsoLoginActivity,"jwt", it.token!!)
                         SharedPrefsUtils.setStringPreference(this@SsoLoginActivity,"idTokenSso", it.idTokenSso!!)
                         SharedPrefsUtils.setStringPreference(this@SsoLoginActivity, "email", it.user?.mail!!)

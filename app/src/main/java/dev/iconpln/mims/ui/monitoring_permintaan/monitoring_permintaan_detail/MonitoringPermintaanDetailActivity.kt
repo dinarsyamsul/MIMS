@@ -77,7 +77,7 @@ class MonitoringPermintaanDetailActivity : AppCompatActivity(),Loadable {
                 }
             }
 
-        })
+        },daoSession)
 
         viewModel.monitoringPermintaanDetailResponse.observe(this){
             adapter.setMpList(it)
@@ -201,7 +201,9 @@ class MonitoringPermintaanDetailActivity : AppCompatActivity(),Loadable {
         Log.i("datime","${currentDateTime}")
 
         //region Add report visit to queue
-        var jwt = SharedPrefsUtils.getStringPreference(this@MonitoringPermintaanDetailActivity,"jwt","")
+        var jwtWeb = SharedPrefsUtils.getStringPreference(this@MonitoringPermintaanDetailActivity, "jwtWeb", "")
+        var jwtMobile = SharedPrefsUtils.getStringPreference(this@MonitoringPermintaanDetailActivity,"jwt","")
+        var jwt = "$jwtMobile;$jwtWeb"
         var username = SharedPrefsUtils.getStringPreference(this@MonitoringPermintaanDetailActivity, "username","14.Hexing_Electrical")
         val reportId = "temp_permintaan" + username + "_" + noPermintaan + "_" + DateTime.now().toString(
             Config.DATETIME)

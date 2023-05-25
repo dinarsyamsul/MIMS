@@ -49,20 +49,34 @@ class DetailPenerimaanAdapter(val lisModels: MutableList<TPosDetailPenerimaan>,
                 if (role == 10){
                     cbSesuai.isEnabled = false
                     cbTidakSesuai.isEnabled = false
-                }else{
-                    cbSesuai.isEnabled = true
-                    cbTidakSesuai.isEnabled = true
                 }
 
-                if (tpd.isChecked == 1 && tpd.statusPenerimaan == "SESUAI"){
-                    cbSesuai.isChecked = true
+                if (tpd.isChecked == 1 && tpd.statusPenerimaan == "SESUAI"
+                    || tpd.isChecked == 1 && tpd.statusPenerimaan == "DITERIMA"
+                    || tpd.isChecked == 1 && tpd.statusPenerimaan == "BELUM DIPERIKSA"){
+                    if (tpd.isDone == 1){
+                        cbSesuai.isChecked = true
+                        cbTidakSesuai.isChecked = false
+                        cbSesuai.isEnabled = false
+                        cbTidakSesuai.isEnabled = false
+                    }else{
+                        cbSesuai.isChecked = true
+                        cbTidakSesuai.isChecked = false
+                    }
+                }else if (tpd.isChecked == 1 && tpd.statusPenerimaan == "TIDAK SESUAI"
+                    || tpd.isChecked == 1 && tpd.statusPenerimaan == "KOMPLAIN"){
+                    if (tpd.isDone == 1){
+                        cbSesuai.isChecked = false
+                        cbTidakSesuai.isChecked = true
+                        cbSesuai.isEnabled = false
+                        cbTidakSesuai.isEnabled = false
+                    }else{
+                        cbTidakSesuai.isChecked = true
+                        cbSesuai.isChecked = false
+                    }
+                }else{
                     cbTidakSesuai.isChecked = false
-                }else if (tpd.isChecked == 1 && tpd.statusPenerimaan == "TIDAK SESUAI"){
-                    cbTidakSesuai.isChecked = true
                     cbSesuai.isChecked = false
-                }else {
-                    cbSesuai.isChecked = false
-                    cbTidakSesuai.isChecked = false
                 }
 
                 cbTidakSesuai.setOnCheckedChangeListener { buttonView, isChecked ->

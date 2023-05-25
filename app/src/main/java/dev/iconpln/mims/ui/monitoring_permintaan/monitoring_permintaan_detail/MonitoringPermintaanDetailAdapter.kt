@@ -5,6 +5,7 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
 import dev.iconpln.mims.R
+import dev.iconpln.mims.data.local.database.DaoSession
 import dev.iconpln.mims.data.local.database.TMonitoringPermintaan
 import dev.iconpln.mims.data.local.database.TMonitoringPermintaanDetail
 import dev.iconpln.mims.data.local.database.TPos
@@ -13,7 +14,8 @@ import dev.iconpln.mims.databinding.ItemDataMonitoringPermintaanBinding
 import dev.iconpln.mims.databinding.ItemDataMonitoringPermintaanDetailBinding
 import dev.iconpln.mims.databinding.ItemDataMonitoringPurchaseBinding
 
-class MonitoringPermintaanDetailAdapter(val lisModels: MutableList<TTransMonitoringPermintaanDetail>, var listener: OnAdapterListener)
+class MonitoringPermintaanDetailAdapter(val lisModels: MutableList<TTransMonitoringPermintaanDetail>,
+                                        var listener: OnAdapterListener, var daoSession: DaoSession)
     : RecyclerView.Adapter<MonitoringPermintaanDetailAdapter.ViewHolder>() {
 
     fun setMpList(po: List<TTransMonitoringPermintaanDetail>){

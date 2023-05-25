@@ -23,7 +23,7 @@
         android:layout_marginStart="10dp"
         android:layout_marginTop="20dp"
         android:text="Detail Data Attribute"
-        android:fontFamily="@font/montserrat"
+        android:fontFamily="@font/montserrat_medium"
         android:textColor="#3B3B3B"
         android:textSize="12sp"
         android:textStyle="bold"

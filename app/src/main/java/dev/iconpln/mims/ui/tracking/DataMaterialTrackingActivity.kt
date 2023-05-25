@@ -6,6 +6,7 @@ import android.widget.Toast
 import androidx.activity.viewModels
 import androidx.appcompat.app.AppCompatActivity
 import dev.iconpln.mims.databinding.ActivityDataMaterialTrackingBinding
+import dev.iconpln.mims.utils.SharedPrefsUtils
 
 class DataMaterialTrackingActivity : AppCompatActivity() {
 
@@ -17,7 +18,6 @@ class DataMaterialTrackingActivity : AppCompatActivity() {
         binding = ActivityDataMaterialTrackingBinding.inflate(layoutInflater)
         setContentView(binding.root)
         binding.btnBack.setOnClickListener { onBackPressed() }
-
 
         try {
             val extras = intent.extras

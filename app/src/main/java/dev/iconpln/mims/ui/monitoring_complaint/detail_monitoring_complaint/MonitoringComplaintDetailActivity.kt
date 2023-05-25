@@ -162,7 +162,7 @@ class MonitoringComplaintDetailActivity : AppCompatActivity(), Loadable {
                 lblSesuai.visibility = View.GONE
                 lblTidakSesuai.visibility = View.GONE
                 btnReject.visibility = View.GONE
-                btnKomplain.visibility = View.GONE
+//                btnKomplain.visibility = View.GONE
                 btnTerima.visibility = View.GONE
                 imageView20.visibility = View.GONE
                 tvTotalNormal.visibility = View.GONE
@@ -313,7 +313,10 @@ class MonitoringComplaintDetailActivity : AppCompatActivity(), Loadable {
         Log.i("datime","${currentDateTime}")
 
         //region Add report visit to queue
-        var jwt = SharedPrefsUtils.getStringPreference(this@MonitoringComplaintDetailActivity,"jwt","")
+        var jwtWeb = SharedPrefsUtils.getStringPreference(this@MonitoringComplaintDetailActivity, "jwtWeb", "")
+        var jwtMobile = SharedPrefsUtils.getStringPreference(this@MonitoringComplaintDetailActivity,"jwt","")
+        var jwt = "$jwtMobile;$jwtWeb"
+        Log.d("nih jwt nya",jwt)
         var username = SharedPrefsUtils.getStringPreference(this@MonitoringComplaintDetailActivity, "username","14.Hexing_Electrical")
         val reportId = "temp_terima_komplain" + username + "_" + noDo + "_" + DateTime.now().toString(
             Config.DATETIME)
@@ -440,7 +443,10 @@ class MonitoringComplaintDetailActivity : AppCompatActivity(), Loadable {
         Log.i("datime","${currentDateTime}")
 
         //region Add report visit to queue
-        var jwt = SharedPrefsUtils.getStringPreference(this@MonitoringComplaintDetailActivity,"jwt","")
+        var jwtWeb = SharedPrefsUtils.getStringPreference(this@MonitoringComplaintDetailActivity, "jwtWeb", "")
+        var jwtMobile = SharedPrefsUtils.getStringPreference(this@MonitoringComplaintDetailActivity,"jwt","")
+        var jwt = "$jwtMobile;$jwtWeb"
+        Log.d("nih jwt nya",jwt)
         var username = SharedPrefsUtils.getStringPreference(this@MonitoringComplaintDetailActivity, "username","14.Hexing_Electrical")
         val reportId = "temp_terima_komplain" + username + "_" + noDo + "_" + DateTime.now().toString(
             Config.DATETIME)

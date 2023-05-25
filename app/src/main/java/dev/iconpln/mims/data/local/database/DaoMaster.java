@@ -33,6 +33,7 @@ public class DaoMaster extends AbstractDaoMaster {
         TPosDao.createTable(db, ifNotExists);
         TPosPenerimaanDao.createTable(db, ifNotExists);
         TPosDetailPenerimaanDao.createTable(db, ifNotExists);
+        TPosDetailPenerimaanAkhirDao.createTable(db, ifNotExists);
         TPosSnsDao.createTable(db, ifNotExists);
         TSnPermaterialDao.createTable(db, ifNotExists);
         TPemeriksaanDao.createTable(db, ifNotExists);
@@ -76,6 +77,7 @@ public class DaoMaster extends AbstractDaoMaster {
         TPosDao.dropTable(db, ifExists);
         TPosPenerimaanDao.dropTable(db, ifExists);
         TPosDetailPenerimaanDao.dropTable(db, ifExists);
+        TPosDetailPenerimaanAkhirDao.dropTable(db, ifExists);
         TPosSnsDao.dropTable(db, ifExists);
         TSnPermaterialDao.dropTable(db, ifExists);
         TPemeriksaanDao.dropTable(db, ifExists);
@@ -133,6 +135,7 @@ public class DaoMaster extends AbstractDaoMaster {
         registerDaoClass(TPosDao.class);
         registerDaoClass(TPosPenerimaanDao.class);
         registerDaoClass(TPosDetailPenerimaanDao.class);
+        registerDaoClass(TPosDetailPenerimaanAkhirDao.class);
         registerDaoClass(TPosSnsDao.class);
         registerDaoClass(TSnPermaterialDao.class);
         registerDaoClass(TPemeriksaanDao.class);

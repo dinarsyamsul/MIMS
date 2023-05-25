@@ -27,17 +27,27 @@
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toTopOf="parent" />
 
-            <ImageView
-                android:id="@+id/dasboard2"
+            <com.denzcoskun.imageslider.ImageSlider
+                android:id="@+id/imageSlider"
                 android:layout_width="match_parent"
-                android:layout_height="180dp"
-                android:layout_marginStart="24dp"
-                android:layout_marginTop="13dp"
-                android:layout_marginEnd="24dp"
-                android:background="@drawable/dashboard1"
+                android:layout_height="0dp"
+                android:layout_marginStart="20dp"
+                android:layout_marginTop="10dp"
+                android:layout_marginEnd="20dp"
+                android:layout_marginBottom="10dp"
+                app:iss_auto_cycle="true"
+                app:iss_corner_radius="10"
+                app:iss_delay="0"
+                app:iss_error_image="@android:color/darker_gray"
+                app:iss_period="3000"
+                app:iss_placeholder="@android:color/darker_gray"
+                app:iss_selected_dot="@drawable/indicator_selected"
+                app:iss_unselected_dot="@drawable/indicator_unselected"
+                app:layout_constraintBottom_toBottomOf="@+id/dashboard"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/back" />
+                app:layout_constraintTop_toBottomOf="@+id/back"
+                tools:ignore="MissingConstraints" />
 
             <de.hdodenhof.circleimageview.CircleImageView
                 android:id="@+id/back"

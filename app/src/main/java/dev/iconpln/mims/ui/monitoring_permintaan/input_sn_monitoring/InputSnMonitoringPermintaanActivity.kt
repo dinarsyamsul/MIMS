@@ -175,6 +175,7 @@ class InputSnMonitoringPermintaanActivity : AppCompatActivity() {
 
                             val reloadList = daoSession.tMonitoringSnMaterialDao.queryBuilder()
                                 .where(TMonitoringSnMaterialDao.Properties.NoRepackaging.eq(noRepackaging))
+                                .where(TMonitoringSnMaterialDao.Properties.NomorMaterial.eq(noMaterial))
                                 .list()
 
                             adapter.setTmsList(reloadList)

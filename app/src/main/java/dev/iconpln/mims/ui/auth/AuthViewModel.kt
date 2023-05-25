@@ -322,7 +322,7 @@ class AuthViewModel: ViewModel() {
         daoSession.tMonitoringComplaintDetailDao.deleteAll()
         daoSession.tMonitoringSnMaterialDao.deleteAll()
         daoSession.tPegawaiUp3Dao.deleteAll()
-
+        daoSession.tPosDetailPenerimaanAkhirDao.deleteAll()
 
         if (result != null){
 
@@ -1080,6 +1080,30 @@ class AuthViewModel: ViewModel() {
                         items[i] = item
                     }
                     daoSession.tPegawaiUp3Dao.insertInTx(items.toList())
+                }
+            }
+
+            if (result.dataPenerimaanAkhir != null){
+                val size = result.dataPenerimaanAkhir.size
+                if (size > 0) {
+                    val items = arrayOfNulls<TPosDetailPenerimaanAkhir>(size)
+                    var item: TPosDetailPenerimaanAkhir
+                    for ((i, model) in result.dataPenerimaanAkhir.withIndex()){
+                        item = TPosDetailPenerimaanAkhir()
+                        item.kdPabrikan = model?.kdPabrikan
+                        item.noDoSmar = model?.noDoSmar
+                        item.qty = model?.qtyDo.toString()
+                        item.storLoc = model?.storLoc
+                        item.isComplaint = model?.isKomplained
+                        item.isReceived = model?.isReceived
+                        item.isRejected = model?.isRejected
+                        item.namaKategoriMaterial = model?.namaKategoriMaterial
+                        item.noMaterial = model?.noMatSap
+                        item.noPackaging = model?.noPackaging
+                        item.serialNumber = model?.noSerial
+                        items[i] = item
+                    }
+                    daoSession.tPosDetailPenerimaanAkhirDao.insertInTx(items.toList())
                 }
             }
 

@@ -14,6 +14,8 @@ import androidx.appcompat.widget.AppCompatButton
 import androidx.cardview.widget.CardView
 import androidx.core.view.marginBottom
 import androidx.fragment.app.Fragment
+import com.denzcoskun.imageslider.constants.ScaleTypes
+import com.denzcoskun.imageslider.models.SlideModel
 import com.google.android.material.bottomsheet.BottomSheetDialog
 import dev.iconpln.mims.HomeActivity
 import dev.iconpln.mims.MyApplication
@@ -61,6 +63,11 @@ class HomeFragment : Fragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
+        val imageList = ArrayList<SlideModel>()
+        imageList.add(SlideModel(R.drawable.dashboard1))
+        imageList.add(SlideModel(R.drawable.dashboard1))
+        imageList.add(SlideModel(R.drawable.dashboard1))
+        binding.imageSlider.setImageList(imageList,ScaleTypes.FIT)
 
         val nilaiPenerimaanUlp = daoSession.tPenerimaanUlpDao.queryBuilder()
             .whereOr(TPenerimaanUlpDao.Properties.StatusPenerimaan.notEq("DITERIMA"),
@@ -378,6 +385,7 @@ class HomeFragment : Fragment() {
         daoSession.tMonitoringComplaintDetailDao.deleteAll()
         daoSession.tMonitoringSnMaterialDao.deleteAll()
         daoSession.tPegawaiUp3Dao.deleteAll()
+        daoSession.tPosDetailPenerimaanAkhirDao.deleteAll()
 
 
         if (result != null){
@@ -1136,6 +1144,30 @@ class HomeFragment : Fragment() {
                         items[i] = item
                     }
                     daoSession.tPegawaiUp3Dao.insertInTx(items.toList())
+                }
+            }
+
+            if (result.dataPenerimaanAkhir != null){
+                val size = result.dataPenerimaanAkhir.size
+                if (size > 0) {
+                    val items = arrayOfNulls<TPosDetailPenerimaanAkhir>(size)
+                    var item: TPosDetailPenerimaanAkhir
+                    for ((i, model) in result.dataPenerimaanAkhir.withIndex()){
+                        item = TPosDetailPenerimaanAkhir()
+                        item.kdPabrikan = model?.kdPabrikan
+                        item.noDoSmar = model?.noDoSmar
+                        item.qty = model?.qtyDo.toString()
+                        item.storLoc = model?.storLoc
+                        item.isComplaint = model?.isKomplained
+                        item.isReceived = model?.isReceived
+                        item.isRejected = model?.isRejected
+                        item.namaKategoriMaterial = model?.namaKategoriMaterial
+                        item.noMaterial = model?.noMatSap
+                        item.noPackaging = model?.noPackaging
+                        item.serialNumber = model?.noSerial
+                        items[i] = item
+                    }
+                    daoSession.tPosDetailPenerimaanAkhirDao.insertInTx(items.toList())
                 }
             }
 

@@ -41,112 +41,143 @@
         app:layout_constraintStart_toEndOf="@+id/btn_back"
         app:layout_constraintTop_toTopOf="parent" />
 
-    <androidx.constraintlayout.widget.ConstraintLayout
+    <ScrollView
         android:layout_width="match_parent"
         android:layout_height="0dp"
-        android:paddingBottom="10dp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/header">
 
-
-        <TextView
-            android:id="@+id/lbl_po"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginStart="32dp"
-            android:layout_marginTop="24dp"
-            android:text="Nomor PO"
-            android:textColor="#3F3D56"
-            android:textSize="14sp"
-            android:textStyle="bold"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent" />
-
-        <EditText
-            android:id="@+id/txt_po"
-            android:layout_width="0dp"
-            android:layout_height="@dimen/_35sdp"
-            android:layout_marginStart="32dp"
-            android:layout_marginTop="@dimen/_6sdp"
-            android:layout_marginEnd="32dp"
-            android:background="@drawable/srchview"
-            android:fontFamily="@font/montserrat_reguler"
-            android:hint="No PO"
-            android:paddingLeft="@dimen/_10sdp"
-            android:textSize="12sp"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/lbl_po" />
-
-        <TextView
-            android:id="@+id/lbl_do"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginStart="32dp"
-            android:layout_marginTop="@dimen/_10sdp"
-            android:text="Nomor DO"
-            android:textColor="#3F3D56"
-            android:textSize="14sp"
-            android:textStyle="bold"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@id/txt_po" />
-
-        <EditText
-            android:id="@+id/txt_do"
-            android:layout_width="0dp"
-            android:layout_height="@dimen/_35sdp"
-            android:layout_marginStart="32dp"
-            android:layout_marginTop="@dimen/_6sdp"
-            android:layout_marginEnd="32dp"
-            android:background="@drawable/srchview"
-            android:fontFamily="@font/montserrat_reguler"
-            android:hint="No DO"
-            android:paddingLeft="@dimen/_10sdp"
-            android:textSize="12sp"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/lbl_do" />
-
-        <androidx.cardview.widget.CardView
-            android:id="@+id/cv_daftarList"
+        <androidx.constraintlayout.widget.ConstraintLayout
             android:layout_width="match_parent"
             android:layout_height="0dp"
-            android:layout_marginStart="24dp"
-            android:layout_marginTop="24dp"
-            android:layout_marginEnd="24dp"
             android:paddingBottom="10dp"
-            app:cardCornerRadius="5dp"
-            app:cardElevation="10dp"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/txt_do">
+            app:layout_constraintTop_toBottomOf="@+id/header">
 
-            <androidx.constraintlayout.widget.ConstraintLayout
-                android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:background="#FFFFFF">
+            <TextView
+                android:id="@+id/lbl_po"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="32dp"
+                android:layout_marginTop="24dp"
+                android:text="Nomor PO"
+                android:textColor="#3F3D56"
+                android:textSize="14sp"
+                android:textStyle="bold"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent" />
 
-                <androidx.recyclerview.widget.RecyclerView
-                    android:id="@+id/rv_pengiriman"
+            <EditText
+                android:id="@+id/txt_po"
+                android:layout_width="0dp"
+                android:layout_height="50dp"
+                android:layout_marginStart="32dp"
+                android:layout_marginTop="@dimen/_6sdp"
+                android:layout_marginEnd="32dp"
+                android:background="@drawable/srchview"
+                android:fontFamily="@font/montserrat_reguler"
+                android:hint="No PO"
+                android:paddingLeft="@dimen/_10sdp"
+                android:textSize="12sp"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/lbl_po" />
+
+            <TextView
+                android:id="@+id/lbl_do"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="32dp"
+                android:layout_marginTop="@dimen/_10sdp"
+                android:text="Nomor DO"
+                android:textColor="#3F3D56"
+                android:textSize="14sp"
+                android:textStyle="bold"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/txt_po" />
+
+            <EditText
+                android:id="@+id/txt_do"
+                android:layout_width="0dp"
+                android:layout_height="50dp"
+                android:layout_marginStart="32dp"
+                android:layout_marginTop="@dimen/_6sdp"
+                android:layout_marginEnd="32dp"
+                android:background="@drawable/srchview"
+                android:fontFamily="@font/montserrat_reguler"
+                android:hint="No DO"
+                android:paddingLeft="@dimen/_10sdp"
+                android:textSize="12sp"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/lbl_do" />
+
+            <TextView
+                android:id="@+id/lbl_status"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="32dp"
+                android:layout_marginTop="13dp"
+                android:text="Status"
+                android:textColor="#3F3D56"
+                android:textSize="14sp"
+                android:textStyle="bold"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/txt_do" />
+
+            <com.google.android.material.textfield.TextInputLayout
+                android:id="@+id/tinp_pilihStatus"
+                style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox.ExposedDropdownMenu"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="8dp"
+                app:hintAnimationEnabled="true"
+                app:layout_constraintEnd_toEndOf="@+id/txt_do"
+                app:layout_constraintStart_toStartOf="@+id/txt_do"
+                app:layout_constraintTop_toBottomOf="@+id/lbl_status">
+
+                <AutoCompleteTextView
+                    android:id="@+id/dropdown_status"
+                    style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox.ExposedDropdownMenu"
                     android:layout_width="match_parent"
-                    android:layout_height="match_parent"
-                    tools:listitem="@layout/item_pengiriman" />
-
-                <ProgressBar
-                    android:id="@+id/progress_bar"
-                    style="@style/Widget.AppCompat.ProgressBar"
-                    android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:visibility="gone"
-                    app:layout_constraintEnd_toEndOf="parent"
-                    app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toTopOf="parent" />
-            </androidx.constraintlayout.widget.ConstraintLayout>
-        </androidx.cardview.widget.CardView>
+                    android:layout_weight="1"
+                    android:background="@drawable/txt_input_layout"
+                    android:fontFamily="@font/montserrat_reguler"
+                    android:inputType="none"
+                    android:text="Pilih Status"
+                    android:textColor="#028097"
+                    android:textSize="12sp" />
 
-    </androidx.constraintlayout.widget.ConstraintLayout>
+            </com.google.android.material.textfield.TextInputLayout>
+
+            <androidx.recyclerview.widget.RecyclerView
+                android:id="@+id/rv_pengiriman"
+                android:layout_width="match_parent"
+                android:layout_height="500dp"
+                android:layout_marginTop="15dp"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/tinp_pilihStatus"
+                tools:listitem="@layout/item_data_pengiriman" />
+
+            <ProgressBar
+                android:id="@+id/progress_bar"
+                style="@style/Widget.AppCompat.ProgressBar"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:visibility="gone"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent" />
+
+        </androidx.constraintlayout.widget.ConstraintLayout>
+
+    </ScrollView>
 
 </androidx.constraintlayout.widget.ConstraintLayout>

@@ -164,7 +164,9 @@ class DetailPemakaianUlpYantekActivity : AppCompatActivity(),Loadable {
         }
 
         //region Add report visit to queue
-        var jwt = SharedPrefsUtils.getStringPreference(this@DetailPemakaianUlpYantekActivity,"jwt","")
+        var jwtWeb = SharedPrefsUtils.getStringPreference(this@DetailPemakaianUlpYantekActivity, "jwtWeb", "")
+        var jwtMobile = SharedPrefsUtils.getStringPreference(this@DetailPemakaianUlpYantekActivity,"jwt","")
+        var jwt = "$jwtMobile;$jwtWeb"
         var plant = SharedPrefsUtils.getStringPreference(this@DetailPemakaianUlpYantekActivity,"plant","")
         var storloc = SharedPrefsUtils.getStringPreference(this@DetailPemakaianUlpYantekActivity,"storloc","")
         var username = SharedPrefsUtils.getStringPreference(this@DetailPemakaianUlpYantekActivity, "username","14.Hexing_Electrical")

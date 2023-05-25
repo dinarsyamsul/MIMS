@@ -185,6 +185,10 @@ class ComplaintPemeriksaanActivity : AppCompatActivity(),Loadable {
             .where(TPemeriksaanDetailDao.Properties.NoDoSmar.eq(noDo))
             .where(TPemeriksaanDetailDao.Properties.IsDone.eq(0))
             .where(TPemeriksaanDetailDao.Properties.IsChecked.eq(1)).list()
+
+        var detailPenerimaanAkhir = daoSession.tPosDetailPenerimaanAkhirDao.queryBuilder()
+            .where(TPosDetailPenerimaanAkhirDao.Properties.NoDoSmar.eq(noDo)).list()
+
         for (i in checkedDetPen){
             sns += "${i.noPackaging},${i.sn},SEDANG KOMPLAIN,${pemeriksaan.doLineItem},${i.noMaterail};"
             Log.i("noPackaging", i.noPackaging)
@@ -197,7 +201,16 @@ class ComplaintPemeriksaanActivity : AppCompatActivity(),Loadable {
         for (i in checkedDetPen){
             i.isComplaint = 1
             i.isDone = 1
+            i.statusPenerimaan = "KOMPLAIN"
+            i.statusPemeriksaan = "SELESAI"
             daoSession.tPemeriksaanDetailDao.update(i)
+
+            for (j in detailPenerimaanAkhir){
+                if (j.serialNumber == i.sn){
+                    j.isComplaint = true
+                    daoSession.tPosDetailPenerimaanAkhirDao.update(j)
+                }
+            }
         }
 
         if (checkedDetPen.isEmpty()){
@@ -216,7 +229,9 @@ class ComplaintPemeriksaanActivity : AppCompatActivity(),Loadable {
         Log.i("datime","${currentDateTime}")
 
         //region Add report visit to queue
-        var jwt = SharedPrefsUtils.getStringPreference(this@ComplaintPemeriksaanActivity,"jwt","")
+        var jwtWeb = SharedPrefsUtils.getStringPreference(this@ComplaintPemeriksaanActivity, "jwtWeb", "")
+        var jwtMobile = SharedPrefsUtils.getStringPreference(this@ComplaintPemeriksaanActivity,"jwt","")
+        var jwt = "$jwtMobile;$jwtWeb"
         var username = SharedPrefsUtils.getStringPreference(this@ComplaintPemeriksaanActivity, "username","14.Hexing_Electrical")
         val reportId = "temp_pemeriksaan" + username + "_" + noDo + "_" + DateTime.now().toString(
             Config.DATETIME)
@@ -299,29 +314,12 @@ class ComplaintPemeriksaanActivity : AppCompatActivity(),Loadable {
             val file = File(dir, "mims" + "picturesFotoKomplain${UUID.randomUUID()}" + ".png")
             val fOut = FileOutputStream(file)
 
-            bitmap.compress(Bitmap.CompressFormat.PNG, 85, fOut)
+            bitmap.compress(Bitmap.CompressFormat.PNG, 65, fOut)
             fOut.flush()
             fOut.close()
 
-            var photo = TPhoto()
-            photo.noDo = noPem
-            photo.type = "complaint_pemeriksaan"
-            photo.path = file.toString()
-            photo.photoNumber = photoNumber++
-            daoSession.tPhotoDao.insert(photo)
+            insertDataFoto(file)
 
-            listPhoto = daoSession.tPhotoDao.queryBuilder()
-                .where(TPhotoDao.Properties.Type.eq("complaint_pemeriksaan"))
-                .where(TPhotoDao.Properties.NoDo.eq(noPem))
-                .list()
-
-            if (listPhoto.isEmpty()){
-                binding.btnUploadPhoto.visibility = View.VISIBLE
-            }else {
-                binding.btnUploadPhoto.visibility = View.GONE
-            }
-
-            adapter.setPhotoList(listPhoto)
         }else{
             Log.d("cancel", "cacelPhoto")
         }
@@ -350,6 +348,34 @@ class ComplaintPemeriksaanActivity : AppCompatActivity(),Loadable {
         }else{
             Log.d("cancel", "cacelPhoto")
         }
+    }
+
+    private fun insertDataFoto(file: File) {
+
+        if (file.length() > 200000){
+            Toast.makeText(this@ComplaintPemeriksaanActivity, "Ukuran foto tidak boleh melebihi 200 kb", Toast.LENGTH_SHORT).show()
+            return
+        }
+
+        var photo = TPhoto()
+        photo.noDo = noPem
+        photo.type = "complaint_pemeriksaan"
+        photo.path = file.toString()
+        photo.photoNumber = photoNumber++
+        daoSession.tPhotoDao.insert(photo)
+
+        listPhoto = daoSession.tPhotoDao.queryBuilder()
+            .where(TPhotoDao.Properties.Type.eq("complaint_pemeriksaan"))
+            .where(TPhotoDao.Properties.NoDo.eq(noPem))
+            .list()
+
+        if (listPhoto.isEmpty()){
+            binding.btnUploadPhoto.visibility = View.VISIBLE
+        }else {
+            binding.btnUploadPhoto.visibility = View.GONE
+        }
+
+        adapter.setPhotoList(listPhoto)
     }
 
     override fun setLoading(show: Boolean, title: String, message: String) {

@@ -290,9 +290,41 @@ class InputPetugasPenerimaanActivity : AppCompatActivity(), Loadable {
             dialog.dismiss();
             submitForm(tglDiterima,petugasPenerima,namaKurir)
             insertDefaultRating()
+            insertDataAwalPenerimaanAkhir()
         }
 
         dialog.show();
+    }
+
+    private fun insertDataAwalPenerimaanAkhir() {
+        val dataPenerimaanAkhir = daoSession.tPosDetailPenerimaanAkhirDao.queryBuilder()
+            .where(TPosDetailPenerimaanAkhirDao.Properties.NoDoSmar.eq(noDo)).list()
+
+        if (dataPenerimaanAkhir.isNullOrEmpty()){
+            val listDos = daoSession.tPosSnsDao.queryBuilder()
+                .where(TPosSnsDao.Properties.NoDoSmar.eq(noDo)).list()
+            val size = listDos.size
+            if (size > 0) {
+                val items = arrayOfNulls<TPosDetailPenerimaanAkhir>(size)
+                var item: TPosDetailPenerimaanAkhir
+                for ((i, model) in listDos.withIndex()){
+                    item = TPosDetailPenerimaanAkhir()
+                    item.storLoc = model.storLoc
+                    item.serialNumber = model.noSerial
+                    item.isComplaint = false
+                    item.kdPabrikan = model.kdPabrikan
+                    item.isReceived = false
+                    item.noPackaging = model.noPackaging
+                    item.noMaterial = model.noMatSap
+                    item.namaKategoriMaterial = model.namaKategoriMaterial
+                    item.isRejected = false
+                    item.qty = size.toString()
+                    item.noDoSmar = model.noDoSmar
+                    items[i] = item
+                }
+                daoSession.tPosDetailPenerimaanAkhirDao.insertInTx(items.toList())
+            }
+        }
     }
 
     @RequiresApi(Build.VERSION_CODES.O)
@@ -368,6 +400,7 @@ class InputPetugasPenerimaanActivity : AppCompatActivity(), Loadable {
 
         //region Add report visit to queue
         var jwt = SharedPrefsUtils.getStringPreference(this@InputPetugasPenerimaanActivity,"jwt","")
+        Log.d("nih jwt nya",jwt.toString())
         var username = SharedPrefsUtils.getStringPreference(this@InputPetugasPenerimaanActivity, "username","14.Hexing_Electrical")
         val reportId = "temp_penerimaan" + username + "_" + noDo + "_" + DateTime.now().toString(Config.DATETIME)
         val reportName = "Update Data Penerimaan"
@@ -415,30 +448,13 @@ class InputPetugasPenerimaanActivity : AppCompatActivity(), Loadable {
             val file = File(dir, "mims" + "picturesFotoPetugasPenerimaan${UUID.randomUUID()}" + ".png")
             val fOut = FileOutputStream(file)
 
-            bitmap.compress(Bitmap.CompressFormat.PNG, 85, fOut)
+            bitmap.compress(Bitmap.CompressFormat.PNG, 60, fOut)
             fOut.flush()
             fOut.close()
 
-            var photo = TPhoto()
-            photo.noDo = noDo
-            photo.type = "input penerima"
-            photo.path = file.toString()
-            photo.photoNumber = photoNumber++
-            daoSession.tPhotoDao.insert(photo)
+            Log.d("size fotonya", file.length().toString())
 
-            listPhoto = daoSession.tPhotoDao.queryBuilder()
-                .where(TPhotoDao.Properties.NoDo.eq(noDo))
-                .where(TPhotoDao.Properties.Type.eq("input penerima"))
-                .list()
-
-            if (listPhoto.isEmpty()){
-                binding.btnUploadPhoto.visibility = View.VISIBLE
-                binding.maksfoto.visibility = View.VISIBLE
-            }else {
-                binding.btnUploadPhoto.visibility = View.GONE
-                binding.maksfoto.visibility = View.GONE
-            }
-            adapter.setPhotoList(listPhoto)
+            insertDataFoto(file)
         }else{
             Log.d("cancel", "cacelPhoto")
         }
@@ -470,6 +486,35 @@ class InputPetugasPenerimaanActivity : AppCompatActivity(), Loadable {
         }else{
             Log.d("cancel", "cacelPhoto")
         }
+    }
+
+    private fun insertDataFoto(file: File) {
+
+        if (file.length() > 200000){
+            Toast.makeText(this@InputPetugasPenerimaanActivity, "Ukuran foto tidak boleh melebihi 200 kb", Toast.LENGTH_SHORT).show()
+            return
+        }
+
+        var photo = TPhoto()
+        photo.noDo = noDo
+        photo.type = "input penerima"
+        photo.path = file.toString()
+        photo.photoNumber = photoNumber++
+        daoSession.tPhotoDao.insert(photo)
+
+        listPhoto = daoSession.tPhotoDao.queryBuilder()
+            .where(TPhotoDao.Properties.NoDo.eq(noDo))
+            .where(TPhotoDao.Properties.Type.eq("input penerima"))
+            .list()
+
+        if (listPhoto.isEmpty()){
+            binding.btnUploadPhoto.visibility = View.VISIBLE
+            binding.maksfoto.visibility = View.VISIBLE
+        }else {
+            binding.btnUploadPhoto.visibility = View.GONE
+            binding.maksfoto.visibility = View.GONE
+        }
+        adapter.setPhotoList(listPhoto)
     }
 
     override fun onBackPressed() {

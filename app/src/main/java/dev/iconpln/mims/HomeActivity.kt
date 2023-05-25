@@ -22,6 +22,7 @@ import dev.iconpln.mims.databinding.ActivityHomeBinding
 import dev.iconpln.mims.ui.pnerimaan.PenerimaanViewModel
 import dev.iconpln.mims.ui.tracking.DataMaterialTrackingActivity
 import dev.iconpln.mims.ui.tracking.SpecMaterialActivity
+import dev.iconpln.mims.utils.SharedPrefsUtils
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
@@ -32,6 +33,7 @@ class HomeActivity : AppCompatActivity() {
     private val viewModel: PenerimaanViewModel by viewModels()
     private lateinit var daoSession: DaoSession
     private lateinit var dialog : Dialog
+    private var jwt = ""
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -39,6 +41,7 @@ class HomeActivity : AppCompatActivity() {
         setContentView(binding.root)
         daoSession = (application as MyApplication).daoSession!!
         val penerimaan = daoSession.tPosPenerimaanDao.queryBuilder().list()
+        jwt = SharedPrefsUtils.getStringPreference(this@HomeActivity, "jwt","")!!
 
         dialog = Dialog(this@HomeActivity)
         dialog.setContentView(R.layout.popup_loading)

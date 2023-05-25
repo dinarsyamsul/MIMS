@@ -133,6 +133,12 @@ interface ApiService {
         @Field("do_mims") doMims: String
     ): Response<LokasiResponse>
 
+    @FormUrlEncoded
+    @POST("/penerimaan/getDokumentasiPenerimaan")
+    suspend fun getDokumentasi(
+        @Field("no_do") noDo: String
+    ): Response<DocumentationResponse>
+
     @Headers("Authorization: Bearer eyJhbGciOiJIUzUxMiJ9.eyJzdWIiOiJ7XCJ1c2VyX2lkXCI6MTk2LFwidXNlcl9uYW1lXCI6XCI1MjUwMC5BR0FcIixcInVzZXJfcGxhbnRcIjpcIjUyMjFcIixcInVzZXJfc2xvY1wiOlwiMjEzMFwiLFwidXNlcl9yb2xlXCI6XCIzXCIsXCJlbWFpbFwiOlwiYWppc2V0aWFqaTEwNkBnbWFpbC5jb21cIn0iLCJleHAiOjE3MTE4OTY5ODUsImlhdCI6MTY4MDM2MDk4NX0._-EZj7gvH36ooZ9THEOJz1eAPOQNJ-VhVmlmYUHTHnZmaFfJgQY9xqltAtVtrf3xlk-2YEzIscvgzPHLzsD6BQ")
     @GET("/aktivasimaterial/getMonitoringAktivasiMaterial")
     suspend fun getMonitoringAktivasiMaterial(

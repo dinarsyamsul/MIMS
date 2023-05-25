@@ -17,6 +17,7 @@ import androidx.activity.viewModels
 import androidx.appcompat.app.AppCompatActivity
 import androidx.appcompat.widget.AppCompatButton
 import androidx.recyclerview.widget.LinearLayoutManager
+import androidx.recyclerview.widget.RecyclerView
 import com.journeyapps.barcodescanner.ScanContract
 import com.journeyapps.barcodescanner.ScanIntentResult
 import com.journeyapps.barcodescanner.ScanOptions
@@ -37,6 +38,10 @@ import dev.iconpln.mims.ui.pnerimaan.PenerimaanViewModel
 import dev.iconpln.mims.utils.Config
 import dev.iconpln.mims.utils.DateTimeUtils
 import dev.iconpln.mims.utils.SharedPrefsUtils
+import kotlinx.coroutines.CoroutineScope
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.launch
+import kotlinx.coroutines.withContext
 import org.joda.time.DateTime
 import org.joda.time.LocalDateTime
 import java.util.ArrayList
@@ -51,7 +56,10 @@ class DetailPenerimaanActivity : AppCompatActivity(),Loadable {
     private lateinit var adapter: DetailPenerimaanAdapter
     private lateinit var listDetailPen: MutableList<TPosDetailPenerimaan>
     private lateinit var penerimaan: TPosPenerimaan
+    private lateinit var listDokumentasi: List<String>
     private var noDo: String = ""
+    private var isDone = 0
+    private var checkSn = 0
     private var partialCode = ""
     private var role = 0
 
@@ -61,8 +69,11 @@ class DetailPenerimaanActivity : AppCompatActivity(),Loadable {
         setContentView(binding.root)
         daoSession = (application as MyApplication).daoSession!!
         noDo = intent.getStringExtra("noDo")!!
+        isDone = intent.getIntExtra("isDone",0)
+        checkSn = intent.getIntExtra("checkSn",0)
         partialCode = "${noDo}${UUID.randomUUID()}"
         role = SharedPrefsUtils.getIntegerPreference(this@DetailPenerimaanActivity, "roleId",0)
+        getDokumentasi(noDo)
 
         listDetailPen = if (role == 10){
             daoSession.tPosDetailPenerimaanDao.queryBuilder()
@@ -72,7 +83,8 @@ class DetailPenerimaanActivity : AppCompatActivity(),Loadable {
                 .where(TPosDetailPenerimaanDao.Properties.NoDoSmar.eq(noDo))
                 .whereOr(TPosDetailPenerimaanDao.Properties.StatusPenerimaan.notEq("DITERIMA"),
                     TPosDetailPenerimaanDao.Properties.StatusPenerimaan.notEq("BELUM DIPERIKSA"))
-                .where(TPosDetailPenerimaanDao.Properties.IsDone.eq(0)).list()
+                .where(TPosDetailPenerimaanDao.Properties.IsDone.eq(0))
+                .list()
         }
 
         penerimaan = daoSession.tPosPenerimaanDao.queryBuilder()
@@ -94,12 +106,44 @@ class DetailPenerimaanActivity : AppCompatActivity(),Loadable {
             txtDeliveryOrder.text = penerimaan.noDoSmar
             txtNamaKurir.text = penerimaan.kurirPengantar
 
+            txtDokumentasi.setOnClickListener {
+                val dialog = Dialog(this@DetailPenerimaanActivity)
+                dialog.setContentView(R.layout.popup_dokumentasi)
+                dialog.window!!.setLayout(ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.WRAP_CONTENT)
+                dialog.setCancelable(false)
+                dialog.window!!.attributes.windowAnimations = R.style.DialogUpDown
+                val adapter = DetailPenerimaanDokumentasiAdapter(arrayListOf())
+
+                val recyclerView = dialog.findViewById<RecyclerView>(R.id.rv_dokumentasi)
+                val btnClose = dialog.findViewById<ImageView>(R.id.btn_close)
+
+                recyclerView.adapter = adapter
+                recyclerView.layoutManager = LinearLayoutManager(this@DetailPenerimaanActivity,LinearLayoutManager.HORIZONTAL,false)
+                recyclerView.setHasFixedSize(true)
+
+                adapter.setData(listDokumentasi)
+
+                btnClose.setOnClickListener {
+                    dialog.dismiss()
+                }
+
+                dialog.show();
+            }
+
             btnScanPackaging.setOnClickListener {
-                openScanner(1)
+                if (isDone == 1 || role == 10 || checkSn == 0){
+                    Toast.makeText(this@DetailPenerimaanActivity, "DO tidak dapat di scan", Toast.LENGTH_SHORT).show()
+                }else{
+                    openScanner(1)
+                }
             }
 
             btnScanSn.setOnClickListener {
-                openScanner(2)
+                if (isDone == 1 || role == 10 || checkSn == 0){
+                    Toast.makeText(this@DetailPenerimaanActivity, "DO tidak dapat di scan", Toast.LENGTH_SHORT).show()
+                }else{
+                    openScanner(2)
+                }
             }
 
             srcNoSn.addTextChangedListener(object : TextWatcher {
@@ -115,6 +159,13 @@ class DetailPenerimaanActivity : AppCompatActivity(),Loadable {
                 }
 
             })
+
+            if (isDone == 1 || checkSn == 0){
+                btnKomplain.isEnabled = false
+                btnKomplain.setBackgroundColor(Color.GRAY)
+                btnTerima.isEnabled = false
+                btnTerima.setBackgroundColor(Color.GRAY)
+            }
 
             if (role == 10){
                 cbSesuai.isEnabled = false
@@ -136,19 +187,23 @@ class DetailPenerimaanActivity : AppCompatActivity(),Loadable {
                 cbTidakSesuai.isEnabled = !isChecked
                 if (isChecked){
                     for (i in listDetailPen){
-                        i.statusPenerimaan = "SESUAI"
-                        i.isChecked = 1
-                        i.partialCode = partialCode
-                        daoSession.update(i)
+                        if (i.isDone != 1){
+                            i.statusPenerimaan = "SESUAI"
+                            i.isChecked = 1
+                            i.partialCode = partialCode
+                            daoSession.update(i)
+                        }
                     }
                     Log.d("partialCode", partialCode)
                     adapter.setData(listDetailPen)
                 }else{
                     for (i in listDetailPen){
-                        i.statusPenerimaan = ""
-                        i.isChecked = 0
-                        i.partialCode = ""
-                        daoSession.update(i)
+                        if (i.isDone != 1){
+                            i.statusPenerimaan = ""
+                            i.isChecked = 0
+                            i.partialCode = ""
+                            daoSession.update(i)
+                        }
                     }
                     Log.d("partialCode", partialCode)
                     adapter.setData(listDetailPen)
@@ -159,16 +214,20 @@ class DetailPenerimaanActivity : AppCompatActivity(),Loadable {
                 cbSesuai.isEnabled = !isChecked
                 if (isChecked){
                     for (i in listDetailPen){
-                        i.statusPenerimaan = "TIDAK SESUAI"
-                        i.isChecked = 1
-                        daoSession.update(i)
+                        if(i.isDone != 1){
+                            i.statusPenerimaan = "TIDAK SESUAI"
+                            i.isChecked = 1
+                            daoSession.update(i)
+                        }
                     }
                     adapter.setData(listDetailPen)
                 }else{
                     for (i in listDetailPen){
-                        i.statusPenerimaan = ""
-                        i.isChecked = 0
-                        daoSession.update(i)
+                        if (i.isDone != 1){
+                            i.statusPenerimaan = ""
+                            i.isChecked = 0
+                            daoSession.update(i)
+                        }
                     }
                     adapter.setData(listDetailPen)
                 }
@@ -186,6 +245,30 @@ class DetailPenerimaanActivity : AppCompatActivity(),Loadable {
         }
     }
 
+    private fun getDokumentasi(noDo: String) {
+        CoroutineScope(Dispatchers.IO).launch {
+            val response = ApiConfig.getApiService(this@DetailPenerimaanActivity).getDokumentasi(noDo)
+            withContext(Dispatchers.Main){
+                if (response.isSuccessful){
+                    try {
+                        if (response.body()?.status == "failure"){
+                            Toast.makeText(this@DetailPenerimaanActivity, response.body()?.message,Toast.LENGTH_SHORT).show()
+                        }else{
+                            listDokumentasi = response.body()?.doc?.array!!
+                        }
+                    }catch (e: Exception){
+                        Toast.makeText(this@DetailPenerimaanActivity, response.body()?.message,Toast.LENGTH_SHORT).show()
+                        e.printStackTrace()
+                    }finally {
+                        Log.d("Error","Terjadi Kesalahan")
+                    }
+                }else{
+                    Toast.makeText(this@DetailPenerimaanActivity, response.message(),Toast.LENGTH_SHORT).show()
+                }
+            }
+        }
+    }
+
     private fun validTerima() {
         var data = daoSession.tPosDetailPenerimaanDao.queryBuilder()
             .where(TPosDetailPenerimaanDao.Properties.NoDoSmar.eq(noDo))
@@ -193,6 +276,11 @@ class DetailPenerimaanActivity : AppCompatActivity(),Loadable {
             .where(TPosDetailPenerimaanDao.Properties.IsChecked.eq(1)).list()
 
         Log.d("size", data.size.toString())
+
+        if(isDone == 1 || checkSn == 0){
+            Toast.makeText(this@DetailPenerimaanActivity, "DO ini sudah di terima", Toast.LENGTH_SHORT).show()
+            return
+        }
 
         if (data.size > 0){
             for (i in data){
@@ -231,11 +319,15 @@ class DetailPenerimaanActivity : AppCompatActivity(),Loadable {
     private fun submitForm(isPeriksa: Int) {
         var sns = ""
         var statusSn = if (isPeriksa == 0) "DITERIMA" else "BELUM DIPERIKSA"
+
         var checkedDetPen = daoSession.tPosDetailPenerimaanDao.queryBuilder()
             .where(TPosDetailPenerimaanDao.Properties.NoDoSmar.eq(noDo))
             .where(TPosDetailPenerimaanDao.Properties.IsChecked.eq(1))
             .where(TPosDetailPenerimaanDao.Properties.IsDone.eq(0))
             .where(TPosDetailPenerimaanDao.Properties.IsComplaint.eq(0)).list()
+
+        var detailPenerimaanAkhir = daoSession.tPosDetailPenerimaanAkhirDao.queryBuilder()
+            .where(TPosDetailPenerimaanAkhirDao.Properties.NoDoSmar.eq(noDo)).list()
 
         for (i in checkedDetPen){
             sns += "${i.noPackaging},${i.serialNumber},${i.noMaterial},$statusSn,${i.doLineItem};"
@@ -254,7 +346,10 @@ class DetailPenerimaanActivity : AppCompatActivity(),Loadable {
         Log.i("datime","${currentDateTime}")
 
         //region Add report visit to queue
-        var jwt = SharedPrefsUtils.getStringPreference(this@DetailPenerimaanActivity,"jwt","")
+        var jwtWeb = SharedPrefsUtils.getStringPreference(this@DetailPenerimaanActivity, "jwtWeb", "")
+        var jwtMobile = SharedPrefsUtils.getStringPreference(this@DetailPenerimaanActivity,"jwt","")
+        var jwt = "$jwtMobile;$jwtWeb"
+        Log.d("nih jwt nya",jwt)
         var username = SharedPrefsUtils.getStringPreference(this@DetailPenerimaanActivity, "username","14.Hexing_Electrical")
         val reportId = "temp_penerimaan" + username + "_" + noDo + "_" + DateTime.now().toString(
             Config.DATETIME)
@@ -283,6 +378,13 @@ class DetailPenerimaanActivity : AppCompatActivity(),Loadable {
         for (i in checkedDetPen){
             i.isDone = 1
             daoSession.tPosDetailPenerimaanDao.update(i)
+
+            for (j in detailPenerimaanAkhir){
+                if (j.serialNumber == i.serialNumber){
+                    j.isReceived = true
+                    daoSession.tPosDetailPenerimaanAkhirDao.update(j)
+                }
+            }
         }
 
         var noPrk = "PRK${noDo}${currentDateTime}"
@@ -337,7 +439,7 @@ class DetailPenerimaanActivity : AppCompatActivity(),Loadable {
                     item.isDone = 0
                     item.isChecked = 0
                     item.statusPenerimaan = model.statusPenerimaan
-                    item.statusPemeriksaan = ""
+                    item.statusPemeriksaan = "BELUM DIPERIKSA"
                     item.sn = model.serialNumber
                     item.noDoSmar = model.noDoSmar
                     item.kategori = model.namaKategoriMaterial
@@ -428,6 +530,11 @@ class DetailPenerimaanActivity : AppCompatActivity(),Loadable {
             .where(TPosDetailPenerimaanDao.Properties.IsDone.eq(0))
             .where(TPosDetailPenerimaanDao.Properties.IsChecked.eq(1)).list()
 
+        if(isDone == 1 || checkSn == 0){
+            Toast.makeText(this@DetailPenerimaanActivity, "DO ini sudah di terima", Toast.LENGTH_SHORT).show()
+            return
+        }
+
         if (data.size > 0){
             for (i in data){
                 Log.d("checkList", i.statusPenerimaan)
@@ -468,9 +575,11 @@ class DetailPenerimaanActivity : AppCompatActivity(),Loadable {
                 val listPackagings = daoSession.tPosDetailPenerimaanDao.queryBuilder().where(TPosDetailPenerimaanDao.Properties.NoPackaging.eq(result.contents)).list()
                 Log.d("listPackaging", listPackagings.size.toString())
                 for (i in listPackagings){
-                    i.statusPenerimaan = "SESUAI"
-                    i.isChecked = 1
-                    daoSession.tPosDetailPenerimaanDao.update(i)
+                    if (i.isDone != 1){
+                        i.statusPenerimaan = "SESUAI"
+                        i.isChecked = 1
+                        daoSession.tPosDetailPenerimaanDao.update(i)
+                    }
                 }
                 adapter.setData(listDetailPen)
             }
@@ -489,9 +598,11 @@ class DetailPenerimaanActivity : AppCompatActivity(),Loadable {
                     .where(TPosDetailPenerimaanDao.Properties.SerialNumber.eq(result.contents)).limit(1).unique()
                 Log.i("hit sns", listSns.toString())
 
-                listSns.statusPenerimaan = "SESUAI"
-                listSns.isChecked = 1
-                daoSession.tPosDetailPenerimaanDao.update(listSns)
+                if (listSns.isDone != 1){
+                    listSns.statusPenerimaan = "SESUAI"
+                    listSns.isChecked = 1
+                    daoSession.tPosDetailPenerimaanDao.update(listSns)
+                }
 
                 adapter.setData(listDetailPen)
             }
@@ -524,10 +635,12 @@ class DetailPenerimaanActivity : AppCompatActivity(),Loadable {
         btnYa.setOnClickListener {
             super.onBackPressed()
             for (i in listDetailPen){
-                i.statusPenerimaan = ""
-                i.isChecked = 0
-                i.partialCode = ""
-                daoSession.update(i)
+                if (i.isDone != 1){
+                    i.statusPenerimaan = ""
+                    i.isChecked = 0
+                    i.partialCode = ""
+                    daoSession.update(i)
+                }
             }
 
             dialog.dismiss()

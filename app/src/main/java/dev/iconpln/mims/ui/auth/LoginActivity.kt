@@ -97,6 +97,7 @@ class LoginActivity : AppCompatActivity() {
                             it.user?.mail.toString(),
                             it.user?.kdUser.toString()
                         )
+                        SharedPrefsUtils.setStringPreference(this@LoginActivity, "jwtWeb", it.webToken!!)
                         SharedPrefsUtils.setStringPreference(this@LoginActivity,"jwt", it.token!!)
                         SharedPrefsUtils.setStringPreference(this@LoginActivity, "username", username)
                         SharedPrefsUtils.setStringPreference(this@LoginActivity, "email", it.user?.mail!!)
