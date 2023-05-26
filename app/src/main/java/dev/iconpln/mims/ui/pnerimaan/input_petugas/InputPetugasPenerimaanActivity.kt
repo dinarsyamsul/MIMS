@@ -139,7 +139,10 @@ class InputPetugasPenerimaanActivity : AppCompatActivity(), Loadable {
                 edtNamaKurir.isFocusable = false
             }
 
-            edtTanggalDiterima.setText("${dataPen.tanggalDiterima}")
+            val formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd")
+            val currentDate = LocalDate.now().format(formatter)
+
+            edtTanggalDiterima.setText(if (dataPen.tanggalDiterima.isNullOrEmpty()) currentDate else dataPen.tanggalDiterima)
             edtPetugasPenerima.setText("${dataPen.petugasPenerima}")
 
             if (dataPen.expeditions.isNullOrEmpty()) edtEkspedisi.setText("JNE") else edtEkspedisi.setText("${dataPen.expeditions}")

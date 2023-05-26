@@ -105,8 +105,10 @@ class ComplaintPemeriksaanActivity : AppCompatActivity(),Loadable {
 
                     if (newList.isEmpty()){
                         binding.btnUploadPhoto.visibility = View.VISIBLE
+                        binding.txtFilePhoto.visibility = View.VISIBLE
                     }else {
                         binding.btnUploadPhoto.visibility = View.GONE
+                        binding.txtFilePhoto.visibility = View.GONE
                     }
                 }
 
@@ -126,8 +128,10 @@ class ComplaintPemeriksaanActivity : AppCompatActivity(),Loadable {
 
             if (listPhoto.isEmpty()){
                 btnUploadPhoto.visibility = View.VISIBLE
+                txtFilePhoto.visibility = View.VISIBLE
             }else {
                 btnUploadPhoto.visibility = View.GONE
+                txtFilePhoto.visibility = View.GONE
             }
 
             btnUploadPhoto.setOnClickListener {
@@ -340,8 +344,10 @@ class ComplaintPemeriksaanActivity : AppCompatActivity(),Loadable {
 
             if (listPhoto.isEmpty()){
                 binding.btnUploadPhoto.visibility = View.VISIBLE
+                binding.txtFilePhoto.visibility = View.VISIBLE
             }else {
                 binding.btnUploadPhoto.visibility = View.GONE
+                binding.txtFilePhoto.visibility = View.GONE
             }
 
             adapter.setPhotoList(listPhoto)
@@ -371,8 +377,10 @@ class ComplaintPemeriksaanActivity : AppCompatActivity(),Loadable {
 
         if (listPhoto.isEmpty()){
             binding.btnUploadPhoto.visibility = View.VISIBLE
+            binding.txtFilePhoto.visibility = View.VISIBLE
         }else {
             binding.btnUploadPhoto.visibility = View.GONE
+            binding.txtFilePhoto.visibility = View.GONE
         }
 
         adapter.setPhotoList(listPhoto)

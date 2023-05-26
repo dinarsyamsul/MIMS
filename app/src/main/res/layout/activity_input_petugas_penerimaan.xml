@@ -215,7 +215,9 @@
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="10dp"
+                android:layout_marginBottom="10dp"
                 android:visibility="visible"
+                app:layout_constraintBottom_toTopOf="@+id/btn_simpan"
                 app:layout_constraintEnd_toEndOf="@+id/edt_ekspedisi"
                 app:layout_constraintStart_toStartOf="@+id/btn_upload_photo"
                 app:layout_constraintTop_toBottomOf="@+id/btn_upload_photo"
@@ -226,7 +228,6 @@
                 android:id="@+id/btn_simpan"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="250dp"
                 android:layout_marginBottom="10dp"
                 android:background="@drawable/br_btn"
                 android:elevation="8dp"
@@ -237,8 +238,7 @@
                 android:textStyle="bold"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintEnd_toEndOf="@+id/edt_ekspedisi"
-                app:layout_constraintStart_toStartOf="@+id/edt_ekspedisi"
-                app:layout_constraintTop_toBottomOf="@+id/rv_add_foto" />
+                app:layout_constraintStart_toStartOf="@+id/edt_ekspedisi" />
 
         </androidx.constraintlayout.widget.ConstraintLayout>
     </ScrollView>

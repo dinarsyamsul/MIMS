@@ -340,6 +340,19 @@
                 app:layout_constraintStart_toStartOf="@+id/editText"
                 app:layout_constraintTop_toBottomOf="@+id/textView17" />
 
+            <TextView
+                android:id="@+id/txt_file_photo"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="8dp"
+                android:text="Maksimal 5 file photo"
+                android:fontFamily="@font/montserrat_medium"
+                android:textSize="12sp"
+                app:layout_constraintBottom_toBottomOf="@+id/btn_upload_photo"
+                app:layout_constraintEnd_toEndOf="@+id/textView17"
+                app:layout_constraintStart_toEndOf="@+id/btn_upload_photo"
+                app:layout_constraintTop_toTopOf="@+id/btn_upload_photo" />
+
             <androidx.recyclerview.widget.RecyclerView
                 android:id="@+id/rv_add_foto"
                 android:layout_width="0dp"
@@ -361,7 +374,7 @@
                 android:background="@drawable/br_btn"
                 android:elevation="8dp"
                 android:fontFamily="@font/montserrat_reguler"
-                android:text="Simpan"
+                android:text="Kirim"
                 android:textAllCaps="false"
                 android:textColor="#FFFFFF"
                 android:textStyle="bold"
