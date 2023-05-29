@@ -45,6 +45,8 @@ public class TPos {
     private Boolean IsBabg;
     private Boolean IsBabgConfirm;
     private Boolean SlaIntegrasiSap;
+    private String Eta;
+    private String Etd;
 
     @Generated
     public TPos() {
@@ -55,7 +57,7 @@ public class TPos {
     }
 
     @Generated
-    public TPos(Long id, String StorLoc, String Total, String TlskNo, String PoSapNo, String PoMpNo, String NoDoSmar, Integer LeadTime, String Storloc, String CreatedDate, String PlanCodeNo, String PlantName, String PoDate, String NoDoMims, String DoStatus, String Expeditions, String KodeStatusDoMims, String CourierPersonName, String KdPabrikan, String MaterialGroup, String NamaKategoriMaterial, String PetugasPenerima, String TglDiterima, String KurirPengantar, Boolean SudahBisaRating, String DoLineItem, String RatingResponse, String RatingQuality, String RatingDelivery, String StatusPemeriksaan, String StatusPenerimaan, Boolean IsBabg, Boolean IsBabgConfirm, Boolean SlaIntegrasiSap) {
+    public TPos(Long id, String StorLoc, String Total, String TlskNo, String PoSapNo, String PoMpNo, String NoDoSmar, Integer LeadTime, String Storloc, String CreatedDate, String PlanCodeNo, String PlantName, String PoDate, String NoDoMims, String DoStatus, String Expeditions, String KodeStatusDoMims, String CourierPersonName, String KdPabrikan, String MaterialGroup, String NamaKategoriMaterial, String PetugasPenerima, String TglDiterima, String KurirPengantar, Boolean SudahBisaRating, String DoLineItem, String RatingResponse, String RatingQuality, String RatingDelivery, String StatusPemeriksaan, String StatusPenerimaan, Boolean IsBabg, Boolean IsBabgConfirm, Boolean SlaIntegrasiSap, String Eta, String Etd) {
         this.id = id;
         this.StorLoc = StorLoc;
         this.Total = Total;
@@ -90,6 +92,8 @@ public class TPos {
         this.IsBabg = IsBabg;
         this.IsBabgConfirm = IsBabgConfirm;
         this.SlaIntegrasiSap = SlaIntegrasiSap;
+        this.Eta = Eta;
+        this.Etd = Etd;
     }
 
     public Long getId() {
@@ -362,6 +366,22 @@ public class TPos {
 
     public void setSlaIntegrasiSap(Boolean SlaIntegrasiSap) {
         this.SlaIntegrasiSap = SlaIntegrasiSap;
+    }
+
+    public String getEta() {
+        return Eta;
+    }
+
+    public void setEta(String Eta) {
+        this.Eta = Eta;
+    }
+
+    public String getEtd() {
+        return Etd;
+    }
+
+    public void setEtd(String Etd) {
+        this.Etd = Etd;
     }
 
 }

@@ -112,11 +112,16 @@ class LoginBiometricActivity : AppCompatActivity() {
                             it.user?.mail.toString(),
                             it.user?.kdUser.toString()
                         )
+                        SharedPrefsUtils.setStringPreference(this@LoginBiometricActivity, "jwtWeb", it.webToken!!)
                         SharedPrefsUtils.setStringPreference(this@LoginBiometricActivity,"jwt", it.token!!)
                         SharedPrefsUtils.setStringPreference(this@LoginBiometricActivity, "username", username)
+                        SharedPrefsUtils.setStringPreference(this@LoginBiometricActivity, "fullName", it.user?.fullName!!)
+                        SharedPrefsUtils.setStringPreference(this@LoginBiometricActivity, "roleName", it.user?.roleName!!)
                         SharedPrefsUtils.setStringPreference(this@LoginBiometricActivity, "email", it.user?.mail!!)
                         SharedPrefsUtils.setStringPreference(this@LoginBiometricActivity, "plant", it.user?.plant!!)
+                        SharedPrefsUtils.setStringPreference(this@LoginBiometricActivity, "plantName", it.user?.plantName!!)
                         SharedPrefsUtils.setStringPreference(this@LoginBiometricActivity, "storloc", it.user?.storloc!!)
+                        SharedPrefsUtils.setStringPreference(this@LoginBiometricActivity, "storlocName", it.user?.storLocName!!)
                         SharedPrefsUtils.setIntegerPreference(this@LoginBiometricActivity, "subroleId", it.user?.subroleId!!)
                         SharedPrefsUtils.setIntegerPreference(this@LoginBiometricActivity, "roleId", it.user?.roleId!!)
 

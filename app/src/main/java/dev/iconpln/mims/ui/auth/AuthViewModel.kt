@@ -514,6 +514,8 @@ class AuthViewModel: ViewModel() {
                         item.isBabg = model?.isBabg
                         item.isBabgConfirm = model?.isBabgConfirm
                         item.slaIntegrasiSap = model?.slaIntegrasiSap
+                        item.eta = model?.eta
+                        item.etd = model?.etd
                         items[i] = item
                     }
                     daoSession.tPosDao.insertInTx(items.toList())

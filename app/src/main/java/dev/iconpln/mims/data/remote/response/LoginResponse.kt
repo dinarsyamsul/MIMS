@@ -380,6 +380,12 @@ data class PosItem(
 	@field:SerializedName("rating_response")
 	val ratingResponse: String? = "",
 
+	@field:SerializedName("eta")
+	val eta: String? = "",
+
+	@field:SerializedName("etd")
+	val etd: String? = "",
+
 	@field:SerializedName("rating_quality")
 	val ratingQuality: String? = "",
 
@@ -511,8 +517,14 @@ data class User(
 	@field:SerializedName("plant")
 	val plant: String? = "",
 
+	@field:SerializedName("plant_name")
+	val plantName: String? = "",
+
 	@field:SerializedName("stor_loc")
 	val storloc: String? = "",
+
+	@field:SerializedName("stor_loc_name")
+	val storLocName: String? = "",
 
 	@field:SerializedName("mail")
 	val mail: String? = "",
@@ -527,7 +539,13 @@ data class User(
 	val subroleId: Int? = 0,
 
 	@field:SerializedName("user_name")
-	val userName: String? = ""
+	val userName: String? = "",
+
+	@field:SerializedName("full_name")
+	val fullName: String? = "",
+
+	@field:SerializedName("role_name")
+	val roleName: String? = ""
 )
 
 data class PrivilegeItem(

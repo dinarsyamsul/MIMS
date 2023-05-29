@@ -47,9 +47,11 @@ class ProfileFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         val session = SessionManager(requireActivity())
+        val fullName = SharedPrefsUtils.getStringPreference(requireActivity(), "fullName","")
+        val roleName = SharedPrefsUtils.getStringPreference(requireActivity(), "roleName","")
 
-        binding.txtName.text = SharedPrefsUtils.getStringPreference(requireActivity(), "username","")
-        binding.txtNameCabang.text = "PLN"
+        binding.txtName.text = "$fullName ($roleName)"
+        binding.txtNameCabang.text = SharedPrefsUtils.getStringPreference(requireActivity(), "plantName","")
 
         session.is_login_biometric.asLiveData().observe(requireActivity()){
             when(it){

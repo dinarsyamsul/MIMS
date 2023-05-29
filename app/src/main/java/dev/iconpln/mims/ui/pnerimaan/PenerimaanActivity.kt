@@ -39,9 +39,11 @@ class PenerimaanActivity : AppCompatActivity() {
         role = SharedPrefsUtils.getIntegerPreference(this@PenerimaanActivity, "roleId",0)
 
 
-        penerimaans = daoSession.tPosPenerimaanDao.queryBuilder().list()
+        penerimaans = daoSession.tPosPenerimaanDao.queryBuilder()
+            .orderDesc(TPosPenerimaanDao.Properties.CreatedDate)
+            .list()
 
-        viewModel.getPenerimaan(daoSession,penerimaans)
+//        viewModel.getPenerimaan(daoSession,penerimaans)
 
         adapter = PenerimaanAdapter(arrayListOf(), object : PenerimaanAdapter.OnAdapterListener{
             override fun onClick(po: TPosPenerimaan) {

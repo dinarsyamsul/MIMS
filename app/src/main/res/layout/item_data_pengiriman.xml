@@ -113,6 +113,40 @@
             app:layout_constraintTop_toBottomOf="@+id/lbl_no_do" />
 
         <ImageView
+            android:id="@+id/imageView6"
+            android:layout_width="14dp"
+            android:layout_height="14dp"
+            android:layout_marginTop="12dp"
+            android:src="@drawable/ic_number"
+            app:layout_constraintStart_toStartOf="@+id/txt_no_pengiriman"
+            app:layout_constraintTop_toBottomOf="@+id/txt_no_do" />
+
+        <TextView
+            android:id="@+id/lbl_eta"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="5dp"
+            android:fontFamily="@font/montserrat_reguler"
+            android:text="ETA"
+            android:textColor="#3F3D56"
+            android:textSize="10sp"
+            app:layout_constraintEnd_toEndOf="@+id/txt_no_pengiriman"
+            app:layout_constraintStart_toEndOf="@+id/imageView2"
+            app:layout_constraintTop_toTopOf="@+id/imageView6" />
+
+        <TextView
+            android:id="@+id/txt_eta"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="5dp"
+            android:fontFamily="@font/montserrat_reguler"
+            android:text="1110011"
+            android:textSize="10sp"
+            app:layout_constraintEnd_toEndOf="@+id/txt_no_pengiriman"
+            app:layout_constraintStart_toEndOf="@+id/imageView2"
+            app:layout_constraintTop_toBottomOf="@+id/lbl_eta" />
+
+        <ImageView
             android:id="@+id/imageView3"
             android:layout_width="14dp"
             android:layout_height="14dp"
@@ -147,6 +181,40 @@
             app:layout_constraintEnd_toEndOf="@+id/tx_data"
             app:layout_constraintStart_toEndOf="@+id/imageView3"
             app:layout_constraintTop_toBottomOf="@+id/lbl_quantity" />
+
+        <ImageView
+            android:id="@+id/imageView7"
+            android:layout_width="14dp"
+            android:layout_height="14dp"
+            android:layout_marginTop="12dp"
+            android:src="@drawable/ic_number"
+            app:layout_constraintStart_toStartOf="@+id/tx_data"
+            app:layout_constraintTop_toBottomOf="@+id/txt_quantity" />
+
+        <TextView
+            android:id="@+id/lbl_etd"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="5dp"
+            android:fontFamily="@font/montserrat_reguler"
+            android:text="ETD"
+            android:textColor="#3F3D56"
+            android:textSize="10sp"
+            app:layout_constraintBottom_toBottomOf="@+id/imageView7"
+            app:layout_constraintEnd_toEndOf="@+id/tx_data"
+            app:layout_constraintStart_toEndOf="@+id/imageView3"
+            app:layout_constraintTop_toTopOf="@+id/imageView7" />
+
+        <TextView
+            android:id="@+id/txt_etd"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:fontFamily="@font/montserrat_reguler"
+            android:text="-"
+            android:textSize="10sp"
+            app:layout_constraintEnd_toEndOf="@+id/lbl_etd"
+            app:layout_constraintStart_toStartOf="@+id/lbl_etd"
+            app:layout_constraintTop_toBottomOf="@+id/lbl_etd" />
 
         <ImageView
             android:id="@+id/imageView4"
@@ -254,7 +322,7 @@
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toEndOf="@+id/view"
-            app:layout_constraintTop_toBottomOf="@+id/txt_no_do" />
+            app:layout_constraintTop_toBottomOf="@+id/txt_eta" />
     </androidx.constraintlayout.widget.ConstraintLayout>
 
 </androidx.cardview.widget.CardView>

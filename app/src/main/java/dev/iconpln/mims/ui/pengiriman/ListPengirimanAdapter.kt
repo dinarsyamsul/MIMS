@@ -42,6 +42,8 @@ class ListPengirimanAdapter(val context: Context, val lisModels: MutableList<TPo
                 txtNoDo.text = data.noDoMims
                 txtUnit.text = data.plantName
                 txtQuantity.text = data.total
+                txtEta.text = data.eta
+                txtEtd.text = data.etd
 
                 when (data.kodeStatusDoMims) {
                     "100" -> {

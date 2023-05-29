@@ -99,8 +99,9 @@ class HomeFragment : Fragment() {
         var dateTimeUtc = DateTimeUtils.currentTimeMillis()
         var username = SharedPrefsUtils.getStringPreference(requireActivity(),"username","14.Hexing_Electric")!!
         var mPassword = SharedPrefsUtils.getStringPreference(requireActivity(),"password","12345")!!
+        val fullName = SharedPrefsUtils.getStringPreference(requireActivity(), "fullName","")
 
-        binding.txtdash1.text = username
+        binding.txtdash1.text = "$fullName"
         binding.btnMonitoring.visibility = View.GONE
         binding.btnPengujian.visibility = View.GONE
         binding.btnPengiriman.visibility = View.GONE
@@ -578,6 +579,8 @@ class HomeFragment : Fragment() {
                         item.isBabg = model?.isBabg
                         item.isBabgConfirm = model?.isBabgConfirm
                         item.slaIntegrasiSap = model?.slaIntegrasiSap
+                        item.eta = model?.eta
+                        item.etd = model?.etd
                         items[i] = item
                     }
                     daoSession.tPosDao.insertInTx(items.toList())

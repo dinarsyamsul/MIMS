@@ -56,6 +56,8 @@ public class TPosDao extends AbstractDao<TPos, Long> {
         public final static Property IsBabg = new Property(31, Boolean.class, "IsBabg", false, "IS_BABG");
         public final static Property IsBabgConfirm = new Property(32, Boolean.class, "IsBabgConfirm", false, "IS_BABG_CONFIRM");
         public final static Property SlaIntegrasiSap = new Property(33, Boolean.class, "SlaIntegrasiSap", false, "SLA_INTEGRASI_SAP");
+        public final static Property Eta = new Property(34, String.class, "Eta", false, "ETA");
+        public final static Property Etd = new Property(35, String.class, "Etd", false, "ETD");
     }
 
 
@@ -104,7 +106,9 @@ public class TPosDao extends AbstractDao<TPos, Long> {
                 "\"STATUS_PENERIMAAN\" TEXT," + // 30: StatusPenerimaan
                 "\"IS_BABG\" INTEGER," + // 31: IsBabg
                 "\"IS_BABG_CONFIRM\" INTEGER," + // 32: IsBabgConfirm
-                "\"SLA_INTEGRASI_SAP\" INTEGER);"); // 33: SlaIntegrasiSap
+                "\"SLA_INTEGRASI_SAP\" INTEGER," + // 33: SlaIntegrasiSap
+                "\"ETA\" TEXT," + // 34: Eta
+                "\"ETD\" TEXT);"); // 35: Etd
     }
 
     /** Drops the underlying database table. */
@@ -286,6 +290,16 @@ public class TPosDao extends AbstractDao<TPos, Long> {
         if (SlaIntegrasiSap != null) {
             stmt.bindLong(34, SlaIntegrasiSap ? 1L: 0L);
         }
+ 
+        String Eta = entity.getEta();
+        if (Eta != null) {
+            stmt.bindString(35, Eta);
+        }
+ 
+        String Etd = entity.getEtd();
+        if (Etd != null) {
+            stmt.bindString(36, Etd);
+        }
     }
 
     @Override
@@ -461,6 +475,16 @@ public class TPosDao extends AbstractDao<TPos, Long> {
         if (SlaIntegrasiSap != null) {
             stmt.bindLong(34, SlaIntegrasiSap ? 1L: 0L);
         }
+ 
+        String Eta = entity.getEta();
+        if (Eta != null) {
+            stmt.bindString(35, Eta);
+        }
+ 
+        String Etd = entity.getEtd();
+        if (Etd != null) {
+            stmt.bindString(36, Etd);
+        }
     }
 
     @Override
@@ -504,7 +528,9 @@ public class TPosDao extends AbstractDao<TPos, Long> {
             cursor.isNull(offset + 30) ? null : cursor.getString(offset + 30), // StatusPenerimaan
             cursor.isNull(offset + 31) ? null : cursor.getShort(offset + 31) != 0, // IsBabg
             cursor.isNull(offset + 32) ? null : cursor.getShort(offset + 32) != 0, // IsBabgConfirm
-            cursor.isNull(offset + 33) ? null : cursor.getShort(offset + 33) != 0 // SlaIntegrasiSap
+            cursor.isNull(offset + 33) ? null : cursor.getShort(offset + 33) != 0, // SlaIntegrasiSap
+            cursor.isNull(offset + 34) ? null : cursor.getString(offset + 34), // Eta
+            cursor.isNull(offset + 35) ? null : cursor.getString(offset + 35) // Etd
         );
         return entity;
     }
@@ -545,6 +571,8 @@ public class TPosDao extends AbstractDao<TPos, Long> {
         entity.setIsBabg(cursor.isNull(offset + 31) ? null : cursor.getShort(offset + 31) != 0);
         entity.setIsBabgConfirm(cursor.isNull(offset + 32) ? null : cursor.getShort(offset + 32) != 0);
         entity.setSlaIntegrasiSap(cursor.isNull(offset + 33) ? null : cursor.getShort(offset + 33) != 0);
+        entity.setEta(cursor.isNull(offset + 34) ? null : cursor.getString(offset + 34));
+        entity.setEtd(cursor.isNull(offset + 35) ? null : cursor.getString(offset + 35));
      }
     
     @Override

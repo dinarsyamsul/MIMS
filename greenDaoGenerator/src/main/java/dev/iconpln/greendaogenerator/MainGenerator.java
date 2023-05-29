@@ -185,6 +185,9 @@ public class MainGenerator {
         tPos.addBooleanProperty("IsBabg");
         tPos.addBooleanProperty("IsBabgConfirm");
         tPos.addBooleanProperty("SlaIntegrasiSap");
+        tPos.addStringProperty("Eta");
+        tPos.addStringProperty("Etd");
+
 
         // endregion
 
