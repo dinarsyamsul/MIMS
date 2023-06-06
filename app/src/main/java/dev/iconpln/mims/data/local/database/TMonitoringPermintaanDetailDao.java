@@ -28,11 +28,12 @@ public class TMonitoringPermintaanDetailDao extends AbstractDao<TMonitoringPermi
         public final static Property NoRepackaging = new Property(3, String.class, "NoRepackaging", false, "NO_REPACKAGING");
         public final static Property NomorMaterial = new Property(4, String.class, "NomorMaterial", false, "NOMOR_MATERIAL");
         public final static Property Unit = new Property(5, String.class, "Unit", false, "UNIT");
-        public final static Property QtyPermintaan = new Property(6, Integer.class, "QtyPermintaan", false, "QTY_PERMINTAAN");
+        public final static Property QtyPermintaan = new Property(6, Double.class, "QtyPermintaan", false, "QTY_PERMINTAAN");
         public final static Property MaterialDesc = new Property(7, String.class, "MaterialDesc", false, "MATERIAL_DESC");
-        public final static Property QtyScan = new Property(8, String.class, "QtyScan", false, "QTY_SCAN");
+        public final static Property QtyScan = new Property(8, Double.class, "QtyScan", false, "QTY_SCAN");
         public final static Property Kategori = new Property(9, String.class, "Kategori", false, "KATEGORI");
-        public final static Property QtyPengeluaran = new Property(10, String.class, "QtyPengeluaran", false, "QTY_PENGELUARAN");
+        public final static Property QtyPengeluaran = new Property(10, Double.class, "QtyPengeluaran", false, "QTY_PENGELUARAN");
+        public final static Property IsActive = new Property(11, Integer.class, "IsActive", false, "IS_ACTIVE");
     }
 
 
@@ -54,11 +55,12 @@ public class TMonitoringPermintaanDetailDao extends AbstractDao<TMonitoringPermi
                 "\"NO_REPACKAGING\" TEXT," + // 3: NoRepackaging
                 "\"NOMOR_MATERIAL\" TEXT," + // 4: NomorMaterial
                 "\"UNIT\" TEXT," + // 5: Unit
-                "\"QTY_PERMINTAAN\" INTEGER," + // 6: QtyPermintaan
+                "\"QTY_PERMINTAAN\" REAL," + // 6: QtyPermintaan
                 "\"MATERIAL_DESC\" TEXT," + // 7: MaterialDesc
-                "\"QTY_SCAN\" TEXT," + // 8: QtyScan
+                "\"QTY_SCAN\" REAL," + // 8: QtyScan
                 "\"KATEGORI\" TEXT," + // 9: Kategori
-                "\"QTY_PENGELUARAN\" TEXT);"); // 10: QtyPengeluaran
+                "\"QTY_PENGELUARAN\" REAL," + // 10: QtyPengeluaran
+                "\"IS_ACTIVE\" INTEGER);"); // 11: IsActive
     }
 
     /** Drops the underlying database table. */
@@ -101,9 +103,9 @@ public class TMonitoringPermintaanDetailDao extends AbstractDao<TMonitoringPermi
             stmt.bindString(6, Unit);
         }
  
-        Integer QtyPermintaan = entity.getQtyPermintaan();
+        Double QtyPermintaan = entity.getQtyPermintaan();
         if (QtyPermintaan != null) {
-            stmt.bindLong(7, QtyPermintaan);
+            stmt.bindDouble(7, QtyPermintaan);
         }
  
         String MaterialDesc = entity.getMaterialDesc();
@@ -111,9 +113,9 @@ public class TMonitoringPermintaanDetailDao extends AbstractDao<TMonitoringPermi
             stmt.bindString(8, MaterialDesc);
         }
  
-        String QtyScan = entity.getQtyScan();
+        Double QtyScan = entity.getQtyScan();
         if (QtyScan != null) {
-            stmt.bindString(9, QtyScan);
+            stmt.bindDouble(9, QtyScan);
         }
  
         String Kategori = entity.getKategori();
@@ -121,9 +123,14 @@ public class TMonitoringPermintaanDetailDao extends AbstractDao<TMonitoringPermi
             stmt.bindString(10, Kategori);
         }
  
-        String QtyPengeluaran = entity.getQtyPengeluaran();
+        Double QtyPengeluaran = entity.getQtyPengeluaran();
         if (QtyPengeluaran != null) {
-            stmt.bindString(11, QtyPengeluaran);
+            stmt.bindDouble(11, QtyPengeluaran);
+        }
+ 
+        Integer IsActive = entity.getIsActive();
+        if (IsActive != null) {
+            stmt.bindLong(12, IsActive);
         }
     }
 
@@ -161,9 +168,9 @@ public class TMonitoringPermintaanDetailDao extends AbstractDao<TMonitoringPermi
             stmt.bindString(6, Unit);
         }
  
-        Integer QtyPermintaan = entity.getQtyPermintaan();
+        Double QtyPermintaan = entity.getQtyPermintaan();
         if (QtyPermintaan != null) {
-            stmt.bindLong(7, QtyPermintaan);
+            stmt.bindDouble(7, QtyPermintaan);
         }
  
         String MaterialDesc = entity.getMaterialDesc();
@@ -171,9 +178,9 @@ public class TMonitoringPermintaanDetailDao extends AbstractDao<TMonitoringPermi
             stmt.bindString(8, MaterialDesc);
         }
  
-        String QtyScan = entity.getQtyScan();
+        Double QtyScan = entity.getQtyScan();
         if (QtyScan != null) {
-            stmt.bindString(9, QtyScan);
+            stmt.bindDouble(9, QtyScan);
         }
  
         String Kategori = entity.getKategori();
@@ -181,9 +188,14 @@ public class TMonitoringPermintaanDetailDao extends AbstractDao<TMonitoringPermi
             stmt.bindString(10, Kategori);
         }
  
-        String QtyPengeluaran = entity.getQtyPengeluaran();
+        Double QtyPengeluaran = entity.getQtyPengeluaran();
         if (QtyPengeluaran != null) {
-            stmt.bindString(11, QtyPengeluaran);
+            stmt.bindDouble(11, QtyPengeluaran);
+        }
+ 
+        Integer IsActive = entity.getIsActive();
+        if (IsActive != null) {
+            stmt.bindLong(12, IsActive);
         }
     }
 
@@ -201,11 +213,12 @@ public class TMonitoringPermintaanDetailDao extends AbstractDao<TMonitoringPermi
             cursor.isNull(offset + 3) ? null : cursor.getString(offset + 3), // NoRepackaging
             cursor.isNull(offset + 4) ? null : cursor.getString(offset + 4), // NomorMaterial
             cursor.isNull(offset + 5) ? null : cursor.getString(offset + 5), // Unit
-            cursor.isNull(offset + 6) ? null : cursor.getInt(offset + 6), // QtyPermintaan
+            cursor.isNull(offset + 6) ? null : cursor.getDouble(offset + 6), // QtyPermintaan
             cursor.isNull(offset + 7) ? null : cursor.getString(offset + 7), // MaterialDesc
-            cursor.isNull(offset + 8) ? null : cursor.getString(offset + 8), // QtyScan
+            cursor.isNull(offset + 8) ? null : cursor.getDouble(offset + 8), // QtyScan
             cursor.isNull(offset + 9) ? null : cursor.getString(offset + 9), // Kategori
-            cursor.isNull(offset + 10) ? null : cursor.getString(offset + 10) // QtyPengeluaran
+            cursor.isNull(offset + 10) ? null : cursor.getDouble(offset + 10), // QtyPengeluaran
+            cursor.isNull(offset + 11) ? null : cursor.getInt(offset + 11) // IsActive
         );
         return entity;
     }
@@ -218,11 +231,12 @@ public class TMonitoringPermintaanDetailDao extends AbstractDao<TMonitoringPermi
         entity.setNoRepackaging(cursor.isNull(offset + 3) ? null : cursor.getString(offset + 3));
         entity.setNomorMaterial(cursor.isNull(offset + 4) ? null : cursor.getString(offset + 4));
         entity.setUnit(cursor.isNull(offset + 5) ? null : cursor.getString(offset + 5));
-        entity.setQtyPermintaan(cursor.isNull(offset + 6) ? null : cursor.getInt(offset + 6));
+        entity.setQtyPermintaan(cursor.isNull(offset + 6) ? null : cursor.getDouble(offset + 6));
         entity.setMaterialDesc(cursor.isNull(offset + 7) ? null : cursor.getString(offset + 7));
-        entity.setQtyScan(cursor.isNull(offset + 8) ? null : cursor.getString(offset + 8));
+        entity.setQtyScan(cursor.isNull(offset + 8) ? null : cursor.getDouble(offset + 8));
         entity.setKategori(cursor.isNull(offset + 9) ? null : cursor.getString(offset + 9));
-        entity.setQtyPengeluaran(cursor.isNull(offset + 10) ? null : cursor.getString(offset + 10));
+        entity.setQtyPengeluaran(cursor.isNull(offset + 10) ? null : cursor.getDouble(offset + 10));
+        entity.setIsActive(cursor.isNull(offset + 11) ? null : cursor.getInt(offset + 11));
      }
     
     @Override

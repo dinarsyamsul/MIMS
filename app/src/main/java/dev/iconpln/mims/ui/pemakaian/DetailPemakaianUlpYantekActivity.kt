@@ -52,12 +52,16 @@ class DetailPemakaianUlpYantekActivity : AppCompatActivity(),Loadable {
 
         adapter = PemakaianDetailAdapter(arrayListOf(), object : PemakaianDetailAdapter.OnAdapterListener{
             override fun onClick(pemakaian: TTransPemakaianDetail) {
-                if (pemakaian.isDone == 1){
-                    Toast.makeText(this@DetailPemakaianUlpYantekActivity, "Anda sudah menyelesaikan pemakaian ini", Toast.LENGTH_SHORT).show()
+                if (pemakaian.isActive == 0){
+                    Toast.makeText(this@DetailPemakaianUlpYantekActivity, "Material tidak dapat di scan karena merupakan material non mims", Toast.LENGTH_SHORT).show()
                 }else{
-                    startActivity(Intent(this@DetailPemakaianUlpYantekActivity, InputSnPemakaianActivity::class.java)
-                        .putExtra("noTransaksi", pemakaian.noTransaksi)
-                        .putExtra("noMat",pemakaian.nomorMaterial))
+                    if(pemakaian.isDone == 1){
+                        Toast.makeText(this@DetailPemakaianUlpYantekActivity, "Anda sudah menyelesaikan pemakaian ini", Toast.LENGTH_SHORT).show()
+                    }else{
+                        startActivity(Intent(this@DetailPemakaianUlpYantekActivity, InputSnPemakaianActivity::class.java)
+                            .putExtra("noTransaksi", pemakaian.noTransaksi)
+                            .putExtra("noMat",pemakaian.nomorMaterial))
+                    }
                 }
             }
 
@@ -126,9 +130,11 @@ class DetailPemakaianUlpYantekActivity : AppCompatActivity(),Loadable {
                 return
             }
 
-            if (i.qtyReservasi != jumlahPemakaian.size.toString()){
-                Toast.makeText(this@DetailPemakaianUlpYantekActivity, "Jumlah reservasi ${i.nomorMaterial} masih kurang", Toast.LENGTH_SHORT).show()
-                return
+            if (i.isActive == 1){
+                if (i.qtyReservasi != jumlahPemakaian.size.toDouble()){
+                    Toast.makeText(this@DetailPemakaianUlpYantekActivity, "Jumlah reservasi ${i.nomorMaterial} masih kurang", Toast.LENGTH_SHORT).show()
+                    return
+                }
             }
         }
 
@@ -151,11 +157,7 @@ class DetailPemakaianUlpYantekActivity : AppCompatActivity(),Loadable {
         daoSession.tPemakaianDao.update(pemakaian)
 
         for (i in detailPemakaian){
-            val jumlahPemakaian = daoSession.tListSnMaterialPemakaianUlpDao.queryBuilder()
-                .where(TListSnMaterialPemakaianUlpDao.Properties.NoTransaksi.eq(i.noTransaksi))
-                .where(TListSnMaterialPemakaianUlpDao.Properties.NoMaterial.eq(i.nomorMaterial)).list().size
-
-            materials += "${i.nomorMaterial},${jumlahPemakaian};"
+            materials += "${i.nomorMaterial},${i.qtyPemakaian};"
             Log.d("checkMaterials", materials)
         }
 

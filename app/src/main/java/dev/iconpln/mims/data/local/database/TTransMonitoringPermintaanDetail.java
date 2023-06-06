@@ -17,13 +17,14 @@ public class TTransMonitoringPermintaanDetail {
     private String NoRepackaging;
     private String NomorMaterial;
     private String Unit;
-    private Integer QtyPermintaan;
+    private Double QtyPermintaan;
     private String MaterialDesc;
-    private String QtyScan;
+    private Double QtyScan;
     private String Kategori;
-    private String QtyPengeluaran;
+    private Double QtyPengeluaran;
     private Integer QtyAkanDiScan;
     private Integer IsScannedSn;
+    private Integer IsActive;
     private Integer IsDone;
 
     @Generated
@@ -35,7 +36,7 @@ public class TTransMonitoringPermintaanDetail {
     }
 
     @Generated
-    public TTransMonitoringPermintaanDetail(Long id, String NoPermintaan, String NoTransaksi, String NoRepackaging, String NomorMaterial, String Unit, Integer QtyPermintaan, String MaterialDesc, String QtyScan, String Kategori, String QtyPengeluaran, Integer QtyAkanDiScan, Integer IsScannedSn, Integer IsDone) {
+    public TTransMonitoringPermintaanDetail(Long id, String NoPermintaan, String NoTransaksi, String NoRepackaging, String NomorMaterial, String Unit, Double QtyPermintaan, String MaterialDesc, Double QtyScan, String Kategori, Double QtyPengeluaran, Integer QtyAkanDiScan, Integer IsScannedSn, Integer IsActive, Integer IsDone) {
         this.id = id;
         this.NoPermintaan = NoPermintaan;
         this.NoTransaksi = NoTransaksi;
@@ -49,6 +50,7 @@ public class TTransMonitoringPermintaanDetail {
         this.QtyPengeluaran = QtyPengeluaran;
         this.QtyAkanDiScan = QtyAkanDiScan;
         this.IsScannedSn = IsScannedSn;
+        this.IsActive = IsActive;
         this.IsDone = IsDone;
     }
 
@@ -100,11 +102,11 @@ public class TTransMonitoringPermintaanDetail {
         this.Unit = Unit;
     }
 
-    public Integer getQtyPermintaan() {
+    public Double getQtyPermintaan() {
         return QtyPermintaan;
     }
 
-    public void setQtyPermintaan(Integer QtyPermintaan) {
+    public void setQtyPermintaan(Double QtyPermintaan) {
         this.QtyPermintaan = QtyPermintaan;
     }
 
@@ -116,11 +118,11 @@ public class TTransMonitoringPermintaanDetail {
         this.MaterialDesc = MaterialDesc;
     }
 
-    public String getQtyScan() {
+    public Double getQtyScan() {
         return QtyScan;
     }
 
-    public void setQtyScan(String QtyScan) {
+    public void setQtyScan(Double QtyScan) {
         this.QtyScan = QtyScan;
     }
 
@@ -132,11 +134,11 @@ public class TTransMonitoringPermintaanDetail {
         this.Kategori = Kategori;
     }
 
-    public String getQtyPengeluaran() {
+    public Double getQtyPengeluaran() {
         return QtyPengeluaran;
     }
 
-    public void setQtyPengeluaran(String QtyPengeluaran) {
+    public void setQtyPengeluaran(Double QtyPengeluaran) {
         this.QtyPengeluaran = QtyPengeluaran;
     }
 
@@ -154,6 +156,14 @@ public class TTransMonitoringPermintaanDetail {
 
     public void setIsScannedSn(Integer IsScannedSn) {
         this.IsScannedSn = IsScannedSn;
+    }
+
+    public Integer getIsActive() {
+        return IsActive;
+    }
+
+    public void setIsActive(Integer IsActive) {
+        this.IsActive = IsActive;
     }
 
     public Integer getIsDone() {

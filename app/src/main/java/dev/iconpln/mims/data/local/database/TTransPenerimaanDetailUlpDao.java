@@ -27,12 +27,13 @@ public class TTransPenerimaanDetailUlpDao extends AbstractDao<TTransPenerimaanDe
         public final static Property NoRepackaging = new Property(2, String.class, "NoRepackaging", false, "NO_REPACKAGING");
         public final static Property NoMaterial = new Property(3, String.class, "NoMaterial", false, "NO_MATERIAL");
         public final static Property MaterialDesc = new Property(4, String.class, "MaterialDesc", false, "MATERIAL_DESC");
-        public final static Property QtyPermintaan = new Property(5, Integer.class, "QtyPermintaan", false, "QTY_PERMINTAAN");
-        public final static Property QtyPengiriman = new Property(6, Integer.class, "QtyPengiriman", false, "QTY_PENGIRIMAN");
-        public final static Property QtyPemeriksaan = new Property(7, Integer.class, "QtyPemeriksaan", false, "QTY_PEMERIKSAAN");
-        public final static Property QtyPenerimaan = new Property(8, Integer.class, "QtyPenerimaan", false, "QTY_PENERIMAAN");
-        public final static Property QtySesuai = new Property(9, Integer.class, "QtySesuai", false, "QTY_SESUAI");
-        public final static Property IsDone = new Property(10, Integer.class, "IsDone", false, "IS_DONE");
+        public final static Property QtyPermintaan = new Property(5, Double.class, "QtyPermintaan", false, "QTY_PERMINTAAN");
+        public final static Property QtyPengiriman = new Property(6, Double.class, "QtyPengiriman", false, "QTY_PENGIRIMAN");
+        public final static Property QtyPemeriksaan = new Property(7, Double.class, "QtyPemeriksaan", false, "QTY_PEMERIKSAAN");
+        public final static Property QtyPenerimaan = new Property(8, Double.class, "QtyPenerimaan", false, "QTY_PENERIMAAN");
+        public final static Property QtySesuai = new Property(9, Double.class, "QtySesuai", false, "QTY_SESUAI");
+        public final static Property IsActive = new Property(10, Integer.class, "IsActive", false, "IS_ACTIVE");
+        public final static Property IsDone = new Property(11, Integer.class, "IsDone", false, "IS_DONE");
     }
 
 
@@ -53,12 +54,13 @@ public class TTransPenerimaanDetailUlpDao extends AbstractDao<TTransPenerimaanDe
                 "\"NO_REPACKAGING\" TEXT," + // 2: NoRepackaging
                 "\"NO_MATERIAL\" TEXT," + // 3: NoMaterial
                 "\"MATERIAL_DESC\" TEXT," + // 4: MaterialDesc
-                "\"QTY_PERMINTAAN\" INTEGER," + // 5: QtyPermintaan
-                "\"QTY_PENGIRIMAN\" INTEGER," + // 6: QtyPengiriman
-                "\"QTY_PEMERIKSAAN\" INTEGER," + // 7: QtyPemeriksaan
-                "\"QTY_PENERIMAAN\" INTEGER," + // 8: QtyPenerimaan
-                "\"QTY_SESUAI\" INTEGER," + // 9: QtySesuai
-                "\"IS_DONE\" INTEGER);"); // 10: IsDone
+                "\"QTY_PERMINTAAN\" REAL," + // 5: QtyPermintaan
+                "\"QTY_PENGIRIMAN\" REAL," + // 6: QtyPengiriman
+                "\"QTY_PEMERIKSAAN\" REAL," + // 7: QtyPemeriksaan
+                "\"QTY_PENERIMAAN\" REAL," + // 8: QtyPenerimaan
+                "\"QTY_SESUAI\" REAL," + // 9: QtySesuai
+                "\"IS_ACTIVE\" INTEGER," + // 10: IsActive
+                "\"IS_DONE\" INTEGER);"); // 11: IsDone
     }
 
     /** Drops the underlying database table. */
@@ -96,34 +98,39 @@ public class TTransPenerimaanDetailUlpDao extends AbstractDao<TTransPenerimaanDe
             stmt.bindString(5, MaterialDesc);
         }
  
-        Integer QtyPermintaan = entity.getQtyPermintaan();
+        Double QtyPermintaan = entity.getQtyPermintaan();
         if (QtyPermintaan != null) {
-            stmt.bindLong(6, QtyPermintaan);
+            stmt.bindDouble(6, QtyPermintaan);
         }
  
-        Integer QtyPengiriman = entity.getQtyPengiriman();
+        Double QtyPengiriman = entity.getQtyPengiriman();
         if (QtyPengiriman != null) {
-            stmt.bindLong(7, QtyPengiriman);
+            stmt.bindDouble(7, QtyPengiriman);
         }
  
-        Integer QtyPemeriksaan = entity.getQtyPemeriksaan();
+        Double QtyPemeriksaan = entity.getQtyPemeriksaan();
         if (QtyPemeriksaan != null) {
-            stmt.bindLong(8, QtyPemeriksaan);
+            stmt.bindDouble(8, QtyPemeriksaan);
         }
  
-        Integer QtyPenerimaan = entity.getQtyPenerimaan();
+        Double QtyPenerimaan = entity.getQtyPenerimaan();
         if (QtyPenerimaan != null) {
-            stmt.bindLong(9, QtyPenerimaan);
+            stmt.bindDouble(9, QtyPenerimaan);
         }
  
-        Integer QtySesuai = entity.getQtySesuai();
+        Double QtySesuai = entity.getQtySesuai();
         if (QtySesuai != null) {
-            stmt.bindLong(10, QtySesuai);
+            stmt.bindDouble(10, QtySesuai);
+        }
+ 
+        Integer IsActive = entity.getIsActive();
+        if (IsActive != null) {
+            stmt.bindLong(11, IsActive);
         }
  
         Integer IsDone = entity.getIsDone();
         if (IsDone != null) {
-            stmt.bindLong(11, IsDone);
+            stmt.bindLong(12, IsDone);
         }
     }
 
@@ -156,34 +163,39 @@ public class TTransPenerimaanDetailUlpDao extends AbstractDao<TTransPenerimaanDe
             stmt.bindString(5, MaterialDesc);
         }
  
-        Integer QtyPermintaan = entity.getQtyPermintaan();
+        Double QtyPermintaan = entity.getQtyPermintaan();
         if (QtyPermintaan != null) {
-            stmt.bindLong(6, QtyPermintaan);
+            stmt.bindDouble(6, QtyPermintaan);
         }
  
-        Integer QtyPengiriman = entity.getQtyPengiriman();
+        Double QtyPengiriman = entity.getQtyPengiriman();
         if (QtyPengiriman != null) {
-            stmt.bindLong(7, QtyPengiriman);
+            stmt.bindDouble(7, QtyPengiriman);
         }
  
-        Integer QtyPemeriksaan = entity.getQtyPemeriksaan();
+        Double QtyPemeriksaan = entity.getQtyPemeriksaan();
         if (QtyPemeriksaan != null) {
-            stmt.bindLong(8, QtyPemeriksaan);
+            stmt.bindDouble(8, QtyPemeriksaan);
         }
  
-        Integer QtyPenerimaan = entity.getQtyPenerimaan();
+        Double QtyPenerimaan = entity.getQtyPenerimaan();
         if (QtyPenerimaan != null) {
-            stmt.bindLong(9, QtyPenerimaan);
+            stmt.bindDouble(9, QtyPenerimaan);
         }
  
-        Integer QtySesuai = entity.getQtySesuai();
+        Double QtySesuai = entity.getQtySesuai();
         if (QtySesuai != null) {
-            stmt.bindLong(10, QtySesuai);
+            stmt.bindDouble(10, QtySesuai);
+        }
+ 
+        Integer IsActive = entity.getIsActive();
+        if (IsActive != null) {
+            stmt.bindLong(11, IsActive);
         }
  
         Integer IsDone = entity.getIsDone();
         if (IsDone != null) {
-            stmt.bindLong(11, IsDone);
+            stmt.bindLong(12, IsDone);
         }
     }
 
@@ -200,12 +212,13 @@ public class TTransPenerimaanDetailUlpDao extends AbstractDao<TTransPenerimaanDe
             cursor.isNull(offset + 2) ? null : cursor.getString(offset + 2), // NoRepackaging
             cursor.isNull(offset + 3) ? null : cursor.getString(offset + 3), // NoMaterial
             cursor.isNull(offset + 4) ? null : cursor.getString(offset + 4), // MaterialDesc
-            cursor.isNull(offset + 5) ? null : cursor.getInt(offset + 5), // QtyPermintaan
-            cursor.isNull(offset + 6) ? null : cursor.getInt(offset + 6), // QtyPengiriman
-            cursor.isNull(offset + 7) ? null : cursor.getInt(offset + 7), // QtyPemeriksaan
-            cursor.isNull(offset + 8) ? null : cursor.getInt(offset + 8), // QtyPenerimaan
-            cursor.isNull(offset + 9) ? null : cursor.getInt(offset + 9), // QtySesuai
-            cursor.isNull(offset + 10) ? null : cursor.getInt(offset + 10) // IsDone
+            cursor.isNull(offset + 5) ? null : cursor.getDouble(offset + 5), // QtyPermintaan
+            cursor.isNull(offset + 6) ? null : cursor.getDouble(offset + 6), // QtyPengiriman
+            cursor.isNull(offset + 7) ? null : cursor.getDouble(offset + 7), // QtyPemeriksaan
+            cursor.isNull(offset + 8) ? null : cursor.getDouble(offset + 8), // QtyPenerimaan
+            cursor.isNull(offset + 9) ? null : cursor.getDouble(offset + 9), // QtySesuai
+            cursor.isNull(offset + 10) ? null : cursor.getInt(offset + 10), // IsActive
+            cursor.isNull(offset + 11) ? null : cursor.getInt(offset + 11) // IsDone
         );
         return entity;
     }
@@ -217,12 +230,13 @@ public class TTransPenerimaanDetailUlpDao extends AbstractDao<TTransPenerimaanDe
         entity.setNoRepackaging(cursor.isNull(offset + 2) ? null : cursor.getString(offset + 2));
         entity.setNoMaterial(cursor.isNull(offset + 3) ? null : cursor.getString(offset + 3));
         entity.setMaterialDesc(cursor.isNull(offset + 4) ? null : cursor.getString(offset + 4));
-        entity.setQtyPermintaan(cursor.isNull(offset + 5) ? null : cursor.getInt(offset + 5));
-        entity.setQtyPengiriman(cursor.isNull(offset + 6) ? null : cursor.getInt(offset + 6));
-        entity.setQtyPemeriksaan(cursor.isNull(offset + 7) ? null : cursor.getInt(offset + 7));
-        entity.setQtyPenerimaan(cursor.isNull(offset + 8) ? null : cursor.getInt(offset + 8));
-        entity.setQtySesuai(cursor.isNull(offset + 9) ? null : cursor.getInt(offset + 9));
-        entity.setIsDone(cursor.isNull(offset + 10) ? null : cursor.getInt(offset + 10));
+        entity.setQtyPermintaan(cursor.isNull(offset + 5) ? null : cursor.getDouble(offset + 5));
+        entity.setQtyPengiriman(cursor.isNull(offset + 6) ? null : cursor.getDouble(offset + 6));
+        entity.setQtyPemeriksaan(cursor.isNull(offset + 7) ? null : cursor.getDouble(offset + 7));
+        entity.setQtyPenerimaan(cursor.isNull(offset + 8) ? null : cursor.getDouble(offset + 8));
+        entity.setQtySesuai(cursor.isNull(offset + 9) ? null : cursor.getDouble(offset + 9));
+        entity.setIsActive(cursor.isNull(offset + 10) ? null : cursor.getInt(offset + 10));
+        entity.setIsDone(cursor.isNull(offset + 11) ? null : cursor.getInt(offset + 11));
      }
     
     @Override

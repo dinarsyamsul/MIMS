@@ -62,13 +62,17 @@ class DetailPemeriksaanActivity : AppCompatActivity(),Loadable {
 
         adapter = DetailPemeriksaanUlpAdapter(arrayListOf(), object : DetailPemeriksaanUlpAdapter.OnAdapterListener{
             override fun onClick(po: TTransPenerimaanDetailUlp) {
-                if (po.isDone == 1){
-                    Toast.makeText(this@DetailPemeriksaanActivity, "Kamu sudah menyelesaikan material ini", Toast.LENGTH_SHORT).show()
+                if (po.isActive == 0){
+                    Toast.makeText(this@DetailPemeriksaanActivity, "Material tidak dapat di scan karena merupakan material non mims", Toast.LENGTH_SHORT).show()
                 }else{
-                    startActivity(Intent(this@DetailPemeriksaanActivity, InputSnPemeriksaanActivity::class.java)
-                        .putExtra("noMaterial", po.noMaterial)
-                        .putExtra("noRepackaging", po.noRepackaging)
-                        .putExtra("noTransaksi", po.noTransaksi))
+                    if (po.isDone == 1){
+                        Toast.makeText(this@DetailPemeriksaanActivity, "Kamu sudah menyelesaikan material ini", Toast.LENGTH_SHORT).show()
+                    }else{
+                        startActivity(Intent(this@DetailPemeriksaanActivity, InputSnPemeriksaanActivity::class.java)
+                            .putExtra("noMaterial", po.noMaterial)
+                            .putExtra("noRepackaging", po.noRepackaging)
+                            .putExtra("noTransaksi", po.noTransaksi))
+                    }
                 }
             }
 
@@ -98,7 +102,7 @@ class DetailPemeriksaanActivity : AppCompatActivity(),Loadable {
             })
 
             txtNoPengiriman.text = penerimaans.noPengiriman
-            txtTanggalPemeriksaan.text = penerimaans.tanggalPemeriksaan
+            txtTanggalPenerimaan.text = penerimaans.tanggalDokumen
             txtNoPengiriman2.text = penerimaans.noPengiriman
             txtNoPermintaan.text = penerimaans.noPermintaan
 

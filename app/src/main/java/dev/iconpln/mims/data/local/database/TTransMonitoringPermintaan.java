@@ -29,6 +29,7 @@ public class TTransMonitoringPermintaan {
     private String TanggalPengeluaran;
     private String PlantName;
     private String StorLocAsal;
+    private Integer IsActive;
     private Integer IsDone;
 
     @Generated
@@ -40,7 +41,7 @@ public class TTransMonitoringPermintaan {
     }
 
     @Generated
-    public TTransMonitoringPermintaan(Long id, String NoPermintaan, String NoTransaksi, String StorLocTujuanName, String KodePengeluaran, String StorLocTujuan, String CreatedBy, String NoRepackaging, String Plant, String UpdatedBy, String CreatedDate, String UpdatedDate, Integer JumlahKardus, String StorLocAsalName, String TanggalPermintaan, String TanggalPengeluaran, String PlantName, String StorLocAsal, Integer IsDone) {
+    public TTransMonitoringPermintaan(Long id, String NoPermintaan, String NoTransaksi, String StorLocTujuanName, String KodePengeluaran, String StorLocTujuan, String CreatedBy, String NoRepackaging, String Plant, String UpdatedBy, String CreatedDate, String UpdatedDate, Integer JumlahKardus, String StorLocAsalName, String TanggalPermintaan, String TanggalPengeluaran, String PlantName, String StorLocAsal, Integer IsActive, Integer IsDone) {
         this.id = id;
         this.NoPermintaan = NoPermintaan;
         this.NoTransaksi = NoTransaksi;
@@ -59,6 +60,7 @@ public class TTransMonitoringPermintaan {
         this.TanggalPengeluaran = TanggalPengeluaran;
         this.PlantName = PlantName;
         this.StorLocAsal = StorLocAsal;
+        this.IsActive = IsActive;
         this.IsDone = IsDone;
     }
 
@@ -204,6 +206,14 @@ public class TTransMonitoringPermintaan {
 
     public void setStorLocAsal(String StorLocAsal) {
         this.StorLocAsal = StorLocAsal;
+    }
+
+    public Integer getIsActive() {
+        return IsActive;
+    }
+
+    public void setIsActive(Integer IsActive) {
+        this.IsActive = IsActive;
     }
 
     public Integer getIsDone() {

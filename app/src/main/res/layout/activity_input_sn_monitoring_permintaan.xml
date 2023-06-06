@@ -297,7 +297,7 @@
             </androidx.cardview.widget.CardView>
 
             <TextView
-                android:id="@+id/textView12"
+                android:id="@+id/lblScan"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="15dp"
@@ -317,7 +317,7 @@
                 app:layout_constraintEnd_toStartOf="@id/btn_input_sn_manual"
                 app:layout_constraintHorizontal_chainStyle="spread"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/textView12" />
+                app:layout_constraintTop_toBottomOf="@+id/lblScan" />
 
             <ImageView
                 android:id="@+id/btn_input_sn_manual"
@@ -337,7 +337,7 @@
                 android:text="SN. Material"
                 android:fontFamily="@font/montserrat_semibold"
                 android:textSize="12sp"
-                app:layout_constraintStart_toStartOf="@+id/textView12"
+                app:layout_constraintStart_toStartOf="@+id/lblScan"
                 app:layout_constraintTop_toBottomOf="@+id/btn_scan_sn_material" />
 
             <EditText
@@ -376,7 +376,7 @@
                 android:fontFamily="@font/montserrat_semibold"
                 android:text="Daftar List Material"
                 android:textSize="12sp"
-                app:layout_constraintStart_toStartOf="@+id/textView12"
+                app:layout_constraintStart_toStartOf="@+id/lblScan"
                 app:layout_constraintTop_toBottomOf="@id/view8" />
 
             <androidx.recyclerview.widget.RecyclerView
@@ -389,25 +389,25 @@
                 app:layout_constraintTop_toBottomOf="@+id/lbl_list_material"
                 tools:listitem="@layout/item_sn_monitoring" />
 
-            <androidx.appcompat.widget.AppCompatButton
-                android:id="@+id/btn_simpan"
-                android:layout_width="0dp"
-                android:layout_height="wrap_content"
-                android:layout_marginStart="23dp"
-                android:layout_marginTop="15dp"
-                android:layout_marginEnd="25dp"
-                android:layout_marginBottom="15dp"
-                android:background="@drawable/br_btn"
-                android:elevation="8dp"
-                android:fontFamily="@font/montserrat_reguler"
-                android:text="Simpan"
-                android:textAllCaps="false"
-                android:textColor="#FFFFFF"
-                android:textStyle="bold"
-                app:layout_constraintBottom_toBottomOf="parent"
-                app:layout_constraintEnd_toEndOf="@+id/rv_list_sn"
-                app:layout_constraintStart_toStartOf="@+id/rv_list_sn"
-                app:layout_constraintTop_toBottomOf="@+id/rv_list_sn" />
+<!--            <androidx.appcompat.widget.AppCompatButton-->
+<!--                android:id="@+id/btn_simpan"-->
+<!--                android:layout_width="0dp"-->
+<!--                android:layout_height="wrap_content"-->
+<!--                android:layout_marginStart="23dp"-->
+<!--                android:layout_marginTop="15dp"-->
+<!--                android:layout_marginEnd="25dp"-->
+<!--                android:layout_marginBottom="15dp"-->
+<!--                android:background="@drawable/br_btn"-->
+<!--                android:elevation="8dp"-->
+<!--                android:fontFamily="@font/montserrat_reguler"-->
+<!--                android:text="Simpan"-->
+<!--                android:textAllCaps="false"-->
+<!--                android:textColor="#FFFFFF"-->
+<!--                android:textStyle="bold"-->
+<!--                app:layout_constraintBottom_toBottomOf="parent"-->
+<!--                app:layout_constraintEnd_toEndOf="@+id/rv_list_sn"-->
+<!--                app:layout_constraintStart_toStartOf="@+id/rv_list_sn"-->
+<!--                app:layout_constraintTop_toBottomOf="@+id/rv_list_sn" />-->
         </androidx.constraintlayout.widget.ConstraintLayout>
     </ScrollView>
 </androidx.constraintlayout.widget.ConstraintLayout>

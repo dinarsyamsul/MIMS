@@ -43,12 +43,12 @@ class MonitoringPermintaanDetailAdapter(val lisModels: MutableList<TTransMonitor
             with(binding){
                 btnDetail.setOnClickListener { listener.onClick(mpd) }
                 txtKuantitas.text = mpd.qtyPermintaan.toString()
-                txtKuantitasScan.text = mpd.qtyScan
+                txtKuantitasScan.text = mpd.qtyScan.toString()
                 txtSatuan.text = mpd.unit
                 txtNoMaterial.text = mpd.nomorMaterial
                 ltxtDescMaterial.text = mpd.materialDesc
 
-                if (mpd.qtyScan.toInt() != mpd.qtyPermintaan){
+                if (mpd.qtyScan.toInt() != mpd.qtyPermintaan.toInt()){
                     txtKuantitasScanKurang.visibility = View.VISIBLE
                 }else{
                     txtKuantitasScanKurang.visibility = View.GONE

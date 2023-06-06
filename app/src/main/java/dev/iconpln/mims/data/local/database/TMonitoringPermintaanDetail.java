@@ -17,11 +17,12 @@ public class TMonitoringPermintaanDetail {
     private String NoRepackaging;
     private String NomorMaterial;
     private String Unit;
-    private Integer QtyPermintaan;
+    private Double QtyPermintaan;
     private String MaterialDesc;
-    private String QtyScan;
+    private Double QtyScan;
     private String Kategori;
-    private String QtyPengeluaran;
+    private Double QtyPengeluaran;
+    private Integer IsActive;
 
     @Generated
     public TMonitoringPermintaanDetail() {
@@ -32,7 +33,7 @@ public class TMonitoringPermintaanDetail {
     }
 
     @Generated
-    public TMonitoringPermintaanDetail(Long id, String NoPermintaan, String NoTransaksi, String NoRepackaging, String NomorMaterial, String Unit, Integer QtyPermintaan, String MaterialDesc, String QtyScan, String Kategori, String QtyPengeluaran) {
+    public TMonitoringPermintaanDetail(Long id, String NoPermintaan, String NoTransaksi, String NoRepackaging, String NomorMaterial, String Unit, Double QtyPermintaan, String MaterialDesc, Double QtyScan, String Kategori, Double QtyPengeluaran, Integer IsActive) {
         this.id = id;
         this.NoPermintaan = NoPermintaan;
         this.NoTransaksi = NoTransaksi;
@@ -44,6 +45,7 @@ public class TMonitoringPermintaanDetail {
         this.QtyScan = QtyScan;
         this.Kategori = Kategori;
         this.QtyPengeluaran = QtyPengeluaran;
+        this.IsActive = IsActive;
     }
 
     public Long getId() {
@@ -94,11 +96,11 @@ public class TMonitoringPermintaanDetail {
         this.Unit = Unit;
     }
 
-    public Integer getQtyPermintaan() {
+    public Double getQtyPermintaan() {
         return QtyPermintaan;
     }
 
-    public void setQtyPermintaan(Integer QtyPermintaan) {
+    public void setQtyPermintaan(Double QtyPermintaan) {
         this.QtyPermintaan = QtyPermintaan;
     }
 
@@ -110,11 +112,11 @@ public class TMonitoringPermintaanDetail {
         this.MaterialDesc = MaterialDesc;
     }
 
-    public String getQtyScan() {
+    public Double getQtyScan() {
         return QtyScan;
     }
 
-    public void setQtyScan(String QtyScan) {
+    public void setQtyScan(Double QtyScan) {
         this.QtyScan = QtyScan;
     }
 
@@ -126,12 +128,20 @@ public class TMonitoringPermintaanDetail {
         this.Kategori = Kategori;
     }
 
-    public String getQtyPengeluaran() {
+    public Double getQtyPengeluaran() {
         return QtyPengeluaran;
     }
 
-    public void setQtyPengeluaran(String QtyPengeluaran) {
+    public void setQtyPengeluaran(Double QtyPengeluaran) {
         this.QtyPengeluaran = QtyPengeluaran;
+    }
+
+    public Integer getIsActive() {
+        return IsActive;
+    }
+
+    public void setIsActive(Integer IsActive) {
+        this.IsActive = IsActive;
     }
 
 }

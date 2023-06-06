@@ -124,13 +124,13 @@ class InputSnPemakaianActivity : AppCompatActivity() {
             .where(TListSnMaterialPemakaianUlpDao.Properties.NoTransaksi.eq(noTransaksi))
             .where(TListSnMaterialPemakaianUlpDao.Properties.NoMaterial.eq(noMat)).list()
 
-        if (pemakaianDetail.qtyReservasi != jumlahPemakaian.size.toString()){
+        if (pemakaianDetail.qtyReservasi != jumlahPemakaian.size.toDouble()){
             Toast.makeText(this@InputSnPemakaianActivity, "Jumlah scan masih kurang",Toast.LENGTH_SHORT).show()
             return
         }
 
         pemakaianDetail.isDone = 1
-        pemakaianDetail.qtyPemakaian = jumlahPemakaian.size.toString()
+        pemakaianDetail.qtyPemakaian = jumlahPemakaian.size.toDouble()
         daoSession.tTransPemakaianDetailDao.update(pemakaianDetail)
 
         Toast.makeText(this@InputSnPemakaianActivity, "Berhasil simpan data",Toast.LENGTH_SHORT).show()

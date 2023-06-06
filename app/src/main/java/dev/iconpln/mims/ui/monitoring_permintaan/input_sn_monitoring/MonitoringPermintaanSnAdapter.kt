@@ -1,6 +1,7 @@
 package dev.iconpln.mims.ui.monitoring_permintaan.input_sn_monitoring
 
 import android.view.LayoutInflater
+import android.view.View
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
 import dev.iconpln.mims.data.local.database.TMonitoringPermintaan
@@ -12,7 +13,7 @@ import dev.iconpln.mims.databinding.ItemDataMonitoringPermintaanDetailBinding
 import dev.iconpln.mims.databinding.ItemDataMonitoringPurchaseBinding
 import dev.iconpln.mims.databinding.ItemSnMonitoringBinding
 
-class MonitoringPermintaanSnAdapter(val lisModels: MutableList<TMonitoringSnMaterial>, var listener: OnAdapterListener)
+class MonitoringPermintaanSnAdapter(val lisModels: MutableList<TMonitoringSnMaterial>, var listener: OnAdapterListener, var kodePengeluaran: String)
     : RecyclerView.Adapter<MonitoringPermintaanSnAdapter.ViewHolder>() {
 
     fun setTmsList(tms: List<TMonitoringSnMaterial>){
@@ -40,6 +41,12 @@ class MonitoringPermintaanSnAdapter(val lisModels: MutableList<TMonitoringSnMate
             with(binding){
                 txtSnMaterial.text = tms.serialNumber
                 btnDelete.setOnClickListener { listener.onClick(tms) }
+
+                if (kodePengeluaran == "2"){
+                    btnDelete.visibility = View.GONE
+                }else{
+                    btnDelete.visibility = View.VISIBLE
+                }
             }
         }
     }

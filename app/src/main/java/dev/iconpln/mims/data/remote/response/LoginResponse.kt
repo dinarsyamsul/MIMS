@@ -649,13 +649,13 @@ data class MonitoringPermintaanDetailsItem(
 	val unit: String? = null,
 
 	@field:SerializedName("qty_permintaan")
-	val qtyPermintaan: Int? = null,
+	val qtyPermintaan: Double? = 0.0,
 
 	@field:SerializedName("material_desc")
 	val materialDesc: String? = null,
 
 	@field:SerializedName("qty_scan")
-	val qtyScan: Int? = null,
+	val qtyScan: Double? = 0.0,
 
 	@field:SerializedName("kategori")
 	val kategori: String? = null,
@@ -667,10 +667,13 @@ data class MonitoringPermintaanDetailsItem(
 	val noPermintaan: String? = null,
 
 	@field:SerializedName("qty_pengeluaran")
-	val qtyPengeluaran: Any? = null,
+	val qtyPengeluaran: Double? = 0.0,
 
 	@field:SerializedName("no_transaksi")
 	val noTransaksi: String? = null,
+
+	@field:SerializedName("isactive")
+	val isActive: Int? = 0,
 )
 
 data class SnPermaterialItem(
@@ -892,25 +895,28 @@ data class PenerimaanDetailUlpItem(
 	val nomorMaterial: String? = null,
 
 	@field:SerializedName("qty_permintaan")
-	val qtyPermintaan: Int? = null,
+	val qtyPermintaan: Double? = 0.0,
 
 	@field:SerializedName("qty_pengiriman")
-	val qtyPengiriman: Int? = null,
+	val qtyPengiriman: Double? = 0.0,
 
 	@field:SerializedName("material_desc")
 	val materialDesc: String? = null,
 
 	@field:SerializedName("qty_penerimaan")
-	val qtyPenerimaan: Int? = null,
+	val qtyPenerimaan: Double? = 0.0,
 
 	@field:SerializedName("id")
 	val id: String? = null,
 
 	@field:SerializedName("qty_pemeriksaan")
-	val qtyPemeriksaan: Int? = null,
+	val qtyPemeriksaan: Double? = 0.0,
 
 	@field:SerializedName("qty_sesuai")
-	val qtySesuai: Int? = null
+	val qtySesuai: Double? = 0.0,
+
+	@field:SerializedName("isactive")
+	val isActive: Int? = 0
 )
 
 data class PenerimaanUlpItem(
@@ -1042,10 +1048,10 @@ data class PemakaianDetailItem(
 	val namaMaterial: String? = "",
 
 	@field:SerializedName("qty_reservasi")
-	val qtyReservasi: Int? = 0,
+	val qtyReservasi: Double? = 0.0,
 
 	@field:SerializedName("qty_pemakaian")
-	val qtyPemakaian: Int? = 0,
+	val qtyPemakaian: Double? = 0.0,
 
 	@field:SerializedName("no_meter")
 	val noMeter: String? = "",
@@ -1054,7 +1060,10 @@ data class PemakaianDetailItem(
 	val valuationType: String? = "",
 
 	@field:SerializedName("qty_pengeluaran")
-	val qtyPengeluaran: Int? = 0
+	val qtyPengeluaran: Double? = 0.0,
+
+	@field:SerializedName("isactive")
+	val isActive: Int? = 0
 )
 
 data class PemakaianItem(

@@ -15,13 +15,14 @@ public class TPemakaianDetail {
     private String NoTransaksi;
     private String NomorMaterial;
     private String NamaMaterial;
-    private String QtyReservasi;
-    private String QtyPemakaian;
-    private String QtyPengeluaran;
+    private Double QtyReservasi;
+    private Double QtyPemakaian;
+    private Double QtyPengeluaran;
     private String Unit;
     private String NoMeter;
     private String ValuationType;
     private String Keterangan;
+    private Integer IsActive;
 
     @Generated
     public TPemakaianDetail() {
@@ -32,7 +33,7 @@ public class TPemakaianDetail {
     }
 
     @Generated
-    public TPemakaianDetail(Long id, String NoTransaksi, String NomorMaterial, String NamaMaterial, String QtyReservasi, String QtyPemakaian, String QtyPengeluaran, String Unit, String NoMeter, String ValuationType, String Keterangan) {
+    public TPemakaianDetail(Long id, String NoTransaksi, String NomorMaterial, String NamaMaterial, Double QtyReservasi, Double QtyPemakaian, Double QtyPengeluaran, String Unit, String NoMeter, String ValuationType, String Keterangan, Integer IsActive) {
         this.id = id;
         this.NoTransaksi = NoTransaksi;
         this.NomorMaterial = NomorMaterial;
@@ -44,6 +45,7 @@ public class TPemakaianDetail {
         this.NoMeter = NoMeter;
         this.ValuationType = ValuationType;
         this.Keterangan = Keterangan;
+        this.IsActive = IsActive;
     }
 
     public Long getId() {
@@ -78,27 +80,27 @@ public class TPemakaianDetail {
         this.NamaMaterial = NamaMaterial;
     }
 
-    public String getQtyReservasi() {
+    public Double getQtyReservasi() {
         return QtyReservasi;
     }
 
-    public void setQtyReservasi(String QtyReservasi) {
+    public void setQtyReservasi(Double QtyReservasi) {
         this.QtyReservasi = QtyReservasi;
     }
 
-    public String getQtyPemakaian() {
+    public Double getQtyPemakaian() {
         return QtyPemakaian;
     }
 
-    public void setQtyPemakaian(String QtyPemakaian) {
+    public void setQtyPemakaian(Double QtyPemakaian) {
         this.QtyPemakaian = QtyPemakaian;
     }
 
-    public String getQtyPengeluaran() {
+    public Double getQtyPengeluaran() {
         return QtyPengeluaran;
     }
 
-    public void setQtyPengeluaran(String QtyPengeluaran) {
+    public void setQtyPengeluaran(Double QtyPengeluaran) {
         this.QtyPengeluaran = QtyPengeluaran;
     }
 
@@ -132,6 +134,14 @@ public class TPemakaianDetail {
 
     public void setKeterangan(String Keterangan) {
         this.Keterangan = Keterangan;
+    }
+
+    public Integer getIsActive() {
+        return IsActive;
+    }
+
+    public void setIsActive(Integer IsActive) {
+        this.IsActive = IsActive;
     }
 
 }

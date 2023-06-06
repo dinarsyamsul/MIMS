@@ -744,7 +744,7 @@
                         android:layout_height="150dp"
                         android:layout_rowWeight="1"
                         android:layout_columnWeight="1"
-                        android:background="#F8F9FA"
+                        android:backgroundTint="#F7F8FA"
                         app:cardCornerRadius="15dp"
                         app:cardElevation="4dp"
                         tools:layout_editor_absoluteX="24dp"

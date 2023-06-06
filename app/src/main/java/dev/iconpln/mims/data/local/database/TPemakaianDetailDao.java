@@ -26,13 +26,14 @@ public class TPemakaianDetailDao extends AbstractDao<TPemakaianDetail, Long> {
         public final static Property NoTransaksi = new Property(1, String.class, "NoTransaksi", false, "NO_TRANSAKSI");
         public final static Property NomorMaterial = new Property(2, String.class, "NomorMaterial", false, "NOMOR_MATERIAL");
         public final static Property NamaMaterial = new Property(3, String.class, "NamaMaterial", false, "NAMA_MATERIAL");
-        public final static Property QtyReservasi = new Property(4, String.class, "QtyReservasi", false, "QTY_RESERVASI");
-        public final static Property QtyPemakaian = new Property(5, String.class, "QtyPemakaian", false, "QTY_PEMAKAIAN");
-        public final static Property QtyPengeluaran = new Property(6, String.class, "QtyPengeluaran", false, "QTY_PENGELUARAN");
+        public final static Property QtyReservasi = new Property(4, Double.class, "QtyReservasi", false, "QTY_RESERVASI");
+        public final static Property QtyPemakaian = new Property(5, Double.class, "QtyPemakaian", false, "QTY_PEMAKAIAN");
+        public final static Property QtyPengeluaran = new Property(6, Double.class, "QtyPengeluaran", false, "QTY_PENGELUARAN");
         public final static Property Unit = new Property(7, String.class, "Unit", false, "UNIT");
         public final static Property NoMeter = new Property(8, String.class, "NoMeter", false, "NO_METER");
         public final static Property ValuationType = new Property(9, String.class, "ValuationType", false, "VALUATION_TYPE");
         public final static Property Keterangan = new Property(10, String.class, "Keterangan", false, "KETERANGAN");
+        public final static Property IsActive = new Property(11, Integer.class, "IsActive", false, "IS_ACTIVE");
     }
 
 
@@ -52,13 +53,14 @@ public class TPemakaianDetailDao extends AbstractDao<TPemakaianDetail, Long> {
                 "\"NO_TRANSAKSI\" TEXT," + // 1: NoTransaksi
                 "\"NOMOR_MATERIAL\" TEXT," + // 2: NomorMaterial
                 "\"NAMA_MATERIAL\" TEXT," + // 3: NamaMaterial
-                "\"QTY_RESERVASI\" TEXT," + // 4: QtyReservasi
-                "\"QTY_PEMAKAIAN\" TEXT," + // 5: QtyPemakaian
-                "\"QTY_PENGELUARAN\" TEXT," + // 6: QtyPengeluaran
+                "\"QTY_RESERVASI\" REAL," + // 4: QtyReservasi
+                "\"QTY_PEMAKAIAN\" REAL," + // 5: QtyPemakaian
+                "\"QTY_PENGELUARAN\" REAL," + // 6: QtyPengeluaran
                 "\"UNIT\" TEXT," + // 7: Unit
                 "\"NO_METER\" TEXT," + // 8: NoMeter
                 "\"VALUATION_TYPE\" TEXT," + // 9: ValuationType
-                "\"KETERANGAN\" TEXT);"); // 10: Keterangan
+                "\"KETERANGAN\" TEXT," + // 10: Keterangan
+                "\"IS_ACTIVE\" INTEGER);"); // 11: IsActive
     }
 
     /** Drops the underlying database table. */
@@ -91,19 +93,19 @@ public class TPemakaianDetailDao extends AbstractDao<TPemakaianDetail, Long> {
             stmt.bindString(4, NamaMaterial);
         }
  
-        String QtyReservasi = entity.getQtyReservasi();
+        Double QtyReservasi = entity.getQtyReservasi();
         if (QtyReservasi != null) {
-            stmt.bindString(5, QtyReservasi);
+            stmt.bindDouble(5, QtyReservasi);
         }
  
-        String QtyPemakaian = entity.getQtyPemakaian();
+        Double QtyPemakaian = entity.getQtyPemakaian();
         if (QtyPemakaian != null) {
-            stmt.bindString(6, QtyPemakaian);
+            stmt.bindDouble(6, QtyPemakaian);
         }
  
-        String QtyPengeluaran = entity.getQtyPengeluaran();
+        Double QtyPengeluaran = entity.getQtyPengeluaran();
         if (QtyPengeluaran != null) {
-            stmt.bindString(7, QtyPengeluaran);
+            stmt.bindDouble(7, QtyPengeluaran);
         }
  
         String Unit = entity.getUnit();
@@ -124,6 +126,11 @@ public class TPemakaianDetailDao extends AbstractDao<TPemakaianDetail, Long> {
         String Keterangan = entity.getKeterangan();
         if (Keterangan != null) {
             stmt.bindString(11, Keterangan);
+        }
+ 
+        Integer IsActive = entity.getIsActive();
+        if (IsActive != null) {
+            stmt.bindLong(12, IsActive);
         }
     }
 
@@ -151,19 +158,19 @@ public class TPemakaianDetailDao extends AbstractDao<TPemakaianDetail, Long> {
             stmt.bindString(4, NamaMaterial);
         }
  
-        String QtyReservasi = entity.getQtyReservasi();
+        Double QtyReservasi = entity.getQtyReservasi();
         if (QtyReservasi != null) {
-            stmt.bindString(5, QtyReservasi);
+            stmt.bindDouble(5, QtyReservasi);
         }
  
-        String QtyPemakaian = entity.getQtyPemakaian();
+        Double QtyPemakaian = entity.getQtyPemakaian();
         if (QtyPemakaian != null) {
-            stmt.bindString(6, QtyPemakaian);
+            stmt.bindDouble(6, QtyPemakaian);
         }
  
-        String QtyPengeluaran = entity.getQtyPengeluaran();
+        Double QtyPengeluaran = entity.getQtyPengeluaran();
         if (QtyPengeluaran != null) {
-            stmt.bindString(7, QtyPengeluaran);
+            stmt.bindDouble(7, QtyPengeluaran);
         }
  
         String Unit = entity.getUnit();
@@ -185,6 +192,11 @@ public class TPemakaianDetailDao extends AbstractDao<TPemakaianDetail, Long> {
         if (Keterangan != null) {
             stmt.bindString(11, Keterangan);
         }
+ 
+        Integer IsActive = entity.getIsActive();
+        if (IsActive != null) {
+            stmt.bindLong(12, IsActive);
+        }
     }
 
     @Override
@@ -199,13 +211,14 @@ public class TPemakaianDetailDao extends AbstractDao<TPemakaianDetail, Long> {
             cursor.isNull(offset + 1) ? null : cursor.getString(offset + 1), // NoTransaksi
             cursor.isNull(offset + 2) ? null : cursor.getString(offset + 2), // NomorMaterial
             cursor.isNull(offset + 3) ? null : cursor.getString(offset + 3), // NamaMaterial
-            cursor.isNull(offset + 4) ? null : cursor.getString(offset + 4), // QtyReservasi
-            cursor.isNull(offset + 5) ? null : cursor.getString(offset + 5), // QtyPemakaian
-            cursor.isNull(offset + 6) ? null : cursor.getString(offset + 6), // QtyPengeluaran
+            cursor.isNull(offset + 4) ? null : cursor.getDouble(offset + 4), // QtyReservasi
+            cursor.isNull(offset + 5) ? null : cursor.getDouble(offset + 5), // QtyPemakaian
+            cursor.isNull(offset + 6) ? null : cursor.getDouble(offset + 6), // QtyPengeluaran
             cursor.isNull(offset + 7) ? null : cursor.getString(offset + 7), // Unit
             cursor.isNull(offset + 8) ? null : cursor.getString(offset + 8), // NoMeter
             cursor.isNull(offset + 9) ? null : cursor.getString(offset + 9), // ValuationType
-            cursor.isNull(offset + 10) ? null : cursor.getString(offset + 10) // Keterangan
+            cursor.isNull(offset + 10) ? null : cursor.getString(offset + 10), // Keterangan
+            cursor.isNull(offset + 11) ? null : cursor.getInt(offset + 11) // IsActive
         );
         return entity;
     }
@@ -216,13 +229,14 @@ public class TPemakaianDetailDao extends AbstractDao<TPemakaianDetail, Long> {
         entity.setNoTransaksi(cursor.isNull(offset + 1) ? null : cursor.getString(offset + 1));
         entity.setNomorMaterial(cursor.isNull(offset + 2) ? null : cursor.getString(offset + 2));
         entity.setNamaMaterial(cursor.isNull(offset + 3) ? null : cursor.getString(offset + 3));
-        entity.setQtyReservasi(cursor.isNull(offset + 4) ? null : cursor.getString(offset + 4));
-        entity.setQtyPemakaian(cursor.isNull(offset + 5) ? null : cursor.getString(offset + 5));
-        entity.setQtyPengeluaran(cursor.isNull(offset + 6) ? null : cursor.getString(offset + 6));
+        entity.setQtyReservasi(cursor.isNull(offset + 4) ? null : cursor.getDouble(offset + 4));
+        entity.setQtyPemakaian(cursor.isNull(offset + 5) ? null : cursor.getDouble(offset + 5));
+        entity.setQtyPengeluaran(cursor.isNull(offset + 6) ? null : cursor.getDouble(offset + 6));
         entity.setUnit(cursor.isNull(offset + 7) ? null : cursor.getString(offset + 7));
         entity.setNoMeter(cursor.isNull(offset + 8) ? null : cursor.getString(offset + 8));
         entity.setValuationType(cursor.isNull(offset + 9) ? null : cursor.getString(offset + 9));
         entity.setKeterangan(cursor.isNull(offset + 10) ? null : cursor.getString(offset + 10));
+        entity.setIsActive(cursor.isNull(offset + 11) ? null : cursor.getInt(offset + 11));
      }
     
     @Override

@@ -785,9 +785,10 @@ class AuthViewModel: ViewModel() {
                         item.noPermintaan = model?.noPermintaan
                         item.noTransaksi = model?.noTransaksi
                         item.noRepackaging = model?.noRepackaging
-                        item.qtyPengeluaran = model?.qtyPengeluaran.toString()
-                        item.qtyPermintaan = model?.qtyPermintaan ?: 0
-                        item.qtyScan = model?.qtyScan.toString()
+                        item.qtyPengeluaran = model?.qtyPengeluaran
+                        item.qtyPermintaan = model?.qtyPermintaan ?: 0.0
+                        item.isActive = model?.isActive
+                        item.qtyScan = model?.qtyScan
 
                         items[i] = item
                     }
@@ -850,6 +851,7 @@ class AuthViewModel: ViewModel() {
                         item.qtyPengiriman = model?.qtyPengiriman
                         item.qtyPermintaan = model?.qtyPermintaan
                         item.qtySesuai = model?.qtySesuai
+                        item.isActive = model?.isActive
                         items[i] = item
                     }
                     daoSession.tPenerimaanDetailUlpDao.insertInTx(items.toList())
@@ -937,10 +939,11 @@ class AuthViewModel: ViewModel() {
                         item.keterangan = model?.keterangan
                         item.namaMaterial = model?.namaMaterial
                         item.noMeter = model?.noMeter
-                        item.qtyPemakaian = model?.qtyPemakaian.toString()
-                        item.qtyPengeluaran = model?.qtyPengeluaran.toString()
-                        item.qtyReservasi = model?.qtyReservasi.toString()
+                        item.qtyPemakaian = model?.qtyPemakaian
+                        item.qtyPengeluaran = model?.qtyPengeluaran
+                        item.qtyReservasi = model?.qtyReservasi
                         item.valuationType = model?.valuationType
+                        item.isActive = model?.isActive
                         items[i] = item
                     }
                     daoSession.tPemakaianDetailDao.insertInTx(items.toList())

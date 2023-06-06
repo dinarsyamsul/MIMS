@@ -42,21 +42,21 @@ class MonitoringPermintaanActivity : AppCompatActivity() {
 
         adapter = MonitoringPermintaanAdapter(arrayListOf(), object : MonitoringPermintaanAdapter.OnAdapterListener{
             override fun onClick(mp: TTransMonitoringPermintaan) {
-                if (mp.kodePengeluaran == "2"){
-                    Toast.makeText(this@MonitoringPermintaanActivity, "Data material sudah menjadi pengeluaran", Toast.LENGTH_SHORT).show()
-                }else{
-                    val checkDetail = daoSession.tTransMonitoringPermintaanDetailDao.queryBuilder()
-                        .where(TTransMonitoringPermintaanDetailDao.Properties.NoTransaksi.eq(mp.noTransaksi))
-                        .where(TTransMonitoringPermintaanDetailDao.Properties.IsDone.eq(0)).list()
+//                if (mp.kodePengeluaran == "2"){
+//                    Toast.makeText(this@MonitoringPermintaanActivity, "Data material sudah menjadi pengeluaran", Toast.LENGTH_SHORT).show()
+//                }else{
+//                    val checkDetail = daoSession.tTransMonitoringPermintaanDetailDao.queryBuilder()
+//                        .where(TTransMonitoringPermintaanDetailDao.Properties.NoTransaksi.eq(mp.noTransaksi))
+//                        .where(TTransMonitoringPermintaanDetailDao.Properties.IsDone.eq(0)).list()
 
-                    if (checkDetail.isNullOrEmpty()){
-                        Toast.makeText(this@MonitoringPermintaanActivity, "Data material sudah di kirim semua", Toast.LENGTH_SHORT).show()
-                    }else{
+//                    if (checkDetail.isNullOrEmpty()){
+//                        Toast.makeText(this@MonitoringPermintaanActivity, "Data material sudah di kirim semua", Toast.LENGTH_SHORT).show()
+//                    }else{
                         startActivity(Intent(this@MonitoringPermintaanActivity, MonitoringPermintaanDetailActivity::class.java)
                             .putExtra("noPermintaan", mp.noPermintaan)
                             .putExtra("noTransaksi", mp.noTransaksi))
-                    }
-                }
+//                    }
+//                }
 
             }
 
@@ -156,9 +156,10 @@ class MonitoringPermintaanActivity : AppCompatActivity() {
                     item.noPermintaan = model?.noPermintaan
                     item.noTransaksi = model?.noTransaksi
                     item.noRepackaging = model?.noRepackaging
-                    item.qtyPengeluaran = model?.qtyPengeluaran.toString()
-                    item.qtyPermintaan = model?.qtyPermintaan ?: 0
-                    item.qtyScan = model?.qtyScan.toString()
+                    item.qtyPengeluaran = model?.qtyPengeluaran
+                    item.qtyPermintaan = model?.qtyPermintaan ?: 0.0
+                    item.qtyScan = model?.qtyScan
+                    item.isActive = model?.isActive
                     item.qtyAkanDiScan = 0
                     item.isScannedSn = 0
                     item.isDone = 0

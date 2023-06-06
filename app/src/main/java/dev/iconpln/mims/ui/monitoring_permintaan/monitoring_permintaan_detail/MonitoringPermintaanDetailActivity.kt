@@ -3,6 +3,7 @@ package dev.iconpln.mims.ui.monitoring_permintaan.monitoring_permintaan_detail
 import android.app.AlertDialog
 import android.app.Dialog
 import android.content.Intent
+import android.graphics.Color
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.text.Editable
@@ -63,8 +64,9 @@ class MonitoringPermintaanDetailActivity : AppCompatActivity(),Loadable {
 
         adapter = MonitoringPermintaanDetailAdapter(arrayListOf(), object : MonitoringPermintaanDetailAdapter.OnAdapterListener{
             override fun onClick(mpd: TTransMonitoringPermintaanDetail) {
-                if (mpd.isDone == 1){
-                    Toast.makeText(this@MonitoringPermintaanDetailActivity, "Anda sudah menyelesaikan material ini", Toast.LENGTH_SHORT).show()
+                Log.d("nilaiDecimal", "${mpd.qtyScan.toDouble()}")
+                if (mpd.isActive == 0){//mpd.isDone == 1){
+                    Toast.makeText(this@MonitoringPermintaanDetailActivity, "Material tidak dapat di scan karena merupakan material non mims", Toast.LENGTH_SHORT).show()
                 }else{
                     startActivity(Intent(this@MonitoringPermintaanDetailActivity, InputSnMonitoringPermintaanActivity::class.java)
                         .putExtra("noPermintaan", mpd.noPermintaan)
@@ -85,7 +87,16 @@ class MonitoringPermintaanDetailActivity : AppCompatActivity(),Loadable {
 
         with(binding){
             btnBack.setOnClickListener { onBackPressed() }
-            btnSimpan.setOnClickListener { validate() }
+
+            if (monitoringPermintaan.kodePengeluaran == "2"){
+                btnSimpan.isEnabled = false
+                btnSimpan.setBackgroundColor(Color.GRAY)
+            }
+
+            btnSimpan.setOnClickListener {
+                validate()
+            }
+
             txtNoPermintaan.text = noPermintaan
             txtNoPackaging.text = monitoringPermintaan.noRepackaging
             txtGudangTujuan.text = monitoringPermintaan.storLocTujuanName
@@ -117,8 +128,7 @@ class MonitoringPermintaanDetailActivity : AppCompatActivity(),Loadable {
     private fun validate() {
         val jumlahKardus = binding.edtTotalRepackaging.text.toString()
         val listMonitoringDetail = daoSession.tTransMonitoringPermintaanDetailDao.queryBuilder()
-            .where(TTransMonitoringPermintaanDetailDao.Properties.NoTransaksi.eq(noTransaksi))
-            .where(TTransMonitoringPermintaanDetailDao.Properties.IsDone.eq(0)).list()
+            .where(TTransMonitoringPermintaanDetailDao.Properties.NoTransaksi.eq(noTransaksi)).list()
 
         if (jumlahKardus.isNullOrEmpty()){
             Toast.makeText(this@MonitoringPermintaanDetailActivity, "repackaging atau jumlah kardus tidak boleh kosong", Toast.LENGTH_SHORT).show()
@@ -126,7 +136,7 @@ class MonitoringPermintaanDetailActivity : AppCompatActivity(),Loadable {
         }
 
         for (i in listMonitoringDetail){
-            if (i.qtyPermintaan != i.qtyAkanDiScan){
+            if (i.qtyPermintaan.toInt() != i.qtyScan.toInt()){
                 Toast.makeText(this@MonitoringPermintaanDetailActivity, "Masih ada material yang kurang", Toast.LENGTH_SHORT).show()
                 return
             }
@@ -162,20 +172,8 @@ class MonitoringPermintaanDetailActivity : AppCompatActivity(),Loadable {
     private fun submitForm(jumlahKardus: String) {
         var materials = ""
 
-        val listMonitoringDetail = daoSession.tTransMonitoringPermintaanDetailDao.queryBuilder()
-            .where(TTransMonitoringPermintaanDetailDao.Properties.NoTransaksi.eq(noTransaksi)).list()
-
-        for (i in listMonitoringDetail){
-            if (i.isScannedSn == 1){
-                if (i.qtyScan.toInt() != i.qtyPermintaan) i.isDone = 0 else i.isDone = 1
-                daoSession.tTransMonitoringPermintaanDetailDao.update(i)
-                Toast.makeText(this@MonitoringPermintaanDetailActivity, "Berhasil mengirim material ${i.nomorMaterial}", Toast.LENGTH_SHORT).show()
-            }
-        }
-
         val listIsDone = daoSession.tTransMonitoringPermintaanDetailDao.queryBuilder()
-            .where(TTransMonitoringPermintaanDetailDao.Properties.NoTransaksi.eq(noTransaksi))
-            .where(TTransMonitoringPermintaanDetailDao.Properties.IsScannedSn.eq(1)).list()
+            .where(TTransMonitoringPermintaanDetailDao.Properties.NoTransaksi.eq(noTransaksi)).list()
 
         for(i in listIsDone){
             materials += "${i.nomorMaterial},${i.qtyScan};"

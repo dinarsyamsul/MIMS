@@ -16,11 +16,12 @@ public class TPenerimaanDetailUlp {
     private String NoRepackaging;
     private String NoMaterial;
     private String MaterialDesc;
-    private Integer QtyPermintaan;
-    private Integer QtyPengiriman;
-    private Integer QtyPemeriksaan;
-    private Integer QtyPenerimaan;
-    private Integer QtySesuai;
+    private Double QtyPermintaan;
+    private Double QtyPengiriman;
+    private Double QtyPemeriksaan;
+    private Double QtyPenerimaan;
+    private Double QtySesuai;
+    private Integer IsActive;
 
     @Generated
     public TPenerimaanDetailUlp() {
@@ -31,7 +32,7 @@ public class TPenerimaanDetailUlp {
     }
 
     @Generated
-    public TPenerimaanDetailUlp(Long id, String NoTransaksi, String NoRepackaging, String NoMaterial, String MaterialDesc, Integer QtyPermintaan, Integer QtyPengiriman, Integer QtyPemeriksaan, Integer QtyPenerimaan, Integer QtySesuai) {
+    public TPenerimaanDetailUlp(Long id, String NoTransaksi, String NoRepackaging, String NoMaterial, String MaterialDesc, Double QtyPermintaan, Double QtyPengiriman, Double QtyPemeriksaan, Double QtyPenerimaan, Double QtySesuai, Integer IsActive) {
         this.id = id;
         this.NoTransaksi = NoTransaksi;
         this.NoRepackaging = NoRepackaging;
@@ -42,6 +43,7 @@ public class TPenerimaanDetailUlp {
         this.QtyPemeriksaan = QtyPemeriksaan;
         this.QtyPenerimaan = QtyPenerimaan;
         this.QtySesuai = QtySesuai;
+        this.IsActive = IsActive;
     }
 
     public Long getId() {
@@ -84,44 +86,52 @@ public class TPenerimaanDetailUlp {
         this.MaterialDesc = MaterialDesc;
     }
 
-    public Integer getQtyPermintaan() {
+    public Double getQtyPermintaan() {
         return QtyPermintaan;
     }
 
-    public void setQtyPermintaan(Integer QtyPermintaan) {
+    public void setQtyPermintaan(Double QtyPermintaan) {
         this.QtyPermintaan = QtyPermintaan;
     }
 
-    public Integer getQtyPengiriman() {
+    public Double getQtyPengiriman() {
         return QtyPengiriman;
     }
 
-    public void setQtyPengiriman(Integer QtyPengiriman) {
+    public void setQtyPengiriman(Double QtyPengiriman) {
         this.QtyPengiriman = QtyPengiriman;
     }
 
-    public Integer getQtyPemeriksaan() {
+    public Double getQtyPemeriksaan() {
         return QtyPemeriksaan;
     }
 
-    public void setQtyPemeriksaan(Integer QtyPemeriksaan) {
+    public void setQtyPemeriksaan(Double QtyPemeriksaan) {
         this.QtyPemeriksaan = QtyPemeriksaan;
     }
 
-    public Integer getQtyPenerimaan() {
+    public Double getQtyPenerimaan() {
         return QtyPenerimaan;
     }
 
-    public void setQtyPenerimaan(Integer QtyPenerimaan) {
+    public void setQtyPenerimaan(Double QtyPenerimaan) {
         this.QtyPenerimaan = QtyPenerimaan;
     }
 
-    public Integer getQtySesuai() {
+    public Double getQtySesuai() {
         return QtySesuai;
     }
 
-    public void setQtySesuai(Integer QtySesuai) {
+    public void setQtySesuai(Double QtySesuai) {
         this.QtySesuai = QtySesuai;
+    }
+
+    public Integer getIsActive() {
+        return IsActive;
+    }
+
+    public void setIsActive(Integer IsActive) {
+        this.IsActive = IsActive;
     }
 
 }

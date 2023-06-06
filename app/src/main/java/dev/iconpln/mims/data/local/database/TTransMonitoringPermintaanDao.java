@@ -40,7 +40,8 @@ public class TTransMonitoringPermintaanDao extends AbstractDao<TTransMonitoringP
         public final static Property TanggalPengeluaran = new Property(15, String.class, "TanggalPengeluaran", false, "TANGGAL_PENGELUARAN");
         public final static Property PlantName = new Property(16, String.class, "PlantName", false, "PLANT_NAME");
         public final static Property StorLocAsal = new Property(17, String.class, "StorLocAsal", false, "STOR_LOC_ASAL");
-        public final static Property IsDone = new Property(18, Integer.class, "IsDone", false, "IS_DONE");
+        public final static Property IsActive = new Property(18, Integer.class, "IsActive", false, "IS_ACTIVE");
+        public final static Property IsDone = new Property(19, Integer.class, "IsDone", false, "IS_DONE");
     }
 
 
@@ -74,7 +75,8 @@ public class TTransMonitoringPermintaanDao extends AbstractDao<TTransMonitoringP
                 "\"TANGGAL_PENGELUARAN\" TEXT," + // 15: TanggalPengeluaran
                 "\"PLANT_NAME\" TEXT," + // 16: PlantName
                 "\"STOR_LOC_ASAL\" TEXT," + // 17: StorLocAsal
-                "\"IS_DONE\" INTEGER);"); // 18: IsDone
+                "\"IS_ACTIVE\" INTEGER," + // 18: IsActive
+                "\"IS_DONE\" INTEGER);"); // 19: IsDone
     }
 
     /** Drops the underlying database table. */
@@ -177,9 +179,14 @@ public class TTransMonitoringPermintaanDao extends AbstractDao<TTransMonitoringP
             stmt.bindString(18, StorLocAsal);
         }
  
+        Integer IsActive = entity.getIsActive();
+        if (IsActive != null) {
+            stmt.bindLong(19, IsActive);
+        }
+ 
         Integer IsDone = entity.getIsDone();
         if (IsDone != null) {
-            stmt.bindLong(19, IsDone);
+            stmt.bindLong(20, IsDone);
         }
     }
 
@@ -277,9 +284,14 @@ public class TTransMonitoringPermintaanDao extends AbstractDao<TTransMonitoringP
             stmt.bindString(18, StorLocAsal);
         }
  
+        Integer IsActive = entity.getIsActive();
+        if (IsActive != null) {
+            stmt.bindLong(19, IsActive);
+        }
+ 
         Integer IsDone = entity.getIsDone();
         if (IsDone != null) {
-            stmt.bindLong(19, IsDone);
+            stmt.bindLong(20, IsDone);
         }
     }
 
@@ -309,7 +321,8 @@ public class TTransMonitoringPermintaanDao extends AbstractDao<TTransMonitoringP
             cursor.isNull(offset + 15) ? null : cursor.getString(offset + 15), // TanggalPengeluaran
             cursor.isNull(offset + 16) ? null : cursor.getString(offset + 16), // PlantName
             cursor.isNull(offset + 17) ? null : cursor.getString(offset + 17), // StorLocAsal
-            cursor.isNull(offset + 18) ? null : cursor.getInt(offset + 18) // IsDone
+            cursor.isNull(offset + 18) ? null : cursor.getInt(offset + 18), // IsActive
+            cursor.isNull(offset + 19) ? null : cursor.getInt(offset + 19) // IsDone
         );
         return entity;
     }
@@ -334,7 +347,8 @@ public class TTransMonitoringPermintaanDao extends AbstractDao<TTransMonitoringP
         entity.setTanggalPengeluaran(cursor.isNull(offset + 15) ? null : cursor.getString(offset + 15));
         entity.setPlantName(cursor.isNull(offset + 16) ? null : cursor.getString(offset + 16));
         entity.setStorLocAsal(cursor.isNull(offset + 17) ? null : cursor.getString(offset + 17));
-        entity.setIsDone(cursor.isNull(offset + 18) ? null : cursor.getInt(offset + 18));
+        entity.setIsActive(cursor.isNull(offset + 18) ? null : cursor.getInt(offset + 18));
+        entity.setIsDone(cursor.isNull(offset + 19) ? null : cursor.getInt(offset + 19));
      }
     
     @Override

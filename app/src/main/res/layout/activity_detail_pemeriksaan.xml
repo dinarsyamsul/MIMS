@@ -178,12 +178,12 @@
                 app:layout_constraintTop_toBottomOf="@+id/txt_no_permintaan" />
 
             <TextView
-                android:id="@+id/lbl_tanggal_pemeriksaan"
+                android:id="@+id/lbl_tanggal_penerimaan"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_marginStart="5dp"
                 android:fontFamily="@font/montserrat_reguler"
-                android:text="Tanggal Pemeriksaan"
+                android:text="Tanggal Penerimaan"
                 android:textColor="#3F3D56"
                 android:textSize="10sp"
                 app:layout_constraintBottom_toBottomOf="@+id/imageView2"
@@ -192,7 +192,7 @@
                 app:layout_constraintTop_toTopOf="@+id/imageView2" />
 
             <TextView
-                android:id="@+id/txt_tanggal_pemeriksaan"
+                android:id="@+id/txt_tanggal_penerimaan"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_marginStart="5dp"
@@ -201,92 +201,109 @@
                 android:text="xxxxxxxxxxx"
                 android:textSize="10sp"
                 app:layout_constraintBottom_toBottomOf="parent"
-                app:layout_constraintEnd_toEndOf="@+id/lbl_tanggal_pemeriksaan"
+                app:layout_constraintEnd_toEndOf="@+id/lbl_tanggal_penerimaan"
                 app:layout_constraintHorizontal_bias="0.0"
                 app:layout_constraintStart_toEndOf="@+id/imageView2"
-                app:layout_constraintTop_toBottomOf="@+id/lbl_tanggal_pemeriksaan"
+                app:layout_constraintTop_toBottomOf="@+id/lbl_tanggal_penerimaan"
                 app:layout_constraintVertical_bias="0.212" />
         </androidx.constraintlayout.widget.ConstraintLayout>
     </androidx.cardview.widget.CardView>
 
-    <TextView
-        android:id="@+id/lbl_no_sn"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="16dp"
-        android:fontFamily="@font/montserrat_semibold"
-        android:text="SN. Material"
-        android:textSize="12sp"
-        app:layout_constraintStart_toStartOf="@+id/cv_daftarListpetugaspenerimaan"
-        app:layout_constraintTop_toBottomOf="@+id/cv_daftarListpetugaspenerimaan" />
-
-    <EditText
-        android:id="@+id/src_no_sn"
-        android:layout_width="0dp"
-        android:layout_height="50dp"
-        android:layout_marginTop="10dp"
-        android:background="@drawable/srchview"
-        android:drawableEnd="@drawable/ic_search"
-        android:fontFamily="@font/montserrat_reguler"
-        android:hint="Search here"
-        android:paddingLeft="20dp"
-        android:paddingRight="20dp"
-        android:textSize="12sp"
-        app:layout_constraintEnd_toEndOf="@+id/cv_daftarListpetugaspenerimaan"
-        app:layout_constraintStart_toStartOf="@+id/cv_daftarListpetugaspenerimaan"
-        app:layout_constraintTop_toBottomOf="@+id/lbl_no_sn" />
-
-    <View
-        android:id="@+id/view8"
-        android:layout_width="0dp"
-        android:layout_height="1dp"
-        android:layout_marginTop="15dp"
-        android:background="#B9B9B9"
-        app:layout_constraintEnd_toEndOf="@+id/src_no_sn"
-        app:layout_constraintStart_toStartOf="@+id/src_no_sn"
-        app:layout_constraintTop_toBottomOf="@+id/src_no_sn" />
-
-    <androidx.recyclerview.widget.RecyclerView
-        android:id="@+id/rv_detail_pemeriksaan"
+    <ScrollView
         android:layout_width="match_parent"
         android:layout_height="0dp"
-        android:layout_marginTop="5dp"
-        android:layout_marginBottom="5dp"
-        app:layout_constraintBottom_toTopOf="@+id/txt_total_data"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.0"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/view8"
-        app:layout_constraintVertical_bias="0.0"
-        tools:listitem="@layout/item_detail_pemeriksaan_ulp" />
-
-    <TextView
-        android:id="@+id/txt_total_data"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginBottom="20dp"
-        android:fontFamily="@font/montserrat_medium"
-        android:text="Total 20 data"
-        android:textColor="#96979B"
-        android:textSize="10sp"
-        app:layout_constraintBottom_toTopOf="@+id/btn_lanjutpenerimaanulp"
-        app:layout_constraintStart_toStartOf="@+id/btn_lanjutpenerimaanulp" />
-
-    <androidx.appcompat.widget.AppCompatButton
-        android:id="@+id/btn_lanjutpenerimaanulp"
-        android:layout_width="0dp"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="24dp"
-        android:layout_marginEnd="24dp"
-        android:layout_marginBottom="10dp"
-        android:background="@drawable/br_btn"
-        android:elevation="8dp"
-        android:fontFamily="@font/montserrat_reguler"
-        android:text="Selesai"
-        android:textAllCaps="false"
-        android:textColor="#FFFFFF"
-        android:textStyle="bold"
+        android:layout_marginTop="20dp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent" />
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/cv_daftarListpetugaspenerimaan">
+
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
+
+            <TextView
+                android:id="@+id/lbl_no_sn"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="24dp"
+                android:fontFamily="@font/montserrat_semibold"
+                android:text="SN. Material"
+                android:textSize="12sp"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent" />
+
+            <EditText
+                android:id="@+id/src_no_sn"
+                android:layout_width="0dp"
+                android:layout_height="50dp"
+                android:layout_marginTop="10dp"
+                android:layout_marginEnd="24dp"
+                android:background="@drawable/srchview"
+                android:drawableEnd="@drawable/ic_search"
+                android:fontFamily="@font/montserrat_reguler"
+                android:hint="Search here"
+                android:paddingLeft="20dp"
+                android:paddingRight="20dp"
+                android:textSize="12sp"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="@+id/lbl_no_sn"
+                app:layout_constraintTop_toBottomOf="@+id/lbl_no_sn" />
+
+            <View
+                android:id="@+id/view8"
+                android:layout_width="0dp"
+                android:layout_height="1dp"
+                android:layout_marginTop="15dp"
+                android:background="#B9B9B9"
+                app:layout_constraintEnd_toEndOf="@+id/src_no_sn"
+                app:layout_constraintStart_toStartOf="@+id/src_no_sn"
+                app:layout_constraintTop_toBottomOf="@+id/src_no_sn" />
+
+            <androidx.recyclerview.widget.RecyclerView
+                android:id="@+id/rv_detail_pemeriksaan"
+                android:layout_width="match_parent"
+                android:layout_height="300dp"
+                android:layout_marginTop="5dp"
+                android:layout_marginBottom="5dp"
+                app:layout_constraintBottom_toTopOf="@+id/txt_total_data"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintHorizontal_bias="0.0"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/view8"
+                app:layout_constraintVertical_bias="0.0"
+                tools:listitem="@layout/item_detail_pemeriksaan_ulp" />
+
+            <TextView
+                android:id="@+id/txt_total_data"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="20dp"
+                android:fontFamily="@font/montserrat_medium"
+                android:text="Total 20 data"
+                android:textColor="#96979B"
+                android:textSize="10sp"
+                app:layout_constraintBottom_toTopOf="@+id/btn_lanjutpenerimaanulp"
+                app:layout_constraintStart_toStartOf="@+id/btn_lanjutpenerimaanulp" />
+
+            <androidx.appcompat.widget.AppCompatButton
+                android:id="@+id/btn_lanjutpenerimaanulp"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="24dp"
+                android:layout_marginEnd="24dp"
+                android:layout_marginBottom="10dp"
+                android:background="@drawable/br_btn"
+                android:elevation="8dp"
+                android:fontFamily="@font/montserrat_reguler"
+                android:text="Selesai"
+                android:textAllCaps="false"
+                android:textColor="#FFFFFF"
+                android:textStyle="bold"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent" />
+
+        </androidx.constraintlayout.widget.ConstraintLayout>
+    </ScrollView>
 </androidx.constraintlayout.widget.ConstraintLayout>

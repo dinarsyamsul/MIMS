@@ -44,6 +44,8 @@ class PemakaianAdapter(val lisModels: MutableList<TPemakaian>, var listener: OnA
 
                 if (pemakaian.isDone == 1 || pemakaian.statusPemakaian == "TERPAKAI"){
                     binding.ivDelivery.setImageResource(R.drawable.ic_listrik_done)
+                }else{
+                    binding.ivDelivery.setImageResource(R.drawable.ic_listrik)
                 }
 
                 ivDelivery.setOnClickListener { listener.onClick(pemakaian) }

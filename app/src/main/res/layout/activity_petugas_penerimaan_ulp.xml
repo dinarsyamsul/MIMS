@@ -191,22 +191,21 @@
 
             <TextView
                 android:id="@+id/lbl_gudang_tujuan_penerimaanulp"
-                android:layout_width="wrap_content"
+                android:layout_width="0dp"
                 android:layout_height="wrap_content"
-                android:layout_marginStart="5dp"
                 android:fontFamily="@font/montserrat_reguler"
                 android:text="Gudang Asal"
                 android:textColor="#3F3D56"
                 android:textSize="10sp"
                 app:layout_constraintBottom_toBottomOf="@+id/imageView2"
-                app:layout_constraintEnd_toEndOf="@+id/txt_no_pengiriman"
+                app:layout_constraintEnd_toEndOf="@+id/txt_no_repackagingpenerimaanulp"
                 app:layout_constraintStart_toStartOf="@+id/txt_no_repackagingpenerimaanulp"
                 app:layout_constraintTop_toTopOf="@+id/imageView2" />
 
 
             <TextView
                 android:id="@+id/txt_gudang_tujuan_penerimaanulp"
-                android:layout_width="wrap_content"
+                android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_marginStart="5dp"
                 android:layout_marginBottom="16dp"

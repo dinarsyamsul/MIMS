@@ -36,9 +36,6 @@ class PemakaianDetailAdapter(val lisModels: MutableList<TTransPemakaianDetail>,
     inner class ViewHolder(val binding: ItemDataDetailPemakaianUlpBinding): RecyclerView.ViewHolder(binding.root){
         fun bind(pemakaian : TTransPemakaianDetail){
             with(binding){
-                val jumlahPemakaian = daoSession.tListSnMaterialPemakaianUlpDao.queryBuilder()
-                    .where(TListSnMaterialPemakaianUlpDao.Properties.NoTransaksi.eq(pemakaian.noTransaksi))
-                    .where(TListSnMaterialPemakaianUlpDao.Properties.NoMaterial.eq(pemakaian.nomorMaterial)).list()
 
                 if (pemakaian.isDone == 1){
                     ivDelivery.setImageResource(R.drawable.ic_input_doc_done)
@@ -46,8 +43,8 @@ class PemakaianDetailAdapter(val lisModels: MutableList<TTransPemakaianDetail>,
                     ivDelivery.setImageResource(R.drawable.ic_input_doc_active)
                 }
 
-                txtJumlahPemakaian.text = jumlahPemakaian.size.toString()
-                txtJumlahReservasi.text = pemakaian.qtyReservasi
+                txtJumlahPemakaian.text = pemakaian.qtyPemakaian.toString()
+                txtJumlahReservasi.text = pemakaian.qtyReservasi.toString()
                 txtSatuan.text = pemakaian.unit
                 txtNamaMaterial.text = pemakaian.namaMaterial
                 txtNoMeter.text = pemakaian.noMeter

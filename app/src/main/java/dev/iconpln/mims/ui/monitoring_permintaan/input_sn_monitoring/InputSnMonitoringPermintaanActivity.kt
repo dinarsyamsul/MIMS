@@ -7,6 +7,7 @@ import android.os.Bundle
 import android.text.Editable
 import android.text.TextWatcher
 import android.util.Log
+import android.view.View
 import android.view.ViewGroup
 import android.widget.EditText
 import android.widget.ImageView
@@ -44,7 +45,7 @@ class InputSnMonitoringPermintaanActivity : AppCompatActivity() {
     private var kategori = ""
     private var storloc = ""
     private var plant = ""
-    private var qtyPermintaan = 0
+    private var qtyPermintaan = 0.0
     private var roleId = 0
     private var username = ""
 
@@ -60,7 +61,7 @@ class InputSnMonitoringPermintaanActivity : AppCompatActivity() {
         noMaterial = intent.getStringExtra("noMat").toString()
         descMaterial = intent.getStringExtra("desc").toString()
         kategori = intent.getStringExtra("kategori").toString()
-        qtyPermintaan = intent.getIntExtra("qtyPermintaan",0)
+        qtyPermintaan = intent.getDoubleExtra("qtyPermintaan",0.0)
         username = SharedPrefsUtils.getStringPreference(this@InputSnMonitoringPermintaanActivity, "username","")!!
 
         plant = SharedPrefsUtils.getStringPreference(this@InputSnMonitoringPermintaanActivity,"plant","").toString()
@@ -77,35 +78,39 @@ class InputSnMonitoringPermintaanActivity : AppCompatActivity() {
 
         adapter = MonitoringPermintaanSnAdapter(arrayListOf(), object : MonitoringPermintaanSnAdapter.OnAdapterListener{
             override fun onClick(tms: TMonitoringSnMaterial) {
-                val dialog = Dialog(this@InputSnMonitoringPermintaanActivity)
-                dialog.setContentView(R.layout.popup_validation);
-                dialog.window!!.setLayout(ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.WRAP_CONTENT);
-                dialog.setCancelable(false);
-                dialog.window!!.attributes.windowAnimations = R.style.DialogUpDown;
-                val btnYa = dialog.findViewById(R.id.btn_ya) as AppCompatButton
-                val btnTidak = dialog.findViewById(R.id.btn_tidak) as AppCompatButton
-                val message = dialog.findViewById(R.id.message) as TextView
-                val txtMessage = dialog.findViewById(R.id.txt_message) as TextView
-                val icon = dialog.findViewById(R.id.imageView11) as ImageView
+                if(monitoringPenerimaan.kodePengeluaran == "2"){
+                    Toast.makeText(this@InputSnMonitoringPermintaanActivity, "Tidak dapat melakukan delete serial number, karena sudah menjadi pengeluaran", Toast.LENGTH_SHORT).show()
+                }else{
+                    val dialog = Dialog(this@InputSnMonitoringPermintaanActivity)
+                    dialog.setContentView(R.layout.popup_validation);
+                    dialog.window!!.setLayout(ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.WRAP_CONTENT);
+                    dialog.setCancelable(false);
+                    dialog.window!!.attributes.windowAnimations = R.style.DialogUpDown;
+                    val btnYa = dialog.findViewById(R.id.btn_ya) as AppCompatButton
+                    val btnTidak = dialog.findViewById(R.id.btn_tidak) as AppCompatButton
+                    val message = dialog.findViewById(R.id.message) as TextView
+                    val txtMessage = dialog.findViewById(R.id.txt_message) as TextView
+                    val icon = dialog.findViewById(R.id.imageView11) as ImageView
 
-                message.text = "Yakin untuk untuk menghapus?"
-                txtMessage.text = "Jika ya, maka serial number akan di hapus"
-                icon.setImageResource(R.drawable.ic_warning)
+                    message.text = "Yakin untuk untuk menghapus?"
+                    txtMessage.text = "Jika ya, maka serial number akan di hapus"
+                    icon.setImageResource(R.drawable.ic_warning)
 
-                btnYa.setOnClickListener {
-                    showPopuDelete(tms)
-                    dialog.dismiss();
+                    btnYa.setOnClickListener {
+                        showPopuDelete(tms)
+                        dialog.dismiss();
 
+                    }
+
+                    btnTidak.setOnClickListener {
+                        dialog.dismiss()
+                    }
+
+                    dialog.show();
                 }
-
-                btnTidak.setOnClickListener {
-                    dialog.dismiss()
-                }
-
-                dialog.show();
             }
 
-        })
+        },monitoringPenerimaan.kodePengeluaran)
 
         adapter.setTmsList(listSnm)
 
@@ -115,7 +120,17 @@ class InputSnMonitoringPermintaanActivity : AppCompatActivity() {
             txtNoMaterial.text = noMaterial
             txtUnitAsal.text = monitoringPenerimaan.storLocAsalName
             txtQtyPermintaan.text = qtyPermintaan.toString()
-            txtQtyScanned.text = listSnm.size.toString()
+            txtQtyScanned.text = "${listSnm.size.toDouble()}"
+
+            if (monitoringPenerimaan.kodePengeluaran == "2"){
+                btnScanSnMaterial.visibility = View.GONE
+                btnInputSnManual.visibility = View.GONE
+                lblScan.visibility = View.GONE
+            }else{
+                btnScanSnMaterial.visibility = View.VISIBLE
+                btnInputSnManual.visibility = View.VISIBLE
+                lblScan.visibility = View.VISIBLE
+            }
 
             srcNoSn.addTextChangedListener(object : TextWatcher{
                 override fun beforeTextChanged(
@@ -149,7 +164,7 @@ class InputSnMonitoringPermintaanActivity : AppCompatActivity() {
 
             btnInputSnManual.setOnClickListener { showPopUp() }
 
-            btnSimpan.setOnClickListener { validate() }
+//            btnSimpan.setOnClickListener { validate() }
         }
     }
 
@@ -185,7 +200,7 @@ class InputSnMonitoringPermintaanActivity : AppCompatActivity() {
                                 .where(TTransMonitoringPermintaanDetailDao.Properties.NomorMaterial.eq(noMaterial))
                                 .list()[0]
 
-                            permintaanDetail.qtyScan = reloadList.size.toString()
+                            permintaanDetail.qtyScan = reloadList.size.toDouble()
                             daoSession.tTransMonitoringPermintaanDetailDao.update(permintaanDetail)
                             binding.txtQtyScanned.text = reloadList.size.toString()
                         }else{
@@ -222,12 +237,12 @@ class InputSnMonitoringPermintaanActivity : AppCompatActivity() {
             .where(TTransMonitoringPermintaanDetailDao.Properties.NomorMaterial.eq(noMaterial))
             .list()[0]
 
-        if (permintaanDetail.qtyPermintaan != listSnm.size){
+        if (permintaanDetail.qtyPermintaan.toInt() != listSnm.size){
             Toast.makeText(this@InputSnMonitoringPermintaanActivity, "Qty scan masih kurang", Toast.LENGTH_SHORT).show()
             return
         }
 
-        if (listSnm.size == permintaanDetail.qtyPermintaan){
+        if (listSnm.size == permintaanDetail.qtyPermintaan.toInt()){
             permintaanDetail.isScannedSn = 1
         }
 
@@ -270,11 +285,11 @@ class InputSnMonitoringPermintaanActivity : AppCompatActivity() {
 //            return
 //        }
 
-        if (listSnm.size == permintaanDetail.qtyPermintaan){
+        if (listSnm.size == permintaanDetail.qtyPermintaan.toInt()){
             permintaanDetail.isScannedSn = 1
         }
 
-        permintaanDetail.qtyScan = listSnm.size.toString()
+        permintaanDetail.qtyScan = listSnm.size.toDouble()
         permintaanDetail.isDone = 1
         daoSession.tTransMonitoringPermintaanDetailDao.update(permintaanDetail)
 
@@ -429,7 +444,7 @@ class InputSnMonitoringPermintaanActivity : AppCompatActivity() {
                 .where(TTransMonitoringPermintaanDetailDao.Properties.NomorMaterial.eq(noMaterial))
                 .list()[0]
 
-            permintaanDetail.qtyScan = listSnm.size.toString()
+            permintaanDetail.qtyScan = listSnm.size.toDouble()
             daoSession.tTransMonitoringPermintaanDetailDao.update(permintaanDetail)
 
             startActivity(Intent(this@InputSnMonitoringPermintaanActivity, MonitoringPermintaanDetailActivity::class.java)

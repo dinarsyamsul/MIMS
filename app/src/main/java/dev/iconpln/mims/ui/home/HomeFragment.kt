@@ -5,6 +5,7 @@ import android.content.Context
 import android.content.Intent
 import android.os.Build
 import android.os.Bundle
+import android.se.omapi.Session
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -21,6 +22,7 @@ import dev.iconpln.mims.HomeActivity
 import dev.iconpln.mims.MyApplication
 import dev.iconpln.mims.R
 import dev.iconpln.mims.data.local.database.*
+import dev.iconpln.mims.data.local.database_local.DatabaseReport
 import dev.iconpln.mims.data.remote.response.LoginResponse
 import dev.iconpln.mims.data.remote.service.ApiConfig
 import dev.iconpln.mims.databinding.FragmentHomeBinding
@@ -37,6 +39,7 @@ import dev.iconpln.mims.ui.pnerimaan.approval.ApprovalActivity
 import dev.iconpln.mims.ui.pnerimaan.registrasi.RegistrasiSnMaterialActivity
 import dev.iconpln.mims.ui.tracking.TrackingHistoryActivity
 import dev.iconpln.mims.ui.ulp.penerimaan.PenerimaanUlpActivity
+import dev.iconpln.mims.utils.ConnectionDetectorUtil
 import dev.iconpln.mims.utils.Helper
 import dev.iconpln.mims.utils.SessionManager
 import dev.iconpln.mims.utils.SharedPrefsUtils
@@ -52,11 +55,25 @@ class HomeFragment : Fragment() {
     private val binding get() = _binding!!
     private lateinit var dialog : Dialog
     private lateinit var daoSession: DaoSession
+    private var databaseReport: DatabaseReport? = null
+    private lateinit var session: SessionManager
+    private lateinit var mAndroidId: String
+    private lateinit var mAppVersion: String
+    private lateinit var mDeviceData: String
+    private lateinit var mIpAddress: String
+    private var androidVersion: Int = 0
+    private var dateTimeUtc: Long = 0
+    private lateinit var username: String
+    private lateinit var mPassword: String
+    private lateinit var fullName: String
+    private lateinit var connectionDetector: ConnectionDetectorUtil
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
         // Inflate the layout for this fragment
         _binding = FragmentHomeBinding.inflate(inflater, container, false)
         daoSession = (requireActivity().application as MyApplication).daoSession!!
+        databaseReport = DatabaseReport.getDatabase(requireActivity())
+        connectionDetector = ConnectionDetectorUtil(requireActivity())
         val view = binding.root
         return view
     }
@@ -89,17 +106,17 @@ class HomeFragment : Fragment() {
         dialog.setCancelable(false)
         dialog.window!!.attributes.windowAnimations = R.style.DialogUpDown
 
-        val session = SessionManager(requireContext())
+        session = SessionManager(requireContext())
 
-        var mAndroidId = Helper.getAndroidId(requireActivity())
-        var mAppVersion = Helper.getVersionApp(requireActivity())
-        var mDeviceData = Helper.deviceData
-        var mIpAddress = Helper.getIPAddress(true)
-        var androidVersion = Build.VERSION.SDK_INT
-        var dateTimeUtc = DateTimeUtils.currentTimeMillis()
-        var username = SharedPrefsUtils.getStringPreference(requireActivity(),"username","14.Hexing_Electric")!!
-        var mPassword = SharedPrefsUtils.getStringPreference(requireActivity(),"password","12345")!!
-        val fullName = SharedPrefsUtils.getStringPreference(requireActivity(), "fullName","")
+        mAndroidId = Helper.getAndroidId(requireActivity())
+        mAppVersion = Helper.getVersionApp(requireActivity())
+        mDeviceData = Helper.deviceData
+        mIpAddress = Helper.getIPAddress(true)
+        androidVersion = Build.VERSION.SDK_INT
+        dateTimeUtc = DateTimeUtils.currentTimeMillis()
+        username = SharedPrefsUtils.getStringPreference(requireActivity(),"username","14.Hexing_Electric")!!
+        mPassword = SharedPrefsUtils.getStringPreference(requireActivity(),"password","12345")!!
+        fullName = SharedPrefsUtils.getStringPreference(requireActivity(), "fullName","")!!
 
         binding.txtdash1.text = "$fullName"
         binding.btnMonitoring.visibility = View.GONE
@@ -210,32 +227,7 @@ class HomeFragment : Fragment() {
         binding.btnPenerimaanUlp.setOnClickListener { startActivity(Intent(requireActivity(), PenerimaanUlpActivity::class.java)) }
 
         binding.btnSync.setOnClickListener {
-            val dialog = Dialog(requireActivity())
-            dialog.setContentView(R.layout.popup_validation);
-            dialog.window!!.setLayout(ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.WRAP_CONTENT);
-            dialog.setCancelable(false);
-            dialog.window!!.attributes.windowAnimations = R.style.DialogUpDown;
-            val btnYa = dialog.findViewById(R.id.btn_ya) as AppCompatButton
-            val btnTidak = dialog.findViewById(R.id.btn_tidak) as AppCompatButton
-            val message = dialog.findViewById(R.id.message) as TextView
-            val textMessage = dialog.findViewById(R.id.txt_message) as TextView
-
-            message.text = "Yakin untuk melakukan synchronize data?"
-            textMessage.text = "Klik ya untuk melakukan synchronize data"
-
-            btnTidak.setOnClickListener {
-                dialog.dismiss();
-            }
-
-            btnYa.setOnClickListener {
-                btnSync(requireActivity(),
-                    daoSession,username, mPassword,"",
-                    mAndroidId,mAppVersion,mDeviceData,mIpAddress,
-                    androidVersion,dateTimeUtc,session)
-                dialog.dismiss()
-            }
-
-            dialog.show();
+            syncData()
         }
 
         binding.btnMonitoring.setOnClickListener {
@@ -307,6 +299,45 @@ class HomeFragment : Fragment() {
         binding.btnPengiriman.setOnClickListener {
             startActivity(Intent(requireActivity(), PengirimanActivity::class.java))
         }
+    }
+
+    private fun syncData() {
+        if (!connectionDetector.isConnectingToInternet){
+            Toast.makeText(requireActivity(), "Anda tidak terhubung dengan internet, pastikan koneksi device anda aktif", Toast.LENGTH_SHORT).show()
+            return
+        }
+
+        if (databaseReport?.isTransimitionNotSendExist()!!){
+            Toast.makeText(requireActivity(), "Masih ada data transmisi yang belum terkirim, silahkan force send di dalam menu transmission history", Toast.LENGTH_SHORT).show()
+            return
+        }
+
+        val dialog = Dialog(requireActivity())
+        dialog.setContentView(R.layout.popup_validation);
+        dialog.window!!.setLayout(ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.WRAP_CONTENT);
+        dialog.setCancelable(false);
+        dialog.window!!.attributes.windowAnimations = R.style.DialogUpDown;
+        val btnYa = dialog.findViewById(R.id.btn_ya) as AppCompatButton
+        val btnTidak = dialog.findViewById(R.id.btn_tidak) as AppCompatButton
+        val message = dialog.findViewById(R.id.message) as TextView
+        val textMessage = dialog.findViewById(R.id.txt_message) as TextView
+
+        message.text = "Yakin untuk melakukan synchronize data?"
+        textMessage.text = "Klik ya untuk melakukan synchronize data"
+
+        btnTidak.setOnClickListener {
+            dialog.dismiss();
+        }
+
+        btnYa.setOnClickListener {
+            btnSync(requireActivity(),
+                daoSession,username, mPassword,"",
+                mAndroidId,mAppVersion,mDeviceData,mIpAddress,
+                androidVersion,dateTimeUtc,session)
+            dialog.dismiss()
+        }
+
+        dialog.show();
     }
 
     private fun btnSync(context: Context, daoSession: DaoSession, username: String, password: String, device_token: String,
@@ -850,9 +881,10 @@ class HomeFragment : Fragment() {
                         item.noPermintaan = model?.noPermintaan
                         item.noTransaksi = model?.noTransaksi
                         item.noRepackaging = model?.noRepackaging
-                        item.qtyPengeluaran = model?.qtyPengeluaran.toString()
-                        item.qtyPermintaan = model?.qtyPermintaan ?: 0
-                        item.qtyScan = model?.qtyScan.toString()
+                        item.qtyPengeluaran = model?.qtyPengeluaran
+                        item.qtyPermintaan = model?.qtyPermintaan ?: 0.0
+                        item.isActive = model?.isActive
+                        item.qtyScan = model?.qtyScan
 
                         items[i] = item
                     }
@@ -915,6 +947,7 @@ class HomeFragment : Fragment() {
                         item.qtyPengiriman = model?.qtyPengiriman
                         item.qtyPermintaan = model?.qtyPermintaan
                         item.qtySesuai = model?.qtySesuai
+                        item.isActive = model?.isActive
                         items[i] = item
                     }
                     daoSession.tPenerimaanDetailUlpDao.insertInTx(items.toList())
@@ -1002,10 +1035,11 @@ class HomeFragment : Fragment() {
                         item.keterangan = model?.keterangan
                         item.namaMaterial = model?.namaMaterial
                         item.noMeter = model?.noMeter
-                        item.qtyPemakaian = model?.qtyPemakaian.toString()
-                        item.qtyPengeluaran = model?.qtyPengeluaran.toString()
-                        item.qtyReservasi = model?.qtyReservasi.toString()
+                        item.qtyPemakaian = model?.qtyPemakaian
+                        item.qtyPengeluaran = model?.qtyPengeluaran
+                        item.qtyReservasi = model?.qtyReservasi
                         item.valuationType = model?.valuationType
+                        item.isActive = model?.isActive
                         items[i] = item
                     }
                     daoSession.tPemakaianDetailDao.insertInTx(items.toList())
