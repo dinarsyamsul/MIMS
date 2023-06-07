@@ -74,8 +74,8 @@ class RegistrasiSnMaterialActivity : AppCompatActivity() {
 
         viewModel.errorMessage.observe(this) {
             if (it != null) {
-//                rvAdapter.setListRegisSn(arrayListOf())
-                viewModel.getMonitoringMaterial(status)
+                rvAdapter.setListRegisSn(arrayListOf())
+//                viewModel.getMonitoringMaterial(status)
                 Toast.makeText(this, "$it", Toast.LENGTH_LONG).show()
             }
         }

@@ -50,15 +50,18 @@
             android:text="Input SN Material" />
 
         <com.google.android.material.textfield.TextInputLayout
-            style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
             android:layout_marginTop="20dp"
             android:elevation="2dp"
             android:hint="SN Material"
             android:textColor="@android:color/darker_gray"
             android:textColorHint="#7E7E7E"
-            app:boxStrokeWidth="0dp"
+            app:hintTextColor="#01A1B9"
+            android:outlineSpotShadowColor="#01A1B9"
+            app:boxStrokeColor="#01A1B9"
+            app:boxStrokeWidth="1dp"
             app:endIconMode="custom"
             app:endIconTint="@android:color/darker_gray">
 
@@ -67,7 +70,6 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginBottom="10dp"
-                android:background="@drawable/txt_input_layout"
                 android:imeOptions="actionNext"
                 android:inputType="text"
                 android:paddingEnd="16dp"
