@@ -36,7 +36,7 @@ class RegistrasiMaterialViewModel (private val apiService: ApiService) : ViewMod
     fun getMonitoringMaterial(status: String, sn: String = "") {
         _isLoading.value = true
         job = CoroutineScope(Dispatchers.IO + exceptionHandler).launch {
-            val response = apiService.getMonitoringAktivasiMaterial(status, sn)
+            val response = apiService.getMonitoringAktivasiMaterial(status, sn,"REGISTRASI")
             withContext(Dispatchers.Main) {
                 if (response.isSuccessful) {
                     _isLoading.postValue(false)

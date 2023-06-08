@@ -59,6 +59,7 @@ class DetailPenerimaanAkhirActivity : AppCompatActivity() {
         adapter.setData(dataPenerimaanAkhir)
 
         with(binding){
+            btnBack.setOnClickListener { onBackPressed() }
             rvListSn.adapter = adapter
             rvListSn.layoutManager = LinearLayoutManager(this@DetailPenerimaanAkhirActivity, LinearLayoutManager.VERTICAL,false)
             rvListSn.setHasFixedSize(true)

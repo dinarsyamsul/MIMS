@@ -219,7 +219,7 @@ class LoginActivity : AppCompatActivity() {
 
             if (username.isEmpty()) {
                 tvMsgError.visibility = View.VISIBLE
-                tvMsgError.text = "Email tidak boleh kosong"
+                tvMsgError.text = "Username tidak boleh kosong"
                 return
             }
 

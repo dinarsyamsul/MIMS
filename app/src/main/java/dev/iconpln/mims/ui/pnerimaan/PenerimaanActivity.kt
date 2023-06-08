@@ -211,6 +211,11 @@ class PenerimaanActivity : AppCompatActivity() {
                 .whereOr(TPosPenerimaanDao.Properties.NoDoSmar.like("%"+srcNoDo+"%"),TPosPenerimaanDao.Properties.PoSapNo.like("%"+srcNoDo+"%"))
                 .orderDesc(TPosPenerimaanDao.Properties.CreatedDate)
                 .list()
+            binding.rvPenerimaan.adapter = null
+            binding.rvPenerimaan.layoutManager = null
+            binding.rvPenerimaan.adapter = adapter
+            binding.rvPenerimaan.setHasFixedSize(true)
+            binding.rvPenerimaan.layoutManager = LinearLayoutManager(this@PenerimaanActivity, LinearLayoutManager.VERTICAL, false)
             adapter.setData(search)
         }else{
             val search = daoSession.tPosPenerimaanDao.queryBuilder()

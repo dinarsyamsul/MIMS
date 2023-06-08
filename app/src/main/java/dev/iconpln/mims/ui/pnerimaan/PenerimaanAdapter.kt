@@ -59,31 +59,31 @@ class PenerimaanAdapter(val lisModels: MutableList<TPosPenerimaan>,
                 if (pe.bisaTerima == 1){
                     if (!pe.tanggalDiterima.isNullOrEmpty()){
                         if (listDetailPen.isNullOrEmpty()){
-                            ivDoc.setImageResource(R.drawable.ic_input_doc_done)
                             if (pe.isRating == 1){
-                                ivDelivery.setImageResource(R.drawable.ic_input_delivery_to_rating_active)
+                                if (pe.isDone == 1){
+                                    ivDoc.setImageResource(R.drawable.ic_input_doc_done)
+                                    ivDelivery.setImageResource(R.drawable.ic_input_delivery_to_rating_done)
+                                    ivInputPerson.setImageResource(R.drawable.ic_input_petugas_done)
+                                }else{
+                                    ivInputPerson.setImageResource(R.drawable.ic_input_petugas_done)
+                                    ivDoc.setImageResource(R.drawable.ic_input_doc_done)
+                                    ivDelivery.setImageResource(R.drawable.ic_input_delivery_to_rating_active)
+                                }
+                            }else{
+                                ivDelivery.setImageResource(R.drawable.ic_input_delivery_to_rating_false)
+                                ivInputPerson.setImageResource(R.drawable.ic_input_petugas_done)
+                                ivDoc.setImageResource(R.drawable.ic_input_doc_done)
                             }
                         }else{
                             ivDoc.setImageResource(R.drawable.ic_input_doc_active)
+                            ivDelivery.setImageResource(R.drawable.ic_input_delivery_to_rating_false)
+                            ivInputPerson.setImageResource(R.drawable.ic_input_petugas_done)
                         }
-
-                        ivInputPerson.setImageResource(R.drawable.ic_input_petugas_done)
-//                    ivDelivery.setImageResource(R.drawable.ic_input_delivery_to_rating_active)
+                    }else{
+                        ivDoc.setImageResource(R.drawable.ic_input_doc_false)
+                        ivDelivery.setImageResource(R.drawable.ic_input_delivery_to_rating_false)
+                        ivInputPerson.setImageResource(R.drawable.ic_input_petugas_active)
                     }
-
-                    if (pe.isDone == 1){
-                        ivDoc.setImageResource(R.drawable.ic_input_doc_done)
-                        ivDelivery.setImageResource(R.drawable.ic_input_delivery_to_rating_done)
-                        ivInputPerson.setImageResource(R.drawable.ic_input_petugas_done)
-                    }
-
-
-//                if(po.isDone == 1){
-//                    isChecked.visibility = View.VISIBLE
-//                }else{
-//                    isChecked.visibility = View.GONE
-//                }
-
                 }else{
                     ivDoc.setImageResource(R.drawable.ic_input_doc_false)
                     ivDelivery.setImageResource(R.drawable.ic_input_delivery_to_rating_false)

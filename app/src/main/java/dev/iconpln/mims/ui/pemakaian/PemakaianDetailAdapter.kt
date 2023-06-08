@@ -43,8 +43,14 @@ class PemakaianDetailAdapter(val lisModels: MutableList<TTransPemakaianDetail>,
                     ivDelivery.setImageResource(R.drawable.ic_input_doc_active)
                 }
 
-                txtJumlahPemakaian.text = pemakaian.qtyPemakaian.toString()
-                txtJumlahReservasi.text = pemakaian.qtyReservasi.toString()
+                if (pemakaian.isActive == 0){
+                    txtJumlahPemakaian.text = pemakaian.qtyPemakaian.toString()
+                    txtJumlahReservasi.text = pemakaian.qtyReservasi.toString()
+                }else{
+                    txtJumlahPemakaian.text = pemakaian.qtyPemakaian.toInt().toString()
+                    txtJumlahReservasi.text = pemakaian.qtyReservasi.toInt().toString()
+                }
+
                 txtSatuan.text = pemakaian.unit
                 txtNamaMaterial.text = pemakaian.namaMaterial
                 txtNoMeter.text = pemakaian.noMeter

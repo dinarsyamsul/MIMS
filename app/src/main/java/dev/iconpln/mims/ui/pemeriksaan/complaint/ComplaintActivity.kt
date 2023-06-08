@@ -353,7 +353,7 @@ class ComplaintActivity : AppCompatActivity(), Loadable {
 
     private fun insertDataFoto(file: File) {
 
-        if (file.length() > 200000){
+        if (file.length() > Config.MAX_PHOTO_SIZE){
             Toast.makeText(this@ComplaintActivity, "Ukuran foto tidak boleh melebihi 200 kb", Toast.LENGTH_SHORT).show()
             return
         }

@@ -19,4 +19,7 @@ object Config {
 
     const val NO_CODE=0
 
+    //photo size
+    const val MAX_PHOTO_SIZE = 2000000
+
 }

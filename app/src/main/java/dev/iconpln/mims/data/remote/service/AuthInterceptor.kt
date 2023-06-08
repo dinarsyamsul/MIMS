@@ -16,7 +16,9 @@ class AuthInterceptor(context: Context) : Interceptor {
         val requestBuilder = chain.request().newBuilder()
 
         val token = SharedPrefsUtils.getStringPreference(ctx,"jwt","")
+        val tokenWeb = SharedPrefsUtils.getStringPreference(ctx, "jwtWeb","")
         requestBuilder.addHeader("jwt", "$token")
+        requestBuilder.addHeader("Authorization", "Bearer $tokenWeb")
 
         return chain.proceed(requestBuilder.build())
     }

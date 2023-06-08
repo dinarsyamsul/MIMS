@@ -33,8 +33,14 @@ class DetailPemeriksaanUlpAdapter(val lisModels: MutableList<TTransPenerimaanDet
     inner class ViewHolder(val binding: ItemDetailPemeriksaanUlpBinding): RecyclerView.ViewHolder(binding.root){
         fun bind(pengujian : TTransPenerimaanDetailUlp){
             with(binding){
-                txtKuantitas.text = pengujian.qtyPenerimaan.toString()
-                txtKuantitasPeriksa.text = pengujian.qtyPemeriksaan.toString()
+                if (pengujian.isActive == 0){
+                    txtKuantitas.text = pengujian.qtyPenerimaan.toString()
+                    txtKuantitasPeriksa.text = pengujian.qtyPemeriksaan.toString()
+                }else{
+                    txtKuantitas.text = pengujian.qtyPenerimaan.toInt().toString()
+                    txtKuantitasPeriksa.text = pengujian.qtyPemeriksaan.toInt().toString()
+                }
+
                 txtSpesifikasi.text = pengujian.materialDesc
                 txtNoMaterial.text = pengujian.noMaterial
 

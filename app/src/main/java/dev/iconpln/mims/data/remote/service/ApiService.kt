@@ -139,32 +139,28 @@ interface ApiService {
         @Field("no_do") noDo: String
     ): Response<DocumentationResponse>
 
-    @Headers("Authorization: Bearer eyJhbGciOiJIUzUxMiJ9.eyJzdWIiOiJ7XCJ1c2VyX2lkXCI6MSxcInVzZXJfbmFtZVwiOlwiNTI1MDQuQUdEXCIsXCJ1c2VyX3BsYW50XCI6XCI1MjIxXCIsXCJ1c2VyX3Nsb2NcIjpcIjI5MTBcIixcInVzZXJfcm9sZVwiOlwiN1wiLFwiZW1haWxcIjpcImluamVjdGVkdXNlcjFAaW5qZWN0LmNvbVwifSIsImV4cCI6MTcxNzU4MjEyMiwiaWF0IjoxNjg2MDQ2MTIyfQ.oM0jInFfT0Fg8Bx4YHP02v06rpUO65P292jjsQQCJmJJGicyHl8W5hcIKOZpqKjaU27hGe3n3lDeskMC5GXfWw")
     @GET("/aktivasimaterial/getMonitoringAktivasiMaterial")
     suspend fun getMonitoringAktivasiMaterial(
         @Query("status") status: String,
-        @Query("filter") sn: String
+        @Query("filter") sn: String,
+        @Query("type") type: String
     ): Response<MonitoringAktivasiMaterialResponse>
 
-    @Headers("Authorization: Bearer eyJhbGciOiJIUzUxMiJ9.eyJzdWIiOiJ7XCJ1c2VyX2lkXCI6MSxcInVzZXJfbmFtZVwiOlwiNTI1MDQuQUdEXCIsXCJ1c2VyX3BsYW50XCI6XCI1MjIxXCIsXCJ1c2VyX3Nsb2NcIjpcIjI5MTBcIixcInVzZXJfcm9sZVwiOlwiN1wiLFwiZW1haWxcIjpcImluamVjdGVkdXNlcjFAaW5qZWN0LmNvbVwifSIsImV4cCI6MTcxNzU4MjEyMiwiaWF0IjoxNjg2MDQ2MTIyfQ.oM0jInFfT0Fg8Bx4YHP02v06rpUO65P292jjsQQCJmJJGicyHl8W5hcIKOZpqKjaU27hGe3n3lDeskMC5GXfWw")
     @POST("/aktivasimaterial/insertMaterialRegistrasi")
     suspend fun insertMaterialRegistrasi(
         @Body requestBody: RequestBodyRegisSn
     ): Response<InsertMaterialRegistrasiResponse>
 
-    @Headers("Authorization: Bearer eyJhbGciOiJIUzUxMiJ9.eyJzdWIiOiJ7XCJ1c2VyX2lkXCI6MSxcInVzZXJfbmFtZVwiOlwiNTI1MDQuQUdEXCIsXCJ1c2VyX3BsYW50XCI6XCI1MjIxXCIsXCJ1c2VyX3Nsb2NcIjpcIjI5MTBcIixcInVzZXJfcm9sZVwiOlwiN1wiLFwiZW1haWxcIjpcImluamVjdGVkdXNlcjFAaW5qZWN0LmNvbVwifSIsImV4cCI6MTcxNzU4MjEyMiwiaWF0IjoxNjg2MDQ2MTIyfQ.oM0jInFfT0Fg8Bx4YHP02v06rpUO65P292jjsQQCJmJJGicyHl8W5hcIKOZpqKjaU27hGe3n3lDeskMC5GXfWw")
     @GET("/aktivasimaterial/getMaterialAktivasi")
     suspend fun getMaterialAktivasi(
         @Query("status") status: String
     ): Response<GetMaterialAktivasiResponse>
 
-    @Headers("Authorization: Bearer eyJhbGciOiJIUzUxMiJ9.eyJzdWIiOiJ7XCJ1c2VyX2lkXCI6MSxcInVzZXJfbmFtZVwiOlwiNTI1MDQuQUdEXCIsXCJ1c2VyX3BsYW50XCI6XCI1MjIxXCIsXCJ1c2VyX3Nsb2NcIjpcIjI5MTBcIixcInVzZXJfcm9sZVwiOlwiN1wiLFwiZW1haWxcIjpcImluamVjdGVkdXNlcjFAaW5qZWN0LmNvbVwifSIsImV4cCI6MTcxNzU4MjEyMiwiaWF0IjoxNjg2MDQ2MTIyfQ.oM0jInFfT0Fg8Bx4YHP02v06rpUO65P292jjsQQCJmJJGicyHl8W5hcIKOZpqKjaU27hGe3n3lDeskMC5GXfWw")
     @POST("/aktivasimaterial/aktivasiSerialNumber")
     suspend fun aktivasiMaterial(
         @Body requestBody: RequestBodyAktivMaterial
     ): Response<AktivasiSerialNumberResponse>
 
-    @Headers("Authorization: Bearer eyJhbGciOiJIUzUxMiJ9.eyJzdWIiOiJ7XCJ1c2VyX2lkXCI6MSxcInVzZXJfbmFtZVwiOlwiNTI1MDQuQUdEXCIsXCJ1c2VyX3BsYW50XCI6XCI1MjIxXCIsXCJ1c2VyX3Nsb2NcIjpcIjI5MTBcIixcInVzZXJfcm9sZVwiOlwiN1wiLFwiZW1haWxcIjpcImluamVjdGVkdXNlcjFAaW5qZWN0LmNvbVwifSIsImV4cCI6MTcxNzU4MjEyMiwiaWF0IjoxNjg2MDQ2MTIyfQ.oM0jInFfT0Fg8Bx4YHP02v06rpUO65P292jjsQQCJmJJGicyHl8W5hcIKOZpqKjaU27hGe3n3lDeskMC5GXfWw")
     @GET("/aktivasimaterial/getMaterialRegistrasiDetailByDate")
     suspend fun getMaterialRegistrasiDetailByDate(
         @Query("tgl_registrasi") tgl_registrasi: String,
@@ -173,7 +169,6 @@ interface ApiService {
         @Query("nomor_material") no_material: String
     ): Response<GetMaterialRegistrasiDetailByDateResponse>
 
-    @Headers("Authorization: Bearer eyJhbGciOiJIUzUxMiJ9.eyJzdWIiOiJ7XCJ1c2VyX2lkXCI6MSxcInVzZXJfbmFtZVwiOlwiNTI1MDQuQUdEXCIsXCJ1c2VyX3BsYW50XCI6XCI1MjIxXCIsXCJ1c2VyX3Nsb2NcIjpcIjI5MTBcIixcInVzZXJfcm9sZVwiOlwiN1wiLFwiZW1haWxcIjpcImluamVjdGVkdXNlcjFAaW5qZWN0LmNvbVwifSIsImV4cCI6MTcxNzU4MjEyMiwiaWF0IjoxNjg2MDQ2MTIyfQ.oM0jInFfT0Fg8Bx4YHP02v06rpUO65P292jjsQQCJmJJGicyHl8W5hcIKOZpqKjaU27hGe3n3lDeskMC5GXfWw")
     @GET("/aktivasimaterial/getNomorMaterialForAktivasi")
     suspend fun getNomorMaterialForAktivasi(): Response<GetNomorMaterialForAktivasiResponse>
 }
