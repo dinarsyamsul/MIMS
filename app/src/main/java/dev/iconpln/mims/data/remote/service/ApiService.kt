@@ -65,7 +65,7 @@ interface ApiService {
     ): Response<TrackingHistoryResponse>
 
     @FormUrlEncoded
-    @POST("/tracking/getTrackingHistoryDetail")
+    @POST("/tracking/getTrackingHistoryDetail2")
     suspend fun getDetailTrackingHistory(
         @Field("sn") sn: String,
         @Field("no_transaksi") noTransaksi: String,
