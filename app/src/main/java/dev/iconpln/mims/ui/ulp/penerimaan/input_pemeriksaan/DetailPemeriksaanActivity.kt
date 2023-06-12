@@ -62,7 +62,7 @@ class DetailPemeriksaanActivity : AppCompatActivity(),Loadable {
 
         adapter = DetailPemeriksaanUlpAdapter(arrayListOf(), object : DetailPemeriksaanUlpAdapter.OnAdapterListener{
             override fun onClick(po: TTransPenerimaanDetailUlp) {
-                if (po.isActive == 0){
+                if (!po.isActive){
                     Toast.makeText(this@DetailPemeriksaanActivity, "Material tidak dapat di scan karena merupakan material non mims", Toast.LENGTH_SHORT).show()
                 }else{
                     if (po.isDone == 1){

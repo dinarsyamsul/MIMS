@@ -1,6 +1,7 @@
 package dev.iconpln.mims.ui.pemakaian.input_pemakaian
 
 import android.content.Intent
+import android.graphics.Color
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.util.Log
@@ -51,8 +52,15 @@ class InputPemakaianActivity : AppCompatActivity(), Loadable {
             edtKepalaGudang.setText("ADMIN GUDANG ULP")
             edtPejabatPengesahan.setText("MANAJER ULP")
 
+            if (pemakaian.isDonePemakai == 1){
+                btnSimpan.isEnabled = false
+                btnSimpan.setBackgroundColor(Color.GRAY)
+            }
+
             btnBack.setOnClickListener { onBackPressed() }
-            btnSimpan.setOnClickListener { validation() }
+            btnSimpan.setOnClickListener {
+                validation()
+            }
         }
     }
 

@@ -155,7 +155,7 @@ class PenerimaanUlpActivity : AppCompatActivity() {
                     item.qtyPermintaan = model?.qtyPermintaan
                     item.qtySesuai = model?.qtySesuai
                     item.isActive = model?.isActive
-                    item.isDone = if (model?.isActive == 0) 1 else 0
+                    item.isDone = if (!model?.isActive!!) 1 else 0
                     items[i] = item
                 }
                 daoSession.tTransPenerimaanDetailUlpDao.insertInTx(items.toList())

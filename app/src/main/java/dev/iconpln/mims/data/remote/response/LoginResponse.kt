@@ -673,7 +673,7 @@ data class MonitoringPermintaanDetailsItem(
 	val noTransaksi: String? = null,
 
 	@field:SerializedName("isactive")
-	val isActive: Int? = 0,
+	val isActive: Boolean? = false,
 )
 
 data class SnPermaterialItem(
@@ -916,7 +916,7 @@ data class PenerimaanDetailUlpItem(
 	val qtySesuai: Double? = 0.0,
 
 	@field:SerializedName("isactive")
-	val isActive: Int? = 0
+	val isActive: Boolean? = false
 )
 
 data class PenerimaanUlpItem(
@@ -1063,7 +1063,7 @@ data class PemakaianDetailItem(
 	val qtyPengeluaran: Double? = 0.0,
 
 	@field:SerializedName("isactive")
-	val isActive: Int? = 0
+	val isActive: Boolean? = false
 )
 
 data class PemakaianItem(

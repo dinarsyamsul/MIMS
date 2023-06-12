@@ -32,7 +32,7 @@ public class TTransPenerimaanDetailUlpDao extends AbstractDao<TTransPenerimaanDe
         public final static Property QtyPemeriksaan = new Property(7, Double.class, "QtyPemeriksaan", false, "QTY_PEMERIKSAAN");
         public final static Property QtyPenerimaan = new Property(8, Double.class, "QtyPenerimaan", false, "QTY_PENERIMAAN");
         public final static Property QtySesuai = new Property(9, Double.class, "QtySesuai", false, "QTY_SESUAI");
-        public final static Property IsActive = new Property(10, Integer.class, "IsActive", false, "IS_ACTIVE");
+        public final static Property IsActive = new Property(10, Boolean.class, "IsActive", false, "IS_ACTIVE");
         public final static Property IsDone = new Property(11, Integer.class, "IsDone", false, "IS_DONE");
     }
 
@@ -123,9 +123,9 @@ public class TTransPenerimaanDetailUlpDao extends AbstractDao<TTransPenerimaanDe
             stmt.bindDouble(10, QtySesuai);
         }
  
-        Integer IsActive = entity.getIsActive();
+        Boolean IsActive = entity.getIsActive();
         if (IsActive != null) {
-            stmt.bindLong(11, IsActive);
+            stmt.bindLong(11, IsActive ? 1L: 0L);
         }
  
         Integer IsDone = entity.getIsDone();
@@ -188,9 +188,9 @@ public class TTransPenerimaanDetailUlpDao extends AbstractDao<TTransPenerimaanDe
             stmt.bindDouble(10, QtySesuai);
         }
  
-        Integer IsActive = entity.getIsActive();
+        Boolean IsActive = entity.getIsActive();
         if (IsActive != null) {
-            stmt.bindLong(11, IsActive);
+            stmt.bindLong(11, IsActive ? 1L: 0L);
         }
  
         Integer IsDone = entity.getIsDone();
@@ -217,7 +217,7 @@ public class TTransPenerimaanDetailUlpDao extends AbstractDao<TTransPenerimaanDe
             cursor.isNull(offset + 7) ? null : cursor.getDouble(offset + 7), // QtyPemeriksaan
             cursor.isNull(offset + 8) ? null : cursor.getDouble(offset + 8), // QtyPenerimaan
             cursor.isNull(offset + 9) ? null : cursor.getDouble(offset + 9), // QtySesuai
-            cursor.isNull(offset + 10) ? null : cursor.getInt(offset + 10), // IsActive
+            cursor.isNull(offset + 10) ? null : cursor.getShort(offset + 10) != 0, // IsActive
             cursor.isNull(offset + 11) ? null : cursor.getInt(offset + 11) // IsDone
         );
         return entity;
@@ -235,7 +235,7 @@ public class TTransPenerimaanDetailUlpDao extends AbstractDao<TTransPenerimaanDe
         entity.setQtyPemeriksaan(cursor.isNull(offset + 7) ? null : cursor.getDouble(offset + 7));
         entity.setQtyPenerimaan(cursor.isNull(offset + 8) ? null : cursor.getDouble(offset + 8));
         entity.setQtySesuai(cursor.isNull(offset + 9) ? null : cursor.getDouble(offset + 9));
-        entity.setIsActive(cursor.isNull(offset + 10) ? null : cursor.getInt(offset + 10));
+        entity.setIsActive(cursor.isNull(offset + 10) ? null : cursor.getShort(offset + 10) != 0);
         entity.setIsDone(cursor.isNull(offset + 11) ? null : cursor.getInt(offset + 11));
      }
     

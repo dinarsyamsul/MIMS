@@ -33,7 +33,7 @@ public class TTransPemakaianDetailDao extends AbstractDao<TTransPemakaianDetail,
         public final static Property NoMeter = new Property(8, String.class, "NoMeter", false, "NO_METER");
         public final static Property ValuationType = new Property(9, String.class, "ValuationType", false, "VALUATION_TYPE");
         public final static Property Keterangan = new Property(10, String.class, "Keterangan", false, "KETERANGAN");
-        public final static Property IsActive = new Property(11, Integer.class, "IsActive", false, "IS_ACTIVE");
+        public final static Property IsActive = new Property(11, Boolean.class, "IsActive", false, "IS_ACTIVE");
         public final static Property SnScanned = new Property(12, String.class, "SnScanned", false, "SN_SCANNED");
         public final static Property IsDone = new Property(13, Integer.class, "IsDone", false, "IS_DONE");
     }
@@ -132,9 +132,9 @@ public class TTransPemakaianDetailDao extends AbstractDao<TTransPemakaianDetail,
             stmt.bindString(11, Keterangan);
         }
  
-        Integer IsActive = entity.getIsActive();
+        Boolean IsActive = entity.getIsActive();
         if (IsActive != null) {
-            stmt.bindLong(12, IsActive);
+            stmt.bindLong(12, IsActive ? 1L: 0L);
         }
  
         String SnScanned = entity.getSnScanned();
@@ -207,9 +207,9 @@ public class TTransPemakaianDetailDao extends AbstractDao<TTransPemakaianDetail,
             stmt.bindString(11, Keterangan);
         }
  
-        Integer IsActive = entity.getIsActive();
+        Boolean IsActive = entity.getIsActive();
         if (IsActive != null) {
-            stmt.bindLong(12, IsActive);
+            stmt.bindLong(12, IsActive ? 1L: 0L);
         }
  
         String SnScanned = entity.getSnScanned();
@@ -242,7 +242,7 @@ public class TTransPemakaianDetailDao extends AbstractDao<TTransPemakaianDetail,
             cursor.isNull(offset + 8) ? null : cursor.getString(offset + 8), // NoMeter
             cursor.isNull(offset + 9) ? null : cursor.getString(offset + 9), // ValuationType
             cursor.isNull(offset + 10) ? null : cursor.getString(offset + 10), // Keterangan
-            cursor.isNull(offset + 11) ? null : cursor.getInt(offset + 11), // IsActive
+            cursor.isNull(offset + 11) ? null : cursor.getShort(offset + 11) != 0, // IsActive
             cursor.isNull(offset + 12) ? null : cursor.getString(offset + 12), // SnScanned
             cursor.isNull(offset + 13) ? null : cursor.getInt(offset + 13) // IsDone
         );
@@ -262,7 +262,7 @@ public class TTransPemakaianDetailDao extends AbstractDao<TTransPemakaianDetail,
         entity.setNoMeter(cursor.isNull(offset + 8) ? null : cursor.getString(offset + 8));
         entity.setValuationType(cursor.isNull(offset + 9) ? null : cursor.getString(offset + 9));
         entity.setKeterangan(cursor.isNull(offset + 10) ? null : cursor.getString(offset + 10));
-        entity.setIsActive(cursor.isNull(offset + 11) ? null : cursor.getInt(offset + 11));
+        entity.setIsActive(cursor.isNull(offset + 11) ? null : cursor.getShort(offset + 11) != 0);
         entity.setSnScanned(cursor.isNull(offset + 12) ? null : cursor.getString(offset + 12));
         entity.setIsDone(cursor.isNull(offset + 13) ? null : cursor.getInt(offset + 13));
      }

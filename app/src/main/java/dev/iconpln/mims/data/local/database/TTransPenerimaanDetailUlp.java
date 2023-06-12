@@ -21,7 +21,7 @@ public class TTransPenerimaanDetailUlp {
     private Double QtyPemeriksaan;
     private Double QtyPenerimaan;
     private Double QtySesuai;
-    private Integer IsActive;
+    private Boolean IsActive;
     private Integer IsDone;
 
     @Generated
@@ -33,7 +33,7 @@ public class TTransPenerimaanDetailUlp {
     }
 
     @Generated
-    public TTransPenerimaanDetailUlp(Long id, String NoTransaksi, String NoRepackaging, String NoMaterial, String MaterialDesc, Double QtyPermintaan, Double QtyPengiriman, Double QtyPemeriksaan, Double QtyPenerimaan, Double QtySesuai, Integer IsActive, Integer IsDone) {
+    public TTransPenerimaanDetailUlp(Long id, String NoTransaksi, String NoRepackaging, String NoMaterial, String MaterialDesc, Double QtyPermintaan, Double QtyPengiriman, Double QtyPemeriksaan, Double QtyPenerimaan, Double QtySesuai, Boolean IsActive, Integer IsDone) {
         this.id = id;
         this.NoTransaksi = NoTransaksi;
         this.NoRepackaging = NoRepackaging;
@@ -128,11 +128,11 @@ public class TTransPenerimaanDetailUlp {
         this.QtySesuai = QtySesuai;
     }
 
-    public Integer getIsActive() {
+    public Boolean getIsActive() {
         return IsActive;
     }
 
-    public void setIsActive(Integer IsActive) {
+    public void setIsActive(Boolean IsActive) {
         this.IsActive = IsActive;
     }
 

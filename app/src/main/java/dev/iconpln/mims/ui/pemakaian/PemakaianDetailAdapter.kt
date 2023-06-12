@@ -8,6 +8,7 @@ import dev.iconpln.mims.data.local.database.*
 import dev.iconpln.mims.data.remote.PemakaianUlpData
 import dev.iconpln.mims.databinding.ItemDataDetailPemakaianUlpBinding
 import dev.iconpln.mims.databinding.ItemDataPemakaianUlpBinding
+import dev.iconpln.mims.utils.Helper
 
 class PemakaianDetailAdapter(val lisModels: MutableList<TTransPemakaianDetail>,
                              var listener: OnAdapterListener, val daoSession: DaoSession)
@@ -43,11 +44,15 @@ class PemakaianDetailAdapter(val lisModels: MutableList<TTransPemakaianDetail>,
                     ivDelivery.setImageResource(R.drawable.ic_input_doc_active)
                 }
 
-                if (pemakaian.isActive == 0){
+                if (Helper.hasDecimal(pemakaian.qtyPemakaian)!!){
                     txtJumlahPemakaian.text = pemakaian.qtyPemakaian.toString()
-                    txtJumlahReservasi.text = pemakaian.qtyReservasi.toString()
                 }else{
                     txtJumlahPemakaian.text = pemakaian.qtyPemakaian.toInt().toString()
+                }
+
+                if (Helper.hasDecimal(pemakaian.qtyReservasi)!!){
+                    txtJumlahReservasi.text = pemakaian.qtyReservasi.toString()
+                }else{
                     txtJumlahReservasi.text = pemakaian.qtyReservasi.toInt().toString()
                 }
 

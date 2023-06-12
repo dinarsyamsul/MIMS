@@ -24,7 +24,7 @@ public class TTransMonitoringPermintaanDetail {
     private Double QtyPengeluaran;
     private Integer QtyAkanDiScan;
     private Integer IsScannedSn;
-    private Integer IsActive;
+    private Boolean IsActive;
     private Integer IsDone;
 
     @Generated
@@ -36,7 +36,7 @@ public class TTransMonitoringPermintaanDetail {
     }
 
     @Generated
-    public TTransMonitoringPermintaanDetail(Long id, String NoPermintaan, String NoTransaksi, String NoRepackaging, String NomorMaterial, String Unit, Double QtyPermintaan, String MaterialDesc, Double QtyScan, String Kategori, Double QtyPengeluaran, Integer QtyAkanDiScan, Integer IsScannedSn, Integer IsActive, Integer IsDone) {
+    public TTransMonitoringPermintaanDetail(Long id, String NoPermintaan, String NoTransaksi, String NoRepackaging, String NomorMaterial, String Unit, Double QtyPermintaan, String MaterialDesc, Double QtyScan, String Kategori, Double QtyPengeluaran, Integer QtyAkanDiScan, Integer IsScannedSn, Boolean IsActive, Integer IsDone) {
         this.id = id;
         this.NoPermintaan = NoPermintaan;
         this.NoTransaksi = NoTransaksi;
@@ -158,11 +158,11 @@ public class TTransMonitoringPermintaanDetail {
         this.IsScannedSn = IsScannedSn;
     }
 
-    public Integer getIsActive() {
+    public Boolean getIsActive() {
         return IsActive;
     }
 
-    public void setIsActive(Integer IsActive) {
+    public void setIsActive(Boolean IsActive) {
         this.IsActive = IsActive;
     }
 

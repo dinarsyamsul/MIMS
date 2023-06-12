@@ -218,4 +218,8 @@ object Helper {
         val format = DecimalFormat("0.##")
         return format.format(floatNum)
     }
+
+    fun hasDecimal(number: Double): Boolean?{
+        return number.rem(1) != 0.0
+    }
 }

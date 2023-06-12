@@ -22,7 +22,7 @@ public class TTransPemakaianDetail {
     private String NoMeter;
     private String ValuationType;
     private String Keterangan;
-    private Integer IsActive;
+    private Boolean IsActive;
     private String SnScanned;
     private Integer IsDone;
 
@@ -35,7 +35,7 @@ public class TTransPemakaianDetail {
     }
 
     @Generated
-    public TTransPemakaianDetail(Long id, String NoTransaksi, String NomorMaterial, String NamaMaterial, Double QtyReservasi, Double QtyPemakaian, Double QtyPengeluaran, String Unit, String NoMeter, String ValuationType, String Keterangan, Integer IsActive, String SnScanned, Integer IsDone) {
+    public TTransPemakaianDetail(Long id, String NoTransaksi, String NomorMaterial, String NamaMaterial, Double QtyReservasi, Double QtyPemakaian, Double QtyPengeluaran, String Unit, String NoMeter, String ValuationType, String Keterangan, Boolean IsActive, String SnScanned, Integer IsDone) {
         this.id = id;
         this.NoTransaksi = NoTransaksi;
         this.NomorMaterial = NomorMaterial;
@@ -140,11 +140,11 @@ public class TTransPemakaianDetail {
         this.Keterangan = Keterangan;
     }
 
-    public Integer getIsActive() {
+    public Boolean getIsActive() {
         return IsActive;
     }
 
-    public void setIsActive(Integer IsActive) {
+    public void setIsActive(Boolean IsActive) {
         this.IsActive = IsActive;
     }
 

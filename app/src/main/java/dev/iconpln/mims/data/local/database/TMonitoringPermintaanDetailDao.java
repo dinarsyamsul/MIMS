@@ -33,7 +33,7 @@ public class TMonitoringPermintaanDetailDao extends AbstractDao<TMonitoringPermi
         public final static Property QtyScan = new Property(8, Double.class, "QtyScan", false, "QTY_SCAN");
         public final static Property Kategori = new Property(9, String.class, "Kategori", false, "KATEGORI");
         public final static Property QtyPengeluaran = new Property(10, Double.class, "QtyPengeluaran", false, "QTY_PENGELUARAN");
-        public final static Property IsActive = new Property(11, Integer.class, "IsActive", false, "IS_ACTIVE");
+        public final static Property IsActive = new Property(11, Boolean.class, "IsActive", false, "IS_ACTIVE");
     }
 
 
@@ -128,9 +128,9 @@ public class TMonitoringPermintaanDetailDao extends AbstractDao<TMonitoringPermi
             stmt.bindDouble(11, QtyPengeluaran);
         }
  
-        Integer IsActive = entity.getIsActive();
+        Boolean IsActive = entity.getIsActive();
         if (IsActive != null) {
-            stmt.bindLong(12, IsActive);
+            stmt.bindLong(12, IsActive ? 1L: 0L);
         }
     }
 
@@ -193,9 +193,9 @@ public class TMonitoringPermintaanDetailDao extends AbstractDao<TMonitoringPermi
             stmt.bindDouble(11, QtyPengeluaran);
         }
  
-        Integer IsActive = entity.getIsActive();
+        Boolean IsActive = entity.getIsActive();
         if (IsActive != null) {
-            stmt.bindLong(12, IsActive);
+            stmt.bindLong(12, IsActive ? 1L: 0L);
         }
     }
 
@@ -218,7 +218,7 @@ public class TMonitoringPermintaanDetailDao extends AbstractDao<TMonitoringPermi
             cursor.isNull(offset + 8) ? null : cursor.getDouble(offset + 8), // QtyScan
             cursor.isNull(offset + 9) ? null : cursor.getString(offset + 9), // Kategori
             cursor.isNull(offset + 10) ? null : cursor.getDouble(offset + 10), // QtyPengeluaran
-            cursor.isNull(offset + 11) ? null : cursor.getInt(offset + 11) // IsActive
+            cursor.isNull(offset + 11) ? null : cursor.getShort(offset + 11) != 0 // IsActive
         );
         return entity;
     }
@@ -236,7 +236,7 @@ public class TMonitoringPermintaanDetailDao extends AbstractDao<TMonitoringPermi
         entity.setQtyScan(cursor.isNull(offset + 8) ? null : cursor.getDouble(offset + 8));
         entity.setKategori(cursor.isNull(offset + 9) ? null : cursor.getString(offset + 9));
         entity.setQtyPengeluaran(cursor.isNull(offset + 10) ? null : cursor.getDouble(offset + 10));
-        entity.setIsActive(cursor.isNull(offset + 11) ? null : cursor.getInt(offset + 11));
+        entity.setIsActive(cursor.isNull(offset + 11) ? null : cursor.getShort(offset + 11) != 0);
      }
     
     @Override

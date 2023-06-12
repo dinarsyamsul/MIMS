@@ -136,7 +136,7 @@ class PemakaianActivity : AppCompatActivity() {
                 item.qtyReservasi = i.qtyReservasi
                 item.isActive = i.isActive
                 item.snScanned = ""
-                item.isDone = if (i.isActive == 0) 1 else 0
+                item.isDone = if (!i.isActive) 1 else 0
                 daoSession.tTransPemakaianDetailDao.insert(item)
             }
         }

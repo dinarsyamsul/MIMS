@@ -65,7 +65,7 @@ class MonitoringPermintaanDetailActivity : AppCompatActivity(),Loadable {
         adapter = MonitoringPermintaanDetailAdapter(arrayListOf(), object : MonitoringPermintaanDetailAdapter.OnAdapterListener{
             override fun onClick(mpd: TTransMonitoringPermintaanDetail) {
                 Log.d("nilaiDecimal", "${mpd.qtyScan.toDouble()}")
-                if (mpd.isActive == 0){//mpd.isDone == 1){
+                if (!mpd.isActive){//mpd.isDone == 1){
                     Toast.makeText(this@MonitoringPermintaanDetailActivity, "Material tidak dapat di scan karena merupakan material non mims", Toast.LENGTH_SHORT).show()
                 }else{
                     startActivity(Intent(this@MonitoringPermintaanDetailActivity, InputSnMonitoringPermintaanActivity::class.java)

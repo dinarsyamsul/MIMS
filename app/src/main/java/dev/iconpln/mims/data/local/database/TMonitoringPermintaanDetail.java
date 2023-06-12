@@ -22,7 +22,7 @@ public class TMonitoringPermintaanDetail {
     private Double QtyScan;
     private String Kategori;
     private Double QtyPengeluaran;
-    private Integer IsActive;
+    private Boolean IsActive;
 
     @Generated
     public TMonitoringPermintaanDetail() {
@@ -33,7 +33,7 @@ public class TMonitoringPermintaanDetail {
     }
 
     @Generated
-    public TMonitoringPermintaanDetail(Long id, String NoPermintaan, String NoTransaksi, String NoRepackaging, String NomorMaterial, String Unit, Double QtyPermintaan, String MaterialDesc, Double QtyScan, String Kategori, Double QtyPengeluaran, Integer IsActive) {
+    public TMonitoringPermintaanDetail(Long id, String NoPermintaan, String NoTransaksi, String NoRepackaging, String NomorMaterial, String Unit, Double QtyPermintaan, String MaterialDesc, Double QtyScan, String Kategori, Double QtyPengeluaran, Boolean IsActive) {
         this.id = id;
         this.NoPermintaan = NoPermintaan;
         this.NoTransaksi = NoTransaksi;
@@ -136,11 +136,11 @@ public class TMonitoringPermintaanDetail {
         this.QtyPengeluaran = QtyPengeluaran;
     }
 
-    public Integer getIsActive() {
+    public Boolean getIsActive() {
         return IsActive;
     }
 
-    public void setIsActive(Integer IsActive) {
+    public void setIsActive(Boolean IsActive) {
         this.IsActive = IsActive;
     }
 

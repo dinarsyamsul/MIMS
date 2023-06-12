@@ -35,7 +35,7 @@ public class TTransMonitoringPermintaanDetailDao extends AbstractDao<TTransMonit
         public final static Property QtyPengeluaran = new Property(10, Double.class, "QtyPengeluaran", false, "QTY_PENGELUARAN");
         public final static Property QtyAkanDiScan = new Property(11, Integer.class, "QtyAkanDiScan", false, "QTY_AKAN_DI_SCAN");
         public final static Property IsScannedSn = new Property(12, Integer.class, "IsScannedSn", false, "IS_SCANNED_SN");
-        public final static Property IsActive = new Property(13, Integer.class, "IsActive", false, "IS_ACTIVE");
+        public final static Property IsActive = new Property(13, Boolean.class, "IsActive", false, "IS_ACTIVE");
         public final static Property IsDone = new Property(14, Integer.class, "IsDone", false, "IS_DONE");
     }
 
@@ -144,9 +144,9 @@ public class TTransMonitoringPermintaanDetailDao extends AbstractDao<TTransMonit
             stmt.bindLong(13, IsScannedSn);
         }
  
-        Integer IsActive = entity.getIsActive();
+        Boolean IsActive = entity.getIsActive();
         if (IsActive != null) {
-            stmt.bindLong(14, IsActive);
+            stmt.bindLong(14, IsActive ? 1L: 0L);
         }
  
         Integer IsDone = entity.getIsDone();
@@ -224,9 +224,9 @@ public class TTransMonitoringPermintaanDetailDao extends AbstractDao<TTransMonit
             stmt.bindLong(13, IsScannedSn);
         }
  
-        Integer IsActive = entity.getIsActive();
+        Boolean IsActive = entity.getIsActive();
         if (IsActive != null) {
-            stmt.bindLong(14, IsActive);
+            stmt.bindLong(14, IsActive ? 1L: 0L);
         }
  
         Integer IsDone = entity.getIsDone();
@@ -256,7 +256,7 @@ public class TTransMonitoringPermintaanDetailDao extends AbstractDao<TTransMonit
             cursor.isNull(offset + 10) ? null : cursor.getDouble(offset + 10), // QtyPengeluaran
             cursor.isNull(offset + 11) ? null : cursor.getInt(offset + 11), // QtyAkanDiScan
             cursor.isNull(offset + 12) ? null : cursor.getInt(offset + 12), // IsScannedSn
-            cursor.isNull(offset + 13) ? null : cursor.getInt(offset + 13), // IsActive
+            cursor.isNull(offset + 13) ? null : cursor.getShort(offset + 13) != 0, // IsActive
             cursor.isNull(offset + 14) ? null : cursor.getInt(offset + 14) // IsDone
         );
         return entity;
@@ -277,7 +277,7 @@ public class TTransMonitoringPermintaanDetailDao extends AbstractDao<TTransMonit
         entity.setQtyPengeluaran(cursor.isNull(offset + 10) ? null : cursor.getDouble(offset + 10));
         entity.setQtyAkanDiScan(cursor.isNull(offset + 11) ? null : cursor.getInt(offset + 11));
         entity.setIsScannedSn(cursor.isNull(offset + 12) ? null : cursor.getInt(offset + 12));
-        entity.setIsActive(cursor.isNull(offset + 13) ? null : cursor.getInt(offset + 13));
+        entity.setIsActive(cursor.isNull(offset + 13) ? null : cursor.getShort(offset + 13) != 0);
         entity.setIsDone(cursor.isNull(offset + 14) ? null : cursor.getInt(offset + 14));
      }
     

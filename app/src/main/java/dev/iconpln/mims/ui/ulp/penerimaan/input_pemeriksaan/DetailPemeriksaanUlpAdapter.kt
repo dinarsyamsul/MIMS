@@ -6,6 +6,7 @@ import androidx.recyclerview.widget.RecyclerView
 import dev.iconpln.mims.R
 import dev.iconpln.mims.data.local.database.TTransPenerimaanDetailUlp
 import dev.iconpln.mims.databinding.ItemDetailPemeriksaanUlpBinding
+import dev.iconpln.mims.utils.Helper
 
 class DetailPemeriksaanUlpAdapter(val lisModels: MutableList<TTransPenerimaanDetailUlp>, var listener: OnAdapterListener)
     : RecyclerView.Adapter<DetailPemeriksaanUlpAdapter.ViewHolder>() {
@@ -33,11 +34,15 @@ class DetailPemeriksaanUlpAdapter(val lisModels: MutableList<TTransPenerimaanDet
     inner class ViewHolder(val binding: ItemDetailPemeriksaanUlpBinding): RecyclerView.ViewHolder(binding.root){
         fun bind(pengujian : TTransPenerimaanDetailUlp){
             with(binding){
-                if (pengujian.isActive == 0){
+                if (Helper.hasDecimal(pengujian.qtyPenerimaan)!!){
                     txtKuantitas.text = pengujian.qtyPenerimaan.toString()
-                    txtKuantitasPeriksa.text = pengujian.qtyPemeriksaan.toString()
                 }else{
                     txtKuantitas.text = pengujian.qtyPenerimaan.toInt().toString()
+                }
+
+                if (Helper.hasDecimal(pengujian.qtyPemeriksaan)!!){
+                    txtKuantitasPeriksa.text = pengujian.qtyPemeriksaan.toString()
+                }else{
                     txtKuantitasPeriksa.text = pengujian.qtyPemeriksaan.toInt().toString()
                 }
 

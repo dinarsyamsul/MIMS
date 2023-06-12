@@ -446,7 +446,7 @@ public class MainGenerator {
         tMonitoringPermintaanDetail.addDoubleProperty("QtyScan");
         tMonitoringPermintaanDetail.addStringProperty("Kategori");
         tMonitoringPermintaanDetail.addDoubleProperty("QtyPengeluaran");
-        tMonitoringPermintaanDetail.addIntProperty("IsActive");
+        tMonitoringPermintaanDetail.addBooleanProperty("IsActive");
 
         Entity tTransMonitoringPermintaan = schema.addEntity("TTransMonitoringPermintaan");
         tTransMonitoringPermintaan.addIdProperty();
@@ -484,7 +484,7 @@ public class MainGenerator {
         tTransMonitoringPermintaanDetail.addDoubleProperty("QtyPengeluaran");
         tTransMonitoringPermintaanDetail.addIntProperty("QtyAkanDiScan");
         tTransMonitoringPermintaanDetail.addIntProperty("IsScannedSn");
-        tTransMonitoringPermintaanDetail.addIntProperty("IsActive");
+        tTransMonitoringPermintaanDetail.addBooleanProperty("IsActive");
         tTransMonitoringPermintaanDetail.addIntProperty("IsDone");
 
         Entity tSnMonitoringPermintaan = schema.addEntity("TSnMonitoringPermintaan");
@@ -542,7 +542,7 @@ public class MainGenerator {
         tPenerimaanDetailUlp.addDoubleProperty("QtyPemeriksaan");
         tPenerimaanDetailUlp.addDoubleProperty("QtyPenerimaan");
         tPenerimaanDetailUlp.addDoubleProperty("QtySesuai");
-        tPenerimaanDetailUlp.addIntProperty("IsActive");
+        tPenerimaanDetailUlp.addBooleanProperty("IsActive");
 
         Entity tTransPenerimaanUlp = schema.addEntity("TTransPenerimaanUlp");
         tTransPenerimaanUlp.addIdProperty();
@@ -588,7 +588,7 @@ public class MainGenerator {
         tTransPenerimaanDetailUlp.addDoubleProperty("QtyPemeriksaan");
         tTransPenerimaanDetailUlp.addDoubleProperty("QtyPenerimaan");
         tTransPenerimaanDetailUlp.addDoubleProperty("QtySesuai");
-        tTransPenerimaanDetailUlp.addIntProperty("IsActive");
+        tTransPenerimaanDetailUlp.addBooleanProperty("IsActive");
         tTransPenerimaanDetailUlp.addIntProperty("IsDone");
 
         Entity tListSnMaterialPenerimaanUlp = schema.addEntity("TListSnMaterialPenerimaanUlp");
@@ -644,7 +644,7 @@ public class MainGenerator {
         tPemakaianDetail.addStringProperty("NoMeter");
         tPemakaianDetail.addStringProperty("ValuationType");
         tPemakaianDetail.addStringProperty("Keterangan");
-        tPemakaianDetail.addIntProperty("IsActive");
+        tPemakaianDetail.addBooleanProperty("IsActive");
 
         Entity tTransPemakaianDetail = schema.addEntity("TTransPemakaianDetail");
         tTransPemakaianDetail.addIdProperty();
@@ -658,7 +658,7 @@ public class MainGenerator {
         tTransPemakaianDetail.addStringProperty("NoMeter");
         tTransPemakaianDetail.addStringProperty("ValuationType");
         tTransPemakaianDetail.addStringProperty("Keterangan");
-        tTransPemakaianDetail.addIntProperty("IsActive");
+        tTransPemakaianDetail.addBooleanProperty("IsActive");
         tTransPemakaianDetail.addStringProperty("SnScanned");
         tTransPemakaianDetail.addIntProperty("IsDone");
 

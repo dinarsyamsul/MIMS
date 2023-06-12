@@ -52,7 +52,7 @@ class DetailPemakaianUlpYantekActivity : AppCompatActivity(),Loadable {
 
         adapter = PemakaianDetailAdapter(arrayListOf(), object : PemakaianDetailAdapter.OnAdapterListener{
             override fun onClick(pemakaian: TTransPemakaianDetail) {
-                if (pemakaian.isActive == 0){
+                if (!pemakaian.isActive){
                     Toast.makeText(this@DetailPemakaianUlpYantekActivity, "Material tidak dapat di scan karena merupakan material non mims", Toast.LENGTH_SHORT).show()
                 }else{
                     if(pemakaian.isDone == 1){
@@ -81,12 +81,8 @@ class DetailPemakaianUlpYantekActivity : AppCompatActivity(),Loadable {
             btnSimpan.setOnClickListener { validation() }
 
             btnPemakaian.setOnClickListener {
-                if (pemakaian.isDonePemakai == 1){
-                    Toast.makeText(this@DetailPemakaianUlpYantekActivity, "Anda sudah melakukan input pemakaian",Toast.LENGTH_SHORT).show()
-                }else{
-                    startActivity(Intent(this@DetailPemakaianUlpYantekActivity, InputPemakaianActivity::class.java)
-                        .putExtra("noTransaksi", noTransaksi))
-                }
+                startActivity(Intent(this@DetailPemakaianUlpYantekActivity, InputPemakaianActivity::class.java)
+                    .putExtra("noTransaksi", noTransaksi))
             }
 
             srcNomorMaterial.addTextChangedListener(object : TextWatcher{
@@ -120,6 +116,11 @@ class DetailPemakaianUlpYantekActivity : AppCompatActivity(),Loadable {
     }
 
     private fun validation() {
+        if (pemakaian.isDonePemakai == 0){
+            Toast.makeText(this@DetailPemakaianUlpYantekActivity, "Anda belum input data pemakai", Toast.LENGTH_SHORT).show()
+            return
+        }
+
         for (i in detailPemakaians){
             val jumlahPemakaian = daoSession.tListSnMaterialPemakaianUlpDao.queryBuilder()
                 .where(TListSnMaterialPemakaianUlpDao.Properties.NoTransaksi.eq(i.noTransaksi))
@@ -130,7 +131,7 @@ class DetailPemakaianUlpYantekActivity : AppCompatActivity(),Loadable {
                 return
             }
 
-            if (i.isActive == 1){
+            if (i.isActive){
                 if (i.qtyReservasi != jumlahPemakaian.size.toDouble()){
                     Toast.makeText(this@DetailPemakaianUlpYantekActivity, "Jumlah reservasi ${i.nomorMaterial} masih kurang", Toast.LENGTH_SHORT).show()
                     return

@@ -13,6 +13,7 @@ import dev.iconpln.mims.data.local.database.TTransMonitoringPermintaanDetail
 import dev.iconpln.mims.databinding.ItemDataMonitoringPermintaanBinding
 import dev.iconpln.mims.databinding.ItemDataMonitoringPermintaanDetailBinding
 import dev.iconpln.mims.databinding.ItemDataMonitoringPurchaseBinding
+import dev.iconpln.mims.utils.Helper
 
 class MonitoringPermintaanDetailAdapter(val lisModels: MutableList<TTransMonitoringPermintaanDetail>,
                                         var listener: OnAdapterListener, var daoSession: DaoSession)
@@ -42,11 +43,16 @@ class MonitoringPermintaanDetailAdapter(val lisModels: MutableList<TTransMonitor
         fun bind(mpd : TTransMonitoringPermintaanDetail){
             with(binding){
                 btnDetail.setOnClickListener { listener.onClick(mpd) }
-                if (mpd.isActive == 0){
+
+                if (Helper.hasDecimal(mpd.qtyPermintaan)!!){
                     txtKuantitas.text = mpd.qtyPermintaan.toString()
-                    txtKuantitasScan.text = mpd.qtyScan.toString()
                 }else{
                     txtKuantitas.text = mpd.qtyPermintaan.toInt().toString()
+                }
+
+                if (Helper.hasDecimal(mpd.qtyScan)!!){
+                    txtKuantitasScan.text = mpd.qtyScan.toString()
+                }else{
                     txtKuantitasScan.text = mpd.qtyScan.toInt().toString()
                 }
 
