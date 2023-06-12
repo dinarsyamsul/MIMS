@@ -15,6 +15,7 @@ import android.os.StrictMode
 import android.provider.Settings
 import androidx.core.content.FileProvider
 import android.telephony.TelephonyManager
+import android.util.Log
 import android.view.View
 import android.view.Window
 import android.widget.Button
@@ -420,9 +421,11 @@ object DataController {
     }
 
     fun updateAPK(activity: Activity, path: String) {
+        Log.d("onUpdateApk", "yes")
         val toInstall =  File(path)
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.N) {
             try {
+                Log.d("onVersionCodeUpperN", "yes")
                 val m = StrictMode::class.java.getMethod("disableDeathOnFileUriExposure")
                 m.invoke(null)
                 val apkUri = FileProvider.getUriForFile(activity, BuildConfig.APPLICATION_ID + ".provider", toInstall)
@@ -436,6 +439,7 @@ object DataController {
             }
 
         } else {
+            Log.d("onVersionCodeBelowN", "yes")
             val apkUri = Uri.fromFile(toInstall)
             val intent = Intent(Intent.ACTION_VIEW)
             intent.setDataAndType(apkUri, "application/vnd.android.package-archive")

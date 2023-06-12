@@ -29,6 +29,9 @@ object ApiConfig {
         return retrofit.create(ApiService::class.java)
     }
 
+    val hostUrl: String
+        get() = BASE_URL
+
     fun sendPenerimaanPerson(): String {
         return "$BASE_URL/reports/v2/sendReportPenerimaanPerson"
     }

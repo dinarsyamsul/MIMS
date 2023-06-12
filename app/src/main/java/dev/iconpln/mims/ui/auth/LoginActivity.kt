@@ -3,6 +3,7 @@ package dev.iconpln.mims.ui.auth
 import android.Manifest.permission.READ_EXTERNAL_STORAGE
 import android.Manifest.permission.WRITE_EXTERNAL_STORAGE
 import android.app.Dialog
+import android.app.ProgressDialog
 import android.content.Intent
 import android.content.pm.PackageManager
 import android.graphics.Color
@@ -15,9 +16,12 @@ import android.provider.Settings
 import android.util.Log
 import android.view.View
 import android.view.ViewGroup
+import android.widget.ImageView
+import android.widget.TextView
 import android.widget.Toast
 import androidx.activity.viewModels
 import androidx.appcompat.app.AppCompatActivity
+import androidx.appcompat.widget.AppCompatButton
 import androidx.core.app.ActivityCompat
 import dev.iconpln.mims.HomeActivity
 import dev.iconpln.mims.MyApplication
@@ -27,6 +31,8 @@ import dev.iconpln.mims.data.local.database.DaoSession
 import dev.iconpln.mims.data.local.database_local.DatabaseReport
 import dev.iconpln.mims.data.local.database_local.ReportUploader
 import dev.iconpln.mims.databinding.ActivityLoginBinding
+import dev.iconpln.mims.tasks.CheckUpdateTask
+import dev.iconpln.mims.tasks.Loadable
 import dev.iconpln.mims.ui.SsoLoginActivity
 import dev.iconpln.mims.ui.auth.forgot_password.ForgotPasswordActivity
 import dev.iconpln.mims.ui.auth.otp.OtpActivity
@@ -39,12 +45,13 @@ import kotlinx.coroutines.withContext
 import org.joda.time.DateTimeUtils
 
 
-class LoginActivity : AppCompatActivity() {
+class LoginActivity : AppCompatActivity(), Loadable {
 
     private lateinit var binding: ActivityLoginBinding
     private val loginViewModel: AuthViewModel by viewModels()
     private lateinit var session: SessionManager
     private lateinit var daoSession: DaoSession
+    private var progressDialog: ProgressDialog? = null
 
     private var username: String = ""
     private var password: String = ""
@@ -147,6 +154,15 @@ class LoginActivity : AppCompatActivity() {
             loginUser()
         }
 
+        binding.btnUpdateVersion.setOnClickListener {
+            val connectionDetectorUtil = ConnectionDetectorUtil(this@LoginActivity)
+            if (connectionDetectorUtil.isConnectingToInternet) {
+                checkForUpdate()
+            } else {
+                Toast.makeText(this, getString(R.string.info_msg_no_network_connection), Toast.LENGTH_SHORT).show()
+            }
+        }
+
         binding.txtForgetPassword.setOnClickListener {
             startActivity(Intent(this@LoginActivity, ForgotPasswordActivity::class.java))
         }
@@ -170,6 +186,36 @@ class LoginActivity : AppCompatActivity() {
             finish()
         }
 
+        binding.tvVersion.text = "MIMS "+mAppVersion
+
+    }
+
+    private fun checkForUpdate() {
+        dialog.setContentView(R.layout.popup_validation)
+        dialog.window!!.setLayout(ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.WRAP_CONTENT);
+        dialog.setCancelable(false)
+        dialog.window!!.attributes.windowAnimations = R.style.DialogUpDown
+        val icon = dialog.findViewById(R.id.imageView11) as ImageView
+        val btnOk = dialog.findViewById(R.id.btn_ya) as AppCompatButton
+        val btnTidak = dialog.findViewById(R.id.btn_tidak) as AppCompatButton
+        val message = dialog.findViewById(R.id.message) as TextView
+        val txtMessage = dialog.findViewById(R.id.txt_message) as TextView
+
+        icon.setImageResource(R.drawable.ic_doc_diterima)
+        message.text = "Update Version Apps"
+        txtMessage.text = getString(R.string.confirm_msg_update_app_version)
+
+
+        btnTidak.setOnClickListener {
+            dialog.dismiss()
+        }
+
+        btnOk.setOnClickListener {
+            dialog.dismiss()
+            val task = CheckUpdateTask(this@LoginActivity, Helper.getAbi())
+            task.execute()
+        }
+        dialog.show();
     }
 
     private fun requestPermission() {
@@ -281,4 +327,23 @@ class LoginActivity : AppCompatActivity() {
             }
         }
     }
+
+    override fun setLoading(show: Boolean, title: String, message: String) {
+        try {
+            if (progressDialog == null) progressDialog = ProgressDialog(this)
+            progressDialog!!.setTitle(title)
+            progressDialog!!.setMessage(message)
+            progressDialog!!.setCancelable(false)
+            if (show) {
+                progressDialog!!.show()
+            } else {
+                progressDialog!!.dismiss()
+            }
+        } catch (e: Exception) {
+            progressDialog!!.dismiss()
+            e.printStackTrace()
+        }
+    }
+
+    override fun setFinish(result: Boolean, message: String) {}
 }
